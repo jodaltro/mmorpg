@@ -1,0 +1,91 @@
+{
+  "first": 8475,
+  "last": 9452,
+  "report": [
+    {
+      "direction": 0,
+      "from": "(-7.00, -1.00)",
+      "to": "(-3.06, -1.00, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_east_001",
+        "Hero_walk_east_000"
+      ]
+    },
+    {
+      "direction": 1,
+      "from": "(-7.00, -1.00)",
+      "to": "(-10.71, -1.00, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_west_001",
+        "Hero_walk_west_000",
+        "Hero_idle_west_000"
+      ]
+    },
+    {
+      "direction": 2,
+      "from": "(-7.00, -1.00)",
+      "to": "(-7.00, 3.17, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_north_001",
+        "Hero_walk_north_000"
+      ]
+    },
+    {
+      "direction": 3,
+      "from": "(-7.00, -1.00)",
+      "to": "(-7.00, -5.19, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_south_001",
+        "Hero_walk_south_000"
+      ]
+    },
+    {
+      "direction": 4,
+      "from": "(-7.00, -1.00)",
+      "to": "(-4.20, 1.13, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_north_000",
+        "Hero_walk_north_001",
+        "Hero_walk_east_001",
+        "Hero_walk_east_000"
+      ]
+    },
+    {
+      "direction": 5,
+      "from": "(-7.00, -1.00)",
+      "to": "(-10.29, -4.29, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_south_001",
+        "Hero_walk_south_000"
+      ]
+    },
+    {
+      "direction": 6,
+      "from": "(-7.00, -1.00)",
+      "to": "(-10.07, 1.97, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_north_000",
+        "Hero_walk_north_001",
+        "Hero_walk_west_000",
+        "Hero_walk_west_001"
+      ]
+    },
+    {
+      "direction": 7,
+      "from": "(-7.00, -1.00)",
+      "to": "(-3.95, -4.05, 0.00)",
+      "maxSpeed": 3.5,
+      "sprites": [
+        "Hero_walk_south_001",
+        "Hero_walk_south_000"
+      ]
+    }
+  ]
+}

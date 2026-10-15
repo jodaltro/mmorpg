@@ -38,3 +38,13 @@ Integrate altera apenas a cena B4, recria seu grupo `SessionToolsB4`, atualiza r
 URP 2D Pixel Perfect instalado, 32 PPU, PixelSnapping, sem HDR/MSAA/AA. `AdaptivePixelViewport` escolhe escala inteira `max(1,height/360)`; a partir de 480 px usa no mínimo 2. Resolução lógica adaptativa é o tamanho da janela dividido pela escala, arredondado para par. Windowbox deixa somente o resto necessário a pixels inteiros. A área de mundo visível varia com a janela, sem esticar sprites. 1280×720 resulta 640×360 a 2×; 1920×1080, 640×360 a 3×. Janelas menores podem mostrar menos mundo.
 
 CameraFollow mantém suavização e grade de 1/32. B4 limita o centro às dimensões gerais do Ground para reduzir vazio nas bordas externas. Esse retângulo não elimina todo vazio em corredores entre regiões; expansão de cenário continua incremental. A HUD conserva vida/slots/cooldowns/contexto/região. Mensagens curtas desaparecem em 5 s; longas vão ao histórico limitado de seis mensagens no Diário. Não foi refeito todo o sistema de UI.
+
+## Atualização 06B.5
+
+Não executar `production.py` como rotina de atualização: a migração B3 pode substituir fontes de produção editadas. O 06B.5 não executou essa migração nem reimportou/desenhou por cima dos assets. Use `ProductionArt06B4.Import` para fontes/manifestos intencionalmente revisados. Os clips de fase opcionais `attack-preparation`, `attack-cut`, `attack-recovery` usam a mesma estrutura de manifesto, duração individual e eventos exclusivamente visuais.
+
+`AgentScripts/ProductionAnimation06B5.cs`, entrada `CreateScene`, exige B4 limpa, fora de Play, e recusa destino existente. Copia a cena completa para B5 e adiciona apenas essa cópia às cenas de build. Não chama `Integrate` B4 nem recria regiões/prefabs. A cena inicial anterior permanece na mesma ordem.
+
+`AgentScripts/InspectAnimation06B5.cs` contém inspeções curtas por input real do Input System, perfil isolado em Temp e captura `ScreenCapture.CaptureScreenshotAsTexture` após WaitForEndOfFrame. Execute Prepare fora de Play, editor_play, Setup, Movement, Attacks e Combat; pare Play e execute Cleanup. Game View deve estar renderizando. Attacks usa timeScale 0,35 somente para evidência lenta; Combat e Movement usam 1. Cleanup restaura input e opções do Editor. Não executar suítes extensas neste marco.
+
+`Tools/ArtPipeline/gameplay_previews_b5.py` monta GIFs de capturas reais com metadados, recorte de acompanhamento e nearest. Não desenha poses nem simula gameplay. As prévias e os relatórios ficam em `Docs/Validation/Marco06B5`; fontes PNG brutas podem ser arquivadas localmente em `Temp/Marco06B5/Captures` após a montagem.

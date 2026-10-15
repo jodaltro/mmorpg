@@ -11,6 +11,7 @@ namespace Mmorpg.Runtime
         private ActorMotor motor;
         private ActorHealth health;
         private Vector2 dodgeDirection;
+        public Vector2 DodgeDirection => dodgeDirection;
         [SerializeField] private ActionCombat actionCombat;
         [SerializeField, Range(0,1)] private float attackMovement = .55f;
         public void ConfigureAction(ActionCombat value) => actionCombat = value;

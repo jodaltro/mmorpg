@@ -119,3 +119,7 @@ InitTestScene*.unity*
 
 # Empty nested checkout; preserve its local Git metadata outside this repository.
 /backend/decisions/mmorpg/
+
+# Pipeline's temporary captures (final validation evidence is stored under Docs/Validation).
+/Assets/Temp/
+/Assets/Temp.meta

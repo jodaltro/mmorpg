@@ -16,6 +16,9 @@ Do not add progression, XP, levels, Nakama or Jev in this milestone.
 
 ## Verification
 Use the connected Editor through Unity CLI; pass `--caller plugin --skill unity-pipeline`.
-Enable `set_autotick`, recompile, poll `recompile_status`, run EditMode and PlayMode tests.
+Enable `set_autotick`, recompile, poll `recompile_status`. Marco 06B.5 prioritizes short real Play/input and visual inspections; do not automatically run extensive EditMode/PlayMode or backend suites.
 Check console errors and advancing frames in Play mode. Never report unexecuted tests as passed.
 Scene generation must refuse to overwrite an existing scene. Preserve unrelated user changes.
+
+## Project memory — user authorization (2026-10-14)
+Standing user authorization: paid calls when useful, commits and pushes for project work, including publishing all intended project changes to `main`; no repeated confirmation is needed within that authorized scope. This supersedes the original pasted milestone's no-paid-calls/no-commit restriction. Preserve secrets, personal saves, unrelated changes and authentication/persistence safeguards. Do not spend on repeated unsuccessful art generation.

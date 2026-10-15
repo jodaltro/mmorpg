@@ -38,8 +38,15 @@ namespace Mmorpg.Runtime
         public bool Busy {get;private set;}
         public float VisualAngle {get;private set;}
         public Vector3 GripWorld => hand.position;
-        public float BladeLength => Busy ? range-.25f : 1;
-        public Vector2 AimDirection => Busy ? aim : motor.Facing;
+        // Manifest tip relative to imported grip pivot: (57-31,45-24)/32.
+        public Vector3 VisualTipWorld => blade.transform.TransformPoint(new Vector3(26f/32,21f/32,0));
+        public float BladeLength => Vector3.Distance(GripWorld,VisualTipWorld);
+        public float SweepLength => Busy ? range-.25f : 0;
+        public Vector2 AimDirection => motor.AimDirection;
+        public Vector2 AttackDirection => aim;
+        public float Elapsed => Busy ? Mathf.Max(0,(float)(Time.timeAsDouble-started)) : 0;
+        public float AttackProgress => Mathf.Clamp01(Elapsed/Mathf.Max(.001f,preparation+activeDuration+recovery));
+        public float PhaseProgress => !Busy ? 0 : VisualPhase=="preparation" ? Mathf.Clamp01(Elapsed/Mathf.Max(.001f,preparation)) : VisualPhase=="cut" ? Mathf.Clamp01((Elapsed-preparation)/activeDuration) : Mathf.Clamp01((Elapsed-preparation-activeDuration)/recovery);
         public bool Active => Busy && Time.timeAsDouble>=started+preparation && Time.timeAsDouble<started+preparation+activeDuration;
         public string VisualPhase=>!Busy?"idle":Time.timeAsDouble<started+preparation?"preparation":Time.timeAsDouble<started+preparation+activeDuration?"cut":"recovery";
         public string Feedback {get;private set;}="";
@@ -58,7 +65,8 @@ namespace Mmorpg.Runtime
         private Vector2 Origin => physicsBody.position;
         private Vector2 Grip(Vector2 center,Vector2 facing)
         {
-            if(production!=null&&production.CurrentFrame!=null)return center+production.CurrentFrame.hand;
+            if(production!=null&&production.CurrentFrame!=null)
+                return center+(Vector2)(production.Body.transform.TransformPoint(production.CurrentFrame.hand)-transform.position);
             if(preparedGrips!=null&&preparedGrips.Length==4)
             {
                 int direction=Mathf.Abs(facing.x)>Mathf.Abs(facing.y)?(facing.x<0?1:3):(facing.y>0?2:0);
@@ -114,10 +122,10 @@ namespace Mmorpg.Runtime
                 float baseAngle=Mathf.Atan2(facing.y,facing.x)*Mathf.Rad2Deg;
                 if(!Busy)VisualAngle=production.CurrentFrame.holdAngle;
                 else if(elapsed<preparation)VisualAngle=Mathf.LerpAngle(attackStartAngle,baseAngle-arc/2,Mathf.Clamp01(elapsed/Mathf.Max(.001f,preparation)));
-                else if(elapsed>=preparation+activeDuration)VisualAngle=Mathf.LerpAngle(baseAngle+arc/2,production.CurrentFrame.holdAngle,Mathf.Clamp01((elapsed-preparation-activeDuration)/recovery));
+                else if(elapsed>=preparation+activeDuration)VisualAngle=Mathf.LerpAngle(baseAngle+arc/2,production.CurrentFrame.holdAngle,Mathf.SmoothStep(0,1,Mathf.Clamp01((elapsed-preparation-activeDuration)/recovery)));
             }
-            hand.localPosition=Grip(Vector2.zero,facing);hand.localRotation=Quaternion.Euler(0,0,VisualAngle);
-            hand.localScale=new Vector3((Busy?range-.25f:1)/1f,1,1);
+            hand.position=(Vector2)transform.position+Grip(Vector2.zero,facing);hand.rotation=Quaternion.Euler(0,0,VisualAngle);
+            hand.localScale=Vector3.one;
             blade.sortingOrder=body.sortingOrder+(production!=null&&production.CurrentFrame!=null?production.CurrentFrame.depth:(facing.y>.25f?-1:1));blade.enabled=actor.State.IsAlive;
             blade.color=Busy && elapsed>=preparation && elapsed<preparation+activeDuration?new Color(1,1,.65f):Color.white;
         }

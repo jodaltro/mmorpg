@@ -9,18 +9,21 @@ namespace Mmorpg.Runtime
         private ActorHealth health;
         public Vector2 Facing { get; private set; } = Vector2.down;
         public Vector2 Direction { get; private set; }
+        public Vector2 MovementDirection => Direction;
+        public Vector2 AimDirection => Facing;
+        private bool hasAim;
         private float speed;
         private float terrainSpeed=1;
         public void SetTerrainSpeed(float multiplier)=>terrainSpeed=Mathf.Clamp(multiplier,.3f,1);
         [SerializeField] private bool eightDirections;
         [SerializeField, Min(1)] private float acceleration = 65, deceleration = 85;
         public void ConfigureActionMovement() => eightDirections = true;
-        public void Aim(Vector2 direction) { if (eightDirections && direction.sqrMagnitude > 0.001f) Facing = direction.normalized; }
+        public void Aim(Vector2 direction) { if (eightDirections && direction.sqrMagnitude > 0.001f) { Facing = direction.normalized; hasAim = true; } }
         private void Awake() { body = GetComponent<Rigidbody2D>(); health = GetComponent<ActorHealth>(); }
         public void SetIntent(Vector2 direction, float movementSpeed)
         {
             Direction = eightDirections ? Vector2.ClampMagnitude(direction, 1) : Cardinal(direction);
-            if (Direction != Vector2.zero) Facing = Direction;
+            if (Direction != Vector2.zero && !hasAim) Facing = Direction.normalized;
             speed = movementSpeed;
         }
         private void FixedUpdate()

@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectAnimation06B5.cs",
+      "entry": "InspectAnimation06B5.Combat",
+      "timeout_ms": "30000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 147,
+      "executeMs": 12188,
+      "assemblyName": "PipelineRunScript_InspectAnimation06B5_10a4f3d213f54f5a955dd07e400664bf",
+      "success": true,
+      "result": "[\r\n  {\r\n    \"scenario\": \"near\",\r\n    \"before\": 100,\r\n    \"after\": 80,\r\n    \"damage\": 20,\r\n    \"expected\": 20\r\n  },\r\n  {\r\n    \"scenario\": \"outside-range\",\r\n    \"before\": 100,\r\n    \"after\": 100,\r\n    \"damage\": 0,\r\n    \"expected\": 0\r\n  },\r\n  {\r\n    \"scenario\": \"wall\",\r\n    \"before\": 100,\r\n    \"after\": 100,\r\n    \"damage\": 0,\r\n    \"expected\": 0\r\n  },\r\n  {\r\n    \"scenario\": \"heavy\",\r\n    \"before\": 100,\r\n    \"after\": 64,\r\n    \"damage\": 36,\r\n    \"expected\": 36\r\n  }\r\n]"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

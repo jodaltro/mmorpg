@@ -30,7 +30,7 @@ namespace Mmorpg.Runtime
             if(art==null||motor==null||health==null||visual==null)return;
             double now=Time.timeAsDouble;
             bool moving=motor.Direction.sqrMagnitude>.01f && body!=null && body.linearVelocity.sqrMagnitude>.04f;
-            Vector2 facing=sword!=null?sword.AimDirection:motor.Facing;
+            Vector2 facing=sword!=null?(sword.Busy?sword.AttackDirection:sword.AimDirection):motor.Facing;
             if(health.State.IsDodging(now)&&motor.Direction.sqrMagnitude>.01f)facing=motor.Direction;
             DirectionIndex=Direction(facing);
             var idle=art.At(art.idle,DirectionIndex,visual.sprite);

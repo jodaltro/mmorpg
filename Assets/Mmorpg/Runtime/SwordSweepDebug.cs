@@ -24,12 +24,12 @@ namespace Mmorpg.Runtime
             if(sword.Busy&&!wasBusy){physical.Clear();visual.Clear();}wasBusy=sword.Busy;
             if(sword.Active)
             {
-                if(visual.Count>=160)visual.Dequeue();float a=sword.VisualAngle*Mathf.Deg2Rad;var tip=sword.GripWorld+new Vector3(Mathf.Cos(a),Mathf.Sin(a))*sword.BladeLength;visual.Enqueue(tip);
+                if(visual.Count>=160)visual.Dequeue();var tip=sword.VisualTipWorld;visual.Enqueue(tip);
                 if(sampledFrame==Time.frameCount)MaximumActiveTipError=Mathf.Max(MaximumActiveTipError,Vector2.Distance(lastSample,tip));
             }
             sweep.enabled=blade.enabled=grip.enabled=shown;
             if(!shown)return;sweep.positionCount=physical.Count;sweep.SetPositions(physical.ToArray());blade.positionCount=2;
-            float angle=sword.VisualAngle*Mathf.Deg2Rad;blade.SetPositions(new[]{sword.GripWorld,sword.GripWorld+new Vector3(Mathf.Cos(angle),Mathf.Sin(angle))*sword.BladeLength});
+            blade.SetPositions(new[]{sword.GripWorld,sword.VisualTipWorld});
             grip.positionCount=13;for(int i=0;i<13;i++){float a=i/12f*Mathf.PI*2;grip.SetPosition(i,sword.GripWorld+new Vector3(Mathf.Cos(a),Mathf.Sin(a))*.07f);}
         }
         private void OnDestroy(){if(sword!=null)sword.SweepSampled-=Sample;foreach(var l in new[]{sweep,blade,grip})if(l!=null)Destroy(l.sharedMaterial);}

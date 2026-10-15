@@ -30,3 +30,13 @@ Braços contrabalançam pernas; braço da arma mantém empunhadura estável. Nã
 Próximos pacotes: ataque corporal por vista (preparação, corte, recuperação); esquiva com entrada/deslocamento/saída; hurt e morte sem loops. A espada separada e o Sweep atual permanecem. Desenhar mão/cotovelo afetados em vez de apagar automaticamente a arma através do braço.
 
 `Docs/Art/PreviewsB4/source-qa.json` conta hashes reais por clip. `hero-attachments.png` mostra pontos da mão em magenta e linha do chão em ciano; é prancha de QA, não evidência de animação natural. GIFs de gameplay ficam na validação e são explicitamente provisórios.
+
+## Atualização 06B.5
+
+A caminhada escolhe a vista pelo deslocamento físico observado, com intenção não nula; a mira continua livre para o combate. Diagonais usam eixo dominante com faixa angular de 15% para conservar o eixo anterior próximo do empate. Não há atraso temporal nem restrição do movimento a quatro direções. Idle conserva a última vista; girar somente o mouse não gira corpo/espada. Ataque usa direção confirmada, sem histerese; dodge usa intenção da esquiva aceita.
+
+Clips `attack-preparation`, `attack-cut` e `attack-recovery`, se fornecidos no manifesto, são consultados por fase e têm o tempo escalado para a duração real dessa fase, preservando a proporção das durações individuais. O clip legado `attack` continua compatível: com até duas stances, conserva a primeira na preparação e a última no corte/recuperação; com mais quadros, percorre a duração autorada ao longo do ataque confirmado. Não dispara dano. O clock confirmado também encerra a pose no mesmo frame em que o Swing encerra o golpe.
+
+`ProductionClip.At` permanece independente da contagem: aceita um, dois, quatro, seis, oito ou mais quadros, com duração individual. Walk usa esse relógio existente, sem tabelas fixas de oito fases. Dodge ainda tem uma pose; hurt/death próprios continuam ausentes.
+
+Uma única nova proposta sul foi gerada com a skill imagegen no 06B.5. Foi reprovada por apoio/passagem pouco claros, capa e silhueta inconsistentes. [Resultado e prompt](../../ArtSource/References/Rejected/Marco06B5/review.md). Oito figuras candidatas não equivalem a oito desenhos aprovados: **zero novos frames integrados**. As 32 poses profissionais de walk e os ataques corporais completos continuam necessários.

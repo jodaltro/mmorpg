@@ -1,0 +1,9 @@
+{
+  "samples": 182,
+  "maximumGripError": 0.0,
+  "minimumBladeLength": 1.02148759,
+  "maximumBladeLength": 1.02148843,
+  "scales": [
+    "(1.00, 1.00, 1.00)"
+  ]
+}
