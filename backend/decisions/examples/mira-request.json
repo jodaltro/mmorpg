@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "eventId": "example-delivery-001",
+  "actorId": "player",
+  "worldId": "offline-clearing",
+  "stateVersion": 4,
+  "policyId": "mira-reaction-v1",
+  "characterFacts": ["CreatureDefeated", "EvidenceCollected", "EvidenceDelivered", "AbilityUnlocked"],
+  "npcKnowledge": ["corruption-sample", "forest-sample"],
+  "regionState": ["forest-corruption-confirmed"],
+  "eligibleConsequences": ["mira-scientific", "mira-concern", "mira-suspicion", "mira-neutral"]
+}

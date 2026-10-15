@@ -1,0 +1,14 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/Marco06B3Art.unity",
+  "frames": 128,
+  "importErrors": [],
+  "visualPrefabs": 9,
+  "cameraPpu": 32,
+  "referenceWidth": 640,
+  "referenceHeight": 360,
+  "playerAnimator": true,
+  "legacyPlayerAnimationEnabled": false,
+  "playerRootScale": "(1.00, 1.00, 1.00)",
+  "saveDirectoryOverrideCleared": true,
+  "persistenceFactoryCleared": true
+}

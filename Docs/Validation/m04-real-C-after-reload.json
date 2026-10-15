@@ -1,0 +1,50 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.RealMetrics"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 94,
+      "executeMs": 1,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_bccea7e2befa431b9f3f1a0d20326070",
+      "success": true,
+      "result": {
+        "decisionId": "gen-dec-1791923530-AbBEmmBtHYSLvD4wbKL8",
+        "selectedConsequence": "hunter-training",
+        "model": "typesafe/jev-1.13-20260917",
+        "provider": "TypeSafe",
+        "confidence": 0.72,
+        "probabilities": {
+          "hunter-training": 0.86,
+          "none": 0.14
+        },
+        "latencyMs": 741,
+        "usage": {
+          "input_tokens": 858,
+          "output_tokens": 34,
+          "cost": 0.000036036
+        },
+        "opportunities": [
+          {
+            "id": "hunter-training",
+            "status": 3
+          }
+        ],
+        "agenda": 0,
+        "frame": 38491
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

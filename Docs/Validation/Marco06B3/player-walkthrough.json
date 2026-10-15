@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.Player",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 288,
+      "executeMs": 10903,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_1a37b948a190450c84e1b15326b6dd54",
+      "success": true,
+      "result": "frame=44287 position=(-3.72, 0.02, 0.00) health=85 sprite=Hero_walk_E_1 state=walk facing=3 wolfHP=0\r\nframe=44811 position=(-6.86, 3.02, 0.00) health=85 sprite=Hero_walk_N_0 state=walk facing=2 wolfHP=0\r\nframe=45248 position=(-9.44, -0.08, 0.00) health=85 sprite=Hero_idle_W_0 state=idle facing=1 wolfHP=0\r\nframe=45636 position=(-7.08, -4.47, 0.00) health=85 sprite=Hero_walk_S_1 state=walk facing=0 wolfHP=0\r\nframe=45762 position=(-7.08, -4.53, 0.00) health=85 sprite=Hero_idle_E_0 state=idle facing=3 wolfHP=0\r\nframe=45850 position=(-7.08, -4.53, 0.00) health=85 sprite=Hero_idle_N_0 state=idle facing=2 wolfHP=0\r\nframe=45945 position=(-7.08, -4.53, 0.00) health=85 sprite=Hero_idle_W_0 state=idle facing=1 wolfHP=0\r\nframe=46031 position=(-7.08, -4.53, 0.00) health=85 sprite=Hero_idle_S_0 state=idle facing=0 wolfHP=0\r\nframe=46115 position=(-7.08, -6.56, 0.00) health=85 sprite=Hero_idle_S_0 state=idle facing=0 wolfHP=0"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectCharacterPolish.cs",
+      "entry": "InspectCharacterPolish.ForestCombat"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 206,
+      "executeMs": 15179,
+      "assemblyName": "PipelineRunScript_InspectCharacterPolish_2adf4bbb472f4d9db4509ff41a7b2f31",
+      "success": false,
+      "error": "Runtime Error",
+      "errorDetails": "InvalidOperationException: Walk blocked toward (1.00, 0.00) {\n    \"frame\": 25344,\n    \"health\": 100,\n    \"region\": \"Valdoria\",\n    \"inventory\": \"INVENTÁRIO  [I]\\n\\nErva cinzenta × 2\\r\\n\",\n    \"save\": \"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B2\\\\c966eb5bff2e4ab295142926d8e9b515\",\n    \"position\": {\n        \"x\": -6.919546604156494,\n        \"y\": 0.06515554338693619\n    },\n    \"wolfAlive\": true,\n    \"dialogue\": false\n}\n  at InspectCharacterPolish.Walk (UnityEngine.Vector2 target, System.Single timeout) [0x0006c] in D:\\unity\\Mmorpg\\AgentScripts\\InspectCharacterPolish.cs:97 \r\n  at InspectCharacterPolish.ForestCombat () [0x00182] in D:\\unity\\Mmorpg\\AgentScripts\\InspectCharacterPolish.cs:113 \r\n  at Unity.Pipeline.Editor.Commands.Scripts.RunScriptCommand.RunEphemeral (System.String file, System.String entry, Newtonsoft.Json.Linq.JArray args, System.String[] references, System.String[] defines, System.Boolean pdb, System.Boolean dryRun, System.Int32 timeoutMs, System.Diagnostics.Stopwatch total) [0x00492] in .\\Library\\PackageCache\\com.unity.pipeline@62c08c808737\\Editor\\Commands\\Scripts\\RunScriptCommand.cs:252 "
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

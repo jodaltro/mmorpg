@@ -1,0 +1,178 @@
+{"Time":"2026-10-14T10:07:40.1412204-03:00","Action":"start","Package":"mmorpg/decisions"}
+{"Time":"2026-10-14T10:07:40.2127082-03:00","Action":"start","Package":"mmorpg/decisions/cmd/server"}
+{"Time":"2026-10-14T10:07:40.2137087-03:00","Action":"output","Package":"mmorpg/decisions/cmd/server","Output":"?   \tmmorpg/decisions/cmd/server\t[no test files]\n"}
+{"Time":"2026-10-14T10:07:40.2137087-03:00","Action":"skip","Package":"mmorpg/decisions/cmd/server","Elapsed":0.001}
+{"Time":"2026-10-14T10:07:40.3173694-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestContractsRoundTrip"}
+{"Time":"2026-10-14T10:07:40.3178918-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestContractsRoundTrip","Output":"=== RUN   TestContractsRoundTrip\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestContractsRoundTrip","Output":"--- PASS: TestContractsRoundTrip (0.08s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestContractsRoundTrip","Elapsed":0.08}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestBuildChoiceIncludesOnlyEligibleIDs"}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestBuildChoiceIncludesOnlyEligibleIDs","Output":"=== RUN   TestBuildChoiceIncludesOnlyEligibleIDs\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestBuildChoiceIncludesOnlyEligibleIDs","Output":"--- PASS: TestBuildChoiceIncludesOnlyEligibleIDs (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestBuildChoiceIncludesOnlyEligibleIDs","Elapsed":0}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestOpenRouterRequestAndAllowedSelection"}
+{"Time":"2026-10-14T10:07:40.3936492-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestOpenRouterRequestAndAllowedSelection","Output":"=== RUN   TestOpenRouterRequestAndAllowedSelection\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestOpenRouterRequestAndAllowedSelection","Output":"--- PASS: TestOpenRouterRequestAndAllowedSelection (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestOpenRouterRequestAndAllowedSelection","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestUnknownOrIneligibleIDsRejected"}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestUnknownOrIneligibleIDsRejected","Output":"=== RUN   TestUnknownOrIneligibleIDsRejected\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestUnknownOrIneligibleIDsRejected","Output":"--- PASS: TestUnknownOrIneligibleIDsRejected (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestUnknownOrIneligibleIDsRejected","Elapsed":0}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestNoEligibleDoesNotCallProvider"}
+{"Time":"2026-10-14T10:07:40.4077391-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestNoEligibleDoesNotCallProvider","Output":"=== RUN   TestNoEligibleDoesNotCallProvider\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4832371-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestNoEligibleDoesNotCallProvider","Output":"--- PASS: TestNoEligibleDoesNotCallProvider (0.08s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4837595-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestNoEligibleDoesNotCallProvider","Elapsed":0.08}
+{"Time":"2026-10-14T10:07:40.4837595-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials"}
+{"Time":"2026-10-14T10:07:40.4837595-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.4837595-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/http-invalid"}
+{"Time":"2026-10-14T10:07:40.4837595-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/http-invalid","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials/http-invalid\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.5983185-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/http-invalid","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials/http-invalid (0.12s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.5983185-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/http-invalid","Elapsed":0.12}
+{"Time":"2026-10-14T10:07:40.5983185-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/json-invalid"}
+{"Time":"2026-10-14T10:07:40.5983185-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/json-invalid","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials/json-invalid\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.7181546-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/json-invalid","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials/json-invalid (0.12s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:40.7181546-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/json-invalid","Elapsed":0.12}
+{"Time":"2026-10-14T10:07:40.7181546-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/unknown-choice"}
+{"Time":"2026-10-14T10:07:40.7181546-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/unknown-choice","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials/unknown-choice\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.0935925-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/unknown-choice","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials/unknown-choice (2.38s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.0935925-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/unknown-choice","Elapsed":2.38}
+{"Time":"2026-10-14T10:07:43.0935925-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/empty-answer"}
+{"Time":"2026-10-14T10:07:43.0935925-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/empty-answer","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials/empty-answer\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.1019652-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/empty-answer","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials/empty-answer (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.1019652-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/empty-answer","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.1019652-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/timeout"}
+{"Time":"2026-10-14T10:07:43.1019652-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/timeout","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials/timeout\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.2078119-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/timeout","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials/timeout (0.11s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.2078119-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/timeout","Elapsed":0.11}
+{"Time":"2026-10-14T10:07:43.2083162-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/low-confidence"}
+{"Time":"2026-10-14T10:07:43.2083162-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/low-confidence","Output":"=== RUN   TestProviderFailuresFallbackAndNeverLeakCredentials/low-confidence\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.3092662-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/low-confidence","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials/low-confidence (0.10s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.3092662-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials/low-confidence","Elapsed":0.1}
+{"Time":"2026-10-14T10:07:43.3092662-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials","Output":"--- PASS: TestProviderFailuresFallbackAndNeverLeakCredentials (2.83s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.3092662-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderFailuresFallbackAndNeverLeakCredentials","Elapsed":2.83}
+{"Time":"2026-10-14T10:07:43.3092662-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestUnavailableAndMissingKey"}
+{"Time":"2026-10-14T10:07:43.3092662-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestUnavailableAndMissingKey","Output":"=== RUN   TestUnavailableAndMissingKey\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.3234846-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestUnavailableAndMissingKey","Output":"--- PASS: TestUnavailableAndMissingKey (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.3234846-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestUnavailableAndMissingKey","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.3234846-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProbabilityValidation"}
+{"Time":"2026-10-14T10:07:43.3234846-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProbabilityValidation","Output":"=== RUN   TestProbabilityValidation\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5377037-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProbabilityValidation","Output":"--- PASS: TestProbabilityValidation (0.21s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5377037-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProbabilityValidation","Elapsed":0.21}
+{"Time":"2026-10-14T10:07:43.5377037-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestConcurrentRepetitionAndRestartUsePersistedDecision"}
+{"Time":"2026-10-14T10:07:43.5377037-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestConcurrentRepetitionAndRestartUsePersistedDecision","Output":"=== RUN   TestConcurrentRepetitionAndRestartUsePersistedDecision\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5496487-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestConcurrentRepetitionAndRestartUsePersistedDecision","Output":"--- PASS: TestConcurrentRepetitionAndRestartUsePersistedDecision (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5501732-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestConcurrentRepetitionAndRestartUsePersistedDecision","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.5501732-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestChangedStateConflictsAndCorruptStorageFailsClosed"}
+{"Time":"2026-10-14T10:07:43.5501732-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestChangedStateConflictsAndCorruptStorageFailsClosed","Output":"=== RUN   TestChangedStateConflictsAndCorruptStorageFailsClosed\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.557527-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestChangedStateConflictsAndCorruptStorageFailsClosed","Output":"--- PASS: TestChangedStateConflictsAndCorruptStorageFailsClosed (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.557527-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestChangedStateConflictsAndCorruptStorageFailsClosed","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.557527-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestHTTPContractHealthAndErrors"}
+{"Time":"2026-10-14T10:07:43.557527-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestHTTPContractHealthAndErrors","Output":"=== RUN   TestHTTPContractHealthAndErrors\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestHTTPContractHealthAndErrors","Output":"--- PASS: TestHTTPContractHealthAndErrors (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestHTTPContractHealthAndErrors","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestManualOpenRouter"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualOpenRouter","Output":"=== RUN   TestManualOpenRouter\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualOpenRouter","Output":"    decisions_test.go:273: opt in with JEV_MANUAL_TEST=1\n"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualOpenRouter","Output":"--- SKIP: TestManualOpenRouter (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"skip","Package":"mmorpg/decisions","Test":"TestManualOpenRouter","Elapsed":0}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestConfidenceGateDisabledByDefault"}
+{"Time":"2026-10-14T10:07:43.5660154-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestConfidenceGateDisabledByDefault","Output":"=== RUN   TestConfidenceGateDisabledByDefault\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5726648-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestConfidenceGateDisabledByDefault","Output":"--- PASS: TestConfidenceGateDisabledByDefault (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.573665-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestConfidenceGateDisabledByDefault","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.573665-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestStoredChoiceChecksumAndWriteFailure"}
+{"Time":"2026-10-14T10:07:43.573665-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestStoredChoiceChecksumAndWriteFailure","Output":"=== RUN   TestStoredChoiceChecksumAndWriteFailure\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.581412-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestStoredChoiceChecksumAndWriteFailure","Output":"--- PASS: TestStoredChoiceChecksumAndWriteFailure (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.581412-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestStoredChoiceChecksumAndWriteFailure","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.581412-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestProviderCannotEchoCredentialInDecisionID"}
+{"Time":"2026-10-14T10:07:43.581412-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderCannotEchoCredentialInDecisionID","Output":"=== RUN   TestProviderCannotEchoCredentialInDecisionID\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5887118-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestProviderCannotEchoCredentialInDecisionID","Output":"--- PASS: TestProviderCannotEchoCredentialInDecisionID (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5887118-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestProviderCannotEchoCredentialInDecisionID","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.5887118-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestLocalEnvKeyLiteralFormats"}
+{"Time":"2026-10-14T10:07:43.5887118-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestLocalEnvKeyLiteralFormats","Output":"=== RUN   TestLocalEnvKeyLiteralFormats\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5954224-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestLocalEnvKeyLiteralFormats","Output":"--- PASS: TestLocalEnvKeyLiteralFormats (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5959432-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestLocalEnvKeyLiteralFormats","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.5959432-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestEnvironmentOverridesLocalEnvAndMissingFileIsOptional"}
+{"Time":"2026-10-14T10:07:43.5959432-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestEnvironmentOverridesLocalEnvAndMissingFileIsOptional","Output":"=== RUN   TestEnvironmentOverridesLocalEnvAndMissingFileIsOptional\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5991014-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestEnvironmentOverridesLocalEnvAndMissingFileIsOptional","Output":"--- PASS: TestEnvironmentOverridesLocalEnvAndMissingFileIsOptional (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.5991014-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestEnvironmentOverridesLocalEnvAndMissingFileIsOptional","Elapsed":0}
+{"Time":"2026-10-14T10:07:43.5991014-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestInvalidEnvFailsWithoutExposingContents"}
+{"Time":"2026-10-14T10:07:43.5991014-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestInvalidEnvFailsWithoutExposingContents","Output":"=== RUN   TestInvalidEnvFailsWithoutExposingContents\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestInvalidEnvFailsWithoutExposingContents","Output":"--- PASS: TestInvalidEnvFailsWithoutExposingContents (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestInvalidEnvFailsWithoutExposingContents","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestManualMarco05JevComparison"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualMarco05JevComparison","Output":"=== RUN   TestManualMarco05JevComparison\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualMarco05JevComparison","Output":"    marco05_manual_test.go:16: paid Marco 05 comparison requires authorization and JEV_MARCO05_MANUAL=1\n"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualMarco05JevComparison","Output":"--- SKIP: TestManualMarco05JevComparison (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"skip","Package":"mmorpg/decisions","Test":"TestManualMarco05JevComparison","Elapsed":0}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges"}
+{"Time":"2026-10-14T10:07:43.6079232-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges","Output":"=== RUN   TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6089724-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/researcher"}
+{"Time":"2026-10-14T10:07:43.6089724-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/researcher","Output":"=== RUN   TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/researcher\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6615137-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/researcher","Output":"--- PASS: TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/researcher (0.05s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.6615137-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/researcher","Elapsed":0.05}
+{"Time":"2026-10-14T10:07:43.6615137-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/combatant"}
+{"Time":"2026-10-14T10:07:43.6615137-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/combatant","Output":"=== RUN   TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/combatant\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.7102251-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/combatant","Output":"--- PASS: TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/combatant (0.05s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.7102251-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/combatant","Elapsed":0.05}
+{"Time":"2026-10-14T10:07:43.7102251-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/explorer"}
+{"Time":"2026-10-14T10:07:43.7102251-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/explorer","Output":"=== RUN   TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/explorer\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8578019-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/explorer","Output":"--- PASS: TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/explorer (0.15s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8578019-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges/explorer","Elapsed":0.15}
+{"Time":"2026-10-14T10:07:43.8638034-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges","Output":"--- PASS: TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges (0.26s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8638034-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestMarco05HistoriesChoicesPersistCostsLatencyAndStateChanges","Elapsed":0.26}
+{"Time":"2026-10-14T10:07:43.8638034-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestMarco05CandidateCapsAndDeterministicContingency"}
+{"Time":"2026-10-14T10:07:43.8638034-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05CandidateCapsAndDeterministicContingency","Output":"=== RUN   TestMarco05CandidateCapsAndDeterministicContingency\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestMarco05CandidateCapsAndDeterministicContingency","Output":"--- PASS: TestMarco05CandidateCapsAndDeterministicContingency (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestMarco05CandidateCapsAndDeterministicContingency","Elapsed":0.02}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestManualWorldOpenRouter"}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualWorldOpenRouter","Output":"=== RUN   TestManualWorldOpenRouter\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualWorldOpenRouter","Output":"    world_manual_test.go:15: manual paid validation requires JEV_MANUAL_TEST=1\n"}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestManualWorldOpenRouter","Output":"--- SKIP: TestManualWorldOpenRouter (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8825802-03:00","Action":"skip","Package":"mmorpg/decisions","Test":"TestManualWorldOpenRouter","Elapsed":0}
+{"Time":"2026-10-14T10:07:43.8830847-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldCandidatesAndJevQuestion"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldCandidatesAndJevQuestion","Output":"=== RUN   TestWorldCandidatesAndJevQuestion\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldCandidatesAndJevQuestion","Output":"--- PASS: TestWorldCandidatesAndJevQuestion (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldCandidatesAndJevQuestion","Elapsed":0}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldInvalidContracts"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldInvalidContracts","Output":"=== RUN   TestWorldInvalidContracts\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldInvalidContracts","Output":"--- PASS: TestWorldInvalidContracts (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldInvalidContracts","Elapsed":0}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection","Output":"=== RUN   TestWorldValidOpenRouterSelectionAndNoSelection\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/new-threat-tracks"}
+{"Time":"2026-10-14T10:07:43.8830953-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/new-threat-tracks","Output":"=== RUN   TestWorldValidOpenRouterSelectionAndNoSelection/new-threat-tracks\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.890332-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/new-threat-tracks","Output":"--- PASS: TestWorldValidOpenRouterSelectionAndNoSelection/new-threat-tracks (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8903374-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/new-threat-tracks","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.8903374-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/none"}
+{"Time":"2026-10-14T10:07:43.8903374-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/none","Output":"=== RUN   TestWorldValidOpenRouterSelectionAndNoSelection/none\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8976099-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/none","Output":"--- PASS: TestWorldValidOpenRouterSelectionAndNoSelection/none (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8976099-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection/none","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.8976099-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection","Output":"--- PASS: TestWorldValidOpenRouterSelectionAndNoSelection (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.8981164-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldValidOpenRouterSelectionAndNoSelection","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.8981164-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldInvalidJevSelectionFallsBack"}
+{"Time":"2026-10-14T10:07:43.8981305-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldInvalidJevSelectionFallsBack","Output":"=== RUN   TestWorldInvalidJevSelectionFallsBack\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9075532-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldInvalidJevSelectionFallsBack","Output":"--- PASS: TestWorldInvalidJevSelectionFallsBack (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9075738-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldInvalidJevSelectionFallsBack","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.9075738-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldUnavailableProviderAndLowConfidenceUsePersistedFallback"}
+{"Time":"2026-10-14T10:07:43.9075738-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldUnavailableProviderAndLowConfidenceUsePersistedFallback","Output":"=== RUN   TestWorldUnavailableProviderAndLowConfidenceUsePersistedFallback\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9206862-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldUnavailableProviderAndLowConfidenceUsePersistedFallback","Output":"--- PASS: TestWorldUnavailableProviderAndLowConfidenceUsePersistedFallback (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9206862-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldUnavailableProviderAndLowConfidenceUsePersistedFallback","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.9206862-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldRestartCacheAndContextConflict"}
+{"Time":"2026-10-14T10:07:43.9206862-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldRestartCacheAndContextConflict","Output":"=== RUN   TestWorldRestartCacheAndContextConflict\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9317119-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldRestartCacheAndContextConflict","Output":"--- PASS: TestWorldRestartCacheAndContextConflict (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9317119-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldRestartCacheAndContextConflict","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.9317119-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldIndependentCandidatesRemainAvailable"}
+{"Time":"2026-10-14T10:07:43.9317119-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldIndependentCandidatesRemainAvailable","Output":"=== RUN   TestWorldIndependentCandidatesRemainAvailable\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9417689-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldIndependentCandidatesRemainAvailable","Output":"--- PASS: TestWorldIndependentCandidatesRemainAvailable (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9417689-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldIndependentCandidatesRemainAvailable","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.9417689-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldNoCandidatesSkipsProvider"}
+{"Time":"2026-10-14T10:07:43.9417689-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldNoCandidatesSkipsProvider","Output":"=== RUN   TestWorldNoCandidatesSkipsProvider\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9497708-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldNoCandidatesSkipsProvider","Output":"--- PASS: TestWorldNoCandidatesSkipsProvider (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9497708-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldNoCandidatesSkipsProvider","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.9497708-03:00","Action":"run","Package":"mmorpg/decisions","Test":"TestWorldHTTPRejectsUnknownFieldsAndPreservesV1Reaction"}
+{"Time":"2026-10-14T10:07:43.9497708-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldHTTPRejectsUnknownFieldsAndPreservesV1Reaction","Output":"=== RUN   TestWorldHTTPRejectsUnknownFieldsAndPreservesV1Reaction\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9567717-03:00","Action":"output","Package":"mmorpg/decisions","Test":"TestWorldHTTPRejectsUnknownFieldsAndPreservesV1Reaction","Output":"--- PASS: TestWorldHTTPRejectsUnknownFieldsAndPreservesV1Reaction (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9567717-03:00","Action":"pass","Package":"mmorpg/decisions","Test":"TestWorldHTTPRejectsUnknownFieldsAndPreservesV1Reaction","Elapsed":0.01}
+{"Time":"2026-10-14T10:07:43.9567717-03:00","Action":"output","Package":"mmorpg/decisions","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-14T10:07:43.9621827-03:00","Action":"output","Package":"mmorpg/decisions","Output":"ok  \tmmorpg/decisions\t3.749s\n"}
+{"Time":"2026-10-14T10:07:43.9621827-03:00","Action":"pass","Package":"mmorpg/decisions","Elapsed":3.8209999999999997}

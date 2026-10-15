@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectCharacterPolish.cs",
+      "entry": "InspectCharacterPolish.Collision"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 173,
+      "executeMs": 22,
+      "assemblyName": "PipelineRunScript_InspectCharacterPolish_91ac3f4c044a4bdfb56b86f68320de53",
+      "success": true,
+      "result": "Brann — forja (-3.00, -5.00, 0.00) (0.55, 1.00, 0.00)\nHelena — acolhimento (-10.00, 0.00, 0.00) (0.55, 1.00, 0.00)\nPilar ancestral (34.00, 25.50, 0.00) (0.84, 1.69, 0.00)\nRockSouth (0.00, -3.00, 0.00) (2.00, 1.00, 0.00)\nOrin — caçador (-3.00, 3.00, 0.00) (0.50, 0.60, 0.00)\nForestHedgeSouth (0.00, -4.50, 0.00) (0.80, 7.00, 0.00)\nFormação rochosa (-4.00, 27.00, 0.00) (1.22, 1.88, 0.00)\nForestHedgeNorth (0.00, 4.50, 0.00) (0.80, 7.00, 0.00)\nÁrvore cinzenta (5.00, 3.50, 0.00) (1.22, 1.70, 0.00)\nÁrvore cinzenta (9.00, -6.00, 0.00) (1.22, 1.70, 0.00)\nDorin — minerador (-6.00, 20.00, 0.00) (0.55, 1.00, 0.00)\nÁrvore cinzenta (3.00, 5.00, 0.00) (1.22, 1.70, 0.00)\nTreeEast (10.00, 5.00, 0.00) (1.25, 2.00, 0.00)\nMiraHouse (-9.00, 4.40, 0.00) (3.00, 2.00, 0.00)\nRockWest (-4.00, 2.00, 0.00) (1.50, 1.25, 0.00)\nPilar ancestral (25.00, 28.00, 0.00) (0.84, 1.69, 0.00)\nTreeWest (-6.00, -4.00, 0.00) (1.25, 2.00, 0.00)\nFarol de Asterion — local histórico (32.00, 28.00, 0.00) (0.55, 0.94, 0.00)\nFormação rochosa (2.00, 21.00, 0.00) (1.22, 1.88, 0.00)\nOrinHouse (-3.00, 5.00, 0.00) (2.50, 2.00, 0.00)\nFormação rochosa (-10.00, 25.00, 0.00) (1.22, 1.88, 0.00)\nVegetação tóxica (27.00, -5.00, 0.00) (1.22, 1.50, 0.00)\nVegetação tóxica (29.00, 4.00, 0.00) (1.22, 1.50, 0.00)\nSoren — historiador (29.00, 25.80, 0.00) (0.55, 1.00, 0.00)\nMira — curandeira (-8.00, 1.00, 0.00) (0.50, 0.60, 0.00)\nVegetação tóxica (38.00, -4.00, 0.00) (1.22, 1.50, 0.00)\nPilar ancestral (38.00, 20.00, 0.00) (0.84, 1.69, 0.00)\nNera — ervas (26.00, 1.50, 0.00) (0.55, 1.00, 0.00)\nÁrvore cinzenta (6.00, -3.00, 0.00) (1.22, 1.70, 0.00)\nPilar ancestral (25.00, 20.00, 0.00) (0.84, 1.69, 0.00)\nBancada da forja (-3.00, -6.50, 0.00) (2.00, 0.70, 0.00)\nSelka — alquimia (-9.00, -6.00, 0.00) (0.55, 1.00, 0.00)\nTessa — arquivo (-6.00, 28.00, 0.00) (0.55, 1.00, 0.00)\nAltar do farol (32.00, 28.50, 0.00) (2.81, 0.94, 0.00)\nInscrição ancestral (27.00, 27.00, 0.00) (0.55, 0.94, 0.00)\nVegetação tóxica (38.00, 5.00, 0.00) (1.22, 1.50, 0.00)\nFormação rochosa (-4.00, 19.00, 0.00) (1.22, 1.88, 0.00)\nSolidBoundaries (14.50, 12.00, 0.00) (53.00, 40.00, 0.00)\n{\n    \"frame\": 4456,\n    \"health\": 100,\n    \"region\": \"Valdoria\",\n    \"inventory\": \"INVENTÁRIO  [I]\\n\\nA mochila está vazia.\\r\\n\",\n    \"save\": \"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B2\\\\c966eb5bff2e4ab295142926d8e9b515\",\n    \"position\": {\n        \"x\": -6.927441596984863,\n        \"y\": -0.0009485408663749695\n    },\n    \"wolfAlive\": true,\n    \"dialogue\": false\n}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

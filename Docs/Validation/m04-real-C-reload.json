@@ -1,0 +1,32 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.ReplayRealDecision"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 122,
+      "executeMs": 13,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_564711b3235c4d579c788a8ed1aee136",
+      "success": true,
+      "result": {
+        "decisionId": "gen-dec-1791923530-AbBEmmBtHYSLvD4wbKL8",
+        "choice": "hunter-training",
+        "persisted": true,
+        "reloaded": true,
+        "abilities": 0
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

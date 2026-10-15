@@ -1,0 +1,30 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.Attack"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 63,
+      "executeMs": 0,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_6a30f775c2214e3fa8a020e0853c1796",
+      "success": true,
+      "result": {
+        "accepted": true,
+        "wolfHealth": 40,
+        "frame": 20067
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

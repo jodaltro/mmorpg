@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectCharacterPolish.cs",
+      "entry": "InspectCharacterPolish.Directions"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 175,
+      "executeMs": 13212,
+      "assemblyName": "PipelineRunScript_InspectCharacterPolish_f94fafcfc952478b97ad727247e0fb5e",
+      "success": true,
+      "result": "move 0 speed=3,5 delta=(0.50, 0.00)\r\nmove 1 speed=3,5 delta=(0.35, 0.35)\r\nmove 2 speed=3,5 delta=(0.00, 0.50)\r\nmove 3 speed=3,5 delta=(-0.35, 0.35)\r\nmove 4 speed=3,5 delta=(-0.50, 0.00)\r\nmove 5 speed=3,5 delta=(-0.35, -0.35)\r\nmove 6 speed=3,5 delta=(0.00, -0.50)\r\nmove 7 speed=3,5 delta=(0.35, -0.35)\r\nattack 0 angle=-33,04707\r\nattack 1 angle=-10,32557\r\nattack 2 angle=6,690149\r\nattack 3 angle=33,69936\r\nattack 4 angle=51,06611\r\nattack 5 angle=78,75736\r\nattack 6 angle=102,7689\r\nattack 7 angle=114,5649\r\nattack 8 angle=-222,191\r\nattack 9 angle=-197,9669\r\nattack 10 angle=-170,633\r\nattack 11 angle=-148,2902\r\nattack 12 angle=-130,916\r\nattack 13 angle=-102,8837\r\nattack 14 angle=-79,71119\r\nattack 15 angle=-63,5612\r\ndiagonal dodge velocity=(6.36, 6.36) invulnerable=True\r\n{\n    \"frame\": 2330,\n    \"health\": 100,\n    \"region\": \"Valdoria\",\n    \"inventory\": \"INVENTÁRIO  [I]\\n\\nA mochila está vazia.\\r\\n\",\n    \"save\": \"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B2\\\\d4f1560dc580489a826a978f029c770d\",\n    \"position\": {\n        \"x\": -6.978196144104004,\n        \"y\": 0.03212243318557739\n    },\n    \"wolfAlive\": true,\n    \"dialogue\": false\n}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

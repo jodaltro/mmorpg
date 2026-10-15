@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectCharacterPolish.cs",
+      "entry": "InspectCharacterPolish.SwampReturn"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 331,
+      "executeMs": 18220,
+      "assemblyName": "PipelineRunScript_InspectCharacterPolish_128be575566048feb615d5e1cb1e2a71",
+      "success": true,
+      "result": "{\n    \"frame\": 28834,\n    \"health\": 70,\n    \"region\": \"Valdoria\",\n    \"inventory\": \"INVENTÁRIO  [I]\\n\\nPresas de lobo × 2\\r\\nMinério de ferro × 3\\r\\n\",\n    \"save\": \"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B2\\\\d4f1560dc580489a826a978f029c770d\",\n    \"position\": {\n        \"x\": -6.887063980102539,\n        \"y\": 0.07007978111505508\n    },\n    \"wolfAlive\": false,\n    \"dialogue\": false\n}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

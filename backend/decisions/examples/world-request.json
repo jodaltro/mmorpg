@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "eventId": "world:example-source:7",
+  "actorId": "player",
+  "worldId": "offline-clearing",
+  "stateVersion": 7,
+  "policyId": "world-context-v1",
+  "characterFacts": [
+    "investigation-confirmed",
+    "tracking-confirmed",
+    "wolf-defeated",
+    "prepared-attack-dodged"
+  ],
+  "npcKnowledge": [
+    "mira:investigation-confirmed",
+    "orin:prepared-attack-dodged"
+  ],
+  "regionState": [
+    "forest-threat"
+  ],
+  "candidates": [
+    {
+      "version": 1,
+      "id": "forest-alert",
+      "type": "delayed-public-notice",
+      "scope": "region",
+      "ruleId": "alert-v1",
+      "causeId": "fact:example-verified-source",
+      "context": [
+        "investigation-confirmed",
+        "tracking-confirmed",
+        "wolf-defeated",
+        "prepared-attack-dodged"
+      ],
+      "authorizedActions": [
+        "schedule-notice"
+      ],
+      "conditions": {
+        "kind": 0,
+        "ruleId": "alert-v1",
+        "value": null,
+        "subjectId": null,
+        "time": 0,
+        "children": [
+          {
+            "kind": 2,
+            "ruleId": "fact:investigation-confirmed",
+            "value": "investigation-confirmed",
+            "subjectId": null,
+            "time": 0,
+            "children": []
+          },
+          {
+            "kind": 3,
+            "ruleId": "knowledge:mira:investigation-confirmed",
+            "value": "investigation-confirmed",
+            "subjectId": "mira",
+            "time": 0,
+            "children": []
+          },
+          {
+            "kind": 4,
+            "ruleId": "regional-threat",
+            "value": null,
+            "subjectId": null,
+            "time": 0,
+            "children": []
+          }
+        ]
+      }
+    },
+    {
+      "version": 1,
+      "id": "new-threat-tracks",
+      "type": "interactive-investigation",
+      "scope": "character-region",
+      "ruleId": "tracks-v1",
+      "causeId": "fact:example-verified-source",
+      "context": [
+        "investigation-confirmed",
+        "tracking-confirmed",
+        "wolf-defeated",
+        "prepared-attack-dodged"
+      ],
+      "authorizedActions": [
+        "spawn-tracks"
+      ],
+      "conditions": {
+        "kind": 0,
+        "ruleId": "tracks-v1",
+        "value": null,
+        "subjectId": null,
+        "time": 0,
+        "children": [
+          {
+            "kind": 2,
+            "ruleId": "fact:tracking-confirmed",
+            "value": "tracking-confirmed",
+            "subjectId": null,
+            "time": 0,
+            "children": []
+          },
+          {
+            "kind": 2,
+            "ruleId": "fact:wolf-defeated",
+            "value": "wolf-defeated",
+            "subjectId": null,
+            "time": 0,
+            "children": []
+          },
+          {
+            "kind": 4,
+            "ruleId": "regional-threat",
+            "value": null,
+            "subjectId": null,
+            "time": 0,
+            "children": []
+          }
+        ]
+      }
+    },
+    {
+      "version": 1,
+      "id": "hunter-training",
+      "type": "optional-training",
+      "scope": "character",
+      "ruleId": "training-v1",
+      "causeId": "fact:example-verified-source",
+      "context": [
+        "investigation-confirmed",
+        "tracking-confirmed",
+        "wolf-defeated",
+        "prepared-attack-dodged"
+      ],
+      "authorizedActions": [
+        "offer-training"
+      ],
+      "conditions": {
+        "kind": 0,
+        "ruleId": "training-v1",
+        "value": null,
+        "subjectId": null,
+        "time": 0,
+        "children": [
+          {
+            "kind": 2,
+            "ruleId": "fact:prepared-attack-dodged",
+            "value": "prepared-attack-dodged",
+            "subjectId": null,
+            "time": 0,
+            "children": []
+          },
+          {
+            "kind": 3,
+            "ruleId": "knowledge:orin:prepared-attack-dodged",
+            "value": "prepared-attack-dodged",
+            "subjectId": "orin",
+            "time": 0,
+            "children": []
+          }
+        ]
+      }
+    }
+  ],
+  "eligibleConsequences": [
+    "forest-alert",
+    "new-threat-tracks",
+    "hunter-training",
+    "none"
+  ]
+}

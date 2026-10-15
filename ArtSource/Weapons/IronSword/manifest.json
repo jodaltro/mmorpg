@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "id": "iron-sword",
+  "type": "sword",
+  "png": "ArtSource/Weapons/IronSword/frame_000.png",
+  "canvas": [
+    80,
+    80
+  ],
+  "ppu": 32,
+  "pivot": [
+    31,
+    45
+  ],
+  "tip": [
+    57,
+    24
+  ],
+  "orientationDegrees": 38.79655,
+  "visualLength": 1,
+  "compatibility": [
+    "Hero"
+  ],
+  "status": "existing isolated B3 sword; attachment calibrated in Unity"
+}

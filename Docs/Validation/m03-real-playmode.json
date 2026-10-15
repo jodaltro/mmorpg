@@ -1,0 +1,175 @@
+﻿{
+  "success": true,
+  "command": "command test_status",
+  "data": {
+    "command": "test_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 34.28,
+      "summary": {
+        "total": 21,
+        "passed": 21,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.ActualCombatProducesFactThenSampleDeliveryUnlocksAndPersists",
+          "Status": "Passed",
+          "Duration": 2.2789673,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.DistanceCannotFabricateInteraction",
+          "Status": "Passed",
+          "Duration": 0.2121221,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.KeyboardInteractsOpensJournalAndNewJourneyResetsPersistentMemory",
+          "Status": "Passed",
+          "Duration": 0.4301386,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.LearnedMarkAppliesBonusOnSuccessfulHitOnlyAndWallsBlockActivation",
+          "Status": "Passed",
+          "Duration": 2.6971189,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.SecondRouteAfterMiraOffersNewEncounterAndTrustWithoutDuplicateTechnique",
+          "Status": "Passed",
+          "Duration": 3.123778,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.TracksAndOrinThenRealCombatCompleteObservationRoute",
+          "Status": "Passed",
+          "Duration": 1.57834,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.TrainingDummyAcceptsLearnedTechniqueAndRecoversWithoutStoryRewards",
+          "Status": "Passed",
+          "Duration": 5.478283,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.DelayedOldResultDiscardedAfterStateChange",
+          "Status": "Passed",
+          "Duration": 0.1622035,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.DeterministicModeNeverCallsHTTP",
+          "Status": "Passed",
+          "Duration": 0.0108745,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.InvalidHTTPAndUnknownChoiceUseFallback",
+          "Status": "Passed",
+          "Duration": 0.0145749,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.LocalContractsRoundTripAndPredefinedDialogue",
+          "Status": "Passed",
+          "Duration": 0.0140033,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.LowConfidenceFallbackAuditSurvivesLocalContractAndPersistence",
+          "Status": "Passed",
+          "Duration": 0.0144708,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.ReplacedJourneyDoesNotApplyResponse",
+          "Status": "Passed",
+          "Duration": 0.0140448,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.SceneWorksWithBackendOffAndJournalReflectsPersistedReaction",
+          "Status": "Passed",
+          "Duration": 2.7850373,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.TimeoutAndInvalidStatusReturnDeterministic",
+          "Status": "Passed",
+          "Duration": 1.0269847,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.DodgeBlocksWolfDamageThenPlayerCanDie",
+          "Status": "Passed",
+          "Duration": 9.4398576,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.KeyboardMovesAttacksAndDodgesThroughPlayerController",
+          "Status": "Passed",
+          "Duration": 0.2825868,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.PlayerCanMoveAndCollidesWithRock",
+          "Status": "Passed",
+          "Duration": 1.1151644,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.ThreeAttacksKillWolfAndRestartRestoresActors",
+          "Status": "Passed",
+          "Duration": 1.77846,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.WallAndFacingBlockMelee",
+          "Status": "Passed",
+          "Duration": 0.6680541,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.WolfPatrolsChasesAndAttacksWithWindup",
+          "Status": "Passed",
+          "Duration": 1.118352,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

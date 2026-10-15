@@ -1,0 +1,266 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5911f484a17cee43bd60a2df9348d6d, type: 3}
+  m_Name: Hero
+  m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.ProductionCharacterSet
+  characterId: Hero
+  pixelsPerUnit: 32
+  referenceSpeed: 3.5
+  clips:
+  - action: idle
+    status: provisional-native-poses
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: -2083249679, guid: 419c9b3bafff456478ad3a1cc746dbe4, type: 3}
+      hand: {x: -0.34375, y: 0}
+      seconds: 0.1
+      holdAngle: -135
+      depth: 1
+      source: Hero_idle_S_0
+      events: []
+  - action: idle
+    status: provisional-native-poses
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: -920901904, guid: e2fcd9395ef03344ab161934529eaa6e, type: 3}
+      hand: {x: -0.21875, y: 0}
+      seconds: 0.1
+      holdAngle: -155
+      depth: 1
+      source: Hero_idle_W_0
+      events: []
+  - action: idle
+    status: provisional-native-poses
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: -1284518420, guid: 5bb76a2ea87fc6242a6c15775470ecfd, type: 3}
+      hand: {x: 0.40625, y: 0}
+      seconds: 0.1
+      holdAngle: 90
+      depth: -1
+      source: Hero_idle_N_0
+      events: []
+  - action: idle
+    status: provisional-native-poses
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: -1790266292, guid: 48da9b61a94170d4598acfe14f816c5f, type: 3}
+      hand: {x: 0.125, y: 0}
+      seconds: 0.1
+      holdAngle: -25
+      depth: 1
+      source: Hero_idle_E_0
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: -477096884, guid: e1c8f8a07e8a0024c94f02383fb41a90, type: 3}
+      hand: {x: -0.375, y: 0.03125}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Hero_walk_S_0
+      events: []
+    - sprite: {fileID: 1672652014, guid: 07d8de9ab37cd6a4daf2b13c42a53eb4, type: 3}
+      hand: {x: -0.3125, y: -0.03125}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Hero_walk_S_1
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: 321446997, guid: 5066fae42fe95224887b9d5768aeca00, type: 3}
+      hand: {x: -0.125, y: -0.0625}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Hero_walk_W_0
+      events: []
+    - sprite: {fileID: -2054290726, guid: 796c8a94cb80848418d778d62af4ee4d, type: 3}
+      hand: {x: -0.125, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Hero_walk_W_1
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: -1680395782, guid: b0077221e4f621a4f9082cbe47a18858, type: 3}
+      hand: {x: 0.40625, y: 0.0625}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Hero_walk_N_0
+      events: []
+    - sprite: {fileID: 2033922577, guid: aa00bea205c9d1d4791125b4ff2969d7, type: 3}
+      hand: {x: 0.375, y: -0.03125}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Hero_walk_N_1
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: -45177970, guid: 16422f6e44337d343a78e5fca8450fb6, type: 3}
+      hand: {x: 0.1875, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Hero_walk_E_0
+      events: []
+    - sprite: {fileID: -1294747126, guid: 43d57cae1879cbc4c80f9d545bb2e0b1, type: 3}
+      hand: {x: 0.28125, y: 0.03125}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Hero_walk_E_1
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: 1246850731, guid: 99c2dae35de7ae740b902eeb699b5fee, type: 3}
+      hand: {x: -0.375, y: 0.125}
+      seconds: 0.1
+      holdAngle: -135
+      depth: 1
+      source: Hero_attack_S_0
+      events: []
+    - sprite: {fileID: 1250179211, guid: 11c4d1bbe43bc2a4385fc3cc596eb694, type: 3}
+      hand: {x: -0.375, y: 0.125}
+      seconds: 0.1
+      holdAngle: -135
+      depth: 1
+      source: Hero_attack_S_1
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: 212836646, guid: b9b04c6ccfa98e6409ef419e935f42b7, type: 3}
+      hand: {x: -0.125, y: -0.0625}
+      seconds: 0.1
+      holdAngle: -155
+      depth: 1
+      source: Hero_attack_W_0
+      events: []
+    - sprite: {fileID: -1458147807, guid: ac29e07a255bc3d48874705eef51516d, type: 3}
+      hand: {x: -0.125, y: 0}
+      seconds: 0.1
+      holdAngle: -155
+      depth: 1
+      source: Hero_attack_W_1
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: -970859783, guid: 2411da67bde5bf14baeb69fda5eecda6, type: 3}
+      hand: {x: 0.40625, y: 0.0625}
+      seconds: 0.1
+      holdAngle: 90
+      depth: -1
+      source: Hero_attack_N_0
+      events: []
+    - sprite: {fileID: 119664322, guid: df1439e2361742e4d8f5a7bbbf4bb302, type: 3}
+      hand: {x: 0.40625, y: 0.0625}
+      seconds: 0.1
+      holdAngle: 90
+      depth: -1
+      source: Hero_attack_N_1
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: 1815029306, guid: e1abed00e8d6bd4479354629111648f7, type: 3}
+      hand: {x: 0.1875, y: 0}
+      seconds: 0.1
+      holdAngle: -25
+      depth: 1
+      source: Hero_attack_E_0
+      events: []
+    - sprite: {fileID: 571553536, guid: d377873232548b347880ab8d27c2ae1b, type: 3}
+      hand: {x: 0.28125, y: 0.03125}
+      seconds: 0.1
+      holdAngle: -25
+      depth: 1
+      source: Hero_attack_E_1
+      events: []
+  - action: dodge
+    status: provisional-native-poses
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: -616813107, guid: 4f949ba91cfb60943bd4fc28e17d78c7, type: 3}
+      hand: {x: -0.375, y: 0.125}
+      seconds: 0.1
+      holdAngle: -135
+      depth: 1
+      source: Hero_dodge_S_0
+      events: []
+  - action: dodge
+    status: provisional-native-poses
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: 408911629, guid: 19a46dd193e3b7c4db520c8b95a09b12, type: 3}
+      hand: {x: -0.25, y: -0.375}
+      seconds: 0.1
+      holdAngle: -155
+      depth: 1
+      source: Hero_dodge_W_0
+      events: []
+  - action: dodge
+    status: provisional-native-poses
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: -693719513, guid: 06a9e6af90e58444d8911ea824f55074, type: 3}
+      hand: {x: 0.3125, y: -0.0625}
+      seconds: 0.1
+      holdAngle: 90
+      depth: -1
+      source: Hero_dodge_N_0
+      events: []
+  - action: dodge
+    status: provisional-native-poses
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: 1949103977, guid: 6fe61a28d0e701840b4122f6787d577d, type: 3}
+      hand: {x: 0.59375, y: -0.09375}
+      seconds: 0.1
+      holdAngle: -25
+      depth: 1
+      source: Hero_dodge_E_0
+      events: []

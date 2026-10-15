@@ -1,0 +1,6 @@
+Continuar: real mouse click resumed and hid menu.
+Configurações: mouse opened settings; volume slider changed AudioListener to 0,25
+Reiniciar sessão: real click reloaded and recovered identity/discovery.
+Nova jornada / Cancelar: real clicks opened confirmation and preserved journey.
+Confirmar nova jornada: mouse reset isolated Temp data, backed up and preserved unrelated sentinel.
+Sair: real mouse click exited Play in Editor.

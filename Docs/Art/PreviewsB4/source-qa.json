@@ -1,0 +1,618 @@
+[
+  {
+    "id": "Healer",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "idle",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "idle",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "idle",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "walk",
+    "direction": "south",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "walk",
+    "direction": "west",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "walk",
+    "direction": "north",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "walk",
+    "direction": "east",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "attack",
+    "direction": "south",
+    "frames": 2,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "attack",
+    "direction": "west",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "attack",
+    "direction": "north",
+    "frames": 2,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "attack",
+    "direction": "east",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "dodge",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "dodge",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "dodge",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hero",
+    "animation": "dodge",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Hunter",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Scholar",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Smith",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Bat",
+    "animation": "flight",
+    "direction": "south",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "idle",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "idle",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "idle",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "walk",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "walk",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "walk",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "walk",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "attack",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "attack",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "attack",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "attack",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "hurt",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "hurt",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "hurt",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "hurt",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "death",
+    "direction": "south",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "death",
+    "direction": "west",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "death",
+    "direction": "north",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Golem",
+    "animation": "death",
+    "direction": "east",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "idle",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "idle",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "idle",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "walk",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "walk",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "walk",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "walk",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "attack",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "attack",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "attack",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "attack",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "hurt",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "hurt",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "hurt",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "hurt",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "death",
+    "direction": "south",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "death",
+    "direction": "west",
+    "frames": 2,
+    "unique": 2,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "death",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Spider",
+    "animation": "death",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "idle",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "idle",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "idle",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "idle",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "walk",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "walk",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "walk",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "walk",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "attack",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "attack",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "attack",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "attack",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "hurt",
+    "direction": "south",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "hurt",
+    "direction": "west",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "hurt",
+    "direction": "north",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  },
+  {
+    "id": "Wolf",
+    "animation": "hurt",
+    "direction": "east",
+    "frames": 1,
+    "unique": 1,
+    "status": "provisional-native-poses"
+  }
+]

@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.Fight",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 130,
+      "executeMs": 5550,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_d6ef41ad0cb643c4ae7515d462df7336",
+      "success": true,
+      "result": "Wolf confirmed hit 60 -> 40\r\nWolf confirmed hit 40 -> 20\r\nReceived confirmed damage 100 -> 85\r\nframe=19767 position=(1.17, 0.02, 0.00) health=85 sprite=Hero_idle_E_0 state=idle facing=3 wolfHP=0\r\nReceivedDamage=True wolfDefeated=True\r\n"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

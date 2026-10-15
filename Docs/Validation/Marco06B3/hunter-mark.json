@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.HunterOnDummy",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 299,
+      "executeMs": 3460,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_5ff0a307ef3b4cc0be48ee5f58b1e418",
+      "success": true,
+      "result": "Confirmed hunter target=TrainingDummy; frame=29038 position=(-5.16, -1.05, 0.00) health=85 sprite=Hero_idle_E_0 state=idle facing=3 wolfHP=0"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

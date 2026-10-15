@@ -1,0 +1,78 @@
+﻿{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {
+      "tail": "4",
+      "level": "warn"
+    },
+    "result": {
+      "entries": [
+        {
+          "seq": 182,
+          "timestampUtc": "2026-10-13T18:46:07.1120942Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Mmorpg\\Domain\\JourneyDecisions.cs(41,24): warning UAC1001: Field 'confidence' type 'double?' is skipped by serialization (missing the [Serializable] attribute). Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/6000.6/Documentation/Manual/script-serialization-analyzer.html#uac1001)",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 183,
+          "timestampUtc": "2026-10-13T18:46:07.1120942Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Mmorpg\\Domain\\JourneyDecisions.cs(42,42): warning UAC1015: Field 'probabilities' is a dictionary type 'System.Collections.Generic.Dictionary<string, double>' but is missing [SerializeField]. Unity's dictionary serialization backend skips dictionary fields without [SerializeField], even when the field is public. Add [SerializeField] to serialize this field, or [NonSerialized] to make the intent explicit. Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/Manual/script-serialization-analyzer.html#uac1015)",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 184,
+          "timestampUtc": "2026-10-13T18:46:07.1120942Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Mmorpg\\Domain\\JourneyDecisions.cs(28,42): warning UAC1015: Field 'probabilities' is a dictionary type 'System.Collections.Generic.Dictionary<string, double>' but is missing [SerializeField]. Unity's dictionary serialization backend skips dictionary fields without [SerializeField], even when the field is public. Add [SerializeField] to serialize this field, or [NonSerialized] to make the intent explicit. Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/Manual/script-serialization-analyzer.html#uac1015)",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 192,
+          "timestampUtc": "2026-10-13T18:51:36.9732628Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Cannot use 'linearVelocity' on a static body.",
+          "stackTrace": "UnityEngine.Rigidbody2D:set_linearVelocity (UnityEngine.Vector2)\nMmorpg.Runtime.ActorHealth:ApplyDamage (int,double) (at Assets/Mmorpg/Runtime/ActorHealth.cs:38)\nMmorpg.Runtime.OfflineAuthority:RequestAttack (Mmorpg.Runtime.ActorHealth,UnityEngine.Vector2) (at Assets/Mmorpg/Runtime/OfflineAuthority.cs:38)\nMmorpg.Tests.JourneySceneTests/<TrainingDummyAcceptsLearnedTechniqueAndRecoversWithoutStoryRewards>d__14:MoveNext () (at Assets/Mmorpg/Tests/PlayMode/JourneySceneTests.cs:124)\nUnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 195,
+      "session": "403fa373779c44ccb34bfb5592223b5b",
+      "returned": 4,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 2,
+        "warn": 22,
+        "log": 52
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-13T18:54:22.7897777Z",
+        "ageMs": 146,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 1,
+        "consoleLogs": 4,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

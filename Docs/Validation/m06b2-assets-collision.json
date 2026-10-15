@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectCharacterPolish.cs",
+      "entry": "InspectCharacterPolish.Collision"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 182,
+      "executeMs": 3062,
+      "assemblyName": "PipelineRunScript_InspectCharacterPolish_34801fd150b1435bae360232afe1a660",
+      "success": true,
+      "result": "Blocked by RockWest at (-5.04, 2.01) collider gap=-0,005001545\n{\n    \"frame\": 34122,\n    \"health\": 70,\n    \"region\": \"Valdoria\",\n    \"inventory\": \"INVENTÁRIO  [I]\\n\\nPresas de lobo × 2\\r\\nMinério de ferro × 3\\r\\n\",\n    \"save\": \"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B2\\\\d4f1560dc580489a826a978f029c770d\",\n    \"position\": {\n        \"x\": -6.919546127319336,\n        \"y\": 0.10262306034564972\n    },\n    \"wolfAlive\": false,\n    \"dialogue\": false\n}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

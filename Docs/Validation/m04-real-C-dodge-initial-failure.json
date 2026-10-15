@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.ConfirmRealDodgeAndReport"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 203,
+      "executeMs": 378,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_032609fc12b24725a239ff372a0d0c10",
+      "success": false,
+      "error": "Runtime Error",
+      "errorDetails": "InvalidOperationException: Prepared dodge rejected\n  at ValidateWorldEventsPlay.ConfirmRealDodgeAndReport () [0x000fa] in D:\\unity\\Mmorpg\\AgentScripts\\ValidateWorldEventsPlay.cs:54 \r\n  at Unity.Pipeline.Editor.Commands.Scripts.RunScriptCommand.RunEphemeral (System.String file, System.String entry, Newtonsoft.Json.Linq.JArray args, System.String[] references, System.String[] defines, System.Boolean pdb, System.Boolean dryRun, System.Int32 timeoutMs, System.Diagnostics.Stopwatch total) [0x00492] in .\\Library\\PackageCache\\com.unity.pipeline@62c08c808737\\Editor\\Commands\\Scripts\\RunScriptCommand.cs:252 "
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

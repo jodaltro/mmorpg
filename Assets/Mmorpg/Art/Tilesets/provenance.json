@@ -1,0 +1,11 @@
+{
+  "generator": "Tools/ArtPipeline/terrain.py",
+  "seed": "kind + variant",
+  "size": [
+    32,
+    32
+  ],
+  "ppu": 32,
+  "license": "Created locally for this project; no downloads.",
+  "tiles": 40
+}

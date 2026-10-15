@@ -1,0 +1,832 @@
+{
+  "schema": 1,
+  "id": "Hero",
+  "ppu": 32,
+  "coordinates": "pixels, top-left origin; +x right, +y down; pivot/feet/hands in canvas coordinates",
+  "status": "provisional; not production animation approval",
+  "clips": [
+    {
+      "animation": "idle",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/idle/south/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            37,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "76dd5921132a0166188f29b9e1bdd89d9437d6c5686f24cf5786dec8dd1e548b",
+          "inputSha256": "76dd5921132a0166188f29b9e1bdd89d9437d6c5686f24cf5786dec8dd1e548b",
+          "source": "Hero_idle_S_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "idle",
+      "direction": "west",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/idle/west/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            41,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "e078a59229c84d556d04c7863c47637e5f161dfec5e1265330688f190375e249",
+          "inputSha256": "1560be210c9df9b3149d23e1f07f5c123f6d0f672b0a2b13c1c1dec7d6e68394",
+          "source": "Hero_idle_W_0",
+          "retouch": "localized manually drawn glove"
+        }
+      ]
+    },
+    {
+      "animation": "idle",
+      "direction": "north",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/idle/north/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            61,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "a96d7974a0dac0b4f4e0ec9a3a2b5ffdf41531dd493643a65b33ae357e430a30",
+          "inputSha256": "a96d7974a0dac0b4f4e0ec9a3a2b5ffdf41531dd493643a65b33ae357e430a30",
+          "source": "Hero_idle_N_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "idle",
+      "direction": "east",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/idle/east/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            52,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "880a4d70fecac9bbd04551ed043143515be5d4755cf85d6dcffee5182e0667d5",
+          "inputSha256": "880a4d70fecac9bbd04551ed043143515be5d4755cf85d6dcffee5182e0667d5",
+          "source": "Hero_idle_E_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "south",
+      "frameCount": 2,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/walk/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            36,
+            69
+          ],
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "ceaf05bdd752b5ddd984ee66c0b884f921c20fe1c2d329c6a4f2953b7b7d4c7e",
+          "inputSha256": "a2240af6698a9dbdd5ee39635ea712cf9a59e64baf7cfa222b25c14a3cf04c96",
+          "source": "Hero_walk_S_0",
+          "retouch": "localized manually drawn glove"
+        },
+        {
+          "png": "ArtSource/Characters/Hero/walk/south/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            38,
+            71
+          ],
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "53c3d31c4d876a9891d7f722188655c068869239e5b286a900a6ec31b6fcb73f",
+          "inputSha256": "53c3d31c4d876a9891d7f722188655c068869239e5b286a900a6ec31b6fcb73f",
+          "source": "Hero_walk_S_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "west",
+      "frameCount": 2,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/walk/west/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            44,
+            72
+          ],
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "7d63d8c1e5de66364287872291572c4953a8a1f6ea684cba469f5452f0ff9b86",
+          "inputSha256": "7d63d8c1e5de66364287872291572c4953a8a1f6ea684cba469f5452f0ff9b86",
+          "source": "Hero_walk_W_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/walk/west/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            44,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "38e46c47af941df4422cb910289315023fb80a6b749c8fb38223a9f1ae91ac77",
+          "inputSha256": "38e46c47af941df4422cb910289315023fb80a6b749c8fb38223a9f1ae91ac77",
+          "source": "Hero_walk_W_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "north",
+      "frameCount": 2,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/walk/north/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            61,
+            68
+          ],
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "4f13524e72e8f8705696b737829e8292e38dc22d31fff6bd0dd810fe00301433",
+          "inputSha256": "4f13524e72e8f8705696b737829e8292e38dc22d31fff6bd0dd810fe00301433",
+          "source": "Hero_walk_N_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/walk/north/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            60,
+            71
+          ],
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "6b8fb5f725846d789001dd2cd0d597d57400341729eea20220024b81cc033d6b",
+          "inputSha256": "6b8fb5f725846d789001dd2cd0d597d57400341729eea20220024b81cc033d6b",
+          "source": "Hero_walk_N_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "east",
+      "frameCount": 2,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/walk/east/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            54,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "3b686953675af196621b86c9849937d7d799a8f1c9a7c1095ec4b02950ec0753",
+          "inputSha256": "3b686953675af196621b86c9849937d7d799a8f1c9a7c1095ec4b02950ec0753",
+          "source": "Hero_walk_E_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/walk/east/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            57,
+            69
+          ],
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "e68801ee4a41b222c8178d14dc41f1b122d46df1e271988b4cdf3f7f376ee9d6",
+          "inputSha256": "e68801ee4a41b222c8178d14dc41f1b122d46df1e271988b4cdf3f7f376ee9d6",
+          "source": "Hero_walk_E_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "south",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/attack/south/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            36,
+            66
+          ],
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "7b3c263dcc4057d32ea9043325e3248ebaceb07f022fda7d7b24d2849c68faec",
+          "inputSha256": "7b3c263dcc4057d32ea9043325e3248ebaceb07f022fda7d7b24d2849c68faec",
+          "source": "Hero_attack_S_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/attack/south/frame_001.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            36,
+            66
+          ],
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "7b3c263dcc4057d32ea9043325e3248ebaceb07f022fda7d7b24d2849c68faec",
+          "inputSha256": "7b3c263dcc4057d32ea9043325e3248ebaceb07f022fda7d7b24d2849c68faec",
+          "source": "Hero_attack_S_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "west",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/attack/west/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            44,
+            72
+          ],
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "7d63d8c1e5de66364287872291572c4953a8a1f6ea684cba469f5452f0ff9b86",
+          "inputSha256": "7d63d8c1e5de66364287872291572c4953a8a1f6ea684cba469f5452f0ff9b86",
+          "source": "Hero_attack_W_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/attack/west/frame_001.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            44,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "38e46c47af941df4422cb910289315023fb80a6b749c8fb38223a9f1ae91ac77",
+          "inputSha256": "38e46c47af941df4422cb910289315023fb80a6b749c8fb38223a9f1ae91ac77",
+          "source": "Hero_attack_W_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "north",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/attack/north/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            61,
+            68
+          ],
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "4f13524e72e8f8705696b737829e8292e38dc22d31fff6bd0dd810fe00301433",
+          "inputSha256": "4f13524e72e8f8705696b737829e8292e38dc22d31fff6bd0dd810fe00301433",
+          "source": "Hero_attack_N_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/attack/north/frame_001.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            61,
+            68
+          ],
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "4f13524e72e8f8705696b737829e8292e38dc22d31fff6bd0dd810fe00301433",
+          "inputSha256": "4f13524e72e8f8705696b737829e8292e38dc22d31fff6bd0dd810fe00301433",
+          "source": "Hero_attack_N_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "east",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/attack/east/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            54,
+            70
+          ],
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "3b686953675af196621b86c9849937d7d799a8f1c9a7c1095ec4b02950ec0753",
+          "inputSha256": "3b686953675af196621b86c9849937d7d799a8f1c9a7c1095ec4b02950ec0753",
+          "source": "Hero_attack_E_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Characters/Hero/attack/east/frame_001.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            57,
+            69
+          ],
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "e68801ee4a41b222c8178d14dc41f1b122d46df1e271988b4cdf3f7f376ee9d6",
+          "inputSha256": "e68801ee4a41b222c8178d14dc41f1b122d46df1e271988b4cdf3f7f376ee9d6",
+          "source": "Hero_attack_E_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "dodge",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/dodge/south/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            36,
+            66
+          ],
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "7b3c263dcc4057d32ea9043325e3248ebaceb07f022fda7d7b24d2849c68faec",
+          "inputSha256": "7b3c263dcc4057d32ea9043325e3248ebaceb07f022fda7d7b24d2849c68faec",
+          "source": "Hero_dodge_S_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "dodge",
+      "direction": "west",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/dodge/west/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            40,
+            82
+          ],
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "f34a0309cc19d2c0f0a96d9dbd7edfbeab41f143535a714c2930fb830c477d1f",
+          "inputSha256": "f34a0309cc19d2c0f0a96d9dbd7edfbeab41f143535a714c2930fb830c477d1f",
+          "source": "Hero_dodge_W_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "dodge",
+      "direction": "north",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/dodge/north/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            58,
+            72
+          ],
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "94738114cbfdc254716918cb03c035e404902650ff7981382a6cb2caca652086",
+          "inputSha256": "94738114cbfdc254716918cb03c035e404902650ff7981382a6cb2caca652086",
+          "source": "Hero_dodge_N_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "dodge",
+      "direction": "east",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hero/dodge/east/frame_000.png",
+          "duration": 0.1,
+          "canvas": [
+            96,
+            96
+          ],
+          "pivot": [
+            48.0,
+            70.0
+          ],
+          "feet": [
+            48,
+            88
+          ],
+          "rightHand": [
+            67,
+            73
+          ],
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "988921153b639d045d3741df45fa1ba73e7277f3def115e404c804f00054a739",
+          "inputSha256": "988921153b639d045d3741df45fa1ba73e7277f3def115e404c804f00054a739",
+          "source": "Hero_dodge_E_0",
+          "retouch": null
+        }
+      ]
+    }
+  ],
+  "missing": [
+    "walk: eight distinct weight-transfer drawings per cardinal direction",
+    "native hurt/death",
+    "full body attack"
+  ],
+  "groundContact": "feet in each frame; Bat uses suspended body anchor and separate ground shadow",
+  "collider": "existing physical root; never derived from changing frame bounds"
+}

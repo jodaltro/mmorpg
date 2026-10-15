@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "Dodge",
+  "ppu": 32,
+  "frames": [
+    {
+      "png": "ArtSource/VFX/Dodge/frame_000.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        40.0
+      ],
+      "duration": 0.05555555555555555,
+      "source": "Dust_0"
+    },
+    {
+      "png": "ArtSource/VFX/Dodge/frame_001.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        40.0
+      ],
+      "duration": 0.05555555555555555,
+      "source": "Dust_1"
+    },
+    {
+      "png": "ArtSource/VFX/Dodge/frame_002.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        40.0
+      ],
+      "duration": 0.05555555555555555,
+      "source": "Dust_2"
+    }
+  ],
+  "startEvent": "ActorState.IsDodging rising edge",
+  "endEvent": "three frames at 18 FPS",
+  "loop": false,
+  "sortingOffset": -2,
+  "status": "existing B3 effect; no new drawn sequence"
+}

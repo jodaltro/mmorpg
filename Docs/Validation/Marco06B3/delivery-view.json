@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.DeliveryView",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 143,
+      "executeMs": 2790,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_93c2776788c9422eab70810c7a249593",
+      "success": true,
+      "result": "frame=2352 position=(-6.09, 3.99, 0.00) health=100 sprite=Hero_idle_E_0 state=idle facing=3 wolfHP=60"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,1 @@
+Isolated manual probes: late callback after epoch advance was rejected (0 decisions applied); checksum-corrupt Temp save recovered verified .bak. No HTTP, credentials, personal save or remote data used.

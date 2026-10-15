@@ -1,0 +1,26 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.Prepare"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 353,
+      "executeMs": 8,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_312924d5be7643dbbb5875a6b86827f3",
+      "success": true,
+      "result": "Isolated saves: D:\\unity\\Mmorpg\\Temp\\Marco06B3\\d7de019e886d4fd09a865c513ced604e"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

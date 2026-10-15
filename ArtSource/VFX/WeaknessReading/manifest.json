@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "id": "WeaknessReading",
+  "ppu": 32,
+  "frames": [
+    {
+      "png": "ArtSource/VFX/WeaknessReading/frame_000.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        40.0
+      ],
+      "duration": 0.125,
+      "source": "WeaknessReticle"
+    }
+  ],
+  "startEvent": "confirmed weakness mark",
+  "endEvent": "mark consumed or expired",
+  "loop": false,
+  "sortingOffset": 3,
+  "status": "existing B3 effect; no new drawn sequence"
+}

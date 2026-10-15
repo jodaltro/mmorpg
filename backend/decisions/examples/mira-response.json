@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "eventId": "example-delivery-001",
+  "actorId": "player",
+  "worldId": "offline-clearing",
+  "stateVersion": 4,
+  "policyId": "mira-reaction-v1",
+  "decisionId": "gen-dec-example",
+  "selectedConsequence": "mira-concern",
+  "model": "typesafe/jev-1.13-20260917",
+  "provider": "TypeSafe",
+  "confidence": 0.7,
+  "probabilities": {"mira-scientific": 0.1, "mira-concern": 0.7, "mira-suspicion": 0.1, "mira-neutral": 0.1},
+  "usage": {"input_tokens": 20, "output_tokens": 10, "cost": 0.000001},
+  "latencyMs": 100,
+  "fallback": false
+}

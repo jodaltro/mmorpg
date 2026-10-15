@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.AbilityVisuals",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 173,
+      "executeMs": 5460,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_2fa912eccfee433b8e32577bd6df1824",
+      "success": true,
+      "result": "Weakness on dummy=True; hunter mark=False; frame=3092 position=(0.39, 0.02, 0.00) health=100 sprite=Hero_idle_S_0 state=idle facing=0 wolfHP=60"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

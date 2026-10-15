@@ -1,0 +1,259 @@
+﻿{
+  "success": true,
+  "command": "command test_status",
+  "data": {
+    "command": "test_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 0.46,
+      "summary": {
+        "total": 33,
+        "passed": 33,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "Mmorpg.Tests.CombatStateTests.CooldownAndDamageImmunityExpireAtBoundary",
+          "Status": "Passed",
+          "Duration": 0.000102,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.CombatStateTests.DamageClampsAndDeathRejectsActions",
+          "Status": "Passed",
+          "Duration": 0.0000469,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.CombatStateTests.DiagonalIntentIsConvertedToOneCardinalDirection",
+          "Status": "Passed",
+          "Duration": 0.0000777,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.CombatStateTests.DodgeProtectsOnlyDuringItsWindowAndHasCooldown",
+          "Status": "Passed",
+          "Duration": 0.0000471,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.CombatStateTests.InvalidDamageAndClockDoNotMutateHealth",
+          "Status": "Passed",
+          "Duration": 0.0000437,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.AuthorizedChoicePersistsAndCannotRepeatOrChange(\"mira-scientific\")",
+          "Status": "Passed",
+          "Duration": 0.000469,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.AuthorizedChoicePersistsAndCannotRepeatOrChange(\"mira-concern\")",
+          "Status": "Passed",
+          "Duration": 0.0003213,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.AuthorizedChoicePersistsAndCannotRepeatOrChange(\"mira-suspicion\")",
+          "Status": "Passed",
+          "Duration": 0.0003196,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.AuthorizedChoicePersistsAndCannotRepeatOrChange(\"mira-neutral\")",
+          "Status": "Passed",
+          "Duration": 0.0003214,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.ChangedStateRejectsOldResultAndFreshFallbackStillWorks",
+          "Status": "Passed",
+          "Duration": 0.0002185,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.JsonPersistenceRoundTripPreservesDecisionMetadataAndLegacySave",
+          "Status": "Passed",
+          "Duration": 0.0146437,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.NoCandidateBeforeValidatedDelivery",
+          "Status": "Passed",
+          "Duration": 0.0001868,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.ReplayInterleavesDecisionsAndLaterEventsAndRejectsTampering",
+          "Status": "Passed",
+          "Duration": 0.0006207,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.RuntimeRejectsNonLocalOrCredentialEndpoints(\"https://127.0.0.1:8091/v1/decisions/evaluate\")",
+          "Status": "Passed",
+          "Duration": 0.0000771,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.RuntimeRejectsNonLocalOrCredentialEndpoints(\"http://example.com/v1/decisions/evaluate\")",
+          "Status": "Passed",
+          "Duration": 0.0000726,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.RuntimeRejectsNonLocalOrCredentialEndpoints(\"http://localhost:8091/v1/decisions/evaluate\")",
+          "Status": "Passed",
+          "Duration": 0.0000732,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.RuntimeRejectsNonLocalOrCredentialEndpoints(\"http://127.0.0.1:8091/v1/decisions/evaluate?token=x\")",
+          "Status": "Passed",
+          "Duration": 0.0000727,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.RuntimeRejectsNonLocalOrCredentialEndpoints(\"http://user@127.0.0.1:8091/v1/decisions/evaluate\")",
+          "Status": "Passed",
+          "Duration": 0.0000725,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.DecisionTests.UnknownChoiceAndWrongIdentityPolicyOrVersionRejected",
+          "Status": "Passed",
+          "Duration": 0.0003035,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.EventsAreIdempotentAndCopiesCannotMutateMemory",
+          "Status": "Passed",
+          "Duration": 0.000126,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.InterruptedFirstSaveRecoversVerifiedTemporaryFile",
+          "Status": "Passed",
+          "Duration": 0.0071674,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.InvalidPayloadOrVersionRejected",
+          "Status": "Passed",
+          "Duration": 0.000103,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.JsonSaveRecoversBackupAndRejectsCorruptionAndUnsupportedVersion",
+          "Status": "Passed",
+          "Duration": 0.0224999,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.NpcKnowledgeRequiresValidInformationTransferAndRepeatsAreNoOps",
+          "Status": "Passed",
+          "Duration": 0.0001755,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.ObservationRouteAndSecondRouteStillChangeKnowledgeAndRelation",
+          "Status": "Passed",
+          "Duration": 0.0001438,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.ObservationRouteRequiresRealLaterEncounter",
+          "Status": "Passed",
+          "Duration": 0.0000991,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.PendingEvidenceAndOpportunitySurviveSaveLoad",
+          "Status": "Passed",
+          "Duration": 0.0003284,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.PolicyCannotApplyUnlistedConsequence",
+          "Status": "Passed",
+          "Duration": 0.0001034,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.PreconditionsAndUnknownSourcesCannotUnlock",
+          "Status": "Passed",
+          "Duration": 0.0000839,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.SampleRouteUnlocksExactlyOnceAndDeliveryIsUnique",
+          "Status": "Passed",
+          "Duration": 0.0001255,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.SaveLoadRestoresFactsAbilitiesEvidenceOpportunitiesAndRelations",
+          "Status": "Passed",
+          "Duration": 0.0003876,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.WeaknessBonusIsCappedAndConsumedOnlyBySuccessfulHit",
+          "Status": "Passed",
+          "Duration": 0.0000728,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneyTests.WeaknessRequiresLearnedTechniqueValidTargetRangeAndCooldown",
+          "Status": "Passed",
+          "Duration": 0.0000701,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

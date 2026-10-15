@@ -1,0 +1,15 @@
+{
+  "authenticated": true,
+  "regionsNavigated": 5,
+  "abilitiesUnlocked": 12,
+  "validatedActions": 68,
+  "distinctEncounters": [
+    "corrupted-wolf",
+    "cave-bat"
+  ],
+  "equippedWeapon": "iron-blade",
+  "consumablesRemaining": 2,
+  "firstFrame": 524,
+  "lastFrame": 138983,
+  "credentialsPrinted": false
+}

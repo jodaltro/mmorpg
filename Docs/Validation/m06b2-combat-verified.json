@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectCharacterPolish.cs",
+      "entry": "InspectCharacterPolish.ForestCombat"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 160,
+      "executeMs": 5822,
+      "assemblyName": "PipelineRunScript_InspectCharacterPolish_e2c2d836db90428fa57b06f5a3a019e5",
+      "success": true,
+      "result": "{\n    \"frame\": 11006,\n    \"health\": 85,\n    \"region\": \"Floresta Cinzenta\",\n    \"inventory\": \"INVENTÁRIO  [I]\\n\\nPresas de lobo × 2\\r\\n\",\n    \"save\": \"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B2\\\\e1211c1632b748cd8a0bf230c51da8d1\",\n    \"position\": {\n        \"x\": 1.7122929096221924,\n        \"y\": 0.599603533744812\n    },\n    \"wolfAlive\": false,\n    \"dialogue\": false\n}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

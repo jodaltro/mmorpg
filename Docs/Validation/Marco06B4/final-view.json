@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectPolish06B4.cs",
+      "entry": "InspectPolish06B4.FinalView",
+      "timeout_ms": "50000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 195,
+      "executeMs": 2989,
+      "assemblyName": "PipelineRunScript_InspectPolish06B4_ac259623115d4f6bb4978d17df6b6a06",
+      "success": true,
+      "result": "{\"frame\":31861,\"position\":\"(-6.05, 3.87, 0.00)\",\"health\":100,\"state\":\"idle\",\"direction\":0,\"sprite\":\"Hero_idle_south_000\",\"hand\":\"(-6.40, 3.87, 0.00)\",\"epoch\":7,\"identity\":\"f329c99594f54f26bd9be3380739a2d9\",\"profile\":\"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B4\\\\cb0c4360c28743ec88b07cfe145196cd\",\"diagnostics\":{\"Go\":\"TIMEOUT\",\"Database\":\"NÃO VERIFICADO\",\"Jev\":\"NÃO CONFIGURADO\",\"Provider\":\"determinístico local\",\"LastEvent\":\"—\",\"Consequence\":\"—\",\"Opportunity\":\"—\",\"Persistence\":\"local / salvo\",\"LastDecision\":\"—\",\"GoMs\":2003,\"DatabaseMs\":-1,\"Evaluations\":0,\"Events\":0,\"Revision\":0,\"Fps\":229.292023,\"History\":[\"02:05:31 — | EligibilityCandidates | 0\",\"02:05:31 — | Presentation | WorldRefresh\",\"02:05:36 — | Persistence | localenfileirado\",\"02:05:36 — | Persistence | localsalvo\",\"02:05:41 — | Persistence | localenfileirado\",\"02:05:41 — | Persistence | localsalvo\",\"02:05:46 — | Persistence | localenfileirado\",\"02:05:46 — | Persistence | localsalvo\",\"02:05:51 — | Persistence | localenfileirado\",\"02:05:51 — | Persistence | localsalvo\",\"02:05:56 — | Persistence | localenfileirado\",\"02:05:56 — | Persistence | localsalvo\",\"02:06:01 — | Persistence | localenfileirado\",\"02:06:01 — | Persistence | localsalvo\",\"02:06:06 — | Persistence | localenfileirado\",\"02:06:06 — | Persistence | localsalvo\",\"02:06:11 — | Persistence | localenfileirado\",\"02:06:11 — | Persistence | localsalvo\",\"02:06:16 — | Persistence | localenfileirado\",\"02:06:16 — | Persistence | localsalvo\",\"02:06:21 — | Persistence | localenfileirado\",\"02:06:21 — | Persistence | localsalvo\",\"02:06:26 — | Persistence | localenfileirado\",\"02:06:26 — | Persistence | localsalvo\",\"02:06:31 — | Persistence | localenfileirado\",\"02:06:31 — | Persistence | localsalvo\",\"02:06:36 — | Persistence | localenfileirado\",\"02:06:36 — | Persistence | localsalvo\",\"02:06:41 — | Persistence | localenfileirado\",\"02:06:41 — | Persistence | localsalvo\",\"02:06:46 — | Persistence | localenfileirado\",\"02:06:46 — | Persistence | localsalvo\",\"02:06:51 — | Persistence | localenfileirado\",\"02:06:51 — | Persistence | localsalvo\",\"02:06:56 — | Persistence | localenfileirado\",\"02:06:56 — | Persistence | localsalvo\",\"02:07:01 — | Persistence | localenfileirado\",\"02:07:01 — | Persistence | localsalvo\",\"02:07:06 — | Persistence | localenfileirado\",\"02:07:06 — | Persistence | localsalvo\",\"02:07:11 — | Persistence | localenfileirado\",\"02:07:11 — | Persistence | localsalvo\",\"02:07:16 — | Persistence | localenfileirado\",\"02:07:16 — | Persistence | localsalvo\",\"02:07:21 — | Persistence | localenfileirado\",\"02:07:21 — | Persistence | localsalvo\",\"02:07:26 — | Persistence | localenfileirado\",\"02:07:26 — | Persistence | localsalvo\",\"02:07:31 — | Persistence | localenfileirado\",\"02:07:31 — | Persistence | localsalvo\",\"02:07:36 — | Persistence | localenfileirado\",\"02:07:36 — | Persistence | localsalvo\",\"02:07:41 — | Persistence | localenfileirado\",\"02:07:41 — | Persistence | localsalvo\",\"02:07:46 — | Persistence | localenfileirado\",\"02:07:46 — | Persistence | localsalvo\",\"02:07:51 — | Persistence | localenfileirado\",\"02:07:51 — | Persistence | localsalvo\"]}}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

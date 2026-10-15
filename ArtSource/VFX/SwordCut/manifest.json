@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "id": "SwordCut",
+  "ppu": 32,
+  "frames": [
+    {
+      "png": "ArtSource/VFX/SwordCut/frame_000.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        40.0
+      ],
+      "duration": 0.125,
+      "source": "Slash"
+    }
+  ],
+  "startEvent": "SwordSwing.Active",
+  "endEvent": "end of active window",
+  "loop": false,
+  "sortingOffset": 2,
+  "status": "existing B3 effect; no new drawn sequence"
+}

@@ -1,0 +1,941 @@
+{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {
+      "level": "error"
+    },
+    "result": {
+      "entries": [
+        {
+          "seq": 20398,
+          "timestampUtc": "2026-10-14T18:04:59.7721953Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20399,
+          "timestampUtc": "2026-10-14T18:04:59.7721953Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20400,
+          "timestampUtc": "2026-10-14T18:04:59.7721953Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20401,
+          "timestampUtc": "2026-10-14T18:04:59.7731959Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20402,
+          "timestampUtc": "2026-10-14T18:04:59.773418Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20403,
+          "timestampUtc": "2026-10-14T18:04:59.773418Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20404,
+          "timestampUtc": "2026-10-14T18:04:59.7739673Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20405,
+          "timestampUtc": "2026-10-14T18:04:59.7739673Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20406,
+          "timestampUtc": "2026-10-14T18:04:59.7739673Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20407,
+          "timestampUtc": "2026-10-14T18:04:59.7739673Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20408,
+          "timestampUtc": "2026-10-14T18:04:59.774923Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20409,
+          "timestampUtc": "2026-10-14T18:04:59.774923Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20410,
+          "timestampUtc": "2026-10-14T18:04:59.774923Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20411,
+          "timestampUtc": "2026-10-14T18:04:59.774923Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20412,
+          "timestampUtc": "2026-10-14T18:04:59.774923Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20413,
+          "timestampUtc": "2026-10-14T18:04:59.7759234Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20414,
+          "timestampUtc": "2026-10-14T18:04:59.7759234Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20415,
+          "timestampUtc": "2026-10-14T18:04:59.7759234Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20416,
+          "timestampUtc": "2026-10-14T18:04:59.7769254Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20417,
+          "timestampUtc": "2026-10-14T18:04:59.7769254Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20418,
+          "timestampUtc": "2026-10-14T18:04:59.7779248Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20419,
+          "timestampUtc": "2026-10-14T18:04:59.7779248Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20420,
+          "timestampUtc": "2026-10-14T18:04:59.778927Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20421,
+          "timestampUtc": "2026-10-14T18:04:59.778927Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20422,
+          "timestampUtc": "2026-10-14T18:04:59.779926Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20423,
+          "timestampUtc": "2026-10-14T18:04:59.779926Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20424,
+          "timestampUtc": "2026-10-14T18:04:59.779926Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20425,
+          "timestampUtc": "2026-10-14T18:04:59.7809359Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20426,
+          "timestampUtc": "2026-10-14T18:04:59.7809359Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20427,
+          "timestampUtc": "2026-10-14T18:04:59.7819365Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20428,
+          "timestampUtc": "2026-10-14T18:04:59.7819365Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20429,
+          "timestampUtc": "2026-10-14T18:04:59.7819365Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20430,
+          "timestampUtc": "2026-10-14T18:04:59.7819365Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20431,
+          "timestampUtc": "2026-10-14T18:04:59.7829564Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20432,
+          "timestampUtc": "2026-10-14T18:04:59.7829564Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20433,
+          "timestampUtc": "2026-10-14T18:04:59.7829564Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20434,
+          "timestampUtc": "2026-10-14T18:04:59.7839421Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20435,
+          "timestampUtc": "2026-10-14T18:04:59.7839421Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20436,
+          "timestampUtc": "2026-10-14T18:04:59.7839421Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20437,
+          "timestampUtc": "2026-10-14T18:04:59.7839421Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20438,
+          "timestampUtc": "2026-10-14T18:04:59.7849424Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20439,
+          "timestampUtc": "2026-10-14T18:04:59.7849424Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20440,
+          "timestampUtc": "2026-10-14T18:04:59.7849424Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20441,
+          "timestampUtc": "2026-10-14T18:04:59.7849424Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20442,
+          "timestampUtc": "2026-10-14T18:04:59.7859526Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20443,
+          "timestampUtc": "2026-10-14T18:04:59.7859526Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20444,
+          "timestampUtc": "2026-10-14T18:04:59.7864962Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20445,
+          "timestampUtc": "2026-10-14T18:04:59.7864962Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20446,
+          "timestampUtc": "2026-10-14T18:04:59.7864962Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20447,
+          "timestampUtc": "2026-10-14T18:04:59.7864962Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20448,
+          "timestampUtc": "2026-10-14T18:04:59.7864962Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20449,
+          "timestampUtc": "2026-10-14T18:04:59.7875018Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20450,
+          "timestampUtc": "2026-10-14T18:04:59.7875018Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20451,
+          "timestampUtc": "2026-10-14T18:04:59.7875018Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20452,
+          "timestampUtc": "2026-10-14T18:04:59.7875018Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20453,
+          "timestampUtc": "2026-10-14T18:04:59.7885036Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20454,
+          "timestampUtc": "2026-10-14T18:04:59.7885036Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20455,
+          "timestampUtc": "2026-10-14T18:04:59.7885036Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20456,
+          "timestampUtc": "2026-10-14T18:04:59.7885036Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20457,
+          "timestampUtc": "2026-10-14T18:04:59.7894974Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20458,
+          "timestampUtc": "2026-10-14T18:04:59.7894974Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20459,
+          "timestampUtc": "2026-10-14T18:04:59.7894974Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20460,
+          "timestampUtc": "2026-10-14T18:04:59.7894974Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20461,
+          "timestampUtc": "2026-10-14T18:04:59.790499Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20462,
+          "timestampUtc": "2026-10-14T18:04:59.790499Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20463,
+          "timestampUtc": "2026-10-14T18:04:59.790499Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20464,
+          "timestampUtc": "2026-10-14T18:04:59.7914978Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20465,
+          "timestampUtc": "2026-10-14T18:04:59.7914978Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20466,
+          "timestampUtc": "2026-10-14T18:04:59.7914978Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20467,
+          "timestampUtc": "2026-10-14T18:04:59.7926114Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20468,
+          "timestampUtc": "2026-10-14T18:04:59.7926114Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20469,
+          "timestampUtc": "2026-10-14T18:04:59.7926114Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20470,
+          "timestampUtc": "2026-10-14T18:04:59.7926114Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20471,
+          "timestampUtc": "2026-10-14T18:04:59.7936Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20472,
+          "timestampUtc": "2026-10-14T18:04:59.7936Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20473,
+          "timestampUtc": "2026-10-14T18:04:59.7936Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20474,
+          "timestampUtc": "2026-10-14T18:04:59.7936Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20475,
+          "timestampUtc": "2026-10-14T18:04:59.7946103Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorMotor.FixedUpdate () (at Assets/Mmorpg/Runtime/ActorMotor.cs:28)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20476,
+          "timestampUtc": "2026-10-14T18:04:59.7946103Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.HealthHud.Update () (at Assets/Mmorpg/Runtime/HealthHud.cs:21)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20477,
+          "timestampUtc": "2026-10-14T18:04:59.7946103Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ExplorationWorld.InventoryText () (at Assets/Mmorpg/Runtime/ExplorationWorld.cs:66)\nMmorpg.Runtime.ActionSliceHud.Update () (at Assets/Mmorpg/Runtime/ActionSliceHud.cs:41)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20478,
+          "timestampUtc": "2026-10-14T18:04:59.7946103Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.PlayerController.Update () (at Assets/Mmorpg/Runtime/PlayerController.cs:22)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20479,
+          "timestampUtc": "2026-10-14T18:04:59.7961233Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.JourneySession.IsAvailable (Mmorpg.Runtime.JourneyInteractable item) (at Assets/Mmorpg/Runtime/JourneySession.cs:144)\nSystem.Linq.Utilities+<>c__DisplayClass1_0`1[TSource].<CombinePredicates>b__0 (TSource x) (at <f1b392d8fe224ca2b1f9fab1000b77eb>:0)\nSystem.Linq.Enumerable+WhereArrayIterator`1[TSource].MoveNext () (at <f1b392d8fe224ca2b1f9fab1000b77eb>:0)\nSystem.Linq.OrderedEnumerable`1[TElement].TryGetFirst (System.Boolean& found) (at <f1b392d8fe224ca2b1f9fab1000b77eb>:0)\nSystem.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <f1b392d8fe224ca2b1f9fab1000b77eb>:0)\nSystem.Linq.Enumerable.FirstOrDefault[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <f1b392d8fe224ca2b1f9fab1000b77eb>:0)\nMmorpg.Runtime.JourneySession.Nearest () (at Assets/Mmorpg/Runtime/JourneySession.cs:147)\nMmorpg.Runtime.JourneyHud.Update () (at Assets/Mmorpg/Runtime/JourneyHud.cs:24)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20480,
+          "timestampUtc": "2026-10-14T18:04:59.7961233Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.SpatialCreatureBrain.Update () (at Assets/Mmorpg/Runtime/SpatialCreatureBrain.cs:27)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20481,
+          "timestampUtc": "2026-10-14T18:04:59.7966472Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.SpatialCreatureBrain.Update () (at Assets/Mmorpg/Runtime/SpatialCreatureBrain.cs:27)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20482,
+          "timestampUtc": "2026-10-14T18:04:59.7971709Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.SpatialCreatureBrain.Update () (at Assets/Mmorpg/Runtime/SpatialCreatureBrain.cs:27)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20483,
+          "timestampUtc": "2026-10-14T18:04:59.7971709Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.WolfBrain.Update () (at Assets/Mmorpg/Runtime/WolfBrain.cs:24)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20484,
+          "timestampUtc": "2026-10-14T18:04:59.7971709Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.TrainingDummy.Update () (at Assets/Mmorpg/Runtime/TrainingDummy.cs:29)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20485,
+          "timestampUtc": "2026-10-14T18:04:59.7971709Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActorVisual.cs:33)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20486,
+          "timestampUtc": "2026-10-14T18:04:59.7981579Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.JourneySession.IsWeaknessMarked (Mmorpg.Runtime.ActorHealth target) (at Assets/Mmorpg/Runtime/JourneySession.cs:140)\nMmorpg.Runtime.ActionTargetVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActionTargetVisual.cs:13)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20487,
+          "timestampUtc": "2026-10-14T18:04:59.7981579Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.JourneySession.IsAvailable (Mmorpg.Runtime.JourneyInteractable item) (at Assets/Mmorpg/Runtime/JourneySession.cs:144)\nMmorpg.Runtime.JourneySession.LateUpdate () (at Assets/Mmorpg/Runtime/JourneySession.cs:184)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20488,
+          "timestampUtc": "2026-10-14T18:04:59.7981579Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.JourneySession.IsWeaknessMarked (Mmorpg.Runtime.ActorHealth target) (at Assets/Mmorpg/Runtime/JourneySession.cs:140)\nMmorpg.Runtime.ActionTargetVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActionTargetVisual.cs:13)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20489,
+          "timestampUtc": "2026-10-14T18:04:59.7981579Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActorVisual.cs:33)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20490,
+          "timestampUtc": "2026-10-14T18:04:59.7991583Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActorVisual.cs:33)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20491,
+          "timestampUtc": "2026-10-14T18:04:59.7991583Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActorVisual.cs:33)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20492,
+          "timestampUtc": "2026-10-14T18:04:59.7991583Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.ActorVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActorVisual.cs:33)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20493,
+          "timestampUtc": "2026-10-14T18:04:59.7991583Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.JourneySession.IsWeaknessMarked (Mmorpg.Runtime.ActorHealth target) (at Assets/Mmorpg/Runtime/JourneySession.cs:140)\nMmorpg.Runtime.ActionTargetVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActionTargetVisual.cs:13)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20494,
+          "timestampUtc": "2026-10-14T18:04:59.7991583Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "NullReferenceException: Object reference not set to an instance of an object",
+          "stackTrace": "Mmorpg.Runtime.JourneySession.IsWeaknessMarked (Mmorpg.Runtime.ActorHealth target) (at Assets/Mmorpg/Runtime/JourneySession.cs:140)\nMmorpg.Runtime.ActionTargetVisual.LateUpdate () (at Assets/Mmorpg/Runtime/ActionTargetVisual.cs:13)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "seeded": false
+        },
+        {
+          "seq": 20495,
+          "timestampUtc": "2026-10-14T18:05:01.0146439Z",
+          "level": "error",
+          "logType": "Assert",
+          "message": "CrashReporter::UploadInsightsStackTraceContent should only be called from the main thread",
+          "stackTrace": "\n",
+          "seeded": true
+        },
+        {
+          "seq": 20496,
+          "timestampUtc": "2026-10-14T18:05:01.0146439Z",
+          "level": "error",
+          "logType": "Assert",
+          "message": "CrashReporter::UploadInsightsStackTraceContent should only be called from the main thread",
+          "stackTrace": "\n",
+          "seeded": true
+        },
+        {
+          "seq": 20497,
+          "timestampUtc": "2026-10-14T18:05:01.0146439Z",
+          "level": "error",
+          "logType": "Assert",
+          "message": "CrashReporter::UploadInsightsStackTraceContent should only be called from the main thread",
+          "stackTrace": "\n",
+          "seeded": true
+        }
+      ],
+      "cursor": 20556,
+      "session": "403fa373779c44ccb34bfb5592223b5b",
+      "returned": 100,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 1801,
+        "warn": 194,
+        "log": 5
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-14T19:16:08.8695644Z",
+        "ageMs": 179,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 0,
+        "consoleLogs": 0,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b7ec19d2de6a64c8325048705a3919, type: 3}
+  m_Name: Spider
+  m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.GameplaySpriteSet
+  idle:
+  - {fileID: 21300000, guid: 5f5b3ec27b833cc42ab64a74b94ded5e, type: 3}
+  - {fileID: 21300000, guid: 3d55d7b4525a84d40b40560e37014775, type: 3}
+  - {fileID: 21300000, guid: b8dc17bec4991d24382466e9e0d16968, type: 3}
+  - {fileID: 21300000, guid: 06cad6098e2da4a408ef7a6c36f3cca2, type: 3}
+  walkA:
+  - {fileID: 21300000, guid: 9f14a2c5057810d4b91a24992f2cf6cd, type: 3}
+  - {fileID: 21300000, guid: 9b3bbcfe05c200a4ba265a9518e7e704, type: 3}
+  - {fileID: 21300000, guid: f5caf4bed700fc849b94abf4b9abed83, type: 3}
+  - {fileID: 21300000, guid: f19230a8cbd05654aa20b3d5333c7107, type: 3}
+  walkB:
+  - {fileID: 21300000, guid: 5f5b3ec27b833cc42ab64a74b94ded5e, type: 3}
+  - {fileID: 21300000, guid: 3d55d7b4525a84d40b40560e37014775, type: 3}
+  - {fileID: 21300000, guid: b8dc17bec4991d24382466e9e0d16968, type: 3}
+  - {fileID: 21300000, guid: 06cad6098e2da4a408ef7a6c36f3cca2, type: 3}
+  attackA:
+  - {fileID: 21300000, guid: 9d447dc2aa4dffb4f90b89b02ed190af, type: 3}
+  - {fileID: 21300000, guid: 2c4d13c624b116645a63e476592e4a63, type: 3}
+  - {fileID: 21300000, guid: f0eb0201cca0ae44591a62d4e6d9415d, type: 3}
+  - {fileID: 21300000, guid: f79b1c0f8c644844780e996882582a22, type: 3}
+  attackB:
+  - {fileID: 21300000, guid: 9d447dc2aa4dffb4f90b89b02ed190af, type: 3}
+  - {fileID: 21300000, guid: 2c4d13c624b116645a63e476592e4a63, type: 3}
+  - {fileID: 21300000, guid: f0eb0201cca0ae44591a62d4e6d9415d, type: 3}
+  - {fileID: 21300000, guid: f79b1c0f8c644844780e996882582a22, type: 3}
+  dodge:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hurt:
+  - {fileID: 21300000, guid: 5f359c73c1556fe4195e49fc7f56d804, type: 3}
+  - {fileID: 21300000, guid: 38de6ad94b593b34782dd93ea2c5a97e, type: 3}
+  - {fileID: 21300000, guid: 46189052da7f70a4f8f08a7c7e4ccc97, type: 3}
+  - {fileID: 21300000, guid: 579355e1af54fec499a07f870c894716, type: 3}
+  death: []
+  walkFps: 8
+  hurtSeconds: 0.12
+  deathSeconds: 0.45

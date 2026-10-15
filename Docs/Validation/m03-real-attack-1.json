@@ -1,0 +1,26 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateJevPlay.cs",
+      "entry": "ValidateJevPlay.Attack"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 62,
+      "executeMs": 0,
+      "assemblyName": "PipelineRunScript_ValidateJevPlay_df24ee741182406b9af3d65c502d62e4",
+      "success": true,
+      "result": "accepted=True, wolfHealth=40, frame=4412"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

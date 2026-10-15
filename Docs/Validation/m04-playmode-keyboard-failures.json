@@ -1,0 +1,245 @@
+﻿{
+  "success": true,
+  "command": "command test_status",
+  "data": {
+    "command": "test_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 41.6,
+      "summary": {
+        "total": 31,
+        "passed": 28,
+        "failed": 3,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.ActualCombatProducesFactThenSampleDeliveryUnlocksAndPersists",
+          "Status": "Passed",
+          "Duration": 2.1839985,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.DistanceCannotFabricateInteraction",
+          "Status": "Passed",
+          "Duration": 0.1626658,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.KeyboardInteractsOpensJournalAndNewJourneyResetsPersistentMemory",
+          "Status": "Failed",
+          "Duration": 0.1785903,
+          "Message": "  Expected: True\r\n  But was:  False\r\n",
+          "StackTrace": "at Mmorpg.Tests.JourneySceneTests+<KeyboardInteractsOpensJournalAndNewJourneyResetsPersistentMemory>d__12.MoveNext () [0x00109] in D:\\unity\\Mmorpg\\Assets\\Mmorpg\\Tests\\PlayMode\\JourneySceneTests.cs:101\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.LearnedMarkAppliesBonusOnSuccessfulHitOnlyAndWallsBlockActivation",
+          "Status": "Failed",
+          "Duration": 1.6700024,
+          "Message": "  Expected: \"clearing-wolf-observation\"\r\n  But was:  null\r\n",
+          "StackTrace": "at Mmorpg.Tests.JourneySceneTests+<LearnedMarkAppliesBonusOnSuccessfulHitOnlyAndWallsBlockActivation>d__11.MoveNext () [0x001d7] in D:\\unity\\Mmorpg\\Assets\\Mmorpg\\Tests\\PlayMode\\JourneySceneTests.cs:87\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.SecondRouteAfterMiraOffersNewEncounterAndTrustWithoutDuplicateTechnique",
+          "Status": "Passed",
+          "Duration": 3.0866426,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.TracksAndOrinThenRealCombatCompleteObservationRoute",
+          "Status": "Passed",
+          "Duration": 1.5091536,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.JourneySceneTests.TrainingDummyAcceptsLearnedTechniqueAndRecoversWithoutStoryRewards",
+          "Status": "Passed",
+          "Duration": 5.424185,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.DelayedOldResultDiscardedAfterStateChange",
+          "Status": "Passed",
+          "Duration": 0.192616,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.DeterministicModeNeverCallsHTTP",
+          "Status": "Passed",
+          "Duration": 0.0107719,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.InvalidHTTPAndUnknownChoiceUseFallback",
+          "Status": "Passed",
+          "Duration": 0.0143402,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.LocalContractsRoundTripAndPredefinedDialogue",
+          "Status": "Passed",
+          "Duration": 0.0150711,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.LowConfidenceFallbackAuditSurvivesLocalContractAndPersistence",
+          "Status": "Passed",
+          "Duration": 0.0152343,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.ReplacedJourneyDoesNotApplyResponse",
+          "Status": "Passed",
+          "Duration": 0.0138654,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.SceneWorksWithBackendOffAndJournalReflectsPersistedReaction",
+          "Status": "Passed",
+          "Duration": 2.6583082,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.LocalDecisionTests.TimeoutAndInvalidStatusReturnDeterministic",
+          "Status": "Passed",
+          "Duration": 1.0197052,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.DodgeBlocksWolfDamageThenPlayerCanDie",
+          "Status": "Passed",
+          "Duration": 9.3870838,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.KeyboardMovesAttacksAndDodgesThroughPlayerController",
+          "Status": "Failed",
+          "Duration": 0.219783,
+          "Message": "  Expected: (1.00, 0.00)\r\n  But was:  (0.00, -1.00)\r\n",
+          "StackTrace": "at Mmorpg.Tests.OfflineSceneTests+<KeyboardMovesAttacksAndDodgesThroughPlayerController>d__10.MoveNext () [0x000c8] in D:\\unity\\Mmorpg\\Assets\\Mmorpg\\Tests\\PlayMode\\OfflineSceneTests.cs:102\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.PlayerCanMoveAndCollidesWithRock",
+          "Status": "Passed",
+          "Duration": 1.0675296,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.ThreeAttacksKillWolfAndRestartRestoresActors",
+          "Status": "Passed",
+          "Duration": 1.6675083,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.WallAndFacingBlockMelee",
+          "Status": "Passed",
+          "Duration": 0.608376,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.OfflineSceneTests.WolfPatrolsChasesAndAttacksWithWindup",
+          "Status": "Passed",
+          "Duration": 1.06974,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldDecisionTests.DelayedResultRevalidatesInvalidatedRegion",
+          "Status": "Passed",
+          "Duration": 0.0111065,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldDecisionTests.DeterministicModeUsesNoTransportAndRecordsStableSelection",
+          "Status": "Passed",
+          "Duration": 0.0101748,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldDecisionTests.InvalidChoiceGetsFreshDeterministicFallback",
+          "Status": "Passed",
+          "Duration": 0.0099818,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldDecisionTests.ReplacementSessionDiscardsResult",
+          "Status": "Passed",
+          "Duration": 0.0104164,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldSceneTests.AlertHasRealSourceWaitsThenSurvivesSceneReload",
+          "Status": "Passed",
+          "Duration": 1.6702289,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldSceneTests.ExpiredClueIsUnavailableAndNewJourneyCannotRestoreOldWorld",
+          "Status": "Passed",
+          "Duration": 1.6499394,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldSceneTests.NewThreatRequiresInteractiveClueThenOrinAndPreservesRouteB",
+          "Status": "Passed",
+          "Duration": 1.528078,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldSceneTests.OrdinaryAttackAndDodgeOutsideRangeCannotFabricatePreparedDodge",
+          "Status": "Passed",
+          "Duration": 1.4806492,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldSceneTests.PreparedDodgeAndOptInTrainingRequireActualCombatWithoutAbilityReward",
+          "Status": "Passed",
+          "Duration": 0.7775314,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "Mmorpg.Tests.WorldSceneTests.SceneWorldContinuesWithBackendOffAndPendingSaveReload",
+          "Status": "Passed",
+          "Duration": 2.2298666,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

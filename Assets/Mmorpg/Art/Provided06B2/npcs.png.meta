@@ -1,0 +1,293 @@
+fileFormatVersion: 2
+guid: 32f6036f07ce93041876c472031662d7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2642275806896423663
+    second: npcs_0
+  - first:
+      213: 5457266681764177437
+    second: npcs_1
+  - first:
+      213: 3262412965971147974
+    second: npcs_2
+  - first:
+      213: 8135874698389824847
+    second: npcs_3
+  - first:
+      213: -1164965012157527281
+    second: npcs_4
+  - first:
+      213: 7394394511545753181
+    second: npcs_5
+  - first:
+      213: -6783473528798972689
+    second: npcs_6
+  - first:
+      213: 6571614155993900289
+    second: npcs_7
+  - first:
+      213: -6786165806510226400
+    second: npcs_8
+  - first:
+      213: -8342813545379371696
+    second: npcs_9
+  - first:
+      213: 8277207450301399516
+    second: npcs_10
+  - first:
+      213: -6813857493497873445
+    second: npcs_11
+  - first:
+      213: -9025567069250995770
+    second: npcs_12
+  - first:
+      213: -8280402634457955730
+    second: npcs_13
+  - first:
+      213: -7918863077774050771
+    second: npcs_14
+  - first:
+      213: 2787509001875689082
+    second: npcs_15
+  - first:
+      213: 4825818053551221213
+    second: npcs_16
+  - first:
+      213: 1423248893180003051
+    second: npcs_17
+  - first:
+      213: -788200612804701968
+    second: npcs_18
+  - first:
+      213: 2505352241297877960
+    second: npcs_19
+  - first:
+      213: 73751374426163532
+    second: npcs_20
+  - first:
+      213: 8015259468572042059
+    second: npcs_21
+  - first:
+      213: -338577597832352826
+    second: npcs_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Healer
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 854
+        width: 112
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 660cfccb5fed1a6438df8024218b5214
+      internalID: -762103426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hunter
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 856
+        width: 116
+        height: 190
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9135bcb358f712847863a2c670a3a3e7
+      internalID: 372464028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Smith
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 854
+        width: 153
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dfe886255990644ca696b2c0ab28da4
+      internalID: -755789667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Scholar
+      rect:
+        serializedVersion: 2
+        x: 1090
+        y: 856
+        width: 108
+        height: 190
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81342d5c8e6a1284d832ba8bb980d8e3
+      internalID: 2044055394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 123d1bc1b5abb4340ab6fc4abb44c821
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Healer: -762103426
+      Hunter: 372464028
+      Scholar: 2044055394
+      Smith: -755789667
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

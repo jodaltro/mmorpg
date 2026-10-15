@@ -1,0 +1,34 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.InspectReload"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 134,
+      "executeMs": 21,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_2968756827de4fdda51f20d2e35491fe",
+      "success": true,
+      "result": {
+        "version": 3,
+        "notice": true,
+        "executed": 1,
+        "decisions": 2,
+        "abilities": 1,
+        "dialogue": "Quadro da vila: Mira confirmou resina corrompida. Cuidado com a ameaça na floresta.",
+        "frame": 46575
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

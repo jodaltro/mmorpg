@@ -1,0 +1,27 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ProductionArt06B4.cs",
+      "entry": "ProductionArt06B4.ReimportAndVerify",
+      "timeout_ms": "110000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 195,
+      "executeMs": 20684,
+      "assemblyName": "PipelineRunScript_ProductionArt06B4_812c1b2182ad419191986f20e832e744",
+      "success": true,
+      "result": "Imported 92 existing character drawings with stable SpriteRects, pivots, clips and character sets, plus existing weapon/VFX. No new walk poses claimed. Reimport preserved all 103 existing sprite GUID/local IDs."
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

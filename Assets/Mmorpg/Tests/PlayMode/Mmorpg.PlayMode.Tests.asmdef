@@ -1,0 +1,1 @@
+{"name":"Mmorpg.PlayMode.Tests","references":["Mmorpg.Domain","Mmorpg.Runtime","Unity.InputSystem","Unity.ugui","Unity.TextMeshPro"],"optionalUnityReferences":["TestAssemblies"]}

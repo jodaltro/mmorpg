@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "id": "Props",
+  "ppu": 32,
+  "frames": [
+    {
+      "png": "ArtSource/Environment/Props/frame_000.png",
+      "canvas": [
+        224,
+        224
+      ],
+      "pivot": [
+        112.0,
+        216.0
+      ],
+      "duration": 0.125,
+      "source": "House"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_001.png",
+      "canvas": [
+        224,
+        224
+      ],
+      "pivot": [
+        112.0,
+        216.0
+      ],
+      "duration": 0.125,
+      "source": "Tree"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_002.png",
+      "canvas": [
+        224,
+        224
+      ],
+      "pivot": [
+        112.0,
+        216.0
+      ],
+      "duration": 0.125,
+      "source": "Pine"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_003.png",
+      "canvas": [
+        224,
+        224
+      ],
+      "pivot": [
+        112.0,
+        216.0
+      ],
+      "duration": 0.125,
+      "source": "Rock"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_004.png",
+      "canvas": [
+        224,
+        224
+      ],
+      "pivot": [
+        112.0,
+        216.0
+      ],
+      "duration": 0.125,
+      "source": "Bush"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_005.png",
+      "canvas": [
+        224,
+        224
+      ],
+      "pivot": [
+        112.0,
+        216.0
+      ],
+      "duration": 0.125,
+      "source": "Pillar"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_006.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        72.0
+      ],
+      "duration": 0.125,
+      "source": "Flowers"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_007.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        72.0
+      ],
+      "duration": 0.125,
+      "source": "Stump"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_008.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        72.0
+      ],
+      "duration": 0.125,
+      "source": "Barrel"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_009.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        72.0
+      ],
+      "duration": 0.125,
+      "source": "Sign"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_010.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        72.0
+      ],
+      "duration": 0.125,
+      "source": "Crystal"
+    },
+    {
+      "png": "ArtSource/Environment/Props/frame_011.png",
+      "canvas": [
+        80,
+        80
+      ],
+      "pivot": [
+        40.0,
+        72.0
+      ],
+      "duration": 0.125,
+      "source": "Herb"
+    }
+  ],
+  "status": "existing reviewed props; collision stays at authored root, not sprite bounds"
+}

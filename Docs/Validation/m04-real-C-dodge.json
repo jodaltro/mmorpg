@@ -1,0 +1,30 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.ConfirmRealDodgeAndReport"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 206,
+      "executeMs": 187,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_857e8e9aac4542f0b593d5b5af67d884",
+      "success": true,
+      "result": {
+        "health": 100,
+        "verifiedActions": 1,
+        "pending": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,794 @@
+{
+  "schema": 1,
+  "id": "Golem",
+  "ppu": 32,
+  "coordinates": "pixels, top-left origin; +x right, +y down; pivot/feet/hands in canvas coordinates",
+  "status": "provisional; not production animation approval",
+  "clips": [
+    {
+      "animation": "idle",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/idle/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "b9a14c38316080c004194236972986f69a567d249d085dab5e9319fdc2d2ed7b",
+          "inputSha256": "b9a14c38316080c004194236972986f69a567d249d085dab5e9319fdc2d2ed7b",
+          "source": "Golem_idle_S_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "idle",
+      "direction": "west",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/idle/west/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "3108ffd4158836db16cf95fe9949ed52d15719892c92e9ded0f6ff7f5a84a097",
+          "inputSha256": "3108ffd4158836db16cf95fe9949ed52d15719892c92e9ded0f6ff7f5a84a097",
+          "source": "Golem_idle_W_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "idle",
+      "direction": "north",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/idle/north/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "0c6cf30014757a6a0d6e95956702fd209e683756a236bfc8af6f5f0296a82f33",
+          "inputSha256": "0c6cf30014757a6a0d6e95956702fd209e683756a236bfc8af6f5f0296a82f33",
+          "source": "Golem_idle_N_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "idle",
+      "direction": "east",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/idle/east/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "b42d8c224bed9bdce817e33d010cb5007d2f2db66c00cb0c4ab3bbed79885c66",
+          "inputSha256": "b42d8c224bed9bdce817e33d010cb5007d2f2db66c00cb0c4ab3bbed79885c66",
+          "source": "Golem_idle_E_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/walk/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "4c3496873286fb6e444a06a76c2bda24b2d2d5e6c72c2425fd78f82c52789754",
+          "inputSha256": "4c3496873286fb6e444a06a76c2bda24b2d2d5e6c72c2425fd78f82c52789754",
+          "source": "Golem_walk_S_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "west",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/walk/west/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "a1d29269bda03f74aab76def656e41a1ad75bc073a96447e5fff3f95fc4f164e",
+          "inputSha256": "a1d29269bda03f74aab76def656e41a1ad75bc073a96447e5fff3f95fc4f164e",
+          "source": "Golem_walk_W_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "north",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/walk/north/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "a0bbd6ad6c090aff1add91edc93b1b480593763f83c941c920f27efbc6ceb272",
+          "inputSha256": "a0bbd6ad6c090aff1add91edc93b1b480593763f83c941c920f27efbc6ceb272",
+          "source": "Golem_walk_N_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "walk",
+      "direction": "east",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/walk/east/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "c1da544e558fcc1537e6fe094ed2c1cbe7ab8d871f5b3d92ba662c59752d9228",
+          "inputSha256": "c1da544e558fcc1537e6fe094ed2c1cbe7ab8d871f5b3d92ba662c59752d9228",
+          "source": "Golem_walk_E_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/attack/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "a2c31ba39159ba0bd5383d37d333bbf23c3d9e5ba8ae1013905155d0c2f86b64",
+          "inputSha256": "a2c31ba39159ba0bd5383d37d333bbf23c3d9e5ba8ae1013905155d0c2f86b64",
+          "source": "Golem_attack_S_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "west",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/attack/west/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "a4d674a12f6329578c80e9500c647ddc194d24ce25d4bac890c9d1a9e1a943ca",
+          "inputSha256": "a4d674a12f6329578c80e9500c647ddc194d24ce25d4bac890c9d1a9e1a943ca",
+          "source": "Golem_attack_W_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "north",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/attack/north/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "f03278f2db4899bc552272e51eea05f487ca16bd3a2c0a197044e69f44db0c3e",
+          "inputSha256": "f03278f2db4899bc552272e51eea05f487ca16bd3a2c0a197044e69f44db0c3e",
+          "source": "Golem_attack_N_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "attack",
+      "direction": "east",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/attack/east/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "4bb326da7f9505751151dadaa9c01040f21743387ac023f269ca4576a42dd5be",
+          "inputSha256": "4bb326da7f9505751151dadaa9c01040f21743387ac023f269ca4576a42dd5be",
+          "source": "Golem_attack_E_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "hurt",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/hurt/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "fc755896d9c0e4efa3511c6cbef25a3d40eb8275fc727bccb04f8122feccc227",
+          "inputSha256": "fc755896d9c0e4efa3511c6cbef25a3d40eb8275fc727bccb04f8122feccc227",
+          "source": "Golem_hurt_S_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "hurt",
+      "direction": "west",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/hurt/west/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "099b47abba3157c349dca9d9877d3d187bc2c2eab9397994b9621d0d9f4d7228",
+          "inputSha256": "099b47abba3157c349dca9d9877d3d187bc2c2eab9397994b9621d0d9f4d7228",
+          "source": "Golem_hurt_W_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "hurt",
+      "direction": "north",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/hurt/north/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "edf3717860a9a34e69080f878202871ffc6e54f16986aca30cb5bc57ab838c2d",
+          "inputSha256": "edf3717860a9a34e69080f878202871ffc6e54f16986aca30cb5bc57ab838c2d",
+          "source": "Golem_hurt_N_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "hurt",
+      "direction": "east",
+      "frameCount": 1,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/hurt/east/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "dbb34fba89e5b822e57bbbe9d4cae6a4e96da317f3a722e870e78f5c5f95edca",
+          "inputSha256": "dbb34fba89e5b822e57bbbe9d4cae6a4e96da317f3a722e870e78f5c5f95edca",
+          "source": "Golem_hurt_E_0",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "death",
+      "direction": "south",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/death/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "e8d6f966da87c8c6a008ad89b16f3fb1f45fbe8866cee2c8803e7ad3f4adcee4",
+          "inputSha256": "e8d6f966da87c8c6a008ad89b16f3fb1f45fbe8866cee2c8803e7ad3f4adcee4",
+          "source": "Golem_death_S_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Creatures/Golem/death/south/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "18fe8fe378dd10b3449a25073d3a15239a2df826731ddb455eb85ff4d60fb8fe",
+          "inputSha256": "18fe8fe378dd10b3449a25073d3a15239a2df826731ddb455eb85ff4d60fb8fe",
+          "source": "Golem_death_S_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "death",
+      "direction": "west",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/death/west/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "ddd80367a36c009f01ffc3990db14d41668a63be5a5bf205ca8ae8386559d716",
+          "inputSha256": "ddd80367a36c009f01ffc3990db14d41668a63be5a5bf205ca8ae8386559d716",
+          "source": "Golem_death_W_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Creatures/Golem/death/west/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -155,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "55c07057850f42529aedd6fd64130f7d9880f061f5669d5e464dd6f4743bc3e5",
+          "inputSha256": "55c07057850f42529aedd6fd64130f7d9880f061f5669d5e464dd6f4743bc3e5",
+          "source": "Golem_death_W_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "death",
+      "direction": "north",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/death/north/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "c360ed8e515f585f6e1def975f627a2b8d3235f5d0d1318e3363089ca55e474b",
+          "inputSha256": "c360ed8e515f585f6e1def975f627a2b8d3235f5d0d1318e3363089ca55e474b",
+          "source": "Golem_death_N_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Creatures/Golem/death/north/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": 90,
+          "equipmentDepth": -1,
+          "events": [],
+          "sha256": "f3ad7dfec9aa01ba277403f324a948a4b1b7817b48f5c0f1293eec38581153a4",
+          "inputSha256": "f3ad7dfec9aa01ba277403f324a948a4b1b7817b48f5c0f1293eec38581153a4",
+          "source": "Golem_death_N_1",
+          "retouch": null
+        }
+      ]
+    },
+    {
+      "animation": "death",
+      "direction": "east",
+      "frameCount": 2,
+      "loop": false,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Creatures/Golem/death/east/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "9bf33f955db21719ae7241164363770221e75704c1c794bf667872371808cc9f",
+          "inputSha256": "9bf33f955db21719ae7241164363770221e75704c1c794bf667872371808cc9f",
+          "source": "Golem_death_E_0",
+          "retouch": null
+        },
+        {
+          "png": "ArtSource/Creatures/Golem/death/east/frame_001.png",
+          "duration": 0.125,
+          "canvas": [
+            112,
+            112
+          ],
+          "pivot": [
+            56.0,
+            94.0
+          ],
+          "feet": [
+            56,
+            104
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -25,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "23c3d4c24566d3debbf63ca627babe61509d7866b3bc8a1490eb6cb60b19c916",
+          "inputSha256": "23c3d4c24566d3debbf63ca627babe61509d7866b3bc8a1490eb6cb60b19c916",
+          "source": "Golem_death_E_1",
+          "retouch": null
+        }
+      ]
+    }
+  ],
+  "missing": [
+    "complete directional locomotion and action sequences"
+  ],
+  "groundContact": "feet in each frame; Bat uses suspended body anchor and separate ground shadow",
+  "collider": "existing physical root; never derived from changing frame bounds"
+}

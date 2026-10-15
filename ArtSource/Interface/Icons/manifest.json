@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "id": "Icons",
+  "ppu": 32,
+  "frames": [
+    {
+      "png": "ArtSource/Interface/Icons/frame_000.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_0"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_001.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_1"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_002.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_2"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_003.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_3"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_004.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_4"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_005.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_5"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_006.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_6"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_007.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_7"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_008.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_8"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_009.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_9"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_010.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_10"
+    },
+    {
+      "png": "ArtSource/Interface/Icons/frame_011.png",
+      "canvas": [
+        40,
+        40
+      ],
+      "pivot": [
+        20.0,
+        20.0
+      ],
+      "duration": 0.125,
+      "source": "Icon_11"
+    }
+  ],
+  "status": "existing icons; no automatic HUD replacement"
+}

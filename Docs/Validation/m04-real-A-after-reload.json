@@ -1,0 +1,45 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ValidateWorldEventsPlay.cs",
+      "entry": "ValidateWorldEventsPlay.RealMetrics"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 203,
+      "executeMs": 1,
+      "assemblyName": "PipelineRunScript_ValidateWorldEventsPlay_2ab27a719c7644878007fc2ccc40e0d2",
+      "success": true,
+      "result": {
+        "decisionId": "gen-dec-1791923439-V7G71AcsnAKqGxLzLJwi",
+        "selectedConsequence": "forest-alert",
+        "model": "typesafe/jev-1.13-20260917",
+        "provider": "TypeSafe",
+        "confidence": 0.74,
+        "probabilities": {
+          "forest-alert": 0.87,
+          "none": 0.13
+        },
+        "latencyMs": 696,
+        "usage": {
+          "input_tokens": 917,
+          "output_tokens": 34,
+          "cost": 0.000038514
+        },
+        "opportunities": [],
+        "agenda": 1,
+        "frame": 5859
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

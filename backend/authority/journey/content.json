@@ -1,0 +1,1385 @@
+{
+  "version": 1,
+  "regions": [
+    {
+      "id": "valdoria",
+      "name": "Valdoria",
+      "connections": [
+        "gray-forest",
+        "kharum"
+      ]
+    },
+    {
+      "id": "gray-forest",
+      "name": "Floresta Cinzenta",
+      "connections": [
+        "valdoria",
+        "echo-marsh"
+      ]
+    },
+    {
+      "id": "kharum",
+      "name": "Minas de Kharum",
+      "connections": [
+        "valdoria",
+        "asterion"
+      ]
+    },
+    {
+      "id": "echo-marsh",
+      "name": "Pântano dos Ecos",
+      "connections": [
+        "gray-forest",
+        "asterion"
+      ]
+    },
+    {
+      "id": "asterion",
+      "name": "Ruínas de Asterion",
+      "connections": [
+        "kharum",
+        "echo-marsh"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "id": "weakness-reading",
+      "name": "Leitura de Fraquezas",
+      "effect": "weakness",
+      "cooldown": 0
+    },
+    {
+      "id": "counterattack",
+      "name": "Contra-ataque",
+      "effect": "counter",
+      "cooldown": 2
+    },
+    {
+      "id": "fracturing-strike",
+      "name": "Golpe Fraturante",
+      "effect": "fracture",
+      "cooldown": 3
+    },
+    {
+      "id": "silent-step",
+      "name": "Passo Silencioso",
+      "effect": "stealth",
+      "cooldown": 3
+    },
+    {
+      "id": "toxic-resistance",
+      "name": "Resistência Tóxica",
+      "effect": "toxic",
+      "cooldown": 0
+    },
+    {
+      "id": "extract-essence",
+      "name": "Extrair Essência",
+      "effect": "extract",
+      "cooldown": 0
+    },
+    {
+      "id": "seismic-impact",
+      "name": "Impacto Sísmico",
+      "effect": "seismic",
+      "cooldown": 4
+    },
+    {
+      "id": "hunter-mark",
+      "name": "Marca do Caçador",
+      "effect": "mark",
+      "cooldown": 3
+    },
+    {
+      "id": "alchemical-combustion",
+      "name": "Combustão Alquímica",
+      "effect": "burn",
+      "cooldown": 3
+    },
+    {
+      "id": "reinforced-guard",
+      "name": "Guarda Reforçada",
+      "effect": "guard",
+      "cooldown": 2
+    },
+    {
+      "id": "ancestral-sense",
+      "name": "Sentido Ancestral",
+      "effect": "sense",
+      "cooldown": 0
+    },
+    {
+      "id": "purification",
+      "name": "Purificação",
+      "effect": "purify",
+      "cooldown": 4
+    }
+  ],
+  "items": [
+    {
+      "id": "corruption-sample",
+      "name": "Corruption Sample",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "wolf-fang",
+      "name": "Wolf Fang",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "gray-pelt",
+      "name": "Gray Pelt",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "boar-tusk",
+      "name": "Boar Tusk",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "spider-venom",
+      "name": "Spider Venom",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "bat-wing",
+      "name": "Bat Wing",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "stone-core",
+      "name": "Stone Core",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "crawler-shell",
+      "name": "Crawler Shell",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "echo-essence",
+      "name": "Echo Essence",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "mire-heart",
+      "name": "Mire Heart",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "guardian-fragment",
+      "name": "Guardian Fragment",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "iron-ore",
+      "name": "Iron Ore",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "copper-ore",
+      "name": "Copper Ore",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "quartz",
+      "name": "Quartz",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "sulfur",
+      "name": "Sulfur",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "silver-ore",
+      "name": "Silver Ore",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "basalt",
+      "name": "Basalt",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "salt",
+      "name": "Salt",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "gray-herb",
+      "name": "Gray Herb",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "toxic-reed",
+      "name": "Toxic Reed",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "echo-lotus",
+      "name": "Echo Lotus",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "ember-seed",
+      "name": "Ember Seed",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "pure-water",
+      "name": "Pure Water",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "ancient-moss",
+      "name": "Ancient Moss",
+      "use": "material",
+      "power": 0
+    },
+    {
+      "id": "iron-blade",
+      "name": "Lâmina de Ferro",
+      "use": "equipment",
+      "slot": "weapon",
+      "power": 5
+    },
+    {
+      "id": "reinforced-mail",
+      "name": "Malha Reforçada",
+      "use": "equipment",
+      "slot": "armor",
+      "power": 5
+    },
+    {
+      "id": "mining-pick",
+      "name": "Picareta",
+      "use": "equipment",
+      "slot": "tool",
+      "power": 1
+    },
+    {
+      "id": "alchemist-kit",
+      "name": "Estojo Alquímico",
+      "use": "equipment",
+      "slot": "tool",
+      "power": 1
+    },
+    {
+      "id": "silver-charm",
+      "name": "Amuleto de Prata",
+      "use": "equipment",
+      "slot": "charm",
+      "power": 3
+    },
+    {
+      "id": "hunter-cloak",
+      "name": "Manto do Caçador",
+      "use": "equipment",
+      "slot": "cloak",
+      "power": 1
+    },
+    {
+      "id": "healing-draught",
+      "name": "Infusão Curativa",
+      "use": "heal",
+      "power": 35
+    },
+    {
+      "id": "antidote",
+      "name": "Antídoto",
+      "use": "antidote",
+      "power": 1
+    },
+    {
+      "id": "fire-flask",
+      "name": "Frasco Ígneo",
+      "use": "burn",
+      "power": 12
+    },
+    {
+      "id": "purifier",
+      "name": "Sal Purificador",
+      "use": "purify",
+      "power": 20
+    },
+    {
+      "id": "asterion-glyph",
+      "name": "Asterion Glyph",
+      "use": "evidence",
+      "power": 0
+    },
+    {
+      "id": "miners-seal",
+      "name": "Miners Seal",
+      "use": "evidence",
+      "power": 0
+    },
+    {
+      "id": "historical-fragment",
+      "name": "Historical Fragment",
+      "use": "evidence",
+      "power": 0
+    }
+  ],
+  "creatures": [
+    {
+      "id": "corrupted-wolf",
+      "name": "Lobo Corrompido",
+      "region": "gray-forest",
+      "pattern": "pursuit",
+      "hp": 60,
+      "damage": 15,
+      "loot": {
+        "corruption-sample": 1,
+        "wolf-fang": 2,
+        "gray-pelt": 2
+      },
+      "requires": []
+    },
+    {
+      "id": "thorn-boar",
+      "name": "Javali de Espinhos",
+      "region": "gray-forest",
+      "pattern": "charge",
+      "hp": 75,
+      "damage": 22,
+      "loot": {
+        "boar-tusk": 2
+      },
+      "requires": []
+    },
+    {
+      "id": "venom-spider",
+      "name": "Aranha Tóxica",
+      "region": "echo-marsh",
+      "pattern": "venom",
+      "hp": 45,
+      "damage": 9,
+      "loot": {
+        "spider-venom": 3
+      },
+      "requires": []
+    },
+    {
+      "id": "cave-bat",
+      "name": "Morcego de Cristal",
+      "region": "kharum",
+      "pattern": "flying",
+      "hp": 40,
+      "damage": 8,
+      "loot": {
+        "bat-wing": 3
+      },
+      "requires": []
+    },
+    {
+      "id": "stone-sentinel",
+      "name": "Sentinela de Pedra",
+      "region": "kharum",
+      "pattern": "armored",
+      "hp": 90,
+      "damage": 16,
+      "loot": {
+        "stone-core": 2
+      },
+      "requires": []
+    },
+    {
+      "id": "burrow-crawler",
+      "name": "Rastejante Escavador",
+      "region": "kharum",
+      "pattern": "burrow",
+      "hp": 55,
+      "damage": 12,
+      "loot": {
+        "crawler-shell": 2
+      },
+      "requires": []
+    },
+    {
+      "id": "echo-wisp",
+      "name": "Eco Errante",
+      "region": "echo-marsh",
+      "pattern": "ethereal",
+      "hp": 50,
+      "damage": 11,
+      "loot": {
+        "echo-essence": 2
+      },
+      "requires": []
+    },
+    {
+      "id": "mire-hydra",
+      "name": "Hidra do Lodo",
+      "region": "echo-marsh",
+      "pattern": "regenerate",
+      "hp": 85,
+      "damage": 16,
+      "loot": {
+        "mire-heart": 2
+      },
+      "requires": []
+    },
+    {
+      "id": "asterion-guardian",
+      "name": "Guardião de Asterion",
+      "region": "asterion",
+      "pattern": "shield",
+      "hp": 100,
+      "damage": 18,
+      "loot": {
+        "guardian-fragment": 2
+      },
+      "requires": []
+    }
+  ],
+  "npcs": [
+    {
+      "id": "mira",
+      "name": "Mira",
+      "region": "gray-forest",
+      "role": "pesquisa",
+      "knowledge": [
+        "lore:corruption"
+      ]
+    },
+    {
+      "id": "orin",
+      "name": "Orin",
+      "region": "gray-forest",
+      "role": "caça",
+      "knowledge": [
+        "lore:weakness"
+      ]
+    },
+    {
+      "id": "helena",
+      "name": "Helena",
+      "region": "valdoria",
+      "role": "acolhimento",
+      "knowledge": [
+        "lore:routes"
+      ]
+    },
+    {
+      "id": "brann",
+      "name": "Brann",
+      "region": "valdoria",
+      "role": "forja",
+      "knowledge": [
+        "lore:armor"
+      ]
+    },
+    {
+      "id": "lia",
+      "name": "Lia",
+      "region": "valdoria",
+      "role": "exploração",
+      "knowledge": [
+        "lore:stealth"
+      ]
+    },
+    {
+      "id": "selka",
+      "name": "Selka",
+      "region": "valdoria",
+      "role": "alquimia",
+      "knowledge": [
+        "lore:fire"
+      ]
+    },
+    {
+      "id": "dorin",
+      "name": "Dorin",
+      "region": "kharum",
+      "role": "mineração",
+      "knowledge": [
+        "lore:fracture"
+      ]
+    },
+    {
+      "id": "tessa",
+      "name": "Tessa",
+      "region": "kharum",
+      "role": "arquivo",
+      "knowledge": [
+        "lore:mines"
+      ]
+    },
+    {
+      "id": "nera",
+      "name": "Nera",
+      "region": "echo-marsh",
+      "role": "ervas",
+      "knowledge": [
+        "lore:toxin"
+      ]
+    },
+    {
+      "id": "ivo",
+      "name": "Ivo",
+      "region": "echo-marsh",
+      "role": "travessia",
+      "knowledge": [
+        "lore:marsh"
+      ]
+    },
+    {
+      "id": "soren",
+      "name": "Soren",
+      "region": "asterion",
+      "role": "história",
+      "knowledge": [
+        "lore:asterion"
+      ]
+    },
+    {
+      "id": "enya",
+      "name": "Enya",
+      "region": "asterion",
+      "role": "ecos ancestrais",
+      "knowledge": [
+        "lore:ancestors"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "forest-tracks",
+      "name": "Rastros entre raízes",
+      "region": "gray-forest",
+      "fact": "tracking-confirmed",
+      "items": {},
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "forest-herbs",
+      "name": "Ervas da clareira",
+      "region": "gray-forest",
+      "fact": "discovery:forest-herbs",
+      "items": {
+        "gray-herb": 6,
+        "ember-seed": 4
+      },
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "hidden-grove",
+      "name": "Bosque silencioso",
+      "region": "gray-forest",
+      "fact": "lore:grove",
+      "items": {
+        "ancient-moss": 3
+      },
+      "ability": "silent-step",
+      "requires": []
+    },
+    {
+      "id": "forest-spring",
+      "name": "Fonte da floresta",
+      "region": "gray-forest",
+      "fact": "discovery:forest-spring",
+      "items": {
+        "pure-water": 6
+      },
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "iron-vein",
+      "name": "Veio de ferro",
+      "region": "kharum",
+      "fact": "discovery:iron-vein",
+      "items": {
+        "iron-ore": 6,
+        "coal": 6
+      },
+      "ability": "",
+      "requires": [
+        "done:mining-tools"
+      ]
+    },
+    {
+      "id": "copper-vein",
+      "name": "Veio de cobre",
+      "region": "kharum",
+      "fact": "discovery:copper-vein",
+      "items": {
+        "copper-ore": 4,
+        "sulfur": 4
+      },
+      "ability": "",
+      "requires": [
+        "done:mining-tools"
+      ]
+    },
+    {
+      "id": "crystal-seam",
+      "name": "Fratura cristalina",
+      "region": "kharum",
+      "fact": "discovery:crystal-seam",
+      "items": {
+        "quartz": 6,
+        "basalt": 4
+      },
+      "ability": "fracturing-strike",
+      "requires": []
+    },
+    {
+      "id": "silver-seam",
+      "name": "Veio de prata",
+      "region": "kharum",
+      "fact": "discovery:silver-seam",
+      "items": {
+        "silver-ore": 4
+      },
+      "ability": "seismic-impact",
+      "requires": []
+    },
+    {
+      "id": "miners-record",
+      "name": "Registro soterrado",
+      "region": "kharum",
+      "fact": "lore:miners-seal",
+      "items": {
+        "miners-seal": 2
+      },
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "marsh-reeds",
+      "name": "Juncos tóxicos",
+      "region": "echo-marsh",
+      "fact": "discovery:marsh-reeds",
+      "items": {
+        "toxic-reed": 6,
+        "salt": 4
+      },
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "echo-lotus",
+      "name": "Lótus dos ecos",
+      "region": "echo-marsh",
+      "fact": "lore:lotus",
+      "items": {
+        "echo-lotus": 4
+      },
+      "ability": "toxic-resistance",
+      "requires": []
+    },
+    {
+      "id": "marsh-memory",
+      "name": "Memória do pântano",
+      "region": "echo-marsh",
+      "fact": "lore:marsh-memory",
+      "items": {
+        "historical-fragment": 2
+      },
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "ancestral-glyph",
+      "name": "Glifo de Asterion",
+      "region": "asterion",
+      "fact": "lore:glyph",
+      "items": {
+        "asterion-glyph": 2
+      },
+      "ability": "ancestral-sense",
+      "requires": []
+    },
+    {
+      "id": "ruins-inscription",
+      "name": "Inscrição das ruínas",
+      "region": "asterion",
+      "fact": "lore:inscription",
+      "items": {},
+      "ability": "",
+      "requires": []
+    },
+    {
+      "id": "echo-extraction",
+      "name": "Essência estabilizada",
+      "region": "echo-marsh",
+      "fact": "discovery:echo-extraction",
+      "items": {
+        "echo-essence": 2
+      },
+      "ability": "extract-essence",
+      "requires": [
+        "defeat:echo-wisp"
+      ]
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "forest-sample",
+      "name": "Amostra para Mira",
+      "theme": "forest",
+      "region": "gray-forest",
+      "npc": "mira",
+      "requires": [
+        "talk:mira"
+      ],
+      "excludes": [],
+      "costs": {
+        "corruption-sample": 1
+      },
+      "rewards": {},
+      "ability": "weakness-reading",
+      "fact": "investigation-confirmed",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "forest-observation",
+      "name": "Observar a caçada",
+      "theme": "forest",
+      "region": "gray-forest",
+      "npc": "orin",
+      "requires": [
+        "tracking-confirmed",
+        "defeat:corrupted-wolf",
+        "talk:orin"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "weakness-reading",
+      "fact": "consequence:forest-observation",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "hunter-mark-training",
+      "name": "Leitura do rastro",
+      "theme": "forest",
+      "region": "gray-forest",
+      "npc": "orin",
+      "requires": [
+        "tracking-confirmed",
+        "talk:orin"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "hunter-mark",
+      "fact": "consequence:hunter-mark-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "silent-grove-route",
+      "name": "Contornar as raízes",
+      "theme": "forest",
+      "region": "valdoria",
+      "npc": "lia",
+      "requires": [
+        "visited:gray-forest",
+        "talk:lia"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "silent-step",
+      "fact": "consequence:silent-grove-route",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "silent-marsh-route",
+      "name": "Travessia dos juncos",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "ivo",
+      "requires": [
+        "lore:marsh-memory",
+        "talk:ivo"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "silent-step",
+      "fact": "consequence:silent-marsh-route",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "counter-training",
+      "name": "Resposta ao preparo",
+      "theme": "forest",
+      "region": "valdoria",
+      "npc": "brann",
+      "requires": [
+        "practice:dodge",
+        "talk:brann"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "counterattack",
+      "fact": "consequence:counter-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "guard-training",
+      "name": "Defender o impacto",
+      "theme": "mines",
+      "region": "valdoria",
+      "npc": "brann",
+      "requires": [
+        "practice:guard",
+        "talk:brann"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "reinforced-guard",
+      "fact": "consequence:guard-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "mining-tools",
+      "name": "Ferramentas de Kharum",
+      "theme": "mines",
+      "region": "kharum",
+      "npc": "dorin",
+      "requires": [
+        "talk:dorin"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {
+        "mining-pick": 1
+      },
+      "ability": "",
+      "fact": "consequence:mining-tools",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "fracture-training",
+      "name": "Fraturar sem esmagar",
+      "theme": "mines",
+      "region": "kharum",
+      "npc": "dorin",
+      "requires": [
+        "done:mining-tools",
+        "talk:dorin"
+      ],
+      "excludes": [],
+      "costs": {
+        "iron-ore": 1
+      },
+      "rewards": {},
+      "ability": "fracturing-strike",
+      "fact": "consequence:fracture-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "seismic-training",
+      "name": "Vibração das camadas",
+      "theme": "mines",
+      "region": "kharum",
+      "npc": "dorin",
+      "requires": [
+        "discovery:crystal-seam",
+        "talk:dorin"
+      ],
+      "excludes": [],
+      "costs": {
+        "basalt": 1
+      },
+      "rewards": {},
+      "ability": "seismic-impact",
+      "fact": "consequence:seismic-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "seismic-combat-route",
+      "name": "Aprender com a sentinela",
+      "theme": "mines",
+      "region": "kharum",
+      "npc": "tessa",
+      "requires": [
+        "defeat:stone-sentinel",
+        "talk:tessa"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "seismic-impact",
+      "fact": "consequence:seismic-combat-route",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "toxin-study",
+      "name": "Estudar o veneno",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "nera",
+      "requires": [
+        "talk:nera"
+      ],
+      "excludes": [],
+      "costs": {
+        "toxic-reed": 2
+      },
+      "rewards": {},
+      "ability": "toxic-resistance",
+      "fact": "consequence:toxin-study",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "toxin-combat-route",
+      "name": "Sobreviver à aranha",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "nera",
+      "requires": [
+        "defeat:venom-spider",
+        "talk:nera"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "toxic-resistance",
+      "fact": "consequence:toxin-combat-route",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "essence-research",
+      "name": "Estabilizar a corrupção",
+      "theme": "forest",
+      "region": "gray-forest",
+      "npc": "mira",
+      "requires": [
+        "investigation-confirmed",
+        "talk:mira"
+      ],
+      "excludes": [],
+      "costs": {
+        "gray-herb": 1
+      },
+      "rewards": {},
+      "ability": "extract-essence",
+      "fact": "consequence:essence-research",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "essence-marsh-route",
+      "name": "Ouvir a matéria",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "ivo",
+      "requires": [
+        "defeat:echo-wisp",
+        "talk:ivo"
+      ],
+      "excludes": [],
+      "costs": {
+        "echo-lotus": 1
+      },
+      "rewards": {},
+      "ability": "extract-essence",
+      "fact": "consequence:essence-marsh-route",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "combustion-training",
+      "name": "Combustão controlada",
+      "theme": "forest",
+      "region": "valdoria",
+      "npc": "selka",
+      "requires": [
+        "talk:selka"
+      ],
+      "excludes": [],
+      "costs": {
+        "sulfur": 1,
+        "ember-seed": 1
+      },
+      "rewards": {
+        "alchemist-kit": 1
+      },
+      "ability": "alchemical-combustion",
+      "fact": "consequence:combustion-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "ancestral-study",
+      "name": "Reconhecer os ecos",
+      "theme": "asterion",
+      "region": "asterion",
+      "npc": "enya",
+      "requires": [
+        "lore:inscription",
+        "lore:marsh-memory",
+        "talk:enya"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "ancestral-sense",
+      "fact": "consequence:ancestral-study",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "ancestral-mines-route",
+      "name": "Comparar os registros",
+      "theme": "asterion",
+      "region": "asterion",
+      "npc": "soren",
+      "requires": [
+        "lore:miners-seal",
+        "talk:soren"
+      ],
+      "excludes": [],
+      "costs": {
+        "miners-seal": 1
+      },
+      "rewards": {},
+      "ability": "ancestral-sense",
+      "fact": "consequence:ancestral-mines-route",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "purification-training",
+      "name": "Purificar as águas",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "nera",
+      "requires": [
+        "lore:corruption",
+        "lore:lotus",
+        "talk:nera"
+      ],
+      "excludes": [],
+      "costs": {
+        "salt": 1,
+        "pure-water": 1
+      },
+      "rewards": {},
+      "ability": "purification",
+      "fact": "consequence:purification-training",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "forge-blade",
+      "name": "Forjar lâmina",
+      "theme": "mines",
+      "region": "valdoria",
+      "npc": "brann",
+      "requires": [
+        "talk:brann"
+      ],
+      "excludes": [],
+      "costs": {
+        "iron-ore": 2,
+        "wolf-fang": 1,
+        "coal": 1
+      },
+      "rewards": {
+        "iron-blade": 1
+      },
+      "ability": "",
+      "fact": "consequence:forge-blade",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "forge-mail",
+      "name": "Forjar malha",
+      "theme": "mines",
+      "region": "valdoria",
+      "npc": "brann",
+      "requires": [
+        "talk:brann"
+      ],
+      "excludes": [],
+      "costs": {
+        "copper-ore": 2,
+        "crawler-shell": 1,
+        "coal": 1
+      },
+      "rewards": {
+        "reinforced-mail": 1
+      },
+      "ability": "",
+      "fact": "consequence:forge-mail",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "weave-cloak",
+      "name": "Costurar manto",
+      "theme": "forest",
+      "region": "valdoria",
+      "npc": "lia",
+      "requires": [
+        "talk:lia"
+      ],
+      "excludes": [],
+      "costs": {
+        "gray-pelt": 1,
+        "boar-tusk": 1,
+        "bat-wing": 1
+      },
+      "rewards": {
+        "hunter-cloak": 1
+      },
+      "ability": "",
+      "fact": "consequence:weave-cloak",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "silver-ward",
+      "name": "Amuleto ressonante",
+      "theme": "asterion",
+      "region": "asterion",
+      "npc": "enya",
+      "requires": [
+        "talk:enya"
+      ],
+      "excludes": [],
+      "costs": {
+        "silver-ore": 1,
+        "quartz": 1,
+        "stone-core": 1
+      },
+      "rewards": {
+        "silver-charm": 1
+      },
+      "ability": "",
+      "fact": "consequence:silver-ward",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "brew-healing",
+      "name": "Preparar infusões",
+      "theme": "forest",
+      "region": "valdoria",
+      "npc": "helena",
+      "requires": [
+        "talk:helena"
+      ],
+      "excludes": [],
+      "costs": {
+        "gray-herb": 2,
+        "pure-water": 1
+      },
+      "rewards": {
+        "healing-draught": 3
+      },
+      "ability": "",
+      "fact": "consequence:brew-healing",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "brew-antidote",
+      "name": "Preparar antídotos",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "nera",
+      "requires": [
+        "talk:nera"
+      ],
+      "excludes": [],
+      "costs": {
+        "spider-venom": 1,
+        "toxic-reed": 1,
+        "pure-water": 1
+      },
+      "rewards": {
+        "antidote": 3
+      },
+      "ability": "",
+      "fact": "consequence:brew-antidote",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "brew-fire",
+      "name": "Preparar frascos ígneos",
+      "theme": "forest",
+      "region": "valdoria",
+      "npc": "selka",
+      "requires": [
+        "talk:selka"
+      ],
+      "excludes": [],
+      "costs": {
+        "sulfur": 1,
+        "ember-seed": 1,
+        "bat-wing": 1
+      },
+      "rewards": {
+        "fire-flask": 3
+      },
+      "ability": "",
+      "fact": "consequence:brew-fire",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "brew-purifier",
+      "name": "Preparar sais",
+      "theme": "swamp",
+      "region": "echo-marsh",
+      "npc": "nera",
+      "requires": [
+        "talk:nera"
+      ],
+      "excludes": [],
+      "costs": {
+        "echo-lotus": 1,
+        "salt": 1,
+        "echo-essence": 1
+      },
+      "rewards": {
+        "purifier": 3
+      },
+      "ability": "",
+      "fact": "consequence:brew-purifier",
+      "shared": false,
+      "after": 0
+    },
+    {
+      "id": "forest-restoration",
+      "name": "Memória contra corrupção",
+      "theme": "forest",
+      "region": "gray-forest",
+      "npc": "mira",
+      "requires": [
+        "lore:marsh-memory",
+        "talk:mira"
+      ],
+      "excludes": [],
+      "costs": {
+        "purifier": 1,
+        "ancient-moss": 1
+      },
+      "rewards": {},
+      "ability": "",
+      "fact": "region:forest-restored",
+      "shared": true,
+      "after": 0
+    },
+    {
+      "id": "mines-awakening",
+      "name": "Despertar a ressonância",
+      "theme": "mines",
+      "region": "kharum",
+      "npc": "tessa",
+      "requires": [
+        "defeat:stone-sentinel",
+        "talk:tessa"
+      ],
+      "excludes": [],
+      "costs": {
+        "stone-core": 1,
+        "mire-heart": 1
+      },
+      "rewards": {},
+      "ability": "",
+      "fact": "region:mines-awakened",
+      "shared": true,
+      "after": 2
+    },
+    {
+      "id": "asterion-beacon",
+      "name": "Acender o farol de Asterion",
+      "theme": "asterion",
+      "region": "asterion",
+      "npc": "soren",
+      "requires": [
+        "lore:glyph",
+        "lore:marsh-memory",
+        "talk:soren"
+      ],
+      "excludes": [],
+      "costs": {
+        "asterion-glyph": 1,
+        "historical-fragment": 1,
+        "guardian-fragment": 1,
+        "echo-essence": 1
+      },
+      "rewards": {},
+      "ability": "",
+      "fact": "world:asterion-beacon",
+      "shared": true,
+      "after": 0
+    },
+    {
+      "id": "beacon-attunement",
+      "name": "Ouvir o farol compartilhado",
+      "theme": "asterion",
+      "region": "asterion",
+      "npc": "enya",
+      "requires": [
+        "world:asterion-beacon",
+        "talk:enya"
+      ],
+      "excludes": [],
+      "costs": {},
+      "rewards": {},
+      "ability": "ancestral-sense",
+      "fact": "consequence:beacon-attunement",
+      "shared": false,
+      "after": 0
+    }
+  ]
+}

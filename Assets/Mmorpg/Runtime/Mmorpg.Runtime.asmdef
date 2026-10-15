@@ -1,0 +1,1 @@
+{"name":"Mmorpg.Runtime","rootNamespace":"Mmorpg.Runtime","references":["Mmorpg.Domain","Unity.InputSystem","Unity.ugui","Unity.TextMeshPro","Unity.Newtonsoft.Json","Unity.RenderPipelines.Universal.2D.Runtime"]}

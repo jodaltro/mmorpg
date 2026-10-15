@@ -1,0 +1,26 @@
+﻿{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectArt06B3.cs",
+      "entry": "InspectArt06B3.Cleanup"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 144,
+      "executeMs": 1,
+      "assemblyName": "PipelineRunScript_InspectArt06B3_41fd8bba54764b189a3b60d79492fe81",
+      "success": true,
+      "result": "Input, Editor settings and persistence restored; user saves untouched."
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

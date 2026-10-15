@@ -1,0 +1,286 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5911f484a17cee43bd60a2df9348d6d, type: 3}
+  m_Name: Golem
+  m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.ProductionCharacterSet
+  characterId: Golem
+  pixelsPerUnit: 32
+  referenceSpeed: 3.5
+  clips:
+  - action: idle
+    status: provisional-native-poses
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: 1075562259, guid: 9711fa3a730100840a4e0a50852413de, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Golem_idle_S_0
+      events: []
+  - action: idle
+    status: provisional-native-poses
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: 1192173179, guid: 1d7cbed55b863714b98cdb100de4ccd0, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Golem_idle_W_0
+      events: []
+  - action: idle
+    status: provisional-native-poses
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: 1906372079, guid: fa306a6ce2e979844983da8487611a4a, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Golem_idle_N_0
+      events: []
+  - action: idle
+    status: provisional-native-poses
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: 1127491333, guid: 66e9a23e3f037434cb05061fe5b33ea9, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Golem_idle_E_0
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: 634542907, guid: db903bec78aba9b4b96d32f346d7159c, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Golem_walk_S_0
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: 1071940175, guid: 5c36f48946a5eab4db59d2c6d0771ab4, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Golem_walk_W_0
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: -249669068, guid: 0f80f1a59bebdb148a111a6fd2bf175b, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Golem_walk_N_0
+      events: []
+  - action: walk
+    status: provisional-native-poses
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: -1959139626, guid: 8849179f9f0caa24c9afe771f6418923, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Golem_walk_E_0
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: 2084948812, guid: 39a1cff687fefd345bd9eb70879612eb, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Golem_attack_S_0
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: 1747380656, guid: 4323c45635027724f80bb2ef0209b7d0, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Golem_attack_W_0
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: -596352213, guid: 2ad5a2a6f7204f5499c211669daf3e8d, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Golem_attack_N_0
+      events: []
+  - action: attack
+    status: provisional-native-poses
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: -1374125642, guid: 31075deb142776844a62d68351dbd570, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Golem_attack_E_0
+      events: []
+  - action: hurt
+    status: provisional-native-poses
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: -1103342260, guid: c5e6dcf1fc2df594e8bd72022b097681, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Golem_hurt_S_0
+      events: []
+  - action: hurt
+    status: provisional-native-poses
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: -389754805, guid: 5f9acddf83e97764182000f0fdd23187, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Golem_hurt_W_0
+      events: []
+  - action: hurt
+    status: provisional-native-poses
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: 771032862, guid: d522615f750b551459dc59edd448d976, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Golem_hurt_N_0
+      events: []
+  - action: hurt
+    status: provisional-native-poses
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: 862165483, guid: 7a06ca327d9de634bb313994194ee7bf, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Golem_hurt_E_0
+      events: []
+  - action: death
+    status: provisional-native-poses
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: 1911590692, guid: 54275e946bd7dbe40a738c5c0f548657, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Golem_death_S_0
+      events: []
+    - sprite: {fileID: -1075152339, guid: 17cbf96139070f74dad11b069ec3c5cb, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -135
+      depth: 1
+      source: Golem_death_S_1
+      events: []
+  - action: death
+    status: provisional-native-poses
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: -327326862, guid: 5ac96ecbd08b46c4cbe9ff4b0f04bca7, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Golem_death_W_0
+      events: []
+    - sprite: {fileID: -976205334, guid: 1af0b4406accda940ab226173b9fef23, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -155
+      depth: 1
+      source: Golem_death_W_1
+      events: []
+  - action: death
+    status: provisional-native-poses
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: -1915621367, guid: a2b4cf8e1ed93374ea993ecec880c4a8, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Golem_death_N_0
+      events: []
+    - sprite: {fileID: -31591466, guid: 47085ac24d42f2c41bad47a710fad5e5, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 90
+      depth: -1
+      source: Golem_death_N_1
+      events: []
+  - action: death
+    status: provisional-native-poses
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: 1558970427, guid: 922cb8ad935f49c4ab4c6cb677d17c70, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Golem_death_E_0
+      events: []
+    - sprite: {fileID: -384089600, guid: 52444d974f3a02d45a3e75e8c47a5f7c, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: -25
+      depth: 1
+      source: Golem_death_E_1
+      events: []

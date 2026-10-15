@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-14 / 2026-10-15 UTC",
+  "scene": "Assets/Mmorpg/Scenes/Marco06B3Art.unity",
+  "actors": {
+    "Hero": "gameplay-reviewed-limited-native-poses",
+    "Wolf": "gameplay-reviewed-limited-native-poses",
+    "Healer": "static-in-scene-reviewed",
+    "Hunter": "static-in-scene-reviewed",
+    "Smith": "static-source-reviewed",
+    "Scholar": "static-source-reviewed",
+    "Environment": "initial-pocket-reviewed-other-biomes-not-walked",
+    "VFX": "confirmed-state-wiring-reviewed",
+    "UI": "in-scene-reviewed",
+    "Spider": "prepared-needs-direction-and-sequence-review",
+    "Golem": "prepared-needs-direction-and-sequence-review",
+    "Bat": "two-front-poses-preview-only-no-gameplay"
+  },
+  "limitations": "Hero body attack stances substitute incompatible native arms; two-pose walk; no native hero hurt/death sequence; wolf north attack fallback and procedural death fade. See Docs/Validation/Marco06B3.md."
+}

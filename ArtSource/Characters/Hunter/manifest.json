@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "Hunter",
+  "ppu": 32,
+  "coordinates": "pixels, top-left origin; +x right, +y down; pivot/feet/hands in canvas coordinates",
+  "status": "provisional; not production animation approval",
+  "clips": [
+    {
+      "animation": "idle",
+      "direction": "south",
+      "frameCount": 1,
+      "loop": true,
+      "status": "provisional-native-poses",
+      "frames": [
+        {
+          "png": "ArtSource/Characters/Hunter/idle/south/frame_000.png",
+          "duration": 0.125,
+          "canvas": [
+            80,
+            80
+          ],
+          "pivot": [
+            40.0,
+            54.0
+          ],
+          "feet": [
+            40,
+            72
+          ],
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "9d258c5ba54a74c6a346246b679066f5f4d5983fe0cacf1f73ba48766ead0389",
+          "inputSha256": "9d258c5ba54a74c6a346246b679066f5f4d5983fe0cacf1f73ba48766ead0389",
+          "source": "Hunter_idle_S_0",
+          "retouch": null
+        }
+      ]
+    }
+  ],
+  "missing": [
+    "complete directional locomotion and action sequences"
+  ],
+  "groundContact": "feet in each frame; Bat uses suspended body anchor and separate ground shadow",
+  "collider": "existing physical root; never derived from changing frame bounds"
+}
