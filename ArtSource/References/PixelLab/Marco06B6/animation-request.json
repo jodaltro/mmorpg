@@ -1,0 +1,22 @@
+{
+  "tool": "mcp__pixellab__animate_character",
+  "args": {
+    "character_id": "f104ef15-9fad-4dce-8cfd-215cec6f8763",
+    "directions": [
+      "south"
+    ],
+    "template_animation_id": "walking-8-frames",
+    "mode": "template",
+    "ai_freedom": 0,
+    "animation_name": "Mmorpg_Hero_Walk_South"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "character: f104ef15-9fad-4dce-8cfd-215cec6f8763\nanimation: walking-8-frames\nmode: template\ndirections: south (1 jobs)\njob_ids: south=2be84341-e0db-4828-a3dc-b7c8f35149dc\ngroup: 1248e95a-cf6a-4155-bb66-2798c829916f\ncost: 1 generation (1/dir x 1)\neta: ~2-4 min\nadd more directions to this group: animate_character(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\", template_animation_id=\"walking-8-frames\", animation_group_id=\"1248e95a-cf6a-4155-bb66-2798c829916f\", directions=[...])\n\nhint: get_character(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\")\nif poor: delete_animation(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\", animation_type=\"...\") then retry with mode=\"v3\""
+      }
+    ],
+    "isError": false
+  }
+}

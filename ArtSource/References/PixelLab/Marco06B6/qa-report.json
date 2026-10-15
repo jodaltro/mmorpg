@@ -1,0 +1,185 @@
+{
+  "status": "rejected artistically; not imported",
+  "frames": [
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_000.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        34,
+        24,
+        63,
+        76
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "9b380589cac03568dad60c992a8f314155461a07837955d2027c8676c4c6fae7",
+      "rgbaSha256": "5ceeb22c59248d593bdf67aced11338f5f6ca6349ea22855d02c6f6a8f3c9872"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_001.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        34,
+        24,
+        63,
+        76
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "128a53dc26fc7b4fc17bbae45c6d29306ff220126237a1f2c92230ca2c60759a",
+      "rgbaSha256": "0893b916af319b23e6c3216bfdd7d99971493c703629c686b0dcf0997d48ab1a"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_002.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        34,
+        24,
+        63,
+        75
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "5a10795db640bfb7e976f3be3dc447cddce7c676a4581e94871586eb2cc1ab2d",
+      "rgbaSha256": "291a43bdbe46e577b1732db1cc416b24421ac4bd25bb52ef53ce6eeb6ac4191a"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_003.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        33,
+        24,
+        62,
+        77
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0df6cfd5f89d167b0dbf14a7d521eaf570bd251c1569831d031ec783705dd34b",
+      "rgbaSha256": "6aeb7c685474388019278c3d276941f65bea20f4c30d129e03b722147ae91cbe"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_004.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        32,
+        24,
+        63,
+        77
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "a1d1ad0204f21f66d8435eee5ff87be4da003ee9e3c4267536447d1aa7aa6daa",
+      "rgbaSha256": "2cbcfbd2d068feb4ca3f5d48ede0f423ad648e93ca0e78b93c0eb4c831f78079"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_005.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        34,
+        24,
+        63,
+        76
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0be184b1c786119fce6d11868fac816c0477b1b9b8629963449cc311c46412d5",
+      "rgbaSha256": "7449adbd500280b3a5dceae51b452a959f006eaf6b93b197c51bc7abc7315e79"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_006.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        34,
+        24,
+        63,
+        77
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "1caafac2ba17955a6e15a7008ab32514de898c0f7dc48e4679c328ece2a52bd3",
+      "rgbaSha256": "7dd3120fe7304b1f5aa6e7cb091d232a43839d88710e4fde5afbb84e4a9916c9"
+    },
+    {
+      "file": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_007.png",
+      "canvas": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "bounds": [
+        34,
+        24,
+        63,
+        75
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "4d3b15b14c306a4a2b246e176c7789cc61a532d65640158c2627b25ccda5f273",
+      "rgbaSha256": "6cb53876441056b4d1699f748a8036cfcba7b7b6649ea7ecc7cd8e799f88c2ce"
+    }
+  ],
+  "distinctRGBA": 8,
+  "referencePixelsIdentical": false,
+  "previewScale": 4,
+  "interpolation": "nearest only; no synthesized frames",
+  "durationMs": 90,
+  "comparisonCycleMs": 720,
+  "cyclesEncoded": 2,
+  "canvasAlignment": "fixed translation (0,+12) of all new frames for ground comparison; no scale or per-frame correction",
+  "oldNativeFrameMs": 125,
+  "oldComparisonFrameMs": 360,
+  "notes": "Old cycle slowed to match full cycle length for pose comparison; this is source-art evidence, not captured gameplay.",
+  "artisticReview": {
+    "identity": "Palette/outfit recognizable; temporal identity fails at frame 006 (face missing, back-of-head appearance).",
+    "feet": "Forward-foot reversal occurs around 004->005, but contact/absorption/passing/lift phases are not reliably distinct. No eight-phase approval.",
+    "arms": "No reliable continuous anatomical right-hand grip; light blade-like artifacts around right hand at 004 and right boot at 006.",
+    "scale": "Visible height 51-53 px vs original idle 50 px; no rescale needed. Original animation is translated upward in canvas.",
+    "cape": "Recognizable blue, but pose silhouettes repeat and cloth is stiff.",
+    "loop": "007->000 visibly changes leading leg and silhouette; head/face discontinuity 005->006->007 is unacceptable.",
+    "verdict": "Not better enough to replace original; artistic defects cannot be solved by padding/pivots."
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-15",
+  "budget": 12,
+  "balanceInitial": {
+    "creditsUSD": 0,
+    "remaining": 40,
+    "used": 0,
+    "dailyBonus": 5,
+    "subscription": "trial"
+  },
+  "existingCharacters": 0,
+  "characterId": "f104ef15-9fad-4dce-8cfd-215cec6f8763",
+  "operations": [
+    {
+      "tool": "mcp__pixellab__create_character",
+      "args": {
+        "mode": "v3",
+        "n_directions": 4,
+        "name": "Mmorpg_Hero_Master",
+        "reference_image_url": "https://raw.githubusercontent.com/jodaltro/mmorpg/main/ArtSource/Characters/Hero/idle/south/frame_000.png",
+        "view": "low top-down",
+        "description": "Preserve this exact medieval fantasy RPG swordsman identity and pixel density: brown hair, blue tunic and blue cape, silver grey metal shoulder armour, brown leather gloves and boots, belt. Low top-down 3/4 camera, facing straight toward viewer in south. Unarmed body only, no sword or weapons, anatomical right gloved hand visible for separate sword attachment. Same proportions, silhouette, palette and outfit as reference."
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: f104ef15-9fad-4dce-8cfd-215cec6f8763\nname: Mmorpg_Hero_Master\nmode: v3 reference (2 generations, 4 directions)\nbody: humanoid\nsize: 96x96px\nview: low top-down\nstyle: from reference image (outline/detail hints ignored)\nstatus: processing (~3-5 min)\n\nhint: get_character(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\")"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "tool": "mcp__pixellab__animate_character",
+      "args": {
+        "character_id": "f104ef15-9fad-4dce-8cfd-215cec6f8763",
+        "directions": [
+          "south"
+        ],
+        "template_animation_id": "walking-8-frames",
+        "mode": "template",
+        "ai_freedom": 0,
+        "animation_name": "Mmorpg_Hero_Walk_South"
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "character: f104ef15-9fad-4dce-8cfd-215cec6f8763\nanimation: walking-8-frames\nmode: template\ndirections: south (1 jobs)\njob_ids: south=2be84341-e0db-4828-a3dc-b7c8f35149dc\ngroup: 1248e95a-cf6a-4155-bb66-2798c829916f\ncost: 1 generation (1/dir x 1)\neta: ~2-4 min\nadd more directions to this group: animate_character(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\", template_animation_id=\"walking-8-frames\", animation_group_id=\"1248e95a-cf6a-4155-bb66-2798c829916f\", directions=[...])\n\nhint: get_character(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\")\nif poor: delete_animation(character_id=\"f104ef15-9fad-4dce-8cfd-215cec6f8763\", animation_type=\"...\") then retry with mode=\"v3\""
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "characterJobId": "9649cdab-cbd2-4e3f-b0a8-8793d766748f",
+  "balanceAfterCharacter": {
+    "remaining": 38,
+    "used": 2,
+    "creditsUSD": 0
+  },
+  "characterReview": {
+    "south": "accepted for south-only experiment; original identity retained",
+    "westNorthEast": "rejected: embedded swords; never integrate"
+  },
+  "southReferenceExactBytes": false,
+  "balanceFinal": {
+    "creditsUSD": 0,
+    "remaining": 37,
+    "used": 3,
+    "dailyBonus": 2
+  },
+  "consumedThisRun": 3,
+  "budgetRemaining": 9,
+  "animationJobId": "2be84341-e0db-4828-a3dc-b7c8f35149dc",
+  "animationId": "5a687413-25fb-4333-bc84-2a890ef911ea",
+  "animationGroupId": "1248e95a-cf6a-4155-bb66-2798c829916f",
+  "status": "completed generation; rejected artistically; no retry; not integrated",
+  "downloadedFiles": [
+    "generation-log.json",
+    "animation-request.json",
+    "qa-report.json",
+    "character-result.json",
+    "character/original.zip",
+    "previews/rotations.png",
+    "previews/walk-south-contact-sheet.png",
+    "previews/walk-south-two-cycles.gif",
+    "previews/old-vs-pixellab-two-cycles.gif",
+    "previews/old-vs-pixellab.png",
+    "walk_south/original.zip",
+    "walk_south/original/metadata.json",
+    "walk_south/original/Idle/rotations/south.png",
+    "walk_south/original/Idle/rotations/west.png",
+    "walk_south/original/Idle/rotations/east.png",
+    "walk_south/original/Idle/rotations/north.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_000.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_001.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_002.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_003.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_004.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_005.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_006.png",
+    "walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_007.png",
+    "previews/individual/frame_000.png",
+    "previews/individual/frame_001.png",
+    "previews/individual/frame_002.png",
+    "previews/individual/frame_003.png",
+    "previews/individual/frame_004.png",
+    "previews/individual/frame_005.png",
+    "previews/individual/frame_006.png",
+    "previews/individual/frame_007.png",
+    "character/original/metadata.json",
+    "character/original/Idle/rotations/south.png",
+    "character/original/Idle/rotations/west.png",
+    "character/original/Idle/rotations/east.png",
+    "character/original/Idle/rotations/north.png"
+  ]
+}

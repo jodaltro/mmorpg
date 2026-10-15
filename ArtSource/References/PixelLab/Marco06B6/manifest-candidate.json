@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "id": "Hero_PixelLab_Marco06B6_REJECTED",
+  "ppu": 32,
+  "coordinates": "pixels, top-left origin; +x right, +y down",
+  "status": "rejected; reference evidence only; forbidden to import as approved production",
+  "character_id": "f104ef15-9fad-4dce-8cfd-215cec6f8763",
+  "clips": [
+    {
+      "animation": "walk",
+      "direction": "south",
+      "frameCount": 8,
+      "loop": true,
+      "status": "rejected artistically",
+      "frames": [
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_000.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "9b380589cac03568dad60c992a8f314155461a07837955d2027c8676c4c6fae7",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_001.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "128a53dc26fc7b4fc17bbae45c6d29306ff220126237a1f2c92230ca2c60759a",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_002.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "5a10795db640bfb7e976f3be3dc447cddce7c676a4581e94871586eb2cc1ab2d",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_003.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "0df6cfd5f89d167b0dbf14a7d521eaf570bd251c1569831d031ec783705dd34b",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_004.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "a1d1ad0204f21f66d8435eee5ff87be4da003ee9e3c4267536447d1aa7aa6daa",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_005.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "0be184b1c786119fce6d11868fac816c0477b1b9b8629963449cc311c46412d5",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_006.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "1caafac2ba17955a6e15a7008ab32514de898c0f7dc48e4679c328ece2a52bd3",
+          "source": "PixelLab template walking-8-frames"
+        },
+        {
+          "png": "ArtSource/References/PixelLab/Marco06B6/walk_south/original/Idle/animations/Mmorpg_Hero_Walk_South/south/frame_007.png",
+          "canvas": [
+            96,
+            96
+          ],
+          "duration": 0.09,
+          "pivot": null,
+          "feet": null,
+          "rightHand": null,
+          "leftHand": null,
+          "equipmentAngle": -135,
+          "equipmentDepth": 1,
+          "events": [],
+          "sha256": "4d3b15b14c306a4a2b246e176c7789cc61a532d65640158c2627b25ccda5f273",
+          "source": "PixelLab template walking-8-frames"
+        }
+      ]
+    }
+  ],
+  "missing": [
+    "Verified body pivot and per-frame feet/rightHand intentionally not assigned: artistic gate failed before import"
+  ],
+  "groundContact": {
+    "previewOnlyTranslation": [
+      0,
+      12
+    ],
+    "sourceReferenceGround": [
+      48,
+      76
+    ],
+    "targetReferenceGround": [
+      48,
+      88
+    ]
+  },
+  "collider": "existing physics preserved; no integration"
+}
