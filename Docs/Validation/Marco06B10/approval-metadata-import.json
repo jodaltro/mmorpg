@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/IronKnight06B9.cs",
+      "entry": "IronKnight06B10.Import",
+      "timeout_ms": "55000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 219,
+      "executeMs": 3560,
+      "assemblyName": "PipelineRunScript_IronKnight06B9_ce848ec4d3d04e37b025ed4c15dc5aa7",
+      "success": true,
+      "result": "Imported IronKnightB10; production and other variant assets preserved."
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

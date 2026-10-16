@@ -65,7 +65,7 @@ MonoBehaviour:
       source: Hormelz/Idle/dir6/frame0
       events: []
   - action: walk
-    status: experimental; artistic user approval pending
+    status: walk approved by user 2026-10-16
     direction: 0
     loop: 1
     frames:
@@ -147,7 +147,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir8/frame10
       events: []
   - action: walk
-    status: experimental; artistic user approval pending
+    status: walk approved by user 2026-10-16
     direction: 1
     loop: 1
     frames:
@@ -229,7 +229,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir2/frame10
       events: []
   - action: walk
-    status: experimental; artistic user approval pending
+    status: walk approved by user 2026-10-16
     direction: 2
     loop: 1
     frames:
@@ -311,7 +311,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir4/frame10
       events: []
   - action: walk
-    status: experimental; artistic user approval pending
+    status: walk approved by user 2026-10-16
     direction: 3
     loop: 1
     frames:
