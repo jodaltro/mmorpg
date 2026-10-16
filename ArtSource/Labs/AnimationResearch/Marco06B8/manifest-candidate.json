@@ -1,0 +1,191 @@
+{
+  "status": "rejected-not-importable",
+  "coordinates": "top-left pixels",
+  "ppu": 32,
+  "frames": [
+    {
+      "png": "frames/frame_000.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        32,
+        70
+      ],
+      "leftHand": [
+        62,
+        74
+      ],
+      "hand": [
+        -0.5,
+        0.0
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "dad78ac61964a4385897d2b075968c76020a843c48ee7ba3620e2c4652394ce2"
+    },
+    {
+      "png": "frames/frame_001.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        33,
+        71
+      ],
+      "leftHand": [
+        62,
+        73
+      ],
+      "hand": [
+        -0.46875,
+        -0.03125
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "b8ea1343b958b2f7975914837db77be7d114671102a3ff896fd33688a17caf81"
+    },
+    {
+      "png": "frames/frame_002.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        33,
+        72
+      ],
+      "leftHand": [
+        61,
+        72
+      ],
+      "hand": [
+        -0.46875,
+        -0.0625
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "5f975947c5dea8ee6317a25f2c4b6570853a2b0019c2acd5a0f1a2ba224ed161"
+    },
+    {
+      "png": "frames/frame_003.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        34,
+        74
+      ],
+      "leftHand": [
+        60,
+        70
+      ],
+      "hand": [
+        -0.4375,
+        -0.125
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "f40e08ec2e9bf5ac81f0a69c1971fc649da07eafa723b980e2b73a278d3b822d"
+    },
+    {
+      "png": "frames/frame_004.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        34,
+        74
+      ],
+      "leftHand": [
+        60,
+        70
+      ],
+      "hand": [
+        -0.4375,
+        -0.125
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "3be797a06a9460af8961baadb731f1fb6606172fb564ae9e93c3fa5912fd02e4"
+    },
+    {
+      "png": "frames/frame_005.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        34,
+        73
+      ],
+      "leftHand": [
+        61,
+        71
+      ],
+      "hand": [
+        -0.4375,
+        -0.09375
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "e9ec08e6b2f6b41228f9ff2b2cb28d0a50c102f64dc0a76dbcd7f1633fd5bae8"
+    },
+    {
+      "png": "frames/frame_006.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        33,
+        72
+      ],
+      "leftHand": [
+        61,
+        72
+      ],
+      "hand": [
+        -0.46875,
+        -0.0625
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "ed8648b38449f56cf60a36f71c41bf447f20d6ceb83082cf124e5d50d6b69c79"
+    },
+    {
+      "png": "frames/frame_007.png",
+      "duration": 0.03,
+      "pivot": [
+        48,
+        70
+      ],
+      "rightHand": [
+        32,
+        70
+      ],
+      "leftHand": [
+        62,
+        74
+      ],
+      "hand": [
+        -0.5,
+        0.0
+      ],
+      "equipmentAngle": -135,
+      "equipmentDepth": 1,
+      "sha256": "edea4e4482716e674f7e4d1d8dbce11a212685be54ce7d65e431fd659b265f6c"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "frames": 8,
+  "unique": 8,
+  "sourcePaletteOnly": true,
+  "binaryAlpha": true,
+  "headCropHashes": [
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb",
+    "787cacc2e33f85224c0d9b8a1e7927bba6fbdf5ebbdfeaef932614ffcf1674eb"
+  ],
+  "headStable": true,
+  "worldSoleRangePerStancePx": [
+    0.6400000000000006,
+    0.7199999999999989
+  ],
+  "withinFrameDriftPx": 3.36,
+  "cycleMs": 240,
+  "rootDistancePerCyclePx": 26.88,
+  "stanceMs": 120,
+  "constraintViolations": [
+    {
+      "frame": 0,
+      "part": "R thigh",
+      "angle": -63.43494882292201,
+      "lengthRatio": 0.7453559924999299
+    },
+    {
+      "frame": 0,
+      "part": "R shin",
+      "angle": 89.44732473505182,
+      "lengthRatio": 2.488115752934336
+    },
+    {
+      "frame": 0,
+      "part": "L forearm",
+      "angle": -12.582962494076943,
+      "lengthRatio": 1.7654809760864254
+    },
+    {
+      "frame": 1,
+      "part": "R thigh",
+      "angle": -60.46121774044187,
+      "lengthRatio": 0.5746979883188891
+    },
+    {
+      "frame": 1,
+      "part": "R shin",
+      "angle": 125.04192940153905,
+      "lengthRatio": 1.8809572031282382
+    },
+    {
+      "frame": 1,
+      "part": "L shin",
+      "angle": 20.186770745496798,
+      "lengthRatio": 0.4417287904634748
+    },
+    {
+      "frame": 1,
+      "part": "L forearm",
+      "angle": -11.983969372004728,
+      "lengthRatio": 1.667102507115495
+    },
+    {
+      "frame": 2,
+      "part": "R shin",
+      "angle": 117.89727103094773,
+      "lengthRatio": 0.7694153624668558
+    },
+    {
+      "frame": 2,
+      "part": "L shin",
+      "angle": 83.82007575081683,
+      "lengthRatio": 0.17072183792926424
+    },
+    {
+      "frame": 2,
+      "part": "L forearm",
+      "angle": -11.309932474020213,
+      "lengthRatio": 1.5689290811054724
+    },
+    {
+      "frame": 3,
+      "part": "R shin",
+      "angle": 27.492836951539616,
+      "lengthRatio": 2.2095248357961506
+    },
+    {
+      "frame": 3,
+      "part": "L shin",
+      "angle": 175.9457540992343,
+      "lengthRatio": 0.3516908962234967
+    },
+    {
+      "frame": 4,
+      "part": "R shin",
+      "angle": -26.56505117707799,
+      "lengthRatio": 3.1304951684997055
+    },
+    {
+      "frame": 4,
+      "part": "L thigh",
+      "angle": 65.77225468204583,
+      "lengthRatio": 0.5927489783638191
+    },
+    {
+      "frame": 4,
+      "part": "L shin",
+      "angle": -106.55005370410419,
+      "lengthRatio": 0.914649541509634
+    },
+    {
+      "frame": 5,
+      "part": "L thigh",
+      "angle": 59.09778563492821,
+      "lengthRatio": 0.43152776992473674
+    },
+    {
+      "frame": 5,
+      "part": "L shin",
+      "angle": -142.14465837059143,
+      "lengthRatio": 0.6914536196362767
+    },
+    {
+      "frame": 5,
+      "part": "L forearm",
+      "angle": -10.546034013090209,
+      "lengthRatio": 1.4710017518161405
+    },
+    {
+      "frame": 6,
+      "part": "R shin",
+      "angle": -100.9228047198692,
+      "lengthRatio": 0.4644136087583998
+    },
+    {
+      "frame": 6,
+      "part": "L thigh",
+      "angle": 25.851862542060378,
+      "lengthRatio": 0.5826314954235314
+    },
+    {
+      "frame": 6,
+      "part": "L shin",
+      "angle": -135.0000000000001,
+      "lengthRatio": 0.2828427124746198
+    },
+    {
+      "frame": 6,
+      "part": "L forearm",
+      "angle": -11.309932474020213,
+      "lengthRatio": 1.5689290811054724
+    },
+    {
+      "frame": 7,
+      "part": "R shin",
+      "angle": 166.95151693171334,
+      "lengthRatio": 0.9567026706349254
+    },
+    {
+      "frame": 7,
+      "part": "L forearm",
+      "angle": -12.582962494076943,
+      "lengthRatio": 1.7654809760864254
+    }
+  ],
+  "unityTest": false,
+  "artisticStatus": "rejected-not-better-than-B7"
+}
