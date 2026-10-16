@@ -1,9 +1,11 @@
 local function read(path)local f=assert(io.open(path,'r'));local value=json.decode(f:read('*a'));f:close();return value end
 local plan=read(assert(app.params.plan));local geometry=dofile(assert(app.params.geometry))
 assert(not app.fs.isFile(plan.output),'Refusing to overwrite an existing garment document')
-local s=app.open(plan.source);assert(s and s.width==64 and s.height==64 and #s.frames==#plan.poses,'Source contract')
+local canvas=plan.canvas or {64,64}
+local s=app.open(plan.source);assert(s and s.width==canvas[1] and s.height==canvas[2] and #s.frames==#plan.poses,'Source contract')
 local original={}
 for _,layer in ipairs(s.layers) do original[layer.name]=layer end
+for _,name in ipairs(plan.anatomicalLayers or {'Body','Pants','Boots','Shirt','Head','Hair'}) do assert(original[name],'Missing anatomical layer: '..name)end
 local function digest(layer)
   local h=2166136261
   for _,cel in ipairs(layer.cels) do

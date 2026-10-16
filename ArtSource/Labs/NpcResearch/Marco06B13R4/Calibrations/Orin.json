@@ -1,0 +1,31 @@
+{
+  "schema": "wardrobe-character-v1",
+  "character": "Orin",
+  "source": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/OrinForest.aseprite",
+  "sourceSha256": "178fc84b64f5fb094a8bbd38dea41f8d3c28b8a641c1c19b3dc446c953fd6b05",
+  "poseManifest": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/OrinForest.json",
+  "poseManifestSha256": "563a8c5b021987a896ac49e2d61de3885fdce7beed2b88f53752f28e8289cc02",
+  "anchors": "ArtSource/Labs/NpcResearch/Marco06B13R4/Calibrations/Orin-poses.json",
+  "canvas": [
+    64,
+    64
+  ],
+  "pivot": [
+    32,
+    44
+  ],
+  "feet": [
+    32,
+    62
+  ],
+  "ppu": 32,
+  "anatomicalLayers": [
+    "Body",
+    "Pants",
+    "Boots",
+    "Shirt",
+    "Head",
+    "Hair"
+  ],
+  "license": "OGA-BY-3.0; preserve LPC Revised credits"
+}

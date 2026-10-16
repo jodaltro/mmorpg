@@ -1,5 +1,9 @@
 # Pipeline de produção — 06B.4
 
+## Nova direção de escala humana — pesquisa 2026
+
+O usuário autorizou estudar uma família maior para todos os humanoides, inclusive protagonista, com cenário adaptável e aparência moderna em pixel art. [Padrão em avaliação e provas](HumanoidStandard.md). A família Quaternius CC0 já tem fontes e previews editáveis fora de Assets; não foi promovida nem testada no jogo. A cena R4 pequena tem [QA próprio](../Validation/Marco06B13R4.md). Manter separados validação técnica, avaliação artística e futura migração de produção.
+
 ## Vestuário procedural de NPCs — extensão 06B.13 R2/R3
 
 O [registro de capacidades de vestuário](ProceduralWardrobe.md) documenta a ampliação do marco de pesquisa de NPCs: fontes redistribuíveis, combinação de peças/paletas, geração de geometria no Aseprite por receitas JSON, âncoras por pose e oclusão de acessórios traseiros. Contém exemplos, arquivos de extensão, reprodução e limites comprovados. [QA B13 R3](../Validation/Marco06B13R3.md).

@@ -1,5 +1,7 @@
 # Direção de arte — Marco 06B.3
 
+**Atualização de direção em 16/10/2026:** o usuário pediu humanoides maiores, com proporções humanas, incluindo o protagonista, e autorizou adequar/ampliar o cenário, mantendo pixel art moderna. O [estudo do novo padrão](HumanoidStandard.md) orienta essa pesquisa. Os números e limitações B3 abaixo são históricos; não constituem teto de resolução para a nova família. Nenhum candidato foi promovido automaticamente.
+
 Referência de identidade: espadachim castanho, túnica azul, ombreiras de aço e couro quente dos PNGs locais. Fantasia medieval, luz superior esquerda, câmera top-down 3/4. Não misturar projeção isométrica. A silhueta e a direção do golpe têm prioridade sobre partículas.
 
 ## Resolução e escala

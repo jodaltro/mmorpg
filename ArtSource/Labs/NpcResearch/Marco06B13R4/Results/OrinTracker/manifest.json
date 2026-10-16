@@ -1,0 +1,754 @@
+{
+  "schema": "npc-procedural-garment-v1",
+  "character": "Orin",
+  "ppu": 32,
+  "canvas": [
+    64,
+    64
+  ],
+  "pivot": [
+    32,
+    44
+  ],
+  "feet": [
+    32,
+    62
+  ],
+  "recipe": {
+    "schema": "parametric-garment-v1",
+    "name": "OrinTracker",
+    "materials": {
+      "forest": {
+        "outline": "253629",
+        "ramp": [
+          "2c4233",
+          "3c5640",
+          "526e4b",
+          "71875e",
+          "91a078"
+        ],
+        "trim": [
+          "423a2b",
+          "64553c",
+          "94805a",
+          "b8a077"
+        ]
+      },
+      "leather": {
+        "outline": "34261e",
+        "ramp": [
+          "493124",
+          "684730",
+          "89623e",
+          "ad8657",
+          "c5a775"
+        ],
+        "trim": [
+          "3b3023",
+          "6b583a",
+          "a48b58",
+          "ceba85"
+        ]
+      },
+      "brass": {
+        "outline": "967341",
+        "ramp": [
+          "6a4b2a",
+          "967341",
+          "c6a462",
+          "e2c98e"
+        ]
+      }
+    },
+    "components": [
+      {
+        "kind": "panel",
+        "anchor": "shoulders",
+        "material": "forest",
+        "occlusion": "back_mounted",
+        "length": 11,
+        "profile": [
+          [
+            0,
+            5.5,
+            3
+          ],
+          [
+            0.25,
+            9,
+            4
+          ],
+          [
+            1,
+            10,
+            5
+          ]
+        ],
+        "columns": 28,
+        "rows": 16,
+        "folds": 4,
+        "foldDepth": 0.4,
+        "slit": 0.16
+      },
+      {
+        "kind": "revolve",
+        "anchor": "head",
+        "material": "forest",
+        "length": 0.5,
+        "profile": [
+          [
+            0,
+            9.5,
+            0
+          ],
+          [
+            1,
+            6.8,
+            0
+          ]
+        ],
+        "columns": 32,
+        "rows": 4,
+        "depthRatio": 0.7
+      },
+      {
+        "kind": "revolve",
+        "anchor": "head",
+        "material": "forest",
+        "length": 4,
+        "profile": [
+          [
+            0,
+            7.2,
+            0
+          ],
+          [
+            0.2,
+            7.5,
+            0
+          ],
+          [
+            0.7,
+            6.5,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "columns": 32,
+        "rows": 12,
+        "depthRatio": 0.75,
+        "lean": 1.3,
+        "trimBand": [
+          0,
+          0.2
+        ]
+      },
+      {
+        "kind": "revolve",
+        "anchor": "shoulders",
+        "material": "leather",
+        "occlusion": "back_mounted",
+        "length": 10,
+        "profile": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0.15,
+            4,
+            0
+          ],
+          [
+            0.8,
+            4.5,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "columns": 32,
+        "rows": 18,
+        "depthRatio": 0.6,
+        "offset": [
+          0,
+          10,
+          13
+        ],
+        "trimBand": [
+          0.63,
+          0.77
+        ]
+      },
+      {
+        "kind": "revolve",
+        "anchor": "waist",
+        "material": "leather",
+        "directions": [
+          "south"
+        ],
+        "length": 1.4,
+        "profile": [
+          [
+            0,
+            7,
+            0
+          ],
+          [
+            1,
+            7,
+            0
+          ]
+        ],
+        "columns": 24,
+        "rows": 2,
+        "depthRatio": 0.5,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "source": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/OrinForest.aseprite",
+  "sourceSha256": "178fc84b64f5fb094a8bbd38dea41f8d3c28b8a641c1c19b3dc446c953fd6b05",
+  "license": "Composite derivative OGA-BY-3.0; generated geometry by this project",
+  "clips": [
+    {
+      "name": "idle_north",
+      "first": 1,
+      "last": 3
+    },
+    {
+      "name": "idle_west",
+      "first": 4,
+      "last": 6
+    },
+    {
+      "name": "idle_south",
+      "first": 7,
+      "last": 9
+    },
+    {
+      "name": "idle_east",
+      "first": 10,
+      "last": 12
+    },
+    {
+      "name": "walk_north",
+      "first": 13,
+      "last": 20
+    },
+    {
+      "name": "walk_west",
+      "first": 21,
+      "last": 28
+    },
+    {
+      "name": "walk_south",
+      "first": 29,
+      "last": 36
+    },
+    {
+      "name": "walk_east",
+      "first": 37,
+      "last": 44
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "9ec374234ec7b8f9ca6a15a6a87a069b4757ecbe28fb0511dcec5df75be59608"
+    },
+    {
+      "index": 1,
+      "rect": {
+        "x": 64,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "2c463a6db2ccc15a0980ead11a76992ee38a79a3f26f45aed860491b01ef407b"
+    },
+    {
+      "index": 2,
+      "rect": {
+        "x": 128,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "ba7d778aa526c58b31dded41ad565c6ffe083e9a2a2749db9064661047c7ab34"
+    },
+    {
+      "index": 3,
+      "rect": {
+        "x": 192,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "eb7610cfc9c11428a4afaad96bd35122599209778f4c863fb4b854ca63df1804"
+    },
+    {
+      "index": 4,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "22513104e9d89c61493dbd05dc86bd6970ce54ab0ccc56aef95b520e925d8014"
+    },
+    {
+      "index": 5,
+      "rect": {
+        "x": 320,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "7943de15058baf420de9cd1dd8d6c9ed3a025b14fffde45ff671e5910ded8fd5"
+    },
+    {
+      "index": 6,
+      "rect": {
+        "x": 384,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "d842caf163504716515547692b76399414b87a0e93d162f3bc149f1ed6756216"
+    },
+    {
+      "index": 7,
+      "rect": {
+        "x": 448,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "631ca68f8ecab3785db4a604d6a4cf831155b0a72aac88f1ccfe1e4fd969118f"
+    },
+    {
+      "index": 8,
+      "rect": {
+        "x": 0,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "44d041d2dd3daf480ef27cf777eb77ae73a166a009b322d96ce4e40b86785007"
+    },
+    {
+      "index": 9,
+      "rect": {
+        "x": 64,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "d4d24b19697e6110948a3f1ac9428110c134968a90a401b8d4f15a64110b7093"
+    },
+    {
+      "index": 10,
+      "rect": {
+        "x": 128,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a4d573ce633ba54e7b7712af867122d490517b572d239d60478f14617994c4f0"
+    },
+    {
+      "index": 11,
+      "rect": {
+        "x": 192,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "0969d3a72c401df22a736bef47a156e17093769eb8d079dce987a27000dd94c2"
+    },
+    {
+      "index": 12,
+      "rect": {
+        "x": 256,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "b5b8e50a48eae8308721b23e2f8536070a8710161e32d439355ad5ea4cf710cd"
+    },
+    {
+      "index": 13,
+      "rect": {
+        "x": 320,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "73f1ea5bc837763cd0769c449ebb583804a1c424f202d92425648b998dad3671"
+    },
+    {
+      "index": 14,
+      "rect": {
+        "x": 384,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "1519dc9cbcf8dfc2ffaab7cefdc8a8d0812d0a1a9fbed28a6755daa94f20618a"
+    },
+    {
+      "index": 15,
+      "rect": {
+        "x": 448,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "55b09eed91c7c2409d54e073eadb6c2e8adc2bbf6530e61d5eb5fb4fb69cf44a"
+    },
+    {
+      "index": 16,
+      "rect": {
+        "x": 0,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "9eeff8902ff26c437b798ed56b3afcbfe8edaa189e55bd48e4a5d51bdd90fe78"
+    },
+    {
+      "index": 17,
+      "rect": {
+        "x": 64,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "68cee7f96a86527e3417540f8f83ee8da7feeb008a6f3e8a197d4242e0af0710"
+    },
+    {
+      "index": 18,
+      "rect": {
+        "x": 128,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "4ca93f6120d2524ab5288a06efb85b1619c6e37eb32cd99dcdbcd34c2da170c1"
+    },
+    {
+      "index": 19,
+      "rect": {
+        "x": 192,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "c185a9065bc927676c50711ed2c5b87b16b8f38836b3f9f72a88a196236613dc"
+    },
+    {
+      "index": 20,
+      "rect": {
+        "x": 256,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "5a3f1b570f5851ef91bd1e09e88ac0acbb5f4e537594f4997c07af2564627b99"
+    },
+    {
+      "index": 21,
+      "rect": {
+        "x": 320,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "51be65f917702165c58fc4491ca06b860b7b20095cf29464b6f2fa19b60562b6"
+    },
+    {
+      "index": 22,
+      "rect": {
+        "x": 384,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "ca2b69d82f19056b969779f8d9ad4eba713b14a21b8a73bb2687f03b9efd0cf4"
+    },
+    {
+      "index": 23,
+      "rect": {
+        "x": 448,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "9a6cf86f48bebcdf3450b2097760f45a95404ba685c3752bce6f3416ad6224db"
+    },
+    {
+      "index": 24,
+      "rect": {
+        "x": 0,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "0699e8d52257ca2d79f15efa167b3d042d8483c037ed391d110cde29c3b9f837"
+    },
+    {
+      "index": 25,
+      "rect": {
+        "x": 64,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "86235066876f53b8845cb318fef068f617c46859ce947a4cb4dc38429cde2bb1"
+    },
+    {
+      "index": 26,
+      "rect": {
+        "x": 128,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "fba15e3873a23ff5ac96622c9494e9c2b96b1239e21e843bed4b001d5e628d2e"
+    },
+    {
+      "index": 27,
+      "rect": {
+        "x": 192,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "98adc83d6f7e32226537283201e9b06080845c61cfa6b2b073a4dd600dd40869"
+    },
+    {
+      "index": 28,
+      "rect": {
+        "x": 256,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "fe688eeecdb7337fbeea9670c440c30bf9ed304fe4ee8080a056aca2de27a0bd"
+    },
+    {
+      "index": 29,
+      "rect": {
+        "x": 320,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "38988f5cf13b624916d4aa67f196d46b79f523805d0fb77d56e73fd2a40818f1"
+    },
+    {
+      "index": 30,
+      "rect": {
+        "x": 384,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "2f88c19230f5109b6f4f7f9c023c7ec9ba789ae54148751208b23e04cac288fd"
+    },
+    {
+      "index": 31,
+      "rect": {
+        "x": 448,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "4db8aa5e54f9b132ae5ebc2edc3434c256eab176891a7b8732fc0a824fd5989b"
+    },
+    {
+      "index": 32,
+      "rect": {
+        "x": 0,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "1cf3085b7c86bb14d4380d1c0ade2e8799f42ea506b9418a63b3f8d646b52be7"
+    },
+    {
+      "index": 33,
+      "rect": {
+        "x": 64,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "1ce528b3e744b160034fa401ab0e610f4efc608bfb7ed42f453d24aaac82e123"
+    },
+    {
+      "index": 34,
+      "rect": {
+        "x": 128,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "63ce257de9d04b9d74aef94b1eb0bda5c8c80ccde1024728c60358b4b8944a90"
+    },
+    {
+      "index": 35,
+      "rect": {
+        "x": 192,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "7045e88b268e96b536c262138d089240652613776b28ffce76ebb9a42c781ab3"
+    },
+    {
+      "index": 36,
+      "rect": {
+        "x": 256,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "4e9976d1844bd61ec04108ea6c98531a68212f58a7b2dae325e27cdf83b2def3"
+    },
+    {
+      "index": 37,
+      "rect": {
+        "x": 320,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "3979bb4f44d8536356953ccf8ad8cc1e5a392ed96ddf2606bb9c61569c83ae00"
+    },
+    {
+      "index": 38,
+      "rect": {
+        "x": 384,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "187af0098255f6e098abd8e8a65f9906ad924b82302555dac2281b93b7fe8255"
+    },
+    {
+      "index": 39,
+      "rect": {
+        "x": 448,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "bb6ac72b7e2c210610dbe12c87a662b883031f5086bebaee86f8be18062cec04"
+    },
+    {
+      "index": 40,
+      "rect": {
+        "x": 0,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "4c772f16f1ea556af01a982de4b734ddb41fb1980453e6eee4a3c2f06c766200"
+    },
+    {
+      "index": 41,
+      "rect": {
+        "x": 64,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "2fa68efc919372e571d8dbd3d19a2db89435930393435da63278cdcb4f90b372"
+    },
+    {
+      "index": 42,
+      "rect": {
+        "x": 128,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "6848206ed781d3943a2c209b39b7d69cd05a759b5e61b4d67a98d99f770732ad"
+    },
+    {
+      "index": 43,
+      "rect": {
+        "x": 192,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "b685df76dd3aac764864a96d137df62cd4011317e203e4354c44519db8d31af2"
+    }
+  ],
+  "status": "Experimental wardrobe; no production promotion"
+}

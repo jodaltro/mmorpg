@@ -1,0 +1,882 @@
+{
+  "Male": {
+    "bones": 65,
+    "mappedBones": 65,
+    "restHeightMeters": 1.8195866011083126,
+    "meshNames": [
+      "Eyebrows",
+      "Eyes",
+      "SuperHero_Male"
+    ],
+    "availableActions": [
+      "A_TPose",
+      "Crouch_Fwd_Loop",
+      "Crouch_Idle_Loop",
+      "Dance_Loop",
+      "Death01",
+      "Driving_Loop",
+      "Fixing_Kneeling",
+      "Hit_Chest",
+      "Hit_Head",
+      "Idle_Loop",
+      "Idle_Talking_Loop",
+      "Idle_Torch_Loop",
+      "Interact",
+      "Jog_Fwd_Loop",
+      "Jump_Land",
+      "Jump_Loop",
+      "Jump_Start",
+      "PickUp_Table",
+      "Pistol_Aim_Down",
+      "Pistol_Aim_Neutral",
+      "Pistol_Aim_Up",
+      "Pistol_Idle_Loop",
+      "Pistol_Reload",
+      "Pistol_Shoot",
+      "Punch_Cross",
+      "Punch_Jab",
+      "Push_Loop",
+      "Roll",
+      "Sitting_Enter",
+      "Sitting_Exit",
+      "Sitting_Idle_Loop",
+      "Sitting_Talking_Loop",
+      "Spell_Simple_Enter",
+      "Spell_Simple_Exit",
+      "Spell_Simple_Idle_Loop",
+      "Spell_Simple_Shoot",
+      "Sprint_Loop",
+      "Swim_Fwd_Loop",
+      "Swim_Idle_Loop",
+      "Sword_Attack",
+      "Sword_Idle",
+      "Walk_Formal_Loop",
+      "Walk_Loop"
+    ],
+    "idleFrames": [
+      0.0,
+      75.0
+    ],
+    "walkFrames": [
+      0.0,
+      40.0
+    ],
+    "retarget": "WORLD bone rotation constraints, target bind lengths retained; experimental preview",
+    "frames": [
+      {
+        "clip": "idle_south",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/idle_south_000.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/walk_south_000.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Male/walk_south_001.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Male/walk_south_002.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Male/walk_south_003.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Male/walk_south_004.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Male/walk_south_005.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Male/walk_south_006.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Male/walk_south_007.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Male/walk_south_008.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Male/walk_south_009.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Male/walk_south_010.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Male/walk_south_011.png"
+      },
+      {
+        "clip": "idle_west",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/idle_west_000.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/walk_west_000.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Male/walk_west_001.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Male/walk_west_002.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Male/walk_west_003.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Male/walk_west_004.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Male/walk_west_005.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Male/walk_west_006.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Male/walk_west_007.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Male/walk_west_008.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Male/walk_west_009.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Male/walk_west_010.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Male/walk_west_011.png"
+      },
+      {
+        "clip": "idle_north",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/idle_north_000.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/walk_north_000.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Male/walk_north_001.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Male/walk_north_002.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Male/walk_north_003.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Male/walk_north_004.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Male/walk_north_005.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Male/walk_north_006.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Male/walk_north_007.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Male/walk_north_008.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Male/walk_north_009.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Male/walk_north_010.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Male/walk_north_011.png"
+      },
+      {
+        "clip": "idle_east",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/idle_east_000.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Male/walk_east_000.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Male/walk_east_001.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Male/walk_east_002.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Male/walk_east_003.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Male/walk_east_004.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Male/walk_east_005.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Male/walk_east_006.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Male/walk_east_007.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Male/walk_east_008.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Male/walk_east_009.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Male/walk_east_010.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Male/walk_east_011.png"
+      }
+    ],
+    "sourcePelvisRest": [
+      0.0,
+      0.05010002851486206,
+      0.916700005531311
+    ],
+    "targetPelvisRest": [
+      0.0,
+      0.042999982833862305,
+      0.9490999579429626
+    ]
+  },
+  "Female": {
+    "bones": 65,
+    "mappedBones": 65,
+    "restHeightMeters": 1.7750507583841681,
+    "meshNames": [
+      "Eyebrows",
+      "Eyes",
+      "Superhero_Female"
+    ],
+    "availableActions": [
+      "A_TPose",
+      "Crouch_Fwd_Loop",
+      "Crouch_Idle_Loop",
+      "Dance_Loop",
+      "Death01",
+      "Driving_Loop",
+      "Fixing_Kneeling",
+      "Hit_Chest",
+      "Hit_Head",
+      "Idle_Loop",
+      "Idle_Talking_Loop",
+      "Idle_Torch_Loop",
+      "Interact",
+      "Jog_Fwd_Loop",
+      "Jump_Land",
+      "Jump_Loop",
+      "Jump_Start",
+      "PickUp_Table",
+      "Pistol_Aim_Down",
+      "Pistol_Aim_Neutral",
+      "Pistol_Aim_Up",
+      "Pistol_Idle_Loop",
+      "Pistol_Reload",
+      "Pistol_Shoot",
+      "Punch_Cross",
+      "Punch_Jab",
+      "Push_Loop",
+      "Roll",
+      "Sitting_Enter",
+      "Sitting_Exit",
+      "Sitting_Idle_Loop",
+      "Sitting_Talking_Loop",
+      "Spell_Simple_Enter",
+      "Spell_Simple_Exit",
+      "Spell_Simple_Idle_Loop",
+      "Spell_Simple_Shoot",
+      "Sprint_Loop",
+      "Swim_Fwd_Loop",
+      "Swim_Idle_Loop",
+      "Sword_Attack",
+      "Sword_Idle",
+      "Walk_Formal_Loop",
+      "Walk_Loop"
+    ],
+    "idleFrames": [
+      0.0,
+      75.0
+    ],
+    "walkFrames": [
+      0.0,
+      40.0
+    ],
+    "retarget": "WORLD bone rotation constraints, target bind lengths retained; experimental preview",
+    "frames": [
+      {
+        "clip": "idle_south",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/idle_south_000.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/walk_south_000.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Female/walk_south_001.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Female/walk_south_002.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Female/walk_south_003.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Female/walk_south_004.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Female/walk_south_005.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Female/walk_south_006.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Female/walk_south_007.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Female/walk_south_008.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Female/walk_south_009.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Female/walk_south_010.png"
+      },
+      {
+        "clip": "walk_south",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Female/walk_south_011.png"
+      },
+      {
+        "clip": "idle_west",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/idle_west_000.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/walk_west_000.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Female/walk_west_001.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Female/walk_west_002.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Female/walk_west_003.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Female/walk_west_004.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Female/walk_west_005.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Female/walk_west_006.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Female/walk_west_007.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Female/walk_west_008.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Female/walk_west_009.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Female/walk_west_010.png"
+      },
+      {
+        "clip": "walk_west",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Female/walk_west_011.png"
+      },
+      {
+        "clip": "idle_north",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/idle_north_000.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/walk_north_000.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Female/walk_north_001.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Female/walk_north_002.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Female/walk_north_003.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Female/walk_north_004.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Female/walk_north_005.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Female/walk_north_006.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Female/walk_north_007.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Female/walk_north_008.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Female/walk_north_009.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Female/walk_north_010.png"
+      },
+      {
+        "clip": "walk_north",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Female/walk_north_011.png"
+      },
+      {
+        "clip": "idle_east",
+        "index": 0,
+        "sourceAction": "Idle_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/idle_east_000.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 0,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 0.0,
+        "file": "Female/walk_east_000.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 1,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 3.3333333333333335,
+        "file": "Female/walk_east_001.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 2,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 6.666666666666667,
+        "file": "Female/walk_east_002.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 3,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 10.0,
+        "file": "Female/walk_east_003.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 4,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 13.333333333333334,
+        "file": "Female/walk_east_004.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 5,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 16.666666666666668,
+        "file": "Female/walk_east_005.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 6,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 20.0,
+        "file": "Female/walk_east_006.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 7,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 23.333333333333332,
+        "file": "Female/walk_east_007.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 8,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 26.666666666666668,
+        "file": "Female/walk_east_008.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 9,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 30.0,
+        "file": "Female/walk_east_009.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 10,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 33.333333333333336,
+        "file": "Female/walk_east_010.png"
+      },
+      {
+        "clip": "walk_east",
+        "index": 11,
+        "sourceAction": "Walk_Loop",
+        "sourceFrame": 36.666666666666664,
+        "file": "Female/walk_east_011.png"
+      }
+    ],
+    "sourcePelvisRest": [
+      0.0,
+      0.05010002851486206,
+      0.916700005531311
+    ],
+    "targetPelvisRest": [
+      0.0,
+      0.04569995403289795,
+      0.9317998886108398
+    ]
+  }
+}

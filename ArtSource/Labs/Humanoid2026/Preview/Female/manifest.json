@@ -1,0 +1,483 @@
+{
+  "character": "Female",
+  "clips": [
+    {
+      "name": "idle_south",
+      "first": 1,
+      "last": 1
+    },
+    {
+      "name": "walk_south",
+      "first": 2,
+      "last": 13
+    },
+    {
+      "name": "idle_west",
+      "first": 14,
+      "last": 14
+    },
+    {
+      "name": "walk_west",
+      "first": 15,
+      "last": 26
+    },
+    {
+      "name": "idle_north",
+      "first": 27,
+      "last": 27
+    },
+    {
+      "name": "walk_north",
+      "first": 28,
+      "last": 39
+    },
+    {
+      "name": "idle_east",
+      "first": 40,
+      "last": 40
+    },
+    {
+      "name": "walk_east",
+      "first": 41,
+      "last": 52
+    }
+  ],
+  "frames": [
+    {
+      "clip": "idle_south",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/idle_south_000.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/walk_south_000.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Female/walk_south_001.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Female/walk_south_002.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Female/walk_south_003.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Female/walk_south_004.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Female/walk_south_005.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Female/walk_south_006.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Female/walk_south_007.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Female/walk_south_008.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Female/walk_south_009.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Female/walk_south_010.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Female/walk_south_011.png"
+    },
+    {
+      "clip": "idle_west",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/idle_west_000.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/walk_west_000.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Female/walk_west_001.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Female/walk_west_002.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Female/walk_west_003.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Female/walk_west_004.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Female/walk_west_005.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Female/walk_west_006.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Female/walk_west_007.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Female/walk_west_008.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Female/walk_west_009.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Female/walk_west_010.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Female/walk_west_011.png"
+    },
+    {
+      "clip": "idle_north",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/idle_north_000.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/walk_north_000.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Female/walk_north_001.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Female/walk_north_002.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Female/walk_north_003.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Female/walk_north_004.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Female/walk_north_005.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Female/walk_north_006.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Female/walk_north_007.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Female/walk_north_008.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Female/walk_north_009.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Female/walk_north_010.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Female/walk_north_011.png"
+    },
+    {
+      "clip": "idle_east",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/idle_east_000.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Female/walk_east_000.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Female/walk_east_001.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Female/walk_east_002.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Female/walk_east_003.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Female/walk_east_004.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Female/walk_east_005.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Female/walk_east_006.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Female/walk_east_007.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Female/walk_east_008.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Female/walk_east_009.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Female/walk_east_010.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Female/walk_east_011.png"
+    }
+  ],
+  "qa": {
+    "frames": 52,
+    "clips": 8,
+    "nativeCanvas": [
+      128,
+      160
+    ],
+    "visibleHeightRange": [
+      99,
+      118
+    ],
+    "visibleFootBottomRange": [
+      131,
+      146
+    ],
+    "frameHashes": [
+      "21fd4d2d958fdeca1af5783a4455f5ddef631b2fc6c40bf71c9f7bf19169a9e5",
+      "ecb92d8eb66b9fcf720e268bfe962a72f00e4016cfd93c0b57f8736183d52105",
+      "a203f84972a944a0eb4d734198717d74cc45c324301a643797d49aea4c84528e",
+      "19aef5a118cdb23173629222b8e6f7649ca52336fa79f363de95d39e2bcc2fef",
+      "11989e1e95d3cad92ec161b37c4a2f1de90ae54766650aa86fa2b455a6a1c2bf",
+      "d24da2fa733af4b1a73374c466a81ee5431eed1963685e853411c00620813857",
+      "9943129e5c27d5d68a727e9cb34c1f992aa76e5b5a64aba90229ef8be9367427",
+      "a18674df18b5e9793fbec8b46b24d582ba2e026c7c0f8ad4da331d6a6ba392ad",
+      "2e3e7c26cdf3f8a6e9e370774687bd552af790453adc962212f37d7925673c13",
+      "69b1eddc66adb5f922a0ff9905a04d0cf56772e6a31998d7f43fb63932e9b94c",
+      "b4277c536d0278c0fd6d3261ab49990ae3bf5870f31f0489c1ff2e0772e163eb",
+      "1646c3a28d32334486d40e1b81025f57530114bd030092efda824c6cbc585b53",
+      "3bf45442dd499484028b3b7b1cf50bd7c987c64ffe4dd078a0af73035fc73d26",
+      "d0a9b23085f78823d25ceeb4ce2b2e583df4c16383fd91c6ef023f5b7162c4c3",
+      "6aa530fc6cac8fa0e89a5c1fd32b8bd002125f99893468d9879b353cad992608",
+      "d2ff6f606a9a1830a392a4911218ac9cbf1ae71290b48b558ce9c2717b1476db",
+      "695fe894c31c7023f1a62465c05d4967fb2c44c84d53ca3c7a5be31e16a8bb69",
+      "1a1a7e2a8800377bf77acdc5dbba01704a7ad93f2653143295d017976f330ff0",
+      "b12f085b9b3f461d9e585466b3a30512e91246d0cc20020a63b39e8dad64dca0",
+      "0e96a15baa9d0968d3bec0ece0e29c989112ccd5519cf23c23283805d4d439fb",
+      "b23b433cd71ad2cd716cbf8f8b47802be455555bf8a516fec25b9795d90b8be7",
+      "16d1683d5a6a23d4d452d697fd7697c64fc93ee327a1cd05a5dee3ee63831bea",
+      "3b7e5b9bf285d2320ccb802ca89e5c6b95b5661d6c7ef55c6bba60cce58ebd9d",
+      "604faad3c3e5fdbc05202ffced1bfc8dac895c935069bdd2081ca6d01c9fa553",
+      "e16977e6a98c07db073399b35edf3ca71df6d214d2787138cf34fff5d148e13b",
+      "7bf713336cf58c35a1f3de6f6e3e48032dc5d9509b85d5c9f15c287f8640b3c5",
+      "bc9a7d35cf55609a0f51fee23f1b830e2968a19a41ea68f5bbed821b25c2f35a",
+      "c6e8502ccce771e268e6bc1c4f8c1465889aa47a1e628c39bb1ff6d83784a1f1",
+      "305970d1a02945d58776f6267b79232889c1aff451643ae2c3fe1c0d2739b42f",
+      "11c4ce5003d6c4569479f47de0b21d51b0e1314546cb8b401fbd0b4ea054f2b0",
+      "1b323b2fa8c288689fc2aa84028b94be11b72fe6dd416115a7389553251c5bd5",
+      "be5fdf90f97087c2f7d95ec70da6f664ae597868eb668a983a89a93555f02d84",
+      "244084b54f837567c3a1b92df1a0784b2a40202e1390af228e049b693fdc2d31",
+      "0f833bcd84551f265ade01e32c6e376f22664c50fb859a98b17f5fde3ad8c416",
+      "68dabda6ae660af2a0924cbfbfd90882a33b839612456123304af0d7de422bc8",
+      "9de1f06fbeb0c3ce5a3becb955799e7880abcd7aecfe4b0f86188364035ebb82",
+      "ffae9bc1a06abe3251e4c8eeeb68744ac7ed7ad9437b53b3e647815105f635a3",
+      "5d6df6552ba4191c40576f0999205a9c007192e92af18fb7ba0f5905c13e9520",
+      "113d4079716bd8689e255c08c4e473bfba4467d16af99061e0a81200387a8083",
+      "e805ebed013a7d4e89e057304e89354aa0b5ff6594697b13f2f31cd791b80063",
+      "aae8d220ac495615e9ed993130764149a8071628d2da77a0b4638300f2feea57",
+      "931922d274eb17191cac78f2b888646805fb8d68b1ad9b22faf425513bd41197",
+      "11bd4e2b24852e5a47dbb8804104df35beeb9932a2249eebff1fb5fc82b81506",
+      "2546b623a50b1824b60f630b0320dd1605d66e6aa24901a984813482d299cac8",
+      "041390a811028d232281f49d045c1afda1a8b736e9a68a42aa04a995bb5e3490",
+      "c8bf66c64bed006dd9e4d9bdfba95f99a6f7afc41e5fe780bf170e0e760b8015",
+      "3c44f0156dcfd5a16939d6dbcbc7cb2f0de659f2468b3f0bc2f8f2b649d72ce8",
+      "804dc39a47c37fba787dcd9d74911e477ffcd3a4a02109710af63d793bee8be8",
+      "b5f9cdb4b33abed9259ee6223431bbc8de5d2c2d6b0b07dd04b2de8f72e4862b",
+      "c37bd05168c2c97f92757dfe258f54d7f9db232e0e1fbf0c06094388d1a75eba",
+      "fcb4ad60a42f28cf0882d59de2af0b2e5c9ad7dcc84a6df5a8e0e75df6303886",
+      "4fc0a924de651244968acde6339611948e61700b209ad254bc55a85cc21ed766"
+    ],
+    "pixelPass": "Aseprite Lua: threshold alpha 160, channel quantization 16, separate 1px outline",
+    "sourceAnimation": "Professional UAL1 Idle_Loop/Walk_Loop, experimental retarget; not artistic approval"
+  }
+}

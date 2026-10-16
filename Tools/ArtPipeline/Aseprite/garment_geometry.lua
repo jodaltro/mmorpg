@@ -23,6 +23,7 @@ function G.validate(recipe)
     assert(part.kind=='panel' or part.kind=='revolve','Supported surfaces: panel, revolve')
     assert(part.anchor=='shoulders' or part.anchor=='head' or part.anchor=='waist','Unknown attachment')
     assert(part.occlusion==nil or part.occlusion=='depth' or part.occlusion=='back_mounted','Unknown body occlusion rule')
+    if part.directions then assert(#part.directions>0,'Empty component directions');for _,d in ipairs(part.directions) do assert(yaw[d],'Unknown component direction')end end
     assert(part.profile and #part.profile>=2 and part.profile[1][1]==0 and part.profile[#part.profile][1]==1,'Profile must cover [0,1]')
     for i,p in ipairs(part.profile) do assert(p[2]>=0 and p[2]<=24,'Profile radius outside canvas budget');if i>1 then assert(p[1]>part.profile[i-1][1],'Profile knots must increase')end end
     assert(part.length>0 and part.length<=34,'Invalid pattern length')
@@ -87,6 +88,9 @@ function G.render(recipe,pose,width,height)
   local behind=Image(width,height,ColorMode.RGB);local front=Image(width,height,ColorMode.RGB);local hat=Image(width,height,ColorMode.RGB)
   local buffers={};local metrics={triangles=0,fragments=0,clippedFragments=0}
   for _,part in ipairs(recipe.components) do
+    local visible=not part.directions
+    if part.directions then for _,d in ipairs(part.directions) do if d==pose.direction then visible=true end end end
+    if visible then
     local anchor=pose[part.anchor];assert(anchor,'Attachment not measured')
     local vertices,triangles=mesh(part);local projected={}
     for i,p in ipairs(vertices) do projected[i]=project(p,anchor,pose.direction,part.offset or {0,0,0})end
@@ -132,6 +136,7 @@ function G.render(recipe,pose,width,height)
       if not buffers[bufferName][key] or z<buffers[bufferName][key] then
         layer:drawPixel(x,y,colors[key]);buffers[bufferName][key]=z;metrics.fragments=metrics.fragments+1
       end
+    end
     end
   end
   return {back=behind,front=front,hat=hat},metrics

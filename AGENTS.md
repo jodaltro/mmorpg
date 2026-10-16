@@ -17,6 +17,9 @@ Do not add progression, XP, levels, Nakama or Jev in this milestone.
 ## Official protagonist — Marco 06B.12
 Entrada oficial: `Assets/Mmorpg/Scenes/MmorpgWorld.unity`, primeiro índice global de build. Iron Knight aprovado B10/B11: `Assets/Mmorpg/Art/Production/IronKnight/IronKnight.asset`, prefab visual `PlayerVisual.prefab` na mesma pasta e manifesto `ArtSource/Characters/IronKnight/manifest.json`. Preservar seus 36 clips, 264 sprites, canvas nativo 256×256 e 32 PPU. Reimportar com `IronKnight06B9.ImportProduction`; não regenerar desenhos nem sobrescrever arquivos B10/B11. O perfil pessoal continua em `DevelopmentJourneys/marco06b4`; não renomear, resetar ou fundir saves ao alterar apresentação.
 
+## Project direction — larger humanoids (2026-10-16)
+O usuário pediu uma nova família de corpos maiores e com proporções humanas como padrão futuro de todos os humanoides, incluindo o protagonista, e autorizou ampliar/retrabalhar o cenário para essa escala. Manter pixel art com apresentação mais moderna. A altura histórica de aproximadamente 48 px não limita essa pesquisa. Consultar `Docs/Art/HumanoidStandard.md` e o checkpoint R4. Isso autoriza estudar/substituir os visuais em uma migração validada, mas não constitui aprovação artística de um modelo específico; proteger saves, identidades, gameplay e os arquivos históricos aprovados. A prova Quaternius ainda não foi integrada na Unity.
+
 ## Verification
 Para trabalhos de pixel art, usar a skill local `.agents/skills/aseprite-pixel-art/SKILL.md` (invocação `$aseprite-pixel-art`) e o Aseprite local via CLI/Lua. Consultar `Docs/Art/AsepriteWorkflow.md`; preservar fontes de produção e não executar a migração B3 para atualizar desenhos. Não usar geração externa/paga de arte neste fluxo.
 

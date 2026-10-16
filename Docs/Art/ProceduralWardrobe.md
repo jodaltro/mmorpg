@@ -1,5 +1,7 @@
 # Vestuário procedural — capacidades e evolução além do Marco 06B.13
 
+**Atualização R4:** a calibração explícita agora foi exercitada em Mira e Orin, preservando a reprodução R3. O [relatório R4](../Validation/Marco06B13R4.md) registra essa entrega e o QA. O usuário considerou as roupas pequenas simples e priorizou uma [família humana maior, inclusive para o protagonista](HumanoidStandard.md), permitindo adequar o cenário. O registro abaixo descreve a etapa R2/R3; não afirmar que a prova maior já possui roupas complexas ou integração no jogo.
+
 Registro de 16/10/2026. Implementação de referência: `336b27c` (R3); biblioteca e combinação de peças: `7e65525` (R2). Este documento descreve capacidades verificadas, extensões possíveis e trabalho ainda pendente. Evidências completas: [B13 R2](../Validation/Marco06B13R2.md) e [B13 R3](../Validation/Marco06B13R3.md).
 
 ## O que ultrapassou o pedido inicial
