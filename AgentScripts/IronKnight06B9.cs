@@ -28,17 +28,19 @@ public static class IronKnight06B9
         EditorUtility.SetDirty(animator);EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
         return "B9 scene created; 12 clips, 108 original frames, native 256 canvas / 32 PPU. Existing animator, physics, weapon and effects retained.";
     }
-    public static string Import()
+    public static string Import()=>ImportSet(Source,Output,"IronKnightB9");
+    // Shared native-canvas importer; variants choose a separate source, asset and scene.
+    public static string ImportSet(string source,string output,string characterId)
     {
         if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play first");
-        var data=JObject.Parse(File.ReadAllText(Source+"manifest.json"));
-        if((string)data["schema"]!="iron-knight-b9-v1"||(float)data["ppu"]!=32)throw new InvalidDataException("B9-specific contract required");
-        Directory.CreateDirectory(Output);AssetDatabase.Refresh();var clips=new List<ProductionClip>();
+        var data=JObject.Parse(File.ReadAllText(source+"manifest.json"));
+        if(!new[]{"iron-knight-b9-v1","iron-knight-b10-v1"}.Contains((string)data["schema"])||(float)data["ppu"]!=32)throw new InvalidDataException("Explicit Iron Knight 256px / 32 PPU variant contract required");
+        Directory.CreateDirectory(output);AssetDatabase.Refresh();var clips=new List<ProductionClip>();
         foreach(var c in data["clips"])
         {
             string action=(string)c["animation"],direction=(string)c["direction"],name=action+"_"+direction;
             var frames=c["frames"].ToArray();if(frames.Length!=(int)c["frameCount"]||frames.Length==0)throw new InvalidDataException(name);
-            string path=Output+name+".png";File.Copy(Source+"frames/"+action+"/"+direction+"/sheet.png",path,true);
+            string path=output+name+".png";File.Copy((string)c["sheet"]??source+"frames/"+action+"/"+direction+"/sheet.png",path,true);
             AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
             var importer=(TextureImporter)AssetImporter.GetAtPath(path);
             importer.textureType=TextureImporterType.Sprite;importer.spriteImportMode=SpriteImportMode.Multiple;importer.spritePixelsPerUnit=32;
@@ -59,9 +61,64 @@ public static class IronKnight06B9
             }
             clips.Add(clip);
         }
-        var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Output+"IronKnightB9.asset");if(set==null){set=ScriptableObject.CreateInstance<ProductionCharacterSet>();AssetDatabase.CreateAsset(set,Output+"IronKnightB9.asset");}
-        set.characterId="IronKnightB9";set.pixelsPerUnit=32;set.referenceSpeed=3.5f;set.clips=clips.ToArray();EditorUtility.SetDirty(set);AssetDatabase.SaveAssets();
-        return "Imported B9 only; source contracts and production assets preserved.";
+        // Phase clips share original Sprite/ProductionFrame references. No repeated drawings or reordered indices.
+        if(data["phaseRanges"] is JObject ranges)
+        {
+            foreach(string direction in Directions)
+            {
+                var attack=clips.Single(c=>c.action=="attack"&&c.direction==Array.IndexOf(Directions,direction));int previous=-1;
+                foreach(string phase in new[]{"preparation","cut","recovery"})
+                {
+                    var range=ranges[direction][phase];int from=(int)range[0],to=(int)range[1];
+                    if(from!=previous+1||to<from||to>=attack.frames.Length)throw new InvalidDataException("Invalid ordered phase range "+direction+phase);
+                    clips.Add(new ProductionClip{action="attack-"+phase,direction=attack.direction,status=attack.status,loop=false,frames=attack.frames.Skip(from).Take(to-from+1).ToArray()});previous=to;
+                }
+                if(previous!=attack.frames.Length-1)throw new InvalidDataException("Incomplete Slash coverage");
+            }
+        }
+        var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(output+characterId+".asset");if(set==null){set=ScriptableObject.CreateInstance<ProductionCharacterSet>();AssetDatabase.CreateAsset(set,output+characterId+".asset");}
+        set.characterId=characterId;set.pixelsPerUnit=32;set.referenceSpeed=3.5f;set.clips=clips.ToArray();EditorUtility.SetDirty(set);AssetDatabase.SaveAssets();
+        return "Imported "+characterId+"; production and other variant assets preserved.";
+    }
+
+}
+
+public static class IronKnight06B10
+{
+    const string Output="Assets/Mmorpg/Art/Experimental/IronKnightB10/";
+    public static string Import()=>IronKnight06B9.ImportSet("ArtSource/Labs/IronKnight2026/B10/",Output,"IronKnightB10");
+    public static string ImportAndCreate()
+    {
+        const string destination="Assets/Mmorpg/Scenes/Marco06B10CombatPolish.unity";
+        if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play first");
+        var current=UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        if(current.path!="Assets/Mmorpg/Scenes/Marco06B9ProfessionalHero.unity"||current.isDirty)throw new InvalidOperationException("Clean B9 required");
+        if(File.Exists(destination))throw new IOException("Refusing to overwrite "+destination);
+        Import();
+        if(!EditorSceneManager.SaveScene(current,destination,true))throw new IOException("Scene copy failed");EditorSceneManager.OpenScene(destination);
+        var actor=UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;
+        var renderer=actor.transform.Find("VisualRoot/BodySprite").GetComponent<SpriteRenderer>();
+        var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Output+"IronKnightB10.asset");
+        actor.GetComponent<ProductionSpriteAnimator>().Configure(set,actor,renderer,actor.GetComponent<SwordSwing>());renderer.sprite=set.Find("idle",0).frames[0].sprite;
+        EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+        return "Created isolated B10 with phase clips, reviewed grips and 1.25x visual walk cadence. Physics and B9 preserved.";
+    }
+    public static string VerifyImport()
+    {
+        Func<Dictionary<string,string>> ids=()=>AssetDatabase.FindAssets("t:Texture2D",new[]{Output}).Select(AssetDatabase.GUIDToAssetPath).SelectMany(p=>AssetDatabase.LoadAllAssetsAtPath(p).OfType<Sprite>()).ToDictionary(sprite=>sprite.name,sprite=>{AssetDatabase.TryGetGUIDAndLocalFileIdentifier(sprite,out string guid,out long local);return guid+":"+local;});
+        var before=ids();Import();var after=ids();if(before.Count!=108||after.Count!=108||before.Any(p=>after[p.Key]!=p.Value))throw new Exception("Unstable sprite IDs");
+        var b9=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>("Assets/Mmorpg/Art/Experimental/IronKnightB9/IronKnightB9.asset");
+        var source=JObject.Parse(File.ReadAllText("ArtSource/Labs/IronKnight2026/manifest.json"));string[] directions={"south","west","north","east"};
+        foreach(var c in source["clips"])
+        {
+            var clip=b9.Find((string)c["animation"],Array.IndexOf(directions,(string)c["direction"]));var frames=c["frames"].ToArray();
+            if(clip.frames.Length!=frames.Length)throw new Exception("B9 frame regression");
+            for(int i=0;i<frames.Length;i++)if(clip.frames[i].source!=(string)frames[i]["source"]||Mathf.Abs(clip.frames[i].seconds-(float)frames[i]["duration"])>.000001f||Vector2.Distance(clip.frames[i].hand,new Vector2(((float)frames[i]["rightHand"][0]-128)/32,(114-(float)frames[i]["rightHand"][1])/32))>.00001f)throw new Exception("B9 metadata regression");
+        }
+        var importers=AssetDatabase.FindAssets("t:Texture2D",new[]{Output}).Select(AssetDatabase.GUIDToAssetPath).Select(p=>(TextureImporter)AssetImporter.GetAtPath(p)).ToArray();
+        if(importers.Length!=12||importers.Any(i=>i.spritePixelsPerUnit!=32||i.filterMode!=FilterMode.Point||i.textureCompression!=TextureImporterCompression.Uncompressed||i.mipmapEnabled||i.wrapMode!=TextureWrapMode.Clamp))throw new Exception("Native texture contract regression");
+        var actor=UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;var renderers=actor.GetComponentsInChildren<SpriteRenderer>();int bodies=renderers.Count(r=>r.name=="BodySprite"),weapons=renderers.Count(r=>r.name=="EquippedSword");if(bodies!=1||weapons!=1)throw new Exception("Duplicate body/weapon");
+        return Newtonsoft.Json.JsonConvert.SerializeObject(new{stableSpriteIds=after.Count,b9MetadataIntact=true,b9Clips=b9.clips.Length,b10Clips=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Output+"IronKnightB10.asset").clips.Length,textures=importers.Length,nativeImportSettings=true,bodies,weapons,rigidbody=actor.GetComponent<Rigidbody2D>().bodyType.ToString(),collider=actor.GetComponent<Collider2D>().GetType().Name});
     }
 
 }

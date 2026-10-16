@@ -1,0 +1,619 @@
+{
+  "baseline": {
+    "samples": 280,
+    "phaseSamples": 192,
+    "outsideAnatomicalPhase": [
+      {
+        "capture": "attack-0-02",
+        "sourceFrame": 2,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-0-03",
+        "sourceFrame": 3,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-0-04",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-0-08",
+        "sourceFrame": 8,
+        "phase": "recovery",
+        "expected": [
+          9,
+          14
+        ]
+      },
+      {
+        "capture": "attack-1-03",
+        "sourceFrame": 3,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-1-04",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-1-08",
+        "sourceFrame": 8,
+        "phase": "recovery",
+        "expected": [
+          9,
+          14
+        ]
+      },
+      {
+        "capture": "attack-2-03",
+        "sourceFrame": 3,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-2-04",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-2-05",
+        "sourceFrame": 5,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-2-08",
+        "sourceFrame": 8,
+        "phase": "recovery",
+        "expected": [
+          10,
+          14
+        ]
+      },
+      {
+        "capture": "attack-2-09",
+        "sourceFrame": 9,
+        "phase": "recovery",
+        "expected": [
+          10,
+          14
+        ]
+      },
+      {
+        "capture": "attack-3-02",
+        "sourceFrame": 2,
+        "phase": "cut",
+        "expected": [
+          5,
+          9
+        ]
+      },
+      {
+        "capture": "attack-3-03",
+        "sourceFrame": 3,
+        "phase": "cut",
+        "expected": [
+          5,
+          9
+        ]
+      },
+      {
+        "capture": "attack-3-04",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          9
+        ]
+      },
+      {
+        "capture": "attack-3-08",
+        "sourceFrame": 9,
+        "phase": "recovery",
+        "expected": [
+          10,
+          14
+        ]
+      },
+      {
+        "capture": "attack-4-10",
+        "sourceFrame": 5,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-4-11",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-4-12",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-4-13",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-4-14",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-4-15",
+        "sourceFrame": 8,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-4-17",
+        "sourceFrame": 9,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-4-18",
+        "sourceFrame": 9,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-4-19",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-4-20",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-4-21",
+        "sourceFrame": 11,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-5-08",
+        "sourceFrame": 5,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-5-09",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-5-10",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-5-11",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-5-13",
+        "sourceFrame": 9,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-5-14",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-5-15",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-5-16",
+        "sourceFrame": 11,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "attack-6-11",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-6-12",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-6-13",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-6-14",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-6-15",
+        "sourceFrame": 8,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-6-19",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-6-20",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-7-10",
+        "sourceFrame": 5,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-7-11",
+        "sourceFrame": 5,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-7-12",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-7-13",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-7-14",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-7-15",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          4
+        ]
+      },
+      {
+        "capture": "attack-7-19",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          5,
+          9
+        ]
+      },
+      {
+        "capture": "attack-7-20",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          5,
+          9
+        ]
+      },
+      {
+        "capture": "attack-7-21",
+        "sourceFrame": 11,
+        "phase": "cut",
+        "expected": [
+          5,
+          9
+        ]
+      },
+      {
+        "capture": "attack-8-12",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-8-13",
+        "sourceFrame": 6,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-8-14",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-8-15",
+        "sourceFrame": 7,
+        "phase": "preparation",
+        "expected": [
+          0,
+          5
+        ]
+      },
+      {
+        "capture": "attack-8-19",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-8-20",
+        "sourceFrame": 10,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "attack-8-21",
+        "sourceFrame": 11,
+        "phase": "cut",
+        "expected": [
+          6,
+          9
+        ]
+      },
+      {
+        "capture": "moving-attack-04",
+        "sourceFrame": 2,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "moving-attack-05",
+        "sourceFrame": 3,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "moving-attack-06",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "moving-attack-07",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "after-dodge-04",
+        "sourceFrame": 2,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "after-dodge-05",
+        "sourceFrame": 3,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "after-dodge-06",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      },
+      {
+        "capture": "after-dodge-07",
+        "sourceFrame": 4,
+        "phase": "cut",
+        "expected": [
+          5,
+          8
+        ]
+      }
+    ],
+    "maxGripError": 0.0,
+    "bladeLengthMin": 1.02148783,
+    "bladeLengthMax": 1.02148831,
+    "pivotScales": [
+      "(1.00, 1.00, 1.00)"
+    ]
+  },
+  "candidate": {
+    "samples": 294,
+    "phaseSamples": 198,
+    "outsideAnatomicalPhase": [],
+    "maxGripError": 0.0,
+    "bladeLengthMin": 1.02148771,
+    "bladeLengthMax": 1.02148831,
+    "pivotScales": [
+      "(1.00, 1.00, 1.00)"
+    ]
+  }
+}

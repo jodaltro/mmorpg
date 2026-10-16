@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectIronKnight06B10.cs",
+      "entry": "InspectIronKnight06B10.Obstacles",
+      "timeout_ms": "25000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 260,
+      "executeMs": 1095,
+      "assemblyName": "PipelineRunScript_InspectIronKnight06B10_b3317aea79d34de18f93fcd838955511",
+      "success": true,
+      "result": "{\"first\":41613,\"last\":41833,\"maxSpeed\":3.5,\"blockedSpeed\":0.0,\"position\":[-5.039999,2.0]}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectIronKnight06B10.cs",
+      "entry": "InspectIronKnight06B10.Movement",
+      "timeout_ms": "55000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 131,
+      "executeMs": 13488,
+      "assemblyName": "PipelineRunScript_InspectIronKnight06B10_5bd1e10224174c3cba4a72e22027b0df",
+      "success": true,
+      "result": "{\r\n  \"first\": 976,\r\n  \"last\": 3490,\r\n  \"report\": [\r\n    {\r\n      \"direction\": 0,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-0.43, 0.00, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_east_002\",\r\n        \"walk_east_003\",\r\n        \"walk_east_004\",\r\n        \"walk_east_005\",\r\n        \"walk_east_006\",\r\n        \"walk_east_007\",\r\n        \"walk_east_008\",\r\n        \"walk_east_009\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 1,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-5.17, 0.00, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_west_002\",\r\n        \"walk_west_003\",\r\n        \"walk_west_004\",\r\n        \"walk_west_005\",\r\n        \"walk_west_006\",\r\n        \"walk_west_008\",\r\n        \"walk_west_009\",\r\n        \"walk_west_010\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 2,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-2.75, 2.46, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_north_001\",\r\n        \"walk_north_003\",\r\n        \"walk_north_004\",\r\n        \"walk_north_005\",\r\n        \"walk_north_007\",\r\n        \"walk_north_008\",\r\n        \"walk_north_009\",\r\n        \"idle_north_000\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 3,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-2.75, -2.35, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_south_002\",\r\n        \"walk_south_003\",\r\n        \"walk_south_004\",\r\n        \"walk_south_005\",\r\n        \"walk_south_006\",\r\n        \"walk_south_007\",\r\n        \"walk_south_008\",\r\n        \"walk_south_010\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 4,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-1.09, 1.66, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_north_001\",\r\n        \"walk_north_003\",\r\n        \"walk_north_004\",\r\n        \"walk_north_005\",\r\n        \"walk_north_006\",\r\n        \"walk_north_007\",\r\n        \"walk_north_008\",\r\n        \"walk_north_010\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 5,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-4.17, -1.01, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_south_001\",\r\n        \"walk_south_003\",\r\n        \"walk_south_004\",\r\n        \"walk_south_005\",\r\n        \"walk_west_006\",\r\n        \"walk_west_007\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 6,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-4.20, 1.14, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_west_002\",\r\n        \"walk_west_003\",\r\n        \"walk_west_004\",\r\n        \"walk_west_005\",\r\n        \"walk_west_006\",\r\n        \"walk_west_007\",\r\n        \"walk_west_008\"\r\n      ]\r\n    },\r\n    {\r\n      \"direction\": 7,\r\n      \"from\": \"(-2.75, 0.00)\",\r\n      \"to\": \"(-1.06, -1.69, 0.00)\",\r\n      \"maxSpeed\": 3.5,\r\n      \"sprites\": [\r\n        \"walk_south_002\",\r\n        \"walk_south_003\",\r\n        \"walk_south_004\",\r\n        \"walk_south_005\",\r\n        \"walk_south_006\",\r\n        \"walk_south_007\",\r\n        \"walk_south_009\",\r\n        \"walk_south_010\"\r\n      ]\r\n    }\r\n  ]\r\n}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
