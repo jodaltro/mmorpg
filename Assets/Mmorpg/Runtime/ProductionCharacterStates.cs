@@ -42,7 +42,6 @@ namespace Mmorpg.Runtime
             }
             observedHealth=next;
         }
-        private static int Direction(Vector2 v)=>Mathf.Abs(v.x)>Mathf.Abs(v.y)?(v.x<0?1:3):(v.y>0?2:0);
         public bool TrySelect(ProductionCharacterSet art,double now,out string action,out int direction,out float time)
         {
             ObserveReplacement();action=null;direction=animator.DirectionIndex;time=0;
@@ -58,7 +57,7 @@ namespace Mmorpg.Runtime
             if(health.State.IsDodging(now))
             {
                 if(lastDodgeUntil!=health.State.DodgeUntil)
-                {lastDodgeUntil=health.State.DodgeUntil;dodgeDirection=Direction(player.DodgeDirection);}
+                {lastDodgeUntil=health.State.DodgeUntil;dodgeDirection=animator.DirectionFor(player.DodgeDirection);}
                 var clip=art.Find("dodge",dodgeDirection);if(clip==null)return false;
                 action="dodge";direction=dodgeDirection;
                 time=Mathf.Clamp01((float)((now-(health.State.DodgeUntil-CombatRules.DodgeDuration))/CombatRules.DodgeDuration))*Mathf.Max(0,clip.Duration-.00001f);

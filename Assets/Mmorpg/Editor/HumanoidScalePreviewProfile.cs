@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 [InitializeOnLoad]
 public static class HumanoidScalePreviewProfile
 {
-    static readonly string[] Scenes = { "Assets/Mmorpg/Scenes/HumanoidScale2026.unity", "Assets/Mmorpg/Scenes/HumanoidOutfit2026.unity" };
+    static readonly string[] Scenes = { "Assets/Mmorpg/Scenes/HumanoidScale2026.unity", "Assets/Mmorpg/Scenes/HumanoidOutfit2026.unity", "Assets/Mmorpg/Scenes/HumanoidCombat8Dir2026.unity" };
     const string Profile = "humanoid-scale-profile-root";
     const string Active = "humanoid-scale-profile-active";
     const string Previous = "humanoid-scale-profile-previous";
@@ -27,7 +27,7 @@ public static class HumanoidScalePreviewProfile
         if(state==PlayModeStateChange.ExitingEditMode && System.Array.IndexOf(Scenes,SceneManager.GetActiveScene().path)>=0)
         {
             SessionState.SetString(Previous,LocalJourneyProfile.ValidationRootOverride??"");
-            SessionState.SetString(Profile,SceneManager.GetActiveScene().path.EndsWith("HumanoidOutfit2026.unity")?"Temp/HumanoidR5/ManualPlayerProfile":"Temp/HumanoidScale2026/ManualPlayerProfile");
+            SessionState.SetString(Profile,SceneManager.GetActiveScene().path.EndsWith("HumanoidCombat8Dir2026.unity")?"Temp/HumanoidR6/ManualPlayerProfile":SceneManager.GetActiveScene().path.EndsWith("HumanoidOutfit2026.unity")?"Temp/HumanoidR5/ManualPlayerProfile":"Temp/HumanoidScale2026/ManualPlayerProfile");
             SessionState.SetBool(Active,true);Apply();
         }
         if(state==PlayModeStateChange.EnteredEditMode && SessionState.GetBool(Active,false))

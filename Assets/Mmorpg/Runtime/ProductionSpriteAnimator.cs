@@ -17,7 +17,8 @@ namespace Mmorpg.Runtime
         public ProductionFrame CurrentFrame { get; private set; }
         public string State { get; private set; } = "idle";
         public int DirectionIndex { get; private set; }
-        public Vector2 VisualFacing => DirectionIndex == 0 ? Vector2.down : DirectionIndex == 1 ? Vector2.left : DirectionIndex == 2 ? Vector2.up : Vector2.right;
+        public Vector2 VisualFacing => ProductionDirections.Vector(DirectionIndex);
+        public int DirectionFor(Vector2 facing,bool stabilize=false)=>MapDirection(facing,stabilize);
         public SpriteRenderer Body => visual;
         public event System.Action<string> VisualEvent;
         public void Configure(ProductionCharacterSet set, ActorHealth actor, SpriteRenderer renderer, SwordSwing weapon)
@@ -33,6 +34,7 @@ namespace Mmorpg.Runtime
         private int MapDirection(Vector2 facing, bool stabilize)
         {
             if(facing.sqrMagnitude<.001f)return DirectionIndex;
+            if(art!=null&&art.eightDirectionPresentation)return ProductionDirections.Eight(facing,DirectionIndex,stabilize);
             float x=Mathf.Abs(facing.x), y=Mathf.Abs(facing.y);
             // A small angular dead band, not a timer: immediate changes away from diagonals.
             if(stabilize && Mathf.Abs(x-y)<Mathf.Max(x,y)*.15f && Vector2.Dot(VisualFacing,facing)>0)return DirectionIndex;

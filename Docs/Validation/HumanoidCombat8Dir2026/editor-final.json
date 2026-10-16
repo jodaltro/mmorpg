@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "return new{playing=UnityEditor.EditorApplication.isPlaying,dirty=UnityEngine.SceneManagement.SceneManager.GetActiveScene().isDirty,scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,profileOverrideCleared=Mmorpg.Runtime.LocalJourneyProfile.ValidationRootOverride==null,syntheticDevices=UnityEngine.InputSystem.InputSystem.devices.Count(d=>d.name==\"AnimationKeyboard\"||d.name==\"AnimationMouse\"),nativeKeyboard=UnityEngine.InputSystem.Keyboard.current.enabled,timeScale=UnityEngine.Time.timeScale};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "playing": false,
+        "dirty": false,
+        "scene": "Assets/Mmorpg/Scenes/HumanoidCombat8Dir2026.unity",
+        "profileOverrideCleared": true,
+        "syntheticDevices": 0,
+        "nativeKeyboard": true,
+        "timeScale": 1
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

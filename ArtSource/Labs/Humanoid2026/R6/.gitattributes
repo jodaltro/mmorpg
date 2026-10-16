@@ -1,0 +1,3 @@
+*.blend binary
+*.aseprite binary
+*.json text eol=lf

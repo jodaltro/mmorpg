@@ -1,0 +1,193 @@
+{
+  "canvas": [
+    128,
+    160
+  ],
+  "ppu": 32,
+  "pivot": [
+    64,
+    126
+  ],
+  "clips": [
+    {
+      "name": "idle_south",
+      "action": "idle",
+      "direction": 0,
+      "first": 1,
+      "last": 1,
+      "loop": true
+    },
+    {
+      "name": "walk_south",
+      "action": "walk",
+      "direction": 0,
+      "first": 2,
+      "last": 13,
+      "loop": true
+    },
+    {
+      "name": "idle_west",
+      "action": "idle",
+      "direction": 1,
+      "first": 14,
+      "last": 14,
+      "loop": true
+    },
+    {
+      "name": "walk_west",
+      "action": "walk",
+      "direction": 1,
+      "first": 15,
+      "last": 26,
+      "loop": true
+    },
+    {
+      "name": "idle_north",
+      "action": "idle",
+      "direction": 2,
+      "first": 27,
+      "last": 27,
+      "loop": true
+    },
+    {
+      "name": "walk_north",
+      "action": "walk",
+      "direction": 2,
+      "first": 28,
+      "last": 39,
+      "loop": true
+    },
+    {
+      "name": "idle_east",
+      "action": "idle",
+      "direction": 3,
+      "first": 40,
+      "last": 40,
+      "loop": true
+    },
+    {
+      "name": "walk_east",
+      "action": "walk",
+      "direction": 3,
+      "first": 41,
+      "last": 52,
+      "loop": true
+    },
+    {
+      "name": "idle_southwest",
+      "action": "idle",
+      "direction": 4,
+      "first": 53,
+      "last": 53,
+      "loop": true
+    },
+    {
+      "name": "walk_southwest",
+      "action": "walk",
+      "direction": 4,
+      "first": 54,
+      "last": 65,
+      "loop": true
+    },
+    {
+      "name": "idle_northwest",
+      "action": "idle",
+      "direction": 5,
+      "first": 66,
+      "last": 66,
+      "loop": true
+    },
+    {
+      "name": "walk_northwest",
+      "action": "walk",
+      "direction": 5,
+      "first": 67,
+      "last": 78,
+      "loop": true
+    },
+    {
+      "name": "idle_northeast",
+      "action": "idle",
+      "direction": 6,
+      "first": 79,
+      "last": 79,
+      "loop": true
+    },
+    {
+      "name": "walk_northeast",
+      "action": "walk",
+      "direction": 6,
+      "first": 80,
+      "last": 91,
+      "loop": true
+    },
+    {
+      "name": "idle_southeast",
+      "action": "idle",
+      "direction": 7,
+      "first": 92,
+      "last": 92,
+      "loop": true
+    },
+    {
+      "name": "walk_southeast",
+      "action": "walk",
+      "direction": 7,
+      "first": 93,
+      "last": 104,
+      "loop": true
+    }
+  ],
+  "frames": 104,
+  "cardinalsCopied": true,
+  "views": [
+    {
+      "name": "south",
+      "unityIndex": 0,
+      "cameraDegrees": 0,
+      "observedOrientation": "south"
+    },
+    {
+      "name": "west",
+      "unityIndex": 1,
+      "cameraDegrees": 90,
+      "observedOrientation": "west"
+    },
+    {
+      "name": "north",
+      "unityIndex": 2,
+      "cameraDegrees": 180,
+      "observedOrientation": "north"
+    },
+    {
+      "name": "east",
+      "unityIndex": 3,
+      "cameraDegrees": -90,
+      "observedOrientation": "east"
+    },
+    {
+      "name": "southwest",
+      "unityIndex": 4,
+      "cameraDegrees": 45,
+      "observedOrientation": "southwest"
+    },
+    {
+      "name": "northwest",
+      "unityIndex": 5,
+      "cameraDegrees": 135,
+      "observedOrientation": "northwest"
+    },
+    {
+      "name": "northeast",
+      "unityIndex": 6,
+      "cameraDegrees": -135,
+      "observedOrientation": "northeast"
+    },
+    {
+      "name": "southeast",
+      "unityIndex": 7,
+      "cameraDegrees": -45,
+      "observedOrientation": "southeast"
+    }
+  ]
+}

@@ -1,0 +1,827 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5911f484a17cee43bd60a2df9348d6d, type: 3}
+  m_Name: Valdoria8Dir
+  m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.ProductionCharacterSet
+  characterId: quaternius-r6-eight-direction-locomotion-gate
+  eightDirectionPresentation: 1
+  pixelsPerUnit: 32
+  referenceSpeed: 3.5
+  clips:
+  - action: idle
+    status: experimental-eight-directions
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: -1022134103, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_south frame0
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: -2078754620, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame1
+      events: []
+    - sprite: {fileID: -1741549063, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame2
+      events: []
+    - sprite: {fileID: -1611717026, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame3
+      events: []
+    - sprite: {fileID: -306761457, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame4
+      events: []
+    - sprite: {fileID: -517473968, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame5
+      events: []
+    - sprite: {fileID: -941735803, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame6
+      events: []
+    - sprite: {fileID: 1520941482, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame7
+      events: []
+    - sprite: {fileID: 1289564291, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame8
+      events: []
+    - sprite: {fileID: 1664522423, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame9
+      events: []
+    - sprite: {fileID: 1537140984, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame10
+      events: []
+    - sprite: {fileID: -2036476541, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame11
+      events: []
+    - sprite: {fileID: -192594296, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_south frame12
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: -170578886, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_west frame13
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: -459082101, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame14
+      events: []
+    - sprite: {fileID: 1227093436, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame15
+      events: []
+    - sprite: {fileID: -587877411, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame16
+      events: []
+    - sprite: {fileID: 2021099963, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame17
+      events: []
+    - sprite: {fileID: -1998193196, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame18
+      events: []
+    - sprite: {fileID: -1896577494, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame19
+      events: []
+    - sprite: {fileID: -480119064, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame20
+      events: []
+    - sprite: {fileID: 1321670260, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame21
+      events: []
+    - sprite: {fileID: 2125860277, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame22
+      events: []
+    - sprite: {fileID: -1463562094, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame23
+      events: []
+    - sprite: {fileID: 906190388, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame24
+      events: []
+    - sprite: {fileID: -1292817942, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_west frame25
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: 1288652884, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_north frame26
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: -326228033, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame27
+      events: []
+    - sprite: {fileID: -92012027, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame28
+      events: []
+    - sprite: {fileID: 2133921034, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame29
+      events: []
+    - sprite: {fileID: 810717708, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame30
+      events: []
+    - sprite: {fileID: 751240760, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame31
+      events: []
+    - sprite: {fileID: 500638641, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame32
+      events: []
+    - sprite: {fileID: -2052908157, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame33
+      events: []
+    - sprite: {fileID: 2045737015, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame34
+      events: []
+    - sprite: {fileID: 1214918585, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame35
+      events: []
+    - sprite: {fileID: 985931651, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame36
+      events: []
+    - sprite: {fileID: -1956407068, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame37
+      events: []
+    - sprite: {fileID: 2019997074, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_north frame38
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: -721899651, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_east frame39
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: 1752919360, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame40
+      events: []
+    - sprite: {fileID: 994469403, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame41
+      events: []
+    - sprite: {fileID: 1326654239, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame42
+      events: []
+    - sprite: {fileID: -1157452618, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame43
+      events: []
+    - sprite: {fileID: -1440915343, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame44
+      events: []
+    - sprite: {fileID: 348941043, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame45
+      events: []
+    - sprite: {fileID: 1510883981, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame46
+      events: []
+    - sprite: {fileID: -920210626, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame47
+      events: []
+    - sprite: {fileID: -1236648749, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame48
+      events: []
+    - sprite: {fileID: -196641627, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame49
+      events: []
+    - sprite: {fileID: -546220866, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame50
+      events: []
+    - sprite: {fileID: -293716249, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_east frame51
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 4
+    loop: 1
+    frames:
+    - sprite: {fileID: 384195784, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_southwest frame52
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 4
+    loop: 1
+    frames:
+    - sprite: {fileID: 1315939299, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame53
+      events: []
+    - sprite: {fileID: -1698923422, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame54
+      events: []
+    - sprite: {fileID: -2142092859, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame55
+      events: []
+    - sprite: {fileID: 566288833, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame56
+      events: []
+    - sprite: {fileID: -1956394343, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame57
+      events: []
+    - sprite: {fileID: -1741054768, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame58
+      events: []
+    - sprite: {fileID: -931490787, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame59
+      events: []
+    - sprite: {fileID: -72730615, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame60
+      events: []
+    - sprite: {fileID: 775595695, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame61
+      events: []
+    - sprite: {fileID: 1797653035, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame62
+      events: []
+    - sprite: {fileID: -849264339, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame63
+      events: []
+    - sprite: {fileID: -416195330, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southwest frame64
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 5
+    loop: 1
+    frames:
+    - sprite: {fileID: 1866629875, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_northwest frame65
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 5
+    loop: 1
+    frames:
+    - sprite: {fileID: -1061085851, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame66
+      events: []
+    - sprite: {fileID: -1065530113, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame67
+      events: []
+    - sprite: {fileID: 1894367182, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame68
+      events: []
+    - sprite: {fileID: 186454064, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame69
+      events: []
+    - sprite: {fileID: 1190285372, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame70
+      events: []
+    - sprite: {fileID: 823130118, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame71
+      events: []
+    - sprite: {fileID: 234488013, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame72
+      events: []
+    - sprite: {fileID: 118392670, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame73
+      events: []
+    - sprite: {fileID: 922470017, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame74
+      events: []
+    - sprite: {fileID: 679448365, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame75
+      events: []
+    - sprite: {fileID: 950373958, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame76
+      events: []
+    - sprite: {fileID: 2143700902, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northwest frame77
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 6
+    loop: 1
+    frames:
+    - sprite: {fileID: 1487732778, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_northeast frame78
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 6
+    loop: 1
+    frames:
+    - sprite: {fileID: 1911142799, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame79
+      events: []
+    - sprite: {fileID: -251632079, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame80
+      events: []
+    - sprite: {fileID: 855358199, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame81
+      events: []
+    - sprite: {fileID: -284411685, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame82
+      events: []
+    - sprite: {fileID: -474799313, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame83
+      events: []
+    - sprite: {fileID: -1835706321, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame84
+      events: []
+    - sprite: {fileID: -1604124348, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame85
+      events: []
+    - sprite: {fileID: -1996571625, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame86
+      events: []
+    - sprite: {fileID: 1651619911, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame87
+      events: []
+    - sprite: {fileID: 521626998, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame88
+      events: []
+    - sprite: {fileID: -17355453, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame89
+      events: []
+    - sprite: {fileID: -1659704321, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_northeast frame90
+      events: []
+  - action: idle
+    status: experimental-eight-directions
+    direction: 7
+    loop: 1
+    frames:
+    - sprite: {fileID: 1464532860, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.125
+      holdAngle: 0
+      depth: 1
+      source: R6 idle_southeast frame91
+      events: []
+  - action: walk
+    status: experimental-eight-directions
+    direction: 7
+    loop: 1
+    frames:
+    - sprite: {fileID: -314509537, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame92
+      events: []
+    - sprite: {fileID: -845160967, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame93
+      events: []
+    - sprite: {fileID: -734705479, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame94
+      events: []
+    - sprite: {fileID: 825297645, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame95
+      events: []
+    - sprite: {fileID: 1758781841, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame96
+      events: []
+    - sprite: {fileID: -1500415016, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame97
+      events: []
+    - sprite: {fileID: -1768405144, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame98
+      events: []
+    - sprite: {fileID: -1546274573, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame99
+      events: []
+    - sprite: {fileID: -872399466, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame100
+      events: []
+    - sprite: {fileID: 500961235, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame101
+      events: []
+    - sprite: {fileID: 1856921968, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame102
+      events: []
+    - sprite: {fileID: 441684167, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0, y: 0}
+      seconds: 0.111
+      holdAngle: 0
+      depth: 1
+      source: R6 walk_southeast frame103
+      events: []

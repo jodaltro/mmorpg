@@ -6,6 +6,7 @@ namespace Mmorpg.Runtime
     public sealed class ProductionCharacterSet : ScriptableObject
     {
         public string characterId;
+        public bool eightDirectionPresentation;
         public float pixelsPerUnit=32, referenceSpeed=3.5f;
         public ProductionClip[] clips=Array.Empty<ProductionClip>();
         public ProductionClip Find(string action,int direction)=>Array.Find(clips,c=>c.action==action&&c.direction==direction);

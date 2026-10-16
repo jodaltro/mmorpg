@@ -1,0 +1,51 @@
+{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {
+      "level": "error",
+      "tail": "1"
+    },
+    "result": {
+      "entries": [
+        {
+          "seq": 84,
+          "timestampUtc": "2026-10-16T19:01:53.2729529Z",
+          "level": "error",
+          "logType": "Error",
+          "message": "Scene 'Assets/Mmorpg/Scenes/Marco06B10CombatPolish.unity' couldn't be loaded because it has not been added to the active build profile or shared scene list or the AssetBundle has not been loaded.\nTo add a scene to the active build profile or shared scene list use the menu File->Build Profiles",
+          "stackTrace": "UnityEngine.SceneManagement.SceneManager:LoadScene (string)\nPipelineEvaluation.PipelineEval_17888a14:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateCode (string,int) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Commands/CodeEvalCommand.cs:24)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2820)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass138_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2694)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 84,
+      "session": "7852e9759ef6493caba42d631b7a5422",
+      "returned": 1,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 3,
+        "warn": 29,
+        "log": 0
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-16T19:07:20.9235942Z",
+        "ageMs": 95,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 0,
+        "consoleLogs": 0,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,17 @@
+{
+  "protectedFiles": 452,
+  "frozenFilesIdentical": true,
+  "personalSaves": 5,
+  "personalSavesUnchanged": true,
+  "locomotionFrames": 104,
+  "cardinalR5FramesIdentical": 52,
+  "diagonalFrames": 52,
+  "walkFrames": 96,
+  "idleFrames": 8,
+  "asepriteRoundtripFrames": 264,
+  "locomotionGatePassed": true,
+  "combatGatePassed": false,
+  "combatCandidateNotReleased": true,
+  "rollAndDeathPending": true,
+  "completeMilestone": false
+}

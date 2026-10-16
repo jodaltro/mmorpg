@@ -1,0 +1,328 @@
+{
+  "traces": [
+    {
+      "action": "basic-",
+      "direction": 0,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 55,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        0
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 1,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 45,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148759,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        1
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 2,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 40,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148843
+      ],
+      "observedActiveDirections": [
+        2
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 3,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 41,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148819
+      ],
+      "observedActiveDirections": [
+        3
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 4,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 46,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        4
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 5,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 41,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148843
+      ],
+      "observedActiveDirections": [
+        5
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 6,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 43,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        6
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "basic-",
+      "direction": 7,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 39,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148819
+      ],
+      "observedActiveDirections": [
+        7
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 0,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 36,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        0
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 1,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 48,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        1
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 2,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 39,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        2
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 3,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 47,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148819
+      ],
+      "observedActiveDirections": [
+        3
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 4,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 40,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        4
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 5,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 40,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148771,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        5
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 6,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 48,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        6
+      ],
+      "directionMatchesIntention": true
+    },
+    {
+      "action": "heavy-",
+      "direction": 7,
+      "phases": [
+        "cut",
+        "preparation",
+        "recovery"
+      ],
+      "maxHandAnchorError": 0.0,
+      "activeSamples": 36,
+      "activeBodyMatchesCut": true,
+      "measuredBladeLengthRange": [
+        1.02148783,
+        1.02148831
+      ],
+      "observedActiveDirections": [
+        7
+      ],
+      "directionMatchesIntention": true
+    }
+  ],
+  "renderedAttachmentStudy": true,
+  "gameplayGatePassed": false,
+  "blockingTest": "Existing near target fixture: expected one HitConfirmed and 20 damage; observed zero HitConfirmed. No physical changes applied.",
+  "handAnchorMeasurementNotVisualApproval": true
+}

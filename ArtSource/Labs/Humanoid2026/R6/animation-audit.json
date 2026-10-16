@@ -1,0 +1,66 @@
+{
+  "Idle_Loop": {
+    "action": "Idle_Loop",
+    "frameRange": [
+      0.0,
+      75.0
+    ],
+    "seconds": 2.5
+  },
+  "Walk_Loop": {
+    "action": "Walk_Loop",
+    "frameRange": [
+      0.0,
+      40.0
+    ],
+    "seconds": 1.3333333333333333
+  },
+  "Sword_Attack": {
+    "action": "Sword_Attack",
+    "frameRange": [
+      0.0,
+      46.0
+    ],
+    "seconds": 1.5333333333333334
+  },
+  "Sword_Idle": {
+    "action": "Sword_Idle",
+    "frameRange": [
+      0.0,
+      50.0
+    ],
+    "seconds": 1.6666666666666667
+  },
+  "Roll": {
+    "action": "Roll",
+    "frameRange": [
+      0.0,
+      44.0
+    ],
+    "seconds": 1.4666666666666666
+  },
+  "Hit_Chest": {
+    "action": "Hit_Chest",
+    "frameRange": [
+      0.0,
+      10.0
+    ],
+    "seconds": 0.3333333333333333
+  },
+  "Hit_Head": {
+    "action": "Hit_Head",
+    "frameRange": [
+      0.0,
+      13.0
+    ],
+    "seconds": 0.43333333333333335
+  },
+  "Death01": {
+    "action": "Death01",
+    "frameRange": [
+      0.0,
+      72.0
+    ],
+    "seconds": 2.4
+  }
+}

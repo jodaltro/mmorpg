@@ -1,0 +1,9 @@
+{
+  "newDiagonalFrames": 52,
+  "maxWorldBoneMatrixDifferenceFromR5": 0.0,
+  "withinFloatTolerance": true,
+  "cardinalPixelIdenticalFrames": 52,
+  "footMetadata": "ArtSource/Labs/Humanoid2026/R6/Locomotion/foot-contact.json",
+  "footLockImplemented": false,
+  "physicalMovementUnchanged": true
+}

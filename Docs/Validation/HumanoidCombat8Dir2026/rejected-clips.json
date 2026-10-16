@@ -1,0 +1,104 @@
+{
+  "source": "Blender in-place probe, not gameplay",
+  "canvas": [
+    128,
+    160
+  ],
+  "frames": [
+    {
+      "file": "death_west_000.png",
+      "bbox": [
+        40,
+        26,
+        90,
+        144
+      ],
+      "cropped": false
+    },
+    {
+      "file": "death_west_001.png",
+      "bbox": [
+        31,
+        39,
+        89,
+        142
+      ],
+      "cropped": false
+    },
+    {
+      "file": "death_west_002.png",
+      "bbox": [
+        5,
+        83,
+        128,
+        160
+      ],
+      "cropped": true
+    },
+    {
+      "file": "death_west_003.png",
+      "bbox": [
+        1,
+        89,
+        128,
+        160
+      ],
+      "cropped": true
+    },
+    {
+      "file": "death_west_004.png",
+      "bbox": [
+        1,
+        89,
+        128,
+        160
+      ],
+      "cropped": true
+    },
+    {
+      "file": "dodge_west_000.png",
+      "bbox": [
+        39,
+        52,
+        90,
+        142
+      ],
+      "cropped": false
+    },
+    {
+      "file": "dodge_west_001.png",
+      "bbox": [
+        36,
+        59,
+        128,
+        135
+      ],
+      "cropped": true
+    },
+    {
+      "file": "dodge_west_002.png",
+      "bbox": [
+        17,
+        66,
+        92,
+        142
+      ],
+      "cropped": false
+    },
+    {
+      "file": "dodge_west_003.png",
+      "bbox": [
+        47,
+        29,
+        98,
+        144
+      ],
+      "cropped": false
+    }
+  ],
+  "rollSourceSeconds": 1.4666666666666666,
+  "authoritativeDodgeSeconds": 0.22,
+  "rollSpeedupRequired": 6.666666666666666,
+  "deathSourceSeconds": 2.4,
+  "integrated": false
+}

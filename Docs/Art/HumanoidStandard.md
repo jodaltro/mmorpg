@@ -85,3 +85,7 @@ Próxima etapa concreta: revisar a prova de proporções, acabamento pixel art, 
 ## Figurino R5 aprovado
 
 Após a caminhada, o usuário aprovou o figurino medieval da base masculina na cena `HumanoidOutfit2026.unity`. [Entrega, fontes, comparação de integridade e limites](../Validation/HumanoidOutfit2026.md). Mantidos os 52 quadros, direções corrigidas, tempos, pivô e corpo. A aprovação não promove o personagem à entrada oficial nem conclui espada/combate.
+
+## R6 — oito vistas reais, combate ainda pendente
+
+O gate de locomoção chegou a 104 sprites (96 walk + oito idle), preservando os 52 R5 aprovados e o figurino. [Resultados e bloqueios medidos](../Validation/HumanoidCombat8Dir2026.md). Opção de oito direções é por CharacterSet; Iron Knight e R5 mantêm quatro vistas. Candidato de combate não passou na fixture de acerto; Roll/Death recortam no canvas congelado. A cena final usa só a locomoção validada, sem promover ao mundo oficial.
