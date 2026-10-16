@@ -1,0 +1,38 @@
+[
+  {
+    "profile": "sword-neutral",
+    "direction": 0,
+    "damage": 20,
+    "hits": 1,
+    "proceduralBodyObserved": true,
+    "handAnchorAligned": true,
+    "fullAnimation": false
+  },
+  {
+    "profile": "sword-neutral",
+    "direction": 3,
+    "damage": 20,
+    "hits": 1,
+    "proceduralBodyObserved": true,
+    "handAnchorAligned": true,
+    "fullAnimation": false
+  },
+  {
+    "profile": "sword-adjusted-grip",
+    "direction": 0,
+    "damage": 20,
+    "hits": 1,
+    "proceduralBodyObserved": true,
+    "handAnchorAligned": true,
+    "fullAnimation": false
+  },
+  {
+    "profile": "sword-adjusted-grip",
+    "direction": 3,
+    "damage": 20,
+    "hits": 1,
+    "proceduralBodyObserved": true,
+    "handAnchorAligned": true,
+    "fullAnimation": false
+  }
+]

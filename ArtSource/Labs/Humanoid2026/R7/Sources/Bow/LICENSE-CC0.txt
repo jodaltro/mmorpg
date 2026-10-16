@@ -1,0 +1,5 @@
+Animated Longbow by djonvincent
+Source: https://opengameart.org/content/animated-longbow
+License: CC0 1.0 Universal (public-domain dedication)
+https://creativecommons.org/publicdomain/zero/1.0/
+Original source byte-for-byte preserved; SHA-256 in provenance.json.

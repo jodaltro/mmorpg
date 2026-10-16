@@ -1,0 +1,47 @@
+{
+  "policy": "PlanarSweepOrigin",
+  "defaultForOtherCharacters": "LegacyGrip",
+  "physicalOrigin": "Rigidbody2D.position, interpolated between preceding/current frame",
+  "physicalOffset": [
+    0,
+    0
+  ],
+  "direction": "Confirmed continuous normalized attack aim; never visual sector",
+  "basicRange": 1.25,
+  "heavyRange": 1.65,
+  "capsuleSegmentLength": "range - 0.25",
+  "capsuleTotalWidth": 0.16,
+  "rootDistanceGate": "range + 0.16 to target collider closest point",
+  "arcDegrees": 110,
+  "angularStepMaxDegrees": 3,
+  "translationStepMax": 0.04,
+  "obstacleLayer": 8,
+  "targetLayer": 9,
+  "visualGrip": "ProductionFrame.hand transformed by Body; render-only in planar policy",
+  "visualSwordScale": [
+    1,
+    1,
+    1
+  ],
+  "visualBladeLength": 1.021488,
+  "damage": [
+    20,
+    36
+  ],
+  "phaseSeconds": {
+    "basic": [
+      0.06,
+      0.14,
+      0.16
+    ],
+    "heavy": [
+      0.38,
+      0.14,
+      0.16
+    ]
+  },
+  "cooldowns": [
+    0.4,
+    1.2
+  ]
+}

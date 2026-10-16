@@ -1,0 +1,442 @@
+{
+  "method": "Analytic two-bone IK, weapon master -> palm/wrist -> arm; no cyclic parenting",
+  "profiles": [
+    {
+      "id": "sword-neutral",
+      "handleRadius": 0.014,
+      "wristDegrees": 0,
+      "socketOffsetLocal": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "sword-adjusted-grip",
+      "handleRadius": 0.026,
+      "wristDegrees": 18,
+      "socketOffsetLocal": [
+        0.018,
+        -0.012,
+        0.012
+      ]
+    }
+  ],
+  "records": [
+    {
+      "profile": "sword-neutral",
+      "view": "south",
+      "sourceFrame": 6,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-neutral-south-6.png",
+      "socket": [
+        -0.38943156599998474,
+        0.6633093953132629,
+        1.391779899597168
+      ],
+      "socketPixel": [
+        38.03789520263672,
+        29.535541534423828
+      ],
+      "socketError": 1.7881393432617188e-07,
+      "upperLength": 0.25111505186303484,
+      "lowerLength": 0.2435943872863699,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.1860049068927765,
+        0.5020572543144226,
+        1.3174784183502197
+      ],
+      "wrist": [
+        -0.3666377067565918,
+        0.651542603969574,
+        1.3835400342941284
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-neutral",
+      "view": "south",
+      "sourceFrame": 12,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-neutral-south-12.png",
+      "socket": [
+        -0.3519871234893799,
+        -0.6480211615562439,
+        1.096463680267334
+      ],
+      "socketPixel": [
+        40.5341911315918,
+        90.18033027648926
+      ],
+      "socketError": 2.9802322387695312e-08,
+      "upperLength": 0.2511151189681943,
+      "lowerLength": 0.24359435741721674,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.2512941360473633,
+        -0.40282171964645386,
+        1.0683926343917847
+      ],
+      "wrist": [
+        -0.3403332829475403,
+        -0.6262184977531433,
+        1.107175588607788
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-neutral",
+      "view": "south",
+      "sourceFrame": 24,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-neutral-south-24.png",
+      "socket": [
+        0.4347148835659027,
+        -0.4990672767162323,
+        0.6706871390342712
+      ],
+      "socketPixel": [
+        92.98098754882812,
+        109.83760833740234
+      ],
+      "socketError": 6.664001874625056e-08,
+      "upperLength": 0.25111509277516353,
+      "lowerLength": 0.24359440927006426,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        0.2425307333469391,
+        -0.39868780970573425,
+        0.8084989786148071
+      ],
+      "wrist": [
+        0.43238765001296997,
+        -0.503135621547699,
+        0.6972191333770752
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-adjusted-grip",
+      "view": "south",
+      "sourceFrame": 6,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-adjusted-grip-south-6.png",
+      "socket": [
+        -0.3762802183628082,
+        0.6499847173690796,
+        1.407950758934021
+      ],
+      "socketPixel": [
+        38.91465377807617,
+        29.043760299682617
+      ],
+      "socketError": 1.228781230931777e-07,
+      "upperLength": 0.25111509022539935,
+      "lowerLength": 0.24359437486080263,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.17532148957252502,
+        0.5057941675186157,
+        1.305308222770691
+      ],
+      "wrist": [
+        -0.351675808429718,
+        0.6461883783340454,
+        1.3976490497589111
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-adjusted-grip",
+      "view": "south",
+      "sourceFrame": 12,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-adjusted-grip-south-12.png",
+      "socket": [
+        -0.36577561497688293,
+        -0.6323388814926147,
+        1.1097280979156494
+      ],
+      "socketPixel": [
+        39.614959716796875,
+        88.8925838470459
+      ],
+      "socketError": 0.0,
+      "upperLength": 0.2511150371439388,
+      "lowerLength": 0.24359441500494072,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.24487051367759705,
+        -0.4004567563533783,
+        1.0472830533981323
+      ],
+      "wrist": [
+        -0.3520811200141907,
+        -0.6092854738235474,
+        1.1123573780059814
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-adjusted-grip",
+      "view": "south",
+      "sourceFrame": 24,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-adjusted-grip-south-24.png",
+      "socket": [
+        0.4320570230484009,
+        -0.5221807360649109,
+        0.6790956258773804
+      ],
+      "socketPixel": [
+        92.80380249023438,
+        110.11973857879639
+      ],
+      "socketError": 8.429369702178807e-08,
+      "upperLength": 0.251115159532617,
+      "lowerLength": 0.24359427163298852,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        0.23557543754577637,
+        -0.40034592151641846,
+        0.8023325204849243
+      ],
+      "wrist": [
+        0.4233078062534332,
+        -0.5208969712257385,
+        0.7045459151268005
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-neutral",
+      "view": "east",
+      "sourceFrame": 6,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-neutral-east-6.png",
+      "socket": [
+        -0.38943156599998474,
+        0.6633093953132629,
+        1.391779899597168
+      ],
+      "socketPixel": [
+        19.779300689697266,
+        64.51959609985352
+      ],
+      "socketError": 1.7881393432617188e-07,
+      "upperLength": 0.25111505186303484,
+      "lowerLength": 0.2435943872863699,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.1860049068927765,
+        0.5020572543144226,
+        1.3174784183502197
+      ],
+      "wrist": [
+        -0.3666377067565918,
+        0.651542603969574,
+        1.3835400342941284
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-neutral",
+      "view": "east",
+      "sourceFrame": 12,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-neutral-east-12.png",
+      "socket": [
+        -0.3519871234893799,
+        -0.6480211615562439,
+        1.096463680267334
+      ],
+      "socketPixel": [
+        107.20133209228516,
+        80.34270763397217
+      ],
+      "socketError": 2.9802322387695312e-08,
+      "upperLength": 0.2511151189681943,
+      "lowerLength": 0.24359435741721674,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.2512941360473633,
+        -0.40282171964645386,
+        1.0683926343917847
+      ],
+      "wrist": [
+        -0.3403332829475403,
+        -0.6262184977531433,
+        1.107175588607788
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-neutral",
+      "view": "east",
+      "sourceFrame": 24,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-neutral-east-24.png",
+      "socket": [
+        0.4347148835659027,
+        -0.4990672767162323,
+        0.6706871390342712
+      ],
+      "socketPixel": [
+        97.27106475830078,
+        78.80672454833984
+      ],
+      "socketError": 6.664001874625056e-08,
+      "upperLength": 0.25111509277516353,
+      "lowerLength": 0.24359440927006426,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        0.2425307333469391,
+        -0.39868780970573425,
+        0.8084989786148071
+      ],
+      "wrist": [
+        0.43238765001296997,
+        -0.503135621547699,
+        0.6972191333770752
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-adjusted-grip",
+      "view": "east",
+      "sourceFrame": 6,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-adjusted-grip-east-6.png",
+      "socket": [
+        -0.3762802183628082,
+        0.6499847173690796,
+        1.407950758934021
+      ],
+      "socketPixel": [
+        20.667612075805664,
+        63.14797401428223
+      ],
+      "socketError": 1.228781230931777e-07,
+      "upperLength": 0.25111509022539935,
+      "lowerLength": 0.24359437486080263,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.17532148957252502,
+        0.5057941675186157,
+        1.305308222770691
+      ],
+      "wrist": [
+        -0.351675808429718,
+        0.6461883783340454,
+        1.3976490497589111
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-adjusted-grip",
+      "view": "east",
+      "sourceFrame": 12,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-adjusted-grip-east-12.png",
+      "socket": [
+        -0.36577561497688293,
+        -0.6323388814926147,
+        1.1097280979156494
+      ],
+      "socketPixel": [
+        106.15584564208984,
+        80.03431797027588
+      ],
+      "socketError": 0.0,
+      "upperLength": 0.2511150371439388,
+      "lowerLength": 0.24359441500494072,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        -0.24487051367759705,
+        -0.4004567563533783,
+        1.0472830533981323
+      ],
+      "wrist": [
+        -0.3520811200141907,
+        -0.6092854738235474,
+        1.1123573780059814
+      ],
+      "bodyUnaffected": true
+    },
+    {
+      "profile": "sword-adjusted-grip",
+      "view": "east",
+      "sourceFrame": 24,
+      "file": "Temp/HumanoidR7/ProceduralGripFinal/sword-adjusted-grip-east-24.png",
+      "socket": [
+        0.4320570230484009,
+        -0.5221807360649109,
+        0.6790956258773804
+      ],
+      "socketPixel": [
+        98.81196594238281,
+        78.40909004211426
+      ],
+      "socketError": 8.429369702178807e-08,
+      "upperLength": 0.251115159532617,
+      "lowerLength": 0.24359427163298852,
+      "expectedUpper": 0.251115083694458,
+      "expectedLower": 0.24359436333179474,
+      "handRotationErrorDegrees": 0.0,
+      "elbow": [
+        0.23557543754577637,
+        -0.40034592151641846,
+        0.8023325204849243
+      ],
+      "wrist": [
+        0.4233078062534332,
+        -0.5208969712257385,
+        0.7045459151268005
+      ],
+      "bodyUnaffected": true
+    }
+  ],
+  "unreachableTargetRejected": true,
+  "sourceAnimation": "Sword_Attack",
+  "liveWeaponFollowing": [
+    {
+      "weaponShift": [
+        0,
+        0,
+        0
+      ],
+      "socketError": 2.4027400458748785e-07
+    },
+    {
+      "weaponShift": [
+        0.006,
+        0,
+        0
+      ],
+      "socketError": 0.0006553215802743168
+    },
+    {
+      "weaponShift": [
+        0,
+        0.006,
+        0
+      ],
+      "socketError": 3.384893146634265e-07
+    }
+  ],
+  "gameplayIntegrated": false,
+  "fingerContactSolver": false,
+  "artisticApproval": false
+}

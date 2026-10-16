@@ -1,0 +1,5145 @@
+{
+  "characterId": "quaternius-r7-planar-sword-attack-hurt",
+  "eightDirectionPresentation": true,
+  "pixelsPerUnit": 32.0,
+  "referenceSpeed": 3.5,
+  "physicalPolicy": "PlanarSweepOrigin",
+  "clips": [
+    {
+      "action": "idle",
+      "direction": 0,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_000",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6258937,
+            1.69318485
+          ],
+          "holdAngle": -98.86194,
+          "depth": -1,
+          "seconds": 0.125,
+          "source": "R6 idle_south frame0"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 0,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_001",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.643999457,
+            1.35774422
+          ],
+          "holdAngle": -87.48498,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame1"
+        },
+        {
+          "sprite": "pose_002",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6012838,
+            1.34852147
+          ],
+          "holdAngle": -85.1144257,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame2"
+        },
+        {
+          "sprite": "pose_003",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.576918,
+            1.40730262
+          ],
+          "holdAngle": -88.17604,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame3"
+        },
+        {
+          "sprite": "pose_004",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.548845768,
+            1.506352
+          ],
+          "holdAngle": -92.47141,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame4"
+        },
+        {
+          "sprite": "pose_005",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.5234431,
+            1.56281757
+          ],
+          "holdAngle": -95.89002,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame5"
+        },
+        {
+          "sprite": "pose_006",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.512470961,
+            1.56139326
+          ],
+          "holdAngle": -97.8428345,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame6"
+        },
+        {
+          "sprite": "pose_007",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.5215944,
+            1.54765868
+          ],
+          "holdAngle": -98.48351,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame7"
+        },
+        {
+          "sprite": "pose_008",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.5580957,
+            1.560277
+          ],
+          "holdAngle": -98.52005,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame8"
+        },
+        {
+          "sprite": "pose_009",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.624250054,
+            1.57670021
+          ],
+          "holdAngle": -98.9530945,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame9"
+        },
+        {
+          "sprite": "pose_010",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6887531,
+            1.56221485
+          ],
+          "holdAngle": -98.98528,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame10"
+        },
+        {
+          "sprite": "pose_011",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.717407942,
+            1.50223184
+          ],
+          "holdAngle": -97.2607,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame11"
+        },
+        {
+          "sprite": "pose_012",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6958264,
+            1.41917539
+          ],
+          "holdAngle": -93.09622,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_south frame12"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 1,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_013",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.330127,
+            1.84061766
+          ],
+          "holdAngle": -126.244408,
+          "depth": -1,
+          "seconds": 0.125,
+          "source": "R6 idle_west frame13"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 1,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_014",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.539635658,
+            1.94775307
+          ],
+          "holdAngle": -153.635178,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame14"
+        },
+        {
+          "sprite": "pose_015",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.551409,
+            1.92310667
+          ],
+          "holdAngle": -157.075974,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame15"
+        },
+        {
+          "sprite": "pose_016",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.372012854,
+            1.8803184
+          ],
+          "holdAngle": -151.633072,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame16"
+        },
+        {
+          "sprite": "pose_017",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.156693459,
+            1.85804415
+          ],
+          "holdAngle": -143.247421,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame17"
+        },
+        {
+          "sprite": "pose_018",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.0007791519,
+            1.82335138
+          ],
+          "holdAngle": -134.723938,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame18"
+        },
+        {
+          "sprite": "pose_019",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.107066154,
+            1.76347709
+          ],
+          "holdAngle": -125.636932,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame19"
+        },
+        {
+          "sprite": "pose_020",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.176813126,
+            1.71952343
+          ],
+          "holdAngle": -115.92894,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame20"
+        },
+        {
+          "sprite": "pose_021",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.202573776,
+            1.73749542
+          ],
+          "holdAngle": -107.972359,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame21"
+        },
+        {
+          "sprite": "pose_022",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.143466473,
+            1.81635809
+          ],
+          "holdAngle": -107.225883,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame22"
+        },
+        {
+          "sprite": "pose_023",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.00329518318,
+            1.90389729
+          ],
+          "holdAngle": -115.3269,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame23"
+        },
+        {
+          "sprite": "pose_024",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.187518239,
+            1.95331287
+          ],
+          "holdAngle": -128.475937,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame24"
+        },
+        {
+          "sprite": "pose_025",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.383605361,
+            1.95724213
+          ],
+          "holdAngle": -142.600037,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_west frame25"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 2,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_026",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6258955,
+            1.36406994
+          ],
+          "holdAngle": -72.8853149,
+          "depth": 1,
+          "seconds": 0.125,
+          "source": "R6 idle_north frame26"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 2,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_027",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.644001245,
+            1.89573216
+          ],
+          "holdAngle": 150.543091,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame27"
+        },
+        {
+          "sprite": "pose_028",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6012857,
+            1.89824653
+          ],
+          "holdAngle": 123.711609,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame28"
+        },
+        {
+          "sprite": "pose_029",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.576920033,
+            1.77818036
+          ],
+          "holdAngle": -142.198044,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame29"
+        },
+        {
+          "sprite": "pose_030",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.548847437,
+            1.66256857
+          ],
+          "holdAngle": -78.73302,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame30"
+        },
+        {
+          "sprite": "pose_031",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.5234449,
+            1.56204319
+          ],
+          "holdAngle": -74.53798,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame31"
+        },
+        {
+          "sprite": "pose_032",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.5124726,
+            1.45465684
+          ],
+          "holdAngle": -74.87456,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame32"
+        },
+        {
+          "sprite": "pose_033",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.5215962,
+            1.37138867
+          ],
+          "holdAngle": -76.85821,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame33"
+        },
+        {
+          "sprite": "pose_034",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.558097363,
+            1.358325
+          ],
+          "holdAngle": -78.59163,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame34"
+        },
+        {
+          "sprite": "pose_035",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.624251842,
+            1.43367481
+          ],
+          "holdAngle": -78.18752,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame35"
+        },
+        {
+          "sprite": "pose_036",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.688755035,
+            1.5589323
+          ],
+          "holdAngle": -76.29373,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame36"
+        },
+        {
+          "sprite": "pose_037",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.7174096,
+            1.68917942
+          ],
+          "holdAngle": -74.7878342,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame37"
+        },
+        {
+          "sprite": "pose_038",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6958282,
+            1.80161
+          ],
+          "holdAngle": -76.87301,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_north frame38"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 3,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_039",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.330126882,
+            1.21663761
+          ],
+          "holdAngle": -59.2075844,
+          "depth": 1,
+          "seconds": 0.125,
+          "source": "R6 idle_east frame39"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 3,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_040",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.539635658,
+            1.305723
+          ],
+          "holdAngle": -24.3725147,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame40"
+        },
+        {
+          "sprite": "pose_041",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.551409,
+            1.32366133
+          ],
+          "holdAngle": -19.1675682,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame41"
+        },
+        {
+          "sprite": "pose_042",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.372012854,
+            1.30516458
+          ],
+          "holdAngle": -26.907774,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame42"
+        },
+        {
+          "sprite": "pose_043",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.156693459,
+            1.31087685
+          ],
+          "holdAngle": -38.71441,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame43"
+        },
+        {
+          "sprite": "pose_044",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.0007790327,
+            1.3015089
+          ],
+          "holdAngle": -49.55679,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame44"
+        },
+        {
+          "sprite": "pose_045",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.107066154,
+            1.25257325
+          ],
+          "holdAngle": -59.1480331,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame45"
+        },
+        {
+          "sprite": "pose_046",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.176813126,
+            1.19952393
+          ],
+          "holdAngle": -67.93681,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame46"
+        },
+        {
+          "sprite": "pose_047",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.202573776,
+            1.18110657
+          ],
+          "holdAngle": -74.72146,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame47"
+        },
+        {
+          "sprite": "pose_048",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.143466353,
+            1.19401693
+          ],
+          "holdAngle": -75.4760056,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame48"
+        },
+        {
+          "sprite": "pose_049",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.003295064,
+            1.21725011
+          ],
+          "holdAngle": -68.66184,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame49"
+        },
+        {
+          "sprite": "pose_050",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.187518358,
+            1.23809862
+          ],
+          "holdAngle": -56.2484856,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame50"
+        },
+        {
+          "sprite": "pose_051",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.38360548,
+            1.26354337
+          ],
+          "holdAngle": -39.8469429,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_east frame51"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 4,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_052",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.209138632,
+            1.8655951
+          ],
+          "holdAngle": -117.811981,
+          "depth": -1,
+          "seconds": 0.125,
+          "source": "R6 idle_southwest frame52"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 4,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_053",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.8369564,
+            1.66352034
+          ],
+          "holdAngle": -128.800491,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame53"
+        },
+        {
+          "sprite": "pose_054",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.8150768,
+            1.64096045
+          ],
+          "holdAngle": -130.537827,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame54"
+        },
+        {
+          "sprite": "pose_055",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6709955,
+            1.66496181
+          ],
+          "holdAngle": -127.6199,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame55"
+        },
+        {
+          "sprite": "pose_056",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.498891473,
+            1.72268009
+          ],
+          "holdAngle": -123.966812,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame56"
+        },
+        {
+          "sprite": "pose_057",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.3695792,
+            1.747201
+          ],
+          "holdAngle": -120.702446,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame57"
+        },
+        {
+          "sprite": "pose_058",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.286664367,
+            1.72639155
+          ],
+          "holdAngle": -116.846138,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame58"
+        },
+        {
+          "sprite": "pose_059",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.243797064,
+            1.70568991
+          ],
+          "holdAngle": -112.011406,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame59"
+        },
+        {
+          "sprite": "pose_060",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.2513919,
+            1.7274127
+          ],
+          "holdAngle": -107.60762,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame60"
+        },
+        {
+          "sprite": "pose_061",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.339965343,
+            1.77578306
+          ],
+          "holdAngle": -107.498756,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame61"
+        },
+        {
+          "sprite": "pose_062",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.484691858,
+            1.8044982
+          ],
+          "holdAngle": -112.029785,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame62"
+        },
+        {
+          "sprite": "pose_063",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.639879346,
+            1.7824738
+          ],
+          "holdAngle": -118.030136,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame63"
+        },
+        {
+          "sprite": "pose_064",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.7632735,
+            1.720439
+          ],
+          "holdAngle": -123.873962,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southwest frame64"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 5,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_065",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.676007032,
+            1.6328752
+          ],
+          "holdAngle": -114.611053,
+          "depth": -1,
+          "seconds": 0.125,
+          "source": "R6 idle_northwest frame65"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 5,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_066",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.0737946,
+            2.0439353
+          ],
+          "holdAngle": -169.47934,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame66"
+        },
+        {
+          "sprite": "pose_067",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.03526497,
+            2.02967453
+          ],
+          "holdAngle": -175.533264,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame67"
+        },
+        {
+          "sprite": "pose_068",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.144888163,
+            1.92721176
+          ],
+          "holdAngle": -165.949615,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame68"
+        },
+        {
+          "sprite": "pose_069",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.277291775,
+            1.8331418
+          ],
+          "holdAngle": -148.948654,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame69"
+        },
+        {
+          "sprite": "pose_070",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.370679379,
+            1.74665332
+          ],
+          "holdAngle": -130.952347,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame70"
+        },
+        {
+          "sprite": "pose_071",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.438076973,
+            1.65091753
+          ],
+          "holdAngle": -115.171173,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame71"
+        },
+        {
+          "sprite": "pose_072",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.4938469,
+            1.58104777
+          ],
+          "holdAngle": -103.26516,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame72"
+        },
+        {
+          "sprite": "pose_073",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.5378728,
+            1.58461118
+          ],
+          "holdAngle": -96.0256042,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame73"
+        },
+        {
+          "sprite": "pose_074",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.54285574,
+            1.67464876
+          ],
+          "holdAngle": -94.9509659,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame74"
+        },
+        {
+          "sprite": "pose_075",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.489350319,
+            1.80217671
+          ],
+          "holdAngle": -102.061081,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame75"
+        },
+        {
+          "sprite": "pose_076",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.374686718,
+            1.91466546
+          ],
+          "holdAngle": -119.771614,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame76"
+        },
+        {
+          "sprite": "pose_077",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.22077179,
+            1.99086082
+          ],
+          "holdAngle": -147.284134,
+          "depth": -1,
+          "seconds": 0.111,
+          "source": "R6 walk_northwest frame77"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 6,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_078",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.209140539,
+            1.19165516
+          ],
+          "holdAngle": -53.99735,
+          "depth": 1,
+          "seconds": 0.125,
+          "source": "R6 idle_northeast frame78"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 6,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_079",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.83695817,
+            1.58995128
+          ],
+          "holdAngle": -8.966552,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame79"
+        },
+        {
+          "sprite": "pose_080",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.815078735,
+            1.605803
+          ],
+          "holdAngle": -0.539893031,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame80"
+        },
+        {
+          "sprite": "pose_081",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.670997143,
+            1.52051663
+          ],
+          "holdAngle": -13.1464663,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame81"
+        },
+        {
+          "sprite": "pose_082",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.498893261,
+            1.44623613
+          ],
+          "holdAngle": -30.5953445,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame82"
+        },
+        {
+          "sprite": "pose_083",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.369580984,
+            1.377655
+          ],
+          "holdAngle": -44.06969,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame83"
+        },
+        {
+          "sprite": "pose_084",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.286666155,
+            1.289654
+          ],
+          "holdAngle": -54.74995,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame84"
+        },
+        {
+          "sprite": "pose_085",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.243798971,
+            1.21335268
+          ],
+          "holdAngle": -64.08724,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame85"
+        },
+        {
+          "sprite": "pose_086",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.2513938,
+            1.19118452
+          ],
+          "holdAngle": -70.88742,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame86"
+        },
+        {
+          "sprite": "pose_087",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.339967,
+            1.23458719
+          ],
+          "holdAngle": -71.27731,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame87"
+        },
+        {
+          "sprite": "pose_088",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.484693766,
+            1.31664419
+          ],
+          "holdAngle": -64.44709,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame88"
+        },
+        {
+          "sprite": "pose_089",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.639881134,
+            1.40893269
+          ],
+          "holdAngle": -51.6953354,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame89"
+        },
+        {
+          "sprite": "pose_090",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.763275146,
+            1.50034189
+          ],
+          "holdAngle": -31.9432335,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_northeast frame90"
+        }
+      ]
+    },
+    {
+      "action": "idle",
+      "direction": 7,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_091",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6760087,
+            1.42437458
+          ],
+          "holdAngle": -76.281456,
+          "depth": 1,
+          "seconds": 0.125,
+          "source": "R6 idle_southeast frame91"
+        }
+      ]
+    },
+    {
+      "action": "walk",
+      "direction": 7,
+      "loop": true,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_092",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.07379615,
+            1.20953655
+          ],
+          "holdAngle": -47.750824,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame92"
+        },
+        {
+          "sprite": "pose_093",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.035266757,
+            1.2170887
+          ],
+          "holdAngle": -43.0767975,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame93"
+        },
+        {
+          "sprite": "pose_094",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.144889832,
+            1.25826669
+          ],
+          "holdAngle": -49.8240471,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame94"
+        },
+        {
+          "sprite": "pose_095",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.277293444,
+            1.33577442
+          ],
+          "holdAngle": -59.7526474,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame95"
+        },
+        {
+          "sprite": "pose_096",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            0.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.370681047,
+            1.37820268
+          ],
+          "holdAngle": -68.5139,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame96"
+        },
+        {
+          "sprite": "pose_097",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            128.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.43807888,
+            1.365128
+          ],
+          "holdAngle": -75.61974,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame97"
+        },
+        {
+          "sprite": "pose_098",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            256.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.493848681,
+            1.33799458
+          ],
+          "holdAngle": -81.42823,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame98"
+        },
+        {
+          "sprite": "pose_099",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            384.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.53787446,
+            1.33398628
+          ],
+          "holdAngle": -85.67477,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame99"
+        },
+        {
+          "sprite": "pose_100",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            512.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.5428575,
+            1.33572149
+          ],
+          "holdAngle": -86.43136,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame100"
+        },
+        {
+          "sprite": "pose_101",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            640.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.489352,
+            1.31896544
+          ],
+          "holdAngle": -82.1965256,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame101"
+        },
+        {
+          "sprite": "pose_102",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            768.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.3746884,
+            1.276741
+          ],
+          "holdAngle": -73.47828,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame102"
+        },
+        {
+          "sprite": "pose_103",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/Valdoria8Dir.png",
+          "rect": [
+            896.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.220773458,
+            1.22991991
+          ],
+          "holdAngle": -60.8082123,
+          "depth": 1,
+          "seconds": 0.111,
+          "source": "R6 walk_southeast frame103"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 0,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_000",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.634741247,
+            1.93560958
+          ],
+          "holdAngle": -143.53096,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_001",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.8150198,
+            2.35454941
+          ],
+          "holdAngle": -178.816666,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_002",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.8113158,
+            3.01451421
+          ],
+          "holdAngle": 150.286346,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_003",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.2347254,
+            3.36744714
+          ],
+          "holdAngle": 105.968323,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 0,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_004",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.160354525,
+            3.32816768
+          ],
+          "holdAngle": 76.43087,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_005",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.733306468,
+            1.11936474
+          ],
+          "holdAngle": -120.037949,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_006",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.7599154,
+            0.377746522
+          ],
+          "holdAngle": -79.98452,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_007",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            3040.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.01498663,
+            0.467690736
+          ],
+          "holdAngle": -112.332336,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 0,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_008",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.04327679,
+            0.498197645
+          ],
+          "holdAngle": -109.27829,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_009",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.905656,
+            0.505074859
+          ],
+          "holdAngle": -83.66816,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_010",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.944751859,
+            1.3038491
+          ],
+          "holdAngle": -114.024246,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_011",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.65862757,
+            1.99892783
+          ],
+          "holdAngle": -147.417542,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_012",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.634741247,
+            1.93560958
+          ],
+          "holdAngle": -143.53096,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 0,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_013",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.622023642,
+            1.51018882
+          ],
+          "holdAngle": -99.48315,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_014",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6221684,
+            1.5190835
+          ],
+          "holdAngle": -99.83282,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_015",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            2880.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.622074962,
+            1.54460287
+          ],
+          "holdAngle": -99.77212,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_016",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.621791542,
+            1.582582
+          ],
+          "holdAngle": -99.06397,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_017",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6211713,
+            1.63148332
+          ],
+          "holdAngle": -98.54857,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_018",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.621190965,
+            1.678686
+          ],
+          "holdAngle": -98.41545,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_019",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6216024,
+            1.70571148
+          ],
+          "holdAngle": -98.46026,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 1,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_020",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.9175529,
+            1.79463768
+          ],
+          "holdAngle": -47.5144348,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_021",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.17337036,
+            2.17592335
+          ],
+          "holdAngle": 15.5305347,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_022",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.38189685,
+            2.73009729
+          ],
+          "holdAngle": 57.5493,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_023",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            2720.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.5679127,
+            2.70289326
+          ],
+          "holdAngle": 37.02676,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 1,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_024",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.31797218,
+            2.75113
+          ],
+          "holdAngle": 26.52774,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_025",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.35004151,
+            2.15785432
+          ],
+          "holdAngle": -170.9387,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_026",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.154486,
+            0.5744297
+          ],
+          "holdAngle": -70.85048,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_027",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6386126,
+            0.280080616
+          ],
+          "holdAngle": -49.46884,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 1,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_028",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.639769137,
+            0.297062069
+          ],
+          "holdAngle": -55.1542358,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_029",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.03972077,
+            0.5719034
+          ],
+          "holdAngle": -80.44181,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_030",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.2871745,
+            1.91792989
+          ],
+          "holdAngle": -157.220337,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_031",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            2560.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.9645539,
+            1.84643376
+          ],
+          "holdAngle": -40.017662,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_032",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.9175529,
+            1.79463768
+          ],
+          "holdAngle": -47.5144348,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 1,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_033",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.112872146,
+            1.76398754
+          ],
+          "holdAngle": -154.666977,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_034",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.0314708725,
+            1.81353033
+          ],
+          "holdAngle": -159.146011,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_035",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.00194326765,
+            1.85372186
+          ],
+          "holdAngle": -159.18399,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_036",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.08319336,
+            1.85105884
+          ],
+          "holdAngle": -150.767365,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_037",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.20043245,
+            1.841211
+          ],
+          "holdAngle": -138.899689,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_038",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.299751431,
+            1.83891559
+          ],
+          "holdAngle": -128.8536,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_039",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            2400.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.349908233,
+            1.84114456
+          ],
+          "holdAngle": -123.701935,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 2,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_040",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.634742856,
+            1.02086508
+          ],
+          "holdAngle": -48.82859,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_041",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.8150214,
+            1.18476951
+          ],
+          "holdAngle": -32.3839264,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_042",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.8113174,
+            1.63684523
+          ],
+          "holdAngle": 3.20859337,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_043",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.234727114,
+            1.804331
+          ],
+          "holdAngle": 17.5854015,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 2,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_044",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.1603562,
+            2.014228
+          ],
+          "holdAngle": 153.385071,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_045",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.7333085,
+            2.46528029
+          ],
+          "holdAngle": 7.729516,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_046",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.759913445,
+            1.52870476
+          ],
+          "holdAngle": -96.91817,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_047",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            2240.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.01498473,
+            1.10435343
+          ],
+          "holdAngle": -79.33505,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 2,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_048",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.043275,
+            1.13601327
+          ],
+          "holdAngle": -79.4477844,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_049",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.905654,
+            1.541619
+          ],
+          "holdAngle": -95.31224,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_050",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.944753647,
+            1.59014785
+          ],
+          "holdAngle": -19.2527924,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_051",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6586292,
+            1.03732586
+          ],
+          "holdAngle": -46.3982239,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_052",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.634742856,
+            1.02086508
+          ],
+          "holdAngle": -48.82859,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 2,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_053",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6220254,
+            1.39766431
+          ],
+          "holdAngle": -19.64285,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_054",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6221702,
+            1.48771119
+          ],
+          "holdAngle": 11.63975,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_055",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            2080.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6220767,
+            1.54266787
+          ],
+          "holdAngle": 12.1928225,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_056",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6217932,
+            1.49964535
+          ],
+          "holdAngle": -39.7595062,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_057",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.621173143,
+            1.43166625
+          ],
+          "holdAngle": -65.32816,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_058",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6211927,
+            1.37985361
+          ],
+          "holdAngle": -72.5012741,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_059",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6216041,
+            1.3568759
+          ],
+          "holdAngle": -74.54478,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 3,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_060",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.9175528,
+            1.16183746
+          ],
+          "holdAngle": -105.731735,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_061",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.17337024,
+            1.36339581
+          ],
+          "holdAngle": -126.692665,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_062",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.38189685,
+            1.9212625
+          ],
+          "holdAngle": -160.275116,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_063",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            1920.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.56791282,
+            2.46888542
+          ],
+          "holdAngle": 156.17749,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 3,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_064",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.31797218,
+            2.591266
+          ],
+          "holdAngle": 142.329453,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_065",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.35004163,
+            1.42679024
+          ],
+          "holdAngle": -34.6973228,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_066",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.15448582,
+            1.33202136
+          ],
+          "holdAngle": -111.8455,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_067",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.6386125,
+            1.29196358
+          ],
+          "holdAngle": -123.424629,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 3,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_068",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.639769,
+            1.33714855
+          ],
+          "holdAngle": -118.621979,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_069",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.03972077,
+            1.47479
+          ],
+          "holdAngle": -100.551849,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_070",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.2871746,
+            0.976067066
+          ],
+          "holdAngle": -43.36949,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_071",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            1760.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.9645539,
+            1.18982029
+          ],
+          "holdAngle": -107.062096,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_072",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.9175528,
+            1.16183746
+          ],
+          "holdAngle": -105.731735,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 3,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_073",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.112872027,
+            1.143866
+          ],
+          "holdAngle": -33.02195,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_074",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.0314708725,
+            1.19326448
+          ],
+          "holdAngle": -28.69042,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_075",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.00194326765,
+            1.233549
+          ],
+          "holdAngle": -28.6001148,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_076",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.08319331,
+            1.23116851
+          ],
+          "holdAngle": -36.5919571,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_077",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.20043233,
+            1.221939
+          ],
+          "holdAngle": -47.5816269,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_078",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.299751431,
+            1.219624
+          ],
+          "holdAngle": -56.63175,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_079",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            1600.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.349908173,
+            1.22144294
+          ],
+          "holdAngle": -61.20402,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 4,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_080",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.199978277,
+            2.025375
+          ],
+          "holdAngle": -133.311859,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_081",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.2533924,
+            2.47050858
+          ],
+          "holdAngle": 138.336044,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_082",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.403462261,
+            3.09872341
+          ],
+          "holdAngle": 111.973305,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_083",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.9427063,
+            3.22126579
+          ],
+          "holdAngle": 65.42112,
+          "depth": -1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 4,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_084",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.818559766,
+            3.19226384
+          ],
+          "holdAngle": 44.71122,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_085",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.47314954,
+            1.5749377
+          ],
+          "holdAngle": -151.4653,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_086",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.279003859,
+            0.278449178
+          ],
+          "holdAngle": -68.35732,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_087",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            1440.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.266136259,
+            0.203171074
+          ],
+          "holdAngle": -61.9685059,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 4,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_088",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.285322577,
+            0.223875225
+          ],
+          "holdAngle": -69.53411,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_089",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.09479852,
+            0.3376524
+          ],
+          "holdAngle": -78.57942,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_090",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.871103466,
+            1.67877328
+          ],
+          "holdAngle": -141.801346,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_091",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.2163228,
+            2.09025
+          ],
+          "holdAngle": -140.1586,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_092",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.199978277,
+            2.025375
+          ],
+          "holdAngle": -133.311859,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 4,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_093",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.360024422,
+            1.71295393
+          ],
+          "holdAngle": -134.33989,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_094",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.417686164,
+            1.733784
+          ],
+          "holdAngle": -137.434753,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_095",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            1280.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.438499242,
+            1.76358151
+          ],
+          "holdAngle": -137.438843,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_096",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.380846322,
+            1.78959835
+          ],
+          "holdAngle": -131.709183,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_097",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.297507226,
+            1.82116437
+          ],
+          "holdAngle": -124.51416,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_098",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.227291957,
+            1.85387325
+          ],
+          "holdAngle": -118.936584,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_099",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.1921167,
+            1.87372136
+          ],
+          "holdAngle": -116.195175,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 5,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_100",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.09763587,
+            1.37855268
+          ],
+          "holdAngle": -36.36305,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_101",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.40600228,
+            1.64334917
+          ],
+          "holdAngle": -9.536281,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_102",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.55083382,
+            2.12456441
+          ],
+          "holdAngle": 24.2915916,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_103",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            1120.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.274656,
+            2.11597586
+          ],
+          "holdAngle": 20.96883,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 5,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_104",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.04533327,
+            2.26316833
+          ],
+          "holdAngle": 19.9761047,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_105",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.4360993,
+            2.52664351
+          ],
+          "holdAngle": 160.748749,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_106",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.353688,
+            1.09229922
+          ],
+          "holdAngle": -82.22191,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_107",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.169273,
+            0.653359056
+          ],
+          "holdAngle": -58.80515,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 5,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_108",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.190095,
+            0.6748786
+          ],
+          "holdAngle": -61.85338,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_109",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.37559092,
+            1.07059932
+          ],
+          "holdAngle": -87.20903,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_110",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.4649757,
+            1.88121688
+          ],
+          "holdAngle": -156.690979,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_111",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            960.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.14776087,
+            1.41029477
+          ],
+          "holdAngle": -32.5497971,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_112",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.09763587,
+            1.37855268
+          ],
+          "holdAngle": -36.36305,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 5,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_113",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.519648,
+            1.63338673
+          ],
+          "holdAngle": -165.841873,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_114",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.462191,
+            1.7116003
+          ],
+          "holdAngle": -174.876144,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_115",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.441245764,
+            1.76221311
+          ],
+          "holdAngle": -174.97522,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_116",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.498497844,
+            1.73095274
+          ],
+          "holdAngle": -157.9462,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_117",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.5809597,
+            1.679872
+          ],
+          "holdAngle": -134.853531,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_118",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.651202857,
+            1.64256668
+          ],
+          "holdAngle": -118.782585,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_119",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            800.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.686959863,
+            1.62705672
+          ],
+          "holdAngle": -111.91201,
+          "depth": -1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 6,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_120",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.199976191,
+            0.931095362
+          ],
+          "holdAngle": -73.69221,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_121",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.253390372,
+            1.06880569
+          ],
+          "holdAngle": -73.1329651,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_122",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.403460175,
+            1.55263174
+          ],
+          "holdAngle": -32.870163,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_123",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.94270426,
+            1.95050764
+          ],
+          "holdAngle": 164.4703,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 6,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_124",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.8185577,
+            2.15012717
+          ],
+          "holdAngle": 157.144135,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_125",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.47315121,
+            2.009703
+          ],
+          "holdAngle": -13.5674181,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_126",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.2790054,
+            1.62799728
+          ],
+          "holdAngle": -108.6591,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_127",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            640.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.266134769,
+            1.36886823
+          ],
+          "holdAngle": -104.265221,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 6,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_128",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.2853211,
+            1.41033065
+          ],
+          "holdAngle": -101.330017,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_129",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.09479995,
+            1.70903647
+          ],
+          "holdAngle": -100.841423,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_130",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.8711053,
+            1.21521926
+          ],
+          "holdAngle": -25.5238323,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_131",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.216320813,
+            0.945998847
+          ],
+          "holdAngle": -72.79542,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_132",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.199976191,
+            0.931095362
+          ],
+          "holdAngle": -73.69221,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 6,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_133",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.36002633,
+            1.19489479
+          ],
+          "holdAngle": -18.0737858,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_134",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.417688072,
+            1.27300608
+          ],
+          "holdAngle": -11.6713572,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_135",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            480.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.438501149,
+            1.32368469
+          ],
+          "holdAngle": -11.5601492,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_136",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.3808481,
+            1.29262447
+          ],
+          "holdAngle": -23.4632874,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_137",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.297509,
+            1.24198079
+          ],
+          "holdAngle": -39.36981,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_138",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.227293819,
+            1.20466161
+          ],
+          "holdAngle": -51.2375069,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_139",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.192118555,
+            1.18886185
+          ],
+          "holdAngle": -56.66303,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    },
+    {
+      "action": "attack-preparation",
+      "direction": 7,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_140",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.09763765,
+            1.57791746
+          ],
+          "holdAngle": -130.815,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 0"
+        },
+        {
+          "sprite": "pose_141",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.40600419,
+            1.89596474
+          ],
+          "holdAngle": -157.9369,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 3"
+        },
+        {
+          "sprite": "pose_142",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.55083573,
+            2.52679062
+          ],
+          "holdAngle": 172.4099,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 6"
+        },
+        {
+          "sprite": "pose_143",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            320.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.2746582,
+            3.05579734
+          ],
+          "holdAngle": 137.8853,
+          "depth": 1,
+          "seconds": 0.1,
+          "source": "R6 Sword_Attack sourceFrame 9"
+        }
+      ]
+    },
+    {
+      "action": "attack-cut",
+      "direction": 7,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_144",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.04533529,
+            3.079223
+          ],
+          "holdAngle": 115.337944,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 10"
+        },
+        {
+          "sprite": "pose_145",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            0.436097741,
+            1.05799735
+          ],
+          "holdAngle": -71.19873,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 12"
+        },
+        {
+          "sprite": "pose_146",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.35368633,
+            0.814147532
+          ],
+          "holdAngle": -101.162354,
+          "depth": 1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 14"
+        },
+        {
+          "sprite": "pose_147",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.16927135,
+            0.9186804
+          ],
+          "holdAngle": -130.572281,
+          "depth": -1,
+          "seconds": 0.035,
+          "source": "R6 Sword_Attack sourceFrame 16"
+        }
+      ]
+    },
+    {
+      "action": "attack-recovery",
+      "direction": 7,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_148",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.19009328,
+            0.9593276
+          ],
+          "holdAngle": -124.793129,
+          "depth": -1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 18"
+        },
+        {
+          "sprite": "pose_149",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            1.37558925,
+            0.976089656
+          ],
+          "holdAngle": -93.39631,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 24"
+        },
+        {
+          "sprite": "pose_150",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.464977264,
+            1.01277554
+          ],
+          "holdAngle": -74.65109,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 32"
+        },
+        {
+          "sprite": "pose_151",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            160.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.14776266,
+            1.62595415
+          ],
+          "holdAngle": -133.514343,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 40"
+        },
+        {
+          "sprite": "pose_152",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            0.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -1.09763765,
+            1.57791746
+          ],
+          "holdAngle": -130.815,
+          "depth": 1,
+          "seconds": 0.032,
+          "source": "R6 Sword_Attack sourceFrame 46"
+        }
+      ]
+    },
+    {
+      "action": "hurt",
+      "direction": 7,
+      "loop": false,
+      "status": "r7-technical-candidate-artistic-review-pending",
+      "frames": [
+        {
+          "sprite": "pose_153",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            128.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.5196497,
+            1.27446163
+          ],
+          "holdAngle": -59.2114639,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 0"
+        },
+        {
+          "sprite": "pose_154",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            256.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.4621927,
+            1.29518974
+          ],
+          "holdAngle": -56.0591431,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 1.66666666666667"
+        },
+        {
+          "sprite": "pose_155",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            384.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.441247433,
+            1.3250531
+          ],
+          "holdAngle": -55.961647,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 3.33333333333333"
+        },
+        {
+          "sprite": "pose_156",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            512.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.4984995,
+            1.3512696
+          ],
+          "holdAngle": -61.60449,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 5"
+        },
+        {
+          "sprite": "pose_157",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            640.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.580961347,
+            1.38327289
+          ],
+          "holdAngle": -68.765,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 6.66666666666667"
+        },
+        {
+          "sprite": "pose_158",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            768.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.6512046,
+            1.41596818
+          ],
+          "holdAngle": -74.41233,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 8.33333333333333"
+        },
+        {
+          "sprite": "pose_159",
+          "asset": "Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/CombatCandidate.png",
+          "rect": [
+            896.0,
+            0.0,
+            128.0,
+            160.0
+          ],
+          "hand": [
+            -0.686961651,
+            1.43552577
+          ],
+          "holdAngle": -77.26686,
+          "depth": 1,
+          "seconds": 0.05,
+          "source": "R6 Hit_Chest sourceFrame 10"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "author": "djonvincent",
+  "title": "Animated Longbow",
+  "official": "https://opengameart.org/content/animated-longbow",
+  "download": "https://opengameart.org/sites/default/files/bow.blend",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "sha256": "a84efce4f28a24eadd872f72e9a90435cccc23d47cfb6ef9ef3eed143157c323",
+  "bytes": 4161248,
+  "file": "bow.blend",
+  "claimToVerify": "Bow draw-fire animation and packed textures, inspected separately in Blender",
+  "quaterniusCandidateUnavailable": "Official Drive quota exceeded; itch HTTP 429; not downloaded or attributed to this file"
+}

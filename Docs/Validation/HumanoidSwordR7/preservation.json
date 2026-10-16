@@ -1,0 +1,20 @@
+{
+  "frozenFiles": 492,
+  "frozenFilesUnchanged": true,
+  "personalFiles": 5,
+  "personalSavesUnchanged": true,
+  "locomotionSpritesIdentical": 104,
+  "r5CardinalPixelHashesPreserved": 52,
+  "clips": 48,
+  "totalFrames": 264,
+  "referenceSpeed": 3.5,
+  "canvas": "128x160",
+  "pivot": "64,34",
+  "ppu": 32,
+  "onlyR7SceneAppended": true,
+  "officialEntry": "Assets/Mmorpg/Scenes/MmorpgWorld.unity",
+  "profileOverrideRestored": true,
+  "inputRestored": true,
+  "timeScale": 1.0,
+  "scene": "Assets/Mmorpg/Scenes/HumanoidSwordR7.unity"
+}

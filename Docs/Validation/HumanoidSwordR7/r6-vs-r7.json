@@ -1,0 +1,26 @@
+{
+  "r6Damage": 0,
+  "r6Hits": 0,
+  "r6ActualOverlapCount": 0,
+  "r6RootLos": true,
+  "r6GripLosFailures": 22,
+  "r7Damage": 20,
+  "r7Hits": 1,
+  "sameActorRoot": [
+    -2.75,
+    0
+  ],
+  "sameTarget": [
+    -1.9,
+    0
+  ],
+  "targetColliderBounds": "center (-1.9,0), extents (0.325,0.55)",
+  "capsuleWidth": 0.16,
+  "authoritativeRange": 1.25,
+  "phaseSeconds": [
+    0.06,
+    0.14,
+    0.16
+  ],
+  "cause": "No sampled capsule overlaps target; projected grip LOS also differs. No overlap alone is sufficient for the miss."
+}

@@ -1,0 +1,27 @@
+{
+  "source": "Actual SweepSampled; capsule geometry normalized to actor root. Grid is diagnostic, not an authority/hit test.",
+  "gridSpacing": 0.05,
+  "capsuleWidth": 0.16,
+  "segmentLengths": {
+    "basic": 1,
+    "heavy": 1.4
+  },
+  "rawCapsuleMaximumRootRadius": {
+    "legacyBasicEast": 2.0046955197509586,
+    "r7BasicEast": 1.0800000838463768,
+    "r7HeavyEast": 1.4800000472953976,
+    "r6FailedBasicEast": 3.0046788529097643
+  },
+  "pointCoverageApproxAreaWithRootDistanceGate": {
+    "legacy": 1.455,
+    "r7": 1.2975,
+    "newRootCentredCellsWithinExistingDistanceGate": 0.53,
+    "removedProjectedGripCells": 0.6875
+  },
+  "note": "The regions are not identical/subsets: changing the origin changes near-root coverage. R7 removes projected-hand displacement and uses root offset zero, with no radius/width/range increase. Target collider extent still affects center-to-center hit distance. Existing root-distance gate range+0.16 and both LOS checks remain.",
+  "rootRadiusR7Bound": {
+    "basic": 1.08,
+    "heavy": 1.48
+  },
+  "rangeConstantsUnchanged": true
+}

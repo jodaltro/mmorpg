@@ -1,0 +1,66 @@
+[
+  {
+    "direction": 0,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 1,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 2,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 3,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 4,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 5,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 6,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  },
+  {
+    "direction": 7,
+    "accepted": true,
+    "immune": true,
+    "friendly": true,
+    "singleReaction": true,
+    "passed": true
+  }
+]

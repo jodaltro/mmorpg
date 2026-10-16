@@ -1,0 +1,2107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5911f484a17cee43bd60a2df9348d6d, type: 3}
+  m_Name: ValdoriaSwordR7
+  m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.ProductionCharacterSet
+  characterId: quaternius-r7-planar-sword-attack-hurt
+  eightDirectionPresentation: 1
+  pixelsPerUnit: 32
+  referenceSpeed: 3.5
+  clips:
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: -1022134103, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.6258937, y: 1.6931849}
+      seconds: 0.125
+      holdAngle: -98.86194
+      depth: -1
+      source: R6 idle_south frame0
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 0
+    loop: 1
+    frames:
+    - sprite: {fileID: -2078754620, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.64399946, y: 1.3577442}
+      seconds: 0.111
+      holdAngle: -87.48498
+      depth: 1
+      source: R6 walk_south frame1
+      events: []
+    - sprite: {fileID: -1741549063, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.6012838, y: 1.3485215}
+      seconds: 0.111
+      holdAngle: -85.114426
+      depth: 1
+      source: R6 walk_south frame2
+      events: []
+    - sprite: {fileID: -1611717026, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.576918, y: 1.4073026}
+      seconds: 0.111
+      holdAngle: -88.17604
+      depth: 1
+      source: R6 walk_south frame3
+      events: []
+    - sprite: {fileID: -306761457, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.54884577, y: 1.506352}
+      seconds: 0.111
+      holdAngle: -92.47141
+      depth: 1
+      source: R6 walk_south frame4
+      events: []
+    - sprite: {fileID: -517473968, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.5234431, y: 1.5628176}
+      seconds: 0.111
+      holdAngle: -95.89002
+      depth: 1
+      source: R6 walk_south frame5
+      events: []
+    - sprite: {fileID: -941735803, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.51247096, y: 1.5613933}
+      seconds: 0.111
+      holdAngle: -97.842834
+      depth: -1
+      source: R6 walk_south frame6
+      events: []
+    - sprite: {fileID: 1520941482, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.5215944, y: 1.5476587}
+      seconds: 0.111
+      holdAngle: -98.48351
+      depth: -1
+      source: R6 walk_south frame7
+      events: []
+    - sprite: {fileID: 1289564291, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.5580957, y: 1.560277}
+      seconds: 0.111
+      holdAngle: -98.52005
+      depth: -1
+      source: R6 walk_south frame8
+      events: []
+    - sprite: {fileID: 1664522423, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.62425005, y: 1.5767002}
+      seconds: 0.111
+      holdAngle: -98.953094
+      depth: -1
+      source: R6 walk_south frame9
+      events: []
+    - sprite: {fileID: 1537140984, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.6887531, y: 1.5622149}
+      seconds: 0.111
+      holdAngle: -98.98528
+      depth: 1
+      source: R6 walk_south frame10
+      events: []
+    - sprite: {fileID: -2036476541, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.71740794, y: 1.5022318}
+      seconds: 0.111
+      holdAngle: -97.2607
+      depth: 1
+      source: R6 walk_south frame11
+      events: []
+    - sprite: {fileID: -192594296, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.6958264, y: 1.4191754}
+      seconds: 0.111
+      holdAngle: -93.09622
+      depth: 1
+      source: R6 walk_south frame12
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: -170578886, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.330127, y: 1.8406177}
+      seconds: 0.125
+      holdAngle: -126.24441
+      depth: -1
+      source: R6 idle_west frame13
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 1
+    loop: 1
+    frames:
+    - sprite: {fileID: -459082101, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.53963566, y: 1.9477531}
+      seconds: 0.111
+      holdAngle: -153.63518
+      depth: -1
+      source: R6 walk_west frame14
+      events: []
+    - sprite: {fileID: 1227093436, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.551409, y: 1.9231067}
+      seconds: 0.111
+      holdAngle: -157.07597
+      depth: -1
+      source: R6 walk_west frame15
+      events: []
+    - sprite: {fileID: -587877411, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.37201285, y: 1.8803184}
+      seconds: 0.111
+      holdAngle: -151.63307
+      depth: -1
+      source: R6 walk_west frame16
+      events: []
+    - sprite: {fileID: 2021099963, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.15669346, y: 1.8580441}
+      seconds: 0.111
+      holdAngle: -143.24742
+      depth: -1
+      source: R6 walk_west frame17
+      events: []
+    - sprite: {fileID: -1998193196, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.0007791519, y: 1.8233514}
+      seconds: 0.111
+      holdAngle: -134.72394
+      depth: -1
+      source: R6 walk_west frame18
+      events: []
+    - sprite: {fileID: -1896577494, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.107066154, y: 1.7634771}
+      seconds: 0.111
+      holdAngle: -125.63693
+      depth: -1
+      source: R6 walk_west frame19
+      events: []
+    - sprite: {fileID: -480119064, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.17681313, y: 1.7195234}
+      seconds: 0.111
+      holdAngle: -115.92894
+      depth: -1
+      source: R6 walk_west frame20
+      events: []
+    - sprite: {fileID: 1321670260, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.20257378, y: 1.7374954}
+      seconds: 0.111
+      holdAngle: -107.97236
+      depth: -1
+      source: R6 walk_west frame21
+      events: []
+    - sprite: {fileID: 2125860277, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.14346647, y: 1.8163581}
+      seconds: 0.111
+      holdAngle: -107.22588
+      depth: -1
+      source: R6 walk_west frame22
+      events: []
+    - sprite: {fileID: -1463562094, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.0032951832, y: 1.9038973}
+      seconds: 0.111
+      holdAngle: -115.3269
+      depth: -1
+      source: R6 walk_west frame23
+      events: []
+    - sprite: {fileID: 906190388, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.18751824, y: 1.9533129}
+      seconds: 0.111
+      holdAngle: -128.47594
+      depth: -1
+      source: R6 walk_west frame24
+      events: []
+    - sprite: {fileID: -1292817942, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.38360536, y: 1.9572421}
+      seconds: 0.111
+      holdAngle: -142.60004
+      depth: -1
+      source: R6 walk_west frame25
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: 1288652884, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.6258955, y: 1.3640699}
+      seconds: 0.125
+      holdAngle: -72.885315
+      depth: 1
+      source: R6 idle_north frame26
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 2
+    loop: 1
+    frames:
+    - sprite: {fileID: -326228033, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.64400125, y: 1.8957322}
+      seconds: 0.111
+      holdAngle: 150.54309
+      depth: -1
+      source: R6 walk_north frame27
+      events: []
+    - sprite: {fileID: -92012027, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.6012857, y: 1.8982465}
+      seconds: 0.111
+      holdAngle: 123.71161
+      depth: -1
+      source: R6 walk_north frame28
+      events: []
+    - sprite: {fileID: 2133921034, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.57692003, y: 1.7781804}
+      seconds: 0.111
+      holdAngle: -142.19804
+      depth: -1
+      source: R6 walk_north frame29
+      events: []
+    - sprite: {fileID: 810717708, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.54884744, y: 1.6625686}
+      seconds: 0.111
+      holdAngle: -78.73302
+      depth: -1
+      source: R6 walk_north frame30
+      events: []
+    - sprite: {fileID: 751240760, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.5234449, y: 1.5620432}
+      seconds: 0.111
+      holdAngle: -74.53798
+      depth: -1
+      source: R6 walk_north frame31
+      events: []
+    - sprite: {fileID: 500638641, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.5124726, y: 1.4546568}
+      seconds: 0.111
+      holdAngle: -74.87456
+      depth: 1
+      source: R6 walk_north frame32
+      events: []
+    - sprite: {fileID: -2052908157, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.5215962, y: 1.3713887}
+      seconds: 0.111
+      holdAngle: -76.85821
+      depth: 1
+      source: R6 walk_north frame33
+      events: []
+    - sprite: {fileID: 2045737015, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.55809736, y: 1.358325}
+      seconds: 0.111
+      holdAngle: -78.59163
+      depth: 1
+      source: R6 walk_north frame34
+      events: []
+    - sprite: {fileID: 1214918585, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.62425184, y: 1.4336748}
+      seconds: 0.111
+      holdAngle: -78.18752
+      depth: 1
+      source: R6 walk_north frame35
+      events: []
+    - sprite: {fileID: 985931651, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.68875504, y: 1.5589323}
+      seconds: 0.111
+      holdAngle: -76.29373
+      depth: -1
+      source: R6 walk_north frame36
+      events: []
+    - sprite: {fileID: -1956407068, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.7174096, y: 1.6891794}
+      seconds: 0.111
+      holdAngle: -74.787834
+      depth: -1
+      source: R6 walk_north frame37
+      events: []
+    - sprite: {fileID: 2019997074, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.6958282, y: 1.80161}
+      seconds: 0.111
+      holdAngle: -76.87301
+      depth: -1
+      source: R6 walk_north frame38
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: -721899651, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.33012688, y: 1.2166376}
+      seconds: 0.125
+      holdAngle: -59.207584
+      depth: 1
+      source: R6 idle_east frame39
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 3
+    loop: 1
+    frames:
+    - sprite: {fileID: 1752919360, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.53963566, y: 1.305723}
+      seconds: 0.111
+      holdAngle: -24.372515
+      depth: 1
+      source: R6 walk_east frame40
+      events: []
+    - sprite: {fileID: 994469403, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.551409, y: 1.3236613}
+      seconds: 0.111
+      holdAngle: -19.167568
+      depth: 1
+      source: R6 walk_east frame41
+      events: []
+    - sprite: {fileID: 1326654239, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.37201285, y: 1.3051646}
+      seconds: 0.111
+      holdAngle: -26.907774
+      depth: 1
+      source: R6 walk_east frame42
+      events: []
+    - sprite: {fileID: -1157452618, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.15669346, y: 1.3108768}
+      seconds: 0.111
+      holdAngle: -38.71441
+      depth: 1
+      source: R6 walk_east frame43
+      events: []
+    - sprite: {fileID: -1440915343, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.0007790327, y: 1.3015089}
+      seconds: 0.111
+      holdAngle: -49.55679
+      depth: 1
+      source: R6 walk_east frame44
+      events: []
+    - sprite: {fileID: 348941043, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.107066154, y: 1.2525733}
+      seconds: 0.111
+      holdAngle: -59.148033
+      depth: 1
+      source: R6 walk_east frame45
+      events: []
+    - sprite: {fileID: 1510883981, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.17681313, y: 1.1995239}
+      seconds: 0.111
+      holdAngle: -67.93681
+      depth: 1
+      source: R6 walk_east frame46
+      events: []
+    - sprite: {fileID: -920210626, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.20257378, y: 1.1811066}
+      seconds: 0.111
+      holdAngle: -74.72146
+      depth: 1
+      source: R6 walk_east frame47
+      events: []
+    - sprite: {fileID: -1236648749, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.14346635, y: 1.1940169}
+      seconds: 0.111
+      holdAngle: -75.476006
+      depth: 1
+      source: R6 walk_east frame48
+      events: []
+    - sprite: {fileID: -196641627, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.003295064, y: 1.2172501}
+      seconds: 0.111
+      holdAngle: -68.66184
+      depth: 1
+      source: R6 walk_east frame49
+      events: []
+    - sprite: {fileID: -546220866, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.18751836, y: 1.2380986}
+      seconds: 0.111
+      holdAngle: -56.248486
+      depth: 1
+      source: R6 walk_east frame50
+      events: []
+    - sprite: {fileID: -293716249, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.38360548, y: 1.2635434}
+      seconds: 0.111
+      holdAngle: -39.846943
+      depth: 1
+      source: R6 walk_east frame51
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 4
+    loop: 1
+    frames:
+    - sprite: {fileID: 384195784, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.20913863, y: 1.8655951}
+      seconds: 0.125
+      holdAngle: -117.81198
+      depth: -1
+      source: R6 idle_southwest frame52
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 4
+    loop: 1
+    frames:
+    - sprite: {fileID: 1315939299, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.8369564, y: 1.6635203}
+      seconds: 0.111
+      holdAngle: -128.80049
+      depth: 1
+      source: R6 walk_southwest frame53
+      events: []
+    - sprite: {fileID: -1698923422, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.8150768, y: 1.6409605}
+      seconds: 0.111
+      holdAngle: -130.53783
+      depth: 1
+      source: R6 walk_southwest frame54
+      events: []
+    - sprite: {fileID: -2142092859, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.6709955, y: 1.6649618}
+      seconds: 0.111
+      holdAngle: -127.6199
+      depth: 1
+      source: R6 walk_southwest frame55
+      events: []
+    - sprite: {fileID: 566288833, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.49889147, y: 1.7226801}
+      seconds: 0.111
+      holdAngle: -123.96681
+      depth: -1
+      source: R6 walk_southwest frame56
+      events: []
+    - sprite: {fileID: -1956394343, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.3695792, y: 1.747201}
+      seconds: 0.111
+      holdAngle: -120.702446
+      depth: -1
+      source: R6 walk_southwest frame57
+      events: []
+    - sprite: {fileID: -1741054768, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.28666437, y: 1.7263916}
+      seconds: 0.111
+      holdAngle: -116.84614
+      depth: -1
+      source: R6 walk_southwest frame58
+      events: []
+    - sprite: {fileID: -931490787, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.24379706, y: 1.7056899}
+      seconds: 0.111
+      holdAngle: -112.011406
+      depth: -1
+      source: R6 walk_southwest frame59
+      events: []
+    - sprite: {fileID: -72730615, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.2513919, y: 1.7274127}
+      seconds: 0.111
+      holdAngle: -107.60762
+      depth: -1
+      source: R6 walk_southwest frame60
+      events: []
+    - sprite: {fileID: 775595695, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.33996534, y: 1.7757831}
+      seconds: 0.111
+      holdAngle: -107.49876
+      depth: -1
+      source: R6 walk_southwest frame61
+      events: []
+    - sprite: {fileID: 1797653035, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.48469186, y: 1.8044982}
+      seconds: 0.111
+      holdAngle: -112.029785
+      depth: -1
+      source: R6 walk_southwest frame62
+      events: []
+    - sprite: {fileID: -849264339, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.63987935, y: 1.7824738}
+      seconds: 0.111
+      holdAngle: -118.030136
+      depth: -1
+      source: R6 walk_southwest frame63
+      events: []
+    - sprite: {fileID: -416195330, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.7632735, y: 1.720439}
+      seconds: 0.111
+      holdAngle: -123.87396
+      depth: 1
+      source: R6 walk_southwest frame64
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 5
+    loop: 1
+    frames:
+    - sprite: {fileID: 1866629875, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.67600703, y: 1.6328752}
+      seconds: 0.125
+      holdAngle: -114.61105
+      depth: -1
+      source: R6 idle_northwest frame65
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 5
+    loop: 1
+    frames:
+    - sprite: {fileID: -1061085851, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.0737946, y: 2.0439353}
+      seconds: 0.111
+      holdAngle: -169.47934
+      depth: -1
+      source: R6 walk_northwest frame66
+      events: []
+    - sprite: {fileID: -1065530113, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.03526497, y: 2.0296745}
+      seconds: 0.111
+      holdAngle: -175.53326
+      depth: -1
+      source: R6 walk_northwest frame67
+      events: []
+    - sprite: {fileID: 1894367182, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.14488816, y: 1.9272118}
+      seconds: 0.111
+      holdAngle: -165.94962
+      depth: -1
+      source: R6 walk_northwest frame68
+      events: []
+    - sprite: {fileID: 186454064, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.27729177, y: 1.8331418}
+      seconds: 0.111
+      holdAngle: -148.94865
+      depth: -1
+      source: R6 walk_northwest frame69
+      events: []
+    - sprite: {fileID: 1190285372, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.37067938, y: 1.7466533}
+      seconds: 0.111
+      holdAngle: -130.95235
+      depth: -1
+      source: R6 walk_northwest frame70
+      events: []
+    - sprite: {fileID: 823130118, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.43807697, y: 1.6509175}
+      seconds: 0.111
+      holdAngle: -115.17117
+      depth: -1
+      source: R6 walk_northwest frame71
+      events: []
+    - sprite: {fileID: 234488013, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.4938469, y: 1.5810478}
+      seconds: 0.111
+      holdAngle: -103.26516
+      depth: -1
+      source: R6 walk_northwest frame72
+      events: []
+    - sprite: {fileID: 118392670, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.5378728, y: 1.5846112}
+      seconds: 0.111
+      holdAngle: -96.025604
+      depth: -1
+      source: R6 walk_northwest frame73
+      events: []
+    - sprite: {fileID: 922470017, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.54285574, y: 1.6746488}
+      seconds: 0.111
+      holdAngle: -94.950966
+      depth: -1
+      source: R6 walk_northwest frame74
+      events: []
+    - sprite: {fileID: 679448365, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.48935032, y: 1.8021767}
+      seconds: 0.111
+      holdAngle: -102.06108
+      depth: -1
+      source: R6 walk_northwest frame75
+      events: []
+    - sprite: {fileID: 950373958, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.37468672, y: 1.9146655}
+      seconds: 0.111
+      holdAngle: -119.771614
+      depth: -1
+      source: R6 walk_northwest frame76
+      events: []
+    - sprite: {fileID: 2143700902, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.22077179, y: 1.9908608}
+      seconds: 0.111
+      holdAngle: -147.28413
+      depth: -1
+      source: R6 walk_northwest frame77
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 6
+    loop: 1
+    frames:
+    - sprite: {fileID: 1487732778, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.20914054, y: 1.1916552}
+      seconds: 0.125
+      holdAngle: -53.99735
+      depth: 1
+      source: R6 idle_northeast frame78
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 6
+    loop: 1
+    frames:
+    - sprite: {fileID: 1911142799, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.83695817, y: 1.5899513}
+      seconds: 0.111
+      holdAngle: -8.966552
+      depth: 1
+      source: R6 walk_northeast frame79
+      events: []
+    - sprite: {fileID: -251632079, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.81507874, y: 1.605803}
+      seconds: 0.111
+      holdAngle: -0.53989303
+      depth: 1
+      source: R6 walk_northeast frame80
+      events: []
+    - sprite: {fileID: 855358199, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.67099714, y: 1.5205166}
+      seconds: 0.111
+      holdAngle: -13.146466
+      depth: 1
+      source: R6 walk_northeast frame81
+      events: []
+    - sprite: {fileID: -284411685, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.49889326, y: 1.4462361}
+      seconds: 0.111
+      holdAngle: -30.595345
+      depth: 1
+      source: R6 walk_northeast frame82
+      events: []
+    - sprite: {fileID: -474799313, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.36958098, y: 1.377655}
+      seconds: 0.111
+      holdAngle: -44.06969
+      depth: 1
+      source: R6 walk_northeast frame83
+      events: []
+    - sprite: {fileID: -1835706321, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.28666615, y: 1.289654}
+      seconds: 0.111
+      holdAngle: -54.74995
+      depth: 1
+      source: R6 walk_northeast frame84
+      events: []
+    - sprite: {fileID: -1604124348, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.24379897, y: 1.2133527}
+      seconds: 0.111
+      holdAngle: -64.08724
+      depth: 1
+      source: R6 walk_northeast frame85
+      events: []
+    - sprite: {fileID: -1996571625, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.2513938, y: 1.1911845}
+      seconds: 0.111
+      holdAngle: -70.88742
+      depth: 1
+      source: R6 walk_northeast frame86
+      events: []
+    - sprite: {fileID: 1651619911, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.339967, y: 1.2345872}
+      seconds: 0.111
+      holdAngle: -71.27731
+      depth: 1
+      source: R6 walk_northeast frame87
+      events: []
+    - sprite: {fileID: 521626998, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.48469377, y: 1.3166442}
+      seconds: 0.111
+      holdAngle: -64.44709
+      depth: 1
+      source: R6 walk_northeast frame88
+      events: []
+    - sprite: {fileID: -17355453, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.63988113, y: 1.4089327}
+      seconds: 0.111
+      holdAngle: -51.695335
+      depth: 1
+      source: R6 walk_northeast frame89
+      events: []
+    - sprite: {fileID: -1659704321, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: 0.76327515, y: 1.5003419}
+      seconds: 0.111
+      holdAngle: -31.943233
+      depth: 1
+      source: R6 walk_northeast frame90
+      events: []
+  - action: idle
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 7
+    loop: 1
+    frames:
+    - sprite: {fileID: 1464532860, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.6760087, y: 1.4243746}
+      seconds: 0.125
+      holdAngle: -76.281456
+      depth: 1
+      source: R6 idle_southeast frame91
+      events: []
+  - action: walk
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 7
+    loop: 1
+    frames:
+    - sprite: {fileID: -314509537, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.07379615, y: 1.2095366}
+      seconds: 0.111
+      holdAngle: -47.750824
+      depth: 1
+      source: R6 walk_southeast frame92
+      events: []
+    - sprite: {fileID: -845160967, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.035266757, y: 1.2170887}
+      seconds: 0.111
+      holdAngle: -43.076797
+      depth: 1
+      source: R6 walk_southeast frame93
+      events: []
+    - sprite: {fileID: -734705479, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.14488983, y: 1.2582667}
+      seconds: 0.111
+      holdAngle: -49.824047
+      depth: 1
+      source: R6 walk_southeast frame94
+      events: []
+    - sprite: {fileID: 825297645, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.27729344, y: 1.3357744}
+      seconds: 0.111
+      holdAngle: -59.752647
+      depth: 1
+      source: R6 walk_southeast frame95
+      events: []
+    - sprite: {fileID: 1758781841, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.37068105, y: 1.3782027}
+      seconds: 0.111
+      holdAngle: -68.5139
+      depth: 1
+      source: R6 walk_southeast frame96
+      events: []
+    - sprite: {fileID: -1500415016, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.43807888, y: 1.365128}
+      seconds: 0.111
+      holdAngle: -75.61974
+      depth: 1
+      source: R6 walk_southeast frame97
+      events: []
+    - sprite: {fileID: -1768405144, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.49384868, y: 1.3379946}
+      seconds: 0.111
+      holdAngle: -81.42823
+      depth: 1
+      source: R6 walk_southeast frame98
+      events: []
+    - sprite: {fileID: -1546274573, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.53787446, y: 1.3339863}
+      seconds: 0.111
+      holdAngle: -85.67477
+      depth: 1
+      source: R6 walk_southeast frame99
+      events: []
+    - sprite: {fileID: -872399466, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.5428575, y: 1.3357215}
+      seconds: 0.111
+      holdAngle: -86.43136
+      depth: 1
+      source: R6 walk_southeast frame100
+      events: []
+    - sprite: {fileID: 500961235, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.489352, y: 1.3189654}
+      seconds: 0.111
+      holdAngle: -82.196526
+      depth: 1
+      source: R6 walk_southeast frame101
+      events: []
+    - sprite: {fileID: 1856921968, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.3746884, y: 1.276741}
+      seconds: 0.111
+      holdAngle: -73.47828
+      depth: 1
+      source: R6 walk_southeast frame102
+      events: []
+    - sprite: {fileID: 441684167, guid: 909e1452465704940b075baecde2e741, type: 3}
+      hand: {x: -0.22077346, y: 1.2299199}
+      seconds: 0.111
+      holdAngle: -60.808212
+      depth: 1
+      source: R6 walk_southeast frame103
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: 1935447440, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.63474125, y: 1.9356096}
+      seconds: 0.1
+      holdAngle: -143.53096
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: -378534646, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.8150198, y: 2.3545494}
+      seconds: 0.1
+      holdAngle: -178.81667
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: -1647740214, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.8113158, y: 3.0145142}
+      seconds: 0.1
+      holdAngle: 150.28635
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: -861739157, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.2347254, y: 3.3674471}
+      seconds: 0.1
+      holdAngle: 105.96832
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: 883406584, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.16035452, y: 3.3281677}
+      seconds: 0.035
+      holdAngle: 76.43087
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: -1680597934, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.73330647, y: 1.1193647}
+      seconds: 0.035
+      holdAngle: -120.03795
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: 538762426, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.7599154, y: 0.37774652}
+      seconds: 0.035
+      holdAngle: -79.98452
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: -361556232, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.0149866, y: 0.46769074}
+      seconds: 0.035
+      holdAngle: -112.33234
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: -321497549, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.0432768, y: 0.49819764}
+      seconds: 0.032
+      holdAngle: -109.27829
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: 20991944, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.905656, y: 0.50507486}
+      seconds: 0.032
+      holdAngle: -83.66816
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: -562592915, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.94475186, y: 1.3038491}
+      seconds: 0.032
+      holdAngle: -114.02425
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: 1470807304, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.65862757, y: 1.9989278}
+      seconds: 0.032
+      holdAngle: -147.41754
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: 1657039932, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.63474125, y: 1.9356096}
+      seconds: 0.032
+      holdAngle: -143.53096
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 0
+    loop: 0
+    frames:
+    - sprite: {fileID: -2052987455, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.62202364, y: 1.5101888}
+      seconds: 0.05
+      holdAngle: -99.48315
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -514635555, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.6221684, y: 1.5190835}
+      seconds: 0.05
+      holdAngle: -99.83282
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: -1772760468, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.62207496, y: 1.5446029}
+      seconds: 0.05
+      holdAngle: -99.77212
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: -1489573337, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.62179154, y: 1.582582}
+      seconds: 0.05
+      holdAngle: -99.06397
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: -1239525903, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.6211713, y: 1.6314833}
+      seconds: 0.05
+      holdAngle: -98.54857
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: -220353894, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.62119097, y: 1.678686}
+      seconds: 0.05
+      holdAngle: -98.41545
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: -1824079402, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.6216024, y: 1.7057115}
+      seconds: 0.05
+      holdAngle: -98.46026
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: -664915214, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.9175529, y: 1.7946377}
+      seconds: 0.1
+      holdAngle: -47.514435
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: -876951332, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.1733704, y: 2.1759233}
+      seconds: 0.1
+      holdAngle: 15.530535
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: 392728364, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.3818969, y: 2.7300973}
+      seconds: 0.1
+      holdAngle: 57.5493
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: -341601965, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.5679127, y: 2.7028933}
+      seconds: 0.1
+      holdAngle: 37.02676
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: -1977064569, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.3179722, y: 2.75113}
+      seconds: 0.035
+      holdAngle: 26.52774
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: -757780304, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.3500415, y: 2.1578543}
+      seconds: 0.035
+      holdAngle: -170.9387
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: 519605751, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.154486, y: 0.5744297}
+      seconds: 0.035
+      holdAngle: -70.85048
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 1582137867, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.6386126, y: 0.28008062}
+      seconds: 0.035
+      holdAngle: -49.46884
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: 1533737729, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.63976914, y: 0.29706207}
+      seconds: 0.032
+      holdAngle: -55.154236
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: 217284439, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.0397208, y: 0.5719034}
+      seconds: 0.032
+      holdAngle: -80.44181
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: -611860349, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.2871745, y: 1.9179299}
+      seconds: 0.032
+      holdAngle: -157.22034
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: -311653275, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.9645539, y: 1.8464338}
+      seconds: 0.032
+      holdAngle: -40.017662
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: -1249888725, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.9175529, y: 1.7946377}
+      seconds: 0.032
+      holdAngle: -47.514435
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 1
+    loop: 0
+    frames:
+    - sprite: {fileID: -775202968, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.112872146, y: 1.7639875}
+      seconds: 0.05
+      holdAngle: -154.66698
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -1279749550, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.031470872, y: 1.8135303}
+      seconds: 0.05
+      holdAngle: -159.14601
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: 1917366868, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.0019432676, y: 1.8537219}
+      seconds: 0.05
+      holdAngle: -159.18399
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: -26414730, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.08319336, y: 1.8510588}
+      seconds: 0.05
+      holdAngle: -150.76736
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: -631843245, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.20043245, y: 1.841211}
+      seconds: 0.05
+      holdAngle: -138.89969
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: 1156131961, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.29975143, y: 1.8389156}
+      seconds: 0.05
+      holdAngle: -128.8536
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: 620736223, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.34990823, y: 1.8411446}
+      seconds: 0.05
+      holdAngle: -123.701935
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: 490512963, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.63474286, y: 1.0208651}
+      seconds: 0.1
+      holdAngle: -48.82859
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: 494933403, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.8150214, y: 1.1847695}
+      seconds: 0.1
+      holdAngle: -32.383926
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: -2144148724, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.8113174, y: 1.6368452}
+      seconds: 0.1
+      holdAngle: 3.2085934
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: 110775409, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.23472711, y: 1.804331}
+      seconds: 0.1
+      holdAngle: 17.585402
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: -1528866490, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.1603562, y: 2.014228}
+      seconds: 0.035
+      holdAngle: 153.38507
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: 12211992, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.7333085, y: 2.4652803}
+      seconds: 0.035
+      holdAngle: 7.729516
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: 1359358467, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.75991344, y: 1.5287048}
+      seconds: 0.035
+      holdAngle: -96.91817
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 1514744, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.0149847, y: 1.1043534}
+      seconds: 0.035
+      holdAngle: -79.33505
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: 1170758007, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.043275, y: 1.1360133}
+      seconds: 0.032
+      holdAngle: -79.447784
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: 1472328164, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.905654, y: 1.541619}
+      seconds: 0.032
+      holdAngle: -95.31224
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: 5041250, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.94475365, y: 1.5901479}
+      seconds: 0.032
+      holdAngle: -19.252792
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: -18793705, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6586292, y: 1.0373259}
+      seconds: 0.032
+      holdAngle: -46.398224
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: -733843760, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.63474286, y: 1.0208651}
+      seconds: 0.032
+      holdAngle: -48.82859
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 2
+    loop: 0
+    frames:
+    - sprite: {fileID: -813075161, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6220254, y: 1.3976643}
+      seconds: 0.05
+      holdAngle: -19.64285
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -276932133, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6221702, y: 1.4877112}
+      seconds: 0.05
+      holdAngle: 11.63975
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: -813402689, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6220767, y: 1.5426679}
+      seconds: 0.05
+      holdAngle: 12.192822
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: 919899943, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6217932, y: 1.4996454}
+      seconds: 0.05
+      holdAngle: -39.759506
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: 1575061619, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.62117314, y: 1.4316663}
+      seconds: 0.05
+      holdAngle: -65.32816
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: -1470792302, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6211927, y: 1.3798536}
+      seconds: 0.05
+      holdAngle: -72.501274
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: -1270065045, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6216041, y: 1.3568759}
+      seconds: 0.05
+      holdAngle: -74.54478
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: 100385041, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.9175528, y: 1.1618375}
+      seconds: 0.1
+      holdAngle: -105.731735
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: 1629371279, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.1733702, y: 1.3633958}
+      seconds: 0.1
+      holdAngle: -126.692665
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: 83228629, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.3818969, y: 1.9212625}
+      seconds: 0.1
+      holdAngle: -160.27512
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: 674232191, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.5679128, y: 2.4688854}
+      seconds: 0.1
+      holdAngle: 156.17749
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: 188050317, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.3179722, y: 2.591266}
+      seconds: 0.035
+      holdAngle: 142.32945
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: -1058972865, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.3500416, y: 1.4267902}
+      seconds: 0.035
+      holdAngle: -34.697323
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: -545019630, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.1544858, y: 1.3320214}
+      seconds: 0.035
+      holdAngle: -111.8455
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 2122059901, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.6386125, y: 1.2919636}
+      seconds: 0.035
+      holdAngle: -123.42463
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: -2025451247, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.639769, y: 1.3371485}
+      seconds: 0.032
+      holdAngle: -118.62198
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: 1500400511, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.0397208, y: 1.47479}
+      seconds: 0.032
+      holdAngle: -100.55185
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: -1938579078, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.2871746, y: 0.97606707}
+      seconds: 0.032
+      holdAngle: -43.36949
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: -1534026457, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.9645539, y: 1.1898203}
+      seconds: 0.032
+      holdAngle: -107.062096
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: 828049389, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.9175528, y: 1.1618375}
+      seconds: 0.032
+      holdAngle: -105.731735
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 3
+    loop: 0
+    frames:
+    - sprite: {fileID: -1298008522, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.11287203, y: 1.143866}
+      seconds: 0.05
+      holdAngle: -33.02195
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -1982598076, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.031470872, y: 1.1932645}
+      seconds: 0.05
+      holdAngle: -28.69042
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: 8573823, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.0019432676, y: 1.233549}
+      seconds: 0.05
+      holdAngle: -28.600115
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: -863563503, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.08319331, y: 1.2311685}
+      seconds: 0.05
+      holdAngle: -36.591957
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: -599246537, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.20043233, y: 1.221939}
+      seconds: 0.05
+      holdAngle: -47.581627
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: -1706181282, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.29975143, y: 1.219624}
+      seconds: 0.05
+      holdAngle: -56.63175
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: -2030419069, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.34990817, y: 1.2214429}
+      seconds: 0.05
+      holdAngle: -61.20402
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 4
+    loop: 0
+    frames:
+    - sprite: {fileID: 336536577, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.19997828, y: 2.025375}
+      seconds: 0.1
+      holdAngle: -133.31186
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: -1805392953, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.2533924, y: 2.4705086}
+      seconds: 0.1
+      holdAngle: 138.33604
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: -2139602595, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.40346226, y: 3.0987234}
+      seconds: 0.1
+      holdAngle: 111.973305
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: -1807082334, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.9427063, y: 3.2212658}
+      seconds: 0.1
+      holdAngle: 65.42112
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 4
+    loop: 0
+    frames:
+    - sprite: {fileID: 964856486, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.81855977, y: 3.1922638}
+      seconds: 0.035
+      holdAngle: 44.71122
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: -255789812, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.4731495, y: 1.5749377}
+      seconds: 0.035
+      holdAngle: -151.4653
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: -704684598, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.27900386, y: 0.27844918}
+      seconds: 0.035
+      holdAngle: -68.35732
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 1483387718, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.26613626, y: 0.20317107}
+      seconds: 0.035
+      holdAngle: -61.968506
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 4
+    loop: 0
+    frames:
+    - sprite: {fileID: 1821577916, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.28532258, y: 0.22387522}
+      seconds: 0.032
+      holdAngle: -69.53411
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: -1963238550, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.09479852, y: 0.3376524}
+      seconds: 0.032
+      holdAngle: -78.57942
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: 19268978, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.87110347, y: 1.6787733}
+      seconds: 0.032
+      holdAngle: -141.80135
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: -578414362, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.2163228, y: 2.09025}
+      seconds: 0.032
+      holdAngle: -140.1586
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: -783878809, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.19997828, y: 2.025375}
+      seconds: 0.032
+      holdAngle: -133.31186
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 4
+    loop: 0
+    frames:
+    - sprite: {fileID: 1083546056, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.36002442, y: 1.7129539}
+      seconds: 0.05
+      holdAngle: -134.33989
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -1714551044, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.41768616, y: 1.733784}
+      seconds: 0.05
+      holdAngle: -137.43475
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: -382741779, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.43849924, y: 1.7635815}
+      seconds: 0.05
+      holdAngle: -137.43884
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: -2009552056, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.38084632, y: 1.7895983}
+      seconds: 0.05
+      holdAngle: -131.70918
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: 288532414, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.29750723, y: 1.8211644}
+      seconds: 0.05
+      holdAngle: -124.51416
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: -1628242568, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.22729196, y: 1.8538733}
+      seconds: 0.05
+      holdAngle: -118.936584
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: 2018204322, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.1921167, y: 1.8737214}
+      seconds: 0.05
+      holdAngle: -116.195175
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 5
+    loop: 0
+    frames:
+    - sprite: {fileID: 1402448978, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.0976359, y: 1.3785527}
+      seconds: 0.1
+      holdAngle: -36.36305
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: -1784863498, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.4060023, y: 1.6433492}
+      seconds: 0.1
+      holdAngle: -9.536281
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: 947131574, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.5508338, y: 2.1245644}
+      seconds: 0.1
+      holdAngle: 24.291592
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: -1095391605, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.274656, y: 2.1159759}
+      seconds: 0.1
+      holdAngle: 20.96883
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 5
+    loop: 0
+    frames:
+    - sprite: {fileID: 1818537426, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.0453333, y: 2.2631683}
+      seconds: 0.035
+      holdAngle: 19.976105
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: 270888854, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.4360993, y: 2.5266435}
+      seconds: 0.035
+      holdAngle: 160.74875
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: -677353070, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.353688, y: 1.0922992}
+      seconds: 0.035
+      holdAngle: -82.22191
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 1759655094, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.169273, y: 0.65335906}
+      seconds: 0.035
+      holdAngle: -58.80515
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 5
+    loop: 0
+    frames:
+    - sprite: {fileID: 173197372, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.190095, y: 0.6748786}
+      seconds: 0.032
+      holdAngle: -61.85338
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: -595512557, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.3755909, y: 1.0705993}
+      seconds: 0.032
+      holdAngle: -87.20903
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: 894455882, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.4649757, y: 1.8812169}
+      seconds: 0.032
+      holdAngle: -156.69098
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: 1439622132, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.1477609, y: 1.4102948}
+      seconds: 0.032
+      holdAngle: -32.549797
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: 1763324289, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.0976359, y: 1.3785527}
+      seconds: 0.032
+      holdAngle: -36.36305
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 5
+    loop: 0
+    frames:
+    - sprite: {fileID: 631824580, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.519648, y: 1.6333867}
+      seconds: 0.05
+      holdAngle: -165.84187
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: 1909621765, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.462191, y: 1.7116003}
+      seconds: 0.05
+      holdAngle: -174.87614
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: 1026923065, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.44124576, y: 1.7622131}
+      seconds: 0.05
+      holdAngle: -174.97522
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: 31451187, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.49849784, y: 1.7309527}
+      seconds: 0.05
+      holdAngle: -157.9462
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: -1915999360, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.5809597, y: 1.679872}
+      seconds: 0.05
+      holdAngle: -134.85353
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: -1128175516, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.65120286, y: 1.6425667}
+      seconds: 0.05
+      holdAngle: -118.782585
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: 340821787, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.68695986, y: 1.6270567}
+      seconds: 0.05
+      holdAngle: -111.91201
+      depth: -1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 6
+    loop: 0
+    frames:
+    - sprite: {fileID: 905219222, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.19997619, y: 0.93109536}
+      seconds: 0.1
+      holdAngle: -73.69221
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: -1416083116, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.25339037, y: 1.0688057}
+      seconds: 0.1
+      holdAngle: -73.132965
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: -1632911472, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.40346017, y: 1.5526317}
+      seconds: 0.1
+      holdAngle: -32.870163
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: -1371739872, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.94270426, y: 1.9505076}
+      seconds: 0.1
+      holdAngle: 164.4703
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 6
+    loop: 0
+    frames:
+    - sprite: {fileID: 576990886, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.8185577, y: 2.1501272}
+      seconds: 0.035
+      holdAngle: 157.14413
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: -1955953202, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.4731512, y: 2.009703}
+      seconds: 0.035
+      holdAngle: -13.567418
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: 1079935953, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.2790054, y: 1.6279973}
+      seconds: 0.035
+      holdAngle: -108.6591
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 1803569862, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.26613477, y: 1.3688682}
+      seconds: 0.035
+      holdAngle: -104.26522
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 6
+    loop: 0
+    frames:
+    - sprite: {fileID: -754087295, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.2853211, y: 1.4103307}
+      seconds: 0.032
+      holdAngle: -101.33002
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: 1235383293, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.09479995, y: 1.7090365}
+      seconds: 0.032
+      holdAngle: -100.84142
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: 968156481, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.8711053, y: 1.2152193}
+      seconds: 0.032
+      holdAngle: -25.523832
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: 421952835, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.21632081, y: 0.94599885}
+      seconds: 0.032
+      holdAngle: -72.79542
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: 618263583, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.19997619, y: 0.93109536}
+      seconds: 0.032
+      holdAngle: -73.69221
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 6
+    loop: 0
+    frames:
+    - sprite: {fileID: 1884681264, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.36002633, y: 1.1948948}
+      seconds: 0.05
+      holdAngle: -18.073786
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -1389576287, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.41768807, y: 1.2730061}
+      seconds: 0.05
+      holdAngle: -11.671357
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: 1404080728, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.43850115, y: 1.3236847}
+      seconds: 0.05
+      holdAngle: -11.560149
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: -1099933614, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.3808481, y: 1.2926245}
+      seconds: 0.05
+      holdAngle: -23.463287
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: 916329110, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.297509, y: 1.2419808}
+      seconds: 0.05
+      holdAngle: -39.36981
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: 192946327, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.22729382, y: 1.2046616}
+      seconds: 0.05
+      holdAngle: -51.237507
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: -1668668648, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.19211856, y: 1.1888618}
+      seconds: 0.05
+      holdAngle: -56.66303
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []
+  - action: attack-preparation
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 7
+    loop: 0
+    frames:
+    - sprite: {fileID: 820371764, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.0976377, y: 1.5779175}
+      seconds: 0.1
+      holdAngle: -130.815
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 0
+      events: []
+    - sprite: {fileID: -332401791, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.4060042, y: 1.8959647}
+      seconds: 0.1
+      holdAngle: -157.9369
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 3
+      events: []
+    - sprite: {fileID: -290255209, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.5508357, y: 2.5267906}
+      seconds: 0.1
+      holdAngle: 172.4099
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 6
+      events: []
+    - sprite: {fileID: 1363025775, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.2746582, y: 3.0557973}
+      seconds: 0.1
+      holdAngle: 137.8853
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 9
+      events: []
+  - action: attack-cut
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 7
+    loop: 0
+    frames:
+    - sprite: {fileID: 1277063583, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.0453353, y: 3.079223}
+      seconds: 0.035
+      holdAngle: 115.337944
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 10
+      events: []
+    - sprite: {fileID: 2137965356, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 0.43609774, y: 1.0579973}
+      seconds: 0.035
+      holdAngle: -71.19873
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 12
+      events: []
+    - sprite: {fileID: 1252154806, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.3536863, y: 0.81414753}
+      seconds: 0.035
+      holdAngle: -101.16235
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 14
+      events: []
+    - sprite: {fileID: 879249648, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.1692713, y: 0.9186804}
+      seconds: 0.035
+      holdAngle: -130.57228
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 16
+      events: []
+  - action: attack-recovery
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 7
+    loop: 0
+    frames:
+    - sprite: {fileID: -1785580013, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.1900933, y: 0.9593276}
+      seconds: 0.032
+      holdAngle: -124.79313
+      depth: -1
+      source: R6 Sword_Attack sourceFrame 18
+      events: []
+    - sprite: {fileID: 192886707, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: 1.3755893, y: 0.97608966}
+      seconds: 0.032
+      holdAngle: -93.39631
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 24
+      events: []
+    - sprite: {fileID: 962892985, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.46497726, y: 1.0127755}
+      seconds: 0.032
+      holdAngle: -74.65109
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 32
+      events: []
+    - sprite: {fileID: -9956319, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.1477627, y: 1.6259542}
+      seconds: 0.032
+      holdAngle: -133.51434
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 40
+      events: []
+    - sprite: {fileID: 467526144, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -1.0976377, y: 1.5779175}
+      seconds: 0.032
+      holdAngle: -130.815
+      depth: 1
+      source: R6 Sword_Attack sourceFrame 46
+      events: []
+  - action: hurt
+    status: r7-technical-candidate-artistic-review-pending
+    direction: 7
+    loop: 0
+    frames:
+    - sprite: {fileID: 2105422176, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.5196497, y: 1.2744616}
+      seconds: 0.05
+      holdAngle: -59.211464
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 0
+      events: []
+    - sprite: {fileID: -106173093, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.4621927, y: 1.2951897}
+      seconds: 0.05
+      holdAngle: -56.059143
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 1.66666666666667
+      events: []
+    - sprite: {fileID: 1533852574, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.44124743, y: 1.3250531}
+      seconds: 0.05
+      holdAngle: -55.961647
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 3.33333333333333
+      events: []
+    - sprite: {fileID: 1002431851, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.4984995, y: 1.3512696}
+      seconds: 0.05
+      holdAngle: -61.60449
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 5
+      events: []
+    - sprite: {fileID: -378741504, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.58096135, y: 1.3832729}
+      seconds: 0.05
+      holdAngle: -68.765
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 6.66666666666667
+      events: []
+    - sprite: {fileID: 285387719, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.6512046, y: 1.4159682}
+      seconds: 0.05
+      holdAngle: -74.41233
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 8.33333333333333
+      events: []
+    - sprite: {fileID: 1012153887, guid: 0c3069d636db6f04199e030495c2b4d5, type: 3}
+      hand: {x: -0.68696165, y: 1.4355258}
+      seconds: 0.05
+      holdAngle: -77.26686
+      depth: 1
+      source: R6 Hit_Chest sourceFrame 10
+      events: []

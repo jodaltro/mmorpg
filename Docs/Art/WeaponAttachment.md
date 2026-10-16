@@ -40,3 +40,11 @@ O ponto da mão é transformado por `BodySprite.TransformPoint(frame.hand)`; o o
 Preparação interpola do ângulo mostrado ao começo do arco; corte segue o progresso físico; recuperação mantém a última stance e usa SmoothStep para o ângulo de descanso. Corpo e mão mudam juntos: não interpolar a âncora isoladamente para longe da luva desenhada. Sem desenhos intermediários ainda existe troca discreta de pose no início/fim da sequência; não equivale a um braço animado profissionalmente. O salto indevido **para idle ao iniciar a recuperação** foi removido.
 
 Input em ordem padrão; corpo/attachment em Update 40; Sweep em Update 50; espada em LateUpdate 50; sync de cor/sorting 110; efeitos 120; debug 130. Uma única seleção de frame por Update. A pose terminal usa o clock do Swing, evitando um frame extra de recuperação depois do encerramento.
+
+## R7 — origem planar opt-in e estudos procedurais
+
+`SweepOriginPolicy.LegacyGrip` continua o padrão. A cena experimental HumanoidSwordR7 usa `PlanarSweepOrigin`: raiz do Rigidbody2D e offset zero; mão projetada continua exclusiva da apresentação. A amostragem física anterior e atual usa a política selecionada. Alcances, cápsulas, LOS, cooldowns e autoridade não mudam. F7 distingue cápsula real (verde/ciano), contato visual (magenta) e lâmina (amarelo), com contagem de impactos e distância.
+
+A família alta possui separação espacial relevante entre projeção da mão e plano físico. Aprovação do gate não aprova essa apresentação. Ver `Docs/Validation/HumanoidSwordR7.md`.
+
+Estudos R7: IK de braço com comprimentos fixos; socket derivado da geometria real dos dedos; CCD para contato cilíndrico e pinça da corda. No arco, os dois alvos vêm da mesma malha deformada e do mesmo quadro a 24 fps. O estudo composto Sul/Leste preserva oclusão em 3D, mas ainda não substitui a arquitetura de equipamento separado em runtime. Não constitui solver universal de mãos ou combate de arco completo.

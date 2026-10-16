@@ -8,6 +8,12 @@ namespace Mmorpg.Runtime
     [DefaultExecutionOrder(50)]
     public sealed class SwordSwing : MonoBehaviour
     {
+        public enum SweepOriginPolicy { LegacyGrip, PlanarSweepOrigin }
+        [SerializeField] private SweepOriginPolicy sweepOriginPolicy;
+        public SweepOriginPolicy OriginPolicy => sweepOriginPolicy;
+        public void ConfigureSweepOrigin(SweepOriginPolicy policy) { if(Busy)throw new System.InvalidOperationException("Cannot change sweep policy during a strike"); sweepOriginPolicy=policy; }
+        public Vector2 PhysicalOriginWorld => Origin+PhysicalGrip(aim);
+        public float AuthorizedRange => range;
         [SerializeField] private OfflineAuthority authority;
         [SerializeField] private ActorHealth actor;
         [SerializeField] private ActorMotor motor;
@@ -24,7 +30,7 @@ namespace Mmorpg.Runtime
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         public event System.Action<Vector2,Vector2> SweepSampled;
 #endif
-        // Authored body grip offsets. The same anchor drives rendering and Sweep.
+        // Authored presentation offsets. Legacy physics retains the original grip contract.
         public void ConfigureArtGrips(Vector2[] offsets)=>preparedGrips=offsets;
         private readonly Collider2D[] contacts=new Collider2D[48];
         private readonly HashSet<ActorHealth> damaged=new HashSet<ActorHealth>();
@@ -59,10 +65,13 @@ namespace Mmorpg.Runtime
             if(Busy || owner!=actor || !actor.State.IsAlive || actor.State.IsDodging(Time.timeAsDouble) || facing.sqrMagnitude<.001f)return false;
             Busy=true;started=Time.timeAsDouble;preparation=windup;range=reach;aim=facing.normalized;strike=kind;
             attackStartAngle=VisualAngle;
-            previousProgress=0;previousOrigin=Origin;previousGrip=Grip(Vector2.zero,aim);damaged.Clear();hit=false;
+            previousProgress=0;previousOrigin=Origin;previousGrip=PhysicalGrip(aim);damaged.Clear();hit=false;
             Feedback="";FeedbackProduced?.Invoke("attack");authority.NotifySwordAttack(actor,aim);return true;
         }
         private Vector2 Origin => physicsBody.position;
+        // Planar policy has zero calibration offset: physical root, independent of art/sector.
+        // The existing range-.25 capsule length and root-distance/LOS gates remain unchanged.
+        private Vector2 PhysicalGrip(Vector2 facing)=>sweepOriginPolicy==SweepOriginPolicy.LegacyGrip?Grip(Vector2.zero,facing):Vector2.zero;
         private Vector2 Grip(Vector2 center,Vector2 facing)
         {
             if(production!=null&&production.CurrentFrame!=null)
@@ -81,7 +90,7 @@ namespace Mmorpg.Runtime
             float elapsed=(float)(Time.timeAsDouble-started);
             float progress=Mathf.Clamp01((elapsed-preparation)/activeDuration);
             if(elapsed>=preparation && previousProgress<1) Sweep(previousProgress,progress,previousOrigin,Origin);
-            previousProgress=progress;previousOrigin=Origin;previousGrip=Grip(Vector2.zero,aim);
+            previousProgress=progress;previousOrigin=Origin;previousGrip=PhysicalGrip(aim);
             if(elapsed>=preparation+activeDuration+recovery)
             {Busy=false;Feedback=hit?"Acerto":"Sem acerto";FeedbackProduced?.Invoke(hit?"hit":"miss");}
         }
@@ -94,7 +103,7 @@ namespace Mmorpg.Runtime
             {
                 float u=i/(float)steps;float angle=Mathf.Atan2(aim.y,aim.x)*Mathf.Rad2Deg+Mathf.Lerp(-arc/2,arc/2,Mathf.Lerp(from,to,u));
                 var direction=new Vector2(Mathf.Cos(angle*Mathf.Deg2Rad),Mathf.Sin(angle*Mathf.Deg2Rad));
-                Vector2 center=Vector2.Lerp(oldOrigin,origin,u),grip=center+Vector2.Lerp(previousGrip,Grip(Vector2.zero,aim),u),tip=grip+direction*(range-.25f);
+                Vector2 center=Vector2.Lerp(oldOrigin,origin,u),grip=center+Vector2.Lerp(previousGrip,PhysicalGrip(aim),u),tip=grip+direction*(range-.25f);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 SweepSampled?.Invoke(grip,tip);
 #endif

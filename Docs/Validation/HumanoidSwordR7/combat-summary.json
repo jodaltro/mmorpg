@@ -1,0 +1,363 @@
+{
+  "scenarios": [
+    {
+      "scenario": "basic",
+      "directions": 8,
+      "damage": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "continuous",
+      "directions": 8,
+      "damage": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "cooldown",
+      "directions": 8,
+      "damage": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "dead-target",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "death-cancel",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "dodging",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "friendly",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "heavy-outside",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "heavy-reach",
+      "directions": 8,
+      "damage": [
+        36,
+        36,
+        36,
+        36,
+        36,
+        36,
+        36,
+        36
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "heavy",
+      "directions": 8,
+      "damage": [
+        36,
+        36,
+        36,
+        36,
+        36,
+        36,
+        36,
+        36
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "moving-opposite",
+      "directions": 8,
+      "damage": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "outside",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "wall-control",
+      "directions": 8,
+      "damage": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "hits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "wall",
+      "directions": 8,
+      "damage": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    }
+  ],
+  "cases": 112,
+  "allPassed": true,
+  "negativeCasesUseRealAuthorityAndSweep": true,
+  "fixtureNotes": [
+    "Wall at 0.65, target at 1.3; collider does not straddle wall. Same placement without wall hits in all sectors.",
+    "TrainingDummy auto recovery disabled only inside matrix fixture to prevent stale previousHealth from resetting observed damage.",
+    "Death cancellation fixture sets authoritative CombatState dead; official DeathStates separately tests full lifecycle.",
+    "Moving opposite test begins movement 0.01s before click; no out-of-range target tracking."
+  ]
+}
