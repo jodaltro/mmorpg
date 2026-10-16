@@ -1,0 +1,759 @@
+{
+  "schema": "npc-procedural-garment-v1",
+  "character": "Mira",
+  "ppu": 32,
+  "canvas": [
+    64,
+    64
+  ],
+  "pivot": [
+    32,
+    44
+  ],
+  "feet": [
+    32,
+    62
+  ],
+  "recipe": {
+    "schema": "parametric-garment-v1",
+    "name": "MiraTraveller",
+    "materials": {
+      "sage_wool": {
+        "outline": "24342c",
+        "ramp": [
+          "2d4336",
+          "405a43",
+          "58734f",
+          "769163",
+          "9bac7d",
+          "bec9a0"
+        ],
+        "trim": [
+          "5f4b2f",
+          "896d40",
+          "b3975e",
+          "d8c28a"
+        ]
+      },
+      "ochre_felt": {
+        "outline": "35271f",
+        "ramp": [
+          "58402c",
+          "795735",
+          "9a7747",
+          "ba985f",
+          "d7b980",
+          "e6d2a2"
+        ],
+        "trim": [
+          "2b3d30",
+          "435d40",
+          "63805a",
+          "8fa478"
+        ]
+      },
+      "bronze": {
+        "outline": "967341",
+        "ramp": [
+          "6a4b2a",
+          "967341",
+          "c6a462",
+          "e2c98e"
+        ]
+      }
+    },
+    "components": [
+      {
+        "kind": "panel",
+        "anchor": "shoulders",
+        "material": "sage_wool",
+        "occlusion": "back_mounted",
+        "length": 22,
+        "profile": [
+          [
+            0,
+            5.5,
+            3
+          ],
+          [
+            0.12,
+            8,
+            3.5
+          ],
+          [
+            0.65,
+            10.5,
+            5
+          ],
+          [
+            1,
+            12.5,
+            6
+          ]
+        ],
+        "columns": 32,
+        "rows": 24,
+        "folds": 6,
+        "foldDepth": 0.7,
+        "scallop": 0.35,
+        "slit": 0.12
+      },
+      {
+        "kind": "panel",
+        "anchor": "shoulders",
+        "material": "sage_wool",
+        "length": 4,
+        "profile": [
+          [
+            0,
+            4.8,
+            -1.2
+          ],
+          [
+            0.4,
+            7,
+            -1.1
+          ],
+          [
+            1,
+            8.5,
+            -0.6
+          ]
+        ],
+        "columns": 24,
+        "rows": 8,
+        "folds": 2,
+        "foldDepth": 0.15
+      },
+      {
+        "kind": "revolve",
+        "anchor": "shoulders",
+        "material": "bronze",
+        "length": 0.4,
+        "profile": [
+          [
+            0,
+            1.6,
+            0
+          ],
+          [
+            1,
+            1.2,
+            0
+          ]
+        ],
+        "columns": 16,
+        "rows": 2,
+        "offset": [
+          0,
+          -2.5,
+          1
+        ]
+      },
+      {
+        "kind": "revolve",
+        "anchor": "head",
+        "material": "ochre_felt",
+        "length": 0.9,
+        "profile": [
+          [
+            0,
+            12.5,
+            0
+          ],
+          [
+            0.5,
+            11,
+            0
+          ],
+          [
+            1,
+            7,
+            0
+          ]
+        ],
+        "columns": 40,
+        "rows": 6,
+        "depthRatio": 1,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "revolve",
+        "anchor": "head",
+        "material": "ochre_felt",
+        "length": 9,
+        "profile": [
+          [
+            0,
+            7.8,
+            0
+          ],
+          [
+            0.18,
+            7.5,
+            0
+          ],
+          [
+            0.65,
+            5.8,
+            0
+          ],
+          [
+            0.94,
+            3.5,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "columns": 32,
+        "rows": 16,
+        "depthRatio": 0.72,
+        "trimBand": [
+          0,
+          0.19
+        ],
+        "lean": -1
+      }
+    ]
+  },
+  "source": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/MiraIvory.aseprite",
+  "sourceSha256": "574b659810d9a853f3adcb8275d0b60234a53d05e408e62f480eae17a2f3120b",
+  "license": "Composite derivative OGA-BY-3.0; generated geometry by this project",
+  "clips": [
+    {
+      "name": "idle_north",
+      "first": 1,
+      "last": 3
+    },
+    {
+      "name": "idle_west",
+      "first": 4,
+      "last": 6
+    },
+    {
+      "name": "idle_south",
+      "first": 7,
+      "last": 9
+    },
+    {
+      "name": "idle_east",
+      "first": 10,
+      "last": 12
+    },
+    {
+      "name": "walk_north",
+      "first": 13,
+      "last": 20
+    },
+    {
+      "name": "walk_west",
+      "first": 21,
+      "last": 28
+    },
+    {
+      "name": "walk_south",
+      "first": 29,
+      "last": 36
+    },
+    {
+      "name": "walk_east",
+      "first": 37,
+      "last": 44
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "93856860c234499130680d2262af15525461423a397ef3ec8e242131c8d6201f"
+    },
+    {
+      "index": 1,
+      "rect": {
+        "x": 64,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "93856860c234499130680d2262af15525461423a397ef3ec8e242131c8d6201f"
+    },
+    {
+      "index": 2,
+      "rect": {
+        "x": 128,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "1608f4278e58d922bf48541780f37f09cb0c32a011bfd593c553279ff2c1e6fe"
+    },
+    {
+      "index": 3,
+      "rect": {
+        "x": 192,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "afa8458ebd2884294b96dd9d5e0a7c27492e567382c9dfb15b4bbb89e4ad6bf0"
+    },
+    {
+      "index": 4,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "afa8458ebd2884294b96dd9d5e0a7c27492e567382c9dfb15b4bbb89e4ad6bf0"
+    },
+    {
+      "index": 5,
+      "rect": {
+        "x": 320,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "4bb01bdf22ad564108b4a407380e774b28c980a1dff2be923577f372e77b00ea"
+    },
+    {
+      "index": 6,
+      "rect": {
+        "x": 384,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "034e9beb9c428da4f8f4885f999707147c19983fc5abc02eff07f744c632c8d2"
+    },
+    {
+      "index": 7,
+      "rect": {
+        "x": 448,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "29085e5da19e1faf12e3f37096d0cb43833bbcfda6a5165a0a972f96215216f3"
+    },
+    {
+      "index": 8,
+      "rect": {
+        "x": 0,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "8cc344671371a7769ccf0130a4bcb29f289b7720d3cbac695dfb9dde2ea20791"
+    },
+    {
+      "index": 9,
+      "rect": {
+        "x": 64,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "bf9ef7bc78c4fef3caf6bc51119b2a3e8b2f53b753cdbcb87210b21232f80fa6"
+    },
+    {
+      "index": 10,
+      "rect": {
+        "x": 128,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "bf9ef7bc78c4fef3caf6bc51119b2a3e8b2f53b753cdbcb87210b21232f80fa6"
+    },
+    {
+      "index": 11,
+      "rect": {
+        "x": 192,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "1eb363774a0f7474a27665a75612948e41e109b2179ea2f18ae46796229577eb"
+    },
+    {
+      "index": 12,
+      "rect": {
+        "x": 256,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "8b559d0add333382575492642df70acc91e719d7a9cdf075cc28bde8120eb484"
+    },
+    {
+      "index": 13,
+      "rect": {
+        "x": 320,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "ef2f57ec1a7b9f31b78739ffba3ea8aa45b8975b79e111faed1292985ffeae23"
+    },
+    {
+      "index": 14,
+      "rect": {
+        "x": 384,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "974bd33c7d9c17fe5d66c391a26279faddedbb60603f1e52685d948f7e3487d7"
+    },
+    {
+      "index": 15,
+      "rect": {
+        "x": 448,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "8c7bd63a9733b74acac61a098232b12fb068eca8cc12e3c33476f52ecef76f23"
+    },
+    {
+      "index": 16,
+      "rect": {
+        "x": 0,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "e26b430215dae1d447357757f2d2ea8889a73d680f468aa3bd59ed09e1dd232a"
+    },
+    {
+      "index": 17,
+      "rect": {
+        "x": 64,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "82e4d48d016176d4ce918fb0c600e4162198b1ae9412ca0dc72677530dcbd52e"
+    },
+    {
+      "index": 18,
+      "rect": {
+        "x": 128,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "58be7312511c804fe2b9188e6a1e80adba2f5ceb07babc2fb5ee8940cd1e5c28"
+    },
+    {
+      "index": 19,
+      "rect": {
+        "x": 192,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "49ccd282462f5ff25a60357414abb8f53cc9071ac0f3d00c3e115e2b73d124a9"
+    },
+    {
+      "index": 20,
+      "rect": {
+        "x": 256,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "8c13b02d9077ec3ad0460dc13fce24ab25fc7c2244124f96e026d5d5f60aded5"
+    },
+    {
+      "index": 21,
+      "rect": {
+        "x": 320,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "30baed7d2f02f3d76dd273fd6c4e1aacf565cc908d42c5cf25bc333d18cac943"
+    },
+    {
+      "index": 22,
+      "rect": {
+        "x": 384,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "37a486e856ee827681cc74a6be123eefdea1c1d93ae7937555bb98c94080e292"
+    },
+    {
+      "index": 23,
+      "rect": {
+        "x": 448,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "00dbfd514ecc98eb53bb29ac955f9fe9bff7b2285e4f80e7b23c972a9295c38c"
+    },
+    {
+      "index": 24,
+      "rect": {
+        "x": 0,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "886957439c294ce6a7fcdcecbea06bec30c66af59d87abe7c5bd7d269ae60044"
+    },
+    {
+      "index": 25,
+      "rect": {
+        "x": 64,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "9055a0d82db9d3e207db0cae6eb48cdc271fc72db2d1ac367c75ea7549731587"
+    },
+    {
+      "index": 26,
+      "rect": {
+        "x": 128,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "13258544ff3ce595dd64164b5b4f6b0675d9a4dfd9e7faaae77895734e6652af"
+    },
+    {
+      "index": 27,
+      "rect": {
+        "x": 192,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "aeee976abfa1641037eb31ed40ba37649880059ab0d0a1ebfd1656daf6410b9a"
+    },
+    {
+      "index": 28,
+      "rect": {
+        "x": 256,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "ea0733d3d0d7ce704bd75bb03e793798053e502a3910b01fed44f1dd82e6554e"
+    },
+    {
+      "index": 29,
+      "rect": {
+        "x": 320,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "3c3f5a577f454b51e579b087382cc0c10dace3d0cefcda91fe63ee320d8b466a"
+    },
+    {
+      "index": 30,
+      "rect": {
+        "x": 384,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "2ef0bff67707ea5329deee5c1062288e9bf73d5d1097a264047654ac283f92d1"
+    },
+    {
+      "index": 31,
+      "rect": {
+        "x": 448,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "7a620ab08593070d15b7abf746438084663c4856b5ea9afba85f2d53cc1dfa79"
+    },
+    {
+      "index": 32,
+      "rect": {
+        "x": 0,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "725ff989774f22745db257509ad3ce640412e360d65a7fbe5b94209e93952d45"
+    },
+    {
+      "index": 33,
+      "rect": {
+        "x": 64,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "68a570202b5efc204c8f09a4ec0e80ec17b058ac54907bc84b0bd7c157e0948f"
+    },
+    {
+      "index": 34,
+      "rect": {
+        "x": 128,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "73af32985e040c3ec179c9b4a46be7aa875659250c6ba428cbb5ef024ff87d51"
+    },
+    {
+      "index": 35,
+      "rect": {
+        "x": 192,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "60f6212088ce557310432b5c335075d4151138e0a715d26a83bc2709a1f12819"
+    },
+    {
+      "index": 36,
+      "rect": {
+        "x": 256,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "6adeca29b4e8c50326f605c8689f2e683b1dd608cf6ea462d3c4596ff6e37590"
+    },
+    {
+      "index": 37,
+      "rect": {
+        "x": 320,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "d770a2661691464369057815ed9e40a2d97d5aaa8f4e6924c3420f1320e256c6"
+    },
+    {
+      "index": 38,
+      "rect": {
+        "x": 384,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "aae972aa0096fd4047ac886a745ff88ed4293e94d94a945f78a49f3801d78570"
+    },
+    {
+      "index": 39,
+      "rect": {
+        "x": 448,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "c8fcea2abe8aa69f9a462bb35686af03e67bafde1ea3b803163f30938d76d07b"
+    },
+    {
+      "index": 40,
+      "rect": {
+        "x": 0,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "9d238fc1d0b1b544fc17d73a180c4c13a66a8251dc0b2027a6b3a89b6852e6dc"
+    },
+    {
+      "index": 41,
+      "rect": {
+        "x": 64,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a7ebc1627dc93a7940f5073405120c9911ec53b4713689a4e0f75ef5a588780b"
+    },
+    {
+      "index": 42,
+      "rect": {
+        "x": 128,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "691cb92d7b6c90d71b1c32ac7651312639a0fb86385f3e96804982b069df283c"
+    },
+    {
+      "index": 43,
+      "rect": {
+        "x": 192,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a2123d764705d142d56b5d399757a500492b0cf0b36e294b248c26dcd39f9425"
+    }
+  ],
+  "status": "Experimental wardrobe; no production promotion"
+}

@@ -1,0 +1,22 @@
+{
+  "first": 894,
+  "last": 3232,
+  "profileIsolated": true,
+  "realGameCaptures": true,
+  "miradialogue": true,
+  "orinDialogue": true,
+  "frontCollisionY": 0.4600001,
+  "backCollisionY": 1.73999965,
+  "originalContact": -0.005000055,
+  "frontContact": -0.005000055,
+  "backContact": -0.00500023365,
+  "contactComparedToOfficial": true,
+  "frontBehindSorting": true,
+  "saveLoadF5": true,
+  "identityAndFactsRetained": true,
+  "garmentDirectionsInspected": 4,
+  "backpackDirectionsInspected": 4,
+  "poseInspectionFrames": 8,
+  "secondaryClothAnimation": false,
+  "staticNpcBehaviorRetained": true
+}

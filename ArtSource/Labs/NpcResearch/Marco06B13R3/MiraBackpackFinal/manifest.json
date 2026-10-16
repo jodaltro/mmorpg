@@ -1,0 +1,619 @@
+{
+  "schema": "npc-procedural-garment-v1",
+  "character": "Mira",
+  "ppu": 32,
+  "canvas": [
+    64,
+    64
+  ],
+  "pivot": [
+    32,
+    44
+  ],
+  "feet": [
+    32,
+    62
+  ],
+  "recipe": {
+    "schema": "parametric-garment-v1",
+    "name": "MiraBackpack",
+    "materials": {
+      "leather": {
+        "outline": "34261e",
+        "ramp": [
+          "493124",
+          "684730",
+          "89623e",
+          "ad8657",
+          "c5a775"
+        ],
+        "trim": [
+          "3b3023",
+          "6b583a",
+          "a48b58",
+          "ceba85"
+        ]
+      }
+    },
+    "components": [
+      {
+        "kind": "revolve",
+        "anchor": "shoulders",
+        "material": "leather",
+        "occlusion": "back_mounted",
+        "length": 12,
+        "profile": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0.1,
+            4.5,
+            0
+          ],
+          [
+            0.75,
+            5.5,
+            0
+          ],
+          [
+            0.94,
+            4.5,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "columns": 32,
+        "rows": 18,
+        "depthRatio": 0.6,
+        "offset": [
+          0,
+          10,
+          14
+        ],
+        "trimBand": [
+          0.63,
+          0.77
+        ]
+      }
+    ]
+  },
+  "source": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/MiraIvory.aseprite",
+  "sourceSha256": "574b659810d9a853f3adcb8275d0b60234a53d05e408e62f480eae17a2f3120b",
+  "license": "Composite derivative OGA-BY-3.0; generated geometry by this project",
+  "clips": [
+    {
+      "name": "idle_north",
+      "first": 1,
+      "last": 3
+    },
+    {
+      "name": "idle_west",
+      "first": 4,
+      "last": 6
+    },
+    {
+      "name": "idle_south",
+      "first": 7,
+      "last": 9
+    },
+    {
+      "name": "idle_east",
+      "first": 10,
+      "last": 12
+    },
+    {
+      "name": "walk_north",
+      "first": 13,
+      "last": 20
+    },
+    {
+      "name": "walk_west",
+      "first": 21,
+      "last": 28
+    },
+    {
+      "name": "walk_south",
+      "first": 29,
+      "last": 36
+    },
+    {
+      "name": "walk_east",
+      "first": 37,
+      "last": 44
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "52705614397b9a7b5d2bdf4cbda76c145367139f99258bdb8882499071de7569"
+    },
+    {
+      "index": 1,
+      "rect": {
+        "x": 64,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "52705614397b9a7b5d2bdf4cbda76c145367139f99258bdb8882499071de7569"
+    },
+    {
+      "index": 2,
+      "rect": {
+        "x": 128,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "43188f3f67c9e021cbdcbb282a0629b744fa404c8672780ed20ed3f2f8a22207"
+    },
+    {
+      "index": 3,
+      "rect": {
+        "x": 192,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "53fa6dc2b72931e45cdaef2306bb7c5ede29c9220677bdf71d5613b367bba968"
+    },
+    {
+      "index": 4,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "53fa6dc2b72931e45cdaef2306bb7c5ede29c9220677bdf71d5613b367bba968"
+    },
+    {
+      "index": 5,
+      "rect": {
+        "x": 320,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "3a4d6d21d17e4cb89a81c560443e7c7e84fca2513488221b13b556ada1e3d9e4"
+    },
+    {
+      "index": 6,
+      "rect": {
+        "x": 384,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "071c22e84a3a414e25c8792faeea910ad309e68963462d41a343454f61a48dab"
+    },
+    {
+      "index": 7,
+      "rect": {
+        "x": 448,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "45e113af63776493ef61b074c5ae62a6adb92068b7f2771066e765a4e2513934"
+    },
+    {
+      "index": 8,
+      "rect": {
+        "x": 0,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "7edf88ff46b0a3f2785597f44aa89455642bc438b5ab6f0567ff429a8481c9ea"
+    },
+    {
+      "index": 9,
+      "rect": {
+        "x": 64,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "6ac077f27bc6cfae4b367a220d5d54ba9f274622d36f17136120b1ee883df460"
+    },
+    {
+      "index": 10,
+      "rect": {
+        "x": 128,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "6ac077f27bc6cfae4b367a220d5d54ba9f274622d36f17136120b1ee883df460"
+    },
+    {
+      "index": 11,
+      "rect": {
+        "x": 192,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "0db13910114555ba95f3574ce04203e01f8817d96be40ca9513bc7e1dd13060a"
+    },
+    {
+      "index": 12,
+      "rect": {
+        "x": 256,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a3991c25f8cf30948d6fad3453c826291a796fb98b6ea4e66414a9d17aa0f8f4"
+    },
+    {
+      "index": 13,
+      "rect": {
+        "x": 320,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "6d46d47e96e986f86c93a0ffa94814eb8c67db4ac058d7d99a10c84385e8b8f7"
+    },
+    {
+      "index": 14,
+      "rect": {
+        "x": 384,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "aedbaaf769a3abf04ea5d344d8b1a224d5e8e60c718ad81421bf95c0b77d8701"
+    },
+    {
+      "index": 15,
+      "rect": {
+        "x": 448,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "606c5604688f9bf1568e70d5533a5d412db928a3434c5d868cd26a8ded72353c"
+    },
+    {
+      "index": 16,
+      "rect": {
+        "x": 0,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "010ae110572487b9df75ed635278221debaf965de982a1161994b119bf824e04"
+    },
+    {
+      "index": 17,
+      "rect": {
+        "x": 64,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "aa5ea4fb48d63de79c2518c7440863af12eb457d091fc747759a3b3c5784baf0"
+    },
+    {
+      "index": 18,
+      "rect": {
+        "x": 128,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "465820e37b3a71d6cf2c19cb5c8bc2f58e4e0525c47239ffc45a1f2e1620563f"
+    },
+    {
+      "index": 19,
+      "rect": {
+        "x": 192,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "7e329663adef51da7378cb73ad1ef61e37be90be6a53400f3b786dc0126d4c85"
+    },
+    {
+      "index": 20,
+      "rect": {
+        "x": 256,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "1f0b488e0ae8f6dfc66e625e3381a0b07365b92a5a9aff57411594e241d15993"
+    },
+    {
+      "index": 21,
+      "rect": {
+        "x": 320,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a342c5590370105cf857dd255c4d57f0637de303a8b92a9c2b864a2f9191ef93"
+    },
+    {
+      "index": 22,
+      "rect": {
+        "x": 384,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "62fafa764de698681fec556bb8f5187ba6aedc1ffca0511e02cc423c8e639324"
+    },
+    {
+      "index": 23,
+      "rect": {
+        "x": 448,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "59a8e16bbfbf139bebaef8be0487c8debe400934219eeca89b75e13a8de80506"
+    },
+    {
+      "index": 24,
+      "rect": {
+        "x": 0,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "ee8a7ee7ff7b0f7f7311aba68445450a6b81f71300ea846d6451d80833f610a2"
+    },
+    {
+      "index": 25,
+      "rect": {
+        "x": 64,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "e587ee04237dfdb3b31342768d867b3191ecf1942bb5b2690c197050928ccb67"
+    },
+    {
+      "index": 26,
+      "rect": {
+        "x": 128,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "b38fd5e21e461c77cca01a91105371e2a5c31550d1dd902c50839afe38a5b58c"
+    },
+    {
+      "index": 27,
+      "rect": {
+        "x": 192,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "115033ea12822f3401b0c0401a9299fd8e543bc4cbb8f731fb2f7e00ffcfd2a8"
+    },
+    {
+      "index": 28,
+      "rect": {
+        "x": 256,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "95ad49be031bc8aafd58768322ffb7c842be3333fff317928af8231240af57f9"
+    },
+    {
+      "index": 29,
+      "rect": {
+        "x": 320,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "4ae82f93503c1880c9f833a84bd7a76601f513678ca59ae870171cc251ca7f5d"
+    },
+    {
+      "index": 30,
+      "rect": {
+        "x": 384,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "5c132772438eb50572407ccb1bb6351810d8dae851ace9aede25adb546880968"
+    },
+    {
+      "index": 31,
+      "rect": {
+        "x": 448,
+        "y": 192,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "52397cebbc42815dcb704ee0c6182754cb378a81905627909585dc86d3ea482a"
+    },
+    {
+      "index": 32,
+      "rect": {
+        "x": 0,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "9af41393e4a0ab3decce1b6c7541aec384eb8ac3e1f845d108f47b7116ea0fb7"
+    },
+    {
+      "index": 33,
+      "rect": {
+        "x": 64,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a9bb737130ea5245850422d55852bc7cdb53ea208310dca02f3b1b608d282bf2"
+    },
+    {
+      "index": 34,
+      "rect": {
+        "x": 128,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "6dc6adf84aa339cabd95a762de5c5e18a19da7ce1ffe07b292e42ca3eae71477"
+    },
+    {
+      "index": 35,
+      "rect": {
+        "x": 192,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "47ae39a7b545bec0e27896684a90dfbadbb528462796a9db996a5d23c6cb98cf"
+    },
+    {
+      "index": 36,
+      "rect": {
+        "x": 256,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "f0cb124f833ec5374659cb0e722a7bee05c988db46783aeebac3be13ace9372e"
+    },
+    {
+      "index": 37,
+      "rect": {
+        "x": 320,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "341f395b8afd463fa0a1455e67164cd392650ae6c16f94d5eac3d605121539b2"
+    },
+    {
+      "index": 38,
+      "rect": {
+        "x": 384,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "36890f0f9d107bee2c5430467ff1762775a1f7421567c416fbd31117d2d438e7"
+    },
+    {
+      "index": 39,
+      "rect": {
+        "x": 448,
+        "y": 256,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "c3c9cc94f65ea6e9ac7aa5e099e01412d7f63e600fe537814ab1d23c44fb1d3e"
+    },
+    {
+      "index": 40,
+      "rect": {
+        "x": 0,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "898f5db3a8b85e7f6749e7b00a15379ebab9d39ae1ae48ebbf0b19df9db7985e"
+    },
+    {
+      "index": 41,
+      "rect": {
+        "x": 64,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "a102cf77e1845018776d18bb030f55301f91e38719b1eeec5bb65d5ac3927db9"
+    },
+    {
+      "index": 42,
+      "rect": {
+        "x": 128,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "f8a8851fce9ea462436b46c54d219bb8c1ebe62e013b7f1fd54f33d440ee7dd7"
+    },
+    {
+      "index": 43,
+      "rect": {
+        "x": 192,
+        "y": 320,
+        "w": 64,
+        "h": 64
+      },
+      "durationMs": 125,
+      "sha256": "5eca509a02fae2e8da1a36f3759cb8da3e865f7289b98f61bf492e3f5d9db699"
+    }
+  ],
+  "status": "Experimental wardrobe; no production promotion"
+}
