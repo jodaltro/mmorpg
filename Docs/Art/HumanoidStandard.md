@@ -1,12 +1,14 @@
 # Novo padrão humanoide — pesquisa e prova de escala
 
-16/10/2026. **Direção solicitada pelo usuário; candidato preparado para avaliação. Migração de produção ainda não executada.**
+16/10/2026. **Caminhada do jogador aprovada; base Quaternius escolhida para continuidade. Migração de produção ainda não executada.**
+
+[Aprovação, versão de referência e pendências](../Validation/HumanoidWalkApproval2026.md). A aprovação refere-se à caminhada testada após a correção lateral; roupas, combate e identidade final ainda precisam de aprimoramento.
 
 ## Decisão de direção
 
 Durante o R4, o usuário considerou as roupas simples demais e depois pediu para priorizar corpos maiores, com proporções mais humanas. Determinou que a futura base seja padrão para **todos os humanoides, incluindo o protagonista**. Autorizou ampliar/retrabalhar o cenário em função dessa escala, mantendo pixel art com aparência mais moderna. Portanto, o mapa atual e a altura histórica de aproximadamente 48 px deixam de ser limites para a pesquisa.
 
-Essa orientação amplia o R4 original. A versão pequena de Mira/Orin permanece como laboratório técnico; não recebe aprovação artística por passar nos testes. A aparência e os arquivos do Iron Knight oficial continuam intactos até existir uma substituição validada. A mudança de direção autoriza estudar sua substituição, mas não significa que um candidato específico já foi aprovado.
+Essa orientação amplia o R4 original. A versão pequena de Mira/Orin permanece como laboratório técnico; não recebe aprovação artística por passar nos testes. A aparência e os arquivos do Iron Knight oficial continuam intactos até existir uma substituição validada. A mudança de direção autorizou estudar sua substituição. Posteriormente, o usuário aprovou a caminhada da base Quaternius masculina e escolheu continuar com esse modelo; a substituição final de produção permanece pendente.
 
 ## Candidato principal: família Quaternius
 
@@ -74,7 +76,7 @@ Fontes e editáveis: [Humanoid2026](../../ArtSource/Labs/Humanoid2026/README.md)
 
 O download gratuito oficial não retornou arquivo local pelo navegador, e a tentativa HTTP recebeu 429. Foram adquiridos somente dados de modelo/textura/animação e os avisos de licença de um **mirror público com commit fixado**, mantendo URL oficial/autoria separadas da origem de transporte. Os blobs foram comparados aos hashes Git do mirror; não se afirmou uma comparação byte a byte com um ZIP oficial que não foi obtido. Não foram executados scripts desse repositório externo.
 
-Próxima etapa concreta: revisar a prova de proporções, acabamento pixel art, identidade e caminhada; montar uma roupa de classe na família escolhida; então testar uma cena de escala e planejar a migração completa dos humanoides e cenário. A aprovação artística permanece pendente.
+Próxima etapa concreta: revisar a prova de proporções, acabamento pixel art, identidade e caminhada; montar uma roupa de classe na família escolhida; então testar uma cena de escala e planejar a migração completa dos humanoides e cenário. A caminhada do jogador foi aprovada posteriormente; as demais áreas artísticas permanecem pendentes.
 
 ## Prova de escala dentro de Valdoria — 2026-10-16
 
