@@ -1,0 +1,8 @@
+{
+  "version": "Aseprite 1.3.18.6-x64",
+  "operation": "batch read and PNG roundtrip, no drawings authored",
+  "source": "Screen Smith CC0 TownsPeople2_Animations.png",
+  "sourceSha256": "778958b879e59cff08bd1e7e2064999a37535bdb210b65cd7846f926b992aa6f",
+  "pixelIdentical": true,
+  "output": "local outside repository"
+}
