@@ -2,6 +2,12 @@
 
 16/10/2026. **Código implementado, prova gerada e testada dentro do jogo em cena experimental. Aprovação artística pendente.**
 
+## Ampliação do escopo e capacidades adquiridas
+
+O B13 inicial tratava da pesquisa/adaptação de NPCs profissionais. As orientações adicionais do usuário levaram à biblioteca redistribuível R2, à combinação de peças e, neste R3, a um gerador próprio de geometria de roupas, com receitas, âncoras por pose e oclusão de acessórios. A criação de capa/chapéu/mochila por parâmetros e a regressão do braço são entregas além daquela pesquisa inicial. Foram autorizadas durante o trabalho; não representam promoção artística automática dos NPCs.
+
+O [registro permanente de capacidades](../Art/ProceduralWardrobe.md) compara o escopo inicial com essas extensões, explica como reutilizar o código e distingue recursos comprovados, adaptações possíveis e itens ainda não implementados. Em particular, gerar a forma da roupa e acompanhá-la nas poses existentes já funciona na base de Mira; criar qualquer roupa por descrição livre, simular tecido e equipar roupas em runtime continuam fora da implementação atual.
+
 ## Resultado
 
 O laboratório deixou de apenas combinar/recolorir peças: agora cria geometria de capa, gola, fecho, chapéu e mochila a partir de receitas JSON. O corpo e suas poses profissionais permanecem intactos. A orientação posterior do usuário foi começar pelas roupas; animação secundária do tecido ficou adiada.

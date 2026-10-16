@@ -2,6 +2,8 @@
 
 Data: 16/10/2026. Projeto Unity 6000.6.5f1, branch `main`.
 
+**Leitura histórica:** este relatório registra a primeira etapa. As ampliações posteriores solicitadas pelo usuário estão no [R2 — bases redistribuíveis e roupas por camadas](Marco06B13R2.md), no [R3 — geometria de roupas e teste no jogo](Marco06B13R3.md) e no [registro atual de capacidades e limites](../Art/ProceduralWardrobe.md). A afirmação abaixo sobre ausência de cena experimental refere-se à primeira etapa; o R3 criou sua própria cena, mantendo a oficial intacta.
+
 **Resultado: nenhum candidato aprovado para integração.** Mira e Orin oficiais continuam intactos. A pesquisa produziu comparações, inspeção real da cena e um estudo local de adaptação de paleta no Aseprite. A aprovação artística permanece pendente. Não foi criada uma cena experimental sem candidatos que cumprissem o gate.
 
 ## Direção de trabalho após a orientação do usuário

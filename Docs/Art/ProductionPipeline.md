@@ -1,5 +1,11 @@
 # Pipeline de produção — 06B.4
 
+## Vestuário procedural de NPCs — extensão 06B.13 R2/R3
+
+O [registro de capacidades de vestuário](ProceduralWardrobe.md) documenta a ampliação do marco de pesquisa de NPCs: fontes redistribuíveis, combinação de peças/paletas, geração de geometria no Aseprite por receitas JSON, âncoras por pose e oclusão de acessórios traseiros. Contém exemplos, arquivos de extensão, reprodução e limites comprovados. [QA B13 R3](../Validation/Marco06B13R3.md).
+
+O gerador atual é calibrado para Mira e foi validado em 44 poses. Os resultados e a cena são experimentais; não substituem os NPCs oficiais, não adicionam equipamento em runtime nem simulação de tecido. A aprovação artística continua separada da validação técnica.
+
 ## Protagonista oficial — 06B.12
 
 A entrada oficial é `Assets/Mmorpg/Scenes/MmorpgWorld.unity`, índice global 0. Ela preserva o mundo completo e os sistemas B11; as cenas históricas continuam separadas. O jogador usa `Assets/Mmorpg/Art/Production/IronKnight/IronKnight.asset` e o prefab visual conectado `PlayerVisual.prefab`. Os 36 clips e 264 sprites aprovados B10/B11 foram promovidos sem alterar pixels, cadência, mãos, fases ou profundidade. Canvas nativo 256×256, 32 PPU; não converter para o canvas antigo de 96×96.
