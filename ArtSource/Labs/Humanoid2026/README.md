@@ -30,3 +30,7 @@ python Tools/ArtPipeline/verify_humanoid_study.py
 ```
 
 O preparador aceita apenas fontes ausentes ou idênticas. O renderizador exige pasta nova. O exportador de estudo exige `Preview` ausente: para uma nova proposta, trabalhar em cópia do laboratório ou parametrizar esse destino antes de executar; não remover o estudo revisado. A exportação atual é uma ferramenta de pesquisa com destino explícito, não um importador universal de personagens de produção.
+
+## Integração experimental posterior
+
+A cena `Assets/Mmorpg/Scenes/HumanoidScale2026.unity` mostra os dois corpos dentro de Valdoria. Ver `Docs/Validation/HumanoidScale2026.md`. Os registros originais desta pasta descrevem o checkpoint de geração; a validação Unity posterior fica nesse relatório separado. Ainda sem roupas finais ou promoção de produção.

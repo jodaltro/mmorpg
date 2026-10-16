@@ -66,7 +66,7 @@ O padrão futuro deve definir, depois da prova visual: anatomia da família, res
 
 A primeira prova já dobra aproximadamente a altura disponível para detalhe. O valor final de PPU, resolução lógica da câmera e dimensões de portas/telhados/árvores ainda precisa de comparação no mundo. Não está decidido como um simples zoom ou aumento de escala de um sprite pequeno. O usuário autoriza aumentar e retrabalhar o cenário; não há migração global executada neste checkpoint.
 
-Para migrar o protagonista será necessário preparar todo o conjunto de movimentos/estados exigido, validar empunhadura, espada, acertos, colisões e autoridade existentes e repetir QA de interação/save. Novos visuais não autorizam alterações em missões/progressão, nem perda de identidade ou dos dados pessoais. A prova atual está fora de Assets e **ainda não foi testada dentro da Unity**.
+Para migrar o protagonista será necessário preparar todo o conjunto de movimentos/estados exigido, validar empunhadura, espada, acertos, colisões e autoridade existentes e repetir QA de interação/save. Novos visuais não autorizam alterações em missões/progressão, nem perda de identidade ou dos dados pessoais. O checkpoint inicial foi realizado fora de Assets. A prova posterior dentro da Unity está registrada em [HumanoidScale2026](../Validation/HumanoidScale2026.md), sem migração de produção.
 
 ## Proveniência e reprodução
 
@@ -75,3 +75,7 @@ Fontes e editáveis: [Humanoid2026](../../ArtSource/Labs/Humanoid2026/README.md)
 O download gratuito oficial não retornou arquivo local pelo navegador, e a tentativa HTTP recebeu 429. Foram adquiridos somente dados de modelo/textura/animação e os avisos de licença de um **mirror público com commit fixado**, mantendo URL oficial/autoria separadas da origem de transporte. Os blobs foram comparados aos hashes Git do mirror; não se afirmou uma comparação byte a byte com um ZIP oficial que não foi obtido. Não foram executados scripts desse repositório externo.
 
 Próxima etapa concreta: revisar a prova de proporções, acabamento pixel art, identidade e caminhada; montar uma roupa de classe na família escolhida; então testar uma cena de escala e planejar a migração completa dos humanoides e cenário. A aprovação artística permanece pendente.
+
+## Prova de escala dentro de Valdoria — 2026-10-16
+
+`Assets/Mmorpg/Scenes/HumanoidScale2026.unity` é uma cópia experimental do mundo oficial com Female em Mira e Male em Orin, 52 sprites por corpo, canvas 128×160, Point, FullRect, 32 PPU e pivô (64,34) em coordenadas Unity. As bases estão sem as roupas finais. Iron Knight continua como referência histórica de escala. Não houve troca do protagonista nem remodelagem do cenário nesta prova. A maior altura evidencia a necessidade de adaptar portas, telhados e etiquetas antes da migração global. [Capturas e validação](../Validation/HumanoidScale2026.md).

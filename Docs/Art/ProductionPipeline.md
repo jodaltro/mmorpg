@@ -2,7 +2,7 @@
 
 ## Nova direção de escala humana — pesquisa 2026
 
-O usuário autorizou estudar uma família maior para todos os humanoides, inclusive protagonista, com cenário adaptável e aparência moderna em pixel art. [Padrão em avaliação e provas](HumanoidStandard.md). A família Quaternius CC0 já tem fontes e previews editáveis fora de Assets; não foi promovida nem testada no jogo. A cena R4 pequena tem [QA próprio](../Validation/Marco06B13R4.md). Manter separados validação técnica, avaliação artística e futura migração de produção.
+O usuário autorizou estudar uma família maior para todos os humanoides, inclusive protagonista, com cenário adaptável e aparência moderna em pixel art. [Padrão em avaliação e provas](HumanoidStandard.md). A família Quaternius CC0 tem fontes e previews editáveis e uma [prova experimental dentro de Valdoria](../Validation/HumanoidScale2026.md); não foi promovida a produção. A cena R4 pequena tem [QA próprio](../Validation/Marco06B13R4.md). Manter separados validação técnica, avaliação artística e futura migração de produção.
 
 ## Vestuário procedural de NPCs — extensão 06B.13 R2/R3
 
