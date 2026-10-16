@@ -1,0 +1,2476 @@
+{
+  "name": "HormelzMelee",
+  "canvas": [
+    126,
+    132
+  ],
+  "layers": [
+    "Original drawing"
+  ],
+  "clips": [
+    {
+      "name": "idle_south",
+      "first": 1,
+      "last": 31
+    },
+    {
+      "name": "idle_west",
+      "first": 32,
+      "last": 62
+    },
+    {
+      "name": "idle_north",
+      "first": 63,
+      "last": 93
+    },
+    {
+      "name": "idle_east",
+      "first": 94,
+      "last": 124
+    },
+    {
+      "name": "walk_south",
+      "first": 125,
+      "last": 148
+    },
+    {
+      "name": "walk_west",
+      "first": 149,
+      "last": 172
+    },
+    {
+      "name": "walk_north",
+      "first": 173,
+      "last": 196
+    },
+    {
+      "name": "walk_east",
+      "first": 197,
+      "last": 220
+    }
+  ],
+  "frames": [
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 630,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 630,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 630,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 630,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 504,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 630,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir8.png",
+          "x": 0,
+          "y": 660,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 630,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 630,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 630,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 630,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 504,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 630,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir2.png",
+          "x": 0,
+          "y": 660,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 630,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 630,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 630,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 630,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 504,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 630,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir4.png",
+          "x": 0,
+          "y": 660,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 630,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 630,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 630,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 630,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 504,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 630,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__Idle1_dir6.png",
+          "x": 0,
+          "y": 660,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir8.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir2.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir4.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 126,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 252,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 378,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 504,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 0,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 126,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 252,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 378,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 504,
+          "y": 132,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 0,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 126,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 252,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 378,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 504,
+          "y": 264,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 0,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 126,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 252,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 378,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 504,
+          "y": 396,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 0,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 126,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 252,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.04,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzMelee/Originals/Boxer__WalkFoward_dir6.png",
+          "x": 378,
+          "y": 528,
+          "layer": "Original drawing"
+        }
+      ]
+    }
+  ],
+  "timing": "40 ms reference from original dir2 GIF; other cardinal timings inferred; original JSONs empty",
+  "status": "Editable source candidate; no NPC identity or production approval"
+}

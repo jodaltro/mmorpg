@@ -1,0 +1,2652 @@
+{
+  "name": "HormelzGirl",
+  "canvas": [
+    256,
+    256
+  ],
+  "layers": [
+    "Original drawing"
+  ],
+  "clips": [
+    {
+      "name": "idle_south",
+      "first": 1,
+      "last": 23
+    },
+    {
+      "name": "idle_west",
+      "first": 24,
+      "last": 46
+    },
+    {
+      "name": "idle_north",
+      "first": 47,
+      "last": 69
+    },
+    {
+      "name": "idle_east",
+      "first": 70,
+      "last": 92
+    },
+    {
+      "name": "walk_south",
+      "first": 93,
+      "last": 128
+    },
+    {
+      "name": "walk_west",
+      "first": 129,
+      "last": 164
+    },
+    {
+      "name": "walk_north",
+      "first": 165,
+      "last": 200
+    },
+    {
+      "name": "walk_east",
+      "first": 201,
+      "last": 236
+    }
+  ],
+  "frames": [
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir8.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir2.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir4.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_iddle_001_dir6.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1280,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1280,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1280,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1280,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 768,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1024,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1280,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 0,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 256,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 512,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 768,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1024,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir8.png",
+          "x": 1280,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1280,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1280,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1280,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1280,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 768,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1024,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1280,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 0,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 256,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 512,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 768,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1024,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir2.png",
+          "x": 1280,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1280,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1280,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1280,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1280,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 768,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1024,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1280,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 0,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 256,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 512,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 768,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1024,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir4.png",
+          "x": 1280,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 512,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 768,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1024,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1280,
+          "y": 0,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 0,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 256,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 512,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 768,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1024,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1280,
+          "y": 256,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 0,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 256,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 512,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 768,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1024,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1280,
+          "y": 512,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 0,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 256,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 512,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 768,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1024,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1280,
+          "y": 768,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 0,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 256,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 512,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 768,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1024,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1280,
+          "y": 1024,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 0,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 256,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 512,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 768,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1024,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    },
+    {
+      "seconds": 0.0333333333333333,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/HormelzGirl/Originals/Styl0o_Redo_anim_walkwHD_dir6.png",
+          "x": 1280,
+          "y": 1280,
+          "layer": "Original drawing"
+        }
+      ]
+    }
+  ],
+  "timing": "Original JSON seconds retained in manifest; Aseprite rounds to integer milliseconds",
+  "status": "Editable source candidate; no NPC identity or production approval"
+}

@@ -1,0 +1,6736 @@
+{
+  "recipe": {
+    "base": "LpcMasculine",
+    "gender": "Masculine, Thin",
+    "shirt": [
+      "243b2c",
+      "365b3b",
+      "587b4d",
+      "7b9863",
+      "abc18b"
+    ],
+    "pants": [
+      "382a24",
+      "59422f",
+      "806242",
+      "a58960",
+      "c6b38a"
+    ]
+  },
+  "colorMaps": {
+    "Shirt": {
+      "111,100,100": [
+        36,
+        59,
+        44
+      ],
+      "149,128,128": [
+        54,
+        91,
+        59
+      ],
+      "196,181,159": [
+        88,
+        123,
+        77
+      ],
+      "227,231,211": [
+        123,
+        152,
+        99
+      ],
+      "235,237,233": [
+        171,
+        193,
+        139
+      ]
+    },
+    "Pants": {
+      "111,100,100": [
+        56,
+        42,
+        36
+      ],
+      "149,128,128": [
+        89,
+        66,
+        47
+      ],
+      "196,181,159": [
+        165,
+        137,
+        96
+      ],
+      "227,231,211": [
+        198,
+        179,
+        138
+      ]
+    },
+    "Boots": {
+      "111,100,100": [
+        40,
+        29,
+        27
+      ],
+      "149,128,128": [
+        73,
+        49,
+        41
+      ],
+      "196,181,159": [
+        112,
+        80,
+        57
+      ],
+      "227,231,211": [
+        153,
+        113,
+        78
+      ],
+      "235,237,233": [
+        193,
+        151,
+        107
+      ]
+    },
+    "Hair": {
+      "68,39,37": [
+        44,
+        27,
+        22
+      ],
+      "121,65,23": [
+        73,
+        42,
+        30
+      ],
+      "161,96,24": [
+        103,
+        64,
+        43
+      ],
+      "209,148,40": [
+        135,
+        90,
+        58
+      ],
+      "243,195,95": [
+        173,
+        124,
+        80
+      ],
+      "253,208,130": [
+        211,
+        164,
+        112
+      ]
+    }
+  },
+  "frames": [
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Idle.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Idle.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Idle.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Idle.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Idle.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Idle.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 0,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 64,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 128,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 192,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 192,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 192,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 192,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 192,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 192,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 256,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 320,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 320,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 320,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 320,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 320,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 320,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 384,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 384,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 384,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 384,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 384,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 384,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 448,
+          "y": 0,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 448,
+          "y": 0,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 448,
+          "y": 0,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 448,
+          "y": 0,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 448,
+          "y": 0,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 448,
+          "y": 0,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 0,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 64,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 128,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 192,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 192,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 192,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 192,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 192,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 192,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 256,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 256,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 256,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 256,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 256,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 256,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 320,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 320,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 320,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 320,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 320,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 320,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 384,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 384,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 384,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 384,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 384,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 384,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 448,
+          "y": 64,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 448,
+          "y": 64,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 448,
+          "y": 64,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 448,
+          "y": 64,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 448,
+          "y": 64,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 448,
+          "y": 64,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 0,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 64,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 128,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 192,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 192,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 192,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 192,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 192,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 192,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 256,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 256,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 256,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 256,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 256,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 256,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 320,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 320,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 320,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 320,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 320,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 320,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 384,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 384,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 384,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 384,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 384,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 384,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 448,
+          "y": 128,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 448,
+          "y": 128,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 448,
+          "y": 128,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 448,
+          "y": 128,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 448,
+          "y": 128,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 448,
+          "y": 128,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 0,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 64,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 128,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 192,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 192,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 192,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 192,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 192,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 192,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 256,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 256,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 256,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 256,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 256,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 256,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 320,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 320,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 320,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 320,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 320,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 320,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 384,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 384,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 384,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 384,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 384,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 384,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 0.125,
+      "parts": [
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineBody/Originals/Walk.png",
+          "x": 448,
+          "y": 192,
+          "layer": "Body"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Legs/Pants 03 - Pants/Walk.png",
+          "x": 448,
+          "y": 192,
+          "layer": "Pants",
+          "colorMap": {
+            "111,100,100": [
+              56,
+              42,
+              36
+            ],
+            "149,128,128": [
+              89,
+              66,
+              47
+            ],
+            "196,181,159": [
+              165,
+              137,
+              96
+            ],
+            "227,231,211": [
+              198,
+              179,
+              138
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Feet/Shoes 02 - Boots/Walk.png",
+          "x": 448,
+          "y": 192,
+          "layer": "Boots",
+          "colorMap": {
+            "111,100,100": [
+              40,
+              29,
+              27
+            ],
+            "149,128,128": [
+              73,
+              49,
+              41
+            ],
+            "196,181,159": [
+              112,
+              80,
+              57
+            ],
+            "227,231,211": [
+              153,
+              113,
+              78
+            ],
+            "235,237,233": [
+              193,
+              151,
+              107
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Clothing/Masculine, Thin/Torso/Shirt 01 - Longsleeve Shirt/Walk.png",
+          "x": 448,
+          "y": 192,
+          "layer": "Shirt",
+          "colorMap": {
+            "111,100,100": [
+              36,
+              59,
+              44
+            ],
+            "149,128,128": [
+              54,
+              91,
+              59
+            ],
+            "196,181,159": [
+              88,
+              123,
+              77
+            ],
+            "227,231,211": [
+              123,
+              152,
+              99
+            ],
+            "235,237,233": [
+              171,
+              193,
+              139
+            ]
+          }
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/LpcMasculineHead/Originals/Walk.png",
+          "x": 448,
+          "y": 192,
+          "layer": "Head"
+        },
+        {
+          "path": "ArtSource/Labs/NpcResearch/Marco06B13R2/Wardrobe/Sources/Characters/Hair/Short 02 - Parted/Walk.png",
+          "x": 448,
+          "y": 192,
+          "layer": "Hair",
+          "colorMap": {
+            "68,39,37": [
+              44,
+              27,
+              22
+            ],
+            "121,65,23": [
+              73,
+              42,
+              30
+            ],
+            "161,96,24": [
+              103,
+              64,
+              43
+            ],
+            "209,148,40": [
+              135,
+              90,
+              58
+            ],
+            "243,195,95": [
+              173,
+              124,
+              80
+            ],
+            "253,208,130": [
+              211,
+              164,
+              112
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle_north",
+      "first": 1,
+      "last": 3
+    },
+    {
+      "name": "idle_west",
+      "first": 4,
+      "last": 6
+    },
+    {
+      "name": "idle_south",
+      "first": 7,
+      "last": 9
+    },
+    {
+      "name": "idle_east",
+      "first": 10,
+      "last": 12
+    },
+    {
+      "name": "walk_north",
+      "first": 13,
+      "last": 20
+    },
+    {
+      "name": "walk_west",
+      "first": 21,
+      "last": 28
+    },
+    {
+      "name": "walk_south",
+      "first": 29,
+      "last": 36
+    },
+    {
+      "name": "walk_east",
+      "first": 37,
+      "last": 44
+    }
+  ],
+  "canvas": [
+    64,
+    64
+  ],
+  "license": "OGA-BY-3.0",
+  "status": "Procedural garment assembly/color proof; artistic approval pending"
+}

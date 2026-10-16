@@ -1,0 +1,82 @@
+[
+  {
+    "name": "MiraIvory",
+    "frames": 44,
+    "clips": 8,
+    "layers": [
+      "Body",
+      "Pants",
+      "Boots",
+      "Shirt",
+      "Head",
+      "Hair"
+    ],
+    "sourceBodyAndHeadUnchanged": true,
+    "garmentAlphaAndGeometryUnchanged": true,
+    "exportMatchesExpectedVisiblePixelsAndAlpha": true,
+    "heightMin": 45,
+    "heightMax": 50,
+    "timing": "125 ms inspection; inherited from research base",
+    "runtimeChanges": false
+  },
+  {
+    "name": "MiraSage",
+    "frames": 44,
+    "clips": 8,
+    "layers": [
+      "Body",
+      "Pants",
+      "Boots",
+      "Shirt",
+      "Head",
+      "Hair"
+    ],
+    "sourceBodyAndHeadUnchanged": true,
+    "garmentAlphaAndGeometryUnchanged": true,
+    "exportMatchesExpectedVisiblePixelsAndAlpha": true,
+    "heightMin": 45,
+    "heightMax": 50,
+    "timing": "125 ms inspection; inherited from research base",
+    "runtimeChanges": false
+  },
+  {
+    "name": "OrinForest",
+    "frames": 44,
+    "clips": 8,
+    "layers": [
+      "Body",
+      "Pants",
+      "Boots",
+      "Shirt",
+      "Head",
+      "Hair"
+    ],
+    "sourceBodyAndHeadUnchanged": true,
+    "garmentAlphaAndGeometryUnchanged": true,
+    "exportMatchesExpectedVisiblePixelsAndAlpha": true,
+    "heightMin": 45,
+    "heightMax": 48,
+    "timing": "125 ms inspection; inherited from research base",
+    "runtimeChanges": false
+  },
+  {
+    "name": "OrinUmber",
+    "frames": 44,
+    "clips": 8,
+    "layers": [
+      "Body",
+      "Pants",
+      "Boots",
+      "Shirt",
+      "Head",
+      "Hair"
+    ],
+    "sourceBodyAndHeadUnchanged": true,
+    "garmentAlphaAndGeometryUnchanged": true,
+    "exportMatchesExpectedVisiblePixelsAndAlpha": true,
+    "heightMin": 45,
+    "heightMax": 48,
+    "timing": "125 ms inspection; inherited from research base",
+    "runtimeChanges": false
+  }
+]
