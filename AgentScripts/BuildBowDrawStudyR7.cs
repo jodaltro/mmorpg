@@ -16,13 +16,13 @@ public static class BuildBowDrawStudyR7
 {
  const string Art="Assets/Mmorpg/Art/Experimental/HumanoidSwordR7/BowDrawStudy/",Lab="ArtSource/Labs/Humanoid2026/R7/BowDrawStudy/";
  static void Check(bool b,string s){if(!b)throw new Exception(s);}
-    static Dictionary<string,Sprite> ImportAtlas(string outfit,string sourceLab=null,int expected=104)
+    static Dictionary<string,Sprite> ImportAtlas(string outfit,string sourceLab=null,int expected=104,string destination=null)
     {
         string source=sourceLab??Lab;
         var data=JObject.Parse(File.ReadAllText(source+"aseprite.json"));
         Check(data["frames"].Count()==expected,"Unexpected grip-study frame count");
-        string path=Art+outfit+".png";Check(!File.Exists(path),"Refusing atlas overwrite");
-        Directory.CreateDirectory(Art);File.Copy(source+"spritesheet.png",path,false);AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+        string art=destination??Art;string path=art+outfit+".png";Check(!File.Exists(path),"Refusing atlas overwrite");
+        Directory.CreateDirectory(art);File.Copy(source+"spritesheet.png",path,false);AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
         var importer=(TextureImporter)AssetImporter.GetAtPath(path);
         importer.textureType=TextureImporterType.Sprite;importer.spriteImportMode=SpriteImportMode.Multiple;importer.spritePixelsPerUnit=32;
         importer.filterMode=FilterMode.Point;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.mipmapEnabled=false;importer.alphaIsTransparency=true;importer.wrapMode=TextureWrapMode.Clamp;importer.maxTextureSize=4096;
@@ -38,4 +38,5 @@ public static class BuildBowDrawStudyR7
     }
 
  public static string Create(){Check(!EditorApplication.isPlaying,"Stop first");ImportAtlas("BowDraw",Lab,74);AssetDatabase.SaveAssets();return "Imported 74 composite diagnostic sprites; normal R7 scene unchanged.";}
+ public static string CreateAnatomical(){Check(!EditorApplication.isPlaying,"Stop first");ImportAtlas("BowDraw","ArtSource/Labs/Humanoid2026/R7/BowAnatomyStudy/",74,"Assets/Mmorpg/Art/Experimental/HumanoidSwordR7/BowAnatomyStudy/");AssetDatabase.SaveAssets();return "Imported 74 V4 anatomical diagnostic sprites; normal R7 scene unchanged.";}
 }

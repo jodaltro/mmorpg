@@ -48,3 +48,7 @@ Input em ordem padrão; corpo/attachment em Update 40; Sweep em Update 50; espad
 A família alta possui separação espacial relevante entre projeção da mão e plano físico. Aprovação do gate não aprova essa apresentação. Ver `Docs/Validation/HumanoidSwordR7.md`.
 
 Estudos R7: IK de braço com comprimentos fixos; socket derivado da geometria real dos dedos; CCD para contato cilíndrico e pinça da corda. No arco, os dois alvos vêm da mesma malha deformada e do mesmo quadro a 24 fps. O estudo composto Sul/Leste preserva oclusão em 3D, mas ainda não substitui a arquitetura de equipamento separado em runtime. Não constitui solver universal de mãos ou combate de arco completo.
+
+## V4 aprovado e menu de validação
+
+A revisão anatômica do arco acrescenta rejeição de poses da luva contra a cabeça e limites do cotovelo, perfil de profundidade da puxada e soltura independente. O usuário aprovou a revisão mostrada Sul/Leste. Ver `BowAnatomyR7.md` em Docs/Validation e `ProceduralWeapons.md` nesta pasta. Esc → Validar armas está disponível na cena R7 para alternar espada/prévia do arco; sem inventário, projéteis, dano de arco ou promoção oficial. A composição do arco é diagnóstica, enquanto equipamento separado em todas as vistas permanece pendente.
