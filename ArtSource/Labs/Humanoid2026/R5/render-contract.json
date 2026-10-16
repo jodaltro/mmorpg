@@ -1,0 +1,91 @@
+{
+  "canvas": [
+    128,
+    160
+  ],
+  "ppu": 32,
+  "pivotUnity": [
+    64,
+    34
+  ],
+  "pivotTopLeft": [
+    64,
+    126
+  ],
+  "referenceGround": [
+    64,
+    144
+  ],
+  "camera": {
+    "type": "ORTHO",
+    "orthoScale": 2.4,
+    "target": [
+      0,
+      0,
+      0.9
+    ],
+    "radius": 8,
+    "height": 5.5,
+    "sourceViewAngles": {
+      "south": 0,
+      "west": -1.5707963267948966,
+      "north": 3.141592653589793,
+      "east": 1.5707963267948966
+    }
+  },
+  "light": {
+    "type": "AREA",
+    "energy": 450,
+    "size": 4,
+    "worldStrength": 0.6,
+    "worldColor": [
+      0.65,
+      0.7,
+      0.8
+    ],
+    "baseLocation": [
+      -3,
+      -4,
+      6
+    ],
+    "rotatesWithCamera": true
+  },
+  "render": {
+    "engine": "CYCLES",
+    "samples": 32,
+    "denoising": false,
+    "transparent": true,
+    "viewTransform": "Standard"
+  },
+  "walk": {
+    "source": "Walk_Loop",
+    "sourceRange": [
+      0,
+      40
+    ],
+    "sourceFps": 30,
+    "samples": 12,
+    "sampleTimes": [
+      0.0,
+      3.3333333333333335,
+      6.666666666666667,
+      10.0,
+      13.333333333333334,
+      16.666666666666668,
+      20.0,
+      23.333333333333332,
+      26.666666666666668,
+      30.0,
+      33.333333333333336,
+      36.666666666666664
+    ],
+    "exportMilliseconds": 111
+  },
+  "directionMapping": {
+    "south": 0,
+    "east": 1,
+    "north": 2,
+    "west": 3
+  },
+  "referenceRendererSha256": "ebbd00c9fe52e4bb909b5524455547088d7153fcfc6ca657de69980eeb11a2de"
+}

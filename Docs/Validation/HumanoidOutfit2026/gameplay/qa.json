@@ -1,0 +1,45 @@
+{
+  "first": 17057,
+  "last": 18875,
+  "isolatedProfile": true,
+  "directions": [
+    {
+      "direction": 0,
+      "distance": 1.19799936,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    },
+    {
+      "direction": 1,
+      "distance": 1.19800282,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    },
+    {
+      "direction": 2,
+      "distance": 1.1979996,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    },
+    {
+      "direction": 3,
+      "distance": 1.19800282,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    }
+  ],
+  "diagonalInput": true,
+  "originalMotor": true,
+  "movementOnly": true,
+  "weaponHidden": true,
+  "physicalAdaptersIdentical": true,
+  "cameraHudIdentical": true,
+  "saveLoad": true,
+  "frontBackNpcOcclusion": true,
+  "environmentMovement": true,
+  "treeFrontBackOcclusion": true
+}

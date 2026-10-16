@@ -73,3 +73,7 @@ Não executar `production.py` como rotina de atualização: a migração B3 pode
 `AgentScripts/InspectAnimation06B5.cs` contém inspeções curtas por input real do Input System, perfil isolado em Temp e captura `ScreenCapture.CaptureScreenshotAsTexture` após WaitForEndOfFrame. Execute Prepare fora de Play, editor_play, Setup, Movement, Attacks e Combat; pare Play e execute Cleanup. Game View deve estar renderizando. Attacks usa timeScale 0,35 somente para evidência lenta; Combat e Movement usam 1. Cleanup restaura input e opções do Editor. Não executar suítes extensas neste marco.
 
 `Tools/ArtPipeline/gameplay_previews_b5.py` monta GIFs de capturas reais com metadados, recorte de acompanhamento e nearest. Não desenha poses nem simula gameplay. As prévias e os relatórios ficam em `Docs/Validation/Marco06B5`; fontes PNG brutas podem ser arquivadas localmente em `Temp/Marco06B5/Captures` após a montagem.
+
+## Figurino Quaternius R5 — experimental aprovado
+
+[Relatório R5](../Validation/HumanoidOutfit2026.md): malhas profissionais CC0 ajustadas ao rig aprovado no Blender, fontes editáveis, 52 poses processadas pelo Aseprite e nova cena `HumanoidOutfit2026.unity`. Caminhada e figurino aprovados pelo usuário; corpo original reproduzido pixel a pixel, clips/pivôs/PPU preservados. Sem promoção de produção ou integração de espada.

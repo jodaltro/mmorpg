@@ -81,3 +81,7 @@ Próxima etapa concreta: revisar a prova de proporções, acabamento pixel art, 
 ## Prova de escala dentro de Valdoria — 2026-10-16
 
 `Assets/Mmorpg/Scenes/HumanoidScale2026.unity` é uma cópia experimental do mundo oficial com Female em Mira e Male em Orin, 52 sprites por corpo, canvas 128×160, Point, FullRect, 32 PPU e pivô (64,34) em coordenadas Unity. As bases estão sem as roupas finais. Iron Knight continua como referência histórica de escala. Não houve troca do protagonista nem remodelagem do cenário nesta prova. A maior altura evidencia a necessidade de adaptar portas, telhados e etiquetas antes da migração global. [Capturas e validação](../Validation/HumanoidScale2026.md).
+
+## Figurino R5 aprovado
+
+Após a caminhada, o usuário aprovou o figurino medieval da base masculina na cena `HumanoidOutfit2026.unity`. [Entrega, fontes, comparação de integridade e limites](../Validation/HumanoidOutfit2026.md). Mantidos os 52 quadros, direções corrigidas, tempos, pivô e corpo. A aprovação não promove o personagem à entrada oficial nem conclui espada/combate.

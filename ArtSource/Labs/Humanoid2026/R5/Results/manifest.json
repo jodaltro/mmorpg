@@ -1,0 +1,432 @@
+{
+  "character": "ValdoriaSwordsman-R5",
+  "license": "CC0-1.0 plus project authored fitting/finish",
+  "canvas": [
+    128,
+    160
+  ],
+  "ppu": 32,
+  "pivot": [
+    64,
+    126
+  ],
+  "ground": [
+    64,
+    144
+  ],
+  "clips": [
+    {
+      "name": "idle_south",
+      "first": 1,
+      "last": 1
+    },
+    {
+      "name": "walk_south",
+      "first": 2,
+      "last": 13
+    },
+    {
+      "name": "idle_west",
+      "first": 14,
+      "last": 14
+    },
+    {
+      "name": "walk_west",
+      "first": 15,
+      "last": 26
+    },
+    {
+      "name": "idle_north",
+      "first": 27,
+      "last": 27
+    },
+    {
+      "name": "walk_north",
+      "first": 28,
+      "last": 39
+    },
+    {
+      "name": "idle_east",
+      "first": 40,
+      "last": 40
+    },
+    {
+      "name": "walk_east",
+      "first": 41,
+      "last": 52
+    }
+  ],
+  "frames": [
+    {
+      "clip": "idle_south",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/idle_south_000.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/walk_south_000.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Male/walk_south_001.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Male/walk_south_002.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Male/walk_south_003.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Male/walk_south_004.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Male/walk_south_005.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Male/walk_south_006.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Male/walk_south_007.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Male/walk_south_008.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Male/walk_south_009.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Male/walk_south_010.png"
+    },
+    {
+      "clip": "walk_south",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Male/walk_south_011.png"
+    },
+    {
+      "clip": "idle_west",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/idle_west_000.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/walk_west_000.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Male/walk_west_001.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Male/walk_west_002.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Male/walk_west_003.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Male/walk_west_004.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Male/walk_west_005.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Male/walk_west_006.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Male/walk_west_007.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Male/walk_west_008.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Male/walk_west_009.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Male/walk_west_010.png"
+    },
+    {
+      "clip": "walk_west",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Male/walk_west_011.png"
+    },
+    {
+      "clip": "idle_north",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/idle_north_000.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/walk_north_000.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Male/walk_north_001.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Male/walk_north_002.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Male/walk_north_003.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Male/walk_north_004.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Male/walk_north_005.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Male/walk_north_006.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Male/walk_north_007.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Male/walk_north_008.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Male/walk_north_009.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Male/walk_north_010.png"
+    },
+    {
+      "clip": "walk_north",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Male/walk_north_011.png"
+    },
+    {
+      "clip": "idle_east",
+      "index": 0,
+      "sourceAction": "Idle_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/idle_east_000.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 0,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 0.0,
+      "file": "Male/walk_east_000.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 1,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 3.3333333333333335,
+      "file": "Male/walk_east_001.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 2,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 6.666666666666667,
+      "file": "Male/walk_east_002.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 3,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 10.0,
+      "file": "Male/walk_east_003.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 4,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 13.333333333333334,
+      "file": "Male/walk_east_004.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 5,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 16.666666666666668,
+      "file": "Male/walk_east_005.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 6,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 20.0,
+      "file": "Male/walk_east_006.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 7,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 23.333333333333332,
+      "file": "Male/walk_east_007.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 8,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 26.666666666666668,
+      "file": "Male/walk_east_008.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 9,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 30.0,
+      "file": "Male/walk_east_009.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 10,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 33.333333333333336,
+      "file": "Male/walk_east_010.png"
+    },
+    {
+      "clip": "walk_east",
+      "index": 11,
+      "sourceAction": "Walk_Loop",
+      "sourceFrame": 36.666666666666664,
+      "file": "Male/walk_east_011.png"
+    }
+  ],
+  "directions": {
+    "south": 0,
+    "east": 1,
+    "north": 2,
+    "west": 3
+  },
+  "handAnchorsCertified": false
+}

@@ -41,5 +41,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mmorpg/Scenes/HumanoidScale2026.unity
     guid: 59278bfd3ed71e943943c87e1b29a83a
+  - enabled: 1
+    path: Assets/Mmorpg/Scenes/HumanoidOutfit2026.unity
+    guid: a13edba8b17292940899b09fe0851486
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

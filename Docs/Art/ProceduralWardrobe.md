@@ -1,6 +1,6 @@
 # Vestuário procedural — capacidades e evolução além do Marco 06B.13
 
-**Atualização R4:** a calibração explícita agora foi exercitada em Mira e Orin, preservando a reprodução R3. O [relatório R4](../Validation/Marco06B13R4.md) registra essa entrega e o QA. O usuário considerou as roupas pequenas simples e priorizou uma [família humana maior, inclusive para o protagonista](HumanoidStandard.md), permitindo adequar o cenário. O registro abaixo descreve a etapa R2/R3; não afirmar que a prova maior já possui roupas complexas ou integração no jogo.
+**Atualização R4:** a calibração explícita agora foi exercitada em Mira e Orin, preservando a reprodução R3. O [relatório R4](../Validation/Marco06B13R4.md) registra essa entrega e o QA. O usuário considerou as roupas pequenas simples e priorizou uma [família humana maior, inclusive para o protagonista](HumanoidStandard.md), permitindo adequar o cenário. O registro abaixo descreve a etapa R2/R3; o registro histórico R2/R3 abaixo não descreve a implementação maior. A evolução R5 posterior já possui figurino articulado profissional sobre Quaternius, aprovado pelo usuário e testado no jogo: [R5](../Validation/HumanoidOutfit2026.md).
 
 Registro de 16/10/2026. Implementação de referência: `336b27c` (R3); biblioteca e combinação de peças: `7e65525` (R2). Este documento descreve capacidades verificadas, extensões possíveis e trabalho ainda pendente. Evidências completas: [B13 R2](../Validation/Marco06B13R2.md) e [B13 R3](../Validation/Marco06B13R3.md).
 
@@ -96,3 +96,7 @@ Em Play houve inspeção das quatro direções de cada roupa, oito poses de cami
 Os sprites compostos de Mira usam a base selecionada sob **OGA-BY 3.0**, com créditos e indicação de alterações nos READMEs R2/R3. Editar ou gerar roupa sobre a base não remove sua atribuição. A biblioteca também contém fontes CC0 identificadas individualmente; não se deve generalizar essa licença a todos os resultados.
 
 Este registro será atualizado quando novas categorias, anatomias ou comportamentos forem efetivamente implementados e validados. Os próximos incrementos possíveis são extensão de componentes, calibração de outra base e animação secundária; permanecem propostas, não capacidades entregues.
+
+## R5 — nova família articulada
+
+O backend maior usa Blender e skin weights das malhas profissionais, com ajustes de bind pose e acabamento Aseprite em 128×160. Não é adaptação automática do rasterizador 64×64. Foi demonstrado um figurino masculino completo nas 52 poses aprovadas, mantendo o corpo original, com receitas/metadados em `ArtSource/Labs/Humanoid2026/R5/`. Isso amplia a capacidade de autoria sobre rig; não comprova criação universal de qualquer roupa, simulação física ou equipamentos dinâmicos em runtime. [QA e limites](../Validation/HumanoidOutfit2026.md).
