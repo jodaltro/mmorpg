@@ -15,6 +15,8 @@ Client input expresses intentions; the offline authority validates damage/cooldo
 Do not add progression, XP, levels, Nakama or Jev in this milestone.
 
 ## Verification
+Para trabalhos de pixel art, usar a skill local `.agents/skills/aseprite-pixel-art/SKILL.md` (invocação `$aseprite-pixel-art`) e o Aseprite local via CLI/Lua. Consultar `Docs/Art/AsepriteWorkflow.md`; preservar fontes de produção e não executar a migração B3 para atualizar desenhos. Não usar geração externa/paga de arte neste fluxo.
+
 Use the connected Editor through Unity CLI; pass `--caller plugin --skill unity-pipeline`.
 Enable `set_autotick`, recompile, poll `recompile_status`. Marco 06B.5 prioritizes short real Play/input and visual inspections; do not automatically run extensive EditMode/PlayMode or backend suites.
 Check console errors and advancing frames in Play mode. Never report unexecuted tests as passed.
@@ -22,3 +24,5 @@ Scene generation must refuse to overwrite an existing scene. Preserve unrelated 
 
 ## Project memory — user authorization (2026-10-14)
 Standing user authorization: paid calls when useful, commits and pushes for project work, including publishing all intended project changes to `main`; no repeated confirmation is needed within that authorized scope. This supersedes the original pasted milestone's no-paid-calls/no-commit restriction. Preserve secrets, personal saves, unrelated changes and authentication/persistence safeguards. Do not spend on repeated unsuccessful art generation.
+
+Preferência permanente do usuário (2026-10-15): ao concluir trabalhos no projeto, sempre fazer commit e push das alterações da tarefa. Preservar alterações alheias e informar qualquer impedimento ao push.
