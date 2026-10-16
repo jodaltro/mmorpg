@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectIronKnight06B9.cs",
+      "entry": "InspectIronKnight06B9.FinalView"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 147,
+      "executeMs": 620,
+      "assemblyName": "PipelineRunScript_InspectIronKnight06B9_37baeb5d95024915b278e9e614a1cda7",
+      "success": true,
+      "result": "{\"frame\":65028,\"position\":\"(-2.75, -0.33, 0.00)\",\"state\":\"idle\",\"visual\":\"(0.00, -1.00)\",\"aim\":\"(0.15, -0.99)\",\"sprite\":\"idle_south_000\",\"profile\":\"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\Marco06B9\\\\abce2c7ffc764de1a266f71a4ae8ac6a\"}"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

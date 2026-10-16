@@ -1,0 +1,47 @@
+[
+  {
+    "direction": 0,
+    "heavy": false,
+    "phases": [
+      "preparation",
+      "cut",
+      "recovery"
+    ]
+  },
+  {
+    "direction": 1,
+    "heavy": false,
+    "phases": [
+      "preparation",
+      "cut",
+      "recovery"
+    ]
+  },
+  {
+    "direction": 2,
+    "heavy": false,
+    "phases": [
+      "preparation",
+      "cut",
+      "recovery"
+    ]
+  },
+  {
+    "direction": 3,
+    "heavy": false,
+    "phases": [
+      "preparation",
+      "cut",
+      "recovery"
+    ]
+  },
+  {
+    "direction": 4,
+    "heavy": true,
+    "phases": [
+      "preparation",
+      "cut",
+      "recovery"
+    ]
+  }
+]
