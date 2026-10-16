@@ -1,0 +1,128 @@
+[
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-000.png",
+    "frame": 21918,
+    "time": 74.5258621456916,
+    "source": "Hormelz/Slash/dir8/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-001.png",
+    "frame": 21919,
+    "time": 74.54711059382086,
+    "source": "Hormelz/Slash/dir8/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-002.png",
+    "frame": 21920,
+    "time": 74.5733410430839,
+    "source": "Hormelz/Slash/dir8/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-003.png",
+    "frame": 21922,
+    "time": 74.59891349206349,
+    "source": "Hormelz/Slash/dir8/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-004.png",
+    "frame": 21926,
+    "time": 74.63187993197279,
+    "source": "Hormelz/Slash/dir8/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-005.png",
+    "frame": 21931,
+    "time": 74.66728037131519,
+    "source": "Hormelz/Slash/dir8/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-006.png",
+    "frame": 21938,
+    "time": 74.70316331490929,
+    "source": "Hormelz/Slash/dir8/frame9"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-007.png",
+    "frame": 21941,
+    "time": 74.73051566043084,
+    "source": "Hormelz/Slash/dir8/frame10"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-008.png",
+    "frame": 21943,
+    "time": 74.7548194090136,
+    "source": "Hormelz/Slash/dir8/frame11"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-009.png",
+    "frame": 21946,
+    "time": 74.78254530187074,
+    "source": "Hormelz/Slash/dir8/frame12"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-010.png",
+    "frame": 21949,
+    "time": 74.80867874149659,
+    "source": "Hormelz/Slash/dir8/frame13"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-011.png",
+    "frame": 21952,
+    "time": 74.83515819160998,
+    "source": "Hormelz/Slash/dir8/frame14"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-012.png",
+    "frame": 21955,
+    "time": 74.8625060941043,
+    "source": "Hormelz/Damaged/dir8/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-013.png",
+    "frame": 21974,
+    "time": 74.93051756660998,
+    "source": "Hormelz/Damaged/dir8/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-014.png",
+    "frame": 21993,
+    "time": 74.99826142998866,
+    "source": "Hormelz/Damaged/dir8/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-015.png",
+    "frame": 22011,
+    "time": 75.06307614795918,
+    "source": "Hormelz/Damaged/dir8/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-016.png",
+    "frame": 22030,
+    "time": 75.13169041241497,
+    "source": "Hormelz/Damaged/dir8/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-017.png",
+    "frame": 22047,
+    "time": 75.19839868905895,
+    "source": "Hormelz/Damaged/dir8/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-018.png",
+    "frame": 22064,
+    "time": 75.26428284438775,
+    "source": "Hormelz/Damaged/dir8/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-019.png",
+    "frame": 22083,
+    "time": 75.33023645124716,
+    "source": "Hormelz/Idle/dir8/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\attack-hurt-020.png",
+    "frame": 22118,
+    "time": 75.43250075113379,
+    "source": "Hormelz/Idle/dir8/frame0"
+  }
+]

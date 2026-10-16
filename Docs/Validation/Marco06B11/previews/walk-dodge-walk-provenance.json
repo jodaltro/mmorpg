@@ -1,0 +1,140 @@
+[
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-000.png",
+    "frame": 4073,
+    "time": 14.893319175170067,
+    "source": "Hormelz/Idle/dir6/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-001.png",
+    "frame": 4082,
+    "time": 14.920134346655328,
+    "source": "Hormelz/WalkFoward/dir6/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-002.png",
+    "frame": 4124,
+    "time": 14.990010026927438,
+    "source": "Hormelz/WalkFoward/dir6/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-003.png",
+    "frame": 4149,
+    "time": 15.044859410430838,
+    "source": "Hormelz/WalkFoward/dir6/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-004.png",
+    "frame": 4175,
+    "time": 15.096785990646257,
+    "source": "Hormelz/WalkFoward/dir6/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-005.png",
+    "frame": 4205,
+    "time": 15.149801091269842,
+    "source": "Hormelz/Jump/dir6/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-006.png",
+    "frame": 4215,
+    "time": 15.175656675170067,
+    "source": "Hormelz/Jump/dir6/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-007.png",
+    "frame": 4224,
+    "time": 15.19874233276644,
+    "source": "Hormelz/Jump/dir6/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-008.png",
+    "frame": 4233,
+    "time": 15.223225708616779,
+    "source": "Hormelz/Jump/dir6/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-009.png",
+    "frame": 4243,
+    "time": 15.248700892857142,
+    "source": "Hormelz/Jump/dir6/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-010.png",
+    "frame": 4252,
+    "time": 15.272100134637187,
+    "source": "Hormelz/Jump/dir6/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-011.png",
+    "frame": 4262,
+    "time": 15.296995989229025,
+    "source": "Hormelz/Jump/dir6/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-012.png",
+    "frame": 4272,
+    "time": 15.321761259920635,
+    "source": "Hormelz/Jump/dir6/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-013.png",
+    "frame": 4281,
+    "time": 15.34583514739229,
+    "source": "Hormelz/Jump/dir6/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-014.png",
+    "frame": 4290,
+    "time": 15.369934318310657,
+    "source": "Hormelz/WalkFoward/dir6/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-015.png",
+    "frame": 4302,
+    "time": 15.399213435374149,
+    "source": "Hormelz/WalkFoward/dir6/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-016.png",
+    "frame": 4315,
+    "time": 15.431996733276643,
+    "source": "Hormelz/WalkFoward/dir6/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-017.png",
+    "frame": 4339,
+    "time": 15.48198198696145,
+    "source": "Hormelz/WalkFoward/dir6/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-018.png",
+    "frame": 4366,
+    "time": 15.535487138605442,
+    "source": "Hormelz/WalkFoward/dir6/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-019.png",
+    "frame": 4392,
+    "time": 15.58835179988662,
+    "source": "Hormelz/WalkFoward/dir6/frame9"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-020.png",
+    "frame": 4422,
+    "time": 15.643706016156463,
+    "source": "Hormelz/WalkFoward/dir6/frame10"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-021.png",
+    "frame": 4483,
+    "time": 15.744027678571427,
+    "source": "Hormelz/WalkFoward/dir6/frame10"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\walk-dodge-walk-022.png",
+    "frame": 4496,
+    "time": 15.773979896541949,
+    "source": "Hormelz/WalkFoward/dir6/frame0"
+  }
+]

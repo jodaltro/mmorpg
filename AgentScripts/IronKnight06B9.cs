@@ -34,18 +34,18 @@ public static class IronKnight06B9
     {
         if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play first");
         var data=JObject.Parse(File.ReadAllText(source+"manifest.json"));
-        if(!new[]{"iron-knight-b9-v1","iron-knight-b10-v1"}.Contains((string)data["schema"])||(float)data["ppu"]!=32)throw new InvalidDataException("Explicit Iron Knight 256px / 32 PPU variant contract required");
-        Directory.CreateDirectory(output);AssetDatabase.Refresh();var clips=new List<ProductionClip>();
+        if(!new[]{"iron-knight-b9-v1","iron-knight-b10-v1","iron-knight-b11-v1"}.Contains((string)data["schema"])||(float)data["ppu"]!=32)throw new InvalidDataException("Explicit Iron Knight 256px / 32 PPU variant contract required");
+        Directory.CreateDirectory(output);AssetDatabase.Refresh();var clips=data["baseCharacterSet"]==null?new List<ProductionClip>():AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>((string)data["baseCharacterSet"]).clips.ToList();
         foreach(var c in data["clips"])
         {
             string action=(string)c["animation"],direction=(string)c["direction"],name=action+"_"+direction;
             var frames=c["frames"].ToArray();if(frames.Length!=(int)c["frameCount"]||frames.Length==0)throw new InvalidDataException(name);
             string path=output+name+".png";File.Copy((string)c["sheet"]??source+"frames/"+action+"/"+direction+"/sheet.png",path,true);
             AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
-            var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+            var importer=(TextureImporter)AssetImporter.GetAtPath(path);importer.GetSourceTextureWidthAndHeight(out int sourceWidth,out int sourceHeight);
             importer.textureType=TextureImporterType.Sprite;importer.spriteImportMode=SpriteImportMode.Multiple;importer.spritePixelsPerUnit=32;
             importer.filterMode=FilterMode.Point;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.mipmapEnabled=false;
-            importer.alphaIsTransparency=true;importer.wrapMode=TextureWrapMode.Clamp;importer.maxTextureSize=4096;
+            importer.alphaIsTransparency=true;importer.wrapMode=TextureWrapMode.Clamp;importer.maxTextureSize=Mathf.Max(4096,Mathf.NextPowerOfTwo(Mathf.Max(sourceWidth,sourceHeight)));
             var settings=new TextureImporterSettings();importer.ReadTextureSettings(settings);settings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(settings);importer.SaveAndReimport();
             importer.GetSourceTextureWidthAndHeight(out int width,out int height);
             if(width!=frames.Length*256||height!=256)throw new InvalidDataException("Unexpected horizontal source sheet "+path);
@@ -57,7 +57,7 @@ public static class IronKnight06B9
             for(int i=0;i<frames.Length;i++)
             {
                 var f=frames[i];float seconds=(float)f["duration"];if(seconds<=0)throw new InvalidDataException("Duration");
-                clip.frames[i]=new ProductionFrame{sprite=sprites[name+"_"+i.ToString("000")],seconds=seconds,hand=new Vector2(((float)f["rightHand"][0]-(float)f["pivot"][0])/32,((float)f["pivot"][1]-(float)f["rightHand"][1])/32),holdAngle=(float)f["equipmentAngle"],depth=(int)f["equipmentDepth"],source=(string)f["source"]};
+                clip.frames[i]=new ProductionFrame{sprite=sprites[name+"_"+i.ToString("000")],seconds=seconds,hand=f["rightHand"].Type==JTokenType.Null?Vector2.zero:new Vector2(((float)f["rightHand"][0]-(float)f["pivot"][0])/32,((float)f["pivot"][1]-(float)f["rightHand"][1])/32),holdAngle=(float)f["equipmentAngle"],depth=(int)f["equipmentDepth"],source=(string)f["source"]};
             }
             clips.Add(clip);
         }
@@ -121,4 +121,50 @@ public static class IronKnight06B10
         return Newtonsoft.Json.JsonConvert.SerializeObject(new{stableSpriteIds=after.Count,b9MetadataIntact=true,b9Clips=b9.clips.Length,b10Clips=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Output+"IronKnightB10.asset").clips.Length,textures=importers.Length,nativeImportSettings=true,bodies,weapons,rigidbody=actor.GetComponent<Rigidbody2D>().bodyType.ToString(),collider=actor.GetComponent<Collider2D>().GetType().Name});
     }
 
+}
+
+public static class IronKnight06B11
+{
+    const string Output="Assets/Mmorpg/Art/Experimental/IronKnightB11/";
+    public static string Import()=>IronKnight06B9.ImportSet("ArtSource/Labs/IronKnight2026/B11/",Output,"IronKnightB11");
+    public static string Verify()
+    {
+        var b10=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>("Assets/Mmorpg/Art/Experimental/IronKnightB10/IronKnightB10.asset");
+        var b11=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Output+"IronKnightB11.asset");
+        if(b11.clips.Length!=36)throw new Exception("Expected 24 reused clips plus 12 new clips");
+        foreach(var clip in b10.clips)
+        {
+            var next=b11.Find(clip.action,clip.direction);
+            if(next==null||next.loop!=clip.loop||next.status!=clip.status||next.frames.Length!=clip.frames.Length)throw new Exception("B10 clip changed: "+clip.action);
+            for(int f=0;f<clip.frames.Length;f++)
+            {
+                var a=clip.frames[f];var b=next.frames[f];
+                if(a.sprite!=b.sprite||a.hand!=b.hand||a.seconds!=b.seconds||a.holdAngle!=b.holdAngle||a.depth!=b.depth||a.source!=b.source||!a.events.SequenceEqual(b.events))throw new Exception("B10 frame changed: "+clip.action+"/"+f);
+            }
+        }
+        var textures=AssetDatabase.FindAssets("t:Texture2D",new[]{Output}).Select(AssetDatabase.GUIDToAssetPath).ToArray();
+        foreach(string path in textures)
+        {
+            var i=(TextureImporter)AssetImporter.GetAtPath(path);
+            if(i.spritePixelsPerUnit!=32||i.filterMode!=FilterMode.Point||i.textureCompression!=TextureImporterCompression.Uncompressed||i.mipmapEnabled)throw new Exception("Import contract "+path);
+            foreach(var sprite in AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>())if(sprite.rect.size!=new Vector2(256,256))throw new Exception("Resized native cel");
+        }
+        string result=Newtonsoft.Json.JsonConvert.SerializeObject(new{baseClipsUnchanged=b10.clips.Length,newClips=12,totalClips=b11.clips.Length,newTextures=textures.Length,newSprites=textures.Sum(p=>AssetDatabase.LoadAllAssetsAtPath(p).OfType<Sprite>().Count()),native256=true,ppu=32,point=true,uncompressed=true,mipmaps=false});
+        File.WriteAllText("Docs/Validation/Marco06B11/import.json",result);return result;
+    }
+    public static string ImportAndCreate()
+    {
+        const string destination="Assets/Mmorpg/Scenes/Marco06B11CharacterStates.unity";
+        if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play first");
+        var current=UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        if(current.path!="Assets/Mmorpg/Scenes/Marco06B10CombatPolish.unity"||current.isDirty)throw new InvalidOperationException("Clean B10 required");
+        if(File.Exists(destination))throw new IOException("Refusing to overwrite "+destination);
+        Import();if(!EditorSceneManager.SaveScene(current,destination,true))throw new IOException("Scene copy failed");EditorSceneManager.OpenScene(destination);
+        var actor=UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;var animator=actor.GetComponent<ProductionSpriteAnimator>();
+        var renderer=actor.transform.Find("VisualRoot/BodySprite").GetComponent<SpriteRenderer>();var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Output+"IronKnightB11.asset");
+        animator.Configure(set,actor,renderer,actor.GetComponent<SwordSwing>());
+        var states=actor.gameObject.AddComponent<ProductionCharacterStates>();states.Configure(actor,animator,actor.GetComponent<SwordSwing>());animator.ConfigureStates(states);
+        actor.GetComponent<ProductionVisualSync>().ConfigureAnimatedDeath(true);renderer.sprite=set.Find("idle",0).frames[0].sprite;
+        EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());return "B11 created; B10 sprites and clips reused unchanged; new states and death hold enabled only on B11";
+    }
 }

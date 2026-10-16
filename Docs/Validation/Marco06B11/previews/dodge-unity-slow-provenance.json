@@ -1,0 +1,338 @@
+[
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-000.png",
+    "frame": 7492,
+    "time": 28.309865823412697,
+    "source": "Hormelz/Idle/dir8/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-001.png",
+    "frame": 7493,
+    "time": 28.326172378117914,
+    "source": "Hormelz/Jump/dir8/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-002.png",
+    "frame": 7504,
+    "time": 28.352034233276644,
+    "source": "Hormelz/Jump/dir8/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-003.png",
+    "frame": 7513,
+    "time": 28.37527325680272,
+    "source": "Hormelz/Jump/dir8/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-004.png",
+    "frame": 7522,
+    "time": 28.399986543367344,
+    "source": "Hormelz/Jump/dir8/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-005.png",
+    "frame": 7532,
+    "time": 28.42494365787982,
+    "source": "Hormelz/Jump/dir8/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-006.png",
+    "frame": 7542,
+    "time": 28.44977447562358,
+    "source": "Hormelz/Jump/dir8/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-007.png",
+    "frame": 7552,
+    "time": 28.473596655328798,
+    "source": "Hormelz/Jump/dir8/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-008.png",
+    "frame": 7562,
+    "time": 28.498323596938775,
+    "source": "Hormelz/Jump/dir8/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-009.png",
+    "frame": 7571,
+    "time": 28.52275595946712,
+    "source": "Hormelz/Jump/dir8/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-010.png",
+    "frame": 7581,
+    "time": 28.547331781462585,
+    "source": "Hormelz/Idle/dir8/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-0-011.png",
+    "frame": 7641,
+    "time": 28.648104074546485,
+    "source": "Hormelz/Idle/dir8/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-000.png",
+    "frame": 7789,
+    "time": 28.882105513038546,
+    "source": "Hormelz/WalkFoward/dir2/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-001.png",
+    "frame": 7790,
+    "time": 28.893966907596372,
+    "source": "Hormelz/Jump/dir2/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-002.png",
+    "frame": 7798,
+    "time": 28.919610905612245,
+    "source": "Hormelz/Jump/dir2/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-003.png",
+    "frame": 7806,
+    "time": 28.943903075396825,
+    "source": "Hormelz/Jump/dir2/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-004.png",
+    "frame": 7814,
+    "time": 28.967729414682537,
+    "source": "Hormelz/Jump/dir2/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-005.png",
+    "frame": 7823,
+    "time": 28.992016021825396,
+    "source": "Hormelz/Jump/dir2/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-006.png",
+    "frame": 7832,
+    "time": 29.017066284013605,
+    "source": "Hormelz/Jump/dir2/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-007.png",
+    "frame": 7841,
+    "time": 29.040666347789113,
+    "source": "Hormelz/Jump/dir2/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-008.png",
+    "frame": 7851,
+    "time": 29.065350177154194,
+    "source": "Hormelz/Jump/dir2/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-009.png",
+    "frame": 7860,
+    "time": 29.08991039540816,
+    "source": "Hormelz/Jump/dir2/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-010.png",
+    "frame": 7870,
+    "time": 29.115331490929705,
+    "source": "Hormelz/WalkFoward/dir2/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-011.png",
+    "frame": 7871,
+    "time": 29.12675092828798,
+    "source": "Hormelz/WalkFoward/dir2/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-012.png",
+    "frame": 7878,
+    "time": 29.149054435941043,
+    "source": "Hormelz/WalkFoward/dir2/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-013.png",
+    "frame": 7895,
+    "time": 29.186139285714283,
+    "source": "Hormelz/WalkFoward/dir2/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-1-014.png",
+    "frame": 7921,
+    "time": 29.239083645124715,
+    "source": "Hormelz/WalkFoward/dir2/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-000.png",
+    "frame": 8067,
+    "time": 29.454411840986392,
+    "source": "Hormelz/WalkFoward/dir4/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-001.png",
+    "frame": 8068,
+    "time": 29.466325885770974,
+    "source": "Hormelz/Jump/dir4/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-002.png",
+    "frame": 8078,
+    "time": 29.492217268990927,
+    "source": "Hormelz/Jump/dir4/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-003.png",
+    "frame": 8082,
+    "time": 29.515609665532878,
+    "source": "Hormelz/Jump/dir4/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-004.png",
+    "frame": 8088,
+    "time": 29.540999298469387,
+    "source": "Hormelz/Jump/dir4/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-005.png",
+    "frame": 8094,
+    "time": 29.564904655612242,
+    "source": "Hormelz/Jump/dir4/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-006.png",
+    "frame": 8102,
+    "time": 29.5893470946712,
+    "source": "Hormelz/Jump/dir4/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-007.png",
+    "frame": 8110,
+    "time": 29.61458569302721,
+    "source": "Hormelz/Jump/dir4/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-008.png",
+    "frame": 8117,
+    "time": 29.63802767148526,
+    "source": "Hormelz/Jump/dir4/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-009.png",
+    "frame": 8123,
+    "time": 29.662554960317458,
+    "source": "Hormelz/Jump/dir4/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-010.png",
+    "frame": 8131,
+    "time": 29.68739616638322,
+    "source": "Hormelz/WalkFoward/dir4/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-011.png",
+    "frame": 8132,
+    "time": 29.699994005102038,
+    "source": "Hormelz/WalkFoward/dir4/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-012.png",
+    "frame": 8137,
+    "time": 29.721160856009067,
+    "source": "Hormelz/Idle/dir4/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-2-013.png",
+    "frame": 8191,
+    "time": 29.82200325255102,
+    "source": "Hormelz/Idle/dir4/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-000.png",
+    "frame": 8315,
+    "time": 30.024733560090702,
+    "source": "Hormelz/WalkFoward/dir6/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-001.png",
+    "frame": 8316,
+    "time": 30.037922668650793,
+    "source": "Hormelz/Jump/dir6/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-002.png",
+    "frame": 8323,
+    "time": 30.063438003117913,
+    "source": "Hormelz/Jump/dir6/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-003.png",
+    "frame": 8331,
+    "time": 30.087037081916097,
+    "source": "Hormelz/Jump/dir6/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-004.png",
+    "frame": 8340,
+    "time": 30.11212290249433,
+    "source": "Hormelz/Jump/dir6/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-005.png",
+    "frame": 8349,
+    "time": 30.136079159580497,
+    "source": "Hormelz/Jump/dir6/frame4"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-006.png",
+    "frame": 8358,
+    "time": 30.16044638605442,
+    "source": "Hormelz/Jump/dir6/frame5"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-007.png",
+    "frame": 8367,
+    "time": 30.18523565759637,
+    "source": "Hormelz/Jump/dir6/frame6"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-008.png",
+    "frame": 8375,
+    "time": 30.20912132936508,
+    "source": "Hormelz/Jump/dir6/frame7"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-009.png",
+    "frame": 8384,
+    "time": 30.23354810090703,
+    "source": "Hormelz/Jump/dir6/frame8"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-010.png",
+    "frame": 8393,
+    "time": 30.25910389739229,
+    "source": "Hormelz/WalkFoward/dir6/frame0"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-011.png",
+    "frame": 8394,
+    "time": 30.27093826530612,
+    "source": "Hormelz/WalkFoward/dir6/frame1"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-012.png",
+    "frame": 8400,
+    "time": 30.292221145124714,
+    "source": "Hormelz/WalkFoward/dir6/frame2"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-013.png",
+    "frame": 8415,
+    "time": 30.32987553854875,
+    "source": "Hormelz/WalkFoward/dir6/frame3"
+  },
+  {
+    "capture": "Docs\\Validation\\Marco06B11\\captures\\candidate\\dodge-3-014.png",
+    "frame": 8439,
+    "time": 30.38230927579365,
+    "source": "Hormelz/WalkFoward/dir6/frame4"
+  }
+]

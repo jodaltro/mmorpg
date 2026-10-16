@@ -10,6 +10,8 @@ namespace Mmorpg.Runtime
         [SerializeField] private ActorHealth health;
         [SerializeField] private SwordSwing sword;
         [SerializeField] private SpriteRenderer visual;
+        [SerializeField] private ProductionCharacterStates characterStates;
+        public void ConfigureStates(ProductionCharacterStates value)=>characterStates=value;
         private Rigidbody2D body;
         private float walkTime, stillTime, dodgeTime;
         public ProductionFrame CurrentFrame { get; private set; }
@@ -38,7 +40,10 @@ namespace Mmorpg.Runtime
         }
         private void Update()
         {
-            if(art==null||body==null||!health.State.IsAlive)return;
+            if(art==null||body==null)return;
+            if(characterStates!=null&&characterStates.TrySelect(art,Time.timeAsDouble,out string confirmedAction,out int confirmedDirection,out float confirmedTime))
+            {Select(confirmedAction,confirmedDirection,confirmedTime);return;}
+            if(!health.State.IsAlive)return;
             bool dodging=health.State.IsDodging(Time.timeAsDouble);
             // Sword Update ends the strike later in this frame. Use the same confirmed clock
             // so its terminal recovery pose and the weapon cannot disagree for one frame.
