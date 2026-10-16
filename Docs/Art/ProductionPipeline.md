@@ -1,5 +1,20 @@
 # Pipeline de produção — 06B.4
 
+## Protagonista oficial — 06B.12
+
+A entrada oficial é `Assets/Mmorpg/Scenes/MmorpgWorld.unity`, índice global 0. Ela preserva o mundo completo e os sistemas B11; as cenas históricas continuam separadas. O jogador usa `Assets/Mmorpg/Art/Production/IronKnight/IronKnight.asset` e o prefab visual conectado `PlayerVisual.prefab`. Os 36 clips e 264 sprites aprovados B10/B11 foram promovidos sem alterar pixels, cadência, mãos, fases ou profundidade. Canvas nativo 256×256, 32 PPU; não converter para o canvas antigo de 96×96.
+
+Manifesto canônico: `ArtSource/Characters/IronKnight/manifest.json`. As fontes aprovadas permanecem nos diretórios históricos como proveniência imutável; os PNGs importados de produção e o CharacterSet não referenciam assets experimentais. `provenance.json` e README na pasta oficial descrevem licença CC0, autoria, fontes e hashes.
+
+```powershell
+unity command run_script --file AgentScripts/IronKnight06B9.cs --entry IronKnight06B9.ImportProduction --caller plugin --skill unity-pipeline --format json
+unity command run_script --file AgentScripts/PromoteIronKnight06B12.cs --entry PromoteIronKnight06B12.VerifyProduction --caller plugin --skill unity-pipeline --format json
+```
+
+Execute fora de Play. O importador compartilhado mantém GUIDs e SpriteIDs na reimportação. `CreateOfficial` é somente para primeira criação e recusa cena/prefab existentes. `PromoteEntry` sincroniza `EditorBuildSettings.globalScenes` e a lista ativa; as oito entradas anteriores são mantidas. Nenhum Play-start override força experimentos a abrir a cena oficial. Para jogar, abra MmorpgWorld e pressione Play. O perfil protegido existente `DevelopmentJourneys/marco06b4` não foi migrado ou resetado. [Diagnóstico e QA](../Validation/Marco06B12.md).
+
+As instruções B4 abaixo documentam a migração histórica, não a regeneração do Iron Knight oficial.
+
 Fontes e contexto: [AnimationPipeline B3](AnimationPipeline.md), [contrato B4](ProductionAssetContract.md), [limitações do herói](HeroAnimation.md).
 
 ## Reprodução

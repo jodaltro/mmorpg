@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mmorpg/Scenes/MmorpgWorld.unity
+    guid: 68a781384dafc644182c37e25e5e914f
+  - enabled: 1
     path: Assets/Mmorpg/Scenes/Marco06B2World.unity
     guid: b80a3582413db4b4698b63ca4e3dda3b
   - enabled: 1

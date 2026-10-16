@@ -1,5 +1,9 @@
 # Empunhadura e Sweep — 06B.4
 
+## Produção oficial 06B.12
+
+O prefab visual conectado em `MmorpgWorld.unity` é `Assets/Mmorpg/Art/Production/IronKnight/PlayerVisual.prefab`. Corpo, arma separada e sombra mantêm os transforms e a calibração da B11 aprovada. `IronKnight.asset` preserva as mãos e profundidades por cel do B10/B11; o mesmo SwordSwing continua usando essas mãos no desenho e no Sweep. Esquiva/Hurt conservam a apresentação aprovada; morte oculta a espada e mantém a pose terminal. Nenhuma dimensão física ou alcance foi alterado na promoção. As notas B4/B5 seguintes documentam a evolução anterior.
+
 Estrutura na cena B4:
 
 ```text

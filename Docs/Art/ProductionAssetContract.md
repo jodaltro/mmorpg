@@ -1,5 +1,9 @@
 # Contrato de produção — 06B.4
 
+## Atualização oficial 06B.12
+
+O protagonista oficial é o Iron Knight aprovado nos marcos B10/B11, promovido sem redesenho. Seu contrato nativo é **256×256, 32 PPU, pivô (128,114), chão de referência (128,132)**, espada separada e 36 clips/264 sprites. A conversão de mãos permanece a fórmula abaixo com esse pivô nativo. A aparência azul, cadência e âncoras aprovadas prevalecem sobre a especificação histórica do herói provisório 96×96. Não aplicar trim, reamostragem ou recoloração. Manifesto oficial: `ArtSource/Characters/IronKnight/manifest.json`; assets: `Assets/Mmorpg/Art/Production/IronKnight/`. [Pipeline oficial](ProductionPipeline.md).
+
 Este contrato complementa a [ArtBible](ArtBible.md). `ArtSource/` é a fonte de produção fora de `Assets/`. Os seis PNGs de `assets_para_usar/` e os assets/cenas B3 são preservados. Um arquivo importável não equivale a uma animação aprovada.
 
 ## Coordenadas e entrega

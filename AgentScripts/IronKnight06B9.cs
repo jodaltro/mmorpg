@@ -29,12 +29,13 @@ public static class IronKnight06B9
         return "B9 scene created; 12 clips, 108 original frames, native 256 canvas / 32 PPU. Existing animator, physics, weapon and effects retained.";
     }
     public static string Import()=>ImportSet(Source,Output,"IronKnightB9");
+    public static string ImportProduction()=>ImportSet("ArtSource/Characters/IronKnight/","Assets/Mmorpg/Art/Production/IronKnight/Sprites/","IronKnight","Assets/Mmorpg/Art/Production/IronKnight/IronKnight.asset");
     // Shared native-canvas importer; variants choose a separate source, asset and scene.
-    public static string ImportSet(string source,string output,string characterId)
+    public static string ImportSet(string source,string output,string characterId,string characterSetPath=null)
     {
         if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play first");
         var data=JObject.Parse(File.ReadAllText(source+"manifest.json"));
-        if(!new[]{"iron-knight-b9-v1","iron-knight-b10-v1","iron-knight-b11-v1"}.Contains((string)data["schema"])||(float)data["ppu"]!=32)throw new InvalidDataException("Explicit Iron Knight 256px / 32 PPU variant contract required");
+        if(!new[]{"iron-knight-b9-v1","iron-knight-b10-v1","iron-knight-b11-v1","iron-knight-production-v1"}.Contains((string)data["schema"])||(float)data["ppu"]!=32)throw new InvalidDataException("Explicit Iron Knight 256px / 32 PPU variant contract required");
         Directory.CreateDirectory(output);AssetDatabase.Refresh();var clips=data["baseCharacterSet"]==null?new List<ProductionClip>():AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>((string)data["baseCharacterSet"]).clips.ToList();
         foreach(var c in data["clips"])
         {
@@ -76,7 +77,8 @@ public static class IronKnight06B9
                 if(previous!=attack.frames.Length-1)throw new InvalidDataException("Incomplete Slash coverage");
             }
         }
-        var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(output+characterId+".asset");if(set==null){set=ScriptableObject.CreateInstance<ProductionCharacterSet>();AssetDatabase.CreateAsset(set,output+characterId+".asset");}
+        string setPath=characterSetPath??output+characterId+".asset";
+        var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(setPath);if(set==null){set=ScriptableObject.CreateInstance<ProductionCharacterSet>();AssetDatabase.CreateAsset(set,setPath);}
         set.characterId=characterId;set.pixelsPerUnit=32;set.referenceSpeed=3.5f;set.clips=clips.ToArray();EditorUtility.SetDirty(set);AssetDatabase.SaveAssets();
         return "Imported "+characterId+"; production and other variant assets preserved.";
     }

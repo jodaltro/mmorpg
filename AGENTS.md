@@ -14,6 +14,9 @@ Keep MonoBehaviours small and in files matching their class names. Use serialize
 Client input expresses intentions; the offline authority validates damage/cooldowns. A future Go/Nakama authority must validate movement, collision, hits and health independently; never accept client damage values as truth.
 Do not add progression, XP, levels, Nakama or Jev in this milestone.
 
+## Official protagonist — Marco 06B.12
+Entrada oficial: `Assets/Mmorpg/Scenes/MmorpgWorld.unity`, primeiro índice global de build. Iron Knight aprovado B10/B11: `Assets/Mmorpg/Art/Production/IronKnight/IronKnight.asset`, prefab visual `PlayerVisual.prefab` na mesma pasta e manifesto `ArtSource/Characters/IronKnight/manifest.json`. Preservar seus 36 clips, 264 sprites, canvas nativo 256×256 e 32 PPU. Reimportar com `IronKnight06B9.ImportProduction`; não regenerar desenhos nem sobrescrever arquivos B10/B11. O perfil pessoal continua em `DevelopmentJourneys/marco06b4`; não renomear, resetar ou fundir saves ao alterar apresentação.
+
 ## Verification
 Para trabalhos de pixel art, usar a skill local `.agents/skills/aseprite-pixel-art/SKILL.md` (invocação `$aseprite-pixel-art`) e o Aseprite local via CLI/Lua. Consultar `Docs/Art/AsepriteWorkflow.md`; preservar fontes de produção e não executar a migração B3 para atualizar desenhos. Não usar geração externa/paga de arte neste fluxo.
 

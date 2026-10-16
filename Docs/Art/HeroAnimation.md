@@ -1,5 +1,9 @@
 # Herói — situação real no 06B.4
 
+## Estado oficial no 06B.12
+
+Iron Knight é o protagonista oficial em `MmorpgWorld.unity`. Caminhada, básico/pesado, empunhadura/oclusão e os novos estados B11 foram aprovados pelo usuário. Produção contém 36 clips, 264 sprites únicos: idle 1, walk 11, Slash 15, salto evasivo 9, Hurt 7 e Death 23 por vista; as 12 fases de ataque reutilizam os mesmos desenhos. A cadência de walk é 53,333 ms por cel. Pixels, clocks, mãos e profundidade são idênticos aos aprovados. [Promoção e testes](../Validation/Marco06B12.md). As pendências B4/B5 abaixo são históricas e não descrevem o protagonista oficial.
+
 **Caminhada profissional de oito poses por direção não concluída.** O conjunto integrado continua provisório: 4 idle, 8 walk (2 por direção), 8 entradas de stances de ataque e 4 dodge. As entradas de ataque reutilizam poses e não representam oito desenhos novos. Não há hurt/death desenhados novos.
 
 A ferramenta integrada de geração visual foi verificada e utilizada duas vezes com referência fixa no herói fornecido. As propostas sul repetiram apoio e não entregaram passagem/transferência de peso confiáveis. Arquivos preservados apenas em `ArtSource/References/Rejected/hero-walk-south-attempt-{01,02}.png`. Nenhuma das propostas foi fatiada/importada como caminhada final. Nenhuma chamada OpenRouter foi feita.

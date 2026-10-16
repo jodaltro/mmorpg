@@ -1,0 +1,13 @@
+{
+  "resourceCollected": true,
+  "duplicateCollectionRejected": true,
+  "npcDialogue": true,
+  "narrativeFacts": 1,
+  "inventoryAndJournal": true,
+  "pauseResume": true,
+  "f5SameOfficialScene": true,
+  "profileIdentityRetained": true,
+  "inventoryAndFactsReloaded": true,
+  "physicalRegionCrossing": true,
+  "profileIsolated": true
+}

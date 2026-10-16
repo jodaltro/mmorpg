@@ -1,0 +1,314 @@
+[
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-000.png",
+    "frame": 10695,
+    "time": 44.03697753684807,
+    "source": "Hormelz/Idle/dir6/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-001.png",
+    "frame": 10703,
+    "time": 44.082282780612246,
+    "source": "Hormelz/WalkFoward/dir8/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-002.png",
+    "frame": 10722,
+    "time": 44.14568474348072,
+    "source": "Hormelz/WalkFoward/dir8/frame1"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-003.png",
+    "frame": 10737,
+    "time": 44.19820867346939,
+    "source": "Hormelz/WalkFoward/dir8/frame2"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-004.png",
+    "frame": 10751,
+    "time": 44.25220498866213,
+    "source": "Hormelz/WalkFoward/dir8/frame3"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-005.png",
+    "frame": 10766,
+    "time": 44.304863966836734,
+    "source": "Hormelz/WalkFoward/dir8/frame4"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-006.png",
+    "frame": 10781,
+    "time": 44.35869267998866,
+    "source": "Hormelz/WalkFoward/dir8/frame5"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-007.png",
+    "frame": 10795,
+    "time": 44.4125258574263,
+    "source": "Hormelz/WalkFoward/dir8/frame6"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-008.png",
+    "frame": 10809,
+    "time": 44.46687572278911,
+    "source": "Hormelz/WalkFoward/dir8/frame7"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-009.png",
+    "frame": 10822,
+    "time": 44.51850989229025,
+    "source": "Hormelz/WalkFoward/dir8/frame8"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-010.png",
+    "frame": 10835,
+    "time": 44.57380625708617,
+    "source": "Hormelz/WalkFoward/dir8/frame9"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-011.png",
+    "frame": 10848,
+    "time": 44.62636828939909,
+    "source": "Hormelz/WalkFoward/dir8/frame10"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-0-012.png",
+    "frame": 10858,
+    "time": 44.67804163123583,
+    "source": "Hormelz/WalkFoward/dir8/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-000.png",
+    "frame": 11164,
+    "time": 45.68187205924036,
+    "source": "Hormelz/Idle/dir8/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-001.png",
+    "frame": 11171,
+    "time": 45.72172949971655,
+    "source": "Hormelz/WalkFoward/dir2/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-002.png",
+    "frame": 11188,
+    "time": 45.78530736252834,
+    "source": "Hormelz/WalkFoward/dir2/frame1"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-003.png",
+    "frame": 11195,
+    "time": 45.83825940334467,
+    "source": "Hormelz/WalkFoward/dir2/frame2"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-004.png",
+    "frame": 11208,
+    "time": 45.89201073554422,
+    "source": "Hormelz/WalkFoward/dir2/frame3"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-005.png",
+    "frame": 11222,
+    "time": 45.94369290674603,
+    "source": "Hormelz/WalkFoward/dir2/frame4"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-006.png",
+    "frame": 11237,
+    "time": 45.99758573554421,
+    "source": "Hormelz/WalkFoward/dir2/frame5"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-007.png",
+    "frame": 11251,
+    "time": 46.05012990362812,
+    "source": "Hormelz/WalkFoward/dir2/frame6"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-008.png",
+    "frame": 11266,
+    "time": 46.10521701388889,
+    "source": "Hormelz/WalkFoward/dir2/frame7"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-009.png",
+    "frame": 11280,
+    "time": 46.157669338151926,
+    "source": "Hormelz/WalkFoward/dir2/frame8"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-010.png",
+    "frame": 11294,
+    "time": 46.210315766723355,
+    "source": "Hormelz/WalkFoward/dir2/frame9"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-011.png",
+    "frame": 11308,
+    "time": 46.264845287698414,
+    "source": "Hormelz/WalkFoward/dir2/frame10"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-1-012.png",
+    "frame": 11322,
+    "time": 46.31871356292517,
+    "source": "Hormelz/WalkFoward/dir2/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-000.png",
+    "frame": 11615,
+    "time": 47.32085532171202,
+    "source": "Hormelz/Idle/dir2/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-001.png",
+    "frame": 11624,
+    "time": 47.36262225765306,
+    "source": "Hormelz/WalkFoward/dir4/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-002.png",
+    "frame": 11641,
+    "time": 47.4252237244898,
+    "source": "Hormelz/WalkFoward/dir4/frame1"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-003.png",
+    "frame": 11652,
+    "time": 47.47889890164399,
+    "source": "Hormelz/WalkFoward/dir4/frame2"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-004.png",
+    "frame": 11664,
+    "time": 47.53117407879819,
+    "source": "Hormelz/WalkFoward/dir4/frame3"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-005.png",
+    "frame": 11675,
+    "time": 47.584755158730154,
+    "source": "Hormelz/WalkFoward/dir4/frame4"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-006.png",
+    "frame": 11686,
+    "time": 47.64079698837868,
+    "source": "Hormelz/WalkFoward/dir4/frame5"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-007.png",
+    "frame": 11697,
+    "time": 47.69153716695011,
+    "source": "Hormelz/WalkFoward/dir4/frame6"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-008.png",
+    "frame": 11710,
+    "time": 47.7448456420068,
+    "source": "Hormelz/WalkFoward/dir4/frame7"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-009.png",
+    "frame": 11725,
+    "time": 47.79895967261905,
+    "source": "Hormelz/WalkFoward/dir4/frame8"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-010.png",
+    "frame": 11740,
+    "time": 47.85128144132653,
+    "source": "Hormelz/WalkFoward/dir4/frame9"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-011.png",
+    "frame": 11756,
+    "time": 47.906730753968255,
+    "source": "Hormelz/WalkFoward/dir4/frame10"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-2-012.png",
+    "frame": 11770,
+    "time": 47.95835923327664,
+    "source": "Hormelz/WalkFoward/dir4/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-000.png",
+    "frame": 12070,
+    "time": 48.96044596088435,
+    "source": "Hormelz/Idle/dir4/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-001.png",
+    "frame": 12079,
+    "time": 49.00011894132653,
+    "source": "Hormelz/WalkFoward/dir6/frame0"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-002.png",
+    "frame": 12100,
+    "time": 49.06934065334467,
+    "source": "Hormelz/WalkFoward/dir6/frame1"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-003.png",
+    "frame": 12115,
+    "time": 49.12405557681406,
+    "source": "Hormelz/WalkFoward/dir6/frame2"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-004.png",
+    "frame": 12129,
+    "time": 49.17850195578231,
+    "source": "Hormelz/WalkFoward/dir6/frame3"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-005.png",
+    "frame": 12142,
+    "time": 49.23195227465986,
+    "source": "Hormelz/WalkFoward/dir6/frame4"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-006.png",
+    "frame": 12152,
+    "time": 49.283942658730155,
+    "source": "Hormelz/WalkFoward/dir6/frame5"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-007.png",
+    "frame": 12161,
+    "time": 49.3382035430839,
+    "source": "Hormelz/WalkFoward/dir6/frame6"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-008.png",
+    "frame": 12171,
+    "time": 49.39079452239229,
+    "source": "Hormelz/WalkFoward/dir6/frame7"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-009.png",
+    "frame": 12181,
+    "time": 49.44453920068027,
+    "source": "Hormelz/WalkFoward/dir6/frame8"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-010.png",
+    "frame": 12191,
+    "time": 49.49898424036281,
+    "source": "Hormelz/WalkFoward/dir6/frame9"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-011.png",
+    "frame": 12198,
+    "time": 49.55187862811791,
+    "source": "Hormelz/WalkFoward/dir6/frame10"
+  },
+  {
+    "capture": "Docs/Validation/Marco06B12/captures/regression-walk-3-012.png",
+    "frame": 12207,
+    "time": 49.602652458900224,
+    "source": "Hormelz/WalkFoward/dir6/frame0"
+  }
+]
