@@ -29,3 +29,15 @@ Evidências: [QA](HumanoidScale2026/gameplay/qa.json), [preservação](HumanoidS
 Criação única: abrir mundo oficial limpo, executar `BuildHumanoidScale2026.Preflight`, depois `ImportAndCreate` via run_script. Recusa sobrescrever cena/atlas existentes.
 
 Inspeção: abrir cena experimental limpa; `InspectHumanoidScale2026.Prepare`, editor_play, `InspectIronKnight06B11.Setup`, `InspectHumanoidScale2026.Inspect`, opcional `Present`, editor_stop, `InspectIronKnight06B11.Cleanup`, `BuildHumanoidScale2026.Verify`. Todos os comandos usam `--caller plugin --skill unity-pipeline`. A cena ficou aberta e parada, pronta para revisão no Editor.
+
+## Personagem controlável — atualização após pedido do usuário
+
+A cena experimental agora inicia com a base Male no jogador. `MalePlayer.asset` usa as 52 poses e oito clips idle/walk originais, consumidos pelo `ProductionSpriteAnimator` existente. Motor, velocidade, collider, autoridade e controles permanecem os mesmos. A espada foi ocultada nesta cena porque as âncoras antigas não correspondem ao corpo maior. Não foram criadas animações de combate/esquiva/dano/morte; ações sem clip ainda usam o fallback de idle. Esta é uma prova de movimentação, não a promoção final do protagonista.
+
+`HumanoidScalePreviewProfile` é uma ferramenta somente Editor: antes do Play nesta cena direciona a persistência para `Temp/HumanoidScale2026/ManualPlayerProfile`, reaplica após domain reload e restaura o override anterior ao sair de Play. Isso também permite testar manualmente com perfil separado. O mundo oficial não foi alterado.
+
+QA com input real na rua livre (-5.5,0): quatro direções moveram cerca de 1.198 unidades por amostra, cada caminhada avançou sprites, soltar a tecla retornou a idle com velocidade zero; diagonal W+D aceita. Frames 5881→6655; console zero erros/avisos. Tentativas iniciais em (0,-2) encontraram bloqueio do mundo; o teste passou na rua livre, sem modificar colisões. [QA do jogador](HumanoidScale2026/player/qa.json).
+
+![Jogador com o corpo maior](HumanoidScale2026/player/controllable-player.png)
+
+Autor: `BuildHumanoidPlayerPreview.Build` recusa sobrescrever o CharacterSet e altera somente a cena experimental. Verificação: Prepare/Setup do laboratório, `InspectHumanoidPlayerPreview.Inspect`, Stop/Cleanup. Ao concluir, Play foi reaberto com dispositivos nativos habilitados para o usuário testar WASD/setas.

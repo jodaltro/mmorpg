@@ -7119,7 +7119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a17da68dbe213439181aa365283da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.ProductionSpriteAnimator
-  art: {fileID: 11400000, guid: 319326371eea0d546974935d4eb9afbe, type: 2}
+  art: {fileID: 11400000, guid: a047e968e8ee3524db76c914c0de66b3, type: 2}
   motor: {fileID: 158123706}
   health: {fileID: 158123702}
   sword: {fileID: 158123711}
@@ -16974,8 +16974,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.325}
-    oldSize: {x: 2.5, y: 2.5}
+    pivot: {x: 0.5, y: 0.2125}
+    oldSize: {x: 4, y: 5}
     newSize: {x: 0.625, y: 0.9375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -28510,8 +28510,8 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.11764707
+    x: 0.208901
+    y: 0.14705883
     width: 0.58128977
     height: 0.7058824
   near clip plane: 0.3
@@ -33837,8 +33837,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.325}
-    oldSize: {x: 2.5, y: 2.5}
+    pivot: {x: 0.5, y: 0.2125}
+    oldSize: {x: 4, y: 5}
     newSize: {x: 0.625, y: 0.9375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -67607,6 +67607,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 158123703}
     m_Modifications:
+    - target: {fileID: 3730911734948428849, guid: 11c15445266e03141a9f8ec3d3f3d0db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1143084500, guid: 210bfb4485106864abada5c87f661abd, type: 3}
     - target: {fileID: 4061296978334937898, guid: 11c15445266e03141a9f8ec3d3f3d0db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -67650,6 +67654,10 @@ PrefabInstance:
     - target: {fileID: 4575740153594910908, guid: 11c15445266e03141a9f8ec3d3f3d0db, type: 3}
       propertyPath: m_Name
       value: VisualRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837701754267377830, guid: 11c15445266e03141a9f8ec3d3f3d0db, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
