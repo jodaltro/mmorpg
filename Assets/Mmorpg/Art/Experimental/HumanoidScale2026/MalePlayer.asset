@@ -119,7 +119,7 @@ MonoBehaviour:
       events: []
   - action: idle
     status: experimental-locomotion-only
-    direction: 1
+    direction: 3
     loop: 1
     frames:
     - sprite: {fileID: -199714852, guid: 210bfb4485106864abada5c87f661abd, type: 3}
@@ -131,7 +131,7 @@ MonoBehaviour:
       events: []
   - action: walk
     status: experimental-locomotion-only
-    direction: 1
+    direction: 3
     loop: 1
     frames:
     - sprite: {fileID: -1591663877, guid: 210bfb4485106864abada5c87f661abd, type: 3}
@@ -321,7 +321,7 @@ MonoBehaviour:
       events: []
   - action: idle
     status: experimental-locomotion-only
-    direction: 3
+    direction: 1
     loop: 1
     frames:
     - sprite: {fileID: 1214242019, guid: 210bfb4485106864abada5c87f661abd, type: 3}
@@ -333,7 +333,7 @@ MonoBehaviour:
       events: []
   - action: walk
     status: experimental-locomotion-only
-    direction: 3
+    direction: 1
     loop: 1
     frames:
     - sprite: {fileID: -1168980408, guid: 210bfb4485106864abada5c87f661abd, type: 3}

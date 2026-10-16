@@ -13,6 +13,20 @@ public static class BuildHumanoidPlayerPreview
 {
     const string Scene="Assets/Mmorpg/Scenes/HumanoidScale2026.unity";
     const string Art="Assets/Mmorpg/Art/Experimental/HumanoidScale2026/";
+    public static string CorrectLateralDirections()
+    {
+        if(EditorApplication.isPlaying)throw new Exception("Stop Play before correcting the asset");
+        var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>(Art+"MalePlayer.asset");
+        if(set==null)throw new Exception("Missing preview character set");
+        foreach(var clip in set.clips)
+        {
+            string source=clip.frames[0].source;
+            if(source.EndsWith("_west"))clip.direction=3;
+            else if(source.EndsWith("_east"))clip.direction=1;
+        }
+        EditorUtility.SetDirty(set);AssetDatabase.SaveAssets();
+        return "Corrected lateral clips from their recorded source; frames and timings preserved.";
+    }
     public static string Build()
     {
         if(EditorApplication.isPlaying||SceneManager.GetActiveScene().isDirty||SceneManager.GetActiveScene().path!=Scene)throw new Exception("Open clean scale study outside Play");
@@ -24,7 +38,8 @@ public static class BuildHumanoidPlayerPreview
         var clips=new List<ProductionClip>();
         foreach(var c in manifest["clips"])
         {
-            string name=(string)c["name"];int direction=name.EndsWith("south")?0:name.EndsWith("west")?1:name.EndsWith("north")?2:3;
+            string name=(string)c["name"];// Legacy source camera labels name the camera side: west renders a right-facing body.
+            int direction=name.EndsWith("south")?0:name.EndsWith("west")?3:name.EndsWith("north")?2:1;
             int first=(int)c["first"]-1,last=(int)c["last"]-1;
             clips.Add(new ProductionClip{action=name.StartsWith("walk")?"walk":"idle",direction=direction,loop=true,status="experimental-locomotion-only",frames=Enumerable.Range(first,last-first+1).Select(i=>new ProductionFrame{sprite=sprites["pose_"+i.ToString("000")],seconds=(float)timing["frames"][i]["duration"]/1000f,source="Quaternius CC0 / Humanoid2026 / "+name}).ToArray()});
         }

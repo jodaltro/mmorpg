@@ -41,3 +41,9 @@ QA com input real na rua livre (-5.5,0): quatro direções moveram cerca de 1.19
 ![Jogador com o corpo maior](HumanoidScale2026/player/controllable-player.png)
 
 Autor: `BuildHumanoidPlayerPreview.Build` recusa sobrescrever o CharacterSet e altera somente a cena experimental. Verificação: Prepare/Setup do laboratório, `InspectHumanoidPlayerPreview.Inspect`, Stop/Cleanup. Ao concluir, Play foi reaberto com dispositivos nativos habilitados para o usuário testar WASD/setas.
+
+## Correção das direções laterais
+
+O teste anterior validava direção lógica e avanço de frames, mas não detectava que os rótulos west/east do estudo nomeavam o lado da câmera. A prancha revelou west olhando à direita e east olhando à esquerda. Corrigidos os clips idle e walk do CharacterSet: direção Unity 1 usa a sequência fonte east (idle 39 / walk 40–51), direção 3 usa west (idle 13 / walk 14–25). Sul e norte mantidos; nenhum pixel, timing ou controle alterado. O autor foi corrigido e a operação CorrectLateralDirections é idempotente.
+
+Repetido teste real de input, quatro direções/diagonal/parada, agora verificando também a sequência fonte correspondente. Frames 967→1827, console zero erros e avisos. Capturas A e D inspecionadas visualmente: corpo olha na direção do deslocamento. [QA corrigido](HumanoidScale2026/player-direction-fix/qa.json). Evidência anterior mantida como histórico. Play reaberto para teste manual com teclado nativo e perfil separado.

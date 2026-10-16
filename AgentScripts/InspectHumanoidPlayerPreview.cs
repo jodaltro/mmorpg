@@ -11,7 +11,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public static class InspectHumanoidPlayerPreview
 {
-    const string Evidence="Docs/Validation/HumanoidScale2026/player/";
+    const string Evidence="Docs/Validation/HumanoidScale2026/player-direction-fix/";
     static ActorHealth Player=>UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;
     static ProductionSpriteAnimator Animator=>Player.GetComponent<ProductionSpriteAnimator>();
     static Keyboard Keys=>InputSystem.devices.OfType<Keyboard>().Single(k=>k.name=="AnimationKeyboard");
@@ -29,10 +29,13 @@ public static class InspectHumanoidPlayerPreview
                 var rb=Player.GetComponent<Rigidbody2D>();rb.position=new Vector2(-5.5f,0);rb.linearVelocity=Vector2.zero;Input();await Wait(.15f);
                 Vector2 before=rb.position;Input(c.key);await Wait(.23f);
                 Check(Animator.State=="walk"&&Animator.DirectionIndex==c.d,"Wrong movement animation/direction: "+Animator.State+" dir="+Animator.DirectionIndex+" wanted="+c.d+" velocity="+rb.linearVelocity+" intent="+Player.GetComponent<ActorMotor>().MovementDirection);
+                int index=int.Parse(Animator.Body.sprite.name.Substring(5));
+                int[] starts={1,40,27,14};
+                Check(index>=starts[c.d]&&index<starts[c.d]+12,"Incorrect source view for world direction");
                 string pose=Animator.Body.sprite.name;await Wait(.12f);Check(Animator.Body.sprite.name!=pose,"Walk frame did not advance");
                 float distance=Vector2.Distance(before,rb.position);Check(distance>.4f,"Player did not move");
                 await Capture("walk-"+c.d);Input();await Wait(.2f);Check(Animator.State=="idle"&&rb.linearVelocity.sqrMagnitude<.001f,"Stop failed");
-                report.Add(new{direction=c.d,distance,animated=true,idleAfterRelease=true});
+                report.Add(new{direction=c.d,distance,animated=true,idleAfterRelease=true,sourceViewCorrect=true});
             }
             var body=Player.GetComponent<Rigidbody2D>();body.position=new Vector2(-5.5f,0);body.linearVelocity=Vector2.zero;Input(Key.W,Key.D);await Wait(.25f);
             Check(Player.GetComponent<ActorMotor>().MovementDirection.x>0&&Player.GetComponent<ActorMotor>().MovementDirection.y>0,"Diagonal intent failed");Input();await Wait(.2f);

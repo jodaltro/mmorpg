@@ -1,0 +1,39 @@
+{
+  "first": 967,
+  "last": 1827,
+  "isolatedProfile": true,
+  "directions": [
+    {
+      "direction": 0,
+      "distance": 1.12799942,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    },
+    {
+      "direction": 1,
+      "distance": 1.19800282,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    },
+    {
+      "direction": 2,
+      "distance": 1.1979996,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    },
+    {
+      "direction": 3,
+      "distance": 1.19800282,
+      "animated": true,
+      "idleAfterRelease": true,
+      "sourceViewCorrect": true
+    }
+  ],
+  "diagonalInput": true,
+  "originalMotor": true,
+  "movementOnly": true,
+  "weaponHidden": true
+}
