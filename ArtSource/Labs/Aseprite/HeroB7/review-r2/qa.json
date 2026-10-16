@@ -1,0 +1,136 @@
+{
+  "status": "experimental-unapproved",
+  "unityTested": false,
+  "ppu": 32,
+  "canvas": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    70
+  ],
+  "ground": [
+    48,
+    88
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "rgbaSha256": "02777abddef53b1c62e81b4087379867537d3067f728bc5d67adf1af314ab4d6",
+      "bounds": [
+        28,
+        35,
+        65,
+        89
+      ],
+      "colors": 27,
+      "rightHand": [
+        32,
+        74
+      ],
+      "leftHand": [
+        60,
+        69
+      ],
+      "supportIntended": [
+        53,
+        88
+      ],
+      "swingFootIntended": [
+        42,
+        83
+      ],
+      "durationMs": 120
+    },
+    {
+      "frame": 1,
+      "rgbaSha256": "686c3f0293b276322bf20db256d2713cdb832d7d1ad57e6c925222a8a04246e6",
+      "bounds": [
+        30,
+        35,
+        66,
+        86
+      ],
+      "colors": 27,
+      "rightHand": [
+        35,
+        72
+      ],
+      "leftHand": [
+        61,
+        72
+      ],
+      "supportIntended": [
+        51,
+        85
+      ],
+      "swingFootIntended": [
+        47,
+        82
+      ],
+      "durationMs": 120
+    },
+    {
+      "frame": 2,
+      "rgbaSha256": "34efbe340c006300d6f6381c995e8a6daa94fabffea495b1f6c30f55b774d9c8",
+      "bounds": [
+        30,
+        35,
+        67,
+        89
+      ],
+      "colors": 27,
+      "rightHand": [
+        35,
+        69
+      ],
+      "leftHand": [
+        63,
+        74
+      ],
+      "supportIntended": [
+        42,
+        88
+      ],
+      "swingFootIntended": [
+        53,
+        83
+      ],
+      "durationMs": 120
+    },
+    {
+      "frame": 3,
+      "rgbaSha256": "c466dcfc1ee9040b89fa219878fdd4b83424a15d60597b483d0a20cd7c9fde86",
+      "bounds": [
+        29,
+        35,
+        65,
+        86
+      ],
+      "colors": 27,
+      "rightHand": [
+        34,
+        72
+      ],
+      "leftHand": [
+        60,
+        72
+      ],
+      "supportIntended": [
+        44,
+        85
+      ],
+      "swingFootIntended": [
+        48,
+        82
+      ],
+      "durationMs": 120
+    }
+  ],
+  "distinct": 4,
+  "translatedDuplicates": false,
+  "candidateCycleMs": 480,
+  "distanceAtReferenceSpeedPixels": 53.76,
+  "comparison": "960ms: two B7 cycles; old native 250ms clock, continuous 10ms sampling; no equal-cadence claim"
+}

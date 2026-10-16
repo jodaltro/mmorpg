@@ -1,0 +1,86 @@
+{
+  "version": "Aseprite 1.3.18.6-x64",
+  "executable": "D:\\Aseprite\\Aseprite.exe",
+  "productionHeroHashesMatchManifest": true,
+  "headPixelsStable": true,
+  "handPixels": [
+    {
+      "rightHand": [
+        94,
+        59,
+        40,
+        255
+      ],
+      "leftHand": [
+        94,
+        59,
+        40,
+        255
+      ]
+    },
+    {
+      "rightHand": [
+        94,
+        59,
+        40,
+        255
+      ],
+      "leftHand": [
+        94,
+        59,
+        40,
+        255
+      ]
+    },
+    {
+      "rightHand": [
+        94,
+        59,
+        40,
+        255
+      ],
+      "leftHand": [
+        94,
+        59,
+        40,
+        255
+      ]
+    },
+    {
+      "rightHand": [
+        94,
+        59,
+        40,
+        255
+      ],
+      "leftHand": [
+        94,
+        59,
+        40,
+        255
+      ]
+    }
+  ],
+  "documents": {
+    "hero-master-south.aseprite": "Perna direita: 1 cels\nPerna esquerda: 1 cels\nQuadril: 1 cels\nTronco: 1 cels\nBraco esquerdo: 1 cels\nBraco direito: 1 cels\nCabeca: 1 cels\nCabelo: 1 cels\nDetalhes roupa: 1 cels\nGuias pivo: 1 cels\nGuias contato: 1 cels\nMarcadores maos: 1 cels\nB7 document reopened: valid RGBA canvas, layers, cels, durations and hidden guides",
+    "hero-walk-south.aseprite": "Perna direita: 4 cels\nPerna esquerda: 4 cels\nQuadril: 4 cels\nTronco: 4 cels\nBraco esquerdo: 4 cels\nBraco direito: 4 cels\nCabeca: 4 cels\nCabelo: 4 cels\nDetalhes roupa: 4 cels\nGuias pivo: 4 cels\nGuias contato: 4 cels\nMarcadores maos: 4 cels\nB7 document reopened: valid RGBA canvas, layers, cels, durations and hidden guides",
+    "hero-walk-south-r2.aseprite": "Perna direita: 4 cels\nPerna esquerda: 4 cels\nQuadril: 4 cels\nTronco: 4 cels\nBraco esquerdo: 4 cels\nBraco direito: 4 cels\nCabeca: 4 cels\nCabelo: 4 cels\nDetalhes roupa: 4 cels\nGuias pivo: 4 cels\nGuias contato: 4 cels\nMarcadores maos: 4 cels\nB7 document reopened: valid RGBA canvas, layers, cels, durations and hidden guides"
+  },
+  "gifChecks": {
+    "walk-native-two-cycles.gif": {
+      "encodedFrames": 8,
+      "durationMs": 960,
+      "infiniteLoop": false
+    },
+    "walk-4x-two-cycles.gif": {
+      "encodedFrames": 8,
+      "durationMs": 960,
+      "infiniteLoop": false
+    },
+    "old-vs-b7.gif": {
+      "encodedFrames": 15,
+      "durationMs": 960,
+      "infiniteLoop": false
+    }
+  }
+}

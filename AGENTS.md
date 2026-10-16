@@ -26,3 +26,6 @@ Scene generation must refuse to overwrite an existing scene. Preserve unrelated 
 Standing user authorization: paid calls when useful, commits and pushes for project work, including publishing all intended project changes to `main`; no repeated confirmation is needed within that authorized scope. This supersedes the original pasted milestone's no-paid-calls/no-commit restriction. Preserve secrets, personal saves, unrelated changes and authentication/persistence safeguards. Do not spend on repeated unsuccessful art generation.
 
 Preferência permanente do usuário (2026-10-15): ao concluir trabalhos no projeto, sempre fazer commit e push das alterações da tarefa. Preservar alterações alheias e informar qualquer impedimento ao push.
+
+## Project memory — refactoring authorization (2026-10-15)
+O usuário autoriza explicitamente ações destrutivas no projeto quando úteis ao objetivo da tarefa: refatorar, recriar, substituir ou remover código, assets, cenas e ferramentas. Não é necessário preservar implementações anteriores nem pedir confirmação apenas pelo caráter destrutivo da mudança. Esta autorização substitui exigências anteriores de preservação quando conflitantes; mantenha o escopo solicitado e proteja segredos e credenciais. Continue fazendo commit e push ao concluir cada tarefa. Autorização técnica não equivale a aprovação artística de um resultado.
