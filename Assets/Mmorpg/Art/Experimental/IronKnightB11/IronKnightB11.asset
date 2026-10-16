@@ -1313,7 +1313,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir6/frame14
       events: []
   - action: dodge
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -1381,7 +1381,7 @@ MonoBehaviour:
       source: Hormelz/Jump/dir8/frame8
       events: []
   - action: dodge
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -1449,7 +1449,7 @@ MonoBehaviour:
       source: Hormelz/Jump/dir2/frame8
       events: []
   - action: dodge
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -1517,7 +1517,7 @@ MonoBehaviour:
       source: Hormelz/Jump/dir4/frame8
       events: []
   - action: dodge
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:
@@ -1585,7 +1585,7 @@ MonoBehaviour:
       source: Hormelz/Jump/dir6/frame8
       events: []
   - action: hurt
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -1639,7 +1639,7 @@ MonoBehaviour:
       source: Hormelz/Damaged/dir8/frame6
       events: []
   - action: hurt
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -1693,7 +1693,7 @@ MonoBehaviour:
       source: Hormelz/Damaged/dir2/frame6
       events: []
   - action: hurt
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -1747,7 +1747,7 @@ MonoBehaviour:
       source: Hormelz/Damaged/dir4/frame6
       events: []
   - action: hurt
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:
@@ -1801,7 +1801,7 @@ MonoBehaviour:
       source: Hormelz/Damaged/dir6/frame6
       events: []
   - action: death
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -1967,7 +1967,7 @@ MonoBehaviour:
       source: Hormelz/Die/dir8/frame22
       events: []
   - action: death
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -2133,7 +2133,7 @@ MonoBehaviour:
       source: Hormelz/Die/dir2/frame22
       events: []
   - action: death
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -2299,7 +2299,7 @@ MonoBehaviour:
       source: Hormelz/Die/dir4/frame22
       events: []
   - action: death
-    status: source inspected; Unity verified; user artistic approval pending
+    status: new state artwork approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:

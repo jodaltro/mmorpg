@@ -7,14 +7,14 @@
   "baseManifest": "ArtSource/Labs/IronKnight2026/B10/manifest.json",
   "baseCharacterSet": "Assets/Mmorpg/Art/Experimental/IronKnightB10/IronKnightB10.asset",
   "baseSha256": "036330be680488e986ab5a77540c4d91bb9329779fa6892f82b32f565ed2790e",
-  "status": "experimental B11; B10 approval preserved, new states awaiting user review",
+  "status": "experimental B11; B10 preserved; new state artwork approved by user 2026-10-16",
   "clips": [
     {
       "animation": "dodge",
       "direction": "south",
       "frameCount": 9,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/dodge/south/sheet.png",
       "frames": [
         {
@@ -276,7 +276,7 @@
       "direction": "west",
       "frameCount": 9,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/dodge/west/sheet.png",
       "frames": [
         {
@@ -538,7 +538,7 @@
       "direction": "north",
       "frameCount": 9,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/dodge/north/sheet.png",
       "frames": [
         {
@@ -800,7 +800,7 @@
       "direction": "east",
       "frameCount": 9,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/dodge/east/sheet.png",
       "frames": [
         {
@@ -1062,7 +1062,7 @@
       "direction": "south",
       "frameCount": 7,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/hurt/south/sheet.png",
       "frames": [
         {
@@ -1268,7 +1268,7 @@
       "direction": "west",
       "frameCount": 7,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/hurt/west/sheet.png",
       "frames": [
         {
@@ -1474,7 +1474,7 @@
       "direction": "north",
       "frameCount": 7,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/hurt/north/sheet.png",
       "frames": [
         {
@@ -1680,7 +1680,7 @@
       "direction": "east",
       "frameCount": 7,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/hurt/east/sheet.png",
       "frames": [
         {
@@ -1886,7 +1886,7 @@
       "direction": "south",
       "frameCount": 23,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/death/south/sheet.png",
       "frames": [
         {
@@ -2448,7 +2448,7 @@
       "direction": "west",
       "frameCount": 23,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/death/west/sheet.png",
       "frames": [
         {
@@ -3010,7 +3010,7 @@
       "direction": "north",
       "frameCount": 23,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/death/north/sheet.png",
       "frames": [
         {
@@ -3572,7 +3572,7 @@
       "direction": "east",
       "frameCount": 23,
       "loop": false,
-      "status": "source inspected; Unity verified; user artistic approval pending",
+      "status": "new state artwork approved by user 2026-10-16",
       "sheet": "ArtSource/Labs/IronKnight2026/B11/frames/death/east/sheet.png",
       "frames": [
         {
@@ -4132,7 +4132,16 @@
   ],
   "weaponReview": "New gloves reviewed individually; rear hand projected behind torso when occluded. B10 anchors reused verbatim.",
   "userArtisticApproval": {
-    "newStates": "pending",
+    "newStates": {
+      "status": "approved",
+      "date": "2026-10-16",
+      "quote": "ficou bom os novos desgnes aprovado",
+      "scope": [
+        "dodge",
+        "hurt",
+        "death"
+      ]
+    },
     "b10": "existing approval retained through unchanged base reference"
   },
   "timingPolicy": {

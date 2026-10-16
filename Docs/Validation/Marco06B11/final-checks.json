@@ -7,5 +7,15 @@
   ],
   "retainedUnityCrops": 467,
   "baseManifestHashMatches": true,
-  "newStatesUserApproval": "pending"
+  "newStatesUserApproval": "approved",
+  "userArtisticApproval": {
+    "status": "approved",
+    "date": "2026-10-16",
+    "quote": "ficou bom os novos desgnes aprovado",
+    "scope": [
+      "dodge",
+      "hurt",
+      "death"
+    ]
+  }
 }

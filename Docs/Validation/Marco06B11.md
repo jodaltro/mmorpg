@@ -1,6 +1,6 @@
 # Marco 06B.11 — Iron Knight: esquiva, dano, morte e transições
 
-Candidato integrado e inspecionado na Unity 6000.6.5f1 em 16/10/2026. A aprovação artística dos **novos estados permanece pendente**. A integração está exclusivamente em `Assets/Mmorpg/Scenes/Marco06B11CharacterStates.unity`, copiada da B10 limpa. A cena inicial e as regiões não foram alteradas. O gerador recusa sobrescrever o destino.
+Candidato integrado e inspecionado na Unity 6000.6.5f1 em 16/10/2026. Os desenhos dos **novos estados foram aprovados artisticamente pelo usuário em 16/10/2026**: “ficou bom os novos desgnes aprovado”. O registro abrange esquiva, Hurt e Death apresentados no B11. A integração está exclusivamente em `Assets/Mmorpg/Scenes/Marco06B11CharacterStates.unity`, copiada da B10 limpa. A cena inicial e as regiões não foram alteradas. O gerador recusa sobrescrever o destino.
 
 ## Fonte e escolha artística
 
@@ -20,7 +20,7 @@ Vistas selecionadas: Sul=dir8, Oeste=dir2, Norte=dir4, Leste=dir6. São 156 cels
 
 Não existem ações chamadas Dodge, Roll, Dash ou Evade. **A esquiva B11 é uma adaptação de Jump, não um rolamento.** Há decolagem, elevação dos joelhos, aterrissagem e retorno reconhecíveis, sem deformar o desenho. RunningJump foi inspecionado e descartado por terminar agachado e retornar pior ao idle. Damaged_001 e Die_001 também foram examinados; as alternativas escolhidas têm recuo claro e morte completa mais curta. As outras ações foram catalogadas, sem alegar avaliação artística para um uso fora deste marco.
 
-A compressão de Jump para 0,22 s torna a leitura rápida. O corpo sugere salto, mas a física continua estritamente no plano existente. A adequação desse salto como esquiva precisa da avaliação do usuário. Não há material original de rolamento identificado para oferecer uma versão de rolamento neste marco.
+A compressão de Jump para 0,22 s torna a leitura rápida. O corpo sugere salto, mas a física continua estritamente no plano existente. A apresentação da esquiva integra os novos estados aprovados pelo usuário em 16/10/2026. Não há material original de rolamento identificado para oferecer uma versão de rolamento neste marco.
 
 ## Implementação e preservação
 
@@ -83,4 +83,4 @@ Pranchas da fonte original: [Dodge](Marco06B11/previews/dodge-source-board.png),
 
 Todos os GIFs do jogo usam apenas frames capturados na Unity. O recorte acompanha o jogador, sem reconstruir poses; os recortes sem anotações são preservados em `Marco06B11/captures/`. Os arquivos `*-provenance.json` ligam os GIFs aos frames, timestamps e fontes reais. As comparações usam o mesmo tempo decorrido de cada gravação, amostrado a cada 40 ms e exibido a cada 70 ms para leitura. Os GIFs originais de Aseprite em `source-review/` são identificados separadamente. Screenshots integrais intermediários ficam em Temp e não são publicados.
 
-Falta a avaliação artística do usuário sobre a esquiva adaptada, impacto de Hurt, queda e transições. A validação técnica não substitui essa aprovação. B10 continua aprovada e preservada; nenhum estado novo foi promovido à cena inicial.
+A aprovação artística dos novos desenhos foi recebida após a validação técnica e registrada no manifesto, nos 12 clips novos do asset e em `final-checks.json`. B10 continua aprovada e preservada; nenhum estado novo foi promovido à cena inicial. Este registro altera somente metadados e documentação de aprovação.
