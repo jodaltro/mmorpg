@@ -17,7 +17,7 @@ MonoBehaviour:
   referenceSpeed: 3.5
   clips:
   - action: idle
-    status: experimental; artistic user approval pending
+    status: weapon occlusion approved by user 2026-10-16
     direction: 0
     loop: 1
     frames:
@@ -29,7 +29,7 @@ MonoBehaviour:
       source: Hormelz/Idle/dir8/frame0
       events: []
   - action: idle
-    status: experimental; artistic user approval pending
+    status: weapon occlusion approved by user 2026-10-16
     direction: 1
     loop: 1
     frames:
@@ -41,7 +41,7 @@ MonoBehaviour:
       source: Hormelz/Idle/dir2/frame0
       events: []
   - action: idle
-    status: experimental; artistic user approval pending
+    status: weapon occlusion approved by user 2026-10-16
     direction: 2
     loop: 1
     frames:
@@ -53,7 +53,7 @@ MonoBehaviour:
       source: Hormelz/Idle/dir4/frame0
       events: []
   - action: idle
-    status: experimental; artistic user approval pending
+    status: weapon occlusion approved by user 2026-10-16
     direction: 3
     loop: 1
     frames:
@@ -65,7 +65,7 @@ MonoBehaviour:
       source: Hormelz/Idle/dir6/frame0
       events: []
   - action: walk
-    status: walk approved by user 2026-10-16
+    status: walk and weapon occlusion approved by user 2026-10-16
     direction: 0
     loop: 1
     frames:
@@ -147,7 +147,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir8/frame10
       events: []
   - action: walk
-    status: walk approved by user 2026-10-16
+    status: walk and weapon occlusion approved by user 2026-10-16
     direction: 1
     loop: 1
     frames:
@@ -229,7 +229,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir2/frame10
       events: []
   - action: walk
-    status: walk approved by user 2026-10-16
+    status: walk and weapon occlusion approved by user 2026-10-16
     direction: 2
     loop: 1
     frames:
@@ -311,7 +311,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir4/frame10
       events: []
   - action: walk
-    status: walk approved by user 2026-10-16
+    status: walk and weapon occlusion approved by user 2026-10-16
     direction: 3
     loop: 1
     frames:
@@ -393,7 +393,7 @@ MonoBehaviour:
       source: Hormelz/WalkFoward/dir6/frame10
       events: []
   - action: attack
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -503,7 +503,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir8/frame14
       events: []
   - action: attack
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -613,7 +613,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir2/frame14
       events: []
   - action: attack
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -723,7 +723,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir4/frame14
       events: []
   - action: attack
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:
@@ -833,7 +833,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir6/frame14
       events: []
   - action: attack-preparation
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -873,7 +873,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir8/frame4
       events: []
   - action: attack-cut
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -906,7 +906,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir8/frame8
       events: []
   - action: attack-recovery
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 0
     loop: 0
     frames:
@@ -953,7 +953,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir8/frame14
       events: []
   - action: attack-preparation
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -993,7 +993,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir2/frame4
       events: []
   - action: attack-cut
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -1026,7 +1026,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir2/frame8
       events: []
   - action: attack-recovery
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 1
     loop: 0
     frames:
@@ -1073,7 +1073,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir2/frame14
       events: []
   - action: attack-preparation
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -1120,7 +1120,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir4/frame5
       events: []
   - action: attack-cut
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -1153,7 +1153,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir4/frame9
       events: []
   - action: attack-recovery
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 2
     loop: 0
     frames:
@@ -1193,7 +1193,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir4/frame14
       events: []
   - action: attack-preparation
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:
@@ -1233,7 +1233,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir6/frame4
       events: []
   - action: attack-cut
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:
@@ -1273,7 +1273,7 @@ MonoBehaviour:
       source: Hormelz/Slash/dir6/frame9
       events: []
   - action: attack-recovery
-    status: experimental; artistic user approval pending
+    status: attacks and weapon occlusion approved by user 2026-10-16
     direction: 3
     loop: 0
     frames:

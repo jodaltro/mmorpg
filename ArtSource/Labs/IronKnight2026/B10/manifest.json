@@ -4,7 +4,7 @@
   "ppu": 32,
   "referenceSpeed": 3.5,
   "coordinates": "top-left pixels",
-  "status": "experimental isolated B10; walk approved by user 2026-10-16; attack artistic approval pending",
+  "status": "isolated B10; walk, attacks and weapon occlusion approved by user 2026-10-16",
   "sourceUrl": "https://hormelz.itch.io/8-directional-iron-knight",
   "license": "CC0-1.0",
   "clips": [
@@ -13,7 +13,7 @@
       "direction": "south",
       "frameCount": 1,
       "loop": true,
-      "status": "experimental; artistic user approval pending",
+      "status": "weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/idle/south/frame_000.png",
@@ -63,7 +63,7 @@
       "direction": "west",
       "frameCount": 1,
       "loop": true,
-      "status": "experimental; artistic user approval pending",
+      "status": "weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/idle/west/frame_000.png",
@@ -113,7 +113,7 @@
       "direction": "north",
       "frameCount": 1,
       "loop": true,
-      "status": "experimental; artistic user approval pending",
+      "status": "weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/idle/north/frame_000.png",
@@ -163,7 +163,7 @@
       "direction": "east",
       "frameCount": 1,
       "loop": true,
-      "status": "experimental; artistic user approval pending",
+      "status": "weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/idle/east/frame_000.png",
@@ -213,7 +213,7 @@
       "direction": "south",
       "frameCount": 11,
       "loop": true,
-      "status": "walk approved by user 2026-10-16",
+      "status": "walk and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/walk/south/frame_000.png",
@@ -674,7 +674,7 @@
       "direction": "west",
       "frameCount": 11,
       "loop": true,
-      "status": "walk approved by user 2026-10-16",
+      "status": "walk and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/walk/west/frame_000.png",
@@ -1135,7 +1135,7 @@
       "direction": "north",
       "frameCount": 11,
       "loop": true,
-      "status": "walk approved by user 2026-10-16",
+      "status": "walk and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/walk/north/frame_000.png",
@@ -1596,7 +1596,7 @@
       "direction": "east",
       "frameCount": 11,
       "loop": true,
-      "status": "walk approved by user 2026-10-16",
+      "status": "walk and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/walk/east/frame_000.png",
@@ -2057,7 +2057,7 @@
       "direction": "south",
       "frameCount": 15,
       "loop": false,
-      "status": "experimental; artistic user approval pending",
+      "status": "attacks and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/attack/south/frame_000.png",
@@ -2667,7 +2667,7 @@
       "direction": "west",
       "frameCount": 15,
       "loop": false,
-      "status": "experimental; artistic user approval pending",
+      "status": "attacks and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/attack/west/frame_000.png",
@@ -3277,7 +3277,7 @@
       "direction": "north",
       "frameCount": 15,
       "loop": false,
-      "status": "experimental; artistic user approval pending",
+      "status": "attacks and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/attack/north/frame_000.png",
@@ -3887,7 +3887,7 @@
       "direction": "east",
       "frameCount": 15,
       "loop": false,
-      "status": "experimental; artistic user approval pending",
+      "status": "attacks and weapon occlusion approved by user 2026-10-16",
       "frames": [
         {
           "png": "ArtSource/Labs/IronKnight2026/frames/attack/east/frame_000.png",
@@ -4567,6 +4567,13 @@
       "date": "2026-10-16",
       "quote": "Ficou boa a caminhada,"
     },
-    "attacks": "pending"
+    "attacks": {
+      "date": "2026-10-16",
+      "quote": "ataque e oclusao tbm ficaram bons"
+    },
+    "weaponOcclusion": {
+      "date": "2026-10-16",
+      "quote": "ataque e oclusao tbm ficaram bons"
+    }
   }
 }

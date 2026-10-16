@@ -1,6 +1,6 @@
 # Marco 06B.10 — cadência, empunhadura e fases do Iron Knight
 
-16/10/2026. **Funcionamento técnico verificado; melhoria artística preliminar, aprovação definitiva do usuário pendente.** Cena isolada: `Assets/Mmorpg/Scenes/Marco06B10CombatPolish.unity`. B9, produção e cena inicial preservadas. Sem mudanças em código de Runtime/Domain, autoridade, dano, cooldown, alcance, velocidade ou calibração da espada.
+16/10/2026. **Funcionamento técnico verificado; caminhada, ataques e oclusão da espada aprovados pelo usuário.** Cena isolada: `Assets/Mmorpg/Scenes/Marco06B10CombatPolish.unity`. B9, produção e cena inicial preservadas. Sem mudanças em código de Runtime/Domain, autoridade, dano, cooldown, alcance, velocidade ou calibração da espada.
 
 ## Para avaliar
 
@@ -55,7 +55,7 @@ Os valores são deslocamentos resultantes de um ponto estimado no mundo, **não 
 
 Média observada de deriva durante cada quadro sustentado: sul **6,90→5,54 px**, oeste **6,99→5,53**, norte **7,02→5,53**, leste **6,92→5,51**. A amostragem não inclui exatamente ambas as bordas temporais de cada quadro; por isso fica ligeiramente abaixo dos limites completos teóricos 7,47/5,97 px. Houve redução próxima de 20% nesse componente, sem prometer zero. Nas trocas de pose, a mudança local das botas compensa parte da translação, mas não toda.
 
-A geometria/alternância e o loop 10→0 continuam os originais, sem poses removidas, duplicadas ou redesenhadas. As mesmas variações verticais do topo da silhueta (aproximadamente 1–2 px na caminhada) permanecem; somente o tempo muda. Não se introduziu oscilação procedural. **O compromisso parece mais responsivo e reduz a deriva estimada, mas a naturalidade definitiva e o ritmo de passos ainda precisam da avaliação do usuário em Play.**
+A geometria/alternância e o loop 10→0 continuam os originais, sem poses removidas, duplicadas ou redesenhadas. As mesmas variações verticais do topo da silhueta (aproximadamente 1–2 px na caminhada) permanecem; somente o tempo muda. Não se introduziu oscilação procedural. **O usuário aprovou a caminhada em Play em 16/10/2026; a deriva residual permanece documentada.**
 
 ## Empunhadura — revisão dos 108 quadros
 
@@ -147,6 +147,6 @@ PNGs brutos foram arquivados localmente em `Temp/Marco06B10/Captures/{baseline,c
 - Unity: `run_script --file AgentScripts/IronKnight06B9.cs --entry IronKnight06B10.Import` atualiza somente B10. `ImportAndCreate` serve para primeira criação e recusa cena existente. `VerifyImport` reimporta B10 e verifica IDs, contrato, hierarquia e metadados B9.
 - Inspeções: `InspectIronKnight06B10.Prepare` na cena limpa B9/B10 → editor_play → Setup → Movement/Footfalls/Attacks; candidato também Obstacles/Combat → FinalView → editor_stop → Cleanup. Todas as chamadas usam `--caller plugin --skill unity-pipeline`. Se interromper, liberar inputs e fazer Cleanup após parar Play.
 
-**Estado final:** integração técnica e verificações pontuais aprovadas; contato evidente da caminhada leste e seleção temporal do Slash melhorados. Deriva residual dos pés, incerteza dos apoios norte, algumas mãos parcialmente ocultas e saltos discretos do Slash continuam limitações reais. Não se declara foot lock, anatomia perfeita nem aprovação artística definitiva. A cena B10 permanece candidata isolada para avaliação do usuário.
+**Estado final:** integração técnica e verificações pontuais aprovadas. O usuário aprovou a caminhada (“Ficou boa a caminhada,”) e depois os ataques e a oclusão (“ataque e oclusao tbm ficaram bons”), em 16/10/2026. As limitações técnicas medidas continuam documentadas; a aprovação artística não significa foot lock ou anatomia perfeita. A B10 permanece isolada, sem substituição automática do protagonista global.
 
-Ap�s a aprova��o da caminhada, o usu�rio abriu/retomou Play para avali�-la. A tentativa de reimportar apenas o status textual foi recusada pelo guard `Stop Play first` ([registro](Marco06B10/play-mode-import-guard.json)); nenhum asset foi modificado por essa tentativa. A sess�o interativa foi preservada. Depois que o usu�rio informou ter parado o Play, o status tamb�m foi importado com sucesso para os quatro clips walk do CharacterSet ([registro](Marco06B10/approval-metadata-import.json)). O diff do asset cont�m somente essas quatro altera��es de texto; dura��o, sprites, m�os e visual aprovado permanecem iguais.
+Após a aprovação da caminhada, a tentativa de reimportar o status textual durante Play foi recusada pelo guard `Stop Play first` ([registro](Marco06B10/play-mode-import-guard.json)), preservando a sessão interativa. Quando o usuário informou ter parado o Play, a aprovação da caminhada foi importada para o CharacterSet ([registro](Marco06B10/approval-metadata-import.json)). A aprovação posterior dos ataques e da oclusão também foi registrada no manifesto e nos status dos clips, sem alterar duração, sprites, mãos ou visual.
