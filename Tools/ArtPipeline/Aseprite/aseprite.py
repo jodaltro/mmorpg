@@ -31,16 +31,33 @@ def run(*args):
         raise RuntimeError(result.stdout + result.stderr)
     return result.stdout.strip()
 
-def export(source, output):
+def parse_canvas(value):
+    try:
+        width, height = map(int, value.lower().split('x'))
+        if width < 1 or height < 1:
+            raise ValueError('dimensions must be positive')
+        return width, height
+    except (TypeError, ValueError) as error:
+        raise argparse.ArgumentTypeError('Use --canvas WIDTHxHEIGHT, for example 128x160') from error
+
+
+def inspect(source):
+    source = Path(source).resolve()
+    if not source.is_file():
+        raise FileNotFoundError(source)
+    return run('-b', source, '--script', HERE/'inspect_document.lua')
+
+
+def export(source, output, canvas=(96,96)):
     source = Path(source).resolve()
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     run('-b', source, '--save-as', output/'frame_{frame000}.png')
     run('-b', '--list-layers', '--list-tags', source, '--sheet-type', 'horizontal', '--sheet', output/'sheet.png', '--format', 'json-array', '--data', output/'frames.json')
     run('-b', source, '--save-as', output/'preview.gif')
-    return verify(output)
+    return verify(output, canvas=canvas)
 
-def verify(output):
+def verify(output, canvas=(96,96)):
     output = Path(output)
     data = json.loads((output/'frames.json').read_text())
     frames = sorted(output.glob('frame_*.png'))
@@ -48,15 +65,17 @@ def verify(output):
     hashes = []
     for path, meta in zip(frames, data['frames']):
         with Image.open(path) as im:
-            assert im.mode == 'RGBA' and im.size == (96,96), (path, im.mode, im.size)
-            assert im.getextrema()[3] == (0,255), path
+            assert im.mode == 'RGBA' and im.size == canvas, (path, im.mode, im.size, canvas)
+            if canvas == (96,96):
+                assert im.getextrema()[3] == (0,255), path  # historical walk-lab gate
             assert meta['duration'] > 0
             hashes.append(hashlib.sha256(im.tobytes()).hexdigest())
     with Image.open(output/'sheet.png') as sheet:
-        assert sheet.size == (96*len(frames),96)
+        assert sheet.size == (canvas[0]*len(frames),canvas[1])
     with Image.open(output/'preview.gif') as gif:
         assert gif.n_frames == len(frames)
-    report = dict(frames=len(frames), unique=len(set(hashes)), canvas=[96,96], rgba=True, transparent=True, hashes=hashes)
+    report = dict(frames=len(frames), unique=len(set(hashes)), canvas=list(canvas), rgba=True,
+                  transparent=True, hashes=hashes)
     (output/'qa.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
 
@@ -79,9 +98,10 @@ def validate():
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('operation', choices=['locate','validate','lab','export','verify'])
+    p.add_argument('operation', choices=['locate','validate','lab','export','verify','inspect'])
     p.add_argument('--source', type=Path)
     p.add_argument('--output', type=Path)
+    p.add_argument('--canvas', type=parse_canvas, default=(96,96), help='frame canvas WIDTHxHEIGHT (default 96x96; use 128x160 for Quaternius)')
     a = p.parse_args()
     if a.operation == 'locate': print(executable())
     elif a.operation == 'validate': print(json.dumps(validate(),indent=2))
@@ -93,7 +113,10 @@ if __name__ == '__main__':
         print(run('-b','--script-param',f'output={a.output}','--script',HERE/'walk_lab.lua'))
     elif a.operation == 'export':
         if not a.source or not a.output: p.error('--source and --output required')
-        print(json.dumps(export(a.source,a.output),indent=2))
+        print(json.dumps(export(a.source,a.output,canvas=a.canvas),indent=2))
+    elif a.operation == 'inspect':
+        if not a.source: p.error('--source required')
+        print(inspect(a.source))
     else:
         if not a.output: p.error('--output required')
-        print(json.dumps(verify(a.output),indent=2))
+        print(json.dumps(verify(a.output,canvas=a.canvas),indent=2))
