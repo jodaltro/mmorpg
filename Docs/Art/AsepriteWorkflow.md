@@ -1,5 +1,22 @@
 # Aseprite local — configuração e laboratório
 
+## Diretriz atual — 17/10/2026
+
+A skill `.agents/skills/aseprite-pixel-art/SKILL.md` foi atualizada para uso pelo DeepSeek Harness **sem plugin Aseprite adicional**. O wrapper local suporta `inspect --source <arquivo.aseprite>` (inspeção somente leitura e sem exigência de canvas 96×96), além de `export/verify --canvas WIDTHxHEIGHT` para laboratórios com canvas diferente. `validate` continua testando o laboratório 96×96 histórico.
+
+**Não extrapolar os exemplos antigos 96×96 ao protagonista atual.** A cena oficial usa Quaternius R8 (caminhada/estados tipicamente 128×160, morte 256×224) e o cenário R10 tem editável e sprite de 1536×800. Consultar `Docs/Art/HumanoidStandard.md`, `Docs/Validation/Marco06B13R10Consolidado.md` e a própria skill antes de exportar/importar. `ProductionArt06B4.Import` é um importador legado, **não** o importador padrão de Quaternius.
+
+Para um smoke test local que não grava nenhum asset:
+
+```powershell
+python Tools/ArtPipeline/Aseprite/aseprite.py locate
+python Tools/ArtPipeline/Aseprite/aseprite.py validate
+python Tools/ArtPipeline/Aseprite/aseprite.py inspect --source "ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite"
+```
+
+O funcionamento desses comandos na máquina do usuário precisa ser confirmado: a atualização pelo GitHub não executou o Aseprite/Unity local.
+
+
 Configuração validada em 15/10/2026. Executável encontrado: `D:\Aseprite\Aseprite.exe`, versão **1.3.18.6-x64**. ASEPRITE_EXE e PATH não estavam configurados. Nenhum executável, licença ou configuração privada foi copiado para o projeto. Sem geração externa ou chamadas pagas.
 
 A skill do repositório está em `.agents/skills/aseprite-pixel-art/SKILL.md`, com frontmatter `name`/`description` e descoberta automática padrão. Em uma nova sessão aberta em `D:\unity\Mmorpg`, invoque `$aseprite-pixel-art` ou peça um trabalho de pixel art no Aseprite. AGENTS.md também aponta para o arquivo. A descoberta em uma nova sessão não pode ser exercitada dentro desta sessão já aberta.
