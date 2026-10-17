@@ -1,0 +1,421 @@
+{
+  "schema": "valdoria-environment-kit/v2",
+  "status": "experimental-integrated-for-gameplay-review",
+  "source": "Aseprite-cleaned LLM concept reference; original concept stays separate and Aseprite source remains editable",
+  "artSource": "ArtSource/Labs/World2026/R10/Aseprite/valdoria-llm-detail-clean.aseprite",
+  "conceptReference": "ArtSource/References/Generated/ValdoriaVillageR10-Detail-LLM.png",
+  "license": "generated locally for this project; no external source asset",
+  "pixelsPerUnit": 32,
+  "filter": "Point",
+  "assets": [
+    {
+      "id": "village-panorama",
+      "file": "village-panorama.png",
+      "sourceCrop": [
+        0,
+        0,
+        990,
+        690
+      ],
+      "canvas": [
+        990,
+        690
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.5
+      ],
+      "sha256": "28052b71e197074cdd496f0e3bb7ee716ce46292edbc96dfcccc2a78695bd04b",
+      "description": "continuous village-edge grass, stone path and winding stream composition"
+    },
+    {
+      "id": "oak-full",
+      "file": "oak-full.png",
+      "sourceCrop": [
+        478,
+        0,
+        338,
+        360
+      ],
+      "canvas": [
+        338,
+        360
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.06
+      ],
+      "sha256": "ee2dd11fd6361d4494faaa68f021d16b65d29bb8ec7cbb80ef34775d7fbd7331",
+      "description": "large oak canopy, trunk and root silhouette"
+    },
+    {
+      "id": "oak-bare",
+      "file": "oak-bare.png",
+      "sourceCrop": [
+        816,
+        155,
+        188,
+        242
+      ],
+      "canvas": [
+        188,
+        242
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.05
+      ],
+      "sha256": "dc90da6da0646ee5b64dcf8b7319bb08a0250b7e958fe52b30b629d538d7be7d",
+      "description": "separate bare oak trunk with roots"
+    },
+    {
+      "id": "cottage-roof",
+      "file": "cottage-roof.png",
+      "sourceCrop": [
+        972,
+        0,
+        482,
+        397
+      ],
+      "canvas": [
+        482,
+        397
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.05
+      ],
+      "sha256": "418fee2266599ea883b0946687cedee00d57be69213ae9896d0b632b242547d5",
+      "description": "large thatch roof with dormer, separate roof layer"
+    },
+    {
+      "id": "cottage-front",
+      "file": "cottage-front.png",
+      "sourceCrop": [
+        996,
+        274,
+        379,
+        386
+      ],
+      "canvas": [
+        379,
+        386
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "f2f232b709e8a6d380ad4c3b251684b17a2b700ccb4db12e1d77b43b1edb4318",
+      "description": "stone and timber cottage facade, entry, steps and window box"
+    },
+    {
+      "id": "cottage-side",
+      "file": "cottage-side.png",
+      "sourceCrop": [
+        1368,
+        287,
+        168,
+        230
+      ],
+      "canvas": [
+        168,
+        230
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "2873a31a41bf1b4956ff6b4a217d8d7beb4107ab68f30797ec4a2704d110186f",
+      "description": "small gabled cottage front"
+    },
+    {
+      "id": "footbridge",
+      "file": "footbridge.png",
+      "sourceCrop": [
+        0,
+        660,
+        488,
+        356
+      ],
+      "canvas": [
+        488,
+        356
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.05
+      ],
+      "sha256": "ada4166d1bb769eb9a37e76793983b149e2e368e54ad27b5b79d73e3906734c4",
+      "description": "timber bridge with stone landing and water"
+    },
+    {
+      "id": "village-well",
+      "file": "village-well.png",
+      "sourceCrop": [
+        488,
+        735,
+        234,
+        289
+      ],
+      "canvas": [
+        234,
+        289
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "aff1965a05ef71300fe23fa2c9f7e7a8bebad81d1b8a7406b334e76746b8cdf4",
+      "description": "stone well, canopy, winch and buckets"
+    },
+    {
+      "id": "market-cart",
+      "file": "market-cart.png",
+      "sourceCrop": [
+        696,
+        755,
+        287,
+        269
+      ],
+      "canvas": [
+        287,
+        269
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "4d500c723e2dce02b8c50c7485ecb191d8eeda530a7e155b86430dfb033d75d9",
+      "description": "loaded timber market wagon"
+    },
+    {
+      "id": "berry-garden",
+      "file": "berry-garden.png",
+      "sourceCrop": [
+        972,
+        410,
+        210,
+        225
+      ],
+      "canvas": [
+        210,
+        225
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "e0ddf60d46c7d77d6bc9b3bbc6d05c750ee9eec9185fa49f01b91dca2430192d",
+      "description": "flowering berry bush"
+    },
+    {
+      "id": "flowers-blue-white",
+      "file": "flowers-blue-white.png",
+      "sourceCrop": [
+        872,
+        453,
+        192,
+        211
+      ],
+      "canvas": [
+        192,
+        211
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "213b5877a0ac5847261d255854c70993cd971240d1d9eb1fb7e56b614b2dc84a",
+      "description": "mixed white and blue wildflower clump"
+    },
+    {
+      "id": "flowers-gold-purple",
+      "file": "flowers-gold-purple.png",
+      "sourceCrop": [
+        804,
+        539,
+        194,
+        215
+      ],
+      "canvas": [
+        194,
+        215
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "5ee96c0b74daaafdde5bd1a0bd5f021c82aa62b7b8ec4b40756964be4d5b3c1a",
+      "description": "gold and purple tall flowers"
+    },
+    {
+      "id": "moss-boulders",
+      "file": "moss-boulders.png",
+      "sourceCrop": [
+        1150,
+        543,
+        155,
+        148
+      ],
+      "canvas": [
+        155,
+        148
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "09346d68f99283df35a08f69b213d009de3bdc0a1f28c4eb440858ef39c8fa83",
+      "description": "moss-covered stone clusters"
+    },
+    {
+      "id": "timber-fence",
+      "file": "timber-fence.png",
+      "sourceCrop": [
+        1012,
+        787,
+        214,
+        237
+      ],
+      "canvas": [
+        214,
+        237
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "3ce21d0c7f2ebf8098edf66d9cc7f9635ca1bbfc2c2b333be52aaa7e6e95e3aa",
+      "description": "flowered timber fence module"
+    },
+    {
+      "id": "village-bench",
+      "file": "village-bench.png",
+      "sourceCrop": [
+        1197,
+        832,
+        168,
+        192
+      ],
+      "canvas": [
+        168,
+        192
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "1f7a35a20228100274789facb075687f201b22371ca0c4cd00c0886d82262238",
+      "description": "detailed timber bench"
+    },
+    {
+      "id": "village-sign",
+      "file": "village-sign.png",
+      "sourceCrop": [
+        1275,
+        711,
+        145,
+        226
+      ],
+      "canvas": [
+        145,
+        226
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "15a22a04859faf070edd53da176ff0e7d0a74795d47df594382f5d7ae0402ca8",
+      "description": "painted wooden wayfinding sign"
+    },
+    {
+      "id": "lantern-post",
+      "file": "lantern-post.png",
+      "sourceCrop": [
+        1415,
+        710,
+        121,
+        232
+      ],
+      "canvas": [
+        121,
+        232
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "316ad57dec49e5a4f7c7a9742d5950fc95b54f03ec1b0357a88ca59418afc9e3",
+      "description": "warm amber hanging lantern"
+    },
+    {
+      "id": "stone-chimney",
+      "file": "stone-chimney.png",
+      "sourceCrop": [
+        1438,
+        100,
+        98,
+        233
+      ],
+      "canvas": [
+        98,
+        233
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.04
+      ],
+      "sha256": "67aaa682bb45db4a3d71f505c27760c39a004c843e4755de3cd408e4091d3150",
+      "description": "masonry chimney prop"
+    },
+    {
+      "id": "cottage-full",
+      "file": "cottage-full.png",
+      "sourceCrop": [
+        972,
+        0,
+        472,
+        650
+      ],
+      "canvas": [
+        472,
+        650
+      ],
+      "ppu": 32,
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.03
+      ],
+      "sha256": "41989e2a4b72b4e1ee0f89a16c0d5f29ebd9b78d1a89f38376c67dd64c139756",
+      "description": "complete cottage composition including thatched roof, stone facade and doorway"
+    }
+  ],
+  "backdropSource": "ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite",
+  "backdropRect": [
+    0,
+    0,
+    1536,
+    800
+  ],
+  "backdropSha256": "98d5e85899b9af23b793943bb46981377289f82cbb12bb492e4b5095e4a19f38",
+  "rebuildScript": "Tools/ArtPipeline/World/rebuild_valdoria_r10.py",
+  "note": "backdropSource is the real parent of village-scene-v3.png: its top 1536x800 rows are pixel-identical to the published backdrop. artSource feeds only the isolated props cropped by crop_valdoria_llm_aseprite.py. Verify with rebuild_valdoria_r10.py --verify."
+}
