@@ -1,5 +1,9 @@
 # Novo padrão humanoide — pesquisa e prova de escala
 
+## Diretriz atual de proporção — 17/10/2026
+
+Usar o poço como referência para calibrar o protagonista Quaternius dentro do cenário detalhado. Estado atual: grupo visual 1.25, mapa 1.74 e câmera ortográfica 7.03125. NPCs temporariamente desativados até acertar essa proporção; escala ainda sem aprovação final. [Relatório consolidado de implementação, diretrizes e limites](../Validation/Marco06B13R10Consolidado.md). Os checkpoints abaixo são históricos e não substituem essa configuração atual.
+
 ## Atualização de produção — 2026-10-17
 
 O CharacterSet Quaternius R8 foi promovido ao `Player` da cena oficial `MmorpgWorld`. A cena manteve o mesmo ator e suas dependências de gameplay, e o Iron Knight deixou de ser o personagem ativo. A cópia Unity pronta para produção está em `Assets/Mmorpg/Art/Production/ValdoriaProtagonist/`; a fonte CC0 e sua proveniência permanecem em `ArtSource/Labs/Humanoid2026/`. Esta é uma promoção técnica do conjunto, não aprovação artística geral de todos os estados de combate. Os outros humanoides/NPCs ainda não foram migrados. [Relatório e QA R10](../Validation/ValdoriaProductionR10.md).
