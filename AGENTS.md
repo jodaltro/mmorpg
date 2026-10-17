@@ -23,6 +23,16 @@ Isto **revoga** as restrições anteriores de preservação e de compatibilidade
 - **Commit e push das alterações pertinentes para `main`, informando o SHA.** Se houver impedimento, informar sem alegar sucesso.
 - **Autorização destrutiva não é aprovação artística.** Aprovação estética continua exigindo feedback explícito do usuário.
 
+## Prioridade artística atual — Valdoria World Studio (17/10/2026)
+
+**Nova decisão do usuário:** a trajetória de reconstruir o cenário a partir de um panorama R10 por recortes, silhuetas e colliders manuais **não é a direção desejada**. A prioridade passa a ser um sistema de **agentes/skills especializados em autoria ambiental com IA e geradores procedurais reproduzíveis**: terreno/relevo, materiais, água/hidrologia, clima, arquitetura, vegetação e estruturas (pedras, muros, cercas). O panorama R10 pode servir como referência artística, **não** como mapa canônico de geometria.
+
+- **Primeiro especialista implementado:** `.agents/skills/terrain-generation/SKILL.md` (Terrain Agent) e `Tools/ArtPipeline/WorldGen/terrain_agent.py`; contrato `Docs/WorldGen/WorldRegionContract.md`. É uma skill carregável no Codex com gerador semântico Python. Não afirmar subagentes executáveis, integração Unity ou textura de produção já existentes.
+- O Terrain Agent gera `WorldRegion`, elevação, inclinação, umidade, classes de solo, rotas/zonas planas, candidatos a água, patches de edição local e imagens de diagnóstico. **Essas imagens não são arte final.** As próximas etapas precisam de Material Agent/Aseprite, Water Agent, World Builder Unity e QA visual.
+- Priorizar **mundo -> topografia/semântica -> materiais e objetos -> arte -> colisão/oclusão -> QA Unity**, em vez de interpretar pixels do panorama como altura/obstáculos.
+- A implementação inicial produz artefatos em diretório novo sob `Temp/WorldGen/` e não altera `MmorpgWorld.unity`. Antes de promover novo mundo à cena principal, demonstrar acabamento pixel art à altura do Quaternius, navegação, escala, performance e evidências reais no Unity Editor.
+- As seções e relatórios R10/Fase 2 abaixo são **estado histórico** e não ordens para continuar seu método visual. A autorização de reconstrução destrutiva e as restrições de segurança/licença continuam válidas.
+
 ## Prioridade atual — integração de Valdoria
 
 1. **Consolidar Quaternius como único protagonista principal.**
