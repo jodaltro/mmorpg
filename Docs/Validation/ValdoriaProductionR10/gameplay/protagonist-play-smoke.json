@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scene": "Assets/Mmorpg/Scenes/MmorpgWorld.unity",
+  "character": "body-f4b5619d",
+  "walkSprite": "pose_112",
+  "movementState": "walk",
+  "returnState": "idle",
+  "displacement": 0.778,
+  "startPosition": "(-8.00, -1.00)",
+  "endPosition": "(-7.86, -1.00)",
+  "frameAdvanced": true,
+  "profileIsolated": true,
+  "missionAndCombatComponentsPreserved": true
+}

@@ -1,6 +1,10 @@
 # Novo padrão humanoide — pesquisa e prova de escala
 
-16/10/2026. **Caminhada do jogador aprovada; base Quaternius escolhida para continuidade. Migração de produção ainda não executada.**
+## Atualização de produção — 2026-10-17
+
+O CharacterSet Quaternius R8 foi promovido ao `Player` da cena oficial `MmorpgWorld`. A cena manteve o mesmo ator e suas dependências de gameplay, e o Iron Knight deixou de ser o personagem ativo. A cópia Unity pronta para produção está em `Assets/Mmorpg/Art/Production/ValdoriaProtagonist/`; a fonte CC0 e sua proveniência permanecem em `ArtSource/Labs/Humanoid2026/`. Esta é uma promoção técnica do conjunto, não aprovação artística geral de todos os estados de combate. Os outros humanoides/NPCs ainda não foram migrados. [Relatório e QA R10](../Validation/ValdoriaProductionR10.md).
+
+16/10/2026. Caminhada do jogador aprovada; base Quaternius escolhida para continuidade. Promoção técnica do protagonista documentada em 17/10/2026 abaixo.
 
 [Aprovação, versão de referência e pendências](../Validation/HumanoidWalkApproval2026.md). A aprovação refere-se à caminhada testada após a correção lateral; roupas, combate e identidade final ainda precisam de aprimoramento.
 
@@ -8,7 +12,7 @@
 
 Durante o R4, o usuário considerou as roupas simples demais e depois pediu para priorizar corpos maiores, com proporções mais humanas. Determinou que a futura base seja padrão para **todos os humanoides, incluindo o protagonista**. Autorizou ampliar/retrabalhar o cenário em função dessa escala, mantendo pixel art com aparência mais moderna. Portanto, o mapa atual e a altura histórica de aproximadamente 48 px deixam de ser limites para a pesquisa.
 
-Essa orientação amplia o R4 original. A versão pequena de Mira/Orin permanece como laboratório técnico; não recebe aprovação artística por passar nos testes. A aparência e os arquivos do Iron Knight oficial continuam intactos até existir uma substituição validada. A mudança de direção autorizou estudar sua substituição. Posteriormente, o usuário aprovou a caminhada da base Quaternius masculina e escolheu continuar com esse modelo; a substituição final de produção permanece pendente.
+Essa orientação amplia o R4 original. A versão pequena de Mira/Orin permanece como laboratório técnico; não recebe aprovação artística por passar nos testes. A aparência e os arquivos do Iron Knight oficial permanecem intactos como referência histórica. Posteriormente, o usuário aprovou a caminhada da base Quaternius masculina e escolheu continuar com esse modelo; ele foi promovido ao slot do protagonista em 17/10/2026, conforme a atualização de produção acima.
 
 ## Candidato principal: família Quaternius
 
@@ -68,7 +72,7 @@ O padrão futuro deve definir, depois da prova visual: anatomia da família, res
 
 A primeira prova já dobra aproximadamente a altura disponível para detalhe. O valor final de PPU, resolução lógica da câmera e dimensões de portas/telhados/árvores ainda precisa de comparação no mundo. Não está decidido como um simples zoom ou aumento de escala de um sprite pequeno. O usuário autoriza aumentar e retrabalhar o cenário; não há migração global executada neste checkpoint.
 
-Para migrar o protagonista será necessário preparar todo o conjunto de movimentos/estados exigido, validar empunhadura, espada, acertos, colisões e autoridade existentes e repetir QA de interação/save. Novos visuais não autorizam alterações em missões/progressão, nem perda de identidade ou dos dados pessoais. O checkpoint inicial foi realizado fora de Assets. A prova posterior dentro da Unity está registrada em [HumanoidScale2026](../Validation/HumanoidScale2026.md), sem migração de produção.
+Para migrar o protagonista será necessário preparar todo o conjunto de movimentos/estados exigido, validar empunhadura, espada, acertos, colisões e autoridade existentes e repetir QA de interação/save. Novos visuais não autorizam alterações em missões/progressão, nem perda de identidade ou dos dados pessoais. O checkpoint inicial foi realizado fora de Assets. A prova inicial dentro da Unity está registrada em [HumanoidScale2026](../Validation/HumanoidScale2026.md); a promoção posterior está registrada em [ValdoriaProductionR10](../Validation/ValdoriaProductionR10.md).
 
 ## Proveniência e reprodução
 

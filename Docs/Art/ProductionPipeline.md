@@ -1,8 +1,12 @@
 # Pipeline de produção — 06B.4
 
+## Atualização de protagonista e cenário — R10
+
+`MmorpgWorld` segue como entrada de build e agora usa a cópia de produção do Quaternius R8 no `Player`. O Iron Knight não está mais vinculado ao protagonista ativo; sua pasta permanece como material histórico. A arte ambiental detalhada está integrada como backdrop visual, sem colisão. [Estrutura, proveniência e limites](HumanoidStandard.md) e [QA da promoção R10](../Validation/ValdoriaProductionR10.md). A promoção de apresentação não altera autoridade, combate, missões nem save pessoal.
+
 ## Nova direção de escala humana — pesquisa 2026
 
-O usuário autorizou estudar uma família maior para todos os humanoides, inclusive protagonista, com cenário adaptável e aparência moderna em pixel art. [Padrão em avaliação e provas](HumanoidStandard.md). A família Quaternius CC0 tem fontes e previews editáveis e uma [prova experimental dentro de Valdoria](../Validation/HumanoidScale2026.md); não foi promovida a produção. A cena R4 pequena tem [QA próprio](../Validation/Marco06B13R4.md). Manter separados validação técnica, avaliação artística e futura migração de produção.
+O usuário autorizou estudar uma família maior para todos os humanoides, inclusive protagonista, com cenário adaptável e aparência moderna em pixel art. [Padrão em avaliação e provas](HumanoidStandard.md). A família Quaternius CC0 tem fontes e previews editáveis, uma [prova inicial dentro de Valdoria](../Validation/HumanoidScale2026.md) e a [promoção técnica do protagonista R10](../Validation/ValdoriaProductionR10.md). A cena R4 pequena tem [QA próprio](../Validation/Marco06B13R4.md). Manter separados validação técnica, avaliação artística e futura migração de produção.
 
 ## Vestuário procedural de NPCs — extensão 06B.13 R2/R3
 
