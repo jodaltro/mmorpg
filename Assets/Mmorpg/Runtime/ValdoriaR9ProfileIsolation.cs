@@ -8,11 +8,16 @@ namespace Mmorpg.Runtime
     {
         private string previous;
         private string assigned;
+        [SerializeField] private string profileSubdirectory = "ValdoriaEnvironmentR9/IsolatedProfile";
+        public void ConfigureTemporaryProfile(string subdirectory) => profileSubdirectory = subdirectory;
 
         private void Awake()
         {
             previous = LocalJourneyProfile.ValidationRootOverride;
-            assigned = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Temp/ValdoriaEnvironmentR9/IsolatedProfile"));
+            string temp = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Temp")) + Path.DirectorySeparatorChar;
+            assigned = Path.GetFullPath(Path.Combine(temp, profileSubdirectory));
+            if (!assigned.StartsWith(temp, System.StringComparison.OrdinalIgnoreCase))
+                throw new System.InvalidOperationException("Validation profiles must remain inside the project Temp directory.");
             Directory.CreateDirectory(assigned);
             LocalJourneyProfile.ValidationRootOverride = assigned;
         }

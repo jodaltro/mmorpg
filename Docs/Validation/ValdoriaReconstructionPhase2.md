@@ -1,139 +1,123 @@
-# Reconstrução Valdoria — Fase 2: protagonista canônico e mundo modular
+# Valdoria — reconstrução Fase 2
 
-Data: 17/10/2026 · Branch: main · Unity 6000.6.5f1 · Baseline e10007a
+17/10/2026 · Unity 6000.6.5f1 · branch `main` · baseline `e10007a`.
 
-## 1. Prefab Quaternius canônico
+**Entrega: área-piloto funcional candidata. Aprovação artística pendente.** A composição v3 permanece como fundo; o mundo ainda não é um conjunto de módulos independentes com chão reconstruído sob os objetos. Não foram implementados outros biomas, interiores ou geração a cada Play.
 
-Assets/Mmorpg/Art/Production/IronKnight/PlayerVisual.prefab -> Assets/Mmorpg/Art/Production/ValdoriaProtagonist/PlayerVisual.prefab
+## Protagonista e remoção do legado
 
-Movido com AssetDatabase.MoveAsset, preservando o GUID 11c15445266e03141a9f8ec3d3f3d0db e as **164 referências** em 9 cenas. O Git registrou como rename de 99%. Verificado ao vivo em MmorpgWorld:
+O commit `3db0124` moveu, pelo AssetDatabase, `IronKnight/PlayerVisual.prefab` para `Assets/Mmorpg/Art/Production/ValdoriaProtagonist/PlayerVisual.prefab`. GUID preservado: `11c15445266e03141a9f8ec3d3f3d0db`. Default: `ValdoriaProtagonist.asset`, 64 clips, 528 frames. Corpo, espada separada, máscaras procedurais dos dedos, sombra, Rigidbody2D e collider existentes foram mantidos. A raiz física continua em escala 1 e VisualRoot em 1,25 na cena oficial.
 
-| Propriedade | Valor |
+A auditoria do commit removeu as duas cenas Wardrobe do Build Settings, consumidores de vestuário obsoletos, seis ferramentas Iron Knight B9–B12 e assets IronKnight sem consumidores. O manifesto de autoria/licença em ArtSource foi preservado. `MmorpgWorld.unity` permanece a primeira cena habilitada. Não há mais necessidade de prefab sob caminho IronKnight.
+
+## Biblioteca e reprodução
+
+O commit `b2190c7` consolidou os 19 módulos R10Llm, manifesto e metas. Nesta continuação, `rebuild_valdoria_r10.py --verify` efetivamente reconstruiu **todos os 19**, conferiu hashes publicados e comparou os pixels com a biblioteca. Reconstruiu também o backdrop da biblioteca e o de produção: ambos idênticos ao topo 1536×800 da fonte Aseprite 1536×1024 `valdoria-village-detail-v3.aseprite`.
+
+A fonte dos módulos é o documento irmão `valdoria-llm-detail-clean.aseprite`; os módulos não são recortes do panorama v3. Essa diferença explica, por exemplo, casa modular de palha versus casa de telhas azuis do mundo. Não se deve sobrepô-las.
+
+O comparador foi corrigido: diferenças RGB não podem desaparecer quando o delta de alfa é zero. Um caso de regressão com RGB diferente e mesmo alfa foi executado e rejeitado corretamente. A ferramenta histórica de crop agora recusa uma biblioteca publicada existente. Exportações novas recusam destinos existentes.
+
+[Relatório dos 19 módulos e backdrops](ValdoriaReconstructionPhase2/library-rebuild.json).
+
+## Blueprint e construção
+
+[Receita editável](../Art/ValdoriaWorldBlueprint.json), schema v2: ID, tipo, posição/âncora em pixel do backdrop, pivô, tamanho aparente, variante, seed e footprint. O builder `AgentScripts/BuildValdoriaPhase2.cs` projeta essas coordenadas pelo Transform e pivô reais do SpriteRenderer, sem fórmulas históricas aproximadas.
+
+O root `ValdoriaPilotArea` contém poço, casa, árvore, cerca, caminho e jardim. A receita não extrai colisão de pixels escuros. `PolygonCollider2D` usa os footprints de autoria; cobertura/copa não criam bloqueios físicos.
+
+Antes de substituir o root antigo, a auditoria dos 23 IDs de cena encontrou somente o consumidor SceneRoots, sem consumidores externos. A árvore do piloto anterior estava sobre o caminho. A casa tinha um telhado de palha sobre a composição azul e âncora nula. Esses elementos foram substituídos pela descrição coerente da composição.
+
+Também foram desativados cinco objetos de cenário legados (`TreeEast` e quatro `Árvore cinzenta`), com somente Transform/SpriteRenderer/BoxCollider2D, que introduziam obstáculos na área nova. O dressing `Art06B3Details` foi desativado. Recursos e narrativa existentes não foram removidos. O maze SolidBoundaries já havia sido desativado pelo commit `b755bb4`.
+
+## Física e profundidade
+
+- **Poço:** footprint irregular somente na base de pedra/barril, sem bloquear a cobertura.
+- **Casa:** polígono da base/paredes projetadas, incluindo fachada fechada. Não há portal falso para um interior inexistente. Porta desenhada permanece pequena em relação ao personagem, com revisão artística pendente.
+- **Carvalho:** base/raízes sem collider da copa. A posição foi alinhada ao carvalho real da imagem.
+- **Cerca:** polígono estreito seguindo o segmento diagonal desenhado, com rota livre ao sul.
+- **Caminho/jardim:** sem collider próprio.
+
+`WorldArtSorting`, já existente, ordena as silhuetas pela âncora de chão. Um SortingGroup no VisualRoot mantém corpo, espada, dedos e sombra juntos perante objetos externos; `ProductionVisualSync` transmite a ordem do proxy ao grupo. Não foi mantido outro sistema paralelo de depth.
+
+Três silhuetas RGBA foram produzidas pelo **Aseprite local 1.3.18.6**, mediante polígonos de autoria, sem recorte retangular. A fonte editável está em `ArtSource/Labs/World2026/Phase2/valdoria-depth.aseprite`. `rebuild_valdoria_depth.py --output <pasta-nova> --verify` as reconstruiu em um segundo diretório, com pixels idênticos.
+
+**Limite:** são camadas contextuais alinhadas à composição, com fundo ainda baked. Os contornos não são uma extração artística final; chão sob os objetos e módulos independentes continuam pendentes. Não houve geração de imagem nova.
+
+## Pés, sombra e câmera
+
+O pivô importado (64,34), equivalente a (64,126) em origem superior esquerda, não coincide com a extremidade opaca das botas R8. Medição dos oito idle: final do conteúdo entre y138 e y149, isto é, 12–23 px abaixo do pivô. Foi aplicado **offset de apresentação de 18/32 unidades locais no BodySprite**, com sombra no chão da raiz e sorting pela raiz. Escala física não foi alterada. Essa compensação deixa diferenças por direção de até aproximadamente 0,23 u e precisa de revisão artística, especialmente em esquiva/morte.
+
+Câmera mantida em **7,03125**, follow ativo, viewport `(0,0,1,1)`. PixelPerfectCamera e AdaptivePixelViewport permanecem desativados na câmera oficial; não se afirma pixel perfect inteiro.
+
+## Empunhadura e contrato de unidades
+
+`ProductionFrame.hand` já é local Unity: importadores R8 calculam `((handX-64)/32, (126-handY)/32)`. `SwordSwing.Grip()` aplica TransformPoint no BodySprite corretamente. **Não dividir por 32 de novo.** Isso corrige a interpretação registrada na Fase 1: a remoção da origem LegacyGrip era necessária para separar física e arte, mas os dados de mão não eram pixels crus.
+
+Metadados das oito direções foram inspecionados. O offset de apresentação move mão, corpo e lâmina juntos; os sprites e máscaras aprovados não foram regenerados. Guarda mais avançada, inclinação menos reta e revisão anatômica continuam pendentes. Não foi promovida uma pose nova.
+
+O Sweep permanece exclusivamente em `Rigidbody2D.position`, com dano básico 20, pesado 36, arco/alcance/cooldowns originais. Nenhuma geometria de dano foi alterada.
+
+## QA real e limites dos probes
+
+Editor conectado e cena oficial confirmados, recompile concluído sem erros. O Editor sofreu timeouts/“Hold on”; foi reiniciado e recuperado pelo launcher `unity open`. Backend final novamente DX12. Erros de requisição Pipeline durante recuperação são de infraestrutura.
+
+Os primeiros probes tinham problemas próprios: alvo sintético sem SpriteRenderer; referência destruída após F5; reutilização de perfil temporário contendo morte. Não foram tratados como defeitos do jogo nem como aprovação. O isolamento foi parametrizado dentro de `Temp/`, com recusa de caminhos que escapem dessa pasta. A execução final usa diretório novo e conserva o objeto de isolamento durante F5.
+
+O QA movimenta por Input System real com dispositivos sintéticos. Os oito golpes direcionais usam a autoridade offline real; o pesado usa o botão direito do mouse. Teleportes são somente setup entre casos. Inimigos autônomos são suspensos durante a fixture de geometria e restaurados; circulação contínua dentro de cada percurso usa teclas reais do Input System.
+
+Capturas dos GIFs vêm da câmera **em Play real**, renderizada em RenderTexture depois de avançar frames. Não são capturas Blender/Aseprite. Capturas Game View com HUD são identificadas separadamente. Teste técnico não equivale à aprovação artística.
+
+## Artefatos e pendências
+
+A pasta de evidências conserva resultados compactos, capturas selecionadas e GIFs; frames intermediários e perfis não são versionados. Resíduos locais preexistentes (`test.aseprite`, duplicatas de capturas em Assets/Docs e ValdoriaR10.meta) permanecem fora dos commits.
+
+Pendências artísticas: contorno fino das silhuetas, reconstrução modular independente do fundo, proporção da porta, variação do contato das botas por direção, guarda da espada e substituição dos pequenos recursos/NPCs antigos ainda visíveis. A área-piloto não deve ser apresentada como acabamento definitivo.
+
+## Resultados finais registrados
+
+[QA sobre a cena salva e recarregada](ValdoriaReconstructionPhase2/qa.json): **26/26 verificações, 9.021 frames avançados, sem exceção no probe final**.
+
+| Verificação | Resultado |
 |---|---|
-| VisualRoot prefab source | ValdoriaProtagonist/PlayerVisual.prefab |
-| VisualRoot escala | **(1.25, 1.25, 1.25)** — preservada |
-| ProductionVisualDefinition.character | **ValdoriaProtagonist** (64 clips) |
-| body / weaponPivot | BodySprite / WeaponPivot |
+| WASD, diagonal, parada/idle | Passaram; direção diagonal 7 |
+| Esquiva via Input System | Estado dodge confirmado |
+| Básico, oito direções | 8/8, exatamente 20; delta da origem física 0 |
+| Pesado via botão direito | Exatamente 36 |
+| Fora de alcance / parede | 0 / 0 |
+| Poço | Contato com seu collider; distância -0,00261 u (tolerância do solver) |
+| Casa | Contato com seu collider; distância -0,00500 u |
+| Cerca | Passagem ao sul, 5,82 u percorridas |
+| Árvore, atrás / à frente | Grupo do ator -132 / -36, árvore -84 |
+| Câmera | 7,03125; viewport completo |
+| Morte e F5 | death confirmado; F5 recarregou vivo com 100 HP |
 
-O default do prefab apontava para IronKnight.asset — era a última razão pela qual o personagem histórico continuava load-bearing.
+[Probe adicional em perfil novo](ValdoriaReconstructionPhase2/single-hit.json): **J pelo Input System, um único HitConfirmed, 20 de dano, dano recebido durante esquiva = 0**. O alvo usa trigger para não empurrar o ator durante a preparação da fixture. Tentativas anteriores do probe adicional usaram um ator que já havia morrido enquanto o jogo continuava rodando e um alvo sólido que alterava a distância; não foram promovidas como resultado válido.
 
-## 2. Assets Iron Knight removidos
+Console após cursor 47: nenhum erro novo. As 18 entradas anteriores eram das fixtures sem SpriteRenderer; os timeouts Pipeline pertencem às sessões anteriores do Editor. Após a limpeza/recompile, os avisos CS0618 em testes existentes reapareceram; compilação sem erros. O grupo foi confirmado para corpo, espada, dedos e sombra depois de reabrir a cena.
 
-Removidos (154 arquivos, -168.718 linhas):
-- Cenas Marco06B13R3Wardrobe e Marco06B13R4NpcWardrobe, e do Build Settings (MmorpgWorld mantida em primeiro);
-- AgentScripts/BuildGarmentLab*, InspectGarmentLab*;
-- AgentScripts/IronKnight06B9, InspectIronKnight06B9/10/11, InspectOfficialHero06B12, PromoteIronKnight06B12;
-- Assets/Mmorpg/Art/Production/IronKnight/ e Experimental/IronKnightB9-B11.
+Play foi parado, dispositivos sintéticos removidos, teclado/mouse e backgroundBehavior originais restaurados, timeScale 1, override de perfil nulo, câmera e cena oficiais sem objetos temporários. Autotick já estava habilitado no preflight e foi mantido.
 
-**Preservado:** ArtSource/Characters/IronKnight/manifest.json — registra licença **CC0-1.0** e autoria (Hormelz, 8-directional Iron Knight).
+Uma entrada preliminar em Play ocorreu sem override, antes da instalação da fixture, e foi interrompida. Não foi feita certificação byte a byte do perfil pessoal nesta fase; os testes finais usaram somente perfis novos em Temp. Nenhum save é versionado.
 
-Após a migração, **zero** assets referenciavam IronKnight.asset.
+## Capturas para revisão
 
-## 3. GUIDs migrados
+- [Antes, Game View com HUD](ValdoriaReconstructionPhase2/before-hud.png).
+- [Depois, perto do poço, Game View com HUD](ValdoriaReconstructionPhase2/well-hud.png).
+- [Circulação contínua perto do poço — câmera em Play](ValdoriaReconstructionPhase2/well-circulation.gif).
+- [Circulação junto ao carvalho — câmera em Play](ValdoriaReconstructionPhase2/tree-circulation.gif).
+- [Árvore pela frente](ValdoriaReconstructionPhase2/tree-front.png) / [por trás](ValdoriaReconstructionPhase2/tree-behind.png).
+- [Casa e contato físico](ValdoriaReconstructionPhase2/house-after.png).
 
-| GUID | Antes | Depois |
-|---|---|---|
-| 11c15445266e03141a9f8ec3d3f3d0db | IronKnight/PlayerVisual.prefab | ValdoriaProtagonist/PlayerVisual.prefab (preservado) |
+Os enquadramentos antes/depois usam posições de teste distintas; não são uma comparação pixel a pixel. GIFs são previews 640×360, 128 cores; PNGs preservam as capturas de revisão. A circulação testa somente os footprints descritos no blueprint: demais cercas, rochas e elementos do panorama ainda exigem conversão semântica.
 
-## 4. Biblioteca ambiental consolidada
+## Resíduos locais preservados fora dos commits
 
-Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR10Llm — 19 módulos + manifest v2 versionados com seus .meta. Verificado: **todos** os sha256, canvas (32 PPU) e metas conferem; sem PNGs órfãos.
+Seis arquivos preexistentes, sem alteração por esta entrega:
 
-## 5. Reprodutibilidade dos sprites
-
-A lacuna era real: o backdrop não tinha etapa geradora e o manifesto apontava o pai errado. Medido:
-
-    village-scene-v3.png == topo 1536x800 de
-      ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite
-      -> diff média 0.0, máximo 0  (pixel-idêntico)
-
-    valdoria-llm-detail-clean.aseprite -> difere ~70/255 (irmão, não pai;
-      alimenta só os props via crop_valdoria_llm_aseprite.py)
-
-Novo Tools/ArtPipeline/World/rebuild_valdoria_r10.py: exporta para temporário e compara **sem escrever** nos assets publicados. --verify retorna **exit 0** com pixelIdentical: true contra biblioteca e produção. --output recusa sobrescrever.
-
-O manifesto agora registra backdropSource, backdropRect, backdropSha256, rebuildScript e a semântica corrigida de artSource.
-
-## 6. Estrutura semântica do ambiente
-
-Docs/Art/ValdoriaWorldBlueprint.json (schema valdoria-world-blueprint/v1) descreve cada objeto com ID, tipo, posição, pivô, âncora de chão, dimensões aparentes, footprint de colisão, camada visual, variante artística e seed.
-
-Coordenadas derivadas do backdrop por transformação inversa documentada (32 PPU, escala 1.74, pivô 0.5208/0.4625).
-
-## 7. Colisões de poço/casa/árvore/cerca
-
-| Objeto | Colisão | Nota |
-|---|---|---|
-| Poço | CircleCollider2D r=1.05 em (-0.66, -9.09) | **Só a borda de pedra.** A cobertura (8.16 u acima) não bloqueia |
-| Cerca | BoxCollider2D 4.8x0.24 em (-5.2, -10.6) | Reposicionada para não pinçar o poço |
-| Casa | BoxCollider2D 12.8x2.8, offset +5.2 | Apenas as paredes; **não** o retângulo da imagem |
-| Árvore | CircleCollider2D r=0.45 | Só o tronco; a copa é camada de oclusão |
-
-### Defeito corrigido: maze invisível bloqueava a vila
-
-ExplorableWorld/RegionTilemaps/SolidBoundaries — TilemapCollider2D, 326 tiles, x[-12,41] y[-8,32], pertence à região **Floresta Cinzenta**, não a Valdoria.
-
-Medido: y=-7 e y=-8 eram **muro contínuo** em toda a largura. O spawn (-8,-1) ficava preso dentro do maze e o poço (-0.66,-9.09) do outro lado. **Nenhuma rota existia**, apesar do chão desenhado ser livre.
-
-Ação: desativado o GameObject (não deletado — é outro bioma, reversível). Resultado medido: células alcançáveis do spawn **930 -> 1021** de 1089.
-
-### Placeholders sobrepostos ao desenho
-
-Objetos de blockout com Square_0 chapado renderizavam **acima** do backdrop, criando o collage de duas versões: ForestHedgeNorth, ForestHedgeSouth, OrinHouse, MiraHouse, TreeWest, RockSouth, RockWest, Bancada da forja, AncestralImpact. Desativados.
-
-**Preservados:** ProvidedTree/ProvidedRock (sprites reais + WorldArtSorting) e Erva cinzenta (ExplorationNode, recurso coletável).
-
-## 8. Sorting e oclusão
-
-Backdrop em sortingOrder = -439. O blockout de chão (VillageGround/WalkingPath/VillageLane, order -490..-479) permanece **abaixo** e corretamente oculto. A oclusão por copa/telhado **ainda não foi implementada** — é a próxima etapa.
-
-## 9. Estado da câmera
-
-Inalterada: ortográfica **7.03125**, CameraFollow reativado, viewport completo validado em Play. Nenhum zoom histórico restaurado.
-
-## 10. Contato dos pés com o solo
-
-O sprite ancora pelo pivô (64, 34); o conteúdo opaco termina 115 px abaixo do pivô. Com escala 1.25 a altura visível é **4.219 u**. O personagem aparece pisando o caminho de pedras nas capturas. Oclusão por sorting alto ainda pendente.
-
-## 11. Resultado de combate
-
-Regras intactas: básico **20**, pesado **36**, counter 30, alcance 1.25/1.65, arco 110°, cooldown 0.4 s, LOS, facção, morte, esquiva, um hit por alvo. A origem do Sweep permanece **exclusivamente na raiz física** (Rigidbody2D.position), como consolidado na Fase 1. Nenhum dano, alcance ou collider foi alterado para mascarar falha nesta fase.
-
-## 12. Resultado do Input System
-
-Testado com **teclado real** (não chamadas diretas ao motor), via PlayerController:
-
-| Entrada | Resultado |
-|---|---|
-| S | walk, dirIdx 0, y -1.90 -> -5.12 |
-| D | walk, dirIdx 3, x -7.12 -> -3.98 |
-| W | walk, dirIdx 2, y -4.83 -> -1.54 |
-| S+D (diagonal) | walk, dirIdx 7, dir (0.71,-0.71) |
-
-Rota real até o poço: percorrida de (-8,-1) a (-2.46,-10.04) — **2.04 u** do centro do poço.
-
-**Colisão do poço:** caminhando para oeste a partir de (2.00,-9.09), o jogador parou em **0.67** (distância 1.33 = raio do poço 1.05 + raio do jogador ~0.28). Não atravessa.
-
-**Circulação:** teste de anel em r=1.8 ao redor do poço — **8/8 pontos alcançáveis**. O jogador consegue circular o poço.
-
-Console: **zero** entradas novas (nem erro nem aviso) durante o QA.
-
-## 13. Pendências artísticas
-
-1. **Empunhadura:** guarda menos reta, mais à frente, dedos naturais — não ajustada.
-2. **Oclusão** por copa de árvore e telhado — não implementada.
-3. **SwordSwing.Grip():** investigado. O contrato real do asset é hand = ((pixelX-64)/32, (126-pixelY)/32) (**unidades locais**, pivô 64,126), confirmado em dois importadores R8. Reconstruído: pixel (46.3, 72.0), dentro do canvas 128x160. **TransformPoint() está correto; não há defeito de unidade.** A Fase 1 removeu a *política* LegacyGrip, não um bug de transformação.
-4. Diagonais R6 e ValdoriaProtagonist.asset seguem artistic-review-pending.
-
-## 14. Arquivos não rastreados restantes
-
-6, todos resíduo pré-existente: ArtSource/Labs/World2026/R10/Aseprite/test.aseprite, Assets/Docs/Validation/ValdoriaProductionR10* (duplicata do mesmo PNG já versionado em Docs/), Assets/Mmorpg/Art/Production/ValdoriaR10.meta.
-
-## 15. Próxima etapa
-
-1. **Oclusão real**: camadas de copa/telhado com sorting por âncora.
-2. **Remover o blockout de chão** (VillageGround/WalkingPath/VillageLane) agora que o backdrop fornece o piso.
-3. **Geometria da casa**: validar a porta na proporção do personagem.
-4. Ampliar a área-piloto com os módulos do R10Llm sem duplicar o desenho.
-
-Os outros quatro biomas **não** foram reconstruídos, conforme instruído.
+- `ArtSource/Labs/World2026/R10/Aseprite/test.aseprite`
+- `Assets/Docs/Validation/ValdoriaProductionR10.meta`
+- `Assets/Docs/Validation/ValdoriaProductionR10/gameplay.meta`
+- `Assets/Docs/Validation/ValdoriaProductionR10/gameplay/protagonist-scale75.png`
+- `Assets/Docs/Validation/ValdoriaProductionR10/gameplay/protagonist-scale75.png.meta`
+- `Assets/Mmorpg/Art/Production/ValdoriaR10.meta`

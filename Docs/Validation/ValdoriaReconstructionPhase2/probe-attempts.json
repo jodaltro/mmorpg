@@ -1,0 +1,20 @@
+[
+  {
+    "attempt": "Run2",
+    "error": null,
+    "passed": 23,
+    "failed": 0
+  },
+  {
+    "attempt": "Run3",
+    "error": "System.NullReferenceException: Object reference not set to an instance of an object",
+    "passed": 2,
+    "failed": 18
+  },
+  {
+    "attempt": "FinalRun",
+    "error": "System.NullReferenceException: Object reference not set to an instance of an object",
+    "passed": 20,
+    "failed": 0
+  }
+]

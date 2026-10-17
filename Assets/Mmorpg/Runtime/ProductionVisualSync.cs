@@ -6,6 +6,8 @@ namespace Mmorpg.Runtime
     public sealed class ProductionVisualSync : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer proxy,body;
+        [SerializeField] private UnityEngine.Rendering.SortingGroup visualGroup;
+        public void ConfigureSortingGroup(UnityEngine.Rendering.SortingGroup group)=>visualGroup=group;
         [SerializeField] private bool holdAnimatedDeath;
         public void ConfigureAnimatedDeath(bool hold)=>holdAnimatedDeath=hold;
         private double diedAt=-1;
@@ -20,6 +22,7 @@ namespace Mmorpg.Runtime
             }
             else diedAt=-1;
             body.color=color;body.sortingLayerID=proxy.sortingLayerID;body.sortingOrder=proxy.sortingOrder;body.enabled=proxy.enabled;
+            if(visualGroup!=null){visualGroup.sortingLayerID=proxy.sortingLayerID;visualGroup.sortingOrder=proxy.sortingOrder;}
         }
     }
 }

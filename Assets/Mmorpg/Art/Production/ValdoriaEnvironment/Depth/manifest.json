@@ -1,0 +1,14 @@
+[
+  {
+    "file": "cottage-full.png",
+    "sha256": "e415335e2fafd15b7f92c1b5ae114cdd5af0df4f139d79a3300efe3385bfaf44"
+  },
+  {
+    "file": "oak-full.png",
+    "sha256": "5d17288a5e0154278557157b6833938929b8d3ffd26885e936dd671f208d79ac"
+  },
+  {
+    "file": "village-well.png",
+    "sha256": "b3bda9e0dd09a5bac665f68476b8a3fd030c1e4238d8d27f6192b35cc1025680"
+  }
+]
