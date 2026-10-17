@@ -1,0 +1,42 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "Tools/ArtPipeline/WorldGen",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"valid\": true,\n  \"regionId\": \"valdoria-highlands-pilot\",\n  \"expected\": {\n    \"region.json\": \"bd346646cbf9ff148056bcc2e007cf0ab8c9a51b7e040d3e9f89a59728c5c676\",\n    \"height.png\": \"d207cd00a540e50d74b30dbb5be16f4e1517f86d16b2ff9397e36db78308a4e6\",\n    \"terrain-preview.png\": \"efae4770fd7dfb28b5b26be37389e4a5b7ebb5077be5c5cf61950d6cbb5fa31b\"\n  }\n}\n{\n  \"valid\": false,\n  \"regionId\": \"valdoria-highlands-pilot\",\n  \"expected\": {\n    \"region.json\": \"bd346646cbf9ff148056bcc2e007cf0ab8c9a51b7e040d3e9f89a59728c5c676\",\n    \"height.png\": \"d207cd00a540e50d74b30dbb5be16f4e1517f86d16b2ff9397e36db78308a4e6\",\n    \"terrain-preview.png\": \"efae4770fd7dfb28b5b26be37389e4a5b7ebb5077be5c5cf61950d6cbb5fa31b\"\n  }\n}\n",
+    "stderr": "test_all_candidates_routes_have_actor_clearance (test_studio01.StudioTests.test_all_candidates_routes_have_actor_clearance) ... ok\ntest_candidate_refuses_destination (test_studio01.StudioTests.test_candidate_refuses_destination) ... ok\ntest_compact_patch_and_neighbour_halo (test_studio01.StudioTests.test_compact_patch_and_neighbour_halo) ... ok\ntest_material_variant_joins (test_studio01.StudioTests.test_material_variant_joins) ... ok\ntest_no_full_region_texture (test_studio01.StudioTests.test_no_full_region_texture) ... ok\ntest_thermal_conserves_mass_and_reduces_peak (test_studio01.StudioTests.test_thermal_conserves_mass_and_reduces_peak) ... ok\ntest_thermal_respects_reservations (test_studio01.StudioTests.test_thermal_respects_reservations) ... ok\ntest_contract_and_materials (test_terrain_agent.TerrainAgentTests.test_contract_and_materials) ... ok\ntest_generate_verify_refuse_overwrite (test_terrain_agent.TerrainAgentTests.test_generate_verify_refuse_overwrite) ... ok\ntest_patch_changes_only_requested_kind (test_terrain_agent.TerrainAgentTests.test_patch_changes_only_requested_kind) ... ok\ntest_protected_route_is_walkable (test_terrain_agent.TerrainAgentTests.test_protected_route_is_walkable) ... ok\ntest_reject_invalid_recipe_and_patch (test_terrain_agent.TerrainAgentTests.test_reject_invalid_recipe_and_patch) ... ok\ntest_repeatability_and_seed (test_terrain_agent.TerrainAgentTests.test_repeatability_and_seed) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 5.509s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python",
+      "Tools/ArtPipeline/WorldGen/studio01.py",
+      "verify",
+      "--output",
+      "ArtSource/Labs/World2026/WorldStudio01/Regions"
+    ],
+    "exitCode": 0,
+    "stdout": "PASS: all A/B/C artifacts and manifests reproduce byte-for-byte\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "Tools/ArtPipeline/Aseprite/aseprite.py",
+      "inspect",
+      "--source",
+      "ArtSource/Labs/World2026/WorldStudio01/Materials/cliffs-v1.aseprite"
+    ],
+    "exitCode": 0,
+    "stdout": "ASEPRITE_INSPECT_BEGIN\ncanvas=128x64\ncolorMode=0\nframes=1\nlayers=2\ntags=0\ntotalDurationSeconds=0.100000\nlayer[1]=\"Rock faces - upper left light\" visible=true\nlayer[2]=\"Paint refinements (editable)\" visible=true\nASEPRITE_INSPECT_END\n",
+    "stderr": ""
+  }
+]

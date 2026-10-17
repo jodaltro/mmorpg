@@ -2,6 +2,8 @@
 
 Unity **6000.6.5f1**, C#, **Input System**, URP 2D, pixel art com autoria Blender/Aseprite. Repositório `jodaltro/mmorpg`; branch de trabalho/publicação do projeto: **`main`** (especificar a branch nas operações GitHub, não presumir a branch padrão da API).
 
+- **Antes de iniciar uma tarefa, conferir o worktree e executar `git pull --ff-only origin main` na `main`.** Preservar alterações locais; se a atualização falhar ou houver divergência, informar o impedimento antes de concluir que ferramentas/skills estão ausentes.
+
 ## Diretriz vigente — reconstrução autorizada de Valdoria
 
 > **Decisão do usuário:** a postura de preservação de legado foi **substituída**. O objetivo é **construir a melhor versão futura de Valdoria**, não manter intactas todas as versões anteriores. Refatoração destrutiva está autorizada.

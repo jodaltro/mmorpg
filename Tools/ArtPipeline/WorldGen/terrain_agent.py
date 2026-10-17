@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Valdoria Terrain Agent v1: deterministic semantic 2D/3-4 terrain authoring.
 
-Only writes to a new output directory. Produces diagnostic previews, not
-production-quality environment sprites, Unity scenes, hydrology or weather.
+Only writes to a new output directory. Produces semantic fields and diagnostic
+previews. studio01.py adds candidate materials; the Editor importer bakes Unity.
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-VERSION = "terrain-agent/1.0.0"
+VERSION = "terrain-agent/1.1.0"
 MATERIALS = {
     "grass": (91, 111, 65),
     "forest": (61, 85, 60),
@@ -73,6 +73,11 @@ def validate(recipe, patch=None):
     route = recipe.get("route", {})
     if route and (len(route.get("points", [])) < 2 or route.get("halfWidth", 0) <= 0):
         raise ValueError("Route requires two points and positive halfWidth")
+    erosion = recipe.get("thermalErosion", {})
+    if not 0 <= erosion.get("iterations", 0) <= 32 or not 0 < erosion.get("talus", .06) <= 1:
+        raise ValueError("Invalid thermal erosion iterations/talus")
+    if not 0 <= recipe.get("noiseAmplitude", .29) <= 1:
+        raise ValueError("Invalid noise amplitude")
     if patch is not None:
         if patch.get("schema") != "valdoria-terrain-patch/v1":
             raise ValueError("Unsupported patch schema")
@@ -129,7 +134,7 @@ def generate(recipe, patch=None):
     for y in range(h):
         row, protected_row, route_row = [], [], []
         for x in range(w):
-            elevation = recipe["baseElevation"] + 0.29 * fractal(seed, x, y)
+            elevation = recipe["baseElevation"] + recipe.get("noiseAmplitude", .29) * fractal(seed, x, y)
             for f in recipe.get("features", []):
                 effect = brush(x, y, f["center"], f["radius"])
                 if f["kind"] == "hill":
@@ -141,6 +146,7 @@ def generate(recipe, patch=None):
             if patch:
                 for op in patch.get("operations", []):
                     weight = math.exp(-3 * ((x - op["center"][0]) ** 2 + (y - op["center"][1]) ** 2) / (op["radius"] ** 2))
+                    if math.hypot(x-op["center"][0], y-op["center"][1]) > op["radius"]: weight = 0
                     if op["kind"] == "raise":
                         elevation += abs(op.get("strength", 0.1)) * weight
                     elif op["kind"] == "lower":
@@ -167,7 +173,9 @@ def generate(recipe, patch=None):
         reserved.append(protected_row)
         in_route.append(route_row)
 
-    layers = {k: [] for k in ("elevationMilli", "slopeMilli", "moistureMilli", "material", "walkable", "waterCandidate", "reserved")}
+    erosion = recipe.get("thermalErosion", {})
+    heights = thermal_erode(heights, reserved, erosion.get("iterations", 0), erosion.get("talus", .06))
+    layers = {k: [] for k in ("elevationMilli", "slopeMilli", "moistureMilli", "material", "walkable", "waterCandidate", "reserved", "route", "blocked")}
     counts = {k: 0 for k in MATERIALS}
     for y in range(h):
         for x in range(w):
@@ -186,7 +194,8 @@ def generate(recipe, patch=None):
                 for op in patch.get("operations", []):
                     if op["kind"] == "paint" and math.hypot(x - op["center"][0], y - op["center"][1]) <= op["radius"]:
                         material = op["material"]
-            walk = reserved[y][x] or (not candidate and slope <= 0.16 and elevation <= 0.8)
+            limits = recipe.get("navigation", {})
+            walk = reserved[y][x] or (slope <= limits.get("maxSlope", .16) and elevation <= limits.get("maxElevation", .8))
             layers["elevationMilli"].append(round(elevation * 1000))
             layers["slopeMilli"].append(round(slope * 1000))
             layers["moistureMilli"].append(round(moisture * 1000))
@@ -194,6 +203,8 @@ def generate(recipe, patch=None):
             layers["walkable"].append(bool(walk))
             layers["waterCandidate"].append(bool(candidate))
             layers["reserved"].append(bool(reserved[y][x]))
+            layers["route"].append(bool(in_route[y][x]))
+            layers["blocked"].append(not walk)
             counts[material] += 1
 
     result = {
@@ -204,7 +215,46 @@ def generate(recipe, patch=None):
         "layers": layers,
         "summary": {"materials": counts, "walkable": sum(layers["walkable"]), "waterCandidates": sum(layers["waterCandidate"])}
     }
+    result["navigation"] = navigation(result)
     return result
+
+
+def thermal_erode(heights, fixed, iterations, talus):
+    """Conservative simultaneous 4-neighbour talus relaxation, without water."""
+    h, w = len(heights), len(heights[0])
+    values = [row[:] for row in heights]
+    for _ in range(iterations):
+        delta = [[0.0]*w for _ in range(h)]
+        for y in range(h):
+            for x in range(w):
+                for nx, ny in ((x+1,y),(x,y+1)):
+                    if nx>=w or ny>=h or fixed[y][x] or fixed[ny][nx]: continue
+                    difference = values[y][x]-values[ny][nx]
+                    transfer = math.copysign(max(0,abs(difference)-talus)*.125,difference)
+                    delta[y][x]-=transfer
+                    delta[ny][nx]+=transfer
+        values = [[values[y][x]+delta[y][x] for x in range(w)] for y in range(h)]
+    return values
+
+
+def navigation(region):
+    w,h=region["size"]; walk=region["layers"]["walkable"]; route=region["layers"]["route"]
+    labels=[-1]*(w*h); sizes=[]
+    for start in range(w*h):
+        if not walk[start] or labels[start]>=0: continue
+        label=len(sizes); stack=[start]; labels[start]=label; count=0
+        while stack:
+            i=stack.pop(); count+=1; x,y=i%w,i//w
+            for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+                j=ny*w+nx
+                if 0<=nx<w and 0<=ny<h and walk[j] and labels[j]<0:
+                    labels[j]=label; stack.append(j)
+        sizes.append(count)
+    route_labels={labels[i] for i in range(w*h) if route[i]}
+    return {"schema":"valdoria-navigation/v1", "connectivity":4,
+            "componentIds":labels,"componentSizes":sizes,
+            "routeConnected":len(route_labels)==1 and -1 not in route_labels,
+            "routeCells":sum(route),"collisionSource":"blocked; no elevation displacement or climbing"}
 
 
 def render(region):

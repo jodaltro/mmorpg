@@ -1,0 +1,19 @@
+{
+  "source": "Unity capture_game_view --source screen",
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaTerrainLab.unity",
+  "unity": "6000.6.5f1",
+  "seed": 710303,
+  "frameBeforeCapture": 9437,
+  "resolution": [
+    1280,
+    720
+  ],
+  "cameraOrthographicSize": 11.25,
+  "playerPosition": [
+    33.5,
+    23.5
+  ],
+  "character": "Quaternius R8, visual scale 1.25",
+  "artStatus": "awaiting user review",
+  "sha256": "13d51d141fbd3e5b5d64a444a024f52e479235e2c55779d2a56e00bddb73ac10"
+}

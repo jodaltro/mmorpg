@@ -1,0 +1,3 @@
+# World Studio manifests hash exact artifact bytes; avoid checkout conversion.
+/ArtSource/Labs/World2026/WorldStudio01/** -text
+/Assets/Mmorpg/Art/Experimental/ValdoriaTerrainStudio01/** -text
