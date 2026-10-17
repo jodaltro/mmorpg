@@ -1,0 +1,101 @@
+{
+  "schema": "valdoria-world-blueprint/v1",
+  "scene": "Assets/Mmorpg/Scenes/MmorpgWorld.unity",
+  "status": "phase2-pilot-area-artistic-review-pending",
+  "reference": {
+    "note": "Semantic description of the Valdoria village centre. Positions are world units derived from the production backdrop by inverse transform (32 PPU, scale 1.74, pivot 0.5208/0.4625).",
+    "backdrop": "Assets/Mmorpg/Art/Production/ValdoriaEnvironment/ValdoriaVillageScene.png",
+    "backdropSource": "ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite",
+    "rebuild": "Tools/ArtPipeline/World/rebuild_valdoria_r10.py --verify",
+    "library": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR10Llm",
+    "ppu": 32,
+    "visualScale": 1.25,
+    "characterHeightUnits": 4.219,
+    "pxToWorld": "x = -18.877785 + ((px - 0.5208*1536)/32)*1.74 ; y = 1.71875 + ((0.4625*800 - py)/32)*1.74"
+  },
+  "objects": [
+    {
+      "id": "village-well",
+      "type": "prop/well",
+      "role": "proportion reference (poço) and first real collider",
+      "position": [-0.66, -9.09],
+      "pivot": "bottom-centre (anchor at ground line y=-9.09)",
+      "groundAnchor": [-0.66, -9.09],
+      "apparentSize": {"width": 4.21, "heightVisual": 2.79, "roofTopAboveGround": 8.16},
+      "collisionFootprint": {"shape": "circle", "radius": 1.05, "offset": [0, 0]},
+      "visualLayer": "ground-props",
+      "sortingOrder": 10,
+      "artVariant": "village-well.png (234x289, 32 PPU, from R10Llm)",
+      "seed": null,
+      "collisionNote": "Only the stone rim is solid. The roof is 8.16 u above ground and must NOT block movement; the player walks behind/around the base."
+    },
+    {
+      "id": "village-fence-west",
+      "type": "prop/fence",
+      "role": "edge of the flower garden beside the well",
+      "position": [-4.6, -9.6],
+      "pivot": "bottom-centre",
+      "groundAnchor": [-4.6, -9.6],
+      "apparentSize": {"width": 4.8, "heightVisual": 1.6},
+      "collisionFootprint": {"shape": "box", "halfExtents": [2.4, 0.12]},
+      "visualLayer": "ground-props",
+      "sortingOrder": 12,
+      "artVariant": "timber-fence.png (214x237)",
+      "seed": null
+    },
+    {
+      "id": "cottage-full",
+      "type": "building/cottage",
+      "role": "house at the north-east of the square",
+      "position": [9.2, -2.4],
+      "pivot": "bottom-centre",
+      "groundAnchor": [9.2, -2.4],
+      "apparentSize": {"width": 12.8, "heightVisual": 17.7},
+      "collisionFootprint": {"shape": "box", "halfExtents": [6.4, 1.4], "offset": [0, 5.2]},
+      "visualLayer": "buildings",
+      "sortingOrder": 20,
+      "artVariant": "cottage-full.png (472x650)",
+      "seed": null,
+      "collisionNote": "Box covers the facade walls only, offset upward from the anchor. The rectangle of the whole image is NOT used."
+    },
+    {
+      "id": "oak-full",
+      "type": "prop/tree",
+      "role": "large oak for depth and occlusion",
+      "position": [-8.6, -12.4],
+      "pivot": "bottom-centre (trunk footprint)",
+      "groundAnchor": [-8.6, -12.4],
+      "apparentSize": {"width": 9.2, "heightVisual": 9.8},
+      "collisionFootprint": {"shape": "circle", "radius": 0.45, "offset": [0, 0]},
+      "visualLayer": "tall-props",
+      "sortingOrder": 30,
+      "artVariant": "oak-full.png (338x360)",
+      "seed": null,
+      "collisionNote": "Trunk base only. Canopy is a separate occlusion layer above the player."
+    },
+    {
+      "id": "stone-path",
+      "type": "terrain/path",
+      "role": "walkable route from spawn to the well and cottage",
+      "position": "polyline spawn(-8,-1) -> (-5,-4) -> (-2,-7) -> well(-0.66,-9.09)",
+      "pivot": "n/a",
+      "groundAnchor": "n/a",
+      "apparentSize": {"width": 3.2},
+      "collisionFootprint": {"shape": "none"},
+      "visualLayer": "ground",
+      "sortingOrder": -100,
+      "artVariant": "backdrop stone path (kept as drawn)",
+      "seed": null,
+      "collisionNote": "The route is verified free of colliders; no invisible walls. No new art is laid over the drawn path."
+    }
+  ],
+  "avoidDuplicateBackdrop": {
+    "strategy": "composition-reference",
+    "rationale": "The production backdrop already draws the well, cottage, fence, oak and path. Overlaying modules on those same pixels would create a doubled image. The pilot area therefore uses the drawing as the composition reference and adds only (a) invisible colliders aligned to drawn objects and (b) occlusion layers that clip behind the player.",
+    "notDoing": [
+      "no rectangular cut-outs of the backdrop",
+      "no second copy of the well/cottage/oak drawn on top",
+      "no flat colour blocks replacing detailed art"
+    ]
+  }
+}
