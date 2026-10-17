@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "bakedPoses": 272,
+  "maxWristElbowReopenError": 3.8743019104003906e-07,
+  "actionsRetained": true,
+  "relativeTexturePaths": true,
+  "editableDodgeSeconds": 0.22,
+  "editableActionsRetimedToManifest": true
+}

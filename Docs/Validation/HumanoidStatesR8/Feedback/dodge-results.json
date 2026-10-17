@@ -1,0 +1,82 @@
+[
+  {
+    "direction": 0,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 1,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 2,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 3,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 4,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 5,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 6,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  },
+  {
+    "direction": 7,
+    "poses": 8,
+    "seconds": 0.22,
+    "speed": 9.0,
+    "cooldownRejected": true,
+    "immune": true,
+    "handAligned": true,
+    "visible": true
+  }
+]

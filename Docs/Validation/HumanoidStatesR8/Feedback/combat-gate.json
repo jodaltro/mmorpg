@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "scenarios": {
+    "basic": {
+      "directions": 8,
+      "damage": 20,
+      "hitsPerTarget": 1,
+      "passed": true
+    },
+    "heavy": {
+      "directions": 8,
+      "damage": 36,
+      "hitsPerTarget": 1,
+      "passed": true
+    },
+    "wall": {
+      "directions": 8,
+      "damage": 0,
+      "hitsPerTarget": 0,
+      "passed": true
+    },
+    "outside": {
+      "directions": 8,
+      "damage": 0,
+      "hitsPerTarget": 0,
+      "passed": true
+    },
+    "heavy-outside": {
+      "directions": 8,
+      "damage": 0,
+      "hitsPerTarget": 0,
+      "passed": true
+    }
+  },
+  "physicalSwordSourceUnchanged": true
+}

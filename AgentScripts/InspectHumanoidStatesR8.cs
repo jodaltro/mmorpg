@@ -12,7 +12,31 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 public static class InspectHumanoidStatesR8
 {
- const string E="Docs/Validation/HumanoidStatesR8/",Raw="Temp/HumanoidR8/Captures/";
+ static void FeedbackEvidence(){E="Docs/Validation/HumanoidStatesR8/Feedback/";Raw="Temp/HumanoidR8/FeedbackCaptures/";Directory.CreateDirectory(E);}
+ public static async Task<string> FeedbackDodges(){FeedbackEvidence();return await Dodges();}
+ public static async Task<string> FeedbackHurt(){FeedbackEvidence();return await Hurt();}
+ public static async Task<string> FeedbackDeaths(int start=0,int count=4){FeedbackEvidence();return await Deaths(start,count);}
+ public static async Task<string> FeedbackTransitions(){FeedbackEvidence();return await Transitions();}
+ public static async Task<string> FeedbackBow(){FeedbackEvidence();return await BowStates();}
+ public static async Task<string> FeedbackRestart(){FeedbackEvidence();return await Restart();}
+ public static async Task<string> FeedbackHurtDeath(){FeedbackEvidence();return await DeferredHurtToDeath();}
+ public static async Task<string> FeedbackContact(){
+  FeedbackEvidence();var result=new List<object>();var foreground=Player.GetComponentsInChildren<SpriteRenderer>(true).Single(r=>r.name=="ProceduralGripFingers");
+  for(int d=0;d<8;d++){
+   await Reset(d);await Wait(.03f);Check(foreground.enabled&&Vector3.Distance(foreground.transform.position,Animator.Body.transform.position)<.00001f,"Finger contact overlay not aligned");
+   await Trace("grip-idle-"+d,.12f);Input(Move(d));await Trace("grip-walk-"+d,.25f);Input();await Wait(.2f);
+   foreach(int button in new[]{1,2}){
+    if(button==2)await Wait((float)Player.GetComponent<ActionCombat>().HeavyRemaining+.02f);
+    Aim(ProductionDirections.Vector(d),button);await Wait(.012f);Aim(ProductionDirections.Vector(d));var trace=await Trace("grip-"+(button==1?"basic-":"heavy-")+d,button==1?.45f:.75f);
+    Check(trace.Any(r=>r.attack)&&trace.All(r=>r.visible&&r.grip<.0001),"New grip/body visibility mismatch");
+    await Wait(.12f);
+   }
+   Check(foreground.enabled&&foreground.sortingOrder>Animator.Body.sortingOrder,"Finger occlusion lost after strike");result.Add(new{direction=d,palmAnchored=true,fingerMaskAligned=true,sorting=true});
+  }
+  File.WriteAllText(E+"sword-contact-unity.json",JsonConvert.SerializeObject(result));return "8 views: idle/walk/basic/heavy, palm anchors and finger occlusion passed";
+ }
+ static string E="Docs/Validation/HumanoidStatesR8/";
+ static string Raw="Temp/HumanoidR8/Captures/";
  static ActorHealth Player=>UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;
  static ProductionSpriteAnimator Animator=>Player.GetComponent<ProductionSpriteAnimator>();
  static ProductionCharacterStates States=>Player.GetComponent<ProductionCharacterStates>();
@@ -33,9 +57,21 @@ public static class InspectHumanoidStatesR8
  static bool Hit(ActionStrike strike=ActionStrike.Wolf,bool friendly=false){var attacker=friendly?Player:UnityEngine.Object.FindAnyObjectByType<TrainingDummy>().Health;return (bool)typeof(OfflineAuthority).GetMethod("ResolveDamage",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(Authority,new object[]{attacker,Player,strike,null});}
  public sealed class Row{public string state,source,sprite;public int frame,direction,hp,reactions;public double time,dodgeUntil;public float speed,x,y,alpha,grip;public bool dodging,blade,attack,simulated,complete,visible;public float[] pivot,canvas,screenRoot;}
  static Dictionary<string,JToken> bounds;
+ static void CheckContactMask(){
+  if(Player.GetComponent<ProceduralWeaponGripPresentation>()==null)return;
+  var fg=Player.GetComponentsInChildren<SpriteRenderer>(true).Single(r=>r.name=="ProceduralGripFingers");
+  bool mapped=Player.State.IsAlive&&!Player.GetComponent<WeaponValidationPreview>().BowSelected&&Animator.CurrentFrame.source.StartsWith("R8 weapon-driven");
+  Check(fg.enabled==mapped,"Contact mask survived death/bow/unmapped frame or disappeared");
+  if(mapped)Check(fg.sprite.name==Animator.Body.sprite.name&&Vector3.Distance(fg.transform.position,Animator.Body.transform.position)<.00001f&&fg.sortingOrder>Blade.sortingOrder,"Contact mask frame/transform/sorting mismatch");
+ }
  static bool Visible(){
   if(bounds==null){bounds=new Dictionary<string,JToken>();foreach(string a in new[]{"dodge","death"}){var m=JObject.Parse(File.ReadAllText("ArtSource/Labs/Humanoid2026/R8/"+a+"/manifest.json"));int i=0;foreach(var f in m["frames"])bounds[a+"pose_"+(i++).ToString("000")]=f;}}
-  if(!bounds.TryGetValue(Animator.State+Animator.Body.sprite.name,out var row))return true;var b=row["alphaBounds"];float px=(float)row["pivotTop"][0],py=(float)row["pivotTop"][1];foreach(int xi in new[]{0,2})foreach(int yi in new[]{1,3}){var point=Animator.Body.transform.TransformPoint(new Vector2(((float)b[xi]-px)/32,(py-(float)b[yi])/32));var q=Camera.main.WorldToScreenPoint(point);if(q.x<0||q.y<0||q.x>Screen.width||q.y>Screen.height)return false;}return true;
+  JToken row;
+  if(Animator.CurrentFrame.source.StartsWith("R8 weapon-driven")){
+   if(!bounds.ContainsKey("contactpose_000")){var revised=JObject.Parse(File.ReadAllText("ArtSource/Labs/Humanoid2026/R8/SwordContact/manifest.json"));int i=0;foreach(var f in revised["frames"])bounds["contactpose_"+(i++).ToString("000")]=f;}
+   row=bounds["contact"+Animator.Body.sprite.name];
+  }else if(!bounds.TryGetValue(Animator.State+Animator.Body.sprite.name,out row))return true;
+  var b=row["alphaBounds"];float px=(float)row["pivotTop"][0],py=(float)row["pivotTop"][1];foreach(int xi in new[]{0,2})foreach(int yi in new[]{1,3}){var point=Animator.Body.transform.TransformPoint(new Vector2(((float)b[xi]-px)/32,(py-(float)b[yi])/32));var q=Camera.main.WorldToScreenPoint(point);if(q.x<0||q.y<0||q.x>Screen.width||q.y>Screen.height)return false;}return true;
  }
  static async Task<List<Row>> Trace(string name,float duration,bool capture=true){
   var rows=new List<Row>();var done=new TaskCompletionSource<bool>();var weapon=Sword;int postMortemSweepSamples=0;Action<Vector2,Vector2> onSample=(a,b)=>{if(!Player.State.IsAlive)postMortemSweepSamples++;};weapon.SweepSampled+=onSample;
@@ -46,6 +82,7 @@ public static class InspectHumanoidStatesR8
  static System.Collections.IEnumerator Record(string name,float seconds,bool capture,List<Row> rows,TaskCompletionSource<bool> done){
   Directory.CreateDirectory(Raw);double end=Time.timeAsDouble+seconds,next=-1;string last="";int index=0;
   while(Time.timeAsDouble<end){yield return new WaitForEndOfFrame();try{var q=Camera.main.WorldToScreenPoint(Player.transform.position);var sp=Animator.Body.sprite;var row=new Row{state=Animator.State,source=Animator.CurrentFrame.source,sprite=sp.name,frame=Time.frameCount,time=Time.timeAsDouble,direction=Animator.DirectionIndex,hp=Player.State.Health,reactions=States.ConfirmedReactions,dodgeUntil=Player.State.DodgeUntil,speed=Rb.linearVelocity.magnitude,x=Rb.position.x,y=Rb.position.y,alpha=Animator.Body.color.a,dodging=Player.State.IsDodging(Time.timeAsDouble),blade=Blade.enabled&&Blade.gameObject.activeInHierarchy,attack=Sword.Busy,simulated=Rb.simulated,complete=States.DeathComplete,grip=Vector3.Distance(Sword.GripWorld,Animator.Body.transform.TransformPoint(Animator.CurrentFrame.hand)),pivot=new[]{sp.pivot.x,sp.pivot.y},canvas=new[]{sp.rect.width,sp.rect.height},screenRoot=new[]{q.x,Screen.height-q.y},visible=Visible()};rows.Add(row);
+   CheckContactMask();
    if(capture&&(row.sprite!=last||Time.timeAsDouble>=next)){var tex=ScreenCapture.CaptureScreenshotAsTexture();string path=Raw+name+"-"+(index++).ToString("000")+".png";File.WriteAllBytes(path,tex.EncodeToPNG());UnityEngine.Object.Destroy(tex);File.AppendAllText(E+"captures.jsonl",JsonConvert.SerializeObject(new{name,path,row,screen=new[]{Screen.width,Screen.height},timeScale=Time.timeScale})+"\n");last=row.sprite;next=Time.timeAsDouble+.15;}
   }catch(Exception ex){done.SetException(ex);yield break;}}done.SetResult(true);
  }

@@ -1,6 +1,6 @@
 # Humanoid States R8 — fonte e reprodução
 
-Laboratório separado; aprovação artística de esquiva e morte **pendente**. Origem: humanoide e animações profissionais Quaternius CC0 já documentados em R5/R6, figurino R5 e fonte retarget R7. Nenhum arquivo original foi substituído. `ValdoriaStatesR8.blend` conserva meshes, materiais, texturas, armature e ações profissionais; as ações editáveis `R8_EvasiveStep` e `R8_Death01` têm fake user para sobreviver ao salvamento. Nenhuma geração externa de arte.
+Laboratório separado. **Morte e Hurt aprovados pelo usuário** após as capturas reais; esquiva e empunhadura da espada em revisão. Origem: humanoide e animações profissionais Quaternius CC0 já documentados em R5/R6, figurino R5 e fonte retarget R7. Nenhum arquivo original foi substituído. `ValdoriaStatesR8.blend` conserva meshes, materiais, texturas, armature e ações profissionais; as ações editáveis `R8_EvasiveStep` e `R8_Death01` têm fake user para sobreviver ao salvamento. Nenhuma geração externa de arte.
 
 `spatial-audit.json` contém 944 amostras de todos os quadros Roll/Death01 nas oito vistas: bounds dos meshes deformados visíveis, extremidades anatômicas e deslocamento local da pelve. A transformação do rig permanece fixa. O movimento corporal da queda é conservado dentro do sprite; não é root motion físico.
 

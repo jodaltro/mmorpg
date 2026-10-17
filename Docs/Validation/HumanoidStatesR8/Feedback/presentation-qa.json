@@ -1,0 +1,200 @@
+{
+  "dodge": [
+    {
+      "direction": 0,
+      "renderedSamples": 28,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 1,
+      "renderedSamples": 14,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 2,
+      "renderedSamples": 49,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 3,
+      "renderedSamples": 50,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 4,
+      "renderedSamples": 48,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 5,
+      "renderedSamples": 48,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 6,
+      "renderedSamples": 53,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 7,
+      "renderedSamples": 36,
+      "poses": 8,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    }
+  ],
+  "death": [
+    {
+      "direction": 0,
+      "renderedSamples": 250,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 1,
+      "renderedSamples": 246,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 2,
+      "renderedSamples": 289,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 3,
+      "renderedSamples": 295,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 4,
+      "renderedSamples": 309,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 5,
+      "renderedSamples": 293,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 6,
+      "renderedSamples": 315,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    },
+    {
+      "direction": 7,
+      "renderedSamples": 332,
+      "poses": 25,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": true
+    }
+  ],
+  "hurt": [
+    {
+      "direction": 0,
+      "renderedSamples": 49,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 1,
+      "renderedSamples": 59,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 2,
+      "renderedSamples": 51,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 3,
+      "renderedSamples": 55,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 4,
+      "renderedSamples": 52,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 5,
+      "renderedSamples": 54,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 6,
+      "renderedSamples": 54,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    },
+    {
+      "direction": 7,
+      "renderedSamples": 50,
+      "poses": 7,
+      "allVisible": true,
+      "maxGripError": 0.0,
+      "terminalHeld": null
+    }
+  ]
+}

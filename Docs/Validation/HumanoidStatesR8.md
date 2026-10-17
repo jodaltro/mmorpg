@@ -1,6 +1,6 @@
 # Marco 06B.13 R8 — estados do humanoide Quaternius
 
-Data: 2026-10-16. Cena de validação: `Assets/Mmorpg/Scenes/HumanoidStatesR8.unity`. A aprovação artística das novas animações está **pendente**; a aprovação anterior do figurino, caminhada e arco não foi estendida automaticamente. O Iron Knight continua protagonista da entrada oficial `MmorpgWorld.unity`.
+Data: 2026-10-16. Cena de validação: `Assets/Mmorpg/Scenes/HumanoidStatesR8.unity`. **Morte e dano aprovados pelo usuário após as capturas reais. Esquiva e empunhadura da espada em revisão**, conforme [complemento do feedback](HumanoidStatesR8Feedback.md). A tabela abaixo registra a entrega técnica inicial; pendências artísticas nela descritas devem ser lidas com esse feedback posterior. O Iron Knight continua protagonista da entrada oficial `MmorpgWorld.unity`.
 
 ## Decisões e respostas às 18 perguntas
 

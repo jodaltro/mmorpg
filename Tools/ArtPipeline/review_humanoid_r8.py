@@ -1,6 +1,6 @@
 """Build explicitly labelled previews from real Unity screenshots, not simulated gameplay."""
 from pathlib import Path
-import json,math
+import json,math,argparse
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[2];E=ROOT/'Docs/Validation/HumanoidStatesR8';OUT=E/'previews'
 def captures(name,state=None):
@@ -21,6 +21,9 @@ def gif(items,name):
   durations.append(max(20,min(600,round(delta/r['timeScale']*1000))))
  frames[0].save(OUT/name,save_all=True,append_images=frames[1:],duration=durations,loop=0)
 def main():
+ global E,OUT
+ parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path);args=parser.parse_args()
+ if args.evidence:E=args.evidence.resolve();OUT=E/'previews';OUT.mkdir(exist_ok=True)
  for group,name in [('death-1','death-west-unity.gif'),('hurt-3','hurt-unity.gif'),('walk-dodge-walk','walk-dodge-walk-unity-slow.gif'),('idle-dodge-idle-attack','dodge-to-attack-unity-slow.gif')]:gif(captures(group),name)
  gif(captures('heavy-to-hurt','hurt')+captures('hurt-to-death'),'hurt-to-death-unity.gif');gif(captures('death-before-restart')+captures('restart-to-idle'),'death-to-restart-unity.gif')
  groups=[captures('dodge-'+str(d),'dodge') for d in range(8)]
@@ -46,4 +49,7 @@ def main():
    rows=json.loads(p.read_text());active=[r for r in rows if r['state']==prefix]
    report[prefix].append(dict(direction=d,renderedSamples=len(active),poses=len({r['sprite'] for r in active}),allVisible=all(r['visible'] for r in active),maxGripError=max((r['grip'] for r in active),default=0),terminalHeld=rows[-1]['complete'] if prefix=='death' else None))
  (E/'presentation-qa.json').write_text(json.dumps(report,indent=2));print('R8 previews built from actual Unity frames')
+ if (E/'sword-contact-unity.json').exists():
+  for d in [0,3,4,6]:gif(captures('grip-basic-'+str(d)),'sword-basic-'+str(d)+'-unity.gif')
+  gif(captures('grip-heavy-3'),'sword-heavy-east-unity.gif')
 if __name__=='__main__':main()

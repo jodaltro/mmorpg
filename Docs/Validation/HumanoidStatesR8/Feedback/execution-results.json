@@ -1,0 +1,112 @@
+[
+  {
+    "command": "contact-build-result.json",
+    "success": true,
+    "result": "R8 revised: 272 weapon-driven arm/contact frames, expressive dodge; approved Hurt/Death and all phase durations retained"
+  },
+  {
+    "command": "contact-cleanup-result.json",
+    "success": true,
+    "result": "Input/Editor restored, personal saves preserved."
+  },
+  {
+    "command": "contact-final-integrity-result.json",
+    "success": true,
+    "result": "{\r\n  \"passed\": true,\r\n  \"clips\": 64,\r\n  \"frames\": 528,\r\n  \"unchangedApprovedDeathAndHurtFrames\": 256,\r\n  \"weaponDrivenFrames\": 272,\r\n  \"unchangedTimingsAndEvents\": true,\r\n  \"contactMappings\": 272,\r\n  \"noPhysicsOrAuthorityAdapter\": true,\r\n  \"artisticSwordAndDodgeApproval\": \"pending\"\r\n}"
+  },
+  {
+    "command": "contact-import-result.json",
+    "success": true,
+    "result": "Imported 272 new body frames and contact masks; historical sprites preserved"
+  },
+  {
+    "command": "contact-input-result.json",
+    "success": true,
+    "result": "{\"frame\":418,\"position\":\"(-8.00, -1.00, 0.00)\",\"state\":\"idle\",\"visual\":\"(0.00, -1.00)\",\"aim\":\"(-0.11, -0.99)\",\"sprite\":\"pose_008\",\"profile\":\"D:\\\\unity\\\\Mmorpg\\\\Temp\\\\HumanoidR8\\\\ManualPlayerProfile\"}"
+  },
+  {
+    "command": "contact-integrity-result.json",
+    "success": true,
+    "result": "{\r\n  \"passed\": true,\r\n  \"clips\": 64,\r\n  \"frames\": 528,\r\n  \"unchangedApprovedDeathAndHurtFrames\": 256,\r\n  \"weaponDrivenFrames\": 272,\r\n  \"unchangedTimingsAndEvents\": true,\r\n  \"contactMappings\": 272,\r\n  \"noPhysicsOrAuthorityAdapter\": true,\r\n  \"artisticSwordAndDodgeApproval\": \"pending\"\r\n}"
+  },
+  {
+    "command": "contact-prepare-result.json",
+    "success": true,
+    "result": "Prepared R8 with automatic isolated profile"
+  },
+  {
+    "command": "contact-preservation-result.json",
+    "success": true,
+    "result": "{\r\n  \"passed\": true,\r\n  \"protectedFiles\": 530,\r\n  \"personalFiles\": 5,\r\n  \"reusedFrames\": 264,\r\n  \"walkFramesIdentical\": 104,\r\n  \"newDodgeFrames\": 64,\r\n  \"newDeathFrames\": 200,\r\n  \"clips\": 64,\r\n  \"frames\": 528,\r\n  \"approvedBowFramesIdentical\": 74,\r\n  \"officialEntry\": \"Assets/Mmorpg/Scenes/MmorpgWorld.unity\",\r\n  \"onlyR8Appended\": true,\r\n  \"inputAndProfileRestored\": true,\r\n  \"scene\": \"Assets/Mmorpg/Scenes/HumanoidStatesR8.unity\"\r\n}"
+  },
+  {
+    "command": "feedback-combat-basic-result.json",
+    "success": true,
+    "result": "basic: 8/8 passed"
+  },
+  {
+    "command": "feedback-combat-heavy-outside-result.json",
+    "success": true,
+    "result": "heavy-outside: 8/8 passed"
+  },
+  {
+    "command": "feedback-combat-heavy-result.json",
+    "success": true,
+    "result": "heavy: 8/8 passed"
+  },
+  {
+    "command": "feedback-combat-outside-result.json",
+    "success": true,
+    "result": "outside: 8/8 passed"
+  },
+  {
+    "command": "feedback-combat-wall-result.json",
+    "success": true,
+    "result": "wall: 8/8 passed"
+  },
+  {
+    "command": "feedback-menu-result.json",
+    "success": true,
+    "result": "{\r\n  \"firstFrame\": 30369,\r\n  \"lastFrame\": 32343,\r\n  \"identityPreserved\": true,\r\n  \"results\": [\r\n    \"Esc + real mouse opened the weapon page while paused\",\r\n    \"South draw played from J and returned to idle; stationary, zero confirmed attacks\",\r\n    \"V and both menu views work; Esc freezes playback; sword restores original components\",\r\n    \"Sword walking and near hit preserved: 20 damage, one confirmed hit; active-strike switch refused\",\r\n    \"F5 restored default sword with the same isolated identity and one selector\",\r\n    \"Back and existing Continue buttons work after restart\"\r\n  ]\r\n}"
+  },
+  {
+    "command": "FeedbackBow--result.json",
+    "success": true,
+    "result": "Bow frontal/lateral, V/J/Esc, real Hurt/death, camera and reload compatibility passed"
+  },
+  {
+    "command": "FeedbackContact--result.json",
+    "success": true,
+    "result": "8 views: idle/walk/basic/heavy, palm anchors and finger occlusion passed"
+  },
+  {
+    "command": "FeedbackDeaths-0-4-result.json",
+    "success": true,
+    "result": "Death directions 0..3 passed"
+  },
+  {
+    "command": "FeedbackDeaths-4-4-result.json",
+    "success": true,
+    "result": "Death directions 4..7 passed"
+  },
+  {
+    "command": "FeedbackDodges--result.json",
+    "success": true,
+    "result": "8/8 dodge orientations, cooldown, immunity, grip, transitions and normal cadence passed"
+  },
+  {
+    "command": "FeedbackHurt--result.json",
+    "success": true,
+    "result": "Hurt reused in 8 views, accepted/rejected damage and deferred attack reaction passed"
+  },
+  {
+    "command": "FeedbackHurtDeath--result.json",
+    "success": true,
+    "result": "Valid deferred Hurt to lethal death; no immunity bypass"
+  },
+  {
+    "command": "FeedbackTransitions--result.json",
+    "success": true,
+    "result": "Continuous allowed transitions recorded; prohibited dodge attack refused"
+  }
+]
