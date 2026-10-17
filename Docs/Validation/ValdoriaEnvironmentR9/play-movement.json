@@ -1,0 +1,23 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentR9.unity",
+  "input": "InputSystem Keyboard D down/up",
+  "direction": "east",
+  "start": [
+    -8.0,
+    -1.0
+  ],
+  "duringInput": [
+    -7.29199839,
+    -1.0
+  ],
+  "finish": [
+    -7.11399841,
+    -1.0
+  ],
+  "displacement": 0.8860016,
+  "animatorStateDuringInput": "walk",
+  "animatorDirectionDuringInput": 3,
+  "frame": 1100,
+  "isolatedProfile": "D:\\unity\\Mmorpg\\Temp\\ValdoriaEnvironmentR9\\IsolatedProfile",
+  "capture": "Docs/Validation/ValdoriaEnvironmentR9/gameplay-r9-play.png"
+}

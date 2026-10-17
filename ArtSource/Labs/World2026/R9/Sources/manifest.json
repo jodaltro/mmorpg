@@ -1,0 +1,206 @@
+{
+  "generator": "Tools/ArtPipeline/World/build_valdoria_assets_r9.py",
+  "blenderSource": "ArtSource/Labs/World2026/R9/Blender/build_valdoria_pilot.py",
+  "asepriteVersion": "1.3.18.6",
+  "license": "Created locally for this project; no external/purchased art",
+  "ppu": 32,
+  "filter": "Point",
+  "files": [
+    {
+      "id": "meadow",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/meadow.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/meadow.png",
+      "canvas": [
+        384,
+        256
+      ],
+      "fullRenderCanvas": [
+        384,
+        256
+      ],
+      "worldSizeUnits": [
+        12.0,
+        8.0
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.5
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        192,
+        128
+      ],
+      "sourceRenderSha256": "5c92c105dc9502863513c959d3f9d915bc1e5e150a224bb60571e3618922b324",
+      "pngSha256": "8cfb943e096005d2271b31159ced0a39c3b70b4cf36cafc021d29cfc5954bfb8",
+      "asepriteEditableSha256": "7a65f320187206fa967c43cfd13231437f9396b6f8ebe79f16764e0ed5c55a50"
+    },
+    {
+      "id": "path",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/path.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/path.png",
+      "canvas": [
+        96,
+        256
+      ],
+      "fullRenderCanvas": [
+        96,
+        256
+      ],
+      "worldSizeUnits": [
+        3.0,
+        8.0
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.5
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        48,
+        128
+      ],
+      "sourceRenderSha256": "b9d84e4ef73a6fcce9622d7e6573b78f1739f876f4e0e0d87e3899254e55ca41",
+      "pngSha256": "d279b0bd0d2b3e6f489da2d7638cf3b5e175c212d7caf3802358cc68a4799836",
+      "asepriteEditableSha256": "0fadb12892235bce186ee93d510f12d561c9cfa3ae203528c3d57d37b3c5785f"
+    },
+    {
+      "id": "tree-canopy",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/tree-canopy.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/tree-canopy.png",
+      "canvas": [
+        67,
+        70
+      ],
+      "fullRenderCanvas": [
+        96,
+        176
+      ],
+      "worldSizeUnits": [
+        2.0938,
+        2.1875
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.507463,
+        0.014286
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        34,
+        69
+      ],
+      "sourceRenderSha256": "7a6d3ebfd17e4e35c364db500ecb4609576edb407c70db8279b5b23581717056",
+      "pngSha256": "6901c77d572bfc2349e7a61eca59dec83c387b8585a41ff2cad6637cf402e0e0",
+      "asepriteEditableSha256": "2ccf106d78d29346b0382cdac7b5234bce2c3d25414368a1b17c1ab3b2a1c7ba"
+    },
+    {
+      "id": "tree-trunk",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/tree-trunk.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/tree-trunk.png",
+      "canvas": [
+        30,
+        47
+      ],
+      "fullRenderCanvas": [
+        64,
+        112
+      ],
+      "worldSizeUnits": [
+        0.9375,
+        1.4688
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.466667,
+        0.021277
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        14,
+        46
+      ],
+      "sourceRenderSha256": "d6d315928d541ab7cc4ad1e48628e623d9898642a1ec20304a492d641bcd7533",
+      "pngSha256": "054fb2e0787f7371fa82c527b20afbdc99f8817b6266419a78e869f2945224d8",
+      "asepriteEditableSha256": "f5bff80fd7f0b3b64d3f977597f341279d0b48ea8e98540aaaba5f9eb7bfa747"
+    },
+    {
+      "id": "rock",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/rock.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/rock.png",
+      "canvas": [
+        64,
+        34
+      ],
+      "fullRenderCanvas": [
+        64,
+        48
+      ],
+      "worldSizeUnits": [
+        2.0,
+        1.0625
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.029412
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        32,
+        33
+      ],
+      "sourceRenderSha256": "399d367ac626062b5ad21cda57ff450d709fc8d4a1e2af2dbc5acbd7defc90e3",
+      "pngSha256": "9858404469ab88841f4157af4d774b5b194e5f4496ec1b0719b9136918910ce3",
+      "asepriteEditableSha256": "42d7ad63cd19c113d302950bd421a3c0de7a4e3e07ff26c7b0271cbf3e567bd3"
+    },
+    {
+      "id": "house-wall",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/house-wall.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/house-wall.png",
+      "canvas": [
+        128,
+        135
+      ],
+      "fullRenderCanvas": [
+        288,
+        288
+      ],
+      "worldSizeUnits": [
+        4.0,
+        4.2188
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.007407
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        64,
+        134
+      ],
+      "sourceRenderSha256": "cab2e25af957e693e0c96deee22e864fc9d0d939235e4de908ac19cb7adaa9f6",
+      "pngSha256": "d21bf81e3e62f3b1f473d878f569f503e519d318f9d259bdee93a7fb487335a1",
+      "asepriteEditableSha256": "93f330468623c472ed17eed6b896f968cc01e225b873796a21052c00a6f3dd83"
+    },
+    {
+      "id": "house-roof",
+      "unityAsset": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/house-roof.png",
+      "sourceRender": "ArtSource/Labs/World2026/R9/Blender/rendered/house-roof.png",
+      "canvas": [
+        140,
+        47
+      ],
+      "fullRenderCanvas": [
+        288,
+        288
+      ],
+      "worldSizeUnits": [
+        4.375,
+        1.4688
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.021277
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        70,
+        46
+      ],
+      "sourceRenderSha256": "6b1f117ead248cf5b81477c4fd1909b074462df8f5542772a48d181596af5da0",
+      "pngSha256": "69f210d789f524e93b2c95cb3e5f7cd1cafded914db6ce17d8de76774f9025ca",
+      "asepriteEditableSha256": "689765921c54ff9572ccbf0a3bf659273a1e3411e60963b89fc9b75bbd30eee6"
+    }
+  ]
+}

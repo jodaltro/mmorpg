@@ -1,0 +1,119 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentR9.unity",
+  "sourceScene": "Assets/Mmorpg/Scenes/HumanoidStatesR8.unity",
+  "seed": 620913,
+  "rootAnchor": [
+    -8.0,
+    -1.0
+  ],
+  "shadowLocalYBefore": -0.53,
+  "shadowLocalYAfter": -0.125,
+  "treePairs": 2,
+  "rocks": 1,
+  "houseFoundationCollider": [
+    3.7,
+    0.34
+  ],
+  "layoutSha256": "f3c1657b3e99691e1163c82499ec08873f382cfd478c182d162283b43135a305",
+  "pathWidthUnits": 3.0,
+  "placements": [
+    {
+      "asset": "house-wall",
+      "position": [
+        -3.4625,
+        -0.3375,
+        0.0
+      ],
+      "collision": true
+    },
+    {
+      "asset": "house-roof",
+      "position": [
+        -3.4625,
+        1.7625,
+        0.0
+      ],
+      "collision": false
+    },
+    {
+      "asset": "tree-trunk",
+      "position": [
+        -13.2875,
+        -2.4125,
+        0.0
+      ],
+      "collision": true
+    },
+    {
+      "asset": "tree-canopy",
+      "position": [
+        -13.2875,
+        -0.1125,
+        0.0
+      ],
+      "collision": false
+    },
+    {
+      "asset": "tree-trunk",
+      "position": [
+        0.25,
+        -0.75,
+        0.0
+      ],
+      "collision": true
+    },
+    {
+      "asset": "tree-canopy",
+      "position": [
+        0.25,
+        1.55,
+        0.0
+      ],
+      "collision": false
+    },
+    {
+      "asset": "rock",
+      "position": [
+        -11.0625,
+        -1.3375,
+        0.0
+      ],
+      "collision": true
+    }
+  ],
+  "addedBuildEntry": false,
+  "officialWorldModified": false,
+  "runtimeGeneration": false,
+  "protectedActorCount": 5,
+  "playerRootChanged": false,
+  "assets": [
+    {
+      "id": "meadow",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/meadow.png"
+    },
+    {
+      "id": "path",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/path.png"
+    },
+    {
+      "id": "tree-canopy",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/tree-canopy.png"
+    },
+    {
+      "id": "tree-trunk",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/tree-trunk.png"
+    },
+    {
+      "id": "rock",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/rock.png"
+    },
+    {
+      "id": "house-wall",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/house-wall.png"
+    },
+    {
+      "id": "house-roof",
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/house-roof.png"
+    }
+  ]
+}

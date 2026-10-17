@@ -1,0 +1,199 @@
+{
+  "schema": "valdoria-biome-recipe/v1",
+  "biome": "valdoria-village-pilot",
+  "seed": 620913,
+  "version": 1,
+  "artDirection": {
+    "projection": "top-down-3-4",
+    "ppu": 32,
+    "filter": "Point",
+    "palette": "olive-moss, compact-ochre-earth, cool-stone, aged-walnut, weathered-slate",
+    "light": "upper-left",
+    "contrast": "restrained"
+  },
+  "pilot": {
+    "sourceScene": "Assets/Mmorpg/Scenes/HumanoidStatesR8.unity",
+    "outputScene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentR9.unity",
+    "mode": "isolated-protected-preview",
+    "protectedAnchors": [
+      "Player",
+      "NPCs",
+      "portals",
+      "interactable IDs",
+      "colliders"
+    ],
+    "placement": "editor-only-seeded-recipe",
+    "maxProps": 8,
+    "pathWidthUnits": 3.0,
+    "regionAnchor": "Player",
+    "regionLocalBounds": [
+      -7,
+      -4.5,
+      15,
+      9
+    ]
+  },
+  "modules": [
+    {
+      "id": "terrain.meadow",
+      "kind": "meadow",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/meadow.png",
+      "visibleSizeUnits": [
+        12.0,
+        8.0
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.5
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        192,
+        128
+      ],
+      "sorting": "background",
+      "collision": "none"
+    },
+    {
+      "id": "path.compact-earth",
+      "kind": "path",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/path.png",
+      "visibleSizeUnits": [
+        3.0,
+        8.0
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.5
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        48,
+        128
+      ],
+      "sorting": "background",
+      "collision": "none"
+    },
+    {
+      "id": "tree.canopy",
+      "kind": "tree-canopy",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/tree-canopy.png",
+      "visibleSizeUnits": [
+        2.0938,
+        2.1875
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.507463,
+        0.014286
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        34,
+        69
+      ],
+      "sorting": "split-canopy",
+      "collision": "none"
+    },
+    {
+      "id": "tree.trunk",
+      "kind": "tree-trunk",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/tree-trunk.png",
+      "visibleSizeUnits": [
+        0.9375,
+        1.4688
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.466667,
+        0.021277
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        14,
+        46
+      ],
+      "sorting": "y-by-anchor",
+      "collision": "trunk-only"
+    },
+    {
+      "id": "rock.moss",
+      "kind": "rock",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/rock.png",
+      "visibleSizeUnits": [
+        2.0,
+        1.0625
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.029412
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        32,
+        33
+      ],
+      "sorting": "y-by-anchor",
+      "collision": "footprint-only"
+    },
+    {
+      "id": "building.wall",
+      "kind": "house-wall",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/house-wall.png",
+      "visibleSizeUnits": [
+        4.0,
+        4.2188
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.007407
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        64,
+        134
+      ],
+      "sorting": "y-by-anchor",
+      "collision": "foundation"
+    },
+    {
+      "id": "building.roof",
+      "kind": "house-roof",
+      "source": "Assets/Mmorpg/Art/Experimental/ValdoriaEnvironmentR9/Props/house-roof.png",
+      "visibleSizeUnits": [
+        4.375,
+        1.4688
+      ],
+      "pivotNormalizedBottomLeft": [
+        0.5,
+        0.021277
+      ],
+      "groundAnchorPixelsFromTopLeft": [
+        70,
+        46
+      ],
+      "sorting": "split-roof",
+      "collision": "none"
+    }
+  ],
+  "generation": {
+    "strategy": "seeded-authored-anchor-layout",
+    "runtimeGeneration": false,
+    "canonicalOrder": true,
+    "placementConstraints": {
+      "protectedRadiusUnits": 1.5,
+      "minPropSeparationUnits": 0.8,
+      "keepMainPathClear": true,
+      "regionBoundsEnforced": true
+    },
+    "seedOffsets": {
+      "tree": 13,
+      "rock": 37,
+      "shrub": 59,
+      "wall": 83
+    },
+    "protectedAnchors": [
+      "Player",
+      "Helena — acolhimento",
+      "Brann — forja",
+      "Ponte dos Ecos"
+    ]
+  },
+  "status": {
+    "art": "pilot-unreviewed",
+    "navigation": "visual-only-colliders-added-in-isolated-r9",
+    "scene": "generated-by-unity-editor-only"
+  }
+}
