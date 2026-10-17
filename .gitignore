@@ -123,3 +123,7 @@ InitTestScene*.unity*
 # Pipeline's temporary captures (final validation evidence is stored under Docs/Validation).
 /Assets/Temp/
 /Assets/Temp.meta
+
+# Python bytecode produced by Tools/ArtPipeline scripts (regenerate, never version).
+__pycache__/
+*.py[cod]
