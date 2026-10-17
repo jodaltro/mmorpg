@@ -1,34 +1,99 @@
 ---
 name: aseprite-pixel-art
-description: Criar, editar e exportar pixel art e animações do MMORPG com o Aseprite local, CLI e Lua, preservando os contratos de importação Unity.
+description: Editar, inspecionar, exportar e validar fontes .aseprite, pixel art, animações e módulos de cenário do MMORPG usando o Aseprite 1.3.18.6 instalado, os scripts Lua/Python locais e os contratos atuais da Unity.
 ---
 
-Use somente o executável local e Lua para esta produção artística. Não usar PixelLab, ImageGen ou geração externa/paga. A partir da raiz do repositório, leia `Docs/Art/AsepriteWorkflow.md` para comandos e limitações verificadas.
+# Pixel art local do MMORPG — Aseprite existente
 
-Antes de preparar arte para produção, leia `Docs/Art/ProductionAssetContract.md`, `HeroAnimation.md`, `WeaponAttachment.md` e `ProductionPipeline.md` em `Docs/Art/`, além de `Docs/Validation/Marco06B5.md` e `Marco06B6.md`.
+Esta é a **skill já versionada no projeto**; funciona com qualquer agente capaz de ler arquivos e executar comandos locais, inclusive DeepSeek Harness. **Não requer plugin Aseprite separado nem MCP**. Um Harness que não faça descoberta automática deve ler este arquivo explicitamente antes de qualquer tarefa: `Leia .agents/skills/aseprite-pixel-art/SKILL.md e siga as instruções`. Não alegar que a descoberta, a instalação ou a execução local já foram verificadas.
 
-## Ferramentas
+Trabalhar na raiz `D:\unity\Mmorpg`. Antes de qualquer mudança artística, ler `AGENTS.md`, `Docs/Art/AsepriteWorkflow.md` e, conforme o alvo, `Docs/Art/HumanoidStandard.md`, `Docs/Art/ProceduralWeapons.md`, `Docs/Validation/Marco06B13R10Consolidado.md` ou os contratos históricos citados adiante.
 
-- Detectar: `python Tools/ArtPipeline/Aseprite/aseprite.py locate`. Prioriza ASEPRITE_EXE e PATH; verifica instalações Windows/Steam e a instalação local conhecida. Não copiar binários/licenças nem instalar automaticamente.
-- Validar em temporários: `python Tools/ArtPipeline/Aseprite/aseprite.py validate`.
-- Criar laboratório: operação `lab --output <novo.aseprite>`.
-- Exportar: operação `export --source <documento.aseprite> --output <diretorio-novo>`; produz frames PNG, sheet horizontal, JSON, GIF e QA. `verify --output <diretorio>` verifica o contrato de canvas do herói. Requer Python/Pillow já usados pelo ArtPipeline.
-- CLI direta: `& Tools/ArtPipeline/Aseprite/Invoke-Aseprite.ps1 -b <entrada> --save-as <saida>`. A ordem das opções importa; use argumentos separados e caminhos absolutos quando estiver fora da raiz.
+## Contrato atual — não aplicar regras antigas ao Quaternius
 
-## Autoria
+| Alvo | Estado e regras |
+|---|---|
+| Protagonista Quaternius R8/R10 | **Ativo na cena oficial** `MmorpgWorld.unity`; 64 clips / 528 frames, oito vistas; fontes Blender/Aseprite e assets em `ArtSource/Labs/Humanoid2026/` e `Assets/Mmorpg/Art/Production/ValdoriaProtagonist/`. **Não regenerar** a caminhada/figurino/esquiva/Hurt/Death aprovados. |
+| Locomoção/ataque humanoide | Frames de referência normalmente **128×160**, 32 PPU, pivô Unity **(64,34)**, pivô em pixel superior esquerdo **(64,126)**; checar o manifesto **do asset usado**, não supor valores globais. |
+| Morte R8 | Usa **256×224**, 32 PPU, pivô Unity **(128,66)** para evitar recortes. Padding transparente não aumenta a escala do personagem. |
+| Iron Knight | **Histórico preservado**, não protagonista ativo: canvas original 256×256, 32 PPU, sem conversão para 96×96. |
+| Walk-lab B3/B4 | **Legado didático 96×96**; pivô (48,70) na origem superior esquerda, chão (48,88). Seu exportador continua disponível para regressão, mas não define os demais personagens. |
+| Cenário R10 | Ilustração detalhada 1536×800 tratada como referência/único backdrop; **não** é Tilemap modular nem contém colisões, sorting por objeto ou geometria de navegação. Fontes `ArtSource/Labs/World2026/R10/`. |
+| Demais props e NPCs | Verificar **canvas, pivô, PPU, footprint, profundidade e licença individualmente**. NPCs oficiais estão temporariamente ocultos por decisão artística de proporção. |
 
-Use `Sprite(96,96,ColorMode.RGB)` para RGBA, `newLayer()`, `newEmptyFrame()`, `Image`, `newCel()` e `frames[i].duration` em segundos. Leia o exemplo executável `Tools/ArtPipeline/Aseprite/walk_lab.lua`; `inspect.lua` demonstra leitura real de frames/camadas. Edite cópias ou novos documentos; recuse sobrescrever originais. Não reexecute o gerador sobre trabalho manual.
+O grupo visual do protagonista está atualmente em escala 1.25, o cenário em 1.74 e a câmera ortográfica em 7.03125; essas configurações são **candidatas ainda sem aprovação artística**. Não modificar escala/câmera como efeito colateral da exportação Aseprite.
 
-Mantenha paleta, proporções, canvas inteiro e pixels inteiros; não converter para indexed nem escalar fracionariamente sem intenção explícita. Organize partes em camadas e use tags como `walk_south`, `walk_west`, `walk_north`, `walk_east`; não espelhe equipamento assimétrico. A nova identidade artística pode diferir do herói antigo, desde que consistente. Mantenha espada separada.
+## 1. Preflight local (somente leitura/teste em temporários)
 
-Guias de chão, pivô e mãos ficam ocultas nas exportações. Use origem superior esquerda: pivô (48,70), chão de referência (48,88); marque mão direita e esquerda individualmente em cada frame. Marcadores do laboratório são experimentais, não âncoras aprovadas. Exporte metadados de attachment revisados para o manifesto existente; o JSON nativo do Aseprite não é um manifesto ProductionCharacterSet.
+```powershell
+cd D:\unity\Mmorpg
+git status --short
+python Tools/ArtPipeline/Aseprite/aseprite.py locate
+python Tools/ArtPipeline/Aseprite/aseprite.py validate
+```
 
-Revise a animação em loop, em tamanho nativo e nearest inteiro: contato, passagem, peso, continuidade da cabeça/roupa, retorno último→primeiro e contato da mão com a arma. PNGs distintos não comprovam animação convincente. GIF é prévia; preserve alfa nos PNGs. Declare desenho manual e validação artística pendentes quando aplicável.
+O `locate` procura `ASEPRITE_EXE`, PATH e instalações conhecidas; a última instalação registrada é `D:\Aseprite\Aseprite.exe`. `validate` usa temporários e o walk-lab legado **sem modificar PNGs/fontes aprovados**. Requer Python/Pillow. Se falhar, registrar erro e parar; não instalar binários, copiar executáveis/licenças ou simular resultado. Consultar `Docs/Art/AsepriteWorkflow.md`.
 
-## Unity
+## 2. Inspecionar fontes existentes sem alterações
 
-Fontes experimentais ficam em `ArtSource/Labs/Aseprite`, fora de Assets. Somente após revisão prepare os PNGs e manifestos conforme o contrato: 32 PPU, 96×96 para herói, pivô e mãos por frame, durações, hashes e status explícito. Sem trim automático: altera coordenadas. Mão Unity = ((handX-pivotX)/32,(pivotY-handY)/32); pivô normalizado = (x/width,1-y/height).
+```powershell
+python Tools/ArtPipeline/Aseprite/aseprite.py inspect --source "ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite"
+```
 
-Use o importador existente `ProductionArt06B4.Import`, SpriteRenderer Point, sem compressão/mipmaps, preservando GUIDs e ProductionSpriteAnimator. Nunca execute `production.py` para atualizar desenhos: a migração B3 pode sobrescrever fontes. Não duplicar importador nem alterar física para compensar arte. Se uma tarefa futura exigir Editor, siga AGENTS.md e a skill unity-cli; esta configuração não abre Unity.
+`inspect` abre o Aseprite em batch com `Tools/ArtPipeline/Aseprite/inspect_document.lua`, lê canvas, frames, camadas, tags e durações e **não salva** o documento. Funciona com dimensões distintas (não somente 96×96). A inspeção do exemplo acima **precisa ser executada na máquina**; não inferir que o arquivo é legível a partir do nome.
 
-Referências oficiais: [CLI](https://www.aseprite.org/docs/cli/), [scripting](https://www.aseprite.org/docs/scripting/), [API Lua](https://www.aseprite.org/api/).
+O antigo `inspect.lua` permanece **exclusivo do laboratório 96×96/4 frames/8 layers** e não deve ser usado para inspecionar Quaternius ou cenário.
+
+## 3. Criar, editar e exportar
+
+- **Nunca salvar sobre uma fonte aprovada.** Copiar para laboratório novo com nome e versão explícitos. Distinguir original, nova variante e arte produzida por geração de imagem. Não recalcular fontes antigas por scripts com parâmetros históricos.
+- Ferramentas Aseprite locais: `app.activeSprite`, `Sprite`, `newLayer`, `newEmptyFrame`, `Image`, `newCel`, tags e `frame.duration`. Inspecionar `Tools/ArtPipeline/Aseprite/walk_lab.lua` como exemplo **apenas didático**, não como proposta profissional de geometria.
+- Para roupas, personagens e equipamentos, preferir as fontes profissionais e Blender/Aseprite do pipeline Quaternius. A mão, dedos, braços, arma separada, oclusão e cortes devem continuar coerentes; **não** substituir animação profissional por poses inventadas/repetidas ou corpo procedimental tosco. A geometria 3D é autoria **offline**, não solver 3D executado na Unity.
+- Para cenário, usar Aseprite para acabamento, camadas e peças **modulares** de árvores, poço, casas, telhados, piso e bordas. A imagem composta R10 só fornece referência visual: criar máscaras, footprint, âncoras e colisão semântica **separadamente**, com validação real na Unity.
+- Para personagens assimétricos, jamais completar oito direções com espelhamento automático de ombreira/arma. Manter contornos, textura, iluminação e alfa coerentes na escala nativa.
+
+### Exportar um documento de estudo para um destino novo
+
+```powershell
+# Exemplo LEGADO 96x96 — somente laboratório existente ou novo:
+python Tools/ArtPipeline/Aseprite/aseprite.py lab --output ArtSource/Labs/Aseprite/teste-skill.aseprite
+python Tools/ArtPipeline/Aseprite/aseprite.py export --source ArtSource/Labs/Aseprite/teste-skill.aseprite --output ArtSource/Labs/Aseprite/teste-skill-export
+python Tools/ArtPipeline/Aseprite/aseprite.py verify --output ArtSource/Labs/Aseprite/teste-skill-export
+
+# Exemplo de canvas humanoide (usar SOMENTE numa cópia de trabalho existente):
+python Tools/ArtPipeline/Aseprite/aseprite.py export --source "CAMINHO_DO_ESTUDO.aseprite" --output "ArtSource/Labs/Aseprite/export-128-novo" --canvas 128x160
+python Tools/ArtPipeline/Aseprite/aseprite.py verify --output "ArtSource/Labs/Aseprite/export-128-novo" --canvas 128x160
+```
+
+Substituir `CAMINHO_DO_ESTUDO.aseprite` por uma fonte **real, de trabalho**. Os comandos `export/verify` esperam frames RGBA de canvas inteiro e sheet horizontal; a opção `--canvas WIDTHxHEIGHT` é obrigatória quando diferente de 96×96. Para morte R8, seria `--canvas 256x224`; objetos de cenário exigem canvas próprio. Essa utilidade não substitui os exportadores específicos R5–R10 nem metadados de armas, pivôs e sorting por frame.
+
+`export` **recusa pasta de destino existente**. O subcomando `verify` escreve `qa.json` no diretório da exportação e portanto deve rodar **somente em laboratórios**, nunca sobre arquivos históricos aprovados. A CLI direta (`Invoke-Aseprite.ps1`) pode sobrescrever saídas: passar destinos novos.
+
+## 4. Contrato de importação Unity
+
+Para cada atlas/variante, medir e documentar:
+
+- `canvas`, `ppu`, pivô, pés/ground contact, âncoras de mão, `holdAngle`/depth, direção, duração dos frames, loop, eventos visuais, origem/licença e SHA-256;
+- PNG RGBA real, transparência, `FilterMode.Point`, sem compressão/mipmaps, pixel-perfect quando compatível com enquadramento;
+- Aseprite JSON e GIF **não** substituem `ProductionCharacterSet` e os metadados de apresentação usados pela Unity;
+- pixels em origem superior esquerda: **mão local Unity = ((handX-pivotX)/PPU, (pivotY-handY)/PPU)**; pivô normalizado `(pivotX/width, 1-pivotY/height)`. Os pivôs têm de vir do manifesto **daquele frame/asset**.
+
+Para fontes experimentais, manter `ArtSource/Labs` separado de `Assets`. Integrar por importadores e scripts específicos do personagem/marco e preservar GUIDs, SpriteIDs, clips e referências quando a tarefa exigir. `ProductionArt06B4.Import` é **legado para B4** e **não deve ser invocado automaticamente** sobre Quaternius R10. **Nunca** executar `Tools/ArtPipeline/production.py` como atualização genérica: pode recriar fontes B3.
+
+## 5. Validação e aprovação
+
+1. Inspecionar a fonte em Aseprite: frames, durações, camadas, tags, canvases e integridade dos pixels. Para exportações novas, gerar SHA e QA; comparar com baseline aprovado.
+2. Avaliar a arte em tamanho nativo e nearest, dois ciclos, oito vistas quando aplicável, apoio dos pés, composição, hierarquia de camadas e transições. Em cenários, avaliar proporção junto ao **poço**, casas, árvores, sorting e caminhabilidade; não usar só uma prancha.
+3. Para dizer **"validado em Unity"**, conectar o **Editor real** com `--caller plugin --skill unity-pipeline` ou integração equivalente comprovada, executar recompile/status, Play/input, capturas de Game View e Console. Skill Aseprite **não abre Unity** nem comprova gameplay.
+4. Usar **perfil isolado** para qualquer Play, proteger `DevelopmentJourneys/marco06b4` e dados pessoais. Restaurar input, timeScale, editor, dispositivos, override e estado de Play.
+5. Separar **prova técnica** de **aprovação artística do usuário**. Não alegar que um novo visual está aprovado sem feedback explícito.
+
+## DeepSeek Harness — sem plugin Aseprite extra
+
+No Harness, orientar o agente de forma explícita:
+
+> Leia `AGENTS.md` e `.agents/skills/aseprite-pixel-art/SKILL.md`. Confirme o estado Quaternius R10. Execute **somente** `locate`, `validate` e `inspect` de uma fonte experimental existente, sem salvar cena, sem tocar em saves, sem alterar sprites oficiais. Relate comandos e saídas reais. Se a CLI não estiver acessível, pare e informe o bloqueio.
+
+A skill Aseprite é um conjunto de instruções/scripts **locais** e não estabelece conexão com o Unity; o Harness precisa de plugin Unity compatível ou da Unity CLI autenticada. Veja `Docs/Development/DeepSeekHarness.md` para a integração.
+
+**Fontes oficiais:** [Aseprite CLI](https://www.aseprite.org/docs/cli/), [scripting](https://www.aseprite.org/docs/scripting/) e [API Lua](https://www.aseprite.org/api/).
