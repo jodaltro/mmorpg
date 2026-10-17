@@ -1,0 +1,23 @@
+{
+  "schema": "valdoria-terrain-recipe/v1",
+  "regionId": "valdoria-highlands-pilot",
+  "seed": 620913,
+  "size": [64, 48],
+  "cellSizeUnits": 1.0,
+  "baseElevation": 0.42,
+  "waterCandidateBelow": 0.24,
+  "features": [
+    {"kind": "hill", "center": [46, 12], "radius": [18, 15], "strength": 0.43},
+    {"kind": "hill", "center": [19, 9], "radius": [12, 10], "strength": 0.22},
+    {"kind": "valley", "center": [29, 33], "radius": [21, 12], "strength": 0.34},
+    {"kind": "plateau", "center": [11, 34], "radius": [9, 7], "targetElevation": 0.42}
+  ],
+  "protectedZones": [
+    {"id": "future-village-pad", "rect": [4, 30, 12, 11], "targetElevation": 0.42}
+  ],
+  "route": {
+    "points": [[6, 35], [17, 33], [28, 30], [38, 25], [48, 23]],
+    "halfWidth": 1.6,
+    "targetElevation": 0.42
+  }
+}
