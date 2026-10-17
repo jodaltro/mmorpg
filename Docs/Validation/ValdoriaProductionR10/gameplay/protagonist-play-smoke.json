@@ -5,7 +5,7 @@
   "walkSprite": "pose_112",
   "movementState": "walk",
   "returnState": "idle",
-  "displacement": 0.778,
+  "displacement": 0.708,
   "startPosition": "(-8.00, -1.00)",
   "endPosition": "(-7.86, -1.00)",
   "frameAdvanced": true,

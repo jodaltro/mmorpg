@@ -29102,6 +29102,7 @@ GameObject:
   - component: {fileID: 1055533953}
   - component: {fileID: 1055533954}
   - component: {fileID: 1055533955}
+  - component: {fileID: 1055533956}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -29127,10 +29128,10 @@ MonoBehaviour:
   clampToWorld: 1
   worldBounds:
     serializedVersion: 2
-    x: -22.499073
-    y: -7.70625
-    width: 62.499073
-    height: 38.70625
+    x: -62.375
+    y: -18.4
+    width: 102.375
+    height: 49.4
 --- !u!81 &1055533950
 AudioListener:
   m_ObjectHideFlags: 0
@@ -29166,15 +29167,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.208901
-    y: 0.14705883
-    width: 0.58128977
-    height: 0.7058824
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 7.03125
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -29212,7 +29213,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055533948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
@@ -29280,11 +29281,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055533948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fff0477523e52f4e8eda3c1b78d07d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.AdaptivePixelViewport
+--- !u!114 &1055533956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055533948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7326c958b38a84ab0d2cf0e683e647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mmorpg.Runtime::Mmorpg.Runtime.FullFrameCameraPresentation
+  view: {fileID: 1055533951}
 --- !u!1 &1064315552
 GameObject:
   m_ObjectHideFlags: 0
@@ -62566,8 +62580,8 @@ Transform:
   m_GameObject: {fileID: 1903065779}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -1, z: 0}
-  m_LocalScale: {x: 0.58, y: 0.58, z: 0.58}
+  m_LocalPosition: {x: -18.877785, y: 1.71875, z: 0}
+  m_LocalScale: {x: 1.74, y: 1.74, z: 1.74}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
