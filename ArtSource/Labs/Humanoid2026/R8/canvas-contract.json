@@ -1,0 +1,93 @@
+{
+  "ppu": 32,
+  "reference": {
+    "canvas": [
+      128,
+      160
+    ],
+    "pivotTop": [
+      64,
+      126
+    ],
+    "pivotUnity": [
+      64,
+      34
+    ],
+    "orthoScale": 2.4
+  },
+  "actions": {
+    "dodge": {
+      "canvas": [
+        128,
+        160
+      ],
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pivotTop": [
+        64,
+        126
+      ],
+      "pivotUnity": [
+        64,
+        34
+      ],
+      "orthoScale": 2.4,
+      "seconds": 0.22,
+      "choice": "evasive step; not Roll"
+    },
+    "death": {
+      "canvas": [
+        256,
+        224
+      ],
+      "padding": [
+        64,
+        32,
+        64,
+        32
+      ],
+      "pivotTop": [
+        128,
+        158
+      ],
+      "pivotUnity": [
+        128,
+        66
+      ],
+      "orthoScale": 3.84,
+      "seconds": 2.433333333333333,
+      "choice": "Death01 full 0..72, terminal 1/30s then held"
+    }
+  },
+  "auditedRollNotIntegrated": {
+    "canvas": [
+      192,
+      192
+    ],
+    "padding": [
+      32,
+      16,
+      32,
+      16
+    ],
+    "pivotTop": [
+      96,
+      142
+    ],
+    "pivotUnity": [
+      96,
+      50
+    ],
+    "orthoScale": 2.88
+  },
+  "projectionPixelsPerMeter": 66.66666666666667,
+  "physicalRootMotion": false,
+  "rootPolicy": "fixed rig object transform, pelvis motion remains local visual body fall; no per-frame recentering",
+  "cameraPolicy": "fixed source camera per view, R8 gameplay camera follows a fixed +0.5y focus; no per-pose camera shifts",
+  "artisticApproval": "pending",
+  "calibration": "AUTO sensor fit: scale reference by max(newWidth,newHeight)/160; verified every bone in eight views"
+}

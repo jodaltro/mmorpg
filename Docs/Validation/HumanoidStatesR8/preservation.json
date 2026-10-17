@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "protectedFiles": 530,
+  "personalFiles": 5,
+  "reusedFrames": 264,
+  "walkFramesIdentical": 104,
+  "newDodgeFrames": 64,
+  "newDeathFrames": 200,
+  "clips": 64,
+  "frames": 528,
+  "approvedBowFramesIdentical": 74,
+  "officialEntry": "Assets/Mmorpg/Scenes/MmorpgWorld.unity",
+  "onlyR8Appended": true,
+  "inputAndProfileRestored": true,
+  "scene": "Assets/Mmorpg/Scenes/HumanoidStatesR8.unity"
+}

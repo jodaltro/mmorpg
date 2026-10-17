@@ -1,0 +1,597 @@
+{ "frames": [
+   {
+    "filename": "dodge 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 1.aseprite",
+    "frame": { "x": 128, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 2.aseprite",
+    "frame": { "x": 256, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 3.aseprite",
+    "frame": { "x": 384, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 4.aseprite",
+    "frame": { "x": 512, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 5.aseprite",
+    "frame": { "x": 640, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 6.aseprite",
+    "frame": { "x": 768, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 7.aseprite",
+    "frame": { "x": 896, "y": 0, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 8.aseprite",
+    "frame": { "x": 0, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 9.aseprite",
+    "frame": { "x": 128, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 10.aseprite",
+    "frame": { "x": 256, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 11.aseprite",
+    "frame": { "x": 384, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 12.aseprite",
+    "frame": { "x": 512, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 13.aseprite",
+    "frame": { "x": 640, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 14.aseprite",
+    "frame": { "x": 768, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 15.aseprite",
+    "frame": { "x": 896, "y": 160, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 16.aseprite",
+    "frame": { "x": 0, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 17.aseprite",
+    "frame": { "x": 128, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 18.aseprite",
+    "frame": { "x": 256, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 19.aseprite",
+    "frame": { "x": 384, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 20.aseprite",
+    "frame": { "x": 512, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 21.aseprite",
+    "frame": { "x": 640, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 22.aseprite",
+    "frame": { "x": 768, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 23.aseprite",
+    "frame": { "x": 896, "y": 320, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 24.aseprite",
+    "frame": { "x": 0, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 25.aseprite",
+    "frame": { "x": 128, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 26.aseprite",
+    "frame": { "x": 256, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 27.aseprite",
+    "frame": { "x": 384, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 28.aseprite",
+    "frame": { "x": 512, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 29.aseprite",
+    "frame": { "x": 640, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 30.aseprite",
+    "frame": { "x": 768, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 31.aseprite",
+    "frame": { "x": 896, "y": 480, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 32.aseprite",
+    "frame": { "x": 0, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 33.aseprite",
+    "frame": { "x": 128, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 34.aseprite",
+    "frame": { "x": 256, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 35.aseprite",
+    "frame": { "x": 384, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 36.aseprite",
+    "frame": { "x": 512, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 37.aseprite",
+    "frame": { "x": 640, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 38.aseprite",
+    "frame": { "x": 768, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 39.aseprite",
+    "frame": { "x": 896, "y": 640, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 40.aseprite",
+    "frame": { "x": 0, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 41.aseprite",
+    "frame": { "x": 128, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 42.aseprite",
+    "frame": { "x": 256, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 43.aseprite",
+    "frame": { "x": 384, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 44.aseprite",
+    "frame": { "x": 512, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 45.aseprite",
+    "frame": { "x": 640, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 46.aseprite",
+    "frame": { "x": 768, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 47.aseprite",
+    "frame": { "x": 896, "y": 800, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 48.aseprite",
+    "frame": { "x": 0, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 49.aseprite",
+    "frame": { "x": 128, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 50.aseprite",
+    "frame": { "x": 256, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 51.aseprite",
+    "frame": { "x": 384, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 52.aseprite",
+    "frame": { "x": 512, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 53.aseprite",
+    "frame": { "x": 640, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 54.aseprite",
+    "frame": { "x": 768, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 55.aseprite",
+    "frame": { "x": 896, "y": 960, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 56.aseprite",
+    "frame": { "x": 0, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 57.aseprite",
+    "frame": { "x": 128, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 58.aseprite",
+    "frame": { "x": 256, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 59.aseprite",
+    "frame": { "x": 384, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 60.aseprite",
+    "frame": { "x": 512, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 61.aseprite",
+    "frame": { "x": 640, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 62.aseprite",
+    "frame": { "x": 768, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   },
+   {
+    "filename": "dodge 63.aseprite",
+    "frame": { "x": 896, "y": 1120, "w": 128, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 160 },
+    "sourceSize": { "w": 128, "h": 160 },
+    "duration": 27
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.18.6-x64",
+  "image": "spritesheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 1024, "h": 1280 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "dodge_south", "from": 0, "to": 7, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_west", "from": 8, "to": 15, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_north", "from": 16, "to": 23, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_east", "from": 24, "to": 31, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_southwest", "from": 32, "to": 39, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_northwest", "from": 40, "to": 47, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_northeast", "from": 48, "to": 55, "direction": "forward", "color": "#000000ff" },
+   { "name": "dodge_southeast", "from": 56, "to": 63, "direction": "forward", "color": "#000000ff" }
+  ]
+ }
+}

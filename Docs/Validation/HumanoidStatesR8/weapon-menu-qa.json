@@ -1,0 +1,13 @@
+{
+  "firstFrame": 85452,
+  "lastFrame": 87173,
+  "identityPreserved": true,
+  "results": [
+    "Esc + real mouse opened the weapon page while paused",
+    "South draw played from J and returned to idle; stationary, zero confirmed attacks",
+    "V and both menu views work; Esc freezes playback; sword restores original components",
+    "Sword walking and near hit preserved: 20 damage, one confirmed hit; active-strike switch refused",
+    "F5 restored default sword with the same isolated identity and one selector",
+    "Back and existing Continue buttons work after restart"
+  ]
+}

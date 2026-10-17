@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 public static class InspectWeaponValidationMenuR7
 {
- const string E="Docs/Validation/HumanoidSwordR7/";
+ static string E="Docs/Validation/HumanoidSwordR7/";
  static ActorHealth Player=>UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;
  static WeaponValidationPreview Preview=>Player.GetComponent<WeaponValidationPreview>();
  static Keyboard Keys=>InputSystem.devices.OfType<Keyboard>().Single(k=>k.name=="AnimationKeyboard");
@@ -30,8 +30,9 @@ public static class InspectWeaponValidationMenuR7
   var done=new TaskCompletionSource<bool>();Player.StartCoroutine(CaptureFrame(name,done));await done.Task;
  }
  static System.Collections.IEnumerator CaptureFrame(string name,TaskCompletionSource<bool> done){yield return new WaitForEndOfFrame();try{var tex=ScreenCapture.CaptureScreenshotAsTexture();File.WriteAllBytes(E+"previews/"+name+".png",tex.EncodeToPNG());UnityEngine.Object.Destroy(tex);done.SetResult(true);}catch(Exception ex){done.SetException(ex);}}
- public static async Task<string> Inspect()
+ public static async Task<string> Inspect(string evidenceFolder=null)
  {
+  if(evidenceFolder!=null){E=evidenceFolder;Directory.CreateDirectory(E+"previews");}
   Check(LocalJourneyProfile.Root.Contains("Temp"),"Isolated profile required");var identity=LocalJourneyProfile.IdentityId;int first=Time.frameCount;var results=new List<string>();var authority=UnityEngine.Object.FindAnyObjectByType<OfflineAuthority>();int hits=0;Action<ActorHealth,ActorHealth> hit=(a,b)=>{if(a==Player)hits++;};authority.HitConfirmed+=hit;
   var dummy=UnityEngine.Object.FindAnyObjectByType<TrainingDummy>();bool recovery=dummy.enabled;dummy.enabled=false;
   try{

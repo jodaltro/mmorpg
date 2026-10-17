@@ -50,5 +50,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mmorpg/Scenes/HumanoidSwordR7.unity
     guid: f58872e72607ce74bb2551116b6da3ed
+  - enabled: 1
+    path: Assets/Mmorpg/Scenes/HumanoidStatesR8.unity
+    guid: b2be2d7db9ea05247bf84bc80f45747e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -12,7 +12,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 public static class InspectHumanoidSwordR7
 {
- const string E="Docs/Validation/HumanoidSwordR7/",Raw="Temp/HumanoidR7/CombatFrames/";
+ static string E="Docs/Validation/HumanoidSwordR7/";
+ const string Raw="Temp/HumanoidR7/CombatFrames/";
  static bool debugCapture;
  static ActorHealth Player=>UnityEngine.Object.FindAnyObjectByType<JourneySession>().Player;
  static ProductionSpriteAnimator Animator=>Player.GetComponent<ProductionSpriteAnimator>();
@@ -67,8 +68,9 @@ public static class InspectHumanoidSwordR7
   try{for(int d=0;d<8;d++){await Reset();Vector2 v=ProductionDirections.Vector(d);var keys=new List<Key>();if(v.x<0)keys.Add(Key.A);if(v.x>0)keys.Add(Key.D);if(v.y<0)keys.Add(Key.S);if(v.y>0)keys.Add(Key.W);Input(keys.ToArray());await Trace("weapon-walk-"+d,.7f);Input();}return "Eight-direction walking attachment captures recorded; physical results are in matrix files.";}
   finally{Input();Aim(Vector2.down);Time.timeScale=1;}
  }
- public static async Task<string> Matrix(string scenario="basic")
+ public static async Task<string> Matrix(string scenario="basic",string evidenceFolder=null)
  {
+  if(evidenceFolder!=null)E=evidenceFolder;
   Directory.CreateDirectory(E);Directory.CreateDirectory(Raw);Time.timeScale=.65f;
   var dummy=UnityEngine.Object.FindAnyObjectByType<TrainingDummy>();bool dummyEnabled=dummy.enabled;dummy.enabled=false;var target=dummy.Health;Vector3 saved=target.transform.position;var rows=new List<object>();GameObject wall=null;
   try{for(int d=0;d<8;d++){

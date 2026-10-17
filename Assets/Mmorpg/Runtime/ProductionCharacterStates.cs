@@ -11,6 +11,8 @@ namespace Mmorpg.Runtime
         [SerializeField] private ProductionSpriteAnimator animator;
         [SerializeField] private SwordSwing sword;
         [SerializeField] private PlayerController player;
+        [SerializeField] private bool refreshOnConfirmedDamage;
+        public void ConfigureImmediatePresentation(bool refresh)=>refreshOnConfirmedDamage=refresh;
         private CombatState observedState;
         private int observedHealth, hurtDirection, deathDirection, dodgeDirection;
         private double impactAt=double.NegativeInfinity, hurtAt=double.NegativeInfinity;
@@ -41,6 +43,7 @@ namespace Mmorpg.Runtime
                 hurtAt=double.NegativeInfinity;hurtDirection=animator.DirectionIndex;
             }
             observedHealth=next;
+            if(refreshOnConfirmedDamage&&animator.enabled)animator.RefreshConfirmedState();
         }
         public bool TrySelect(ProductionCharacterSet art,double now,out string action,out int direction,out float time)
         {

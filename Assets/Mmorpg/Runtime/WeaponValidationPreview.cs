@@ -21,6 +21,7 @@ namespace Mmorpg.Runtime
         [SerializeField] private TMP_Text hint;
         [SerializeField] private CameraFollow cameraFollow;
         [SerializeField] private Transform defaultCameraTarget,bowCameraFocus;
+        [SerializeField] private bool reportPreviewFacing;
         private bool animatorWasEnabled,controllerWasEnabled,combatWasEnabled,hudWasEnabled,swordWasEnabled,bladeWasActive;
         private Sprite originalSprite;
         private double started;
@@ -32,6 +33,7 @@ namespace Mmorpg.Runtime
         public void Configure(ProductionSpriteAnimator art,SwordSwing weapon,PlayerController input,ActionCombat abilities,ActionSliceHud interfaceHud,ActorHealth actor,SpriteRenderer equipped,Sprite[] frames,TMP_Text label)
         {animator=art;sword=weapon;controller=input;combat=abilities;hud=interfaceHud;health=actor;motor=actor.GetComponent<ActorMotor>();body=actor.GetComponent<Rigidbody2D>();blade=equipped;bowFrames=frames;hint=label;}
         public void ConfigureFraming(CameraFollow follow,Transform original,Transform focus){cameraFollow=follow;defaultCameraTarget=original;bowCameraFocus=focus;}
+        public void ConfigureStateFacing(bool report)=>reportPreviewFacing=report;
         private void Awake(){health.Changed+=OnHealthChanged;hint.gameObject.SetActive(false);}
         public string SelectBow(int view)
         {
@@ -45,6 +47,7 @@ namespace Mmorpg.Runtime
                 if(cameraFollow!=null&&bowCameraFocus!=null)cameraFollow.Configure(bowCameraFocus);
             }
             ViewIndex=Mathf.Clamp(view,0,1);Playing=false;PoseIndex=0;ignoreInputThrough=Time.frameCount+1;ShowFrame();
+            if(reportPreviewFacing)animator.SetPreviewFacing(ViewIndex==0?0:3);
             hint.text="ARCO · "+(ViewIndex==0?"frontal":"lateral")+"   |   Clique / J: puxada   |   V: vista   |   Esc: armas\nValidação estacionária de pose · sem projéteis";hint.gameObject.SetActive(true);return null;
         }
         public void SelectSword()
@@ -58,13 +61,14 @@ namespace Mmorpg.Runtime
             if(hud!=null)hud.enabled=hudWasEnabled;
             if(sword!=null)sword.enabled=swordWasEnabled;
             if(blade!=null)blade.gameObject.SetActive(bladeWasActive);
+            if(blade!=null&&health!=null&&!health.State.IsAlive)blade.enabled=false;
             if(hint!=null)hint.gameObject.SetActive(false);
             if(motor!=null)motor.SetIntent(Vector2.zero,0);
             if(cameraFollow!=null&&defaultCameraTarget!=null)cameraFollow.Configure(defaultCameraTarget);
         }
         public void PlayDraw(){if(!BowSelected||Playing||Time.timeScale==0)return;started=Time.timeAsDouble;PoseIndex=0;Playing=true;}
         private void ShowFrame()=>animator.Body.sprite=bowFrames[ViewIndex*37+PoseIndex];
-        private void OnHealthChanged(){if(BowSelected)SelectSword();}
+        private void OnHealthChanged(){if(BowSelected){SelectSword();if(reportPreviewFacing&&animator!=null)animator.RefreshConfirmedState();}}
         private void Update()
         {
             if(!BowSelected||Time.timeScale==0)return;

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "identicalPhysicsBlocks": 54,
+  "types": [
+    "50",
+    "61"
+  ],
+  "rigidbodyAndCollidersUnchanged": true
+}

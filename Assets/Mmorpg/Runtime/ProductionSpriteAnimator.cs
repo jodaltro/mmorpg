@@ -20,6 +20,12 @@ namespace Mmorpg.Runtime
         public Vector2 VisualFacing => ProductionDirections.Vector(DirectionIndex);
         public int DirectionFor(Vector2 facing,bool stabilize=false)=>MapDirection(facing,stabilize);
         public SpriteRenderer Body => visual;
+        // Optional presentation study facing; does not submit movement or aim to authority.
+        public void SetPreviewFacing(int direction)=>DirectionIndex=Mathf.Clamp(direction,0,art.eightDirectionPresentation?7:3);
+        public void RefreshConfirmedState()
+        {
+            if(art!=null&&characterStates!=null&&characterStates.TrySelect(art,Time.timeAsDouble,out string action,out int direction,out float time))Select(action,direction,time);
+        }
         public event System.Action<string> VisualEvent;
         public void Configure(ProductionCharacterSet set, ActorHealth actor, SpriteRenderer renderer, SwordSwing weapon)
         { art=set; health=actor; motor=actor.GetComponent<ActorMotor>(); visual=renderer; sword=weapon; }
