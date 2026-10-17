@@ -17,6 +17,21 @@ Permitir que um agente operando no workspace `D:\unity\Mmorpg` aproveite os pipe
 
 A distribuição, os nomes de pacotes, comandos e requisitos de plugins podem mudar. **Verificar a documentação/CLI da versão realmente instalada** antes de executar instruções vistas online. Não presumir que uma integração de nome semelhante funcione com outra versão do Harness.
 
+## Aseprite: reutilizar a skill existente (sem instalar plugin extra)
+
+A escolha atual do usuário é manter **`.agents/skills/aseprite-pixel-art/SKILL.md`** e os scripts de autoria já testados neste projeto. Para executar no Harness, pedir explicitamente **"Leia `AGENTS.md` e `.agents/skills/aseprite-pixel-art/SKILL.md` antes de agir"**: descoberta automática de skills varia conforme versão e configuração do agente, e não foi certificada nesta máquina.
+
+A skill passou a oferecer inspeção **somente leitura** de fontes com qualquer canvas e verificação parametrizada de exportação. Exemplo seguro para a instalação local:
+
+```powershell
+cd D:\\unity\\Mmorpg
+python Tools/ArtPipeline/Aseprite/aseprite.py locate
+python Tools/ArtPipeline/Aseprite/aseprite.py validate
+python Tools/ArtPipeline/Aseprite/aseprite.py inspect --source "ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite"
+```
+
+`inspect` não grava a fonte. O antigo `inspect.lua` é específico do walk-lab 96×96. Exportações exigem pasta **nova**: `--canvas 128x160` para estudo padrão Quaternius, `--canvas 256x224` para frames de morte R8. As fontes aprovadas não devem ser reexportadas por cima dos assets de produção. A execução completa depende do Aseprite no Windows; revisão do repositório não comprova seu funcionamento local.
+
 ## Preparação segura no PowerShell
 
 ```powershell
@@ -38,7 +53,7 @@ Os dois últimos comandos usam ferramentas já presentes no repositório; `valid
 3. Conectar chave/modelo DeepSeek pelo armazenamento privado da ferramenta. Conferir que logs, arquivos `.env` e saídas do agente não serão comitados.
 4. Ler `AGENTS.md` no início da sessão. Confirmar explicitamente o protagonista Quaternius R10 e não o Iron Knight histórico.
 5. Para Unity, localizar o plugin compatível com essa distribuição e sua versão, inspecionar permissões e instalação. O candidato citado anteriormente é `opdsh/unity-plugin`, mas **não tratar o nome do repositório como prova de compatibilidade com a instalação atual**. Se o plugin não funcionar, usar Unity CLI diretamente pelo terminal do agente, desde que autenticação e Editor conectado sejam verificados.
-6. Para Aseprite, preferir **CLI/Lua do programa instalado** e o wrapper do próprio projeto. O plugin comunitário `dsh-aseprite` (se disponível/compatível) pode ser avaliado como interface auxiliar, mas não substitui a verificação de exportação/roundtrip pelo Aseprite real.
+6. Para Aseprite, usar **somente a skill existente e a CLI/Lua do programa instalado**. Nenhum plugin `dsh-aseprite` é necessário para este fluxo; não o instalar automaticamente.
 
 ### Unity CLI existente
 
@@ -55,7 +70,7 @@ No editor conectado, validar a conexão, usar `set_autotick`, `recompile`, acomp
 
 **Gate A — ferramentas:** confirmar a identidade do projeto, branch, versão Unity e caminho executável do Aseprite. Se algo falhar, parar e registrar erro.
 
-**Gate B — Aseprite:** executar `locate` e `validate` do wrapper; usar arquivos temporários/novo laboratório e comparar os hashes do material de entrada. Não exportar sobre sprite de produção.
+**Gate B — Aseprite:** executar `locate`, `validate` e `inspect` de uma fonte de laboratório existente (como o cenário R10), sem salvar. Opcionalmente usar arquivos temporários/novo laboratório e comparar os hashes da entrada. Não exportar sobre sprite de produção.
 
 **Gate C — Unity:** abrir uma cena experimental já existente (por exemplo `Assets/Mmorpg/Scenes/HumanoidStatesR8.unity`) **fora de Play**, sem salvar alterações, confirmar scripts/Console e capturar estado. Se quiser testar Play, antes configurar perfil isolado e seguir rotinas de restauração do projeto.
 
