@@ -34,7 +34,7 @@ BACKDROP = LIBRARY / "village-scene-v3.png"
 PRODUCTION = ROOT / "Assets/Mmorpg/Art/Production/ValdoriaEnvironment/ValdoriaVillageScene.png"
 
 # Isolated props cropped from the cleaned sibling document by
-# crop_valdoria_llm_aseprite.py. Kept here as provenance, not rebuilt.
+# crop_valdoria_llm_aseprite.py. Rebuilt from the canonical manifest below.
 PROP_SOURCE = ROOT / "ArtSource/Labs/World2026/R10/Aseprite/valdoria-llm-detail-clean.aseprite"
 
 
@@ -77,7 +77,8 @@ def compare(a, b):
         if ia.size != ib.size:
             return {"sizeMatch": False, "a": ia.size, "b": ib.size}
         diff = ImageChops.difference(ia, ib)
-        bbox = diff.getbbox()
+        # RGBA.getbbox() can ignore RGB differences when alpha difference is 0.
+        bbox = diff.convert("RGB").getbbox() or diff.getchannel("A").getbbox()
         return {"sizeMatch": True, "pixelIdentical": bbox is None, "diffBBox": bbox}
 
 
@@ -107,9 +108,11 @@ def main():
                 "propSource": str(PROP_SOURCE.relative_to(ROOT)),
                 "propPipeline": "Tools/ArtPipeline/World/crop_valdoria_llm_aseprite.py",
             }
+            report["modules"] = rebuild_modules(tmp / "modules", verify=True)
             print(json.dumps(report, indent=2))
             ok = (report["libraryBackdrop"].get("pixelIdentical") and
-                  report["productionBackdrop"].get("pixelIdentical"))
+                  report["productionBackdrop"].get("pixelIdentical") and
+                  all(row["pixelIdentical"] and row["publishedHashValid"] for row in report["modules"]))
             return 0 if ok else 1
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
@@ -120,8 +123,28 @@ def main():
     out.mkdir(parents=True)
     exported = export_source(out / "source.png")
     crop_backdrop(exported, out / "village-scene-v3.png")
+    rebuild_modules(out / "modules", verify=False)
     print(json.dumps({"output": str(out), "backdropSha256": sha256(out / "village-scene-v3.png")}, indent=2))
     return 0
+
+
+def rebuild_modules(out, verify):
+    """Rebuild every published crop from its recorded source rectangle."""
+    out.mkdir(parents=True, exist_ok=False)
+    manifest = json.loads((LIBRARY / "manifest.json").read_text(encoding="utf-8"))
+    rows = []
+    for asset in manifest["assets"]:
+        destination = out / asset["file"]
+        crop = ",".join(str(value) for value in asset["sourceCrop"])
+        subprocess.run([str(ASEPRITE), "-b", str(PROP_SOURCE), "--crop", crop,
+                        "--save-as", str(destination)], check=True, capture_output=True)
+        if verify:
+            published = LIBRARY / asset["file"]
+            comparison = compare(destination, published)
+            rows.append({"id": asset["id"], "pixelIdentical": comparison.get("pixelIdentical", False),
+                         "publishedHashValid": sha256(published) == asset["sha256"],
+                         "rebuiltSha256": sha256(destination)})
+    return rows
 
 
 if __name__ == "__main__":

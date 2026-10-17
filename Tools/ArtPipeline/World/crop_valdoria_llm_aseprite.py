@@ -30,6 +30,7 @@ ITEMS={
 
 def main():
     if not SOURCE.is_file(): raise FileNotFoundError(SOURCE)
+    if OUT.exists(): raise FileExistsError(f"Refusing to change a published library: {OUT}. Use rebuild_valdoria_r10.py --output <new-dir>.")
     OUT.mkdir(parents=True,exist_ok=True)
     exe=Path(r"D:\Aseprite\Aseprite.exe")
     manifest_path=OUT/"manifest.json"
