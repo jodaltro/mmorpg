@@ -1,0 +1,16 @@
+{
+  "files": [
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/A-base-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/A-transitions-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/A-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/B-base-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/B-transitions-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/B-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/C-base-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/C-transitions-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/C-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/composition.json"
+  ],
+  "consumers": [],
+  "replacement": "TextureRevision, source BuildR7"
+}

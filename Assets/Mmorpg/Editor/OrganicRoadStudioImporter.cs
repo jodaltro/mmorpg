@@ -11,7 +11,7 @@ using UnityEditor.SceneManagement;
 using Mmorpg.Runtime;
 using Object=UnityEngine.Object;
 
-public static class OrganicRoadStudioImporter
+public static partial class OrganicRoadStudioImporter
 {
     const string Source="ArtSource/Labs/World2026/WorldStudio02/RoadsR3/";
     const string BaseRegion="ArtSource/Labs/World2026/WorldStudio01/Regions/B/world-region.json";

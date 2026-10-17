@@ -1,0 +1,10 @@
+{
+  "localCropEqualsFullAtlas": true,
+  "bounds": [
+    1024,
+    704,
+    192,
+    160
+  ],
+  "fullRegionRegenerated": false
+}

@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 // Bakes planar 2D quads: elevation shapes the presentation of blocked terrain only.
 // Shared corner positions eliminate cracks; physics stays on the semantic footprint.
-public static class TerrainReliefBuilder
+public static partial class TerrainReliefBuilder
 {
     public static void Add(GameObject root,JObject region,string destination)
     {

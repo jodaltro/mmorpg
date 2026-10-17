@@ -1,0 +1,219 @@
+{
+  "sameCameraPoseScaleSeed": true,
+  "seed": 710202,
+  "captures": [
+    {
+      "frame": 9191,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 43,
+      "name": "Before",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 252141,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/Before.png"
+      }
+    },
+    {
+      "frame": 11030,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "A-Base",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 53113,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/A-Base.png"
+      }
+    },
+    {
+      "frame": 12817,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "A-Transitions",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 83234,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/A-Transitions.png"
+      }
+    },
+    {
+      "frame": 14614,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "A-Final",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 135723,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/A-Final.png"
+      }
+    },
+    {
+      "frame": 16458,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "B-Base",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 72087,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/B-Base.png"
+      }
+    },
+    {
+      "frame": 18380,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "B-Transitions",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 99187,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/B-Transitions.png"
+      }
+    },
+    {
+      "frame": 20283,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "B-Final",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 175948,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/B-Final.png"
+      }
+    },
+    {
+      "frame": 22158,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "C-Base",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 68131,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/C-Base.png"
+      }
+    },
+    {
+      "frame": 24148,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "C-Transitions",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 97188,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/C-Transitions.png"
+      }
+    },
+    {
+      "frame": 25900,
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720,
+      "actor": "(33.50, 23.50, 0.00)",
+      "visualScale": "(1.25, 1.25, 1.25)",
+      "drawCalls": 42,
+      "name": "C-Final",
+      "source": "rendered Game View, no resize",
+      "captured": {
+        "width": 1280,
+        "height": 720,
+        "encoding": "png",
+        "bytes": 167039,
+        "source": "screen",
+        "savedPath": "Assets/Materials03Temp/C-Final.png"
+      }
+    }
+  ],
+  "sha256": {
+    "Before-gameview.png": "32d4ddea28b5eac6edc9ccf13b62e1a0a2b065383ca0726b69601cce8c35e997",
+    "A-Base-gameview.png": "2bb303413631c3aee570e452c18858c8664e17b037fd02fecb59fee4ea673341",
+    "A-Transitions-gameview.png": "6111e02de9aa5ba561a9f800fb8228825b06140928838e0dd527e3262c438ddd",
+    "A-Final-gameview.png": "ee20aa283066f270f82e147d4a1aa455bf12a628b8853eaa4bc37df0d824a758",
+    "B-Base-gameview.png": "20ed74ff103872628278661f411d49ac02b31dacf5b646f551d0b54d7c27ee6e",
+    "B-Transitions-gameview.png": "4af8b627ee49a0e309c0ef87fc3a678cc7d50b05a9892ec939b1536c2c338c95",
+    "B-Final-gameview.png": "e5cb99e5c5f88314e546d1362ea08fb75f8043ca61c18829e09cf379eaa9f225",
+    "C-Base-gameview.png": "e9c071a0a0645f210b0b8e1a59d2bb5e216afd0823bbe592e5b1ba19ca3a9b1f",
+    "C-Transitions-gameview.png": "de74581f3e08a41577f252b6eae7179a384775a5d63b9a6fff6029fcae54a16f",
+    "C-Final-gameview.png": "c4965afa5a2f3209767706307baede87d1d5cf1c73ba5239bf5d6e6d4643c9a6"
+  },
+  "notes": "Pranchas sem redimensionamento. Recortes ampliados usam nearest. Base/transi\u00e7\u00f5es sem stamps. Avalia\u00e7\u00e3o art\u00edstica separada."
+}

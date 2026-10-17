@@ -1,0 +1,6 @@
+{
+  "validator": "skill-creator/scripts/quick_validate.py",
+  "terrain-materials": "Skill is valid!",
+  "terrain-generation": "Skill is valid!",
+  "dependency": "PyYAML installed only under ignored Temp/SkillValidatorDeps, no global package installation"
+}

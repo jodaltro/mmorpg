@@ -21,7 +21,7 @@ public static class RoadNativeView02
         var kind=Enum.Parse(Type("GameViewSizeType"),"FixedResolution");
         var size=Activator.CreateInstance(Type("GameViewSize"),Instance,null,new object[]{kind,1280,720,"ValdoriaRoads02-Native-QA"},null);
         gt.GetMethod("AddCustomSize").Invoke(group,new[]{size});property.SetValue(view,total);view.Repaint();
-        SessionState.SetInt("Roads02.PreviousSize",previous);SessionState.SetInt("Roads02.CustomSize",total-built);SessionState.SetBool("Roads02.FixedView",true);
+        SessionState.SetInt("Roads02.PreviousSize",previous);SessionState.SetInt("Roads02.CustomSize",total);SessionState.SetBool("Roads02.FixedView",true);
         return new{previous,fixedIndex=total,resolution="1280x720"};
     }
     public static object End()
@@ -30,7 +30,9 @@ public static class RoadNativeView02
         if(!SessionState.GetBool("Roads02.FixedView",false))return "No override";
         var view=EditorWindow.GetWindow(Type("GameView"));var property=Type("GameView").GetProperty("selectedSizeIndex",Instance);var group=Group();
         property.SetValue(view,SessionState.GetInt("Roads02.PreviousSize",0));
-        group.GetType().GetMethod("RemoveCustomSize").Invoke(group,new object[]{SessionState.GetInt("Roads02.CustomSize",0)});view.Repaint();
+        int added=SessionState.GetInt("Roads02.CustomSize",-1);int built=(int)group.GetType().GetMethod("GetBuiltinCount").Invoke(group,null);int total=(int)group.GetType().GetMethod("GetTotalCount").Invoke(group,null);
+        if(added<built||added>=total)throw new InvalidOperationException("Temporary Game View index is no longer valid");
+        group.GetType().GetMethod("RemoveCustomSize").Invoke(group,new object[]{added});view.Repaint();
         SessionState.SetBool("Roads02.FixedView",false);return "Original Game View selection restored; temporary fixed size removed";
     }
 }

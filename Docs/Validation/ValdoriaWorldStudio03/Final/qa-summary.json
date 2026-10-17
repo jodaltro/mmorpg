@@ -1,0 +1,62 @@
+{
+  "pythonTestsPassed": 53,
+  "materialTests": 22,
+  "legacyTests": 31,
+  "unityChecksPassed": 24,
+  "walkingPNGs": 3,
+  "motionPNGs": 90,
+  "playFrames": 20518,
+  "playSeconds": 69.44090364229025,
+  "cliffContactPassed": true,
+  "collisionBoxesUnchanged": 33,
+  "originalRegionAndCollidersInvariant": true,
+  "syntheticDevicesAfter": 0,
+  "editorTexturesMeasuredBytes": 220210240,
+  "renderers": 55,
+  "observedDrawCalls": {
+    "Before": 43,
+    "A-Base": 42,
+    "A-Transitions": 42,
+    "A-Final": 42,
+    "B-Base": 42,
+    "B-Transitions": 42,
+    "B-Final": 42,
+    "C-Base": 42,
+    "C-Transitions": 42,
+    "C-Final": 42
+  },
+  "newConsoleErrors": [
+    {
+      "seq": 39297,
+      "origin": "Pipeline transport timeout from initial agent import/probe, not runtime gameplay",
+      "message": "Failed to handle /api/exec request: Main thread operation timed out after 5000ms"
+    },
+    {
+      "seq": 39298,
+      "origin": "Pipeline transport timeout from initial agent import/probe, not runtime gameplay",
+      "message": "Failed to handle /api/exec request: Main thread operation timed out after 5000ms"
+    },
+    {
+      "seq": 39299,
+      "origin": "Agent QA helper RoadNativeView02.End passed custom-relative index; fixed to absolute index, repaired and round-trip tested. Not game runtime.",
+      "message": "Invalid index 1 7 2"
+    }
+  ],
+  "tools": {
+    "python": "3.14.7",
+    "pillow": "12.3.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "aseprite": "1.3.18.6-x64",
+    "unity": "6000.6.5f1"
+  },
+  "gridAssessment": "No clear 32px cell grid observed in inspected native base/transition/final and moving-camera frames. Visual candidate, not user art approval.",
+  "limitations": [
+    "Repeated motifs and broad pigment patches remain visible",
+    "Smoothed visual relief can differ from semantic collider at corners; one south contact probe passed, not every contour",
+    "Independent regions need shared world origin and semantic halo",
+    "All comparison stages loaded in lab; no streaming or production GPU benchmark",
+    "No water/vegetation physics or climb mechanics"
+  ],
+  "nativeViewRestorationVerified": true
+}

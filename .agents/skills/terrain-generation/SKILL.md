@@ -15,6 +15,8 @@ Leia `AGENTS.md` e `Docs/GameVision.md`. Para terreno, use `Docs/WorldGen/WorldR
 - **Estudos do Marco 01:** `studio01.py`, materiais experimentais editáveis Aseprite, WorldRegion ampliado e `TerrainStudioImporter`. A cena `ValdoriaTerrainLab.unity` contém os estudos originais A/B/C.
 - **Estradas do Marco 02:** `organic_roads.py`, receita `valdoria-organic-road-recipe/v1`, patch `valdoria-road-patch/v1`. A* sobre topografia/clearance, Catmull–Rom centrípeta, amostragem por distância, larguras limitadas, máscaras 32 PPU e referência versionada ao terreno imutável. `OrganicRoadStudioImporter` e `ValdoriaOrganicRoadsLab.unity` comparam Antes/A/B/C sobre um terreno compartilhado.
 
+- **Materiais do Marco 03:** use a skill separada `terrain-materials` e `Docs/WorldGen/TerrainMaterialsContract.md`. O compositor consome a mesma região/estrada por hash, sem refazer topografia ou caminhos; a apresentação contínua substitui os reinícios visuais por célula somente no laboratório de materiais.
+
 Esses recursos existem; sua execução em uma nova sessão deve ser verificada. Consulte os relatórios `Docs/Validation/ValdoriaWorldStudio01.md` e `ValdoriaWorldStudio02-OrganicRoads.md` para evidências e limites, sem tratar a arte experimental como aprovada.
 
 ## Fluxo de autoria

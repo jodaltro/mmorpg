@@ -62,3 +62,7 @@ Cada handoff deve registrar schema, gerador, seed, hashes dos inputs, unidades, 
 ## World Studio 02 — estradas por referência
 
 O envelope `valdoria-world-region/v2` mantém `terrainRef` e `roadRefs` por hash, sem duplicar a topografia v1. A estrada usa curva contínua/largura navegável e máscaras visuais subcélula separadas. Em consumidores v2, a rota vem de `roadRefs`; o campo `route` do terreno base continua sendo a reserva histórica do Marco 01. Consulte [Organic Roads Contract](OrganicRoadsContract.md) para schemas, edição local, recortes adjacentes e consumo pelo Material Agent.
+
+## World Studio 03 — composição de materiais
+
+`valdoria-material-composition/v1` referencia o WorldRegion e a estrada por caminho/SHA, além dos hashes de coverage/shoulders/wear/navigable, receita, biblioteca e retângulos do atlas. Não duplica nem altera as camadas físicas. A apresentação de relevo contínua é um artefato visual independente; não autoriza escalada. Consulte [TerrainMaterialsContract.md](TerrainMaterialsContract.md). O envelope de materiais complementa a composição v2 de estradas; não exige migrar a topografia v1.
