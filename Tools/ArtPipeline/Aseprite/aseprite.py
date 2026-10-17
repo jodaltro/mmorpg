@@ -51,6 +51,8 @@ def inspect(source):
 def export(source, output, canvas=(96,96)):
     source = Path(source).resolve()
     output = Path(output).resolve()
+    if not source.is_file():
+        raise FileNotFoundError(source)
     output.mkdir(parents=True, exist_ok=False)
     run('-b', source, '--save-as', output/'frame_{frame000}.png')
     run('-b', '--list-layers', '--list-tags', source, '--sheet-type', 'horizontal', '--sheet', output/'sheet.png', '--format', 'json-array', '--data', output/'frames.json')
@@ -63,11 +65,14 @@ def verify(output, canvas=(96,96)):
     frames = sorted(output.glob('frame_*.png'))
     assert frames and len(frames) == len(data['frames'])
     hashes = []
+    has_transparency = False
     for path, meta in zip(frames, data['frames']):
         with Image.open(path) as im:
             assert im.mode == 'RGBA' and im.size == canvas, (path, im.mode, im.size, canvas)
+            alpha_range = im.getextrema()[3]
+            has_transparency = has_transparency or alpha_range[0] < 255
             if canvas == (96,96):
-                assert im.getextrema()[3] == (0,255), path  # historical walk-lab gate
+                assert alpha_range == (0,255), path  # historical walk-lab gate
             assert meta['duration'] > 0
             hashes.append(hashlib.sha256(im.tobytes()).hexdigest())
     with Image.open(output/'sheet.png') as sheet:
@@ -75,7 +80,7 @@ def verify(output, canvas=(96,96)):
     with Image.open(output/'preview.gif') as gif:
         assert gif.n_frames == len(frames)
     report = dict(frames=len(frames), unique=len(set(hashes)), canvas=list(canvas), rgba=True,
-                  transparent=True, hashes=hashes)
+                  transparent=has_transparency, hashes=hashes)
     (output/'qa.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
 
