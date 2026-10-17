@@ -44,15 +44,15 @@ public static class InspectHumanoidSwordR7
   }
   done.SetResult(true);
  }
- public static async Task<string> NearSweepStudy(bool planar=false)
+ // Single physical origin now: the planar/legacy toggle no longer exists.
+ public static async Task<string> NearSweepStudy()
  {
   Directory.CreateDirectory(E);Directory.CreateDirectory(Raw);Time.timeScale=.4f;
   var set=AssetDatabase.LoadAssetAtPath<ProductionCharacterSet>("Assets/Mmorpg/Art/Experimental/HumanoidCombat8Dir2026/ValdoriaCombatCandidate.asset");Animator.Configure(set,Player,Animator.Body,Sword);Player.GetComponentsInChildren<SpriteRenderer>(true).Single(r=>r.name=="EquippedSword").gameObject.SetActive(true);
-  Sword.ConfigureSweepOrigin(planar?SwordSwing.SweepOriginPolicy.PlanarSweepOrigin:SwordSwing.SweepOriginPolicy.LegacyGrip);
-  await Reset();var target=UnityEngine.Object.FindAnyObjectByType<TrainingDummy>().Health;Vector3 saved=target.transform.position;target.Configure(Faction.Training);target.transform.position=Player.transform.position+Vector3.right*.85f;Physics2D.SyncTransforms();int hp=target.State.Health,hits=0;var samples=new List<object>();
+   await Reset();var target=UnityEngine.Object.FindAnyObjectByType<TrainingDummy>().Health;Vector3 saved=target.transform.position;target.Configure(Faction.Training);target.transform.position=Player.transform.position+Vector3.right*.85f;Physics2D.SyncTransforms();int hp=target.State.Health,hits=0;var samples=new List<object>();
   Action<ActorHealth,ActorHealth> hit=(a,b)=>{if(a==Player&&b==target)hits++;};Action<Vector2,Vector2> sweep=(h,t)=>samples.Add(new{time=Time.timeAsDouble,frame=Time.frameCount,hand=new[]{h.x,h.y},tip=new[]{t.x,t.y},target=new[]{target.transform.position.x,target.transform.position.y},phase=Sword.VisualPhase,root=Player.GetComponent<Rigidbody2D>().position.ToString("R"),visualHand=Sword.GripWorld.ToString("R"),targetBounds=target.GetComponent<Collider2D>().bounds.ToString(),rootLos=Authority.HasLineOfSight(Player.transform.position,target.transform.position),gripLos=Authority.HasLineOfSight(h,target.transform.position),overlaps=Physics2D.OverlapCapsuleAll((h+t)*.5f,new Vector2(Vector2.Distance(h,t)+.16f,.16f),CapsuleDirection2D.Horizontal,Mathf.Atan2(t.y-h.y,t.x-h.x)*Mathf.Rad2Deg,1<<9).Any(c=>c.GetComponentInParent<ActorHealth>()==target)});
   Authority.HitConfirmed+=hit;Sword.SweepSampled+=sweep;
-  try{Input(Key.F7);await Wait(.03f);Input();Aim(Vector2.right);await Wait(.05f);Aim(Vector2.right,1);await Trace("near-sweep-study",.55f);Aim(Vector2.right);string json=JsonConvert.SerializeObject(new{expectedDamage=20,actualDamage=hp-target.State.Health,expectedHitCount=1,actualHitCount=hits,passed=hits==1&&hp-target.State.Health==20,samples},Formatting.Indented);File.WriteAllText(E+(planar?"near-gate.json":"r6-reproduced-before-change.json"),json);return "damage="+(hp-target.State.Health)+", hits="+hits+", planar="+planar;}
+  try{Input(Key.F7);await Wait(.03f);Input();Aim(Vector2.right);await Wait(.05f);Aim(Vector2.right,1);await Trace("near-sweep-study",.55f);Aim(Vector2.right);string json=JsonConvert.SerializeObject(new{expectedDamage=20,actualDamage=hp-target.State.Health,expectedHitCount=1,actualHitCount=hits,passed=hits==1&&hp-target.State.Health==20,samples},Formatting.Indented);File.WriteAllText(E+"near-gate.json",json);return "damage="+(hp-target.State.Health)+", hits="+hits+", origin=actorRoot";}
   finally{Authority.HitConfirmed-=hit;Sword.SweepSampled-=sweep;target.transform.position=saved;Input();Aim(Vector2.down);Time.timeScale=1;}
  }
  public static async Task<string> LegacyR5()

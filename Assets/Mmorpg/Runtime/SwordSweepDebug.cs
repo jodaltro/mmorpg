@@ -36,7 +36,7 @@ namespace Mmorpg.Runtime
             }
             sweep.enabled=blade.enabled=grip.enabled=origin.enabled=shown;legend.enabled=shown;
             if(!shown)return;
-            legend.text="F7  <color=magenta>Mao visual</color> / <color=yellow>Lamina visual</color>\n<color=cyan>Pontas reais amostradas</color> / <color=lime>Segmento fisico real</color>\n"+sword.OriginPolicy+"  alcance="+sword.AuthorizedRange.ToString("F2")+"  separacao das pontas="+MaximumActiveTipError.ToString("F2")+"\nHitConfirmed="+ConfirmedHits+"  distancia ao collider confirmado="+(LastTargetDistance<0?"--":LastTargetDistance.ToString("F2"));
+            legend.text="F7  <color=magenta>Mao visual</color> / <color=yellow>Lamina visual</color>\n<color=cyan>Pontas reais amostradas</color> / <color=lime>Segmento fisico real</color>\norigem="+sword.PhysicalOriginWorld.ToString("F2")+"  alcance="+sword.AuthorizedRange.ToString("F2")+"  separacao das pontas="+MaximumActiveTipError.ToString("F2")+"\nHitConfirmed="+ConfirmedHits+"  distancia ao collider confirmado="+(LastTargetDistance<0?"--":LastTargetDistance.ToString("F2"));
             origin.positionCount=2;origin.SetPositions(new[]{(Vector3)lastOrigin,(Vector3)lastSample});
             sweep.positionCount=physical.Count;sweep.SetPositions(physical.ToArray());blade.positionCount=2;
             blade.SetPositions(new[]{sword.GripWorld,sword.VisualTipWorld});
