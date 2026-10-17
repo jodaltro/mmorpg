@@ -1,0 +1,23 @@
+{
+  "sameRegion": "World Studio 01 B",
+  "seed": 710202,
+  "cameraOrtho": 11.25,
+  "player": [
+    33.5,
+    23.5
+  ],
+  "nativePixelsPerUnit": 32,
+  "beforeMatchesMarco01Pixels": false,
+  "cropRectangle": [
+    230,
+    470,
+    486,
+    630
+  ],
+  "captures": {
+    "Before": "f4f305daeba7722808fb61e382bb1ae1eebb0c907a3423b715edadd0c5681caf",
+    "A": "32d4ddea28b5eac6edc9ccf13b62e1a0a2b065383ca0726b69601cce8c35e997",
+    "B": "3f88a68916a11234c11d2ca6740e9f6b6ac48001af9991c15346c567ea1973f9",
+    "C": "94ea83346ad62f1edf6dbd1b5fc9bc0d146a7726dc7757d0ce55de22d4225a09"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "valid": true,
+  "method": "stdlib validation of two plain scalar frontmatter fields, code fences and contract links",
+  "bundledQuickValidate": "Not run successfully: PyYAML absent in system and bundled Python. No dependency installed."
+}

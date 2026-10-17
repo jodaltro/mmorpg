@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {
+      "since": "39236",
+      "level": "error",
+      "tail": "5"
+    },
+    "result": {
+      "entries": [
+        {
+          "seq": 39266,
+          "timestampUtc": "2026-10-17T22:15:31.4749337Z",
+          "level": "error",
+          "logType": "Error",
+          "message": "Invalid index 0 7 1",
+          "stackTrace": "System.Reflection.MethodBase:Invoke (object,object[])\nRoadNativeView02:End () (at AgentScripts/RoadNativeView02.cs:33)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Editor.Commands.Scripts.RunScriptCommand/<RunEphemeral>d__2:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Editor/Commands/Scripts/RunScriptCommand.cs:219)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Unity.Pipeline.Editor.Commands.Scripts.RunScriptResponse>:Start<Unity.Pipeline.Editor.Commands.Scripts.RunScriptCommand/<RunEphemeral>d__2> (Unity.Pipeline.Editor.Commands.Scripts.RunScriptCommand/<RunEphemeral>d__2&)\nUnity.Pipeline.Editor.Commands.Scripts.RunScriptCommand:RunEphemeral (string,string,Newtonsoft.Json.Linq.JArray,string[],string[],bool,bool,int,System.Diagnostics.Stopwatch)\nUnity.Pipeline.Editor.Commands.Scripts.RunScriptCommand/<RunScript>d__1:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Editor/Commands/Scripts/RunScriptCommand.cs:77)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Unity.Pipeline.Editor.Commands.Scripts.RunScriptResponse>:Start<Unity.Pipeline.Editor.Commands.Scripts.RunScriptCommand/<RunScript>d__1> (Unity.Pipeline.Editor.Commands.Scripts.RunScriptCommand/<RunScript>d__1&)\nUnity.Pipeline.Editor.Commands.Scripts.RunScriptCommand:RunScript (string,string,Newtonsoft.Json.Linq.JArray,string,string[],string[],bool,int,bool)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2820)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass138_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2694)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 39266,
+      "session": "ca3143ad5222447a81fb6ead72ba0611",
+      "returned": 1,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 1942,
+        "warn": 58,
+        "log": 0
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-17T22:20:00.8591213Z",
+        "ageMs": 114,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 1,
+        "consoleWarnings": 0,
+        "consoleLogs": 0,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

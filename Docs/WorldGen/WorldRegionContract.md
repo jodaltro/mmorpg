@@ -58,3 +58,7 @@ Menu `Valdoria/World Studio`: 01 cria cena/arte em destinos ausentes; 02 regener
 | Structures Agent | rotas, terreno, reservas e futuras margens | Cercas, pontes e estruturas com colisão, travessia e sorting explícitos |
 
 Cada handoff deve registrar schema, gerador, seed, hashes dos inputs, unidades, origem espacial e outputs. Nenhum especialista altera silenciosamente o arquivo de outro: uma mudança no relevo exige receita/patch novo e revalidação dos consumidores. Esses especialistas não foram implementados neste marco.
+
+## World Studio 02 — estradas por referência
+
+O envelope `valdoria-world-region/v2` mantém `terrainRef` e `roadRefs` por hash, sem duplicar a topografia v1. A estrada usa curva contínua/largura navegável e máscaras visuais subcélula separadas. Em consumidores v2, a rota vem de `roadRefs`; o campo `route` do terreno base continua sendo a reserva histórica do Marco 01. Consulte [Organic Roads Contract](OrganicRoadsContract.md) para schemas, edição local, recortes adjacentes e consumo pelo Material Agent.

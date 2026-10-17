@@ -1,73 +1,49 @@
 ---
 name: terrain-generation
-description: Especialista de IA em autoria de terrenos procedurais de Valdoria. Cria e edita receitas de relevo, colinas, montanhas, vales, solo e rotas reservadas; gera dados semânticos determinísticos e previews para integração futura com Unity 6 e Aseprite.
+description: Autoria procedural offline de topografia e estradas orgânicas de Valdoria. Use para receitas, seeds, relevo, rotas, curvas, largura navegável, máscaras subcélula, patches e importação nos laboratórios Unity 2D. Materiais finais, hidrologia e aprovação artística permanecem separados.
 ---
 
 # Terrain Agent — Valdoria World Studio
 
-**Papel:** especialista de terreno e geomorfologia para o action RPG 2D 3/4. O Codex desempenha esse papel lendo esta skill e operando suas ferramentas. **Uma skill não é um processo autônomo nem garante delegação multiagente**; só alegar execução de subagente se a instalação do Codex realmente suportar e executar tal fluxo.
+O Codex interpreta a intenção e opera geradores determinísticos. A skill não é um processo autônomo nem comprova execução de subagentes.
 
-Leia primeiro `AGENTS.md`, `Docs/GameVision.md`, `Docs/WorldGen/WorldRegionContract.md` e, quando houver sprites novos, `.agents/skills/aseprite-pixel-art/SKILL.md`.
+Leia `AGENTS.md` e `Docs/GameVision.md`. Para terreno, use `Docs/WorldGen/WorldRegionContract.md`; para estradas, leia `Docs/WorldGen/OrganicRoadsContract.md`. Autoria de novos sprites requer também a skill `aseprite-pixel-art` e seu workflow. Qualidade técnica e aprovação artística são verificações distintas.
 
-## Responsabilidade
+## Escolha do pipeline
 
-Criar e editar terreno por **intenção e restrições semânticas**, não por recortes da ilustração R10. A IA transforma pedidos descritivos em receitas JSON; o motor Python gera sempre os mesmos dados para mesma receita, seed, patch e versão. Aprovação artística é exclusiva do usuário.
+- **Topografia:** `Tools/ArtPipeline/WorldGen/terrain_agent.py`, receita `valdoria-terrain-recipe/v1`, patch `valdoria-terrain-patch/v1`. Altura, inclinação, umidade proxy, reservas, erosão térmica simplificada, circulação e manifest. Previews são diagnósticos.
+- **Estudos do Marco 01:** `studio01.py`, materiais experimentais editáveis Aseprite, WorldRegion ampliado e `TerrainStudioImporter`. A cena `ValdoriaTerrainLab.unity` contém os estudos originais A/B/C.
+- **Estradas do Marco 02:** `organic_roads.py`, receita `valdoria-organic-road-recipe/v1`, patch `valdoria-road-patch/v1`. A* sobre topografia/clearance, Catmull–Rom centrípeta, amostragem por distância, larguras limitadas, máscaras 32 PPU e referência versionada ao terreno imutável. `OrganicRoadStudioImporter` e `ValdoriaOrganicRoadsLab.unity` comparam Antes/A/B/C sobre um terreno compartilhado.
 
-**Faz agora:** colinas, montanhas estilizadas, vales, platôs, superfícies de solo, dados de elevação/inclinação/umidade, candidatos a depressões alagáveis, rotas e planícies protegidas, edição local por patches, hashes e preview diagnóstico.
+Esses recursos existem; sua execução em uma nova sessão deve ser verificada. Consulte os relatórios `Docs/Validation/ValdoriaWorldStudio01.md` e `ValdoriaWorldStudio02-OrganicRoads.md` para evidências e limites, sem tratar a arte experimental como aprovada.
 
-**Não faz ainda:** física hidrológica, lago jogável, cascata, neve/chuva real, erosão física calibrada, textura pixel art final, Tilemap Unity, navmesh, colisão ou execução autônoma de outro agente. Essas disciplinas pertencem a futuras skills `world-hydrology`, `world-climate`, `terrain-materials` e integração Unity. Nunca anunciar uma preview de diagnóstico como visual de produção.
+## Fluxo de autoria
 
-## Contrato técnico
+1. Confira worktree e atualize `main`, conforme `AGENTS.md`.
+2. Expresse relevos, acessos, reservas e pontos obrigatórios em receitas com seed explícita. Não derive física dos pixels do panorama R10.
+3. Gere em **diretório inexistente**. Não apague resultados anteriores para passar testes. Verifique manifests por reconstrução e hashes, preservando bytes no Git.
+4. Para estrada, valide clearance de toda a largura/ombro, água/células proibidas, inclinação, conectividade e curvatura. Se o traçado não couber, ajuste receita/guias ou retorne erro de autoria. Nunca aplane o mundo silenciosamente para obter passagem.
+5. Edite pontos interiores por patch; IDs de segmentos e ruído de largura usam suporte local. Leia o contrato para o halo de dependência. Não prometa que a própria vizinhança do segmento editado ficará inalterada.
+6. Recortes de regiões adjacentes devem consumir a **mesma geometria global**, com origem, seed, fase e escala compartilhadas; não gerar duas estradas independentes e presumir uma emenda perfeita.
+7. Importe por ferramentas do Editor em destinos novos. Mantenha dados, piso, relevo visual, colisões e máscaras separados. Não regenere em Play.
+8. Faça QA curto no Editor real com `--caller plugin --skill unity-pipeline`, perfil em `Temp/`, Input System, frames avançados, Console e capturas reais. Restaure input/Play/overrides e remova PNGs/metas temporários de `Assets` após copiar evidências.
 
-- Arquivos em `ArtSource/Labs/World2026/WorldGen/Recipes/`.
-- Entrada `valdoria-terrain-recipe/v1`, patch opcional `valdoria-terrain-patch/v1`.
-- Saída `valdoria-world-region/v1` em `region.json` com camadas alinhadas em ordem de linhas de cima para baixo: `elevationMilli`, `slopeMilli`, `moistureMilli`, `material`, `walkable`, `waterCandidate`, `reserved`.
-- Unidades explícitas: cada célula ocupa `cellSizeUnits`; origem da matriz no canto superior esquerdo, eixo Y do mundo Unity cresce para cima.
-- `waterCandidate` indica **possibilidade topográfica**, nunca presença efetiva de água.
-- `terrain-preview.png` e `height.png` são depuração, não arte aprovada nem sprites importados.
-- Gerador `Tools/ArtPipeline/WorldGen/terrain_agent.py` requer Python 3 e Pillow já utilizados pelo pipeline atual.
-- Saída sempre em diretório **inexistente**; nenhuma escrita no `Assets/`, `MmorpgWorld.unity` ou em fontes aprovadas durante autoria.
-
-## Ferramentas e comandos reais
-
-Da raiz `D:\unity\Mmorpg`:
+## Comandos
 
 ```powershell
-python Tools/ArtPipeline/WorldGen/terrain_agent.py inspect --recipe ArtSource/Labs/World2026/WorldGen/Recipes/valdoria-highlands-pilot.json
-
-python Tools/ArtPipeline/WorldGen/terrain_agent.py generate --recipe ArtSource/Labs/World2026/WorldGen/Recipes/valdoria-highlands-pilot.json --output Temp/WorldGen/highlands-seed-620913
-
-python Tools/ArtPipeline/WorldGen/terrain_agent.py verify --recipe ArtSource/Labs/World2026/WorldGen/Recipes/valdoria-highlands-pilot.json --output Temp/WorldGen/highlands-seed-620913
-
-# Uma variante localizada, em diretório novo:
-python Tools/ArtPipeline/WorldGen/terrain_agent.py generate --recipe ArtSource/Labs/World2026/WorldGen/Recipes/valdoria-highlands-pilot.json --patch ArtSource/Labs/World2026/WorldGen/Recipes/valdoria-highlands-edit.example.json --output Temp/WorldGen/highlands-edited
-
-python -m unittest discover -s Tools/ArtPipeline/WorldGen -p "test_*.py" -v
+python Tools/ArtPipeline/WorldGen/terrain_agent.py generate --recipe ArtSource/Labs/World2026/WorldGen/Recipes/valdoria-highlands-pilot.json --output Temp/WorldGen/highlands-new
+python Tools/ArtPipeline/WorldGen/organic_roads.py generate --region ArtSource/Labs/World2026/WorldStudio01/Regions/B/world-region.json --recipe ArtSource/Labs/World2026/WorldStudio02/RoadsR3/recipe-A.json --output Temp/WorldGen/road-new
+python Tools/ArtPipeline/WorldGen/organic_roads.py verify --recipe ArtSource/Labs/World2026/WorldStudio02/RoadsR3/recipe-A.json --output ArtSource/Labs/World2026/WorldStudio02/RoadsR3/A
+python -m unittest discover -s Tools/ArtPipeline/WorldGen -p 'test_*.py' -v
 ```
 
-Se o destino existir, gerar em novo caminho; não apagar resultados anteriores para passar testes. O `verify` recalcula em diretório temporário e compara bytes/hashes.
+Para edição, acrescente `--patch caminho/patch.json`. O gerador usa Python/Pillow/NumPy já declarados em `Tools/ArtPipeline/requirements.txt`.
 
-## Fluxo do especialista
+## Invariantes e limites
 
-1. Interpretar o briefing em **características de relevo e restrições**, justificando a localização de morros/vales/rotas. Não confundir precipitação com terreno.
-2. Criar/corrigir a receita com `seed` explícita; reservar corredores navegáveis e platôs para possíveis assentamentos.
-3. Executar `inspect`, `generate` e `verify`; executar testes de contrato.
-4. Analisar `height.png`, `terrain-preview.png` e `region.json`: inclinação, continuidade, drenagem apenas potencial, rotas e diversidade semântico-visual.
-5. Quando solicitar alteração localizada, criar patch versionado (raise/lower/flatten/paint) em vez de editar PNG e perder reprodutibilidade.
-6. Preparar um **handoff** ao Water Agent, Material Agent e Unity integrator citando paths, schema, seed, versão e limites. Não chamar preview de jogo.
-7. Validar terreno na Unity somente depois que um importador semântico real estiver implementado; usar Unity CLI `--caller plugin --skill unity-pipeline` e capturas Play reais.
-8. Registrar arte candidata e pedir avaliação visual antes de tratar material como aprovado.
-
-## Regras de qualidade
-
-- Sem dependência física de PNG do backdrop R10; pode ser referência artística, não fonte de coordenadas.
-- Não criar ruído aleatório de pixels como acabamento final. Topografia e ocupação precedem materiais/iluminação.
-- Montanhas com escala, silhueta e leitura apropriadas para a câmera 2D 3/4. A altura armazenada não move automaticamente o jogador no eixo Y.
-- Separar bioma, tipo de solo, terreno, hidrologia, clima, vegetação e construções.
-- Garantir seed reproduzível e comportamento previsível dos patches.
-- Não inventar sucesso em Unity, Blender ou Aseprite quando só Python foi executado.
-- Respeitar as decisões técnicas vigentes do `AGENTS.md`; remodelação de mundo está autorizada, mas QA e aprovação visual continuam separados.
-
-## Evolução esperada
-
-Próximas ferramentas do Terrain Agent: erosão hidráulica/termal com testes, chunk streaming/LOD 2D, regras de bordas e continuidade entre chunks, transições material-autotile e exportação de Tilemap. Os agentes Water/Climate/Architecture/Vegetation/Structures devem consumir `WorldRegion`, nunca alterar os arquivos deste agente silenciosamente.
+- A física deriva de dados semânticos. A máscara visual de borda **não cria colliders**; grama invadindo visualmente uma margem não bloqueia movimento.
+- `waterCandidate` não é água renderizada. O módulo de estrada o trata como exclusão conservadora; travessias precisam de autorização explícita na receita, não removem obstáculos sólidos e não implementam pontes.
+- Elevação normalizada e relevo projetado não tornam montanhas escaláveis. O ator continua no plano 2D; o código de movimento/combate mantém autoridade independente da arte.
+- O Marco 02 reutiliza o atlas de estudo para exibir cobertura. Não iniciar Material Agent/Marco 03 dentro de uma tarefa exclusiva de estradas.
+- Fontes e receitas ficam em `ArtSource/Labs`; Python não escreve em `Assets`. O importador Unity pode criar assets/cenas experimentais no escopo autorizado. Não promover ao mundo oficial sem avaliação visual explícita.
+- Water, Climate, Material, Architecture, Vegetation e Structures devem produzir artefatos próprios referenciados por hash, sem alterar silenciosamente a topografia de outro especialista.

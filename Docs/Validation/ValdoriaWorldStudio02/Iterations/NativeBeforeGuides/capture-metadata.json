@@ -1,0 +1,78 @@
+[
+  {
+    "state": {
+      "frame": 7933,
+      "position": "(33.50, 23.50, 0.00)",
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720
+    },
+    "name": "Before",
+    "capture": {
+      "width": 1280,
+      "height": 720,
+      "encoding": "png",
+      "bytes": 227222,
+      "source": "screen",
+      "savedPath": "Assets/OrganicRoads02Native/Before-gameview.png"
+    }
+  },
+  {
+    "state": {
+      "frame": 9116,
+      "position": "(33.50, 23.50, 0.00)",
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720
+    },
+    "name": "A",
+    "capture": {
+      "width": 1280,
+      "height": 720,
+      "encoding": "png",
+      "bytes": 252141,
+      "source": "screen",
+      "savedPath": "Assets/OrganicRoads02Native/A-gameview.png"
+    }
+  },
+  {
+    "state": {
+      "frame": 10484,
+      "position": "(33.50, 23.50, 0.00)",
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720
+    },
+    "name": "B",
+    "capture": {
+      "width": 1280,
+      "height": 720,
+      "encoding": "png",
+      "bytes": 264891,
+      "source": "screen",
+      "savedPath": "Assets/OrganicRoads02Native/B-gameview.png"
+    }
+  },
+  {
+    "state": {
+      "frame": 11881,
+      "position": "(33.50, 23.50, 0.00)",
+      "camera": "(33.50, 23.50, -10.00)",
+      "ortho": 11.25,
+      "width": 1280,
+      "height": 720
+    },
+    "name": "C",
+    "capture": {
+      "width": 1280,
+      "height": 720,
+      "encoding": "png",
+      "bytes": 255235,
+      "source": "screen",
+      "savedPath": "Assets/OrganicRoads02Native/C-gameview.png"
+    }
+  }
+]
