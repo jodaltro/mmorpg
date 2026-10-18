@@ -1,6 +1,6 @@
 # Valdoria — celeiro e pequeno castelo
 
-Pedido autorizado após a avaliação positiva da casa 07R: criar um celeiro e depois um pequeno castelo pelo mesmo processo de volume, arte editável e revisão com Quaternius. **São duas referências individuais candidatas, não uma biblioteca combinatória automaticamente aprovada.**
+Pedido autorizado após a avaliação positiva da casa 07R: criar um celeiro e depois um pequeno castelo pelo mesmo processo de volume, arte editável e revisão com Quaternius. **Celeiro e pequeno castelo aprovados pelo usuário como referências visuais em 18/10/2026**, após o feedback literal “ficou bem boas”. A aprovação se refere à entrega `43ee9e4657e894340001e183ff4065c763d79b5f`; não promove os assets automaticamente à cena oficial nem aprova variantes futuras. [Registro versionado com hashes](ValdoriaWorldStudio08/artistic-approval.json).
 
 Projeto `D:\unity\Mmorpg`, Unity 6000.6.5f1, `main`, baseline `e256f626ec9466c900c438045d8d1c2f630b28ee`. Worktree conferido e `git pull --ff-only origin main` executado: já atualizado. Arquivos locais não relacionados preservados. Cena oficial, protagonista, casa 07R e produtores ambientais anteriores intactos.
 
@@ -95,4 +95,6 @@ python -m unittest discover -s Tools/ArtPipeline/WorldGen -p test_architecture_m
 
 `BuildArchitectureModels.Barn` e `.Castle` usam o Editor conectado e recusam os destinos já entregues. Para nova revisão, selecionar novos destinos. Nenhum normal export regenera a pintura de IA. Reprodução da geometria/exports é determinística; geração original por IA não tem promessa de repetição bit a bit.
 
-**Pendências:** avaliação visual das duas referências; implantação geográfica do castelo; acabamento dos acessos; melhor separação das faces ocultas e recorte/atlas. Cutaway por bounds é aproximado e reduz volumes inteiros interceptados. Sem porta interativa, interior do celeiro/keep, subida de escadas, passagem sobre muralhas, andares, destruição ou cerco. Não expandir estas fontes em inúmeras recolorações antes da avaliação. Nada foi promovido a `MmorpgWorld.unity`.
+**Pendências após aprovação visual:** implantação geográfica do castelo; acabamento dos acessos; melhor separação das faces ocultas e recorte/atlas. Cutaway por bounds é aproximado e reduz volumes inteiros interceptados. Sem porta interativa, interior do celeiro/keep, subida de escadas, passagem sobre muralhas, andares, destruição ou cerco. Usar as fontes aprovadas como referência para modularização; novas variantes continuam exigindo avaliação própria. Nada foi promovido a `MmorpgWorld.unity`.
+
+O status candidato preservado nos manifests assinados descreve o momento da geração. O registro de aprovação acima atualiza a decisão artística sem modificar os pixels aprovados, as fontes Aseprite ou seus hashes históricos. Esta publicação altera somente documentação/metadados de aprovação; não houve nova execução de QA Unity.

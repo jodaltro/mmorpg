@@ -23,5 +23,11 @@
       "aseprite": "7f4d149a889493005f3547257a96d411dd91c8ccc5939bbe1fdbd437bb9b55df"
     }
   },
-  "status": "New model art remains candidate for user evaluation"
+  "status": "Barn and small castle approved by the user as visual references on 2026-10-18; no automatic official-world promotion",
+  "visualApproval": {
+    "path": "Docs/Validation/ValdoriaWorldStudio08/artistic-approval.json",
+    "sha256": "ce8a3cc6faa5f71066e042c5077b21fb2bf0ad6d547f1e46c1e0bdd319c4399c",
+    "userFeedbackVerbatim": "ficou bem boas",
+    "reviewedCommit": "43ee9e4657e894340001e183ff4065c763d79b5f"
+  }
 }

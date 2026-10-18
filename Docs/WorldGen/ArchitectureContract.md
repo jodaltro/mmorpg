@@ -12,7 +12,7 @@ O castelo usa `valdoria-authored-architecture-review/v1`: pátio técnico 80×80
 
 `depthGroups`: ID, parts e outline geográfico de cada volume. Reutilizam SortingGroup/ReferenceHouseDepth por volume, com fallback de profundidade na frente do próprio volume quando X está fora do seu outline. KeepWalls/KeepRoof/KeepDoor compartilham profundidade; torres, arco e muralha têm regras próprias. Fundamentos preservados opacos; CourtyardFloor/Shadow são chão fora dos grupos. Transparência por bounds ainda é aproximada, sem faces ocultas pintadas, interiores, escadas ou andares jogáveis.
 
-Detalhes, fontes e evidências em `Docs/Validation/ValdoriaWorldStudio08-BarnAndCastle.md`. Celeiro e castelo continuam candidatos à avaliação visual; a casa anterior aprovada não lhes transfere aprovação.
+Detalhes, fontes e evidências em `Docs/Validation/ValdoriaWorldStudio08-BarnAndCastle.md`. Celeiro e castelo receberam aprovação visual explícita do usuário em 18/10/2026 (“ficou bem boas”), referente à entrega `43ee9e4657e894340001e183ff4065c763d79b5f`. Ver `Docs/Validation/ValdoriaWorldStudio08/artistic-approval.json` para os hashes das referências aprovadas. Fontes/manifests assinados permanecem intactos como histórico da geração; o registro separado atualiza a decisão artística. Implantação geográfica do castelo e promoção ao mundo oficial continuam pendentes.
 
 ## Extensão autorada 07R — prioridade visual vigente
 

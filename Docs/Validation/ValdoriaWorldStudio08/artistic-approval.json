@@ -1,0 +1,50 @@
+{
+  "schema": "valdoria-artistic-approval/v1",
+  "date": "2026-10-18",
+  "reviewer": "user",
+  "userFeedbackVerbatim": "ficou bem boas",
+  "reviewedCommit": "43ee9e4657e894340001e183ff4065c763d79b5f",
+  "scope": "Visual approval of the delivered barn and small castle as architectural references.",
+  "references": [
+    {
+      "id": "barn-reference-08",
+      "status": "approved_as_visual_reference",
+      "evidence": [
+        {
+          "path": "ArtSource/Labs/World2026/WorldStudio08/Barn/SourceV1/barn-reference.aseprite",
+          "sha256": "1324d391586cd102b5482a6908625c1c07ae2d7381a229108b40d8be24f6fd6b"
+        },
+        {
+          "path": "ArtSource/Labs/World2026/WorldStudio08/Barn/ExportV1/composite.png",
+          "sha256": "f2240f4d31aa3b1bbd5b6c01a87bb85a269ac15427956aa30b8706bf68d440d9"
+        },
+        {
+          "path": "Docs/Validation/ValdoriaWorldStudio08/BarnQA/01-context-front.png",
+          "sha256": "6d4f4f10ab1765908e22d3ff5f292a162ef0efdd7efd80f926da57ba22273be6"
+        }
+      ]
+    },
+    {
+      "id": "castle-reference-08",
+      "status": "approved_as_visual_reference",
+      "evidence": [
+        {
+          "path": "ArtSource/Labs/World2026/WorldStudio08/Castle/SourceV1/castle-reference.aseprite",
+          "sha256": "7f4d149a889493005f3547257a96d411dd91c8ccc5939bbe1fdbd437bb9b55df"
+        },
+        {
+          "path": "ArtSource/Labs/World2026/WorldStudio08/Castle/ExportV1/composite.png",
+          "sha256": "4f12d89375368eb621661fa496d43a98b9ecf56cb7493cad155772ada1d54862"
+        },
+        {
+          "path": "Docs/Validation/ValdoriaWorldStudio08/CastleQA/01-context-front.png",
+          "sha256": "1f615b7073f1abab6c451546025359f15e36b2be5754c604eb09a790709d27f7"
+        }
+      ]
+    }
+  ],
+  "officialWorldPromotion": false,
+  "castleGeographicPlacement": "pending",
+  "futureVariantsRequireReview": true,
+  "historicalManifests": "Candidate status in signed source/build manifests records their generation state; this approval supersedes their artistic status without changing approved pixels or historical hashes."
+}
