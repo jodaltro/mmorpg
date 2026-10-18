@@ -1,0 +1,23 @@
+{
+  "valid": true,
+...........................................................................
+  "regionId": "valdoria-highlands-pilot",
+  "expected": {
+    "region.json": "bd346646cbf9ff148056bcc2e007cf0ab8c9a51b7e040d3e9f89a59728c5c676",
+    "height.png": "d207cd00a540e50d74b30dbb5be16f4e1517f86d16b2ff9397e36db78308a4e6",
+    "terrain-preview.png": "efae4770fd7dfb28b5b26be37389e4a5b7ebb5077be5c5cf61950d6cbb5fa31b"
+  }
+}
+{
+  "valid": false,
+  "regionId": "valdoria-highlands-pilot",
+  "expected": {
+    "region.json": "bd346646cbf9ff148056bcc2e007cf0ab8c9a51b7e040d3e9f89a59728c5c676",
+    "height.png": "d207cd00a540e50d74b30dbb5be16f4e1517f86d16b2ff9397e36db78308a4e6",
+    "terrain-preview.png": "efae4770fd7dfb28b5b26be37389e4a5b7ebb5077be5c5cf61950d6cbb5fa31b"
+  }
+}
+----------------------------------------------------------------------
+Ran 75 tests in 37.575s
+
+OK

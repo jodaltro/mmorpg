@@ -1,0 +1,43 @@
+{
+  "baseline": "30a518ddb35f18d61af4a7b91857781c28e7ec0b",
+  "materials": {
+    "grass": {
+      "form": "same fan grammar in three motifs",
+      "color": "floor() turns smooth 193/57 fields into large hard islands",
+      "frequency": "23px jitter candidates still distribute tufts almost uniformly",
+      "scale": "isolated tiny triangles versus large flat patches",
+      "fix": "low contrast pigment linked to humidity/traffic; sparse hierarchical groups, six distinct plant forms"
+    },
+    "dirt": {
+      "form": "exposed islands use stochastic 37px selector",
+      "color": "abrupt material switches produce ochre blobs",
+      "frequency": "patches lack use or obstacle context",
+      "fix": "exposure linked to foot traffic and rock-foot deposits, restrained edge blending"
+    },
+    "road": {
+      "form": "broad macro bands cross path arbitrarily",
+      "color": "floor(2.4 + macro*1.4 + meso*.8) creates camouflage",
+      "frequency": "few scattered scuffs unrelated to local tangent",
+      "fix": "single variable compaction core; signed lateral distance and arc-length oriented wear"
+    },
+    "rock": {
+      "form": "large planar regions dotted with tiny plates",
+      "color": "plate pigment flat; generic face atlas fractures sparse",
+      "frequency": "equal-probability stones across top",
+      "scale": "small pebbles fail to describe large mineral structure",
+      "fix": "joint systems define planes first; scree concentrates at breaks; continuous top-left bevel/face light"
+    },
+    "mud": {
+      "form": "isolated patch motifs",
+      "color": "wet proxy alone insufficient scene composition",
+      "fix": "depressions and moisture clusters, restrained sheen, no new water simulation"
+    },
+    "sand": {
+      "form": "generic parallel ripple stamps",
+      "frequency": "same terrain-independent distribution",
+      "fix": "deposition at dry transitions, ordered short ripple groups with rest space"
+    }
+  },
+  "geometryPolicy": "Reuse exact Marco03 mesh and relief-field; no silent physics or silhouette changes",
+  "artApproved": false
+}

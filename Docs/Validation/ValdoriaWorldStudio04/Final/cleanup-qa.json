@@ -1,0 +1,13 @@
+{
+  "deletedUnusedAssetPaths": [
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/A-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/B-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/C-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/cliff-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/composition.json",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/PixelFinish",
+    "Assets/Materials04Temp"
+  ],
+  "externalConsumers": [],
+  "auditedGuids": 16
+}

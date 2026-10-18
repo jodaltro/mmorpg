@@ -1,0 +1,13 @@
+{
+  "footContourSamples": 490,
+  "maxDistanceToPhysicalBoundaryUnits": 0.47181224663810184,
+  "p95DistanceUnits": 0.25,
+  "meanDistanceUnits": 0.11217787254906483,
+  "worstContourPointTopLeftUnits": [
+    52.5281877533619,
+    23.5
+  ],
+  "geometryChangedInMarco04": false,
+  "scope": "Compare unprojected skirt foot contour, not elevated top silhouette, to union of semantic blocked rectangles",
+  "proposal": "If corner discrepancy is unacceptable, Terrain Agent must author one shared subcell footprint and revalidate navigation/collision as a geometric revision. Do not hide it in texture."
+}

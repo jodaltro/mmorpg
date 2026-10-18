@@ -53,3 +53,18 @@ Atlas de piso compartilhado entre seus draws; atlas de faces compartilhado entre
 ## Aceitação
 
 Contrato, hashes, seed, composição RGBA, recortes, patch, junções e invariância física são testes técnicos. Métricas de fase de borda e repetição detectam regressões, sem produzir nota de beleza. A remoção perceptiva da grade precisa ser observada nos três estados e em movimento na Game View. Grade claramente visível mantém o marco artisticamente incompleto. Aprovação estética e promoção dependem de feedback do usuário.
+
+
+## Extensao 1.1 — refino 04
+
+A receita continua `valdoria-material-recipe/v1`, com `version=terrain-materials/1.1.0`, `artDirection=contextual-hierarchy`, `clusterSpacing` e `pigmentContrast`. O compositor existente encaminha essa receita para `material_refinement.py`. Receitas 1.0 continuam reconstruindo o baseline de comparacao, sem migracao da geometria.
+
+Biblioteca `valdoria-material-library/v2`: canvas 768x192 RGBA, seis colunas 128x32 por seis familias, funcoes explicitas em `functions`, fonte Aseprite, parentSource/parentSha256 e hashes. Transformacao autorizada: translacao. Exportacao da fonte revisada preserva o canvas v2.
+
+O refino usa os segmentos existentes e soma seus comprimentos para obter arco global: o contrato de Organic Roads fornece `localArcUnits`, nao distancia acumulada de toda a estrada. Distancia lateral e tangente so orientam aparencia, sem refazer curvas ou largura. Grupos de vegetacao material sao globais no contexto compartilhado; filho aceita separacao minima de 8 px e halo de 32 px para recortes. A rede de fraturas usa IDs mundiais, de modo que mudar a extensao do recorte nao altera as juntas.
+
+A apresentacao de relevo e os meshes permanecem iguais ao Marco03. O importador estendido cria `ValdoriaArtisticTerrainLab.unity` em destino ausente, com quatro novas texturas (tres pisos finais e uma face rochosa compartilhada). A referencia anterior usa apenas Marco03 A. O controlador existente tem modo finalOnly, onde B/T/F nao fingem alternar fases que nao foram carregadas.
+
+`FinalOnlyVisuals-A.prefab` e uma exportacao experimental de visuais de um unico estilo. Seu contrato exige WorldRegion e fisica no host; nao inclui ator, controlador de comparacao nem fonte de geracao em Play. Ele demonstra descarte de comparacoes por dependencias, sem prometer streaming. Futuro carregamento por regiao/chunk devera usar os retangulos e halos existentes, carregar assets pregerados e revalidar UV/sorting, sem blur ou compressao inadequada.
+
+No refino 1.1, o alfa dos motivos de desgaste Aseprite pode ser projetado na direcao da estrada com nearest; a cor vem da receita e os realces sao reaplicados em coordenadas mundiais. `allowedTransforms=translation` continua regendo a arte preiluminada de plantas/pedras. O campo `roadWearGeometry` registra a excecao de geometria de pincel, sem rotacao da iluminacao pronta.

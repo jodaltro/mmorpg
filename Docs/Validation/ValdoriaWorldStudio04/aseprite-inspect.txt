@@ -1,0 +1,13 @@
+ASEPRITE_INSPECT_BEGIN
+canvas=768x192
+colorMode=0
+frames=1
+layers=5
+tags=0
+totalDurationSeconds=0.100000
+layer[1]="Pigment - contact masses" visible=true
+layer[2]="Forms - diverse silhouettes" visible=true
+layer[3]="Edges - upper left light" visible=true
+layer[4]="Accents - structured wear" visible=true
+layer[5]="Paint refinements" visible=true
+ASEPRITE_INSPECT_END

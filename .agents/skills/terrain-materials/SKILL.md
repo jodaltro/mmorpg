@@ -1,27 +1,29 @@
 ---
 name: terrain-materials
-description: Autoria e revisÃ£o de materiais pixel art procedurais de Valdoria em Aseprite e Python. Use para pigmento contÃ­nuo, variantes contextuais, transiÃ§Ãµes subcÃ©lula, detalhes multiescala e composiÃ§Ã£o com WorldRegion e Organic Roads, sem alterar fÃ­sica ou traÃ§ados.
+description: Autoria e revisão de materiais pixel art procedurais de Valdoria em Aseprite e Python. Use para pigmento contínuo, variantes contextuais, transições subcélula, detalhes multiescala e composição com WorldRegion e Organic Roads, sem alterar física ou traçados.
 ---
 
 # Material Agent
 
-Leia `AGENTS.md`, `Docs/Art/TerrainMaterialsStandard.md` e `Docs/WorldGen/TerrainMaterialsContract.md`. Use tambÃ©m `aseprite-pixel-art` para fontes e `terrain-generation` para interpretar os dados. A skill Ã© um especialista operado pelo agente, nÃ£o um serviÃ§o independente.
+Para autoria nova, use o refino 1.1 do Marco 04 descrito ao final. Os comandos 1.0 abaixo conservam o baseline de comparacao do Marco 03; nao representam a direcao artistica mais recente.
+
+Leia `AGENTS.md`, `Docs/Art/TerrainMaterialsStandard.md` e `Docs/WorldGen/TerrainMaterialsContract.md`. Use também `aseprite-pixel-art` para fontes e `terrain-generation` para interpretar os dados. A skill é um especialista operado pelo agente, não um serviço independente.
 
 ## Responsabilidade
 
-O Terrain Agent decide relevo, solos e circulaÃ§Ã£o. Este mÃ³dulo decide pigmento, transiÃ§Ãµes, desgaste e detalhes. Consuma WorldRegion v1, composiÃ§Ã£o v2 e road v1/mÃ¡scaras verificadas. Nunca modifique `blocked`, altura, navegaÃ§Ã£o, waypoints, largura ou cobertura da estrada para obter um visual mais fÃ¡cil.
+O Terrain Agent decide relevo, solos e circulação. Este módulo decide pigmento, transições, desgaste e detalhes. Consuma WorldRegion v1, composição v2 e road v1/máscaras verificadas. Nunca modifique `blocked`, altura, navegação, waypoints, largura ou cobertura da estrada para obter um visual mais fácil.
 
-`Tools/ArtPipeline/WorldGen/terrain_materials.py` implementa biblioteca editÃ¡vel, composiÃ§Ã£o por coordenadas globais, recortes, patches retangulares de tom, manifests e reconstruÃ§Ã£o verificÃ¡vel. `OrganicRoadStudioImporter.Materials.cs` amplia o importador existente; `TerrainReliefBuilder.Materials.cs` substitui a apresentaÃ§Ã£o quadriculada do relevo no novo laboratÃ³rio. A fÃ­sica continua original.
+`Tools/ArtPipeline/WorldGen/terrain_materials.py` implementa biblioteca editável, composição por coordenadas globais, recortes, patches retangulares de tom, manifests e reconstrução verificável. `OrganicRoadStudioImporter.Materials.cs` amplia o importador existente; `TerrainReliefBuilder.Materials.cs` substitui a apresentação quadriculada do relevo no novo laboratório. A física continua original.
 
 ## Autoria efetiva
 
-1. Confira worktree e pull conforme AGENTS. Identifique primeiro emendas, repetiÃ§Ã£o, transiÃ§Ãµes e relevo. Guarde o diagnÃ³stico antes de criar material novo.
-2. Gere em destino ausente. Use seed, origem, PPU e versÃ£o explÃ­citos; todos os chunks da regiÃ£o compartilham contexto completo. Nunca alegue continuidade entre regiÃµes independentes sem halo semÃ¢ntico compartilhado.
-3. Biblioteca: seis materiais, trÃªs funÃ§Ãµes por material em mÃ³dulos 128Ã—32; Ã¡rea Ãºtil menor para stamps transparentes. Camadas semÃ¢nticas Aseprite, paleta e luz superior esquerda. NÃ£o espelhe/rotacione luz. Edite a fonte em cÃ³pia e exporte nova revisÃ£o, preservando contrato do canvas.
-4. Componha em trÃªs estados: base sem stamps; transiÃ§Ãµes sem stamps; final com detalhes. Corrija contornos/UVs na camada estrutural. NÃ£o esconda grade com ruÃ­do ou vegetaÃ§Ã£o.
-5. Varie macro pigmento, meso manchas e micro motivos contextualizados por umidade/material/estrada. Densidade moderada e distÃ¢ncia mÃ­nima espacial; nÃ£o use uma rotaÃ§Ã£o aleatÃ³ria de tiles iluminados.
-6. Importe no Editor real em cena/arte novas. Point, RGBA, mipmaps/compressÃ£o off. Atlases sÃ£o saÃ­das reproduzÃ­veis de fontes modulares, nÃ£o um panorama canÃ´nico. NÃ£o gere em Play nem crie um GameObject por detalhe.
-7. Execute testes, recompile, Console, Play/Input System, caminhada/esquiva, sorting, pÃ©s, sequÃªncia de cÃ¢mera em movimento. Restaure dispositivos, perfil, resoluÃ§Ã£o e Play. Apresente A/B/C na mesma estrada, seed, pose, cÃ¢mera e escala.
+1. Confira worktree e pull conforme AGENTS. Identifique primeiro emendas, repetição, transições e relevo. Guarde o diagnóstico antes de criar material novo.
+2. Gere em destino ausente. Use seed, origem, PPU e versão explícitos; todos os chunks da região compartilham contexto completo. Nunca alegue continuidade entre regiões independentes sem halo semântico compartilhado.
+3. Biblioteca: seis materiais, três funções por material em módulos 128×32; área útil menor para stamps transparentes. Camadas semânticas Aseprite, paleta e luz superior esquerda. Não espelhe/rotacione luz. Edite a fonte em cópia e exporte nova revisão, preservando contrato do canvas.
+4. Componha em três estados: base sem stamps; transições sem stamps; final com detalhes. Corrija contornos/UVs na camada estrutural. Não esconda grade com ruído ou vegetação.
+5. Varie macro pigmento, meso manchas e micro motivos contextualizados por umidade/material/estrada. Densidade moderada e distância mínima espacial; não use uma rotação aleatória de tiles iluminados.
+6. Importe no Editor real em cena/arte novas. Point, RGBA, mipmaps/compressão off. Atlases são saídas reproduzíveis de fontes modulares, não um panorama canônico. Não gere em Play nem crie um GameObject por detalhe.
+7. Execute testes, recompile, Console, Play/Input System, caminhada/esquiva, sorting, pés, sequência de câmera em movimento. Restaure dispositivos, perfil, resolução e Play. Apresente A/B/C na mesma estrada, seed, pose, câmera e escala.
 
 ```powershell
 python Tools/ArtPipeline/WorldGen/terrain_materials.py library --output Temp/Materials/new-library
@@ -32,11 +34,33 @@ python Tools/ArtPipeline/WorldGen/terrain_materials.py render --recipe ArtSource
 python -m unittest discover -s Tools/ArtPipeline/WorldGen -p 'test_*.py' -v
 ```
 
-## RevisÃ£o e limites
+## Revisão e limites
 
-- NÃ£o chamar grid removido ou arte concluÃ­da sÃ³ porque testes passaram. Inspecione base, transiÃ§Ãµes, detalhes e movimento na Game View. Grade claramente visÃ­vel reprova o marco artisticamente.
-- Hashes provam integridade, mÃ©tricas de linhas revelam periodicidade; nenhum deles certifica beleza. AprovaÃ§Ã£o artÃ­stica Ã© explÃ­cita do usuÃ¡rio.
-- Lama/umidade sÃ£o aparÃªncia sobre o proxy existente, nÃ£o simulaÃ§Ã£o hÃ­drica. Areia Ã© uma superfÃ­cie, nÃ£o um bioma novo.
-- Patches atuais alteram pigmento em Ã¡rea definida; nÃ£o sÃ£o pintura vetorial universal nem editor completo de materiais. Regenerar Ã© autoria offline.
-- Relevo projetado continua visual no plano 2D. NÃ£o anunciar escalada, hidrologia, vegetaÃ§Ã£o fÃ­sica, construÃ§Ã£o ou promoÃ§Ã£o ao mundo oficial.
-- Ferramentas de IA podem ajudar o agente a decidir receitas e formas; nÃ£o afirmar uso de ImageGen/Blender quando nÃ£o executados. Preserve proveniÃªncia/licenÃ§as das fontes usadas.
+- Não chamar grid removido ou arte concluída só porque testes passaram. Inspecione base, transições, detalhes e movimento na Game View. Grade claramente visível reprova o marco artisticamente.
+- Hashes provam integridade, métricas de linhas revelam periodicidade; nenhum deles certifica beleza. Aprovação artística é explícita do usuário.
+- Lama/umidade são aparência sobre o proxy existente, não simulação hídrica. Areia é uma superfície, não um bioma novo.
+- Patches atuais alteram pigmento em área definida; não são pintura vetorial universal nem editor completo de materiais. Regenerar é autoria offline.
+- Relevo projetado continua visual no plano 2D. Não anunciar escalada, hidrologia, vegetação física, construção ou promoção ao mundo oficial.
+- Ferramentas de IA podem ajudar o agente a decidir receitas e formas; não afirmar uso de ImageGen/Blender quando não executados. Preserve proveniência/licenças das fontes usadas.
+
+
+## Refino artistico 1.1 (Marco 04)
+
+Leia tambem `Docs/Validation/ValdoriaWorldStudio04-ArtisticRefinement.md`. `material_refinement.py` estende o mesmo compositor quando a receita tem `version=terrain-materials/1.1.0`; nao gera outro terreno. Use a biblioteca v2 768x192, seis funcoes por familia, revisada a partir da fonte do Marco 03. A geometria do relevo deve permanecer byte-identica e os meshes Unity devem ser compartilhados com o baseline.
+
+- Nao confundir pixel art com aspecto cartunesco: evitar ilhas de pigmento com contorno vetorial, saturacao exagerada e sombreado aerografado. Usar clusters de pixels, planos e degraus de luz controlados, avaliados junto ao Quaternius na escala nativa.
+- Campos 193/57 agora modulam pouco o pigmento. Contexto de umidade, trafego e base de rocha dirige solo exposto; clusters pequenos formam a textura da grama. Nao aumentar ruido independente nem cobrir o piso de tufos uniformes.
+- Grupos hierarquicos possuem pais espaciais e filhos com separacao minima e areas de descanso. Grama de margem usada e curta; formas altas/rasteiras dependem do contexto. Mantenha a luz superior esquerda sem espelhar motivos.
+- Desgaste usa eixo, largura, distancia lateral e arco global. `localArcUnits` reinicia por segmento: some os comprimentos dos segmentos, sem alterar sua geometria. Sulcos precisam seguir a tangente; nao criar trilhos duplos universais.
+- Rocha: juntas conectadas esparsas, planos iluminados pela inclinacao, fissuras secundarias nas zonas de fratura e microclusters minerais. Nao espalhar pedrinhas uniformemente nem desenhar uma malha completa de celulas minerais.
+- Diagnosticar diferenca entre contorno do pe da rocha e footprint fisico. Nunca esconder a diferenca com materiais nem corrigir colliders silenciosamente.
+- O laboratorio 04 compara apenas finais A/B/C e Marco03 A; nao carrega os nove estados de comparacao. `FinalOnlyVisuals-A.prefab` e candidato visual sem controlador, baseline ou fisica. O host mantem WorldRegion/colisao. Streaming de chunks ainda precisa de implementacao; nao declarar que a exportacao de um prefab o implementa.
+
+```powershell
+python Tools/ArtPipeline/WorldGen/material_refinement.py library --output Temp/Materials/new-refined-library
+python Tools/ArtPipeline/WorldGen/material_refinement.py recipes --output Temp/Materials/new-refined-recipes
+python Tools/ArtPipeline/WorldGen/terrain_materials.py generate --recipe ArtSource/Labs/World2026/WorldStudio04/Recipes/recipe-A.json --library ArtSource/Labs/World2026/WorldStudio04/Library --output Temp/Materials/new-refinement
+python Tools/ArtPipeline/WorldGen/terrain_materials.py verify --recipe ArtSource/Labs/World2026/WorldStudio04/Recipes/recipe-A.json --library ArtSource/Labs/World2026/WorldStudio04/Library --output ArtSource/Labs/World2026/WorldStudio04/BuildR6/A
+```
+
+As formas de desgaste da estrada usam o alfa das fontes Aseprite projetado no percurso com nearest; cores e realces sao reconstruidos na paleta e luz mundiais. Isto orienta geometria de pincel, nao gira highlights de um sprite preiluminado. Pedrinhas e plantas mantem orientacao autorada.

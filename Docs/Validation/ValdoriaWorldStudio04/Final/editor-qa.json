@@ -1,0 +1,106 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaArtisticTerrainLab.unity",
+  "sceneClean": true,
+  "sharedMeshIdentity": true,
+  "meshCount": 55,
+  "topographyAndCollisionsUnchanged": true,
+  "collisionBoxes": 33,
+  "newVisualColliders": 0,
+  "renderers": 55,
+  "labTextures": [
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/A-final-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/cliff-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/TextureRevision/A-final-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaOrganicMaterials03/cliff-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/B-final-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/C-final-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    }
+  ],
+  "productionTextures": [
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/A-final-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/cliff-atlas.png",
+      "width": 2048,
+      "height": 1536,
+      "format": "RGB24",
+      "point": true,
+      "mips": 1,
+      "memoryBytes": 22021024
+    }
+  ],
+  "productionDependencies": [
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/A-final-atlas.png",
+    "Assets/Mmorpg/Art/Experimental/ValdoriaArtisticTerrain04/AuthoredFinish/cliff-atlas.png"
+  ],
+  "productionExcludesComparisonAssets": true,
+  "productionHasNoController": true,
+  "productionHasNoColliders": true,
+  "destinationRefused": true,
+  "reason": "Refuse existing refinement scene/art destination",
+  "onePlayer": true,
+  "oneTerrain": true,
+  "cameras": 1,
+  "playStopped": true,
+  "syntheticDevices": 0,
+  "allKeyboardsEnabled": true,
+  "background": "ResetAndDisableNonBackgroundDevices",
+  "editorInput": "PointersAndKeyboardsRespectGameViewFocus",
+  "profileOverride": null,
+  "fixedViewOverride": false,
+  "timeScale": 1.0
+}

@@ -30,8 +30,10 @@ def recipe(style='A'):
  return {'schema':'valdoria-material-recipe/v1','version':VERSION,'seed':710202,'style':style,'ppu':32,'chunkPixels':512,'light':'upper-left','palette':PALETTES,'detailDensity':{'A':.62,'B':1.0,'C':.86}[style],'patches':[]}
 def validate(r,region):
  if r.get('schema')!='valdoria-material-recipe/v1' or r.get('style') not in ['A','B','C']:raise ValueError('Material recipe/schema/style')
- if r.get('version')!=VERSION or r.get('ppu')!=32 or r.get('chunkPixels')!=512 or r.get('light')!='upper-left':raise ValueError('Unsupported material sampling contract')
+ if r.get('version') not in [VERSION,'terrain-materials/1.1.0'] or r.get('ppu')!=32 or r.get('chunkPixels')!=512 or r.get('light')!='upper-left':raise ValueError('Unsupported material sampling contract')
  if not isinstance(r.get('seed'),int) or not 0<=r.get('detailDensity',-1)<=1.5:raise ValueError('Invalid seed/density')
+ if r.get('version')=='terrain-materials/1.1.0':
+  if r.get('artDirection')!='contextual-hierarchy' or not isinstance(r.get('clusterSpacing'),int) or not 72<=r['clusterSpacing']<=192 or not isinstance(r.get('pigmentContrast'),(int,float)) or not .5<=r['pigmentContrast']<=1.5:raise ValueError('Invalid refinement direction/cluster/contrast')
  for kind in KINDS:
   if len(r.get('palette',{}).get(kind,[]))!=6:raise ValueError('Six palette values per material')
   for value in r['palette'][kind]:
@@ -118,10 +120,12 @@ class Context:
   self.motifs=Image.open(self.library_dir/'motifs.png').convert('RGBA') if self.library_dir else None
   if self.library_dir:
    metadata=read(self.library_dir/'library.json')
-   if metadata.get('schema')!='valdoria-material-library/v1':raise ValueError('Library schema')
+   self.library=metadata
+   if metadata.get('schema') not in ['valdoria-material-library/v1','valdoria-material-library/v2']:raise ValueError('Library schema')
    for name,digest in metadata['files'].items():
     if Path(name).name!=name or sha((self.library_dir/name).read_bytes())!=digest:raise ValueError('Library hash mismatch '+name)
-   if self.motifs.size!=(384,192):raise ValueError('Library canvas')
+   expected=(384,192) if metadata['schema']=='valdoria-material-library/v1' else (768,192)
+   if self.motifs.size!=expected or tuple(metadata['canvas'])!=expected:raise ValueError('Library canvas')
  def sample(self,layer,x,y):
   shape=np.asarray(x).shape
   return map_coordinates(np.asarray(layer,dtype=float),[np.asarray((y+.5)/32-.5).ravel(),np.asarray((x+.5)/32-.5).ravel()],order=1,mode='nearest',prefilter=False).reshape(shape)
@@ -145,6 +149,10 @@ class Context:
   if stage not in ['base','transitions','final']:raise ValueError('Invalid stage')
   x0,y0,width,height=map(int,bounds)
   if min(x0,y0)<0 or min(width,height)<=0 or x0+width>self.w*32 or y0+height>self.h*32:raise ValueError('Invalid raster bounds')
+  if r['version']=='terrain-materials/1.1.0':
+   import material_refinement
+   if not hasattr(self,'library') or self.library['schema']!='valdoria-material-library/v2':raise ValueError('Refinement requires editable library v2')
+   return material_refinement.render(self,r,bounds,stage)
   y,x=np.mgrid[y0:y0+height,x0:x0+width];material,macro,meso,fine,wet,rock=self.weights(r,x,y)
   if stage=='base':material=np.zeros_like(material)
   tone=np.floor(2.55+(macro-.5)*1.05+(meso-.5)*.55+(fine-.5)*.25).astype(int).clip(1,3)
@@ -229,7 +237,10 @@ def generate(recipe_path,output,library_dir,region_path=BASE,road_dir=ROAD):
  manifests={};size=[context.w*32,context.h*32]
  for stage in ['base','transitions','final']:
   image=context.render(r,[0,0,*size],stage);image.save(output/(stage+'-atlas.png'));manifests[stage]=seam_metrics(image)
- cliff_texture(r,size).save(output/'cliff-atlas.png')
+ if r['version']=='terrain-materials/1.1.0':
+  import material_refinement
+  material_refinement.cliff_texture(r,size).save(output/'cliff-atlas.png')
+ else:cliff_texture(r,size).save(output/'cliff-atlas.png')
  # signed field + fine height mesh metadata; semantic physics remains immutable.
  blocked=context.layers['blocked'];scalar=[];step=.25;smoothedHeight=gaussian_filter(context.layers['elevationMilli'].astype(float),.85)
  for yy in np.arange(0,context.h+.001,step):
@@ -241,7 +252,7 @@ def generate(recipe_path,output,library_dir,region_path=BASE,road_dir=ROAD):
   scalar.append(row)
  (output/'relief-field.json').write_bytes(canonical({'schema':'valdoria-material-relief/v1','stepUnits':step,'samples':scalar,'sizeUnits':[context.w,context.h],'physicsChanged':False}))
  chunks=[{'id':f'{x//512}-{y//512}','rectPixels':[x,y,min(512,size[0]-x),min(512,size[1]-y)]} for y in range(0,size[1],512) for x in range(0,size[0],512)]
- contract={'schema':'valdoria-material-composition/v1','generator':VERSION,'regionRef':{'path':str(Path(region_path).relative_to(ROOT)).replace('\\','/'),'sha256':sha(Path(region_path).read_bytes())},'roadRef':{'path':str(Path(road_dir).relative_to(ROOT)).replace('\\','/'),'sha256':sha((Path(road_dir)/'road.json').read_bytes()),'masks':{k:sha((Path(road_dir)/(k+'.png')).read_bytes()) for k in context.masks}},'recipeSha256':sha(canonical(r)),'librarySha256':sha((Path(library_dir)/'library.json').read_bytes()),'seed':r['seed'],'style':r['style'],'ppu':32,'sizePixels':size,'chunks':chunks,'stages':['base','transitions','final'],'light':'upper-left','geometryInvariant':True,'artStatus':'candidate-awaiting-visual-review','metrics':manifests}
+ contract={'schema':'valdoria-material-composition/v1','generator':r['version'],'regionRef':{'path':str(Path(region_path).relative_to(ROOT)).replace('\\','/'),'sha256':sha(Path(region_path).read_bytes())},'roadRef':{'path':str(Path(road_dir).relative_to(ROOT)).replace('\\','/'),'sha256':sha((Path(road_dir)/'road.json').read_bytes()),'masks':{k:sha((Path(road_dir)/(k+'.png')).read_bytes()) for k in context.masks}},'recipeSha256':sha(canonical(r)),'librarySha256':sha((Path(library_dir)/'library.json').read_bytes()),'seed':r['seed'],'style':r['style'],'ppu':32,'sizePixels':size,'chunks':chunks,'stages':['base','transitions','final'],'light':'upper-left','geometryInvariant':True,'artStatus':'candidate-awaiting-visual-review','metrics':manifests}
  (output/'composition.json').write_bytes(canonical(contract));(output/'manifest.json').write_bytes(canonical({'schema':'valdoria-material-build/v1','recipeSha256':contract['recipeSha256'],'regionSha256':contract['regionRef']['sha256'],'roadSha256':contract['roadRef']['sha256'],'librarySha256':contract['librarySha256'],'files':{p.name:sha(p.read_bytes()) for p in sorted(output.iterdir()) if p.is_file()}}))
  return contract
 
@@ -271,14 +282,17 @@ def export_library(source,output):
  source=Path(source);target=output/'terrain-motifs.aseprite';target.write_bytes(source.read_bytes())
  subprocess.run([r'D:\Aseprite\Aseprite.exe','-b',str(target),'--save-as',str(output/'motifs.png')],check=True)
  image=Image.open(output/'motifs.png')
- if image.size!=(384,192) or image.mode!='RGBA':raise ValueError('Editable library must remain 384x192 RGBA')
+ if image.size not in [(384,192),(768,192)] or image.mode!='RGBA':raise ValueError('Editable library canvas must match v1/v2 RGBA contract')
  metadata={'schema':'valdoria-material-library/v1','canvas':[384,192],'module':[128,32],'kinds':KINDS,'variants':['sparse accent','cluster','wear or moss'],'palette':PALETTES,'light':'upper-left','allowedTransforms':['translation'],'source':'terrain-motifs.aseprite','author':'Edited original Valdoria material source, exported by Aseprite','license':'Original project work','files':{p.name:sha(p.read_bytes()) for p in output.iterdir()}}
+ if image.size==(768,192):
+  import material_refinement
+  metadata.update(schema='valdoria-material-library/v2',canvas=[768,192],variants=6,functions=material_refinement.FUNCTIONS)
  (output/'library.json').write_bytes(canonical(metadata));return metadata
 
 def render_crop(recipe_path,output,library_dir,bounds,stage='final',region_path=BASE,road_dir=ROAD):
  r=read(recipe_path);ctx=Context(region_path,road_dir,library_dir);validate(r,ctx.region);out=refuse(output);out.mkdir(parents=True)
  image=ctx.render(r,bounds,stage);image.save(out/'patch.png')
- (out/'manifest.json').write_bytes(canonical({'schema':'valdoria-material-patch-build/v1','generator':VERSION,'boundsPixels':bounds,'stage':stage,'recipeSha256':sha(canonical(r)),'regionSha256':sha(Path(region_path).read_bytes()),'roadSha256':sha((Path(road_dir)/'road.json').read_bytes()),'files':{'patch.png':sha((out/'patch.png').read_bytes())}}))
+ (out/'manifest.json').write_bytes(canonical({'schema':'valdoria-material-patch-build/v1','generator':r['version'],'boundsPixels':bounds,'stage':stage,'recipeSha256':sha(canonical(r)),'regionSha256':sha(Path(region_path).read_bytes()),'roadSha256':sha((Path(road_dir)/'road.json').read_bytes()),'files':{'patch.png':sha((out/'patch.png').read_bytes())}}))
  return image
 
 def main():

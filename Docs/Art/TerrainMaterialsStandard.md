@@ -28,3 +28,12 @@ A — Natural equilibrado é a referência de baixa densidade. B — Medieval de
 6. Se as células de 32×32 continuarem claramente legíveis, registrar reprovação artística mesmo com testes verdes. Feedback explícito do usuário é necessário para aprovar e promover.
 
 A biblioteca Aseprite tem pigmento, formas, bordas/contato, microacento e camada de refinamento. Para editar, copiar fonte, preservar canvas e nomes, salvar revisão e executar `export-library` em destino ausente. O exportador grava PNG/manifest novos; regenerar não sobrescreve a fonte antiga.
+
+
+## Refinamento artistico 04
+
+Diretriz do usuario: nao deixar cartunesco; fixar a leitura em pixel art proxima de Quaternius. O refino 1.1 mantem a paleta terrosa, luz superior esquerda e escala original. A nitidez vem de agrupamentos discretos de pixels e planos de luz, sem blur de textura, contornos vetoriais amplos ou saturacao infantil.
+
+Reduzir o contraste das grandes massas; justificar mudancas por umidade, uso e contato mineral. Usar variacao de tamanho/silhueta em grupos com descanso visual, nao uma grade de pequenos tufos. Marcas da estrada seguem o percurso; rachaduras e graos compactados reforcam esse fluxo. Rocha precisa de planos iluminados, fraturas principais/menores e encontros com solo antes de receber pequenos detalhes.
+
+A biblioteca 04 possui seis funcoes distintas por familia em fonte 768x192 com camadas semanticas. As formas podem ser revisadas manualmente sem reconstruir caminho, colisao ou topografia. A/B/C sao candidatos e devem ser comparados ao Marco03 A em pixels nativos, close-ups e movimento real. Metricas de contraste/repeticao e hashes nao aprovam a arte.
