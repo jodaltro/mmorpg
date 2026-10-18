@@ -38,3 +38,6 @@ Para revisão completa com patch, acrescente `--patch` a `generate` e `verify`. 
 `hydrology.json` + `manifest.json` identificam inputs e features. `geometry.json` contém loops/escalares compartilhados. `navigation.json` e masks distinguem sólido, água profunda, raso e margem. `drainage.json` fornece pais/níveis auxiliares. Vegetation/Architecture/Structures devem validar esses hashes e consultar clearance além de ocupação. O runtime `EnvironmentRegionData` expõe amostras de navegação, não geometria fina nem um NavMesh.
 
 Limites conhecidos: grade de análise .25 u; profundidade ambiental normalizada, não metros; perfil de rio aproximado; lago de estudo abaixo do vertimento recebe um afluente sem saída forçada. Sem simulação temporal de volume. Relevo e ator continuam no plano 2D. Confira `Docs/Validation/ValdoriaWorldStudio05-Hydrology.md` para evidências da execução e avaliação artística pendente.
+
+
+Para construções, use `environment-architecture` e `Docs/WorldGen/ArchitectureContract.md`. Esse consumidor mantém os produtores por hash, acrescenta footprint/acesso e registra exclusões da vegetação em revisão própria; não desloca água, estrada ou relevo para encaixar edifícios.

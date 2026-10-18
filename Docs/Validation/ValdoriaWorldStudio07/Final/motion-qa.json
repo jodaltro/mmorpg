@@ -1,0 +1,65 @@
+[
+  {
+    "archetype": "A",
+    "capturedFrames": 20,
+    "uniqueCameraPositions": 20,
+    "first": {
+      "capture": "Motion/A-00.png",
+      "frame": 1221,
+      "time": 5.143482029478458,
+      "camera": "(25.06, 15.94, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    "last": {
+      "capture": "Motion/A-19.png",
+      "frame": 1480,
+      "time": 7.078650630668934,
+      "camera": "(30.28, 12.13, -10.00)",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "archetype": "B",
+    "capturedFrames": 20,
+    "uniqueCameraPositions": 9,
+    "first": {
+      "capture": "Motion/B-00.png",
+      "frame": 3415,
+      "time": 15.400324433106576,
+      "camera": "(44.00, 29.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    "last": {
+      "capture": "Motion/B-19.png",
+      "frame": 3618,
+      "time": 17.337212528344672,
+      "camera": "(44.00, 32.06, -10.00)",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "archetype": "C",
+    "capturedFrames": 20,
+    "uniqueCameraPositions": 8,
+    "first": {
+      "capture": "Motion/C-00.png",
+      "frame": 5019,
+      "time": 23.444808928571426,
+      "camera": "(26.16, 21.34, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    "last": {
+      "capture": "Motion/C-19.png",
+      "frame": 5234,
+      "time": 25.39088723072562,
+      "camera": "(24.47, 23.03, -10.00)",
+      "width": 1280,
+      "height": 720
+    }
+  }
+]

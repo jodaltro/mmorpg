@@ -51,3 +51,6 @@ Para edição, acrescente `--patch caminho/patch.json`. O gerador usa Python/Pil
 - Water, Climate, Material, Architecture, Vegetation e Structures devem produzir artefatos próprios referenciados por hash, sem alterar silenciosamente a topografia de outro especialista.
 
 Para água, use a skill `world-hydrology` e `Docs/WorldGen/WorldHydrologyContract.md`. O laboratório05 usa uma revisão explícita de fronteira compartilhada; isso não altera a topografia original nem autoriza o Material Agent a editar física por pigmento.
+
+
+Para construções, use `environment-architecture` e `Docs/WorldGen/ArchitectureContract.md`. Esse consumidor mantém os produtores por hash, acrescenta footprint/acesso e registra exclusões da vegetação em revisão própria; não desloca água, estrada ou relevo para encaixar edifícios.

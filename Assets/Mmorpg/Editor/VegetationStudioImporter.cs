@@ -33,9 +33,9 @@ public static class VegetationStudioImporter
  {
   public readonly List<Vector3> points=new List<Vector3>();public readonly List<Vector2> uv=new List<Vector2>();public readonly List<Color> colors=new List<Color>();public readonly List<int> triangles=new List<int>();
   public void Add(SpriteRenderer renderer){int start=points.Count;var sprite=renderer.sprite;var vertices=sprite.vertices;foreach(var p in vertices)points.Add(renderer.transform.TransformPoint(p));uv.AddRange(sprite.uv);colors.AddRange(Enumerable.Repeat(renderer.color,vertices.Length));triangles.AddRange(sprite.triangles.Select(i=>start+i));}
-  public void Save(Transform root,string name,int order,Material material){var mesh=new Mesh{name=name};if(points.Count>65535)mesh.indexFormat=IndexFormat.UInt32;mesh.SetVertices(points);mesh.SetUVs(0,uv);mesh.SetColors(colors);mesh.SetTriangles(triangles,0);mesh.RecalculateBounds();AssetDatabase.CreateAsset(mesh,Art+name+".asset");var go=new GameObject(name);go.transform.SetParent(root);go.AddComponent<MeshFilter>().sharedMesh=mesh;var renderer=go.AddComponent<MeshRenderer>();renderer.sharedMaterial=material;renderer.sortingOrder=order;}
+  public void Save(Transform root,string name,int order,Material material,string directory){var mesh=new Mesh{name=name};if(points.Count>65535)mesh.indexFormat=IndexFormat.UInt32;mesh.SetVertices(points);mesh.SetUVs(0,uv);mesh.SetColors(colors);mesh.SetTriangles(triangles,0);mesh.RecalculateBounds();AssetDatabase.CreateAsset(mesh,directory+name+".asset");var go=new GameObject(name);go.transform.SetParent(root);go.AddComponent<MeshFilter>().sharedMesh=mesh;var renderer=go.AddComponent<MeshRenderer>();renderer.sharedMaterial=material;renderer.sortingOrder=order;}
  }
- static void BakeStaticDetails(GameObject root,string style,Material material)
+ public static void BakeStaticDetails(GameObject root,string style,Material material,string directory=Art)
  {
   var shadows=new StaticBatch();var rows=new Dictionary<int,StaticBatch>();var anchors=root.GetComponentsInChildren<VegetationAnchor>(true).OrderByDescending(a=>a.transform.position.y).ToArray();
   foreach(var anchor in anchors)
@@ -47,17 +47,11 @@ public static class VegetationStudioImporter
    }
    if(anchor.FootprintRadius==0){var graphics=anchor.transform.Find("Trunk and crown - depth at ground anchor");if(graphics!=null)Object.DestroyImmediate(graphics.gameObject);}
   }
-  shadows.Save(root.transform,"Baked-"+style+"-ground-shadows",-1977,material);foreach(var row in rows.OrderBy(r=>r.Key))row.Value.Save(root.transform,"Baked-"+style+"-low-row-"+row.Key,100-row.Key*4,material);
+  shadows.Save(root.transform,"Baked-"+style+"-ground-shadows",-1977,material,directory);foreach(var row in rows.OrderBy(r=>r.Key))row.Value.Save(root.transform,"Baked-"+style+"-low-row-"+row.Key,100-row.Key*4,material,directory);
  }
- public static object Build()
+ public static GameObject CreateComposition(JObject build,JObject meta,Dictionary<string,Sprite> sprites,Material material,string name)
  {
-  if(EditorApplication.isPlaying)throw new IOException("Stop Play first");var original=UnityEngine.SceneManagement.SceneManager.GetActiveScene();if(original.isDirty||original.path!="Assets/Mmorpg/Scenes/ValdoriaHydrologyLab.unity")throw new IOException("Open clean Hydrology Lab");if(File.Exists(Scene)||Directory.Exists(Art))throw new IOException("Refuse existing Vegetation scene/art destination");Verify();string originalPath=original.path;
-  try{
-   Directory.CreateDirectory(Art);AssetDatabase.Refresh();var meta=JObject.Parse(File.ReadAllText(Library+"sprites.json"));var sprites=ImportSprites(meta);var material=new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")){mainTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(Art+"vegetation-atlas.png")};AssetDatabase.CreateAsset(material,Art+"Vegetation.mat");
-   EditorSceneManager.SaveScene(original,Scene,true);var scene=EditorSceneManager.OpenScene(Scene);var hydro=Object.FindAnyObjectByType<HydrologyLabController>();hydro.SetWater(true);Object.DestroyImmediate(hydro.gameObject);var roots=new List<GameObject>();var sources=new List<TextAsset>();var masks=new List<byte[]>();
-   foreach(var style in new[]{"A","B","C"})
-   {
-    var build=JObject.Parse(File.ReadAllText(Source+style+"/vegetation.json"));var root=new GameObject("Vegetation "+style+" - semantic anchors");roots.Add(root);
+  var root=new GameObject(name);
     foreach(var instance in build["instances"])
     {
      string species=(string)instance["species"];int variant=(int)instance["variant"];float x=(float)instance["point"][0],y=(float)build["sizeUnits"][1]-(float)instance["point"][1],radius=(float)instance["footprintRadius"];var plant=new GameObject((string)instance["id"]);plant.transform.SetParent(root.transform);plant.transform.position=new Vector3(x,y,0);plant.AddComponent<VegetationAnchor>().Configure((string)instance["id"],species,variant,radius);
@@ -68,6 +62,17 @@ public static class VegetationStudioImporter
      }
      if(radius>0){plant.layer=8;plant.AddComponent<CircleCollider2D>().radius=radius;}
     }
+  return root;
+ }
+ public static object Build()
+ {
+  if(EditorApplication.isPlaying)throw new IOException("Stop Play first");var original=UnityEngine.SceneManagement.SceneManager.GetActiveScene();if(original.isDirty||original.path!="Assets/Mmorpg/Scenes/ValdoriaHydrologyLab.unity")throw new IOException("Open clean Hydrology Lab");if(File.Exists(Scene)||Directory.Exists(Art))throw new IOException("Refuse existing Vegetation scene/art destination");Verify();string originalPath=original.path;
+  try{
+   Directory.CreateDirectory(Art);AssetDatabase.Refresh();var meta=JObject.Parse(File.ReadAllText(Library+"sprites.json"));var sprites=ImportSprites(meta);var material=new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")){mainTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(Art+"vegetation-atlas.png")};AssetDatabase.CreateAsset(material,Art+"Vegetation.mat");
+   EditorSceneManager.SaveScene(original,Scene,true);var scene=EditorSceneManager.OpenScene(Scene);var hydro=Object.FindAnyObjectByType<HydrologyLabController>();hydro.SetWater(true);Object.DestroyImmediate(hydro.gameObject);var roots=new List<GameObject>();var sources=new List<TextAsset>();var masks=new List<byte[]>();
+   foreach(var style in new[]{"A","B","C"})
+   {
+    var build=JObject.Parse(File.ReadAllText(Source+style+"/vegetation.json"));var root=CreateComposition(build,meta,sprites,material,"Vegetation "+style+" - semantic anchors");roots.Add(root);
     string dataPath=Art+style+"-vegetation.json";File.Copy(Source+style+"/vegetation.json",dataPath);AssetDatabase.ImportAsset(dataPath);sources.Add(AssetDatabase.LoadAssetAtPath<TextAsset>(dataPath));var nav=JObject.Parse(File.ReadAllText(Source+style+"/navigation.json"));masks.Add(nav["vegetationBlocked"].Select(v=>(byte)((bool)v?1:0)).ToArray());
    }
    for(int i=0;i<roots.Count;i++)BakeStaticDetails(roots[i],"ABC"[i].ToString(),material);

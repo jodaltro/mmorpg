@@ -33,3 +33,6 @@ unity command run_script --caller plugin --skill unity-pipeline --timeout 120 --
 `--library` seleciona biblioteca alternativa no gerador. Outros inputs são parâmetros explícitos da API Python `Context`; o CLI inicial fixa a região de estudo existente. Para importar outra geração, configure as constantes do importador e destinos novos. Receita `patches` contém retângulos de exclusão; a seleção subsequente pode mudar por competição, portanto não promete estabilidade fora do patch.
 
 Consulte `Docs/Validation/ValdoriaWorldStudio06-Vegetation.md`. Não afirmar crescimento temporal, vento animado, clima científico, destruição/colheita, natação, NavMesh ou streaming: não fazem parte desta implementação.
+
+
+Para construções, use `environment-architecture` e `Docs/WorldGen/ArchitectureContract.md`. Esse consumidor mantém os produtores por hash, acrescenta footprint/acesso e registra exclusões da vegetação em revisão própria; não desloca água, estrada ou relevo para encaixar edifícios.

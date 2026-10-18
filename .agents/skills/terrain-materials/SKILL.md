@@ -66,3 +66,6 @@ python Tools/ArtPipeline/WorldGen/terrain_materials.py verify --recipe ArtSource
 As formas de desgaste da estrada usam o alfa das fontes Aseprite projetado no percurso com nearest; cores e realces sao reconstruidos na paleta e luz mundiais. Isto orienta geometria de pincel, nao gira highlights de um sprite preiluminado. Pedrinhas e plantas mantem orientacao autorada.
 
 Integração aquática: `world-hydrology` fornece máscaras e fronteiras explícitas; leia `Docs/WorldGen/WorldHydrologyContract.md` e `EnvironmentBoundaryContract.md`. Preservar receitas/materiais04; autoria de água é um módulo separado, com revisão física documentada no laboratório05.
+
+
+Para construções, use `environment-architecture` e `Docs/WorldGen/ArchitectureContract.md`. Esse consumidor mantém os produtores por hash, acrescenta footprint/acesso e registra exclusões da vegetação em revisão própria; não desloca água, estrada ou relevo para encaixar edifícios.

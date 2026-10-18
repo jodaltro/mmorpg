@@ -1,0 +1,23 @@
+{
+  "texture": "Assets/Mmorpg/Art/Production/ValdoriaProtagonist/Sprites/body-f4b5619d.png",
+  "rect": [
+    1024,
+    2560,
+    128,
+    160
+  ],
+  "ppu": 32,
+  "scale": 1.25,
+  "sprite": "pose_008",
+  "bodyAlphaBoundsPixels": [
+    38,
+    28,
+    90,
+    145
+  ],
+  "visibleBodyHeightUnits": 4.5703125,
+  "doorOpeningUnits": [
+    2.2,
+    5.0
+  ]
+}

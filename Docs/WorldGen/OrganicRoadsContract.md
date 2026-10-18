@@ -74,3 +74,8 @@ O Water Agent consome cobertura e reservas existentes por hash e rejeita interse
 ## Consumidor Vegetation Agent — Marco06
 
 Veja [VegetationContract.md](VegetationContract.md). O consumidor valida referências/manifests por SHA-256, preserva os bytes deste produtor e acrescenta instâncias e overlay de navegação separados. Troncos têm footprints circulares; copas são visuais. Estradas, reservas, água profunda e vau permanecem restrições de colocação. Navegação combinada ainda requer clearance específico do ator. Não inferir ocupação física pela imagem dos sprites.
+
+
+## Architecture Agent — Marco07
+
+Consumidor implementado: [ArchitectureContract.md](ArchitectureContract.md). Mantém este produtor por hash e cria lotes, footprints, acessos e exclusões versionadas de vegetação. A vegetação afetada é regenerada em saída nova, com relatório de efeitos da competição. Casca física exterior, telhado visual e corredor transitável são dados separados; transparência não libera colisão.

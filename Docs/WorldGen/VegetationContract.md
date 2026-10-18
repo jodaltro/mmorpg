@@ -33,3 +33,8 @@ Troncos: oak raio .30 u, elm .40 u; CircleCollider2D na camada ambiental 8, sem 
 Architecture/Structures devem reservar áreas antes da distribuição ou aplicar exclusões e regenerar; ler footprints, não alfa das copas. Climate pode substituir o proxy de adequação por campos versionados explícitos. Water mantém autoridade sobre raso/profundidade/vau; só juncos podem ocupar raso permitido. Materiais mantêm autoridade sobre pigmento do terreno. Futuros consumidores devem combinar navegação base e overlay, conferir hashes e aplicar clearance do ator. Não inferir madeira coletável, abrigo, crescimento ou combustível sem contratos próprios.
 
 Destinos existentes são recusados pelo gerador/importador. Arte experimental permanece candidata até avaliação do usuário. Evidências e limites: relatório Marco06.
+
+
+## Architecture Agent — Marco07
+
+Consumidor implementado: [ArchitectureContract.md](ArchitectureContract.md). Mantém este produtor por hash e cria lotes, footprints, acessos e exclusões versionadas de vegetação. A vegetação afetada é regenerada em saída nova, com relatório de efeitos da competição. Casca física exterior, telhado visual e corredor transitável são dados separados; transparência não libera colisão.
