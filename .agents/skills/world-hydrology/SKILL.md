@@ -5,6 +5,10 @@ description: Autoria procedural offline de lagos, drenagem, rios, margens e vaus
 
 # Water Agent — Valdoria
 
+## Ground13R
+
+Seguir o feedback oficial em `Docs/Art/Approvals/Ground13R-Direction-2026-10-18.json`: plateau Ground13 nao aprovado; preservar agua Ground13 e batching conservador. Fontes atuais: Ground13R SourceV4/ExportV4 e ShapeV6. Contrato `Docs/WorldGen/Ground13RPresentationContract.md`. Agua deve ser registrada em replay real apos renderizacao, sem fases forcadas. Fisica e cena oficial intocadas; aprovacao artistica depende do usuario.
+
 ## Ground13 — prioridade atual
 
 Seguir a delimitação mais recente em `Docs/Art/Approvals/Ground13-Direction-2026-10-18.json`: vegetação Ground12 preservada após parecer positivo; platô/água candidatos com ressalvas. Sem aprovação geral automática. Relevo pode mudar apenas a apresentação (B), mantendo o pé físico, topografia, colisores e navegação; C exige proposta/autorização específica. Otimização deve preservar pixels e ordem de sobreposição, com comparativo separado de arte idêntica. Usar ReviewLite existente, não outro sistema de evidências.

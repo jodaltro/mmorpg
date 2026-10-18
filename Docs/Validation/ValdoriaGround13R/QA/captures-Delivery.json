@@ -1,0 +1,527 @@
+[
+  {
+    "original": "Original/Delivery/plateau-A-Ground12.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "A-Ground12",
+    "comparison": "Delivery-plateau-painted",
+    "camera": {
+      "position": "(48, 23, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 349,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/plateau-B-Ground13.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "B-Ground13",
+    "comparison": "Delivery-plateau-painted",
+    "camera": {
+      "position": "(48, 23, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 535,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/plateau-C-Ground13R.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "C-Ground13R",
+    "comparison": "Delivery-plateau-painted",
+    "camera": {
+      "position": "(48, 23, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 727,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/plateau-E-Ground13-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "E-Ground13-neutral",
+    "comparison": "Delivery-plateau-neutral",
+    "camera": {
+      "position": "(48, 23, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 901,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/plateau-D-Ground13R-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "D-Ground13R-neutral",
+    "comparison": "Delivery-plateau-neutral",
+    "camera": {
+      "position": "(48, 23, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 1100,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upper-area-A-Ground12.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "A-Ground12",
+    "comparison": "Delivery-upper-area-painted",
+    "camera": {
+      "position": "(35, 36, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 1282,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upper-area-B-Ground13.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "B-Ground13",
+    "comparison": "Delivery-upper-area-painted",
+    "camera": {
+      "position": "(35, 36, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 1476,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upper-area-C-Ground13R.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "C-Ground13R",
+    "comparison": "Delivery-upper-area-painted",
+    "camera": {
+      "position": "(35, 36, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 1640,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upper-area-E-Ground13-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "E-Ground13-neutral",
+    "comparison": "Delivery-upper-area-neutral",
+    "camera": {
+      "position": "(35, 36, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 1833,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upper-area-D-Ground13R-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "D-Ground13R-neutral",
+    "comparison": "Delivery-upper-area-neutral",
+    "camera": {
+      "position": "(35, 36, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2026,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/composition-A-Ground12.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "A-Ground12",
+    "comparison": "Delivery-composition-painted",
+    "camera": {
+      "position": "(28.5, 14.25, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2225,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/composition-B-Ground13.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "B-Ground13",
+    "comparison": "Delivery-composition-painted",
+    "camera": {
+      "position": "(28.5, 14.25, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2345,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/composition-C-Ground13R.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "C-Ground13R",
+    "comparison": "Delivery-composition-painted",
+    "camera": {
+      "position": "(28.5, 14.25, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2502,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/composition-E-Ground13-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "E-Ground13-neutral",
+    "comparison": "Delivery-composition-neutral",
+    "camera": {
+      "position": "(28.5, 14.25, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2626,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/composition-D-Ground13R-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "D-Ground13R-neutral",
+    "comparison": "Delivery-composition-neutral",
+    "camera": {
+      "position": "(28.5, 14.25, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2790,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/second-area-A-Ground12.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "A-Ground12",
+    "comparison": "Delivery-second-area-painted",
+    "camera": {
+      "position": "(18, 28, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 2935,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/second-area-B-Ground13.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "B-Ground13",
+    "comparison": "Delivery-second-area-painted",
+    "camera": {
+      "position": "(18, 28, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 3084,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/second-area-C-Ground13R.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "C-Ground13R",
+    "comparison": "Delivery-second-area-painted",
+    "camera": {
+      "position": "(18, 28, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 3212,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/second-area-E-Ground13-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "E-Ground13-neutral",
+    "comparison": "Delivery-second-area-neutral",
+    "camera": {
+      "position": "(18, 28, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 3356,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/second-area-D-Ground13R-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "D-Ground13R-neutral",
+    "comparison": "Delivery-second-area-neutral",
+    "camera": {
+      "position": "(18, 28, -10)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 3494,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upland-A-Ground12.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "A-Ground12",
+    "comparison": "Delivery-upland-painted",
+    "camera": {
+      "position": "(48, 26, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 3660,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upland-B-Ground13.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "B-Ground13",
+    "comparison": "Delivery-upland-painted",
+    "camera": {
+      "position": "(48, 26, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 3813,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upland-C-Ground13R.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "C-Ground13R",
+    "comparison": "Delivery-upland-painted",
+    "camera": {
+      "position": "(48, 26, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 4002,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upland-E-Ground13-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "E-Ground13-neutral",
+    "comparison": "Delivery-upland-neutral",
+    "camera": {
+      "position": "(48, 26, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 4172,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  },
+  {
+    "original": "Original/Delivery/upland-D-Ground13R-neutral.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+    "state": "D-Ground13R-neutral",
+    "comparison": "Delivery-upland-neutral",
+    "camera": {
+      "position": "(48, 26, -10)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "resolution": [
+        1600,
+        900
+      ],
+      "actor": "28.673845,6.245552",
+      "actorScale": 1.25
+    },
+    "integral": true,
+    "requestedFrame": 4361,
+    "waterPhase": 0,
+    "actorPose": "fixed"
+  }
+]

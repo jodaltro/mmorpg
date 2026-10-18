@@ -1,0 +1,62 @@
+[
+  {
+    "folder": "Packing",
+    "states": [
+      0,
+      1
+    ],
+    "differentPixels": 0,
+    "passed": true,
+    "final": false
+  },
+  {
+    "folder": "Packing",
+    "states": [
+      3,
+      4
+    ],
+    "differentPixels": 0,
+    "passed": true,
+    "final": false
+  },
+  {
+    "folder": "PackingFinal",
+    "states": [
+      0,
+      1
+    ],
+    "differentPixels": 0,
+    "passed": true,
+    "final": false
+  },
+  {
+    "folder": "PackingFinal",
+    "states": [
+      3,
+      4
+    ],
+    "differentPixels": 0,
+    "passed": true,
+    "final": false
+  },
+  {
+    "folder": "PackingCompact",
+    "states": [
+      0,
+      1
+    ],
+    "differentPixels": 0,
+    "passed": true,
+    "final": true
+  },
+  {
+    "folder": "PackingCompact",
+    "states": [
+      3,
+      4
+    ],
+    "differentPixels": 0,
+    "passed": true,
+    "final": true
+  }
+]

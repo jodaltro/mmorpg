@@ -1,0 +1,12 @@
+test_aseprite_reexport_authority (test_ground13r.Ground13RTests.test_aseprite_reexport_authority) ... ok
+test_foot_matches_original_segments (test_ground13r.Ground13RTests.test_foot_matches_original_segments) ... ok
+test_manifests_and_immutable_water_inputs (test_ground13r.Ground13RTests.test_manifests_and_immutable_water_inputs) ... ok
+test_mesh_budget_and_sampled_atlas_alpha (test_ground13r.Ground13RTests.test_mesh_budget_and_sampled_atlas_alpha) ... ok
+test_rebuild_visual_geometry (test_ground13r.Ground13RTests.test_rebuild_visual_geometry) ... ok
+test_source_context_recipe_hashes (test_ground13r.Ground13RTests.test_source_context_recipe_hashes) ... ok
+test_vertex_compaction_preserves_every_gpu_corner (test_ground13r.Ground13RTests.test_vertex_compaction_preserves_every_gpu_corner) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 19.469s
+
+OK

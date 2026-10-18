@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "UnityEditor.AssetDatabase.Refresh();var data=Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(Ground13RImporter.Source+\"ShapeV6/visual-relief.json\"));int vertices=0,indices=0;foreach(var g in data[\"groups\"]){string name=\"Geology_\"+(int)g[\"row\"]+\"_\"+(string)g[\"kind\"];var mesh=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Mesh>(Ground13RImporter.Art+name+\".asset\");var v=mesh.vertices;var uv=mesh.uv;var uv2=mesh.uv2;var colors=mesh.colors;var ti=mesh.triangles;if(v.Length!=g[\"vertices\"].Count()||!ti.SequenceEqual(g[\"triangles\"].Select(t=>(int)t)))throw new Exception(\"Mesh topology mismatch \"+name);for(int i=0;i<v.Length;i++){if(v[i]!=new UnityEngine.Vector3((float)g[\"vertices\"][i][0],(float)g[\"vertices\"][i][1],(float)g[\"vertices\"][i][2])||uv[i]!=new UnityEngine.Vector2((float)g[\"uv\"][i][0],(float)g[\"uv\"][i][1])||uv2[i]!=new UnityEngine.Vector2((float)g[\"selector\"][i][0],(float)g[\"selector\"][i][1])||colors[i]!=new UnityEngine.Color((float)g[\"colors\"][i][0],(float)g[\"colors\"][i][1],(float)g[\"colors\"][i][2],(float)g[\"colors\"][i][3]))throw new Exception(\"Attribute mismatch \"+name);}vertices+=v.Length;indices+=ti.Length;}return new{groups=data[\"groups\"].Count(),vertices,indices,sourceMatchesImportedMesh=true};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "groups": 27,
+        "vertices": 25753,
+        "indices": 105459,
+        "sourceMatchesImportedMesh": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

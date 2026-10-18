@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "string refusal=null;try{Ground13RImporter.Queue();}catch(System.IO.IOException e){refusal=e.Message;}var mat=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Material>(Ground13RImporter.Art+\"TopContacts.mat\");return new {playing=UnityEditor.EditorApplication.isPlaying,scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,dirty=UnityEngine.SceneManagement.SceneManager.GetActiveScene().isDirty,compileError=UnityEditor.EditorUtility.scriptCompilationFailed,shader=mat.shader.name,supported=mat.shader.isSupported,topTexture=UnityEditor.AssetDatabase.GetAssetPath(mat.mainTexture),mineralTexture=UnityEditor.AssetDatabase.GetAssetPath(mat.GetTexture(\"_MineralTex\")),timeScale=UnityEngine.Time.timeScale,keyboard=UnityEngine.InputSystem.InputSystem.devices.OfType<UnityEngine.InputSystem.Keyboard>().Select(d=>new{d.name,d.enabled}).ToArray(),background=UnityEngine.InputSystem.InputSystem.settings.backgroundBehavior.ToString(),editorInput=UnityEngine.InputSystem.InputSystem.settings.editorInputBehaviorInPlayMode.ToString(),fixedViewOverride=UnityEditor.SessionState.GetBool(\"Nature10.FixedView\",false),temporalProbeCount=UnityEngine.Object.FindObjectsByType<Mmorpg.Runtime.Ground13RWaterCapture>().Length,destinationRefusal=refusal};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "playing": false,
+        "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RLab.unity",
+        "dirty": false,
+        "compileError": false,
+        "shader": "Valdoria/Ground13RGeology",
+        "supported": true,
+        "topTexture": "Assets/Mmorpg/Art/Experimental/ValdoriaGround13R/TopContactsV4.png",
+        "mineralTexture": "Assets/Mmorpg/Art/Experimental/ValdoriaGround13Final/StratifiedFace.png",
+        "timeScale": 1,
+        "keyboard": [
+          {
+            "name": "Keyboard",
+            "enabled": true
+          }
+        ],
+        "background": "ResetAndDisableNonBackgroundDevices",
+        "editorInput": "PointersAndKeyboardsRespectGameViewFocus",
+        "fixedViewOverride": false,
+        "temporalProbeCount": 0,
+        "destinationRefusal": "Refuse playing, dirty scene or existing destination"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

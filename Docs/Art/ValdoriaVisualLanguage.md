@@ -1,5 +1,9 @@
 # Valdoria — linguagem visual v1
 
+## Ground13R
+
+O plateau Ground13 continua nao aprovado. Preservar a direcao aquatica e as referencias aprovadas. [Feedback oficial](Approvals/Ground13R-Direction-2026-10-18.json), [candidata e QA](../Validation/ValdoriaGround13R-GeologicalRefinement.md), [pipeline](Ground13RRefinementPipeline.md). A entrega tecnica nao concede aprovacao artistica.
+
 ## Direção vigente — Ground13
 
 A solicitação Ground13 esclarece o parecer anterior: a vegetação Ground12 deve ser preservada após avaliação muito positiva, sem declarar aprovação definitiva geral; platô e água permanecem candidatos com ressalvas. [Registro da direção mais recente](Approvals/Ground13-Direction-2026-10-18.json). Construções 07R/08/09, árvores/rochas Nature10 e terreno/estradas Ground11 continuam aprovados. O registro Ground12 abaixo é histórico e não substitui esta delimitação posterior. Não mudar física ou cena oficial nesta rodada. [Candidata Ground13 e limitações](../Validation/ValdoriaGround13-ReliefWaterRendering.md), [pipeline](Ground13PresentationPipeline.md).

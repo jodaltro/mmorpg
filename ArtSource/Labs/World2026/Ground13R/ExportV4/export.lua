@@ -1,0 +1,1 @@
+local s=app.open("D:/unity/Mmorpg/ArtSource/Labs/World2026/Ground13R/SourceV4/upland-contacts.aseprite");assert(s.width==800 and s.height==544 and #s.layers==6);local im=Image(s.spec);im:drawSprite(s,1);im:saveAs("ArtSource/Labs/World2026/Ground13R/ExportV4/top-atlas.png");s:close();
