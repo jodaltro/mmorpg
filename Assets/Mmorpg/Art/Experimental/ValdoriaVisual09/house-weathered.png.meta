@@ -1,0 +1,879 @@
+fileFormatVersion: 2
+guid: 5860d7c405483144ba7a56166457aee4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6792888134460032267
+    second: house-weathered_0
+  - first:
+      213: -8844289432557626433
+    second: house-weathered_1
+  - first:
+      213: 960530396851362622
+    second: house-weathered_2
+  - first:
+      213: 1478170450197058623
+    second: house-weathered_3
+  - first:
+      213: -9161843600922306935
+    second: house-weathered_4
+  - first:
+      213: -7561615542261326635
+    second: house-weathered_5
+  - first:
+      213: -8998121135968723073
+    second: house-weathered_6
+  - first:
+      213: 347666636579142085
+    second: house-weathered_7
+  - first:
+      213: 7400489517893195215
+    second: house-weathered_8
+  - first:
+      213: -2556561638922609148
+    second: house-weathered_9
+  - first:
+      213: -3711320651923370257
+    second: house-weathered_10
+  - first:
+      213: 1850700920901032276
+    second: house-weathered_11
+  - first:
+      213: -7849228270071875951
+    second: house-weathered_12
+  - first:
+      213: -7640983900688715157
+    second: house-weathered_13
+  - first:
+      213: 6123007906683367189
+    second: house-weathered_14
+  - first:
+      213: 830668020789213592
+    second: house-weathered_15
+  - first:
+      213: -4257665242268607628
+    second: house-weathered_16
+  - first:
+      213: 3074828428686023628
+    second: house-weathered_17
+  - first:
+      213: -288510063538110197
+    second: house-weathered_18
+  - first:
+      213: 4974596149038747600
+    second: house-weathered_19
+  - first:
+      213: -2209353149084484816
+    second: house-weathered_20
+  - first:
+      213: 5995843107355009450
+    second: house-weathered_21
+  - first:
+      213: 7364275726073162970
+    second: house-weathered_22
+  - first:
+      213: 3095757512848368974
+    second: house-weathered_23
+  - first:
+      213: -8431007516343019209
+    second: house-weathered_24
+  - first:
+      213: 3596120678529935386
+    second: house-weathered_25
+  - first:
+      213: 136535592235949378
+    second: house-weathered_26
+  - first:
+      213: -5243688424102751302
+    second: house-weathered_27
+  - first:
+      213: 1813933828862152225
+    second: house-weathered_28
+  - first:
+      213: 7652567983731194188
+    second: house-weathered_29
+  - first:
+      213: 8422417208216878987
+    second: house-weathered_30
+  - first:
+      213: -8638445795958000736
+    second: house-weathered_31
+  - first:
+      213: -2340840140206199549
+    second: house-weathered_32
+  - first:
+      213: -2187391585846519697
+    second: house-weathered_33
+  - first:
+      213: 545825557059744065
+    second: house-weathered_34
+  - first:
+      213: 3936629691194734594
+    second: house-weathered_35
+  - first:
+      213: 1718798606512479998
+    second: house-weathered_36
+  - first:
+      213: 4985965927273841101
+    second: house-weathered_37
+  - first:
+      213: -8500721507412661045
+    second: house-weathered_38
+  - first:
+      213: -8283246872861108513
+    second: house-weathered_39
+  - first:
+      213: -7077118847678242549
+    second: house-weathered_40
+  - first:
+      213: 3622213060929403803
+    second: house-weathered_41
+  - first:
+      213: 3185208458176294066
+    second: house-weathered_42
+  - first:
+      213: -1537378239826390996
+    second: house-weathered_43
+  - first:
+      213: 6342703974043622458
+    second: house-weathered_44
+  - first:
+      213: -1505673964164470313
+    second: house-weathered_45
+  - first:
+      213: -4441862682966110238
+    second: house-weathered_46
+  - first:
+      213: 2694832164803685154
+    second: house-weathered_47
+  - first:
+      213: 342150285231001902
+    second: house-weathered_48
+  - first:
+      213: 8291157340363808825
+    second: house-weathered_49
+  - first:
+      213: -4385780910414777717
+    second: house-weathered_50
+  - first:
+      213: -2264998199565924447
+    second: house-weathered_51
+  - first:
+      213: 7311712279293540444
+    second: house-weathered_52
+  - first:
+      213: -1873912047878619364
+    second: house-weathered_53
+  - first:
+      213: -1839491448860673980
+    second: house-weathered_54
+  - first:
+      213: 1283550820193908954
+    second: house-weathered_55
+  - first:
+      213: 96799263979791081
+    second: house-weathered_56
+  - first:
+      213: -1834337316215735929
+    second: house-weathered_57
+  - first:
+      213: -5015206158432445262
+    second: house-weathered_58
+  - first:
+      213: -7375549842439726007
+    second: house-weathered_59
+  - first:
+      213: -7783645324518108300
+    second: house-weathered_60
+  - first:
+      213: 1935497254021973442
+    second: house-weathered_61
+  - first:
+      213: 2767164864147525938
+    second: house-weathered_62
+  - first:
+      213: 7751213892313165944
+    second: house-weathered_63
+  - first:
+      213: 1533582005783289452
+    second: house-weathered_64
+  - first:
+      213: -1751396682241072104
+    second: house-weathered_65
+  - first:
+      213: 6938384784024974726
+    second: house-weathered_66
+  - first:
+      213: 252882311457113932
+    second: house-weathered_67
+  - first:
+      213: 7478735904145300367
+    second: house-weathered_68
+  - first:
+      213: 2122237431409206509
+    second: house-weathered_69
+  - first:
+      213: -368146445720468464
+    second: house-weathered_70
+  - first:
+      213: 3194243024459964267
+    second: house-weathered_71
+  - first:
+      213: -6283834514362943303
+    second: house-weathered_72
+  - first:
+      213: -6504581573664862991
+    second: house-weathered_73
+  - first:
+      213: -9204120852415060714
+    second: house-weathered_74
+  - first:
+      213: -1199334500441563903
+    second: house-weathered_75
+  - first:
+      213: -4013817892779933549
+    second: house-weathered_76
+  - first:
+      213: -8488654413648384991
+    second: house-weathered_77
+  - first:
+      213: 8459043228798250026
+    second: house-weathered_78
+  - first:
+      213: 2372895500749783902
+    second: house-weathered_79
+  - first:
+      213: 7058857114960691235
+    second: house-weathered_80
+  - first:
+      213: -4004362682597673198
+    second: house-weathered_81
+  - first:
+      213: 7355796110628422535
+    second: house-weathered_82
+  - first:
+      213: 2969901990921130662
+    second: house-weathered_83
+  - first:
+      213: 32069393468960788
+    second: house-weathered_84
+  - first:
+      213: 6532925620368063915
+    second: house-weathered_85
+  - first:
+      213: -7381780858894706670
+    second: house-weathered_86
+  - first:
+      213: 7471718298441840318
+    second: house-weathered_87
+  - first:
+      213: -4559799750471753198
+    second: house-weathered_88
+  - first:
+      213: 8038153540833084359
+    second: house-weathered_89
+  - first:
+      213: 6974859928199710240
+    second: house-weathered_90
+  - first:
+      213: 8156213046986669330
+    second: house-weathered_91
+  - first:
+      213: 5407460740921033990
+    second: house-weathered_92
+  - first:
+      213: 1167290569062214620
+    second: house-weathered_93
+  - first:
+      213: 1097583593457215004
+    second: house-weathered_94
+  - first:
+      213: -5437789985831401080
+    second: house-weathered_95
+  - first:
+      213: 2411034482586380101
+    second: house-weathered_96
+  - first:
+      213: -6852667705531920024
+    second: house-weathered_97
+  - first:
+      213: -3974552023156037973
+    second: house-weathered_98
+  - first:
+      213: -9071492356924642733
+    second: house-weathered_99
+  - first:
+      213: -3636607662998149032
+    second: house-weathered_100
+  - first:
+      213: -2792610607965262335
+    second: house-weathered_101
+  - first:
+      213: -5622869973486046404
+    second: house-weathered_102
+  - first:
+      213: -1979020903964094976
+    second: house-weathered_103
+  - first:
+      213: 1878807987123290135
+    second: house-weathered_104
+  - first:
+      213: -5106042248393020032
+    second: house-weathered_105
+  - first:
+      213: -1161038818312856634
+    second: house-weathered_106
+  - first:
+      213: 8894331412714677486
+    second: house-weathered_107
+  - first:
+      213: -692239957281906939
+    second: house-weathered_108
+  - first:
+      213: 3650972785076203557
+    second: house-weathered_109
+  - first:
+      213: 752333490351053438
+    second: house-weathered_110
+  - first:
+      213: -4582533484168532257
+    second: house-weathered_111
+  - first:
+      213: -3602101350023722573
+    second: house-weathered_112
+  - first:
+      213: -6759591804634442766
+    second: house-weathered_113
+  - first:
+      213: -1755378715404745707
+    second: house-weathered_114
+  - first:
+      213: -3305103820168141214
+    second: house-weathered_115
+  - first:
+      213: -2823496428529392475
+    second: house-weathered_116
+  - first:
+      213: 6426862528111164526
+    second: house-weathered_117
+  - first:
+      213: -4087763111107942991
+    second: house-weathered_118
+  - first:
+      213: -5287225186592547902
+    second: house-weathered_119
+  - first:
+      213: 5368992135959256087
+    second: house-weathered_120
+  - first:
+      213: 6713806771096664900
+    second: house-weathered_121
+  - first:
+      213: 1107635204385144026
+    second: house-weathered_122
+  - first:
+      213: -3566992088408110620
+    second: house-weathered_123
+  - first:
+      213: 1099325927718462058
+    second: house-weathered_124
+  - first:
+      213: 4996380938435500120
+    second: house-weathered_125
+  - first:
+      213: 2432823756487019205
+    second: house-weathered_126
+  - first:
+      213: -7097350020133824436
+    second: house-weathered_127
+  - first:
+      213: -4356080140382541345
+    second: house-weathered_128
+  - first:
+      213: 3802737489855837357
+    second: house-weathered_129
+  - first:
+      213: -2923105160388885562
+    second: house-weathered_130
+  - first:
+      213: 9026756594358437371
+    second: house-weathered_131
+  - first:
+      213: 2480138283782107333
+    second: house-weathered_132
+  - first:
+      213: -1901560139578297701
+    second: house-weathered_133
+  - first:
+      213: 3468386184260379944
+    second: house-weathered_134
+  - first:
+      213: 8103661422020416379
+    second: house-weathered_135
+  - first:
+      213: -4621097705585577391
+    second: house-weathered_136
+  - first:
+      213: -5604779026134423846
+    second: house-weathered_137
+  - first:
+      213: -2681019021226821944
+    second: house-weathered_138
+  - first:
+      213: -8483707410445923609
+    second: house-weathered_139
+  - first:
+      213: 5938157801808169456
+    second: house-weathered_140
+  - first:
+      213: 5531355185781370278
+    second: house-weathered_141
+  - first:
+      213: 740385164926252159
+    second: house-weathered_142
+  - first:
+      213: 803815515457349203
+    second: house-weathered_143
+  - first:
+      213: 8544872439610195441
+    second: house-weathered_144
+  - first:
+      213: -5223071304289841689
+    second: house-weathered_145
+  - first:
+      213: -3411277272456423680
+    second: house-weathered_146
+  - first:
+      213: -5147851090328412188
+    second: house-weathered_147
+  - first:
+      213: 8156432894741049135
+    second: house-weathered_148
+  - first:
+      213: 2803763511568220300
+    second: house-weathered_149
+  - first:
+      213: 6021794918358344977
+    second: house-weathered_150
+  - first:
+      213: -7970442219542536828
+    second: house-weathered_151
+  - first:
+      213: -7003630368843618156
+    second: house-weathered_152
+  - first:
+      213: -8327657552050395823
+    second: house-weathered_153
+  - first:
+      213: 4690241233880156014
+    second: house-weathered_154
+  - first:
+      213: -6571799435493148335
+    second: house-weathered_155
+  - first:
+      213: -4237481254038192533
+    second: house-weathered_156
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shadow
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1274
+        width: 927
+        height: 770
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 814b9d2598afe044fb93b36d9740150b
+      internalID: -762414941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foundation
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 662
+        width: 883
+        height: 262
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f252c42c9fe22ab4eb7897125747b87f
+      internalID: -2103192183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsFront
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 1279
+        width: 723
+        height: 765
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cad169ce1e57f6e49916cc8c81b07031
+      internalID: 326799416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSide
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 122
+        width: 329
+        height: 536
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9ae9decdd3e7d4f8143a85ec89eb25
+      internalID: -1544741386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TimbersFront
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 2
+        width: 479
+        height: 408
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cddeec25f674a5348a5cb2c318e6be0a
+      internalID: 1613111554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TimbersSide
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 150
+        width: 288
+        height: 508
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e9ac569bdee5ff448e6ed727d37d10c
+      internalID: -2114607767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 195
+        width: 357
+        height: 215
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 751211499d876c2409b10228d64c014a
+      internalID: 719374143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Windows
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 932
+        width: 619
+        height: 338
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f4e0b428bf033040827193dafaba0c7
+      internalID: -1419877065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Roof
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 414
+        width: 751
+        height: 510
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6f48f8a70c807b4f9d5a4d3ccb8cb55
+      internalID: -1484931289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eaves
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 928
+        width: 913
+        height: 342
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b0e24472f557b14f8464fc77249967f
+      internalID: 1387477189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chimney
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 469
+        width: 129
+        height: 189
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d5eb25dce59fb4ea16cc4f8fd559c3
+      internalID: 423769905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Details
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 421
+        width: 102
+        height: 237
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adb8b45efdd4f2f4b98d9fd1cdc59b08
+      internalID: 428638486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1f9e35fcea9210e4b961c7075b340218
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chimney: 423769905
+      Details: 428638486
+      Door: 719374143
+      Eaves: 1387477189
+      Foundation: -2103192183
+      Roof: -1484931289
+      Shadow: -762414941
+      TimbersFront: 1613111554
+      TimbersSide: -2114607767
+      WallsFront: 326799416
+      WallsSide: -1544741386
+      Windows: -1419877065
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

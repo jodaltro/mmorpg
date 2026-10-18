@@ -1,0 +1,21 @@
+{
+  "error": null,
+  "captures": [
+    {
+      "file": "01-three-families-same-scale",
+      "frame": 694,
+      "camera": "(67.50, 52.00, -10.00)",
+      "ortho": 39.0,
+      "actor": "(24.00, 29.00, 0.00)"
+    },
+    {
+      "file": "02-three-weathered-variants-same-scale",
+      "frame": 886,
+      "camera": "(67.50, 52.00, -10.00)",
+      "ortho": 39.0,
+      "actor": "(24.00, 29.00, 0.00)"
+    }
+  ],
+  "reviewOnly": true,
+  "castleWorldLotAccepted": false
+}

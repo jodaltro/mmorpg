@@ -97,3 +97,8 @@ No Harness, orientar o agente de forma explícita:
 A skill Aseprite é um conjunto de instruções/scripts **locais** e não estabelece conexão com o Unity; o Harness precisa de plugin Unity compatível ou da Unity CLI autenticada. Veja `Docs/Development/DeepSeekHarness.md` para a integração.
 
 **Fontes oficiais:** [Aseprite CLI](https://www.aseprite.org/docs/cli/), [scripting](https://www.aseprite.org/docs/scripting/) e [API Lua](https://www.aseprite.org/api/).
+
+
+## Direção central vigente — World Studio09
+
+Antes de produzir ou revisar arte ambiental, ler [ValdoriaVisualLanguage](../../../Docs/Art/ValdoriaVisualLanguage.md) e, para construções, [ArchitectureStyleGuide](../../../Docs/Art/ArchitectureStyleGuide.md). A casa07R orienta acabamento, luz e escala; fontes aprovadas ficam preservadas, revisões09 são candidatas. Não aplicar saturação/tint global nem alterar geometria para resolver cor. Exportar pixels reais do Aseprite e guardar comparações Game View na pasta de validação do projeto.

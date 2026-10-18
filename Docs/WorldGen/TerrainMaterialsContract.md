@@ -1,5 +1,9 @@
 # Terrain Materials — contrato de composição v1
 
+## Direção09
+
+Consultar `Docs/Art/ValdoriaVisualLanguage.md`. `WorldStudio09/Recipes/terrain-A.json` mantém `terrain-materials/1.1.0`, seed710202 e o contrato de composição04; revisa as seis rampas, pigmentContrast1,12 e a biblioteca Aseprite v2 de36 motivos. `directionReference` documenta a referência07R. Não há tint global. Topografia, traçado, fronteiras, relevo e física permanecem iguais; `relief-field.json` é byte-idêntico ao04. Texturas/composição/manifests ficam na revisão nova. Comparações A/B/C devem manter câmera/seed/ator e avaliar também câmera em movimento.
+
 `valdoria-material-recipe/v1` e `valdoria-material-composition/v1`, gerador `terrain-materials/1.0.0`.
 
 ## Entradas e autoridade

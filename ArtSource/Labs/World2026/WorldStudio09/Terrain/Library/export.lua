@@ -1,0 +1,1 @@
+local s=app.open("D:/unity/Mmorpg/ArtSource/Labs/World2026/WorldStudio09/Terrain/Source/terrain-motifs.aseprite");for _,l in ipairs(s.layers) do l.isVisible=true end;local im=Image(s.spec);im:drawSprite(s,1);im:saveAs("D:/unity/Mmorpg/ArtSource/Labs/World2026/WorldStudio09/Terrain/Library/motifs.png");s:close()

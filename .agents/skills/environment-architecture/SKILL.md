@@ -72,3 +72,10 @@ Python: contratos, seed, repetição, impossibilidade de lotes, contorno físico
 Unity: compile/status/Console, Play real com perfil Temp, Input System, colisão de parede, porta proporcional ao ator, percurso estrada-porta, frente/lado/trás, cutaway de telhado e volumes superiores, sequência de câmera e custo. Capture após renderização, deixando um frame completo antes da próxima mudança de estado. Restaure Play, input, dispositivos, resolução e opções do Editor. Consulte Docs/Validation/ValdoriaWorldStudio07-Architecture.md.
 
 Não afirmar interiores, porta interativa, fundação sobre terreno 3D, subida de escadas, simulação de inundação ou aprovação artística automática.
+
+
+## Direção central vigente — World Studio09
+
+Antes de produzir ou revisar arte ambiental, ler [ValdoriaVisualLanguage](../../../Docs/Art/ValdoriaVisualLanguage.md) e, para construções, [ArchitectureStyleGuide](../../../Docs/Art/ArchitectureStyleGuide.md). A casa07R orienta acabamento, luz e escala; fontes aprovadas ficam preservadas, revisões09 são candidatas. Não aplicar saturação/tint global nem alterar geometria para resolver cor. Exportar pixels reais do Aseprite e guardar comparações Game View na pasta de validação do projeto.
+
+O caminho de produção para as três referências aprovadas é agora o catálogo `ArtSource/Labs/World2026/WorldStudio09/catalog.json` e `Tools/ArtPipeline/WorldGen/visual_unification09.py build --catalog <catalogo> --recipe <receita> --output <novo>`. Receitas `valdoria-authored-architecture-recipe/v1` fixam projeção/dimensões compatíveis e selecionam conservação. Catálogos externos versionados são aceitos; hashes de fonte/metadata/export são verificados. Não reutilizar a gramática geométrica rejeitada07 para redesenhar essas referências. `author` é autoria inicial de uma revisão nova; `export` lê as fontes editáveis, sem redesenhar. Novas faces, mudanças de dimensões, orientações ou aberturas exigem nova arte e versão; não esticar nem recombinar layers arbitrariamente. Castelo permanece review-yard fixo, sem lote geográfico aceito.

@@ -1,0 +1,38 @@
+{
+  "error": null,
+  "framesAdvanced": 2192,
+  "results": [
+    {
+      "index": 0,
+      "pass": true,
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVisualHouse09.unity",
+      "allWeathered": true,
+      "catalog": "catalog",
+      "frame": 615
+    },
+    {
+      "index": 1,
+      "pass": true,
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVisualBarn09.unity",
+      "allWeathered": true,
+      "catalog": "catalog",
+      "frame": 1158
+    },
+    {
+      "index": 2,
+      "pass": true,
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVisualCastle09.unity",
+      "allWeathered": true,
+      "catalog": "catalog",
+      "frame": 1655
+    },
+    {
+      "index": 3,
+      "pass": true,
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVisualGallery09.unity",
+      "allWeathered": true,
+      "catalog": "catalog",
+      "frame": 2264
+    }
+  ]
+}

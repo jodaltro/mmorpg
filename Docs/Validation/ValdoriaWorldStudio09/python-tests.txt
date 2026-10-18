@@ -1,0 +1,17 @@
+test_actual_rejected_lots (test_visual_unification09.VisualDirection09Tests.test_actual_rejected_lots) ... ok
+test_approved_sources_unchanged (test_visual_unification09.VisualDirection09Tests.test_approved_sources_unchanged) ... ok
+test_architecture_alpha_anchors_and_door_scale (test_visual_unification09.VisualDirection09Tests.test_architecture_alpha_anchors_and_door_scale) ... ok
+test_aseprite_reexport_pixels (test_visual_unification09.VisualDirection09Tests.test_aseprite_reexport_pixels) ... ok
+test_atlas_lossless_no_overlap (test_visual_unification09.VisualDirection09Tests.test_atlas_lossless_no_overlap) ... ok
+test_castle_not_world_placement (test_visual_unification09.VisualDirection09Tests.test_castle_not_world_placement) ... ok
+test_catalog_constraints (test_visual_unification09.VisualDirection09Tests.test_catalog_constraints) ... ok
+test_rebuild_region_recipe (test_visual_unification09.VisualDirection09Tests.test_rebuild_region_recipe) ... ok
+test_seeded_selection (test_visual_unification09.VisualDirection09Tests.test_seeded_selection) ... ok
+test_variants_have_real_pixels (test_visual_unification09.VisualDirection09Tests.test_variants_have_real_pixels) ... ok
+test_vegetation_alpha_and_uvs (test_visual_unification09.VisualDirection09Tests.test_vegetation_alpha_and_uvs) ... ok
+test_world_geometry_ecology_invariant (test_visual_unification09.VisualDirection09Tests.test_world_geometry_ecology_invariant) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 22.523s
+
+OK

@@ -1,5 +1,21 @@
 # Architecture Contract v1
 
+## Produção autorada vigente — catálogo09
+
+Consultar `Docs/Art/ValdoriaVisualLanguage.md` e `ArchitectureStyleGuide.md`. A gramática geométrica07 descrita mais abaixo é histórica e foi rejeitada artisticamente; não redesenhar casa07R/celeiro08/castelo08 por aquela gramática. Reutilizam-se análise ambiental, acesso, navegação e exclusões, não a arte rejeitada.
+
+`valdoria-architecture-catalog/v1`, versão `valdoria-visual-direction/1.0.0`: três famílias, IDs de módulos/layers, refs SHA256 de fontes originais, metadata, revisões Aseprite e exports, dimensões projetadas fixas, orientaçãoSE, cobertura/aberturas/anexo compatíveis, âncora, footprint, papéis e restrições. Revisões09 são candidatas. Um layer de uma pintura exterior não implica peça geometricamente intercambiável ou face oculta existente.
+
+`valdoria-authored-architecture-recipe/v1` é **distinto** do planejador histórico `valdoria-architecture-recipe/v1`: `catalogVersion`, `family`, `seed`, `dimensionsProjectedUnits`, `orientation`, `roof`, `materials`, `openings`, `annex`, `decoration`, `conservation`, `position`, `placement`. Dimensões correspondem ao bounds projetado do footprint, não a largura/profundidade3D livremente alteráveis. Chaves desconhecidas, combinação incompatível, dimensão alterada, seed não inteira, posição não finita e versão divergente são recusadas.
+
+`visual_unification09.py build --catalog <catalogo-versionado> --recipe <receita> --output <novo>` verifica hashes de fonte/metadata/export e não redesenha pixels. `maintained/weathered` selecionam dois estados editáveis; `seeded` usa SHA256(versão+seed+família) para selecionar um deles. PatternSeed910209 já está desenhado nas fontes de conservação: seed não cria infinitas formas. Novo formato/orientação/abertura/anexo requer arte e versão adicionais.
+
+Seleção publicada: `valdoria-architecture-selection/v1` com refs assinadas de receita/catálogo/fonte, variant e seed. `house.json` mantém o contrato autorado07R/08 e acrescenta `selectionRef` local; manifest cobre a seleção. Região geográfica reutiliza `architecture07r_reference.build`: footprint conservador, água/rocha/estrada/reserva/declive, Dijkstra com clearance e exclusões de vegetação. Mesmas posições09 reproduzem navegação/ecologia08 exatamente. Novos lotes regeneram o consumidor, podendo propagar competição fora da exclusão; não prometer patch ecológico estritamente local.
+
+Castelo não tem lote geográfico aceito. `placement=world` é recusado; review-yard atual só aceita o castelo em (32,32), com sete polígonos físicos e cinco envelopes de profundidade. Galeria lado a lado não é implantação geográfica.
+
+Unity09 clona os laboratórios e preserva colisões/anchors/dados; carrega atlas sem resampling e refs TextAsset do catálogo/receitas/seleções verificadas. `P` aplica a seleção, `1/2/3` comparam A/B/C e `V` mostra conservação. Não há geração em Play. `Build` e a primeira ligação do catálogo recusam destinos existentes. Scene/assetGUIDs dos originais não são substituídos. Medições e limites: `Docs/Validation/ValdoriaWorldStudio09-VisualUnification.md`.
+
 ## Referências Barn/Castle — extensão 08
 
 Após aprovação visual da casa 07R e autorização explícita para os dois modelos seguintes, o exportador compartilhado aceita `sourceFile`, `canvas`, `layers`, `roles`, `groundLayers` e posição de lote nos metadados de autoria. Campos opcionais preservam os defaults 07R. Aseprite continua sendo a autoridade dos pixels; expansão de parâmetros não é um gerador universal de formas.

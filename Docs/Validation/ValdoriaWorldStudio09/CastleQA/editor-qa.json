@@ -1,0 +1,20 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaVisualCastle09.unity",
+  "sceneClean": true,
+  "samples": 102400,
+  "navMismatches": 0,
+  "colliders": 7,
+  "vertices": 28,
+  "depthGroups": 5,
+  "plants": 0,
+  "comparisonResidentTextureCount": 45,
+  "comparisonResidentTextureBytes": 356074099,
+  "onePlayer": true,
+  "oneCamera": true,
+  "defaultStage": 2,
+  "profileOverride": null,
+  "syntheticDevices": 0,
+  "allKeyboardsEnabled": true,
+  "timeScale": 1.0,
+  "reviewOnly": true
+}

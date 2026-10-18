@@ -1,0 +1,879 @@
+fileFormatVersion: 2
+guid: 44b2f68e03112dc4e8ce6e36f8ad43b8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8075410451029343610
+    second: house-maintained_0
+  - first:
+      213: 2335461291882776038
+    second: house-maintained_1
+  - first:
+      213: 4569826783398426077
+    second: house-maintained_2
+  - first:
+      213: -1394882684676393257
+    second: house-maintained_3
+  - first:
+      213: 2797529135593843244
+    second: house-maintained_4
+  - first:
+      213: 5838427798585332433
+    second: house-maintained_5
+  - first:
+      213: -4323249543400180110
+    second: house-maintained_6
+  - first:
+      213: -3147174480043945085
+    second: house-maintained_7
+  - first:
+      213: -5002597297489862066
+    second: house-maintained_8
+  - first:
+      213: -4420764543716367050
+    second: house-maintained_9
+  - first:
+      213: 5134018209137345406
+    second: house-maintained_10
+  - first:
+      213: 464574218705038700
+    second: house-maintained_11
+  - first:
+      213: -1083729042664135923
+    second: house-maintained_12
+  - first:
+      213: 9064897458807582798
+    second: house-maintained_13
+  - first:
+      213: -598773355209884888
+    second: house-maintained_14
+  - first:
+      213: 5900013267737247227
+    second: house-maintained_15
+  - first:
+      213: -6794068529310269526
+    second: house-maintained_16
+  - first:
+      213: 9030902698539630892
+    second: house-maintained_17
+  - first:
+      213: 4069963151061207373
+    second: house-maintained_18
+  - first:
+      213: 5519915156450308674
+    second: house-maintained_19
+  - first:
+      213: -5505498721404703565
+    second: house-maintained_20
+  - first:
+      213: -4271739851311879773
+    second: house-maintained_21
+  - first:
+      213: 6549432603249515090
+    second: house-maintained_22
+  - first:
+      213: -9055040439177023710
+    second: house-maintained_23
+  - first:
+      213: -3152813639240132745
+    second: house-maintained_24
+  - first:
+      213: -8981695719471458382
+    second: house-maintained_25
+  - first:
+      213: -4135713627462243908
+    second: house-maintained_26
+  - first:
+      213: 2583579662578373467
+    second: house-maintained_27
+  - first:
+      213: 5058176631515156617
+    second: house-maintained_28
+  - first:
+      213: 3420798884978787931
+    second: house-maintained_29
+  - first:
+      213: -2707936567212049050
+    second: house-maintained_30
+  - first:
+      213: -4237752380316766411
+    second: house-maintained_31
+  - first:
+      213: 6652974688650372683
+    second: house-maintained_32
+  - first:
+      213: -3380737112572368486
+    second: house-maintained_33
+  - first:
+      213: 409826690210718029
+    second: house-maintained_34
+  - first:
+      213: -9058511420343986363
+    second: house-maintained_35
+  - first:
+      213: -5075169415574344275
+    second: house-maintained_36
+  - first:
+      213: 1143743457462446309
+    second: house-maintained_37
+  - first:
+      213: -4526269382114945317
+    second: house-maintained_38
+  - first:
+      213: 1522227951505793193
+    second: house-maintained_39
+  - first:
+      213: -6363942876567268472
+    second: house-maintained_40
+  - first:
+      213: 8996557155604355274
+    second: house-maintained_41
+  - first:
+      213: 323978405225923370
+    second: house-maintained_42
+  - first:
+      213: 1030384413646426540
+    second: house-maintained_43
+  - first:
+      213: -1114186046867971255
+    second: house-maintained_44
+  - first:
+      213: 8995453131037678064
+    second: house-maintained_45
+  - first:
+      213: -3901001967304801430
+    second: house-maintained_46
+  - first:
+      213: -4863995771674163215
+    second: house-maintained_47
+  - first:
+      213: -5738888128801778159
+    second: house-maintained_48
+  - first:
+      213: 7288009650670330775
+    second: house-maintained_49
+  - first:
+      213: -6651373719129945151
+    second: house-maintained_50
+  - first:
+      213: 9117737704070532160
+    second: house-maintained_51
+  - first:
+      213: -7863167124573057729
+    second: house-maintained_52
+  - first:
+      213: -5844413028316177553
+    second: house-maintained_53
+  - first:
+      213: 7034017220727635803
+    second: house-maintained_54
+  - first:
+      213: -5966278026484221792
+    second: house-maintained_55
+  - first:
+      213: 6496404944748089895
+    second: house-maintained_56
+  - first:
+      213: 8030114074424023615
+    second: house-maintained_57
+  - first:
+      213: 1257635979369860137
+    second: house-maintained_58
+  - first:
+      213: -626302683268768065
+    second: house-maintained_59
+  - first:
+      213: 4224017193359136954
+    second: house-maintained_60
+  - first:
+      213: -5961673727618563661
+    second: house-maintained_61
+  - first:
+      213: 2436920065501186447
+    second: house-maintained_62
+  - first:
+      213: -2228235113891410707
+    second: house-maintained_63
+  - first:
+      213: -1679909771768643032
+    second: house-maintained_64
+  - first:
+      213: 1751767042004408331
+    second: house-maintained_65
+  - first:
+      213: -1917380472668105398
+    second: house-maintained_66
+  - first:
+      213: -598646226388989396
+    second: house-maintained_67
+  - first:
+      213: 6792073633164736304
+    second: house-maintained_68
+  - first:
+      213: -1258861390938125522
+    second: house-maintained_69
+  - first:
+      213: 2872980561788217600
+    second: house-maintained_70
+  - first:
+      213: 8964949357455218193
+    second: house-maintained_71
+  - first:
+      213: -5770345812398778253
+    second: house-maintained_72
+  - first:
+      213: -8005219533450156156
+    second: house-maintained_73
+  - first:
+      213: 8673841968827176649
+    second: house-maintained_74
+  - first:
+      213: 4536305734699707062
+    second: house-maintained_75
+  - first:
+      213: 2458272292366659464
+    second: house-maintained_76
+  - first:
+      213: -3232326488199995050
+    second: house-maintained_77
+  - first:
+      213: -7817063720779595529
+    second: house-maintained_78
+  - first:
+      213: 200191179897022352
+    second: house-maintained_79
+  - first:
+      213: 3609996207590252987
+    second: house-maintained_80
+  - first:
+      213: 1539568654596449730
+    second: house-maintained_81
+  - first:
+      213: -1905148744831813
+    second: house-maintained_82
+  - first:
+      213: 4883584732093379266
+    second: house-maintained_83
+  - first:
+      213: -1652761141494792036
+    second: house-maintained_84
+  - first:
+      213: 3529664846895645111
+    second: house-maintained_85
+  - first:
+      213: -8149789381549690476
+    second: house-maintained_86
+  - first:
+      213: 9043818041505919964
+    second: house-maintained_87
+  - first:
+      213: -5798462244624725883
+    second: house-maintained_88
+  - first:
+      213: 7792601369349499701
+    second: house-maintained_89
+  - first:
+      213: -8074180302885072422
+    second: house-maintained_90
+  - first:
+      213: 2641404499095435197
+    second: house-maintained_91
+  - first:
+      213: 6124816648545191794
+    second: house-maintained_92
+  - first:
+      213: -5185183441834379634
+    second: house-maintained_93
+  - first:
+      213: 2104068396605249099
+    second: house-maintained_94
+  - first:
+      213: 55173556957528697
+    second: house-maintained_95
+  - first:
+      213: -6641982715219077298
+    second: house-maintained_96
+  - first:
+      213: 850405591776264522
+    second: house-maintained_97
+  - first:
+      213: -7133170899675917002
+    second: house-maintained_98
+  - first:
+      213: 782965121536309223
+    second: house-maintained_99
+  - first:
+      213: -196844642204221749
+    second: house-maintained_100
+  - first:
+      213: -7791800613265493357
+    second: house-maintained_101
+  - first:
+      213: 8039203675991810272
+    second: house-maintained_102
+  - first:
+      213: 6507886285445457713
+    second: house-maintained_103
+  - first:
+      213: 8777401890943030514
+    second: house-maintained_104
+  - first:
+      213: 7909718032585158393
+    second: house-maintained_105
+  - first:
+      213: 3767840162692785978
+    second: house-maintained_106
+  - first:
+      213: 608424084582121511
+    second: house-maintained_107
+  - first:
+      213: -4682914910353164550
+    second: house-maintained_108
+  - first:
+      213: 6960963023413169466
+    second: house-maintained_109
+  - first:
+      213: 3662911862378350834
+    second: house-maintained_110
+  - first:
+      213: -7755485663659469675
+    second: house-maintained_111
+  - first:
+      213: 3004076306159148133
+    second: house-maintained_112
+  - first:
+      213: 206274666690144062
+    second: house-maintained_113
+  - first:
+      213: -4265240374449284302
+    second: house-maintained_114
+  - first:
+      213: 1392150184751511910
+    second: house-maintained_115
+  - first:
+      213: 4913520785074051541
+    second: house-maintained_116
+  - first:
+      213: -5633625759149700042
+    second: house-maintained_117
+  - first:
+      213: -5273133997572617564
+    second: house-maintained_118
+  - first:
+      213: 6156224589927471853
+    second: house-maintained_119
+  - first:
+      213: 2302149151948228063
+    second: house-maintained_120
+  - first:
+      213: 57617153211841374
+    second: house-maintained_121
+  - first:
+      213: 7498014827665857131
+    second: house-maintained_122
+  - first:
+      213: -7356385904909493947
+    second: house-maintained_123
+  - first:
+      213: -363281378109752833
+    second: house-maintained_124
+  - first:
+      213: -8580627904547814450
+    second: house-maintained_125
+  - first:
+      213: -3768456775840603078
+    second: house-maintained_126
+  - first:
+      213: -5932624848195499409
+    second: house-maintained_127
+  - first:
+      213: 2253203198202885757
+    second: house-maintained_128
+  - first:
+      213: -4146150096872583596
+    second: house-maintained_129
+  - first:
+      213: 2275168114885642135
+    second: house-maintained_130
+  - first:
+      213: -5351201886809978048
+    second: house-maintained_131
+  - first:
+      213: -2438727368825720890
+    second: house-maintained_132
+  - first:
+      213: -2566765202537897951
+    second: house-maintained_133
+  - first:
+      213: -3599896810440261560
+    second: house-maintained_134
+  - first:
+      213: -5813912233321553899
+    second: house-maintained_135
+  - first:
+      213: 4192977289676285610
+    second: house-maintained_136
+  - first:
+      213: 5859201378824562377
+    second: house-maintained_137
+  - first:
+      213: -52997640351520906
+    second: house-maintained_138
+  - first:
+      213: 7203264022031149071
+    second: house-maintained_139
+  - first:
+      213: -7519890695256799969
+    second: house-maintained_140
+  - first:
+      213: 1603417891997755460
+    second: house-maintained_141
+  - first:
+      213: -2763751706386322832
+    second: house-maintained_142
+  - first:
+      213: -1608864983660740704
+    second: house-maintained_143
+  - first:
+      213: -7097131839693177293
+    second: house-maintained_144
+  - first:
+      213: 6752264282896383946
+    second: house-maintained_145
+  - first:
+      213: 8868082487240746709
+    second: house-maintained_146
+  - first:
+      213: -2458155868599738239
+    second: house-maintained_147
+  - first:
+      213: 5796451625665248571
+    second: house-maintained_148
+  - first:
+      213: 3143171275477112870
+    second: house-maintained_149
+  - first:
+      213: 6696182547732172873
+    second: house-maintained_150
+  - first:
+      213: -5933102458755572478
+    second: house-maintained_151
+  - first:
+      213: -504439029887550187
+    second: house-maintained_152
+  - first:
+      213: -3910628654067088500
+    second: house-maintained_153
+  - first:
+      213: -468591409222531625
+    second: house-maintained_154
+  - first:
+      213: 67070738282352975
+    second: house-maintained_155
+  - first:
+      213: -3517377970671814893
+    second: house-maintained_156
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shadow
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1274
+        width: 927
+        height: 770
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cf9c9b137ccbd14e9df4ea2df6864c5
+      internalID: 1879500156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foundation
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 662
+        width: 883
+        height: 262
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04f321b23ef27d248aeff087812b0d54
+      internalID: 1343393083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsFront
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 1279
+        width: 723
+        height: 765
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79581cd5c7ae59f4f9270023a406a4e8
+      internalID: -196083538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSide
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 122
+        width: 329
+        height: 536
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68687822fd2faec4d9347bee40abf4ae
+      internalID: -789236284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TimbersFront
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 2
+        width: 479
+        height: 408
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8375c67e44f450b42977a7d4b868e5bd
+      internalID: -2137532947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TimbersSide
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 150
+        width: 288
+        height: 508
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f12bbc81332024b42bdd1b2fd9784f3c
+      internalID: 2047694967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 195
+        width: 357
+        height: 215
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93d5179cb86240e4d85449611b3a7c84
+      internalID: 26031854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Windows
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 932
+        width: 619
+        height: 338
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebe74455d0debc2419b71b0d2f743fc5
+      internalID: -1826944940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Roof
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 414
+        width: 751
+        height: 510
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32f842ea60d8ef459771257b3778617
+      internalID: -1120287985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eaves
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 928
+        width: 913
+        height: 342
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdd1507885543ee41b58d910d4471866
+      internalID: 1975865195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chimney
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 469
+        width: 129
+        height: 189
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f8d4978fa07494409f5c4d3afc0b56f
+      internalID: 782565138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Details
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 421
+        width: 102
+        height: 237
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ecf226525bcc01449a17eafbb147339
+      internalID: 1536205885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 31fcaaca6a496bf45ac76127f651129a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chimney: 782565138
+      Details: 1536205885
+      Door: 26031854
+      Eaves: 1975865195
+      Foundation: 1343393083
+      Roof: -1120287985
+      Shadow: 1879500156
+      TimbersFront: -2137532947
+      TimbersSide: 2047694967
+      WallsFront: -196083538
+      WallsSide: -789236284
+      Windows: -1826944940
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

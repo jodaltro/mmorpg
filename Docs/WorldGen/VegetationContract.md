@@ -1,5 +1,11 @@
 # Vegetation Contract v1
 
+## Revisão visual09
+
+Consultar `Docs/Art/ValdoriaVisualLanguage.md`. Carvalho, olmo, aveleira, samambaia e junco possuem cópias editáveis em `WorldStudio09/Vegetation/Source`, três silhuetas estáticas cada, seis camadas. A revisão muda planos/pigmento/casca; mantém alpha, canvas, âncora e footprint. As outras três espécies são copiadas sem tratamento.
+
+O export09 recompõe os pixels Aseprite; `sprites.json` e rects/UV/offsets do atlas são idênticos ao06. Assim o laboratório pode trocar a textura/material dos detalhes baked e os sprites das árvores sem recalcular distribuição, habitats, meshes físicos, competição, exclusões ou navegação. Não aplicar essa otimização se uma futura revisão mudar o alpha/recorte: reexportar e reconstruir os consumidores necessários. A cor da água e sua geometria não são alteradas para acomodar juncos.
+
 Implementação: `Tools/ArtPipeline/WorldGen/environment_vegetation.py`, generator `environment-vegetation/1.0.0`. Fontes: `vegetation_art.py`; integração: `VegetationStudioImporter`. Autoria offline; nenhuma regeneração em Play.
 
 ## Inputs imutáveis
