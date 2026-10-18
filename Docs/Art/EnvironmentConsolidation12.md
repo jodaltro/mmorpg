@@ -1,6 +1,6 @@
-# Ground12 — consolidação ambiental candidata
+# Ground12 — consolidação ambiental aprovada
 
-Referências aprovadas: construções07R/08/09, duas árvores e duas rochas Nature10, terreno e estradas/transições Ground11. [Registro consolidado](Approvals/Ground12-References-2026-10-18.json). Os novos elementos desta rodada são **candidatos**, sem promoção ao mundo oficial.
+Referências aprovadas: construções07R/08/09, duas árvores e duas rochas Nature10, terreno e estradas/transições Ground11. [Registro consolidado](Approvals/Ground12-References-2026-10-18.json). A composição Ground12 apresentada foi **aprovada artisticamente** com o feedback “Ficou bom”, no commit `05d842d4050aa35f5b73c4e30314f4f5bb65d39f`. [Registro formal e hashes](Approvals/Ground12-2026-10-18.json). A aprovação limita-se ao resultado entregue, incluindo o acabamento aquático parcial; não promove assets ao mundo oficial nem elimina as limitações abaixo.
 
 ## Diagnóstico e decisões
 

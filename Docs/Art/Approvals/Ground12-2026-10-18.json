@@ -1,0 +1,38 @@
+{
+  "schema": "valdoria-artistic-approval/v1",
+  "date": "2026-10-18",
+  "evaluatedCommit": "05d842d4050aa35f5b73c4e30314f4f5bb65d39f",
+  "artifactsCommit": "877e108d5151e345237352e23d3d52493eac82dd",
+  "userFeedback": "Ficou bom",
+  "approved": [
+    "Ground12-presented-complementary-vegetation",
+    "Ground12-presented-plateau-and-relief-materials",
+    "Ground12-presented-water-and-bank-finishing",
+    "Ground12-presented-environmental-composition"
+  ],
+  "scope": "Aprovação artística da candidata Ground12 apresentada e das suas fontes correspondentes: vegetação complementar, materiais de relevo, acabamento aquático parcial e contatos ambientais. Soma-se às referências aprovadas de arquitetura, Nature10 e Ground11. Não aprova toda a biblioteca histórica, futuras variantes/biomas, hidrologia completa ou novas mecânicas. Não promove automaticamente os assets à cena oficial.",
+  "retainedLimitations": [
+    "Silhueta e geometria física históricas preservadas; sem novos degraus ou escalada.",
+    "Acabamento aquático parcial; sem natação, refração ou hidráulica temporal.",
+    "Diversidade adicional e otimização de batching/memória continuam pendentes."
+  ],
+  "sourceHashes": {
+    "ArtSource/Labs/World2026/Ground12/SourceV1/elm-vase.aseprite": "89c580593294b6c61a71ece392ea284de8b815995e002bdfc86fd6cd1359ba34",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/fern-0.aseprite": "84bd8576c28573a1c11a39657bf64152ba071a9bbdf9fe5c3002463dcbdf0949",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/fern-1.aseprite": "64a0fe7b7d72465c17f8b52ffa6ef320bd7f05572fa3c0f2ea8daa00b915f08f",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/hazel-layered.aseprite": "5135e2c8bb64a0c992aed7a1c21f9966e15023ab930f3ddafaa63dd980e13baa",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/hornbeam-open.aseprite": "013cbca063827cdcee76255c3187a96d601768a415e238ecaae492fe65861289",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/reeds-open.aseprite": "54ec819b57456e8dd41c87ce611d645436a7872e49f5c8e2f203412a551fde9d",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/sandstone-planes.aseprite": "b182f69ed961e14e5ddbd0ff7fb103aed9910d8c4dcf3d71cb395640736ba918",
+    "ArtSource/Labs/World2026/Ground12/SourceV1/water-accents.aseprite": "a3a7cf2a4f0c752940a5fbae32f66357560ac60ed2973cf49eb0b6d32783c7f2",
+    "ArtSource/Labs/World2026/Ground12/recipe.json": "550191a56dafc51cc497d215c68f41719e205a4e53dfd569443eb3e9f653e8a2",
+    "ArtSource/Labs/World2026/Ground12/ExportV1/manifest.json": "b71a5f4ce8ac98813d55129336dc49991eac97a71137fb1017e5afa6159f8c53",
+    "ArtSource/Labs/World2026/Ground12/BuildV2/manifest.json": "dfb038485f45bc18aaf586e405da37c0fb9d3963ccfa9b7d46e0e9877a57c499",
+    "Docs/Validation/ValdoriaGround12/Original/composition-final.png": "84073196568081cbc99c32f9ba646458133131ce66d48f7f976b8ee0c8526cf4",
+    "Docs/Validation/ValdoriaGround12/Original/plateau-final.png": "6b8500978e0dcda34d4623ff83a05fb4394aaa6bf2b3b8e6e4be9754c3d1537e",
+    "Docs/Validation/ValdoriaGround12/Original/water-bank-final.png": "133c0923598620d42981610682a0cb758b10046e0438227bc933972b96fda6ec",
+    "Docs/Validation/ValdoriaGround12/QA/image-manifest.json": "15fba7fac16645ef58399c583de5f312896d83397ead8e7896f3c7b84603b777"
+  },
+  "historicalDeliveryReport": "Docs/Validation/ValdoriaGround12-EnvironmentConsolidation.md",
+  "previousReferenceRecord": "Docs/Art/Approvals/Ground12-References-2026-10-18.json"
+}

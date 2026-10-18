@@ -2,7 +2,7 @@
 
 18/10/2026 · `D:\unity\Mmorpg` · Unity6000.6.5f1 · `main` · baseline técnico `3b6d11ce9e0d9512c1915980a045e131405a2f1c`; arte Ground11 avaliada em `37555798710a6202fe8fdd5c3d14833c4a9e9bce`.
 
-**Ground12 é candidato à avaliação artística.** Construções07R/08/09, duas árvores e duas rochas Nature10, terreno e estradas/transições Ground11 permanecem aprovados. [Registro consolidado](../Art/Approvals/Ground12-References-2026-10-18.json). A confirmação da inspeção Ground11 no GitHub veio do usuário; a recuperação remota desta entrega é registrada separadamente abaixo.
+**Aprovação posterior à entrega:** o usuário respondeu “Ficou bom” ao resultado do commit `05d842d4050aa35f5b73c4e30314f4f5bb65d39f`, aprovando a composição Ground12 apresentada. [Registro formal e hashes](../Art/Approvals/Ground12-2026-10-18.json). Não houve promoção à cena oficial. Os testes, inventários e estados de candidatura abaixo são o retrato histórico da entrega; o acabamento aquático permanece parcial e as pendências técnicas continuam válidas. Construções07R/08/09, duas árvores e duas rochas Nature10, terreno e estradas/transições Ground11 permanecem aprovados. [Registro consolidado](../Art/Approvals/Ground12-References-2026-10-18.json). A confirmação da inspeção Ground11 no GitHub veio do usuário; a recuperação remota desta entrega é registrada separadamente abaixo.
 
 ## Composição e diagnóstico real
 
@@ -91,6 +91,6 @@ Relação completa, câmeras, dimensões, hashes, bytes, transformações e revi
 
 ## Pendências e escopo final
 
-Entregue uma candidata integrada e reutilizável, com preservação técnica comprovada. Não é aprovação de Ground12, da vegetação histórica inteira ou de toda a água. Permanecem: avaliação da leitura mineral/silhueta do platô, diversidade maior de arbustos/juncos, repetição das duas árvores novas, refinamento aquático completo e redução do custo de batching/memória antes de expansão. Nenhum novo bioma, mundo oficial, traçado ou mecânica física foi introduzido.
+No encerramento técnico original, foi entregue uma candidata integrada e reutilizável, com preservação técnica comprovada. A aprovação posterior está registrada acima; não abrange a vegetação histórica inteira ou toda a água. Permanecem: avaliação da leitura mineral/silhueta do platô, diversidade maior de arbustos/juncos, repetição das duas árvores novas, refinamento aquático completo e redução do custo de batching/memória antes de expansão. Nenhum novo bioma, mundo oficial, traçado ou mecânica física foi introduzido.
 
 Arquivos novos/modificados são listados no inventário da entrega. Commit/push para`main` e SHA são confirmados somente após execução; o registro remoto complementar identifica o commit de arte/evidências recuperado pelo conector.

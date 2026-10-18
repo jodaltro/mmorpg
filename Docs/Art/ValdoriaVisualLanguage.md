@@ -1,8 +1,8 @@
 # Valdoria — linguagem visual v1
 
-## Consolidação Ground12 — candidata
+## Consolidação Ground12 — aprovada
 
-As cinco famílias de referência estão formalizadas em [Ground12 References](Approvals/Ground12-References-2026-10-18.json). [Vegetação complementar, relevo e margens Ground12](EnvironmentConsolidation12.md) continuam candidatos. Preservar os assets aprovados e a cena oficial. Toda revisão importante segue [originais + ReviewLite](VisualReviewEvidence.md).
+As cinco famílias de referência estão formalizadas em [Ground12 References](Approvals/Ground12-References-2026-10-18.json). O usuário aprovou a [composição Ground12 apresentada](EnvironmentConsolidation12.md), vinculada ao commit `05d842d4050aa35f5b73c4e30314f4f5bb65d39f`, com o feedback “Ficou bom”. [Registro de aprovação e hashes](Approvals/Ground12-2026-10-18.json). A aprovação do acabamento aquático parcial não abrange todo o sistema de água; futuras variantes e as pendências técnicas mantêm avaliação própria. Preservar os assets aprovados e a cena oficial. Toda revisão importante segue [originais + ReviewLite](VisualReviewEvidence.md).
 
 ## Aprovação vigente — terreno e estradas Ground11
 

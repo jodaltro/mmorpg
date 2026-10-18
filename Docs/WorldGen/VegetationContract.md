@@ -2,7 +2,7 @@
 
 ## Consumidor visual Ground12
 
-[EnvironmentFinishContract](EnvironmentFinishContract.md) acrescenta substituições de apresentação sobre as âncoras existentes. Mantém IDs, pontos, espécie/variante semântica, footprint, competição e navegação; não redistribui a vegetação. Preserva os dois desenhos Nature10 aprovados. A fonte artística de cada substituto tem canvas/âncora próprios e não herda automaticamente o recorte antigo. Ground12 permanece candidato; as revisões06/09 abaixo são históricas.
+[EnvironmentFinishContract](EnvironmentFinishContract.md) acrescenta substituições de apresentação sobre as âncoras existentes. Mantém IDs, pontos, espécie/variante semântica, footprint, competição e navegação; não redistribui a vegetação. Preserva os dois desenhos Nature10 aprovados. A fonte artística de cada substituto tem canvas/âncora próprios e não herda automaticamente o recorte antigo. A apresentação Ground12 entregue foi aprovada; consultar `Docs/Art/Approvals/Ground12-2026-10-18.json`. Novas variantes não recebem aprovação automática; as revisões06/09 abaixo são históricas.
 
 ## Revisão visual09
 

@@ -1,4 +1,6 @@
-# Environment Finish12 — apresentação candidata v1
+# Environment Finish12 — apresentação v1
+
+A composição entregue em `05d842d4050aa35f5b73c4e30314f4f5bb65d39f` foi aprovada artisticamente pelo usuário. Consultar `Docs/Art/Approvals/Ground12-2026-10-18.json` para escopo e hashes. Futuras revisões exigem avaliação própria; o acabamento aquático aprovado é parcial.
 
 Gerador `valdoria-environment-finish/1.0.0`, `Tools/ArtPipeline/WorldGen/environment_finish12.py`. Consome fontes Aseprite exportadas, Ground11, hidrologia05 e âncoras ecológicas07R/Nature10. Não substitui produtores de terreno, estradas, água, navegação ou ocupação.
 
