@@ -1,8 +1,24 @@
 {
   "repository": "jodaltro/mmorpg",
   "branch": "main",
-  "published": false,
-  "base64RecoveryTested": false,
-  "visualInspectionViaConnector": false,
-  "status": "Pending publication and real connector recovery; updated only after evidence commit is pushed."
+  "evidenceCommit": "414cb8f5660239e38f3017ce8964299fc0dfb11e",
+  "remoteMainConfirmed": "414cb8f5660239e38f3017ce8964299fc0dfb11e",
+  "published": true,
+  "path": "Docs/Validation/ValdoriaGround13/ReviewLite/composition-candidate.png",
+  "bytes": 271128,
+  "dimensions": [
+    800,
+    450
+  ],
+  "sha256": "ba89bc75ce8907be4e212e9d4f2e6ccf08d676e5c0062a48b1ee03929893c19d",
+  "gitBlob": "166ab3e0004679800970528c82e47116a24df968",
+  "pngSignatureHex": "89504e470d0a1a0a",
+  "PNGDecodeVerified": true,
+  "max750KiB": true,
+  "mechanism": "GitHub connector github_fetch_file, ref main, encoding base64; strict decode, signature, SHA-256 and Git blob SHA-1 compared to published/local evidence",
+  "base64RecoveryTested": true,
+  "visualInspectionViaConnector": true,
+  "visualInspection": "Actual returned Base64 bytes emitted as an image and inspected by the agent; identical to local ReviewLite. Not artistic approval.",
+  "checkedAtUTC": "2026-10-18T21:02:21.784879+00:00",
+  "url": "https://github.com/jodaltro/mmorpg/blob/main/Docs/Validation/ValdoriaGround13/ReviewLite/composition-candidate.png"
 }
