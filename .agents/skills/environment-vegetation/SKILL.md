@@ -40,4 +40,6 @@ Para construções, use `environment-architecture` e `Docs/WorldGen/Architecture
 
 ## Direção central vigente — World Studio09
 
+Para formas naturais refinadas, seguir [NaturalEnvironmentProduction](../../../Docs/Art/NaturalEnvironmentProduction.md) e a composição Nature10. Não confundir mudança de paleta com desenho de volume. Primeiro árvore de referência e uma silhueta irmã; fontes Aseprite são autoridade. O bootstrap geométrico06 continua histórico e não é o padrão artístico da nova família. Não ampliar a família sem avaliação visual. Exportação, contratos e ocupação continuam determinísticos a partir das fontes retidas; pintura assistida por IA não promete repetição por seed.
+
 Antes de produzir ou revisar arte ambiental, ler [ValdoriaVisualLanguage](../../../Docs/Art/ValdoriaVisualLanguage.md) e, para construções, [ArchitectureStyleGuide](../../../Docs/Art/ArchitectureStyleGuide.md). A casa07R orienta acabamento, luz e escala; fontes aprovadas ficam preservadas, revisões09 são candidatas. Não aplicar saturação/tint global nem alterar geometria para resolver cor. Exportar pixels reais do Aseprite e guardar comparações Game View na pasta de validação do projeto.

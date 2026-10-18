@@ -1,0 +1,29 @@
+{
+  "status": "candidate-awaiting-user-visual-review",
+  "approved": false,
+  "officialSceneChanged": false,
+  "sources": "ArtSource/Labs/World2026/Nature10/SourceV2",
+  "seed": 910210,
+  "comparison": {
+    "resolution": [
+      1600,
+      900
+    ],
+    "camera": [
+      28.5,
+      14.25,
+      -10
+    ],
+    "orthographicSize": 14.0625,
+    "artPixelRatio": 1,
+    "actor": [
+      28.673845,
+      6.245552
+    ]
+  },
+  "limitations": [
+    "Only two tree silhouettes and two stone shapes are refined; remaining background plants and plateau geometry remain historical.",
+    "No runtime AI, growth, wind, rock climbing or vegetation destruction.",
+    "Physics changes only in study: two trunk radii plus three declared stone polygons."
+  ]
+}

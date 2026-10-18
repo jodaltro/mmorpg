@@ -1,0 +1,11 @@
+test_aseprite_repeat_export (test_nature_reference10.NatureReferenceTests.test_aseprite_repeat_export) ... ok
+test_lossless_atlas_and_no_border_artifact (test_nature_reference10.NatureReferenceTests.test_lossless_atlas_and_no_border_artifact) ... ok
+test_manifests (test_nature_reference10.NatureReferenceTests.test_manifests) ... ok
+test_placement_determinism_and_entrance (test_nature_reference10.NatureReferenceTests.test_placement_determinism_and_entrance) ... ok
+test_surface_patch_matches_global (test_nature_reference10.NatureReferenceTests.test_surface_patch_matches_global) ... ok
+test_unity_pixels_match_authoritative_exports (test_nature_reference10.NatureReferenceTests.test_unity_pixels_match_authoritative_exports) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 12.957s
+
+OK
