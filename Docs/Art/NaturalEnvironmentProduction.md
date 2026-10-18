@@ -1,6 +1,6 @@
 # Valdoria — produção de elementos naturais
 
-Referências JEV/Nature10, 18/10/2026. As casas07R/08, as duas novas árvores e as duas novas formas de rocha estão **aprovadas artisticamente**. [Aprovação Nature10 com hashes](Approvals/Nature10-2026-10-18.json). Solo e estradas Nature10 continuam não aprovados e são o foco da rodada Ground11. Consulte [a validação real](../Validation/ValdoriaNature10-ArtRefinement.md) e [a linguagem arquitetônica](ArchitectureStyleGuide.md). Não redesenhar as fontes aprovadas para corrigir o solo.
+Referências JEV/Nature10, 18/10/2026. As casas07R/08, as duas novas árvores e as duas novas formas de rocha estão **aprovadas artisticamente**. [Aprovação Nature10 com hashes](Approvals/Nature10-2026-10-18.json). O solo e as estradas Nature10 foram substituídos como referência pelo Ground11, aprovado posteriormente: [registro formal](Approvals/Ground11-2026-10-18.json) e [padrão de produção](GroundAndRoadProduction.md). A aprovação não se estende aos materiais históricos Nature10. Consulte [a validação real](../Validation/ValdoriaNature10-ArtRefinement.md) e [a linguagem arquitetônica](ArchitectureStyleGuide.md). Não redesenhar as fontes aprovadas para corrigir o solo.
 
 ## Forma antes de textura
 

@@ -1,6 +1,6 @@
 # Valdoria — solo, estradas e contatos, Ground11
 
-**Padrão candidato. Terreno e estradas continuam não aprovados.** Referências aprovadas: construções07R/08/09 e as duas árvores/duas rochas Nature10. [Registro Nature10](Approvals/Nature10-2026-10-18.json), [evidências reais desta rodada](../Validation/ValdoriaGround11-TerrainAndRoads.md).
+**Referência Ground11 aprovada artisticamente em 18/10/2026.** O usuário avaliou a entrega `37555798710a6202fe8fdd5c3d14833c4a9e9bce` e respondeu “Ficou bom”. [Registro formal e hashes](Approvals/Ground11-2026-10-18.json). A aprovação abrange o resultado apresentado, sem promoção automática à cena oficial ou aprovação de futuras variantes. Referências aprovadas: construções07R/08/09 e as duas árvores/duas rochas Nature10. [Registro Nature10](Approvals/Nature10-2026-10-18.json), [evidências reais desta rodada](../Validation/ValdoriaGround11-TerrainAndRoads.md).
 
 ## Direção comum
 
@@ -90,4 +90,4 @@ Teclas1–4: anterior, base, transições, final. As quatro apresentações têm
 
 Revisão artística escolhe forma das massas, tamanho do grão, hierarquia, qualidade das bordas, equilíbrio dos contatos e relação com os assets aprovados. Não automatizar essa aprovação. Seed, patches, distribuição subordinada, hashing, exportação, máscaras e importação são reproduzíveis. Testar movimento/esquiva, acesso, colisões, oclusão e câmera com Input System real, perfil Temp e restauração dos dispositivos/opções.
 
-Não anunciar aprovação geral, escalada, erosão física nova, desgaste por gameplay, molhamento dinâmico, streaming ou floresta refeita. Vegetação histórica e platô continuam pendentes. Não ampliar biomas ou promover este candidato ao mundo oficial antes da avaliação do usuário.
+Não anunciar aprovação geral, escalada, erosão física nova, desgaste por gameplay, molhamento dinâmico, streaming ou floresta refeita. Vegetação histórica e platô continuam pendentes. Novas variantes e biomas exigem avaliação própria; a aprovação Ground11 não promove automaticamente os assets ao mundo oficial.

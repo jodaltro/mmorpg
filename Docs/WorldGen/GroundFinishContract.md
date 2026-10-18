@@ -1,6 +1,6 @@
 # GroundFinish v1 — apresentação offline de superfícies
 
-Versão `valdoria-ground-finish/1.0.0`; ferramenta `Tools/ArtPipeline/WorldGen/ground_finish11.py`. Consome WorldRegion/Organic Roads/Architecture/Nature10 sem reescrever seus dados. Arte candidata; referências de objetos aprovadas em `Docs/Art/Approvals/Nature10-2026-10-18.json`.
+Versão `valdoria-ground-finish/1.0.0`; ferramenta `Tools/ArtPipeline/WorldGen/ground_finish11.py`. Consome WorldRegion/Organic Roads/Architecture/Nature10 sem reescrever seus dados. A entrega artística Ground11 `37555798710a6202fe8fdd5c3d14833c4a9e9bce` foi aprovada pelo usuário: `Docs/Art/Approvals/Ground11-2026-10-18.json`. A aprovação é específica aos assets e evidências apresentados; novas variantes exigem avaliação. Referências de objetos aprovadas em `Docs/Art/Approvals/Nature10-2026-10-18.json`.
 
 ## Dados
 

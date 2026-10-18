@@ -2,7 +2,7 @@
 
 18/10/2026 · `D:\unity\Mmorpg` · Unity6000.6.5f1 · `main` · baseline `c78d81c208d366b2addb6aa798560ff5280d2950`.
 
-**Terreno e estradas continuam candidatos, NÃO APROVADOS.** O feedback durante a produção foi “Ta fincando bom”; ele orientou manter a direção, sem substituir a avaliação final. Construções, as duas árvores novas e as duas formas de rocha Nature10 são referências **aprovadas** e não foram redesenhadas. [Aprovação formal Nature10 e hashes](../Art/Approvals/Nature10-2026-10-18.json), registrada também na linguagem visual central.
+**Aprovação posterior à entrega:** o usuário respondeu “Ficou bom” ao resultado do commit `37555798710a6202fe8fdd5c3d14833c4a9e9bce`, aprovando artisticamente terreno, estradas, transições e contatos apresentados. [Registro formal com hashes](../Art/Approvals/Ground11-2026-10-18.json). Não houve promoção à cena oficial. Os relatórios JSON e inventários abaixo preservam o estado histórico da entrega, quando a arte ainda era candidata. O feedback durante a produção foi “Ta fincando bom”; ele orientou manter a direção, sem substituir a avaliação final. Construções, as duas árvores novas e as duas formas de rocha Nature10 são referências **aprovadas** e não foram redesenhadas. [Aprovação formal Nature10 e hashes](../Art/Approvals/Nature10-2026-10-18.json), registrada também na linguagem visual central.
 
 ## Candidata na Unity
 
@@ -116,4 +116,4 @@ Arte/fontes/receitas: `ArtSource/Labs/World2026/Ground11/`. Integração: `Asset
 
 Limitações: vegetação antiga, água e platô continuam no acabamento anterior. A bancada demonstra conexões de material, não planejamento automático de redes ramificadas sobre qualquer geografia. O adaptador `world=True` está calibrado para esta região; novos mundos precisam de contexto/footprints próprios. Sombras de solo são pintadas, sem sol dinâmico, novos degraus físicos ou desgaste por gameplay. Há pintura assistida por IA e interpretação artística, não promessa de gerar infinitos materiais aprovados por seed.
 
-O conjunto está pronto para **avaliação visual**, sem promoção ao mundo oficial e sem declaração de aprovação de terreno/estradas. Próxima expansão depende dessa avaliação. Commit/push em `main` são confirmados na resposta após execução; SHA recuperável por `git log -- Docs/Validation/ValdoriaGround11-TerrainAndRoads.md`.
+No encerramento técnico original, o conjunto foi entregue para **avaliação visual**, sem promoção ao mundo oficial. A aprovação posterior está registrada no início deste documento; futuras expansões permanecem sujeitas a avaliação própria. Commit/push em `main` são confirmados na resposta após execução; SHA recuperável por `git log -- Docs/Validation/ValdoriaGround11-TerrainAndRoads.md`.
