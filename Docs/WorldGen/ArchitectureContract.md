@@ -1,5 +1,19 @@
 # Architecture Contract v1
 
+## Referências Barn/Castle — extensão 08
+
+Após aprovação visual da casa 07R e autorização explícita para os dois modelos seguintes, o exportador compartilhado aceita `sourceFile`, `canvas`, `layers`, `roles`, `groundLayers` e posição de lote nos metadados de autoria. Campos opcionais preservam os defaults 07R. Aseprite continua sendo a autoridade dos pixels; expansão de parâmetros não é um gerador universal de formas.
+
+O celeiro consome o mesmo contrato de região/lote/acesso/exclusões do 07R. O build pode receber posição explícita sem mudar metadados artísticos; a posição efetiva e seed ficam em `house.json`. Neste estudo seed 810801, posição geográfica (38,5;45,5), terreno original intacto.
+
+O castelo usa `valdoria-authored-architecture-review/v1`: pátio técnico 80×80, `reviewOnly=true`, **siteQA.worldLotAccepted=false**, seed 810802. Não é WorldRegion novo nem implantação ambiental aprovada. Fornece posição, sete footprints físicos, poses de revisão, percurso portão–pátio–aproximação do keep, cinco `depthGroups` e navegação .25 u. Sua colocação futura exige uma decisão explícita de região/plataforma; não aplanar nem ampliar a região existente silenciosamente.
+
+`footprints` são polígonos em união para navegação e física. Cada polígono cria um `PolygonCollider2D` independente no chão. Uma única instância com contornos sobrepostos mostrou lacunas no teste real; não presumir equivalência de representações. O contorno `footprint` externo é guia de apresentação, **não** bloqueia o pátio inteiro. Vãos do portão permanecem livres sob a parte visual superior.
+
+`depthGroups`: ID, parts e outline geográfico de cada volume. Reutilizam SortingGroup/ReferenceHouseDepth por volume, com fallback de profundidade na frente do próprio volume quando X está fora do seu outline. KeepWalls/KeepRoof/KeepDoor compartilham profundidade; torres, arco e muralha têm regras próprias. Fundamentos preservados opacos; CourtyardFloor/Shadow são chão fora dos grupos. Transparência por bounds ainda é aproximada, sem faces ocultas pintadas, interiores, escadas ou andares jogáveis.
+
+Detalhes, fontes e evidências em `Docs/Validation/ValdoriaWorldStudio08-BarnAndCastle.md`. Celeiro e castelo continuam candidatos à avaliação visual; a casa anterior aprovada não lhes transfere aprovação.
+
 ## Extensão autorada 07R — prioridade visual vigente
 
 A arte A/B/C do Marco 07 foi rejeitada pelo usuário. As gramáticas geométricas descritas nas seções históricas abaixo permanecem como contexto de engenharia, **sem aprovação estética**. O 07R entrega uma referência autorada e não amplia a biblioteca. A porta fixa de 5 u e a projeção antiga não são requisitos da nova fonte.

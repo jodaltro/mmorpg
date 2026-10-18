@@ -5,6 +5,18 @@ description: Autoria modular de construções medievais pixel art 2D em perspect
 
 # Architecture Agent — Valdoria
 
+## Referências seguintes — celeiro e pequeno castelo
+
+O usuário avaliou a casa 07R com **“Ficou bom”** e autorizou, em seguida, um celeiro e um pequeno castelo pelo mesmo processo. A referência 07R pode orientar acabamento; isso não aprova automaticamente os modelos seguintes nem promove assets à cena oficial.
+
+As referências individuais estão em `ArtSource/Labs/World2026/WorldStudio08/{Barn,Castle}`. Cada uma tem estudo Blender, prompt e pintura assistida por IA, `SourceV1` Aseprite e `ExportV1` assinado. `architecture07r_reference.py export` agora lê canvas, sourceFile, camadas e papéis dos metadados, preservando o comportamento da casa anterior. Não usa fórmulas para redesenhar a arte. `architecture_models.py prepare` é somente montagem inicial; não executar sobre uma fonte editada.
+
+O celeiro possui lote validado na região existente e acesso publicado. O castelo está num **pátio técnico de revisão**, não num lote geográfico aprovado: nenhuma topografia/água/estrada foi alterada para acomodá-lo. Não descrever essa cena como castelo já implantado no mundo. O portão permite circulação ao pequeno pátio; corpo principal fechado, sem interiores/pisos superiores.
+
+Castelo: sete polígonos físicos independentes, cada um em um `PolygonCollider2D`. Não juntar contornos sobrepostos num único collider presumindo união: o teste real revelou lacunas nas interseções. Cinco grupos de profundidade reutilizam `ReferenceHouseDepth` com linhas de chão próprias: keep, torres, portão e muralha. Piso do pátio fica fora dos grupos de oclusão. A caminhada atrás do arco não deve tornar transparente o keep quando o ator está à sua frente.
+
+`BuildArchitectureModels`, `ValidateArchitectureModels` e `InspectArchitectureModels` constroem e validam as duas cenas experimentais. Documentação/evidências: `Docs/Validation/ValdoriaWorldStudio08-BarnAndCastle.md`. A aprovação visual dessas referências é separada da sua correção técnica; ainda não é uma biblioteca combinatória.
+
 ## Prioridade 07R: uma referência autorada antes da biblioteca
 
 As três casas do Marco 07 foram **rejeitadas artisticamente pelo usuário**. Seus testes aprovam engenharia, não desenho. A gramática `architecture_art.py` abaixo é histórica; não é a direção visual atual. Não ampliar a biblioteca nem reconstruir fachadas por polígonos e ruído para simular acabamento.

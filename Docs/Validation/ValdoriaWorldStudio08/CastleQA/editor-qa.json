@@ -1,0 +1,123 @@
+{
+  "result": {
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaCastleLab.unity",
+    "samples": 102400,
+    "navMismatches": 0,
+    "physicalPaths": 7,
+    "physicalVertices": 28,
+    "colliders": 7,
+    "depthVolumes": 5,
+    "textureBytes": 41570760,
+    "textures": [
+      {
+        "name": "CourtyardFloor",
+        "width": 301,
+        "height": 582,
+        "bytes": 1684696,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "CurtainWalls",
+        "width": 391,
+        "height": 702,
+        "bytes": 2671720,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "Foundation",
+        "width": 1201,
+        "height": 389,
+        "bytes": 4491124,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "GateArch",
+        "width": 333,
+        "height": 502,
+        "bytes": 1456024,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "GateTimber",
+        "width": 58,
+        "height": 258,
+        "bytes": 191856,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "KeepDoor",
+        "width": 94,
+        "height": 186,
+        "bytes": 201936,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "KeepRoof",
+        "width": 1001,
+        "height": 600,
+        "bytes": 5024768,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "KeepWalls",
+        "width": 1537,
+        "height": 1414,
+        "bytes": 18917816,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "LeftTower",
+        "width": 526,
+        "height": 786,
+        "bytes": 3948432,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "ReviewFloor",
+        "width": 1,
+        "height": 1,
+        "bytes": 5028,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      },
+      {
+        "name": "RightTower",
+        "width": 486,
+        "height": 722,
+        "bytes": 2977360,
+        "point": true,
+        "mips": 1,
+        "format": "RGBA32"
+      }
+    ],
+    "onePlayer": true,
+    "oneCamera": true,
+    "plants": 0,
+    "reviewOnly": true,
+    "sceneClean": true,
+    "profileOverride": null,
+    "syntheticDevices": 0,
+    "allKeyboardsEnabled": true,
+    "timeScale": 1.0
+  },
+  "destinationRefused": true
+}
