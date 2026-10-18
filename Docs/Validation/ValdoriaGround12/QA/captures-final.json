@@ -1,0 +1,104 @@
+[
+  {
+    "path": "Docs/Validation/ValdoriaGround12/Original/composition-final.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "state": "final",
+    "comparison": "composition",
+    "camera": {
+      "position": "(28.50, 14.25, -10.00)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 327,
+    "framesAfterCameraChange": 198
+  },
+  {
+    "path": "Docs/Validation/ValdoriaGround12/Original/plateau-final.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "state": "final",
+    "comparison": "plateau",
+    "camera": {
+      "position": "(48.00, 23.00, -10.00)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 601,
+    "framesAfterCameraChange": 233
+  },
+  {
+    "path": "Docs/Validation/ValdoriaGround12/Original/relief-upper-final.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "state": "final",
+    "comparison": "relief-upper",
+    "camera": {
+      "position": "(35.00, 36.00, -10.00)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 910,
+    "framesAfterCameraChange": 217
+  },
+  {
+    "path": "Docs/Validation/ValdoriaGround12/Original/water-bank-final.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "state": "final",
+    "comparison": "water-bank",
+    "camera": {
+      "position": "(10.00, 23.00, -10.00)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 1193,
+    "framesAfterCameraChange": 184
+  },
+  {
+    "path": "Docs/Validation/ValdoriaGround12/Original/second-area-final.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "state": "final",
+    "comparison": "second-area",
+    "camera": {
+      "position": "(18.00, 28.00, -10.00)",
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 1480,
+    "framesAfterCameraChange": 191
+  },
+  {
+    "path": "Docs/Validation/ValdoriaGround12/Original/historical-tree-final.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "state": "final",
+    "comparison": "historical-tree",
+    "camera": {
+      "position": "(49.00, 9.00, -10.00)",
+      "ortho": 7.03125,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 1701,
+    "framesAfterCameraChange": 190
+  }
+]

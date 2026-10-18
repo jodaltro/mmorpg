@@ -5,6 +5,11 @@ description: Editar, inspecionar, exportar e validar fontes .aseprite, pixel art
 
 # Pixel art local do MMORPG — Aseprite existente
 
+## Ground12 — direção vigente
+
+Construções07R/08/09, árvores/rochas Nature10 e terreno/estradas Ground11 estão aprovados nos respectivos registros. Ground12 é candidato: ler `Docs/Art/EnvironmentConsolidation12.md`, `Docs/Art/Approvals/Ground12-References-2026-10-18.json` e `Docs/Art/VisualReviewEvidence.md`. Preservar os pixels aprovados; consumir âncoras/fronteiras/footprints existentes. Não alterar física, navegação ou cena oficial nesta rodada. Evidências importantes exigem originais e ReviewLite≤750KiB, manifestos e recuperação remota separada da inspeção visual. Declarações históricas de aprovação pendente abaixo não substituem esses registros.
+
+
 Esta é a **skill já versionada no projeto**; funciona com qualquer agente capaz de ler arquivos e executar comandos locais, inclusive DeepSeek Harness. **Não requer plugin Aseprite separado nem MCP**. Um Harness que não faça descoberta automática deve ler este arquivo explicitamente antes de qualquer tarefa: `Leia .agents/skills/aseprite-pixel-art/SKILL.md e siga as instruções`. Não alegar que a descoberta, a instalação ou a execução local já foram verificadas.
 
 Trabalhar na raiz `D:\unity\Mmorpg`. Antes de qualquer mudança artística, ler `AGENTS.md`, `Docs/Art/AsepriteWorkflow.md` e, conforme o alvo, `Docs/Art/HumanoidStandard.md`, `Docs/Art/ProceduralWeapons.md`, `Docs/Validation/Marco06B13R10Consolidado.md` ou os contratos históricos citados adiante.

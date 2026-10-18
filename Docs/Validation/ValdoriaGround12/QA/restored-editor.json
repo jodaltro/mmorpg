@@ -1,0 +1,22 @@
+{
+  "output": null,
+  "diagnostics": [],
+  "success": true,
+  "result": {
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+    "dirty": false,
+    "playing": false,
+    "timeScale": 1,
+    "syntheticDevices": 0,
+    "keyboards": [
+      {
+        "name": "Keyboard",
+        "enabled": true
+      }
+    ],
+    "background": "ResetAndDisableNonBackgroundDevices",
+    "editorInput": "PointersAndKeyboardsRespectGameViewFocus",
+    "temporaryResolution": false,
+    "profile": null
+  }
+}

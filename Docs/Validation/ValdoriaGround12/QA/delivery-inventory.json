@@ -1,0 +1,3881 @@
+{
+  "schema": "valdoria-delivery-inventory/v1",
+  "baseline": "3b6d11ce9e0d9512c1915980a045e131405a2f1c",
+  "excludedPublicationRecords": [
+    "Docs/Validation/ValdoriaGround12/QA/image-manifest.json",
+    "Docs/Validation/ValdoriaGround12/QA/github-accessibility.json",
+    "Docs/Validation/ValdoriaGround12/QA/delivery-inventory.json"
+  ],
+  "files": [
+    {
+      "path": ".agents/skills/aseprite-pixel-art/SKILL.md",
+      "gitBlob": "e10c416341b89a81b0146180db148e157f011b77",
+      "worktreeBytes": 11691
+    },
+    {
+      "path": ".agents/skills/environment-vegetation/SKILL.md",
+      "gitBlob": "566c915ec9d05eaa82217fafd401c8943783549e",
+      "worktreeBytes": 6853
+    },
+    {
+      "path": ".agents/skills/terrain-materials/SKILL.md",
+      "gitBlob": "f47c4cc5f9379f77b85c8e4cee91c7bb5e55f88b",
+      "worktreeBytes": 11565
+    },
+    {
+      "path": ".agents/skills/world-hydrology/SKILL.md",
+      "gitBlob": "841f99d39762193c19e7905be299bb885b522944",
+      "worktreeBytes": 7219
+    },
+    {
+      "path": ".gitattributes",
+      "gitBlob": "e92e10c8c70bb613ba09ab49c95920a55d93a2e7",
+      "worktreeBytes": 1876
+    },
+    {
+      "path": "AGENTS.md",
+      "gitBlob": "79f28a61e66be9f7579419d5be07b20c35f4032f",
+      "worktreeBytes": 17535
+    },
+    {
+      "path": "AgentScripts/BuildGround12.cs",
+      "gitBlob": "c421d5e0fd8b1115c4b83ac1b63394db7518642a",
+      "worktreeBytes": 101
+    },
+    {
+      "path": "AgentScripts/CaptureGround12.cs",
+      "gitBlob": "e30fb0da4ae2c042616b7bd76d7cd304a61c6c41",
+      "worktreeBytes": 2646
+    },
+    {
+      "path": "AgentScripts/InspectEnvironment12.cs",
+      "gitBlob": "0a63d97dbdff5a1f4abbaa25653974bc8cf4314a",
+      "worktreeBytes": 4819
+    },
+    {
+      "path": "AgentScripts/InspectGround12.cs",
+      "gitBlob": "7f21a7f3cb14933d6fb46c8edc9f95769bd5fc3b",
+      "worktreeBytes": 1521
+    },
+    {
+      "path": "AgentScripts/ValidateGround12.cs",
+      "gitBlob": "512804cbf8ac9e899f060256b1f57158c739bbf6",
+      "worktreeBytes": 13735
+    },
+    {
+      "path": "AgentScripts/ValidateGround12Prefabs.cs",
+      "gitBlob": "d0fe7790630f0b17954b7d8fe6384fdf1dc7eb98",
+      "worktreeBytes": 1185
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/bank-influence.png",
+      "gitBlob": "18cea3093d15145f854f7ee8d60eb4c50cadfe26",
+      "worktreeBytes": 15874,
+      "sha256": "ab6bdaac03902c74d8dfbdee3f74eb5a4dc8d0ae12e7a36d3dd89289cab5323a"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/composition.json",
+      "gitBlob": "bc45728509a2d6568eea5b1ab2e7ad47f0252145",
+      "worktreeBytes": 1163,
+      "sha256": "780100deeb11cc0b56f2b7d51a03c100fc304ca0282ac35f74e8f096113df33e"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/ground-bank.png",
+      "gitBlob": "43bca4c30bf3448ba479c05d9ecc25dcaa34aeea",
+      "worktreeBytes": 6704231,
+      "sha256": "6c717d2aad0b5806287191b939b587b40ada087fb35989f7ecd49e23e17de346"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/manifest.json",
+      "gitBlob": "6d6c49b514fd07e2c37e38907943f5bdc5b9e221",
+      "worktreeBytes": 3399,
+      "sha256": "c4e5e2b98ad181efcd12b93f479d8374861983e5fc941e64efd16e82514079d1"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/relief-face.png",
+      "gitBlob": "1f131c8e31c7cccf5bda59b1a623f92bc5805d9d",
+      "worktreeBytes": 8408520,
+      "sha256": "500a09a00e73cd8101729795a910d5f27978f24dd9d8aacb8dfc93ad28336a1e"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/relief-top.png",
+      "gitBlob": "edd76bed54aa4e6ca1a5e2ae56c79c78446f0cde",
+      "worktreeBytes": 8308141,
+      "sha256": "d8d3de4fb17410018d73fbf1ed17d23ed6762fad2dc50188cf2b8f18c8cd6fca"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-2-f0.png",
+      "gitBlob": "84b5b000498378e632bab4f11df84501e3791799",
+      "worktreeBytes": 8326,
+      "sha256": "c84ea17ef3b954ac989aa6184de0a12c290b8c665c4e54d6d9254afe1c5461c0"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-2-f1.png",
+      "gitBlob": "b028ba9a5d26f187f493e83d804df6eaddced2fc",
+      "worktreeBytes": 8323,
+      "sha256": "a9a46b9096aff151a4a39c40af221b02bf2695819855a842bc2de6db71ebbeab"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-2-f2.png",
+      "gitBlob": "76f8dd808a05890a9456127b476a69f95737f6c6",
+      "worktreeBytes": 8331,
+      "sha256": "1807e8839a2db9c58915450434e9ea63e674a68ea2d1e1c97ba40650b1278d94"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-2-f3.png",
+      "gitBlob": "b685b447ed950db996518d95615f9255ea55cfc2",
+      "worktreeBytes": 8332,
+      "sha256": "5ad5151f0d8677f070132a1d73176e04a359ad87a27c6d0b55a0f3a522f35536"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-3-f0.png",
+      "gitBlob": "47630e4ebfe2d1886f67a8b855e9f4afe4da54d4",
+      "worktreeBytes": 13993,
+      "sha256": "8c5da15157bc1bae71eb5df0c0a27479c12299f7dd8802ed8df7f03a5110db94"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-3-f1.png",
+      "gitBlob": "d01df4a6984d8a0550c656b4d841176fdb30fc76",
+      "worktreeBytes": 14000,
+      "sha256": "f8374b5f06e9e0f58b7e3542b4110bf6a23abc5431e45c4422e304622c5e7065"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-3-f2.png",
+      "gitBlob": "8e69c09e464628808de5bf8c8756e698d1442f61",
+      "worktreeBytes": 13989,
+      "sha256": "2e91d69329ebc24b0d03b3e1a619a6275b02f9dbbf1c478c0ccedb986d9fb986"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-0-3-f3.png",
+      "gitBlob": "b9108c10b81fab5edaa84b374d69b9b193a5119c",
+      "worktreeBytes": 13986,
+      "sha256": "40cd60b128cb19e3c5f2586f245bf616625ff91a1c91d1586f73101d179848b3"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-2-f0.png",
+      "gitBlob": "9fe3b7f34a4174e1b02fe6df1688dd046c1f0e09",
+      "worktreeBytes": 3028,
+      "sha256": "11d1e9ac5ff656316448a9935acfe48fbdb007a5bc1b5fec9a218fde589555a6"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-2-f1.png",
+      "gitBlob": "9fe3b7f34a4174e1b02fe6df1688dd046c1f0e09",
+      "worktreeBytes": 3028,
+      "sha256": "11d1e9ac5ff656316448a9935acfe48fbdb007a5bc1b5fec9a218fde589555a6"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-2-f2.png",
+      "gitBlob": "9fe3b7f34a4174e1b02fe6df1688dd046c1f0e09",
+      "worktreeBytes": 3028,
+      "sha256": "11d1e9ac5ff656316448a9935acfe48fbdb007a5bc1b5fec9a218fde589555a6"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-2-f3.png",
+      "gitBlob": "9fe3b7f34a4174e1b02fe6df1688dd046c1f0e09",
+      "worktreeBytes": 3028,
+      "sha256": "11d1e9ac5ff656316448a9935acfe48fbdb007a5bc1b5fec9a218fde589555a6"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-3-f0.png",
+      "gitBlob": "e2f19fa74faa69f7bf55bd8f28cfae0161e5c922",
+      "worktreeBytes": 15329,
+      "sha256": "21f11c84561f99ae225af0f1861f8f1a89b2d0e1b11c5532b3fe62657d3223f3"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-3-f1.png",
+      "gitBlob": "c3d8fb4e3fce2414b99b8c0930ab014797bfad7e",
+      "worktreeBytes": 15315,
+      "sha256": "56c9e881ea3a790f709fbfb4c94acf16b0f87374f6f950702b3b295482be1e20"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-3-f2.png",
+      "gitBlob": "4b7874ddb66e904881e37052d561a14bdc9a7031",
+      "worktreeBytes": 15320,
+      "sha256": "f4c504f1f7779c4ff4ded809b1c66eb8850f3d4773027323f45eec0136faa92a"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-1-3-f3.png",
+      "gitBlob": "a76976cd31c3f2ba52ac8efacdf0b2885d8b7e5d",
+      "worktreeBytes": 15322,
+      "sha256": "9102a9941dd0795b02965ce891e31df96fc6c478a254d0b2cd7503781d9b67e4"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-2-f0.png",
+      "gitBlob": "e4893a95af3c4598ebbf41fd04d3502d918e63e9",
+      "worktreeBytes": 3578,
+      "sha256": "d1eb21d1f434a5abefc6c7e874684bc011bbf0c79eb027230c0747a239091cef"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-2-f1.png",
+      "gitBlob": "e4893a95af3c4598ebbf41fd04d3502d918e63e9",
+      "worktreeBytes": 3578,
+      "sha256": "d1eb21d1f434a5abefc6c7e874684bc011bbf0c79eb027230c0747a239091cef"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-2-f2.png",
+      "gitBlob": "e4893a95af3c4598ebbf41fd04d3502d918e63e9",
+      "worktreeBytes": 3578,
+      "sha256": "d1eb21d1f434a5abefc6c7e874684bc011bbf0c79eb027230c0747a239091cef"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-2-f3.png",
+      "gitBlob": "e4893a95af3c4598ebbf41fd04d3502d918e63e9",
+      "worktreeBytes": 3578,
+      "sha256": "d1eb21d1f434a5abefc6c7e874684bc011bbf0c79eb027230c0747a239091cef"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-3-f0.png",
+      "gitBlob": "a7b1f31ec18c5c33e69ce0dd200fce13e72e09d6",
+      "worktreeBytes": 4214,
+      "sha256": "82d43db5d7e46c41bec87f5cdf93d32c11e1bb3e83bc00ac8a37940a4033904e"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-3-f1.png",
+      "gitBlob": "3c306f34436ca494ebac2c5762371c711c4a7fe6",
+      "worktreeBytes": 4217,
+      "sha256": "ec88916ea6c6625748db46dae5129ade1d915ffba26b922a4518d1e099ce7117"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-3-f2.png",
+      "gitBlob": "7b369ffa0b48c49e258737b83385622a9e14bcdd",
+      "worktreeBytes": 4211,
+      "sha256": "277887e4ef12b8810c0b981d713a52408a4a8ac2b97e621e5ba937303211e178"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV1/water-2-3-f3.png",
+      "gitBlob": "7b369ffa0b48c49e258737b83385622a9e14bcdd",
+      "worktreeBytes": 4211,
+      "sha256": "277887e4ef12b8810c0b981d713a52408a4a8ac2b97e621e5ba937303211e178"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/bank-influence.png",
+      "gitBlob": "18cea3093d15145f854f7ee8d60eb4c50cadfe26",
+      "worktreeBytes": 15874,
+      "sha256": "ab6bdaac03902c74d8dfbdee3f74eb5a4dc8d0ae12e7a36d3dd89289cab5323a"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/composition.json",
+      "gitBlob": "bc45728509a2d6568eea5b1ab2e7ad47f0252145",
+      "worktreeBytes": 1163,
+      "sha256": "780100deeb11cc0b56f2b7d51a03c100fc304ca0282ac35f74e8f096113df33e"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/ground-bank.png",
+      "gitBlob": "43bca4c30bf3448ba479c05d9ecc25dcaa34aeea",
+      "worktreeBytes": 6704231,
+      "sha256": "6c717d2aad0b5806287191b939b587b40ada087fb35989f7ecd49e23e17de346"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/manifest.json",
+      "gitBlob": "4d0e4a6aada3032dfd0432dfcd88cbe25cf6fdd7",
+      "worktreeBytes": 3387,
+      "sha256": "dfb038485f45bc18aaf586e405da37c0fb9d3963ccfa9b7d46e0e9877a57c499"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/relief-face.png",
+      "gitBlob": "1f131c8e31c7cccf5bda59b1a623f92bc5805d9d",
+      "worktreeBytes": 8408520,
+      "sha256": "500a09a00e73cd8101729795a910d5f27978f24dd9d8aacb8dfc93ad28336a1e"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/relief-top.png",
+      "gitBlob": "705d39bcf637f31c6fd2706f59084a53a9588e08",
+      "worktreeBytes": 8368895,
+      "sha256": "188bf1103427e405d71c4824d56a543430de78f25958f7e3611c5f0992c0b645"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-2-f0.png",
+      "gitBlob": "c531e83b71ee361e6d5f4bb90a99a43bb2b039b7",
+      "worktreeBytes": 9834,
+      "sha256": "a577eb52ea3b7979a50645d318b31bf61661c63ad4f96ab9baca5478d2fd4418"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-2-f1.png",
+      "gitBlob": "5e48f85342ae0ca22801a6368e2be2a4b2c232d7",
+      "worktreeBytes": 9837,
+      "sha256": "7e66de5179c2e996f2222008cc5fb6ca520a61fa3aa0c1edd1bc3dfe7754b1ce"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-2-f2.png",
+      "gitBlob": "bea9f1835cbc2cb61fd139b5de32e84b5fb14cfc",
+      "worktreeBytes": 9845,
+      "sha256": "c548f82b6a5b94cb49d3e8f484b342e4c41f2368a51b278595790e282f272ff1"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-2-f3.png",
+      "gitBlob": "ee4e5119e896d5564a794b3c2359a64b4a2d2e22",
+      "worktreeBytes": 9853,
+      "sha256": "ee3030a058ccfc12d78cdf44eecd2ddf1c8faf70e9cf98d7fa40fa8f2b632d60"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-3-f0.png",
+      "gitBlob": "3c2c5b796a590fa5d16516c8250ff69a5e9ae307",
+      "worktreeBytes": 18327,
+      "sha256": "94640a9c9895eee15c3715c5129277e0d3b4522eae2b6b89a8bed856a873e05f"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-3-f1.png",
+      "gitBlob": "bc489ed596ace659c49ced98f2501053ea751855",
+      "worktreeBytes": 18318,
+      "sha256": "49490833da4881e1764d75c59101275fb448873149bfe0753358f8f94adf203b"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-3-f2.png",
+      "gitBlob": "534d8610415473a14e398ae7a3c892482abb605b",
+      "worktreeBytes": 18336,
+      "sha256": "79b8b304de9f4cd025c4730dae01a9047390986d497204bfd42371fa4d1fa398"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-0-3-f3.png",
+      "gitBlob": "3904004c7ce8b21a2c59b3064caaa0692f610f3a",
+      "worktreeBytes": 18323,
+      "sha256": "eaea3bcafde62bab0c204a6fe2d452204f97f18a4d86279f5ff99486aa11ffee"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-2-f0.png",
+      "gitBlob": "f315bef81e4bfa2fb36ec2449dc61c956c993f15",
+      "worktreeBytes": 3088,
+      "sha256": "5396486d7c4e3ab0d5a8f9ab56d7df78513866971ef5fdae1f12fd827dee8d33"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-2-f1.png",
+      "gitBlob": "fd1ff48c4bf33a6540cfe309351a330afd5c5626",
+      "worktreeBytes": 3084,
+      "sha256": "3f001ee9d66a1e385c45b03ee77b7ffb40b9b98c7d4cd7c96e929df1cca5b50f"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-2-f2.png",
+      "gitBlob": "82c79e0252a67264546f32a27aa5a5ac58e45cc7",
+      "worktreeBytes": 3076,
+      "sha256": "8e010ae2a61c789aa117acdd75d32ee1370ceaa77be31bbcdb054efdc515aa04"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-2-f3.png",
+      "gitBlob": "adc056ebfd0c4872cb5595307316cb36f9e24e09",
+      "worktreeBytes": 3082,
+      "sha256": "0b06d7fd4f5f1c276e71b6d7f5be82f3d1f3cbccac537fdcf86e46ddce7c3125"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-3-f0.png",
+      "gitBlob": "c3f3a8d0e1be8b31cfb2f98bfaa9ff0ac45cd235",
+      "worktreeBytes": 17959,
+      "sha256": "e4155532fa93bc2f3ca4fe7f43e8d07fe521230a5260e0e5a84fd2dce4c4a233"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-3-f1.png",
+      "gitBlob": "03f969e8dc72b5cb9a625ecedf9ba14b7e8e5c5d",
+      "worktreeBytes": 17976,
+      "sha256": "075bd5249f3760590d00122f0ff667693d34a431e33123ec264f9e3cbbb0f331"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-3-f2.png",
+      "gitBlob": "c21676df6dd591feb91647c635bb39e1907283fa",
+      "worktreeBytes": 17948,
+      "sha256": "5f1d12be69bbf2970fba53b5ac9574b417560d90c11f7b2db8f7744e866b01a9"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-1-3-f3.png",
+      "gitBlob": "8d858efb967ffea217247be84ae26e2cc48ce90e",
+      "worktreeBytes": 17974,
+      "sha256": "37177fef71649b08de0986daa52de5ba55a5c4afde3e17fc9ebee3ccca3a17ec"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-2-f0.png",
+      "gitBlob": "8102f34442a20dbf14070dbcb52705051bed66d1",
+      "worktreeBytes": 3967,
+      "sha256": "67ccb096f744ed6bce6012e11f39efc765778ff0da67e07b8ab6028fa3d72a57"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-2-f1.png",
+      "gitBlob": "5480222dcfbc7fbae33b8d052864b359502f1a0b",
+      "worktreeBytes": 3966,
+      "sha256": "5b68829d4c59666be2496cf9b36f49e46a5269159ac427359a4083d4d5e50971"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-2-f2.png",
+      "gitBlob": "2d150d603f2dc3db7e4b1ee09d189357ddd6593f",
+      "worktreeBytes": 3963,
+      "sha256": "e87bdd55369deed06fad5b078c685bf7bf3ccece569842f8d12912fe9a6d5cd9"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-2-f3.png",
+      "gitBlob": "b30452cc9e3dcbc2ed5f8bc110d97641854d3a6a",
+      "worktreeBytes": 3972,
+      "sha256": "8805e112991ddbb748c6fd3290cd2f6dfc4cf8c0052b71289e1b93ddea3a42a7"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-3-f0.png",
+      "gitBlob": "b668020ffd46105880c16a0653cef8fc01d67f29",
+      "worktreeBytes": 5016,
+      "sha256": "25c4191c2557ff9a78839586d87505e5401d91d4f398aed9396e3c0c6b7223ec"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-3-f1.png",
+      "gitBlob": "d3b9730b7004bc4e3c97501395a55e2807f269da",
+      "worktreeBytes": 5010,
+      "sha256": "7612fb1d8602eeba1d32303453b5ea1dfbba4d55a9773c9fa72aae30c5e5b7f0"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-3-f2.png",
+      "gitBlob": "1a01a44753d4ef339253ce275cd4a7a77c6367b1",
+      "worktreeBytes": 5014,
+      "sha256": "74e5e5791d5fea694a0be33ffe7b0ed81a6d72973a12970b35dc6a8e0f0bf333"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/BuildV2/water-2-3-f3.png",
+      "gitBlob": "e06eec9ddebd72884c2190e70bbc67dfa59cce2c",
+      "worktreeBytes": 5010,
+      "sha256": "d5676d03c196c82e9439ada06941fe35d612c3ce0994c291b0022a5228c68fd4"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/elm-vase-body.png",
+      "gitBlob": "5553a6f885b5e2bbaaa31bbdcc3b55837135238f",
+      "worktreeBytes": 84949,
+      "sha256": "400a7da27d8b1f19917d3ba13d3f478292cd38cc64a185ad307ee4c9616865c1"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/elm-vase-shadow.png",
+      "gitBlob": "4de33a32ce2fa1f84436c9333e44b00be1d113fd",
+      "worktreeBytes": 552,
+      "sha256": "36b6a18be688d52f24e917a77c5d4a6947f84ada6fba066ed9c6ffc6fd4cb6b8"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/elm-vase.png",
+      "gitBlob": "23ea4b7fc5ec94fc53621c8a18df0e1c015114c2",
+      "worktreeBytes": 85116,
+      "sha256": "480fce06641a69617bb03b218576dc3fb5f377d9602c4470c6cf095bedf12797"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/export.lua",
+      "gitBlob": "4b1bce26aafcca7742928d8057805876d68b778b",
+      "worktreeBytes": 4035,
+      "sha256": "29fc7c86539c9a79076f1b98cb7d65d78803187bd3bf10508edd373ca366b01c"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/fern-0-body.png",
+      "gitBlob": "3b9348c84ddaee34712f8da6565ca8a1f0146f40",
+      "worktreeBytes": 711,
+      "sha256": "b1046c07fec5a2ec6b1d2b4232956ee690869efa5b2d820e3457cee86e6932a3"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/fern-0-shadow.png",
+      "gitBlob": "403962102b50146e8326f23aba66812bb0b375fd",
+      "worktreeBytes": 110,
+      "sha256": "6ecc7b454aaf53907aa220ccd8fd7aa1a4fc6be93e05d64e7cc21c9048d8ac2c"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/fern-0.png",
+      "gitBlob": "3b9348c84ddaee34712f8da6565ca8a1f0146f40",
+      "worktreeBytes": 711,
+      "sha256": "b1046c07fec5a2ec6b1d2b4232956ee690869efa5b2d820e3457cee86e6932a3"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/fern-1-body.png",
+      "gitBlob": "df4450164c74ce4536ad7379bc752c14927be326",
+      "worktreeBytes": 724,
+      "sha256": "e217668dab749e6b42674ac421ad05b1f2adb464ae64aee26d6eacd80c167799"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/fern-1-shadow.png",
+      "gitBlob": "403962102b50146e8326f23aba66812bb0b375fd",
+      "worktreeBytes": 110,
+      "sha256": "6ecc7b454aaf53907aa220ccd8fd7aa1a4fc6be93e05d64e7cc21c9048d8ac2c"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/fern-1.png",
+      "gitBlob": "df4450164c74ce4536ad7379bc752c14927be326",
+      "worktreeBytes": 724,
+      "sha256": "e217668dab749e6b42674ac421ad05b1f2adb464ae64aee26d6eacd80c167799"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/hazel-layered-body.png",
+      "gitBlob": "f4006e94206486bdffff5fa26d9148f5babb7347",
+      "worktreeBytes": 11982,
+      "sha256": "3fb032646a54ec1ad407f749063fe949ba85a6ef97b6f4096ad74e238476c8e5"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/hazel-layered-shadow.png",
+      "gitBlob": "dd170c9dcbde24cfc7b916903b1b5ca325f16308",
+      "worktreeBytes": 208,
+      "sha256": "19aa4372e26f74fa25a6e9aba5010d01f147cb874818392b1b7a361a021c020a"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/hazel-layered.png",
+      "gitBlob": "73a9e37dc06d3f46ac67e02e9bd5dfbcaa028eda",
+      "worktreeBytes": 12045,
+      "sha256": "c450c639c287ef965ae2eba96815ae8bd8577a80fbfe90dbf735ff6178a6899d"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/hornbeam-open-body.png",
+      "gitBlob": "7b70a2df8b80e3c4988fe090caa5c52440ed5e48",
+      "worktreeBytes": 109382,
+      "sha256": "f36b01a98a4c70f1eab64e2c56906533d23236b5dfdc7bb8661dd9caaaca8109"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/hornbeam-open-shadow.png",
+      "gitBlob": "1e5c97fdbd76636b24ed2e61f34887a7b5896ba7",
+      "worktreeBytes": 604,
+      "sha256": "790aa58a142aa7c14af8b46ea6ded464e34277556d55d70f93edb52d14cf11a0"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/hornbeam-open.png",
+      "gitBlob": "fa5769f0589bb06942c492ec8304ebf570ea701f",
+      "worktreeBytes": 109564,
+      "sha256": "0e0cf28ef61fc1e8800a916c91a5dcac26123e0e7f55bbc382ccfa1135925d9c"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/manifest.json",
+      "gitBlob": "6a79dcd84f532c50fd9c893f5f3ae05c2f6bdcfa",
+      "worktreeBytes": 3836,
+      "sha256": "b71a5f4ce8ac98813d55129336dc49991eac97a71137fb1017e5afa6159f8c53"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/reeds-open-body.png",
+      "gitBlob": "1626fda86b3bbb56c6aa88b38c85f6d70f04b1f2",
+      "worktreeBytes": 3922,
+      "sha256": "9e78cbd2bef7b57fb7b1064d0270e6f21f14220e5ae73358eb0ee4a4916a3ebf"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/reeds-open-shadow.png",
+      "gitBlob": "795857500d25981ecbedec72f359b2936790a88f",
+      "worktreeBytes": 193,
+      "sha256": "fc9e318967600ec4207b5d547dca6d1d6dde37057ed015d9d8226b525878b5f9"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/reeds-open.png",
+      "gitBlob": "e2a6def45ab6aeae9c7ca41d668e0cbc75b4b334",
+      "worktreeBytes": 3973,
+      "sha256": "ecf1ec75b82c20be3b7f0697c62d02fb53450993652f557624ab180d72890118"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/sandstone-planes.png",
+      "gitBlob": "3d4e043c688c8a2d6d4eb5592e12a60c951e2100",
+      "worktreeBytes": 379994,
+      "sha256": "4d30f2b20b109940cba98d0582e41a810013421eaa539b6814109d0e69d84d3e"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/sprites.json",
+      "gitBlob": "fd28bd5309e97c20de88e7cbfb15e6d746e096aa",
+      "worktreeBytes": 2628,
+      "sha256": "dc9ea73163dbc2457c7187d2a9410be6b50096c4a9fad3dfadfd0db63b1ab50f"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/water-accents-0.png",
+      "gitBlob": "f4af7602f2deb861ddd37a56c43a0e7862a33c8b",
+      "worktreeBytes": 162,
+      "sha256": "e78432d981244b4607e2b89d48ac238742ef05093087c71b37b7e947fd156d86"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/water-accents-1.png",
+      "gitBlob": "2f8eb66cf44b93b743c499f08d81cb270b888387",
+      "worktreeBytes": 162,
+      "sha256": "89fb9b38fbde9c9f87675f28ebe54cc20ae5025ab0a3481c6180dc1f060d6fd9"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/water-accents-2.png",
+      "gitBlob": "ab7915baea8ef8c47d193aeb59744ff4f65b8433",
+      "worktreeBytes": 162,
+      "sha256": "88af2e4887f9dc68a2e0bb319f3f3b450203623f2afd5e6d347978be4fee3aca"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/ExportV1/water-accents-3.png",
+      "gitBlob": "f0085ea7451be63fbb6526b34aa6251cf387f387",
+      "worktreeBytes": 162,
+      "sha256": "d9df8d89cd3188a081256d8c6e9a25a5402ca1701dfca80d24bc4c5860e08a76"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/Masters/elm-vase.png",
+      "gitBlob": "03b9d87d7220794a799e0a88eb4acf645dbc00eb",
+      "worktreeBytes": 1927479,
+      "sha256": "d801c3b3d13ce20d8a5c6a70e5de3001a507c66cfeeb97e5638d3ddf652c4fd4"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/Masters/hazel-layered.png",
+      "gitBlob": "65ac4dd38ff83cd54a42ba0b680722aa485da6e9",
+      "worktreeBytes": 1963366,
+      "sha256": "4139c09df888af4d5a517de3d3b5b9bfa967df2b84bf84ca0bdba4ee89830c33"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/Masters/hornbeam-open.png",
+      "gitBlob": "2f47cafa36e102f961d798ce6d3903d81ddc95bd",
+      "worktreeBytes": 2455160,
+      "sha256": "c9212327da96425ac50fb14f9535478e903dc417261d7451e0cbe39ea4c93450"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/Masters/reeds-open.png",
+      "gitBlob": "3e23568da608757b8f145965ab54b31429b27e5c",
+      "worktreeBytes": 868996,
+      "sha256": "85c892e887f83192fd5581004d8464bdc40fb57830bc9a1c8ca6bf23c5da8da0"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/Masters/sandstone-planes.png",
+      "gitBlob": "d1667916fdefa2d92a48baafc479b7a3d984b15d",
+      "worktreeBytes": 3498351,
+      "sha256": "8a4beec457fd2cbd560ebbe296c03ce6a9539b545cea9373802b1f48d7779996"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/elm-vase.aseprite",
+      "gitBlob": "af891dacda05c2e990d0cb17e39c707ba21bd1aa",
+      "worktreeBytes": 48385,
+      "sha256": "89c580593294b6c61a71ece392ea284de8b815995e002bdfc86fd6cd1359ba34"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/fern-0.aseprite",
+      "gitBlob": "6e43b1024730384f3acf51a591bed02424a772ce",
+      "worktreeBytes": 2050,
+      "sha256": "84bd8576c28573a1c11a39657bf64152ba071a9bbdf9fe5c3002463dcbdf0949"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/fern-1.aseprite",
+      "gitBlob": "f93164e3a3276f847b3d4595c1d0bcdebe5374f3",
+      "worktreeBytes": 1990,
+      "sha256": "64a0fe7b7d72465c17f8b52ffa6ef320bd7f05572fa3c0f2ea8daa00b915f08f"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/hazel-layered.aseprite",
+      "gitBlob": "603669e94df3972f615ae9aa9e8ac63145de28b0",
+      "worktreeBytes": 8708,
+      "sha256": "5135e2c8bb64a0c992aed7a1c21f9966e15023ab930f3ddafaa63dd980e13baa"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/hornbeam-open.aseprite",
+      "gitBlob": "5b241cd39513d79819fa553b8ee27e70abe3a97e",
+      "worktreeBytes": 60445,
+      "sha256": "013cbca063827cdcee76255c3187a96d601768a415e238ecaae492fe65861289"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/initial-authoring.lua",
+      "gitBlob": "477cb829c9d275df87fefe0fa064ab53bda865b9",
+      "worktreeBytes": 76036,
+      "sha256": "97e13e20022599fbc841ce6899074c06fb7b1138edab4ba3db42e3dd995232c6"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/reeds-open.aseprite",
+      "gitBlob": "cf01bf42042a9d7999e78b306815e298b758f796",
+      "worktreeBytes": 4006,
+      "sha256": "54ec819b57456e8dd41c87ce611d645436a7872e49f5c8e2f203412a551fde9d"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/sandstone-planes.aseprite",
+      "gitBlob": "c99a35eb8171f36300408dfa9993142c0c3ee488",
+      "worktreeBytes": 192816,
+      "sha256": "b182f69ed961e14e5ddbd0ff7fb103aed9910d8c4dcf3d71cb395640736ba918"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/source.json",
+      "gitBlob": "fd28bd5309e97c20de88e7cbfb15e6d746e096aa",
+      "worktreeBytes": 2628,
+      "sha256": "dc9ea73163dbc2457c7187d2a9410be6b50096c4a9fad3dfadfd0db63b1ab50f"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/SourceV1/water-accents.aseprite",
+      "gitBlob": "a6e6c6158fbeaf7fd40b70157f880f78962ea7bf",
+      "worktreeBytes": 2310,
+      "sha256": "a3a7cf2a4f0c752940a5fbae32f66357560ac60ed2973cf49eb0b6d32783c7f2"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/prompts.json",
+      "gitBlob": "26c12e1dc3faf67f74b79848b1fa8990c3f688af",
+      "worktreeBytes": 7028,
+      "sha256": "73e6b605995aacf4af89ffa62c29c63f07e2143c9ef2651cf40ef5d46b3325b3"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/recipe-iteration01.json",
+      "gitBlob": "aff8bd24227abcc10d3274c599548e1bbcf48060",
+      "worktreeBytes": 325,
+      "sha256": "680d72288b99e1ca7164a5f4dd6487689442e98a1cf9e34c094d0149c236b960"
+    },
+    {
+      "path": "ArtSource/Labs/World2026/Ground12/recipe.json",
+      "gitBlob": "58a700dc1e4c30ba4e7d5b93007af7763406c5bf",
+      "worktreeBytes": 526,
+      "sha256": "550191a56dafc51cc497d215c68f41719e205a4e53dfd569443eb3e9f653e8a2"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12.meta",
+      "gitBlob": "08fec88989a3585adacb31d0bb07b3ff2b61d355",
+      "worktreeBytes": 172
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-ground-shadows.asset",
+      "gitBlob": "9c621e3011e48b68b6908ce0884023fad1663d37",
+      "worktreeBytes": 24139
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-ground-shadows.asset.meta",
+      "gitBlob": "8dc89c53402adae0e86fa5eb1bc1fcb74b3810ca",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-10.asset",
+      "gitBlob": "c189d10059cbc24e065eec1f3d514476aec16925",
+      "worktreeBytes": 3826
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-10.asset.meta",
+      "gitBlob": "a261f40da3f00249e8f6fa8e199be3a1b8fba7c1",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-100.asset",
+      "gitBlob": "8de43c49dc5d80615043bac63a0cdbdc9acef62f",
+      "worktreeBytes": 4142
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-100.asset.meta",
+      "gitBlob": "b34c0c589a3fffb848058b6f478adf44d4f9f6be",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-102.asset",
+      "gitBlob": "8d79959eb04e8e3e202f0cf241d7b18d24be4c1b",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-102.asset.meta",
+      "gitBlob": "7cfdddbc01fc197e686fc08be75fa65fe7d88ac2",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-103.asset",
+      "gitBlob": "fcc1fcfe5abcb070569d09fbcc79080c321707d9",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-103.asset.meta",
+      "gitBlob": "4582942d92708229ae159d97d5de3b3c7ef29073",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-107.asset",
+      "gitBlob": "8b76034f74b65e1687777b1515b2f258f6120623",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-107.asset.meta",
+      "gitBlob": "e920d6a4f48d2dbbd16ea1d677334cc42f45d6ae",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-108.asset",
+      "gitBlob": "f3610e1969cbc6742fcee05bc635b85a4c0ccbea",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-108.asset.meta",
+      "gitBlob": "826c2aa0e3de3b39b65529af0229ee953a3174a3",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-109.asset",
+      "gitBlob": "681a0d501dbe1efa2fb6fae267eb8677cae84871",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-109.asset.meta",
+      "gitBlob": "d152ab2d72e8d2c9459de099191d40e60e203209",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-11.asset",
+      "gitBlob": "233fde0a8e8ffa9f7674fe065c06047b4a5b1726",
+      "worktreeBytes": 4147
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-11.asset.meta",
+      "gitBlob": "6ef24f9be087af3797cf648d2813d34f5b447841",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-110.asset",
+      "gitBlob": "987532071915ed11ee8c439ac59272bee9bd2864",
+      "worktreeBytes": 4144
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-110.asset.meta",
+      "gitBlob": "1a523e931d2786f07629e78544312b679dbf5264",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-112.asset",
+      "gitBlob": "ace439e5823263d49f89664011940d4ab3e57caf",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-112.asset.meta",
+      "gitBlob": "41e5ac4dee91f6cb3ce12412a1deb7690884b3db",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-113.asset",
+      "gitBlob": "a6a8bf8f1c9fbfdf82ae4dd807f0206f2785173e",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-113.asset.meta",
+      "gitBlob": "cfdc064e9451d375416cc2f5c579b5a4b1ccf682",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-114.asset",
+      "gitBlob": "60ea0057e2fabe9ed12440a87706e373698093e6",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-114.asset.meta",
+      "gitBlob": "775594d26f3d89cdf5b5710626d7bdb313ff4bd8",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-115.asset",
+      "gitBlob": "224f6a4e6444221bc2ce3899523d0573b621bdf1",
+      "worktreeBytes": 3825
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-115.asset.meta",
+      "gitBlob": "e5ee7be2558925d8f2c667ad1f938166a5cd1b97",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-118.asset",
+      "gitBlob": "fdd98d95e28b5a5a87ad1452a3b2fea591cf8c7f",
+      "worktreeBytes": 4452
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-118.asset.meta",
+      "gitBlob": "ccd82ab699d910fe8fe7d2b7e88dca8ea633e854",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-124.asset",
+      "gitBlob": "a2ef410598de55178671277733eced76332a1e13",
+      "worktreeBytes": 4468
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-124.asset.meta",
+      "gitBlob": "c0f5715cb7ef05d542134ff9bc3079ea2f11c7e0",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-126.asset",
+      "gitBlob": "fd5e51624100d7a20c6a4e164fa0b945500d35c8",
+      "worktreeBytes": 4452
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-126.asset.meta",
+      "gitBlob": "68c7c5140cb266e1d151af29b6a7cda6dc342f90",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-127.asset",
+      "gitBlob": "5bdbd874e8cd8c3fd3fbb1f19eb43a1f6ae73d0b",
+      "worktreeBytes": 4472
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-127.asset.meta",
+      "gitBlob": "1228788339cce2765c46e72414b9b15dd8b899a0",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-128.asset",
+      "gitBlob": "f0a3ee2d0ca6e8ee01a711db7b935fba941d7000",
+      "worktreeBytes": 3845
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-128.asset.meta",
+      "gitBlob": "a95519f7933ff841424adbae34a4776ee39743bf",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-132.asset",
+      "gitBlob": "3bf1ccfaca5927740ba4b7ddd253bb7c055f6a2b",
+      "worktreeBytes": 3833
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-132.asset.meta",
+      "gitBlob": "ba5a4e39f24fc7157952e04df1754005f29c6d47",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-133.asset",
+      "gitBlob": "a07756a03975e3d64418cf9d726853976dca03e6",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-133.asset.meta",
+      "gitBlob": "49fda4d2b9ea6e36f0074fc5a5e08e3f5308cb24",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-134.asset",
+      "gitBlob": "1a3ddb0d96f7ddf1b28ba0920106ba0425802f5f",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-134.asset.meta",
+      "gitBlob": "f567e3dacd8ca32be6298885f566929e4a11521e",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-135.asset",
+      "gitBlob": "f59d28db1a2e1039946000396cf76b70f76b7bb4",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-135.asset.meta",
+      "gitBlob": "5bc9a06846bfaba93c9ee755e7dc00e1477d1560",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-136.asset",
+      "gitBlob": "ce86f8b9faedd9af70ad773416b37f96cff44f47",
+      "worktreeBytes": 3829
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-136.asset.meta",
+      "gitBlob": "e65ab72425d8612e4abc36be0e524bc4206afea9",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-14.asset",
+      "gitBlob": "b04735f59dba4caef93a61e20fb93f794ca744c4",
+      "worktreeBytes": 3842
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-14.asset.meta",
+      "gitBlob": "cc6b795017a764e78795493183351a0f9cce3b8f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-142.asset",
+      "gitBlob": "29df0200df9ab6ff121547779452c2ac42edb1d1",
+      "worktreeBytes": 4464
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-142.asset.meta",
+      "gitBlob": "96afc561d913e385a3fa4711044fbbe1d8110899",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-143.asset",
+      "gitBlob": "cca03d0adfc84eb5fb190cf9c8c0af499129371c",
+      "worktreeBytes": 4148
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-143.asset.meta",
+      "gitBlob": "9dcedc84dcc1918fe86ac63c327958ba335ecbec",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-145.asset",
+      "gitBlob": "f7cb4a10e965c46b1064c21fec5bf7bcdd08787a",
+      "worktreeBytes": 3825
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-145.asset.meta",
+      "gitBlob": "5a375ee97ca75aa3538084bbbdd26c486ee6e17f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-146.asset",
+      "gitBlob": "261ebd87c65188b55803b3bb00599e3700742d52",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-146.asset.meta",
+      "gitBlob": "30f4829799e4e70a21c98b8fc6b9a889f55f4436",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-147.asset",
+      "gitBlob": "bc6d45b26629b888e05e8a6834f305c788390fac",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-147.asset.meta",
+      "gitBlob": "a679402d5c6e724b955f2a7838de45b4054baa7d",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-150.asset",
+      "gitBlob": "ed5e34f855d60a53a65613c9f664e695394712f1",
+      "worktreeBytes": 4148
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-150.asset.meta",
+      "gitBlob": "fc070229e7692339ce353871d843b0cb2711a479",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-152.asset",
+      "gitBlob": "e395a5b5d6402ccdbc36240f4c57730819c041f2",
+      "worktreeBytes": 4456
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-152.asset.meta",
+      "gitBlob": "fde35c7413edd2c04ec865a4f164aa0e29c08782",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-155.asset",
+      "gitBlob": "12da73d1dbeb7ad995abc55cbccc33678b62744a",
+      "worktreeBytes": 3845
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-155.asset.meta",
+      "gitBlob": "fee7976c4be2255900b7c603b96ed6191f49cc14",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-157.asset",
+      "gitBlob": "493003c6e550add25dec448316aa155c6bbe1d79",
+      "worktreeBytes": 3829
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-157.asset.meta",
+      "gitBlob": "33c4e9e5d20bbb6ca29dcd8b8b4d131bcb6bd440",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-161.asset",
+      "gitBlob": "58b3fdd04f677c06b677b598b9da16fb707538f9",
+      "worktreeBytes": 3829
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-161.asset.meta",
+      "gitBlob": "d1f306a949c71bb42f84b1d9ca3015182d7d6051",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-163.asset",
+      "gitBlob": "05104593a1d0c05f3d132b2041460c6c50e8b47c",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-163.asset.meta",
+      "gitBlob": "594121231a5b5b791a3f2a16427e8fc8696b2c60",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-164.asset",
+      "gitBlob": "bf691f887ac4ebcd3bb122e3162399ab35da0d4f",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-164.asset.meta",
+      "gitBlob": "932c3dcb269df44243b745ac2f8e9fdbef158603",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-165.asset",
+      "gitBlob": "c4e6bdbde64be71edf7ec63c0da75222708354ef",
+      "worktreeBytes": 3829
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-165.asset.meta",
+      "gitBlob": "78a8ac1c962465c926bc4b6249f1f884dc91cf35",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-167.asset",
+      "gitBlob": "490181de66e7dad0793ddcebefa4e9369f733322",
+      "worktreeBytes": 4776
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-167.asset.meta",
+      "gitBlob": "6c0bd6cf30b94b1fe755e4aaa9d85453ed1d5ad2",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-17.asset",
+      "gitBlob": "98688d546bc1d4b644878ba886d19f1c9a21bf93",
+      "worktreeBytes": 4143
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-17.asset.meta",
+      "gitBlob": "668f6fdfb2b96215b261ea50eac6f713c3cb9a96",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-171.asset",
+      "gitBlob": "d8d926b9908c8fcc0b819f8878c405c93a70c84c",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-171.asset.meta",
+      "gitBlob": "9ac5ee2e3107f2b6160eaecc00f11d8c0911c6c5",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-172.asset",
+      "gitBlob": "ae41e9ddd5a18a5af048b1af9b68d478d2663d42",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-172.asset.meta",
+      "gitBlob": "ffe759a61a08164f4c7cf605b3d0208c50005382",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-173.asset",
+      "gitBlob": "8518e02bdd848c423a669f4afe237399b51143d3",
+      "worktreeBytes": 4138
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-173.asset.meta",
+      "gitBlob": "bbeaf172a74e93fd396e58e0a5da1e077a288c41",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-174.asset",
+      "gitBlob": "73d7c13426474431acc2f0c3d245cb61930276eb",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-174.asset.meta",
+      "gitBlob": "67988cfae4cefdccda9686a1f974f7e0cc29f82b",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-185.asset",
+      "gitBlob": "6369fe52d63b9b0def644219d361f1b2f8cddfc5",
+      "worktreeBytes": 3825
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-185.asset.meta",
+      "gitBlob": "396acb1fdc2cf8d4f2f5a485446f21e6aea6641a",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-19.asset",
+      "gitBlob": "e31f59651826d7633f62dca5b1b56ae44acdd644",
+      "worktreeBytes": 3826
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-19.asset.meta",
+      "gitBlob": "1989d21f74ed3b14b7570c305d2c56514f72a879",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-190.asset",
+      "gitBlob": "e97127b5edb13d61a5684b0aee101c1079aa1f05",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-190.asset.meta",
+      "gitBlob": "2fceea38e117ecfd13db063d02b7201af114ab6d",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-20.asset",
+      "gitBlob": "a0f707add8fcc919c3bda60300401646234f1d42",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-20.asset.meta",
+      "gitBlob": "7a15746883c1d326fd0ce18442b778b309654389",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-22.asset",
+      "gitBlob": "cd5a19ebd50244a5df1a8e08e755152db0dd863d",
+      "worktreeBytes": 3826
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-22.asset.meta",
+      "gitBlob": "d0ebc0ca9b36c67d763594df20fba4203f824e9e",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-34.asset",
+      "gitBlob": "9982be6cbdc53de38c63c5be8455dd16d1a01cf4",
+      "worktreeBytes": 3822
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-34.asset.meta",
+      "gitBlob": "9764999fd79a206e4dd21dc894f5f65ff1223544",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-40.asset",
+      "gitBlob": "ee76324b561c37fccbe1669e35c6add86225d184",
+      "worktreeBytes": 3830
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-40.asset.meta",
+      "gitBlob": "d16125dc48cbaa0eeaa219c6b2f81527eb0be046",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-43.asset",
+      "gitBlob": "9e4fb26ef289ab1f91ca77ab15e7b61879188528",
+      "worktreeBytes": 4463
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-43.asset.meta",
+      "gitBlob": "28f3edeccdf35582cb9c147bf72ee4f8ef6c3f63",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-45.asset",
+      "gitBlob": "7e92d0e6638462bbb404db8148a2dfbb00b60d05",
+      "worktreeBytes": 3828
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-45.asset.meta",
+      "gitBlob": "a9fe51a6e5512dee9e43c37309ce11f3fcfd1b8a",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-54.asset",
+      "gitBlob": "0dcc75007dafd50e78cd5b71f8f3bdc96fdf6748",
+      "worktreeBytes": 4141
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-54.asset.meta",
+      "gitBlob": "110f68ffe0ae6fbadcff0b68269d595fe39f18d8",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-59.asset",
+      "gitBlob": "632064420280e32e312915920c7bcded69b5c6a9",
+      "worktreeBytes": 4139
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-59.asset.meta",
+      "gitBlob": "5b8295b06eacc57bcbefb7da134b7fd9db185630",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-66.asset",
+      "gitBlob": "8494d6a56abf4416af8dd61b6eff478ccf138567",
+      "worktreeBytes": 4147
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-66.asset.meta",
+      "gitBlob": "704013107e4598af859a48238166f91816481185",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-72.asset",
+      "gitBlob": "40fc319f5c79f1aedadf21c6e37a9d5ae0b0ccb8",
+      "worktreeBytes": 4149
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-72.asset.meta",
+      "gitBlob": "5be200b06eb504963c7974eb5f6261c4a633f909",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-96.asset",
+      "gitBlob": "34e14f788489ecc6dbd358eda6eb0fb195fb7118",
+      "worktreeBytes": 3828
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-96.asset.meta",
+      "gitBlob": "d2190f9824c6058cab50df493da21350bbdacf4f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-97.asset",
+      "gitBlob": "7078b9b9609cb42d9627571a9c7760c09acc131a",
+      "worktreeBytes": 3830
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-Vegetation09-low-row-97.asset.meta",
+      "gitBlob": "e251ecc9db6dc8695a5a0da831b8003a7eedd999",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-ground-shadows.asset",
+      "gitBlob": "b0363d5340815bbfedb66d01e2135f9af651f4cf",
+      "worktreeBytes": 3465
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-ground-shadows.asset.meta",
+      "gitBlob": "51137364c7045c5f104cd2d77d0b01e1c5e702e8",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-102.asset",
+      "gitBlob": "6d86397e703ae0c1a3f8166b718c59a8f5c03d9c",
+      "worktreeBytes": 3815
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-102.asset.meta",
+      "gitBlob": "af5211043ab37c2841604b0cbd5c139269a1530c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-103.asset",
+      "gitBlob": "3b58d5ab39bd8bcf368b84f3f0292b3e913f01e1",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-103.asset.meta",
+      "gitBlob": "942382888c27579d43494eb5013523fff57f5fbc",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-108.asset",
+      "gitBlob": "4ace47aeca842c3fc90d3b6182624d192792e617",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-108.asset.meta",
+      "gitBlob": "aa79b4c106888d1020a5f77079d18b1639be136d",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-110.asset",
+      "gitBlob": "2c286f5c37ab93adcff031f2b79f872490f11656",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-110.asset.meta",
+      "gitBlob": "9ed008512a3091059db4575e4f58e46a9f8fa5f2",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-111.asset",
+      "gitBlob": "c9b37f6e979f18fa9b54844e0fd9a3856152257c",
+      "worktreeBytes": 3811
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-111.asset.meta",
+      "gitBlob": "40016127690eb566a9ebae6c7f4cc768725bc899",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-112.asset",
+      "gitBlob": "3a6b384c165c886897dd8ff6b435c362266fea80",
+      "worktreeBytes": 3811
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-112.asset.meta",
+      "gitBlob": "f2f12ae6a7d76faf02b4e4557da62ffb1b3bc186",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-118.asset",
+      "gitBlob": "fbbe2d6244e1afa081d16ab5f428d236bb8e0955",
+      "worktreeBytes": 3811
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-118.asset.meta",
+      "gitBlob": "4d85b542f2d6b7dbf267810f079660c5e15ba117",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-119.asset",
+      "gitBlob": "db0f485ee92da000a47f40df2ff8b899d07933b2",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-119.asset.meta",
+      "gitBlob": "d7e1befb773d99930fbe77ed50c5dfd4c358beaa",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-120.asset",
+      "gitBlob": "931d066cef8c48f8c586b9f6a29ac9d521f2f0d3",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-120.asset.meta",
+      "gitBlob": "2a57e4fa9678fb93917180571232470b52aa515b",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-125.asset",
+      "gitBlob": "56c0ec6919f84d53ffa669b83875033c27d8a382",
+      "worktreeBytes": 3813
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-125.asset.meta",
+      "gitBlob": "b02a8fdf322f75d7de471a472e2dd0579d91ff7f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-126.asset",
+      "gitBlob": "7930cddb0f8db154d56db81eb0c42a9761f89aa6",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-126.asset.meta",
+      "gitBlob": "dc16907bb862945e1cec4cba4d6106eb5733f463",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-130.asset",
+      "gitBlob": "e9282dcf4c30f0539d12c924ef9a999e5f477067",
+      "worktreeBytes": 3815
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-130.asset.meta",
+      "gitBlob": "d347b6230e47cf64cd1c5b37ffe90915c4cb7e1d",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-131.asset",
+      "gitBlob": "de0b63f3791484faf0200db278348e99c135332d",
+      "worktreeBytes": 3815
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-131.asset.meta",
+      "gitBlob": "3abe7954f0998d7b7640db2e30f4de04c705f094",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-138.asset",
+      "gitBlob": "6b612aef42c8fa35f6cca1dffc28187474456026",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-138.asset.meta",
+      "gitBlob": "b794080142779ddd5416dfbcdad552b26a527624",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-139.asset",
+      "gitBlob": "e05bb4fa503e71a09be17e8332657fff6855f03f",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-139.asset.meta",
+      "gitBlob": "67830f1cc92e9691add14e65d568a90bd2bbac22",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-14.asset",
+      "gitBlob": "13dbf88e92cf3b8277347120e4992611348b6839",
+      "worktreeBytes": 3812
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-14.asset.meta",
+      "gitBlob": "f6f1e8471fda3ef0035a3220fdb7564eefca8439",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-140.asset",
+      "gitBlob": "9ae180b00b9ded5fcc997879857b41faee53ade2",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-140.asset.meta",
+      "gitBlob": "c143ea477903c2a7ea0d81b05b1ec9a92737c736",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-158.asset",
+      "gitBlob": "639653e9c7beea7485f5bbe6ed222a3886e6516a",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-158.asset.meta",
+      "gitBlob": "b326c3b0619864f1987a9719479b96c0059b22b0",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-161.asset",
+      "gitBlob": "e6b7eade1922f9dbfc8a2f92c9ab82bb6c3b901e",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-161.asset.meta",
+      "gitBlob": "2369365f91e0f712c33b9dbed33fbf249acd59ac",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-22.asset",
+      "gitBlob": "8d5fb326f9ee7e4b59760fbc6b6c2492f6d4cc1c",
+      "worktreeBytes": 3816
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-22.asset.meta",
+      "gitBlob": "bf13360b82e1c2bed34942adea8bb44e3240445c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-27.asset",
+      "gitBlob": "c2e88c7a928a4d109d6fa03c83bd55d2829ea94f",
+      "worktreeBytes": 3816
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-27.asset.meta",
+      "gitBlob": "c402ca6ca0a772c8a3fa8f96efb6b1bc3df6990f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-36.asset",
+      "gitBlob": "b9a4d16e4e9657e97162c871058baa7ba2e0620e",
+      "worktreeBytes": 3816
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-36.asset.meta",
+      "gitBlob": "bd959feba875fa4fdca1b37c9c8c396f351165ce",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-4.asset",
+      "gitBlob": "e37c977884e802de5fa6cb57ddd2360a280e926a",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-4.asset.meta",
+      "gitBlob": "93346436fe6128d89f26ffef6c6e6affb339ff34",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-6.asset",
+      "gitBlob": "178798766f8aa2ac9204bcbe67feeda50567c883",
+      "worktreeBytes": 4136
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-6.asset.meta",
+      "gitBlob": "d653d0fe8ef70d3bd1b8f768e5684d16274729ad",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-73.asset",
+      "gitBlob": "0e8c12eab01492407dd1e688a4f3025869a5109c",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-73.asset.meta",
+      "gitBlob": "0c84242a15db697d6b190a0e13fe94d545ac9e2b",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-78.asset",
+      "gitBlob": "fd50fb0b1867056da56be13b3640305a66b7a900",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-78.asset.meta",
+      "gitBlob": "19c8b5c9deda1873708e9faab6b396dcfcdcaa77",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-79.asset",
+      "gitBlob": "ae1ed6fad3f6c007187d84ff7cb4a19bd9b7fa5a",
+      "worktreeBytes": 3816
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-79.asset.meta",
+      "gitBlob": "91f50489121cb53ea4bf6ec2dded2798f96b9d44",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-84.asset",
+      "gitBlob": "62a1b27984716ca50da8ae8722ddaa9cabf0f359",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-84.asset.meta",
+      "gitBlob": "e86d97d27516dc16bbf996974731a344577b544c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-88.asset",
+      "gitBlob": "fa8e5ff483ff5d4def57176bca69703e0407d89e",
+      "worktreeBytes": 3814
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-88.asset.meta",
+      "gitBlob": "aa6ba0d01a62f2c06cc1605cc8e6f41593116bb9",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-9.asset",
+      "gitBlob": "6e64be3ac413f3b800e0d727fa6bc83f430784eb",
+      "worktreeBytes": 3809
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-9.asset.meta",
+      "gitBlob": "b062387123f06a0c9dddbf56e83a542fa3fe6978",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-90.asset",
+      "gitBlob": "5d7a4d2c8496ee90445aa4512a95046d86c510e6",
+      "worktreeBytes": 3814
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-90.asset.meta",
+      "gitBlob": "ede7505d9e37fd00700ec33e334f860854a627eb",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-94.asset",
+      "gitBlob": "2470491f0820a8e3e187e8d9a1b3b8106778fe4e",
+      "worktreeBytes": 3820
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-94.asset.meta",
+      "gitBlob": "3416411475590c0133febf44c639a937fb95b48c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-97.asset",
+      "gitBlob": "13dadf61a47cfb4c9ba872b00e0a92ead1bde3e3",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-97.asset.meta",
+      "gitBlob": "b5dcd92c845997eff9a37549f5955fdb7190b630",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-98.asset",
+      "gitBlob": "dca23701a37235760390bb965ccf94967311a9d5",
+      "worktreeBytes": 3814
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-0-low-row-98.asset.meta",
+      "gitBlob": "40774b83a80651fad7046adef982ad2949b25421",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-ground-shadows.asset",
+      "gitBlob": "2682934884843994e58e9fd76c1323f22aaa8ac5",
+      "worktreeBytes": 3465
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-ground-shadows.asset.meta",
+      "gitBlob": "146a8ba39274ee36189ce92ff8543ee8391e006a",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-102.asset",
+      "gitBlob": "ea4ddf251127e1701d5c1773b3fef6e56b9fe037",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-102.asset.meta",
+      "gitBlob": "79536afd1a74cb869e73f954e35631b6964dda7a",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-103.asset",
+      "gitBlob": "1407b24468db1403f9607b9c680ee8d5091f555c",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-103.asset.meta",
+      "gitBlob": "e0d01eb2e747f683500434a9147bdcc0e4a61e94",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-104.asset",
+      "gitBlob": "4472035ba6bd3cc3f960fd478668e0aae27e693a",
+      "worktreeBytes": 4144
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-104.asset.meta",
+      "gitBlob": "8f1af35e1bbb6a5930cc3eeae562796fda7504eb",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-111.asset",
+      "gitBlob": "b3b77a81648d0ea034080da16c1b3a7821e67795",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-111.asset.meta",
+      "gitBlob": "a0e02e127299f15814540bc13623c9872b0a50cd",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-114.asset",
+      "gitBlob": "6b4ec74db0fb02640d9c4ed9403ad7ea2db02b8c",
+      "worktreeBytes": 3807
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-114.asset.meta",
+      "gitBlob": "71562fd05c62fcb98d0ea71bd36d057afa316d47",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-131.asset",
+      "gitBlob": "10a4b7d9f56c1c87d974ddf52d801e02e3b6120d",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-131.asset.meta",
+      "gitBlob": "d4f30bc26dcf31933cdf80470d544600e105a5aa",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-138.asset",
+      "gitBlob": "9e0fd5a84cb8efd7332b3bf6d3a80412316a277e",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-138.asset.meta",
+      "gitBlob": "bbb8ecbd779d2216cc94c19b932c84ea61ffda8f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-149.asset",
+      "gitBlob": "1940d75f03315735e129b1596ae7ee2647b1ea4a",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-149.asset.meta",
+      "gitBlob": "ac7220838987046f31047bcd241c99034d819534",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-172.asset",
+      "gitBlob": "13dd488108af9fadd5f17fda6358c3f6c6b0372a",
+      "worktreeBytes": 3821
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-172.asset.meta",
+      "gitBlob": "27821393f7e76745ff73e03c86eb4887f7c9faa8",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-67.asset",
+      "gitBlob": "ccf5c5d6b74a4a181b08aeafceda5227afadc582",
+      "worktreeBytes": 3814
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-67.asset.meta",
+      "gitBlob": "645950262f840299bbd1b664d96a08ba1e4ee407",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-72.asset",
+      "gitBlob": "42731163aa76276d96ad678cc2854c241c28b7a3",
+      "worktreeBytes": 3816
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-72.asset.meta",
+      "gitBlob": "47ea9862a31b552b5c2faa7582831c261ac395e3",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-76.asset",
+      "gitBlob": "250bc4121a539c0e5d2439dee9eca51f379b0d77",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-76.asset.meta",
+      "gitBlob": "7234de0f37a553d77ed26c1e5da6ca01e3cba4e7",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-79.asset",
+      "gitBlob": "2375be2a703b969aebb531d8af5f1049070a4ee1",
+      "worktreeBytes": 3820
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-79.asset.meta",
+      "gitBlob": "9558d337cae680af1621f49371f7835ea63015b2",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-80.asset",
+      "gitBlob": "b4421f73544fefc9d45f6b9a1d83c069edefd2e0",
+      "worktreeBytes": 4135
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-80.asset.meta",
+      "gitBlob": "0e494a2ae7b67cc0acfea2afcf7f638ce29a53e4",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-91.asset",
+      "gitBlob": "65c571595c4874352ffa79d595ddaf848f97a6cd",
+      "worktreeBytes": 3814
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-91.asset.meta",
+      "gitBlob": "9117f595f17389cbede85e9f73b1e5de65a686c5",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-92.asset",
+      "gitBlob": "5348cfaea30e27e80484f4560d9af8a9f783a0ea",
+      "worktreeBytes": 3816
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-92.asset.meta",
+      "gitBlob": "ac7450489557812f737f1ce392d17b43ed778335",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-97.asset",
+      "gitBlob": "d7604aaf145c3ab0f14d38edbcc3e67f9142ab25",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-97.asset.meta",
+      "gitBlob": "57615e67f72859252a0852679ef7cb4371083d30",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-98.asset",
+      "gitBlob": "b1f0b6bcfef6ba6a0a7e0bbd228c12a369d136ed",
+      "worktreeBytes": 3818
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-98.asset.meta",
+      "gitBlob": "e028b6b1a24f2067a12fb5848723e8213ff23421",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-99.asset",
+      "gitBlob": "f84ea07aeb525c0b7ed4a3c8a7e121f2f6dce69c",
+      "worktreeBytes": 3814
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-fern-1-low-row-99.asset.meta",
+      "gitBlob": "f234105f28dbf3c9b13d8f8438a6038257c9267e",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-ground-shadows.asset",
+      "gitBlob": "09ef9f635f8a37da8434db5c894cfb2212fa7716",
+      "worktreeBytes": 3472
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-ground-shadows.asset.meta",
+      "gitBlob": "6204665b455bc01d3cc593d4efbba25fe8b5d6d6",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-100.asset",
+      "gitBlob": "34b8df899f762aef5090adfc25f54c1f5fadf031",
+      "worktreeBytes": 4465
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-100.asset.meta",
+      "gitBlob": "d32f40b4ef2dd92ca481e04d0988cdbc34f7aa62",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-106.asset",
+      "gitBlob": "a335b59b4addcb1a36d3a9b6e363fb501b16c610",
+      "worktreeBytes": 4457
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-106.asset.meta",
+      "gitBlob": "43fbea242d8e7ce24d039519a5a4cc9228fdd764",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-107.asset",
+      "gitBlob": "306f1b7d2a133e6aee9d88867f5276cbad9be407",
+      "worktreeBytes": 3834
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-107.asset.meta",
+      "gitBlob": "f6b2a4acaa802ec4755d16a51d823d6679fe5702",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-111.asset",
+      "gitBlob": "2b8527a8c530e474c41b91f03c549db4e84b587c",
+      "worktreeBytes": 3836
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-111.asset.meta",
+      "gitBlob": "9b4176756150367714a9f313eeff55a40990c307",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-114.asset",
+      "gitBlob": "3b085a16c09c4e3fc331cd3a715ecf58d8df5b52",
+      "worktreeBytes": 4161
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-114.asset.meta",
+      "gitBlob": "47f24acfab8c2daf95e2e5364b58953e2473fcbd",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-115.asset",
+      "gitBlob": "38f37b6e5ff603a23459e9f90bdb6ee8552ab147",
+      "worktreeBytes": 4155
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-115.asset.meta",
+      "gitBlob": "6ee7a17257e4d42683e63ddb0e885c540b9a903c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-120.asset",
+      "gitBlob": "8b69c3edfbf88706f1ae2c085387fc6c2e8c26fb",
+      "worktreeBytes": 3832
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-120.asset.meta",
+      "gitBlob": "50e94f23e47f6d5443fafa0a8a149e2796a9725e",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-125.asset",
+      "gitBlob": "7a9863a22899dc79e4df1b56aa9ba4fe7796d764",
+      "worktreeBytes": 3832
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-125.asset.meta",
+      "gitBlob": "d9d79edb03d4261bdc78c2df069ff3590630b723",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-129.asset",
+      "gitBlob": "f59bead770c99a01849f8536f95ed7de1b230ff6",
+      "worktreeBytes": 3832
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-129.asset.meta",
+      "gitBlob": "a33ac499c5dbc379a7ef4aca4621501c807817d9",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-130.asset",
+      "gitBlob": "6fd3d37e2a1f36563a1cf6b29f04da841e449253",
+      "worktreeBytes": 3832
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-130.asset.meta",
+      "gitBlob": "fc212bdb8dc7cdf808bbf12d1178e927d09516b6",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-133.asset",
+      "gitBlob": "894ca23ab9bf11d12339f532c43a277d44093979",
+      "worktreeBytes": 3832
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-133.asset.meta",
+      "gitBlob": "dda61940e12d0160027a0efaab162a05f880be11",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-139.asset",
+      "gitBlob": "1187958396932342a2da5555e40bbb450a46a8ca",
+      "worktreeBytes": 3834
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-139.asset.meta",
+      "gitBlob": "d859b00988b77fc03c44d87d4bd0a22ae7a40ac1",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-181.asset",
+      "gitBlob": "876a196f8d3c59a5fc35aa579af79617d4145cf9",
+      "worktreeBytes": 3834
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-181.asset.meta",
+      "gitBlob": "979ced694e8ea9ba7ed53ba23076692813e6ec3b",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-25.asset",
+      "gitBlob": "ac4e3ab63d838e37a34693253d9e6bf2065eb57e",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-25.asset.meta",
+      "gitBlob": "3b20610f6c5a5f46f6ad494f29af322a6f708f16",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-47.asset",
+      "gitBlob": "0afd943d9acb8addaf6924d9d3af43045d45ec3f",
+      "worktreeBytes": 3827
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-47.asset.meta",
+      "gitBlob": "73a5d70d1b3edc3306e621a177656f7fa8c6be69",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-73.asset",
+      "gitBlob": "9447bac34eab03ea3cf11c4b1f31f68725108d7d",
+      "worktreeBytes": 3827
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-73.asset.meta",
+      "gitBlob": "547be3ebc7abae41c22618d21c60da0ddc8024a5",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-77.asset",
+      "gitBlob": "0f95e26b8ba632cb01e9e0cdabe98d395144b364",
+      "worktreeBytes": 3833
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-77.asset.meta",
+      "gitBlob": "b7c6ae45521f93e3fc3dfd5bb2a762e44845f31a",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-80.asset",
+      "gitBlob": "df484ffe1c1d9047003c44d01b70a83e59770c7f",
+      "worktreeBytes": 3819
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-80.asset.meta",
+      "gitBlob": "4871c062bcc279ef052e1efceddb0dd89bbb26c3",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-81.asset",
+      "gitBlob": "689f5b28c12bd2d01da01467451add673c46f347",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-81.asset.meta",
+      "gitBlob": "07c081cb1d7dea93582043a331b4607c1cefa960",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-88.asset",
+      "gitBlob": "209735f84e23e18499c46557d1274c54b038891e",
+      "worktreeBytes": 3833
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-88.asset.meta",
+      "gitBlob": "2910ae0aca9b3642f6cb2017cd663d7392d5a580",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-93.asset",
+      "gitBlob": "35632c67c46745a269e80ecf2d756fbcbfd1d25a",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-93.asset.meta",
+      "gitBlob": "bb1f2214a45eaae01ef3e53873277e3c461a3d2d",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-95.asset",
+      "gitBlob": "20261796945cb1e9ee63844a9d39f1609b360eb0",
+      "worktreeBytes": 4142
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-hazel-layered-low-row-95.asset.meta",
+      "gitBlob": "90f9617d8eddc9611da5cc93ea679daa6855893b",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-ground-shadows.asset",
+      "gitBlob": "a7c09776843f09e30397d2b3b3eecf6d3915880c",
+      "worktreeBytes": 3469
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-ground-shadows.asset.meta",
+      "gitBlob": "db11eec3388dba6190ff00f9a9484a879dc6ef2b",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-100.asset",
+      "gitBlob": "f6a5942801f50dfd26684d6977f94803d29b19eb",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-100.asset.meta",
+      "gitBlob": "18ad44618bc445f13442f1be9eb4b4c7cbeb6d02",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-103.asset",
+      "gitBlob": "59ef5938b33d42065c36bdedf2d8754f7fc4bd39",
+      "worktreeBytes": 3833
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-103.asset.meta",
+      "gitBlob": "ebe17f8816f7cfa9a36ec3f985cb0279cae58a04",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-105.asset",
+      "gitBlob": "02101fa86f1879dd13689de04fb35622e06ffb78",
+      "worktreeBytes": 3831
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-105.asset.meta",
+      "gitBlob": "6e096aee9b23f27ae72fb85dc9ab9ce59ba867b0",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-106.asset",
+      "gitBlob": "5a49d3c929214c0bd5768e7e5e9bcd127a167bb2",
+      "worktreeBytes": 3823
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-106.asset.meta",
+      "gitBlob": "e95af094bf8ae81e67f0706809016b6b4c2992c7",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-109.asset",
+      "gitBlob": "9d365bbed1bdbd99b8d590be2b318962189032b2",
+      "worktreeBytes": 4150
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-109.asset.meta",
+      "gitBlob": "39ac871dddbee430a1444c7e6444e179d3f68ed1",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-111.asset",
+      "gitBlob": "46e2864f7605951acea6ebfad373f28cc5908d6e",
+      "worktreeBytes": 4146
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-111.asset.meta",
+      "gitBlob": "9956b4161a62af0ed8e6627feef951f2bff09848",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-114.asset",
+      "gitBlob": "5eff05d6509ade9d406f91dff8a981dc51d8dfff",
+      "worktreeBytes": 3817
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-114.asset.meta",
+      "gitBlob": "bbc4d1dee3780b1d5d2a682782a49c6300d88559",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-72.asset",
+      "gitBlob": "255760130bc2e483416d52dd2c6a03d38aa3a5cf",
+      "worktreeBytes": 3826
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-72.asset.meta",
+      "gitBlob": "b0bd45e84d52ee9883397175f699d2d360dfcaa6",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-76.asset",
+      "gitBlob": "a5a76287ba9160bdc8b5df9339a9ac24aa20f9dd",
+      "worktreeBytes": 3824
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-76.asset.meta",
+      "gitBlob": "d36f9639d524d4cd000dd3a327640639aab4ffb7",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-77.asset",
+      "gitBlob": "c510923bbf85040e65e4035bf97d25f3e9f657a1",
+      "worktreeBytes": 3828
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-77.asset.meta",
+      "gitBlob": "18eb4bc0942fe9708cd86558c9f1affd80ad3509",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-78.asset",
+      "gitBlob": "eab06913ade7eef6af770283751a84dc5f3e4fa7",
+      "worktreeBytes": 4145
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-78.asset.meta",
+      "gitBlob": "1cb3c007382740316168474de303fa2cb6aceea5",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-79.asset",
+      "gitBlob": "465f2049702de3b2c3504d6fd8502ef99fc7887e",
+      "worktreeBytes": 3828
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-79.asset.meta",
+      "gitBlob": "4f1e6bcb6eb637a9f60bad8a278319169f3bf90e",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-80.asset",
+      "gitBlob": "10b284c8756786107dec855b70e92c27c1234739",
+      "worktreeBytes": 4153
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-80.asset.meta",
+      "gitBlob": "199b0e36b3757851e8381155c856e264d0331647",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-81.asset",
+      "gitBlob": "dbd009b4b446d01010baab4f81af13cea85b67c9",
+      "worktreeBytes": 4147
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-81.asset.meta",
+      "gitBlob": "6a74dc2f94a6e01d25fd23a329916d9e493dae7f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-83.asset",
+      "gitBlob": "b80768fae914911a934310e146f4f9362d24f0cd",
+      "worktreeBytes": 3830
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-83.asset.meta",
+      "gitBlob": "371f6032df31d1590a44d1e6009c974d4090ae40",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-84.asset",
+      "gitBlob": "3870a59faf949918fb6fc9e264c6943f6c8d5ed0",
+      "worktreeBytes": 4153
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-84.asset.meta",
+      "gitBlob": "33c61937f295c35c18eaaf5839d4fe37b7301453",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-86.asset",
+      "gitBlob": "17437cdc2bf60f4cc8692b0ce3d63f2ac044fa23",
+      "worktreeBytes": 4465
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-86.asset.meta",
+      "gitBlob": "e98117e4969e1d30c4287e9650f568d911680a6c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-87.asset",
+      "gitBlob": "0e453bad0369d0342d006fd0cb555a03b50b2191",
+      "worktreeBytes": 3830
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-87.asset.meta",
+      "gitBlob": "169253d481bddcd3f4dceaaaa3baea2dbd2e72f2",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-88.asset",
+      "gitBlob": "24f372f26e520a5e7153032af58b32d9f1087e84",
+      "worktreeBytes": 4449
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-88.asset.meta",
+      "gitBlob": "e3b9d1aa04ec92a6448520e4a0a681fef0fba500",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-90.asset",
+      "gitBlob": "01b9c5ad2a6249b30e8064fc1084d370b321c678",
+      "worktreeBytes": 4469
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-90.asset.meta",
+      "gitBlob": "656b92e3ef1dff86e7a8983011ad14965451e518",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-92.asset",
+      "gitBlob": "fa70acab40b1780d5b150346babed2c260affc2b",
+      "worktreeBytes": 3826
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-92.asset.meta",
+      "gitBlob": "9809423d7d46b4edf42399bdb8af37fc9ee449c1",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-94.asset",
+      "gitBlob": "60d84aea2bd6194fcb1d1134f9adfa35829cc666",
+      "worktreeBytes": 3832
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-94.asset.meta",
+      "gitBlob": "e2d0926379087b35b3df83b8ec9fdbd86c189f3f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-96.asset",
+      "gitBlob": "4a0b7c0d624652ae1518a38254317edefd018b43",
+      "worktreeBytes": 3824
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-96.asset.meta",
+      "gitBlob": "d6fae285af5496820a6802b462b318c4b200fead",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-97.asset",
+      "gitBlob": "5b768468c5ba251f6c964f04fbaf1fe00eb21ca9",
+      "worktreeBytes": 4155
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-97.asset.meta",
+      "gitBlob": "6c2a1e795c0fdd439feafcd7e6f159f9bbb0bf36",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-99.asset",
+      "gitBlob": "6bf64b77608f96ec5808a8b08df49485c79904e7",
+      "worktreeBytes": 3830
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Baked-Ground12-reeds-open-low-row-99.asset.meta",
+      "gitBlob": "4c7a7e31afcdaa5a224ae897c5c0d7b5f48bd19c",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Plants.mat",
+      "gitBlob": "9793b182c724d619470d5e12e9100cd68fa76725",
+      "worktreeBytes": 1166
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/Plants.mat.meta",
+      "gitBlob": "3ce7af7bb65e9fdc26b647ddd9509be8a5658144",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefFace.mat",
+      "gitBlob": "db36d9af326223499ad8f769dd8e7c193aecb00c",
+      "worktreeBytes": 1170
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefFace.mat.meta",
+      "gitBlob": "f579ba15531f482f14669e006a12ac217325ae12",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefFace.png",
+      "gitBlob": "1f131c8e31c7cccf5bda59b1a623f92bc5805d9d",
+      "worktreeBytes": 8408520,
+      "sha256": "500a09a00e73cd8101729795a910d5f27978f24dd9d8aacb8dfc93ad28336a1e"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefFace.png.meta",
+      "gitBlob": "e03b85f9ffca1ca897d34b98fa88b8e6585569a0",
+      "worktreeBytes": 3666
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefTop.mat",
+      "gitBlob": "db45f8970c18f0f5da9dcc57e411ba096454d9f6",
+      "worktreeBytes": 1169
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefTop.mat.meta",
+      "gitBlob": "c4d6999108b8ad402f9d3c4f15f0480292bc553f",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefTop.png",
+      "gitBlob": "705d39bcf637f31c6fd2706f59084a53a9588e08",
+      "worktreeBytes": 8368895,
+      "sha256": "188bf1103427e405d71c4824d56a543430de78f25958f7e3611c5f0992c0b645"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/ReliefTop.png.meta",
+      "gitBlob": "19970900b08e770d8479b28a0d1f97d6007b6706",
+      "worktreeBytes": 3666
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/WetBankGround.mat",
+      "gitBlob": "6bfcc5e04d34f7dccdb05c4472a71a6c55fd744a",
+      "worktreeBytes": 1173
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/WetBankGround.mat.meta",
+      "gitBlob": "31a413072b55deeff8508135943c20523f3e3cc0",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/WetBankGround.png",
+      "gitBlob": "43bca4c30bf3448ba479c05d9ecc25dcaa34aeea",
+      "worktreeBytes": 6704231,
+      "sha256": "6c717d2aad0b5806287191b939b587b40ada087fb35989f7ecd49e23e17de346"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/WetBankGround.png.meta",
+      "gitBlob": "044e7d8baf344e8b79451f8b7bfbc4987b501b05",
+      "worktreeBytes": 3678
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/elm-vase-body.png",
+      "gitBlob": "5553a6f885b5e2bbaaa31bbdcc3b55837135238f",
+      "worktreeBytes": 84949,
+      "sha256": "400a7da27d8b1f19917d3ba13d3f478292cd38cc64a185ad307ee4c9616865c1"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/elm-vase-body.png.meta",
+      "gitBlob": "042bcfd1c5d8c5d8c83f8259df1188bab31debc9",
+      "worktreeBytes": 3722
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/elm-vase-shadow.png",
+      "gitBlob": "4de33a32ce2fa1f84436c9333e44b00be1d113fd",
+      "worktreeBytes": 552,
+      "sha256": "36b6a18be688d52f24e917a77c5d4a6947f84ada6fba066ed9c6ffc6fd4cb6b8"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/elm-vase-shadow.png.meta",
+      "gitBlob": "9ecadf4ebc79ee03f92e17d6f51a8c374a3571cb",
+      "worktreeBytes": 3729
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/elm-vase.prefab",
+      "gitBlob": "0219c89281ea481f05e131ff4ced763182cf84c7",
+      "worktreeBytes": 7944
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/elm-vase.prefab.meta",
+      "gitBlob": "b6f8da22641a066d7d1eb3554c317bd7cc80be3f",
+      "worktreeBytes": 154
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0-body.png",
+      "gitBlob": "3b9348c84ddaee34712f8da6565ca8a1f0146f40",
+      "worktreeBytes": 711,
+      "sha256": "b1046c07fec5a2ec6b1d2b4232956ee690869efa5b2d820e3457cee86e6932a3"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0-body.png.meta",
+      "gitBlob": "fec8159cb36855a827ab2faf463c26885e4f7da5",
+      "worktreeBytes": 4315
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0-shadow.png",
+      "gitBlob": "403962102b50146e8326f23aba66812bb0b375fd",
+      "worktreeBytes": 110,
+      "sha256": "6ecc7b454aaf53907aa220ccd8fd7aa1a4fc6be93e05d64e7cc21c9048d8ac2c"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0-shadow.png.meta",
+      "gitBlob": "0e41b122f25ecb6b4b06c47929bb69fa09fc66bb",
+      "worktreeBytes": 3709
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0.mat",
+      "gitBlob": "fc9841ae6c465edd5fdd277a12060a3aa6d37d1f",
+      "worktreeBytes": 1166
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0.mat.meta",
+      "gitBlob": "b440f75e77672598736a687b44fa00a205f45130",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0.prefab",
+      "gitBlob": "126fbaeff57c528e5954c8be23479ab7bf6205bf",
+      "worktreeBytes": 5336
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-0.prefab.meta",
+      "gitBlob": "eff8b3d5cfb9cc5ae81e39d7543abdfde28be220",
+      "worktreeBytes": 154
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1-body.png",
+      "gitBlob": "df4450164c74ce4536ad7379bc752c14927be326",
+      "worktreeBytes": 724,
+      "sha256": "e217668dab749e6b42674ac421ad05b1f2adb464ae64aee26d6eacd80c167799"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1-body.png.meta",
+      "gitBlob": "36af6ecfaafd81824df9da749c4d56f146ecbc2f",
+      "worktreeBytes": 4929
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1-shadow.png",
+      "gitBlob": "403962102b50146e8326f23aba66812bb0b375fd",
+      "worktreeBytes": 110,
+      "sha256": "6ecc7b454aaf53907aa220ccd8fd7aa1a4fc6be93e05d64e7cc21c9048d8ac2c"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1-shadow.png.meta",
+      "gitBlob": "4318a7e40e0061dacc3a644c001c84b8f5c08937",
+      "worktreeBytes": 3712
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1.mat",
+      "gitBlob": "215de03b792f925fdc6e4170b8212a79194fe4dc",
+      "worktreeBytes": 1166
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1.mat.meta",
+      "gitBlob": "0c43b2d7679b9c8e72b3ae0346f6b4ca43d450bb",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1.prefab",
+      "gitBlob": "7a8be7352a1a25bc408cd73c90e5621610f7932f",
+      "worktreeBytes": 5333
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/fern-1.prefab.meta",
+      "gitBlob": "c2901ed6851c5f749aa5a8ee45e2c667ffe47c7c",
+      "worktreeBytes": 154
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered-body.png",
+      "gitBlob": "73a9e37dc06d3f46ac67e02e9bd5dfbcaa028eda",
+      "worktreeBytes": 12045,
+      "sha256": "c450c639c287ef965ae2eba96815ae8bd8577a80fbfe90dbf735ff6178a6899d"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered-body.png.meta",
+      "gitBlob": "218170fcbeacc24695f67c172bb30d73d49103ef",
+      "worktreeBytes": 3735
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered-shadow.png",
+      "gitBlob": "dd170c9dcbde24cfc7b916903b1b5ca325f16308",
+      "worktreeBytes": 208,
+      "sha256": "19aa4372e26f74fa25a6e9aba5010d01f147cb874818392b1b7a361a021c020a"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered-shadow.png.meta",
+      "gitBlob": "cc3bd999b98d1cdc709f7310198c3d24d5e3a279",
+      "worktreeBytes": 3738
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered.mat",
+      "gitBlob": "9c04c7840fe3f6cdfa6c5632b63daf71e32a0e0d",
+      "worktreeBytes": 1173
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered.mat.meta",
+      "gitBlob": "ff842a49dddd4597a88e54ab1a77571b006308b2",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered.prefab",
+      "gitBlob": "8e3239cf7873150e9aa6de71d021e505cc8a7991",
+      "worktreeBytes": 5341
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hazel-layered.prefab.meta",
+      "gitBlob": "d7ea4934bcd7804f22df405b9b109c9d528325e3",
+      "worktreeBytes": 154
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hornbeam-open-body.png",
+      "gitBlob": "7b70a2df8b80e3c4988fe090caa5c52440ed5e48",
+      "worktreeBytes": 109382,
+      "sha256": "f36b01a98a4c70f1eab64e2c56906533d23236b5dfdc7bb8661dd9caaaca8109"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hornbeam-open-body.png.meta",
+      "gitBlob": "d13996dbc3299957fc502e1ca5e1774f75e81b6a",
+      "worktreeBytes": 3741
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hornbeam-open-shadow.png",
+      "gitBlob": "1e5c97fdbd76636b24ed2e61f34887a7b5896ba7",
+      "worktreeBytes": 604,
+      "sha256": "790aa58a142aa7c14af8b46ea6ded464e34277556d55d70f93edb52d14cf11a0"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hornbeam-open-shadow.png.meta",
+      "gitBlob": "523dea0a75c25e4bf8240d4532b2ca18022e41b9",
+      "worktreeBytes": 3745
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hornbeam-open.prefab",
+      "gitBlob": "a124ab11eea10070ef9be8ade1154d71272efe98",
+      "worktreeBytes": 7962
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/hornbeam-open.prefab.meta",
+      "gitBlob": "6238aced23387d2fcef37df921204f914ab68def",
+      "worktreeBytes": 154
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open-body.png",
+      "gitBlob": "e2a6def45ab6aeae9c7ca41d668e0cbc75b4b334",
+      "worktreeBytes": 3973,
+      "sha256": "ecf1ec75b82c20be3b7f0697c62d02fb53450993652f557624ab180d72890118"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open-body.png.meta",
+      "gitBlob": "f4645435abf5efa1bf5f4be1ad7979406cd1da8c",
+      "worktreeBytes": 3728
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open-shadow.png",
+      "gitBlob": "795857500d25981ecbedec72f359b2936790a88f",
+      "worktreeBytes": 193,
+      "sha256": "fc9e318967600ec4207b5d547dca6d1d6dde37057ed015d9d8226b525878b5f9"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open-shadow.png.meta",
+      "gitBlob": "ee1a828e03915b5c4eda931e7f98697eb1dc754b",
+      "worktreeBytes": 3733
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open.mat",
+      "gitBlob": "81d617481d0587e45ea6abf318fa40beaca6d432",
+      "worktreeBytes": 1170
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open.mat.meta",
+      "gitBlob": "7cb47dd295a32a7fac1b8bad86a19e9b82079155",
+      "worktreeBytes": 188
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open.prefab",
+      "gitBlob": "91c872eb330199212da698de5af2891c47b5bc43",
+      "worktreeBytes": 5342
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/reeds-open.prefab.meta",
+      "gitBlob": "2701eb26a0fdff0476eb14da916431f13038a573",
+      "worktreeBytes": 154
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f0.png",
+      "gitBlob": "c531e83b71ee361e6d5f4bb90a99a43bb2b039b7",
+      "worktreeBytes": 9834,
+      "sha256": "a577eb52ea3b7979a50645d318b31bf61661c63ad4f96ab9baca5478d2fd4418"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f0.png.meta",
+      "gitBlob": "22ed2b2d77e5de32d1ac01aa8f7eb5f4b2c9ad62",
+      "worktreeBytes": 3675
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f1.png",
+      "gitBlob": "5e48f85342ae0ca22801a6368e2be2a4b2c232d7",
+      "worktreeBytes": 9837,
+      "sha256": "7e66de5179c2e996f2222008cc5fb6ca520a61fa3aa0c1edd1bc3dfe7754b1ce"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f1.png.meta",
+      "gitBlob": "4a9900c8bb7ec30bce9b32974a29b69494b5bd9b",
+      "worktreeBytes": 3675
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f2.png",
+      "gitBlob": "bea9f1835cbc2cb61fd139b5de32e84b5fb14cfc",
+      "worktreeBytes": 9845,
+      "sha256": "c548f82b6a5b94cb49d3e8f484b342e4c41f2368a51b278595790e282f272ff1"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f2.png.meta",
+      "gitBlob": "75c0a89a6088c7645fe6b6438559f28efae88c1b",
+      "worktreeBytes": 3672
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f3.png",
+      "gitBlob": "ee4e5119e896d5564a794b3c2359a64b4a2d2e22",
+      "worktreeBytes": 9853,
+      "sha256": "ee3030a058ccfc12d78cdf44eecd2ddf1c8faf70e9cf98d7fa40fa8f2b632d60"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-2-f3.png.meta",
+      "gitBlob": "e86aa57431e68429d74e282049e1ba953231d2a4",
+      "worktreeBytes": 3675
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f0.png",
+      "gitBlob": "3c2c5b796a590fa5d16516c8250ff69a5e9ae307",
+      "worktreeBytes": 18327,
+      "sha256": "94640a9c9895eee15c3715c5129277e0d3b4522eae2b6b89a8bed856a873e05f"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f0.png.meta",
+      "gitBlob": "74bdf40a0cfc2e727ce9a1a9ae244d97f831189e",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f1.png",
+      "gitBlob": "bc489ed596ace659c49ced98f2501053ea751855",
+      "worktreeBytes": 18318,
+      "sha256": "49490833da4881e1764d75c59101275fb448873149bfe0753358f8f94adf203b"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f1.png.meta",
+      "gitBlob": "38bf51da82e2b4b9dda0b774e3d763a42193e112",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f2.png",
+      "gitBlob": "534d8610415473a14e398ae7a3c892482abb605b",
+      "worktreeBytes": 18336,
+      "sha256": "79b8b304de9f4cd025c4730dae01a9047390986d497204bfd42371fa4d1fa398"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f2.png.meta",
+      "gitBlob": "b6b32d709c1bab2f181efc3834374ed2b535d291",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f3.png",
+      "gitBlob": "3904004c7ce8b21a2c59b3064caaa0692f610f3a",
+      "worktreeBytes": 18323,
+      "sha256": "eaea3bcafde62bab0c204a6fe2d452204f97f18a4d86279f5ff99486aa11ffee"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-0-3-f3.png.meta",
+      "gitBlob": "f65dbb4e723177e4b833f7ae2a59891c320d87ab",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f0.png",
+      "gitBlob": "f315bef81e4bfa2fb36ec2449dc61c956c993f15",
+      "worktreeBytes": 3088,
+      "sha256": "5396486d7c4e3ab0d5a8f9ab56d7df78513866971ef5fdae1f12fd827dee8d33"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f0.png.meta",
+      "gitBlob": "ac9af21660b130a01a3a50b698bea7e277447f02",
+      "worktreeBytes": 4285
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f1.png",
+      "gitBlob": "fd1ff48c4bf33a6540cfe309351a330afd5c5626",
+      "worktreeBytes": 3084,
+      "sha256": "3f001ee9d66a1e385c45b03ee77b7ffb40b9b98c7d4cd7c96e929df1cca5b50f"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f1.png.meta",
+      "gitBlob": "33ff62edf056a9648e1de8585a29cc1adaf2a586",
+      "worktreeBytes": 4291
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f2.png",
+      "gitBlob": "82c79e0252a67264546f32a27aa5a5ac58e45cc7",
+      "worktreeBytes": 3076,
+      "sha256": "8e010ae2a61c789aa117acdd75d32ee1370ceaa77be31bbcdb054efdc515aa04"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f2.png.meta",
+      "gitBlob": "553e952f83dfc1ffbc3ee0b4bf552993680c9e1e",
+      "worktreeBytes": 4291
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f3.png",
+      "gitBlob": "adc056ebfd0c4872cb5595307316cb36f9e24e09",
+      "worktreeBytes": 3082,
+      "sha256": "0b06d7fd4f5f1c276e71b6d7f5be82f3d1f3cbccac537fdcf86e46ddce7c3125"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-2-f3.png.meta",
+      "gitBlob": "6855e241bf1561f77fcc5792d363f8667b6ee9a6",
+      "worktreeBytes": 4291
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f0.png",
+      "gitBlob": "c3f3a8d0e1be8b31cfb2f98bfaa9ff0ac45cd235",
+      "worktreeBytes": 17959,
+      "sha256": "e4155532fa93bc2f3ca4fe7f43e8d07fe521230a5260e0e5a84fd2dce4c4a233"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f0.png.meta",
+      "gitBlob": "4dd9f57926df9189022ac22507d885299428cb6f",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f1.png",
+      "gitBlob": "03f969e8dc72b5cb9a625ecedf9ba14b7e8e5c5d",
+      "worktreeBytes": 17976,
+      "sha256": "075bd5249f3760590d00122f0ff667693d34a431e33123ec264f9e3cbbb0f331"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f1.png.meta",
+      "gitBlob": "255b32383b1d2ecfddfd7a94ec2536d16ad875b5",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f2.png",
+      "gitBlob": "c21676df6dd591feb91647c635bb39e1907283fa",
+      "worktreeBytes": 17948,
+      "sha256": "5f1d12be69bbf2970fba53b5ac9574b417560d90c11f7b2db8f7744e866b01a9"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f2.png.meta",
+      "gitBlob": "06028961297257af5a01dce250d14685d43c1978",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f3.png",
+      "gitBlob": "8d858efb967ffea217247be84ae26e2cc48ce90e",
+      "worktreeBytes": 17974,
+      "sha256": "37177fef71649b08de0986daa52de5ba55a5c4afde3e17fc9ebee3ccca3a17ec"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-1-3-f3.png.meta",
+      "gitBlob": "33b2520f8f030e720e6010677a144a32eef95951",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f0.png",
+      "gitBlob": "8102f34442a20dbf14070dbcb52705051bed66d1",
+      "worktreeBytes": 3967,
+      "sha256": "67ccb096f744ed6bce6012e11f39efc765778ff0da67e07b8ab6028fa3d72a57"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f0.png.meta",
+      "gitBlob": "5b9b781f96cfa086e04646fa4169d83d65c907d3",
+      "worktreeBytes": 3665
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f1.png",
+      "gitBlob": "5480222dcfbc7fbae33b8d052864b359502f1a0b",
+      "worktreeBytes": 3966,
+      "sha256": "5b68829d4c59666be2496cf9b36f49e46a5269159ac427359a4083d4d5e50971"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f1.png.meta",
+      "gitBlob": "97f005623a3d43910dbe70f3c3e08f6f931c4dad",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f2.png",
+      "gitBlob": "2d150d603f2dc3db7e4b1ee09d189357ddd6593f",
+      "worktreeBytes": 3963,
+      "sha256": "e87bdd55369deed06fad5b078c685bf7bf3ccece569842f8d12912fe9a6d5cd9"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f2.png.meta",
+      "gitBlob": "cf758b2ab9f7b805f0da909a270a86d42adb2401",
+      "worktreeBytes": 3671
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f3.png",
+      "gitBlob": "b30452cc9e3dcbc2ed5f8bc110d97641854d3a6a",
+      "worktreeBytes": 3972,
+      "sha256": "8805e112991ddbb748c6fd3290cd2f6dfc4cf8c0052b71289e1b93ddea3a42a7"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-2-f3.png.meta",
+      "gitBlob": "7dde8b6577c52e14a8aed15a6b2343e516aec7ac",
+      "worktreeBytes": 3668
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f0.png",
+      "gitBlob": "b668020ffd46105880c16a0653cef8fc01d67f29",
+      "worktreeBytes": 5016,
+      "sha256": "25c4191c2557ff9a78839586d87505e5401d91d4f398aed9396e3c0c6b7223ec"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f0.png.meta",
+      "gitBlob": "4a661458981ba216ada9a79d8026bb30c6b6f4eb",
+      "worktreeBytes": 3674
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f1.png",
+      "gitBlob": "d3b9730b7004bc4e3c97501395a55e2807f269da",
+      "worktreeBytes": 5010,
+      "sha256": "7612fb1d8602eeba1d32303453b5ea1dfbba4d55a9773c9fa72aae30c5e5b7f0"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f1.png.meta",
+      "gitBlob": "b3ee2efc2429190dc7a5ff13dbb7ac6ee8416dfa",
+      "worktreeBytes": 3674
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f2.png",
+      "gitBlob": "1a01a44753d4ef339253ce275cd4a7a77c6367b1",
+      "worktreeBytes": 5014,
+      "sha256": "74e5e5791d5fea694a0be33ffe7b0ed81a6d72973a12970b35dc6a8e0f0bf333"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f2.png.meta",
+      "gitBlob": "8bb3ec088ae6df95e6e3865e19b33bf795a597c8",
+      "worktreeBytes": 3674
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f3.png",
+      "gitBlob": "e06eec9ddebd72884c2190e70bbc67dfa59cce2c",
+      "worktreeBytes": 5010,
+      "sha256": "d5676d03c196c82e9439ada06941fe35d612c3ce0994c291b0022a5228c68fd4"
+    },
+    {
+      "path": "Assets/Mmorpg/Art/Experimental/ValdoriaGround12/water-2-3-f3.png.meta",
+      "gitBlob": "e11e414026ccff67bc3d078b4b8d920a102326a4",
+      "worktreeBytes": 3674
+    },
+    {
+      "path": "Assets/Mmorpg/Editor/EnvironmentFinish12Importer.cs",
+      "gitBlob": "ae2b78ced67486aa40e5c89c3dc51cca4ce9cf10",
+      "worktreeBytes": 12149
+    },
+    {
+      "path": "Assets/Mmorpg/Editor/EnvironmentFinish12Importer.cs.meta",
+      "gitBlob": "125b20267dd14af70cb1eb213d538e2ee55e304a",
+      "worktreeBytes": 59
+    },
+    {
+      "path": "Assets/Mmorpg/Runtime/EnvironmentFinishLab.cs",
+      "gitBlob": "923a7cb2f942005e82777b35bdb96e01826c7dfc",
+      "worktreeBytes": 1462
+    },
+    {
+      "path": "Assets/Mmorpg/Runtime/EnvironmentFinishLab.cs.meta",
+      "gitBlob": "37b42e3c033232a0f4c7636d57aab37d85f3495c",
+      "worktreeBytes": 59
+    },
+    {
+      "path": "Assets/Mmorpg/Runtime/PlantVisualDepth.cs",
+      "gitBlob": "eed59c591fc541f234755b5d0846193833f47ea0",
+      "worktreeBytes": 367
+    },
+    {
+      "path": "Assets/Mmorpg/Runtime/PlantVisualDepth.cs.meta",
+      "gitBlob": "3366ddbba7ad51cf5bc48537d37ce9a0ccd1319b",
+      "worktreeBytes": 59
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity",
+      "gitBlob": "63ef91cd00ff3277a6e97f6133f8be2de81fd0cc",
+      "worktreeBytes": 2713786
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/ValdoriaEnvironmentFinishLab.unity.meta",
+      "gitBlob": "4958037a5b5690fa840d36abd15024e318ef9e59",
+      "worktreeBytes": 155
+    },
+    {
+      "path": "Docs/Art/Approvals/Ground12-References-2026-10-18.json",
+      "gitBlob": "e46c2bf53e99b03a4a12f9814a2482f09803d71b",
+      "worktreeBytes": 1675
+    },
+    {
+      "path": "Docs/Art/EnvironmentConsolidation12.md",
+      "gitBlob": "bf15f105ed87dc428ab666736b0fd3f82b8a32be",
+      "worktreeBytes": 7042
+    },
+    {
+      "path": "Docs/Art/ValdoriaVisualLanguage.md",
+      "gitBlob": "761436ba4b380b06838949c9e5de851ee44f9637",
+      "worktreeBytes": 9452
+    },
+    {
+      "path": "Docs/Art/VisualReviewEvidence.md",
+      "gitBlob": "a981f817a5e9562d13955557de67ef7638f5607f",
+      "worktreeBytes": 3184
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12-EnvironmentConsolidation.md",
+      "gitBlob": "5ffe8d44cb6dd7232caa19db33f4de96e70e084c",
+      "worktreeBytes": 12281
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/environment-contact-before.png",
+      "gitBlob": "d3c7942720f8e0d9d40caeae6b2f8e280d62d35e",
+      "worktreeBytes": 664326,
+      "sha256": "eaf2d847c01f1ddb238360da80e680c8fb0397d889173217020d130a86cde3b0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/environment-contact-final.png",
+      "gitBlob": "b5fe6005f54d999d481803c398e141b2b5a6311c",
+      "worktreeBytes": 671768,
+      "sha256": "13c92092acfb4f8ac728b89d5407e34ca06e631ef728a5d68dee53147a5a5668"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/old-tree-volume-before.png",
+      "gitBlob": "57d5e0778017746416c7d8646c0f9d1a2686e406",
+      "worktreeBytes": 173656,
+      "sha256": "44e8f473a081878c3474f6e6126df5683fbfc9853334e4744733b7b53f0ad4a5"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/old-tree-volume-final.png",
+      "gitBlob": "92fc6411e60b372f713f53c6300bda642cc15f2e",
+      "worktreeBytes": 253221,
+      "sha256": "6a54beffe650b739fcca6611ad773d4f258bea5900d33a2a694ef1d20a5500dd"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/plateau-planes-before.png",
+      "gitBlob": "1fad481341bef80167044b61201e44f05fe704f8",
+      "worktreeBytes": 83299,
+      "sha256": "80ba1eb0db3cbd1ad7ef5dc5da7bb005884569431aba51d874a4291297ba304d"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/plateau-planes-final.png",
+      "gitBlob": "88848a7b379c2dc3e13aae0a4e05402158c0e2b4",
+      "worktreeBytes": 425564,
+      "sha256": "0c51731ba413dfc99830fc62fd8c951aff8e3bf89adc94b392fc5e2153f82ea7"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/wet-bank-before.png",
+      "gitBlob": "309ad709a05cf1d903e82db8937a08f484123e04",
+      "worktreeBytes": 130921,
+      "sha256": "3805d85a3dc45ea40c3dbed0efd458f3742422825dc41ab99c5fda7930c58dfa"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Details/wet-bank-final.png",
+      "gitBlob": "e0145a2ea981932a808cfcafc8c91fc4bbfaa98c",
+      "worktreeBytes": 212223,
+      "sha256": "0b6d9f6b70ac7167772fbc67762ff5c60c72be8068e21b3656e471e4b66a477e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/00-before.png",
+      "gitBlob": "2035b48ead12549b213c2f75e21cef90ab512947",
+      "worktreeBytes": 2601556,
+      "sha256": "b583471ea66d1b2c9ece3bb089e9fcfa47952b3c354767c8b4a6283ea0e7d671"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/01-final.png",
+      "gitBlob": "2d4832030816081feda98e66f61205a658ded2d3",
+      "worktreeBytes": 3049414,
+      "sha256": "b1a4aa5b42474d27d736f4535653d06ce07792a6683ea6ab1b8e690ce759a26c"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/04-tree-front-collision.png",
+      "gitBlob": "7afc9e009fede9a49dc6ab3e3c50ed9684c8e801",
+      "worktreeBytes": 1115988,
+      "sha256": "995eaecd2c648f2dbcd074a2eaca3d0900414d64d22d977161ff55be0e27ec74"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/05-tree-behind.png",
+      "gitBlob": "f657e7bc0ec75f0161c1fdecb91e535704032cdc",
+      "worktreeBytes": 1120043,
+      "sha256": "a5f3cce571dd5a25445a66dc4cba8096bd6d5cc5152adc5ad29c23a5339e32e0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/06-rock-front.png",
+      "gitBlob": "1ea61ea0ab01006112e164c09d4bc99e1ac76075",
+      "worktreeBytes": 1051226,
+      "sha256": "ed10aeaad230267eea26358e2ba42e89bf9f9865313e518699431fc3eae96ffb"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/07-rock-behind.png",
+      "gitBlob": "f47cf0fef544334be939135a9c4cd4862871b997",
+      "worktreeBytes": 1052323,
+      "sha256": "44161ab08e23b834f8d74cfe28b916bbd5411af8a6428dc76252cac925eb403e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/08-house-preserved.png",
+      "gitBlob": "2d4832030816081feda98e66f61205a658ded2d3",
+      "worktreeBytes": 3049414,
+      "sha256": "b1a4aa5b42474d27d736f4535653d06ce07792a6683ea6ab1b8e690ce759a26c"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/09-house-side.png",
+      "gitBlob": "ff722543a83202945f7a95c2f84e0bc15e6c1ff7",
+      "worktreeBytes": 3049467,
+      "sha256": "f4175cb9d1e36e200c3d671c2029c547c4068f2d5b0e18fdcebe88153060a6c0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/10-house-behind.png",
+      "gitBlob": "a507e2b27ed5bd6ad2d93defcdaddf8db73d0f00",
+      "worktreeBytes": 3179298,
+      "sha256": "c5ad8ce377c9f7f3cdd71371e5bfcb751c6f77ea06afc1d7507e8b548d4440dc"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/11-canopy-detail.png",
+      "gitBlob": "7768afdf7d558a7330bc52a7bbca766ec43f8db3",
+      "worktreeBytes": 1125828,
+      "sha256": "6c4f6689885e85b36f1a6c07f17d46928f05f119f0040138cf1a527b0edbdcad"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/12-trunks-rocks-transitions.png",
+      "gitBlob": "74f594dbe9ae44bcbef29747f79968c519bc5e76",
+      "worktreeBytes": 1111470,
+      "sha256": "6ebcf7763658971536ed216905a04a721a47120f6a4a78c9c3fe020548292694"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/13-entry-transition.png",
+      "gitBlob": "c3f01c8ad3ae092b3835e6dfc5f316f86be63078",
+      "worktreeBytes": 945766,
+      "sha256": "d8633a800f568949d90d2beea0c31b6478aa988846e52be410fc3415630c6088"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/14-final-context.png",
+      "gitBlob": "f9dafba549ff93316524145acc930ff30467c765",
+      "worktreeBytes": 3049446,
+      "sha256": "4bdf5e495ce67a60230265940e72caacd2cdd7a03ad8a85417e5a5e9625654f6"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/15-second-area-after.png",
+      "gitBlob": "d60c6cb3dc8267667a7eabd81872bc730b83bc3d",
+      "worktreeBytes": 3190796,
+      "sha256": "36952fdd59b332d410a12dabc80bff6cdde69ac5b248d5d29828162c4efb671b"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/15-second-area-before.png",
+      "gitBlob": "61e70c5cc22a5a9e3f58b13622eeb2dca84d4429",
+      "worktreeBytes": 2528050,
+      "sha256": "e510a7227d002db73f1efecc287eabfd88fcfe88b6b58b925443624a06483549"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-00.png",
+      "gitBlob": "4eb0e78024ba835c31271f8b7eada56d455cd336",
+      "worktreeBytes": 3182253,
+      "sha256": "eb37ba130e933e00188b3a64a185b4b4fe0c323d291e5972826a4d4379814f4b"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-01.png",
+      "gitBlob": "bfe69377c0da3a724ffcce8c3164c74c80256306",
+      "worktreeBytes": 3183748,
+      "sha256": "bb0b41f8117cc6b2d010c51024a58364d456341dea5897ad064f832d66b64f9a"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-02.png",
+      "gitBlob": "f4815f4193b21e4a2d0d54b8e33cbc5671da9fce",
+      "worktreeBytes": 3189198,
+      "sha256": "4cc653b4fb114cd7d48ba8edb0c49692f14ce085f33cbb7bf6adeb8d56fb1281"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-03.png",
+      "gitBlob": "7db4cb2337dc6d781bf58717bd2e18341c0ae48e",
+      "worktreeBytes": 3191496,
+      "sha256": "3432c5229250168d34b52684747e41fcf5c1607c1d29b0776bd6a1681640b518"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-04.png",
+      "gitBlob": "46bf1c82f10f13403064ee744667c34665b27035",
+      "worktreeBytes": 3191340,
+      "sha256": "df8a89328809ae3e4c0c734da8c88cec545b378758b43de916a6938a917f40a7"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-05.png",
+      "gitBlob": "dd62a4fc60b9ffc666c65e2f666e8290cbd6d71e",
+      "worktreeBytes": 3193240,
+      "sha256": "de1a79fd7112896ecefa6a10852d4efb9d6468187577c15345fcd5a4f57c41b0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-06.png",
+      "gitBlob": "4504a370002cfaa9b7bb1341946d8c61dd8fc8a9",
+      "worktreeBytes": 3195852,
+      "sha256": "64fb8a5f7d05518344caf863998d0739b12c50578a22e2854970ee2463d1aff8"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-07.png",
+      "gitBlob": "3f043421ca5764b5ab95e356c2dfa2cd9dd921f3",
+      "worktreeBytes": 3199124,
+      "sha256": "6d564d4030e57b1d19f6a50188d14d4133c3424ce664d49fedca44adcfd4e923"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-08.png",
+      "gitBlob": "51161b30379ac1276e6dd6389b4592f8323835fd",
+      "worktreeBytes": 3200325,
+      "sha256": "f6338a233844c32cc18b7cf6b87904c163b36c9369e14dc565578ffd8c1ade8f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-09.png",
+      "gitBlob": "f68f37f365cfa529c76bc7b323e66188dc05ac9b",
+      "worktreeBytes": 3194719,
+      "sha256": "b3a3e26915e782a6ef98ae1ff7ac8e733071d7430a4fe74009d47848092f7105"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-10.png",
+      "gitBlob": "35d829ce1d8700f5e65934bb87d524d8c806a739",
+      "worktreeBytes": 3181916,
+      "sha256": "e988ed8174393f15d10b1b0814217d25e5c380bc5f6a3eafc52d1af04e582d88"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-11.png",
+      "gitBlob": "07737d6575bdd6b54db6eb9221cf9b2ac4718956",
+      "worktreeBytes": 3199025,
+      "sha256": "b9e1a0d33e46b3ae1af55508a6ef4a437592fdd38f61008199da9a999f00fc7d"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-12.png",
+      "gitBlob": "c07b8edc55efdd623d35f73f77c70ec8d2706d18",
+      "worktreeBytes": 3191305,
+      "sha256": "91d7471ec740764137021b9fd47895701651e3763258e159c92c9e7e5f3b538b"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-13.png",
+      "gitBlob": "958a432ffa3bad2f1b96b645a386da3787707f65",
+      "worktreeBytes": 3187132,
+      "sha256": "684a674e67297213ab4af71de8ba58d4e6f49de90f0dac650b2ac7536157a597"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-14.png",
+      "gitBlob": "abfabe8c9ab7aea86a9a591a78f4902d04a2579e",
+      "worktreeBytes": 3183082,
+      "sha256": "7887ded091318f1c50ba398895390e1945ca40f2a4ff27f9d83d1a00c6798571"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-15.png",
+      "gitBlob": "bba9cce8bdeacc16ac779d7bdebabad5fe54b2e5",
+      "worktreeBytes": 3181270,
+      "sha256": "627b72392bad8b4ebb4e715481f506b86005a6ec8e4f7caf34d30073a792a02d"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-16.png",
+      "gitBlob": "d8aae23b538e5ec35700aa9bd130e54f20122132",
+      "worktreeBytes": 3179376,
+      "sha256": "2185531a9f33acfdcd68ce8e1a1c75b19ac1f2f639c299649a1913192cc06cd0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-17.png",
+      "gitBlob": "94521e0d37cd949925b11111674c7a516c4256da",
+      "worktreeBytes": 3179316,
+      "sha256": "3ffb3ed0fbee28c980f4ff50bfef2be8d523051db7af00ff6f9a6e45d715389e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-18.png",
+      "gitBlob": "dc1b05ebadc826f3810803c26843fe67673a5998",
+      "worktreeBytes": 3179460,
+      "sha256": "cf602c20d546f286bff69bde402c9d0a2289dca78cc28425e298b8fa118b374e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/Motion/frame-19.png",
+      "gitBlob": "0bdfa4901e54c7f8d3a8f72b514125e919c858e0",
+      "worktreeBytes": 3179609,
+      "sha256": "6b394c744e5bbd32ebda73866ea65c2b59af82aedcad3c145dcc52b98fbf1e11"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/legacy-tree-behind.png",
+      "gitBlob": "41ab7c8623767dc7963d7e8948ac6d5bbc1fd661",
+      "worktreeBytes": 1165776,
+      "sha256": "8db5b4d276ddff24561789c789ac4b7ee5927da4110e972ee7ef660524f75fc6"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/legacy-tree-front.png",
+      "gitBlob": "f8f36a771406b2d164bc4b9d00cecaf5787a1b3a",
+      "worktreeBytes": 1166375,
+      "sha256": "1411bbbbb127a223a7609338b15fb2f8a23347e27e25630bb890af7b86c5419a"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/legacy-trunk-contact.png",
+      "gitBlob": "6ec03abd2c526182c884741ff8b50f5fbf1138d3",
+      "worktreeBytes": 1168128,
+      "sha256": "4d2be4752afc2f57d036040cbd7ff79df39216936db223fc3462d532bb21bc83"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/Gameplay/play-qa.json",
+      "gitBlob": "764e34a44b7d94a2b8faf7c8f39acbb5e9c92d16",
+      "worktreeBytes": 1457003,
+      "sha256": "10d2d7336916665a98a6356a722792444e25b3786cd24215775dd7a940fa2aa3"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/composition-after.png",
+      "gitBlob": "5f2bb991299e53c309eca6a04b4caa062e5129c2",
+      "worktreeBytes": 3036734,
+      "sha256": "5149556f0025f54b5531a622dd29b372e960b9e21bbb6be457efcf66ef93857b"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/composition-before.png",
+      "gitBlob": "16163654eab386e1d1eb3b9cd97a265b632ed489",
+      "worktreeBytes": 2601583,
+      "sha256": "b0009d97019d8befb2cc1143abfcdb3eebbe40ecb52f860330cda04fe213fb21"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/composition-final.png",
+      "gitBlob": "aa1e25d322dbd494951cbaf3b2f0ff7fc134901e",
+      "worktreeBytes": 3049454,
+      "sha256": "84073196568081cbc99c32f9ba646458133131ce66d48f7f976b8ee0c8526cf4"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/historical-tree-after.png",
+      "gitBlob": "23f2023cd3659e97047b3be515c5e89139a179fa",
+      "worktreeBytes": 1097955,
+      "sha256": "955982185ffd3bb1698d002386178ad88392447e11e60348ebbbce2b9b33c8d9"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/historical-tree-before.png",
+      "gitBlob": "406446e3bd1c4d7920f902415b38f32cd041b51f",
+      "worktreeBytes": 861169,
+      "sha256": "e487d212b79eb15d186c8468be17b94ff1e51692facc1e60e5f4a61a916b0106"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/historical-tree-final.png",
+      "gitBlob": "703b4933aca0ab3c88bfe03d58cf4faab4046461",
+      "worktreeBytes": 1098620,
+      "sha256": "c0c3e42b03ae94651ef9be955bf1e3e62db9faec39a54d497082d6d34f0c8da3"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/plateau-after.png",
+      "gitBlob": "126de4cb953ea1ca08506d9bed6f2a378ef01be2",
+      "worktreeBytes": 1278105,
+      "sha256": "3dff9b39803bb65fe38c3635f15d3209a2115b8ef15f22ff0a8452d7d96dfe93"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/plateau-before.png",
+      "gitBlob": "a6a6f3aa73b12f8c6e10567a190ad1671e5115fa",
+      "worktreeBytes": 856300,
+      "sha256": "b6684fe146c6ab38f943a606ea001d1eba066767d0ee16fb5539902eecdd72ef"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/plateau-final.png",
+      "gitBlob": "07e878d2e507867ad9d6ef223749de024089f91c",
+      "worktreeBytes": 1285185,
+      "sha256": "6b8500978e0dcda34d4623ff83a05fb4394aaa6bf2b3b8e6e4be9754c3d1537e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/relief-upper-after.png",
+      "gitBlob": "80f113040bd6543d5ddd5ac3ffc4db5c7db4a63d",
+      "worktreeBytes": 1264478,
+      "sha256": "9e3465d3df1964629761387a1ff611c555512aeaa6e0028491332102e544a39f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/relief-upper-before.png",
+      "gitBlob": "d48f477d26f1639b8972bb4e206381479d251abf",
+      "worktreeBytes": 882043,
+      "sha256": "f799b98377a176d87debe5ccec760bf2d11df39c5e4a4934bccb9bf783093335"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/relief-upper-final.png",
+      "gitBlob": "c0d23e7d6907d4ba84393df386f853aff1fee9da",
+      "worktreeBytes": 1273153,
+      "sha256": "fa5575687b2b3093468b94a510b6bf9f855f97fb1551931c4ad4eec9eae156a0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/second-area-after.png",
+      "gitBlob": "7c34e5a3e79bb5eee02b77d1f5ee255116c4b5b8",
+      "worktreeBytes": 2845372,
+      "sha256": "cd436c5003a8c0f17ead7dd6c15f42daec6bc4252184477fad34e2146fb89286"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/second-area-before.png",
+      "gitBlob": "ee561e95c1c978ad8283fccf61df77fc71c7b3e7",
+      "worktreeBytes": 2087393,
+      "sha256": "ac78c3760d62235931a478b83878c19abe3a3836fdf6344ff5b7a3adb8d23517"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/second-area-final.png",
+      "gitBlob": "2a17060229473b507d58d94e7244d7ce21271856",
+      "worktreeBytes": 2861828,
+      "sha256": "74b4d5356c944b3c6d0d9cd93b78755cd13c3bfa549ea3df0c89ae1f5d9a6729"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/water-bank-after.png",
+      "gitBlob": "edc6f917f009cac69f88cdab0cff1ae4de3df614",
+      "worktreeBytes": 1047807,
+      "sha256": "520be993334d824a727c07383347cc06b391d50f147fff0317a35ff17fbc063f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/water-bank-before.png",
+      "gitBlob": "3da1911d67d5edd703579516800f47450bb9841d",
+      "worktreeBytes": 716210,
+      "sha256": "749df5efb8adb4430fdc1608b3318046e08d4cab5803c8aa93f9bd286b3650ca"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/Original/water-bank-final.png",
+      "gitBlob": "18d6d0bc5d4afeda7302466d9ac5e4e9fe9fce40",
+      "worktreeBytes": 1060869,
+      "sha256": "133c0923598620d42981610682a0cb758b10046e0438227bc933972b96fda6ec"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/capture-index.json",
+      "gitBlob": "f87df1f4ef0974fc09d39997f9dbbda1d9215752",
+      "worktreeBytes": 26037,
+      "sha256": "0d5896214b6fce4c3e999b4b3f02283435825e714f39b5b21ab04a65c1c6a47f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/captures-after.json",
+      "gitBlob": "46114dae73cef5cf21633346320b59f5c514c039",
+      "worktreeBytes": 2794,
+      "sha256": "14c229a9fd91137f66d375bf4ed99f5485522a6318dd1ab49c2fc7b49f9a7b09"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/captures-before.json",
+      "gitBlob": "5f1a47faead9cab745b2fc37b99b6f44a3db41d6",
+      "worktreeBytes": 2779,
+      "sha256": "3689d893a1fc1e7d22568edce4a8b4b9fc53e981812c3704e79647258e76eadf"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/captures-final.json",
+      "gitBlob": "a87dd486641de81367e4be6c438af4f01b7b0c62",
+      "worktreeBytes": 2794,
+      "sha256": "c60ee21dcffccd1c5c3a3da73eb5f155028c97e4b083c5ce3090fb36d813d8d1"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/compile-final.json",
+      "gitBlob": "0ea5635458283914cc62868b995278efb9e3a36f",
+      "worktreeBytes": 93,
+      "sha256": "6fc9a82f3632ef2faf400e637b22efd01e00129272107434e94fe69f1f374367"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/console-final.json",
+      "gitBlob": "e84d857bb38ec676e7a6838752b66729e8108588",
+      "worktreeBytes": 35308,
+      "sha256": "4a60ea0dfffd92da5c406eee00c0f1e0a8a2800376ff4091db438a0977abc478"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/destination-refusal.json",
+      "gitBlob": "8356c96dc1508fe72afe53dfd51af4c64d8063e8",
+      "worktreeBytes": 145,
+      "sha256": "8c9ba2f40eba17ef18ae7cc82a3e7643b2f1d699b6f3c7e88423630a6515daca"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/editor-qa.json",
+      "gitBlob": "8090af81725a6ee5b124acf0a5fa33fda9727f1d",
+      "worktreeBytes": 8611,
+      "sha256": "2a920b764e5f075e0d9257278d97c30d2bc37e1f1893143d3b61e0627b48d574"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/execution.json",
+      "gitBlob": "b61becd0665ce4e6a4b848eb4ad28ae9130a8264",
+      "worktreeBytes": 897,
+      "sha256": "1df01cfb80ab03db9d14aec69d61c8c985d90284c76c893ce3bdd7c62e7f330f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/initial-scene.json",
+      "gitBlob": "8d449fb4c67b50dec2b92b1d3ce18632e72d2735",
+      "worktreeBytes": 130214,
+      "sha256": "5c51940f7ecb843261fcc78d3b5aa11985f2f36afe915d3bf1eb17fe25e82fd9"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/physics-baseline.json",
+      "gitBlob": "59a544a9ff5390d7632c56ed201efa1f9826a116",
+      "worktreeBytes": 352,
+      "sha256": "63948ff918966d8fe668132640b5e1203ac89ec72884b963efd2a6511e666242"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/prefabs.json",
+      "gitBlob": "16a583778506e8be7b79d3ed2053042d6c09c321",
+      "worktreeBytes": 556,
+      "sha256": "a48797bd1b32fe0ceab45df0145bc9fa787c7f0d7a853bd1b66b782a6c4f10d6"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/preserved-inputs.json",
+      "gitBlob": "0feaedbaf86f72c1e419851e505578376c6be048",
+      "worktreeBytes": 287863,
+      "sha256": "044e7464d5c2b553456fc5797532fc247a2202468ddad13a1d9b46fc8dc907c3"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/python-environment.txt",
+      "gitBlob": "169d49f2de5038b127551bb750a00487917b36ef",
+      "worktreeBytes": 799,
+      "sha256": "a5e3bfc2e2b5d27023560fdd060873f56f97aabe240be85b6d212cea2c7f88d5"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/python-review-lite.txt",
+      "gitBlob": "48bf1b0c593a6118306fdc5ef776361df7f09117",
+      "worktreeBytes": 1032,
+      "sha256": "648e2d35102f55dc0315f053a72fdb3a5c29860ffdb0e0748cd82483ce975c0e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/restored-editor.json",
+      "gitBlob": "a36cb897dd2e1326f96aacecbb92e7053c1f063f",
+      "worktreeBytes": 509,
+      "sha256": "b2e8bdded41069d128a589c4d696912ef7ca5369aea5832061090fdca4f04e4d"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/QA/unity-initial-build.json",
+      "gitBlob": "08422815dd20aaf52a6d4cc18ba0ccd3c9aab243",
+      "worktreeBytes": 271,
+      "sha256": "b77f564b8d0dfb1a550e1570f11bc4cfc31da9de19da5c9be2b0bcdf0eb6ec03"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/00-before.png",
+      "gitBlob": "deed2a6ee30f2178161e11a1080b9bc72514557b",
+      "worktreeBytes": 239256,
+      "sha256": "ac210d5e98219cd195290664e71c431065c68ff77ff55343217fcc7b61f04161"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/01-final.png",
+      "gitBlob": "20ed151639428c59d81a4b5c6cff43612bdb507c",
+      "worktreeBytes": 270367,
+      "sha256": "22d30c18842b421059fdbeb606e72a286bbb12cbfbd2c028a4e3603c839a4d5a"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/04-tree-front-collision.png",
+      "gitBlob": "05710315c0da8efcbd47a8a80fbcc12b8abbc8d8",
+      "worktreeBytes": 275975,
+      "sha256": "7dd5bf1ea52d2216dc49cb8fcf9f747429ed51815f28a013505f6be9465a888d"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/05-tree-behind.png",
+      "gitBlob": "1aaeebb2d3f83dd327c9d9c6bf8cfe9fad4d31d0",
+      "worktreeBytes": 277135,
+      "sha256": "71c259498b53d3a1202818a9aca004d43acaf4288f3f01a6ed2d1ac44217cb12"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/06-rock-front.png",
+      "gitBlob": "ede62287e0d019b898d0cb63182ef7d6c50f1c3d",
+      "worktreeBytes": 710609,
+      "sha256": "f24efb29a929c0c84241615ae9b9560ffba313d27f571054eb3a257f0aa461f9"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/07-rock-behind.png",
+      "gitBlob": "4781e90cf198606fec8b180a6e7c6cd42472ff33",
+      "worktreeBytes": 712421,
+      "sha256": "5c26018f5d30d6c2a26e10b8880709766baa8fcfcdd3339cddc3bae20e4769be"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/08-house-preserved.png",
+      "gitBlob": "db4f6f8809456c9a8695f4df925c74a283bf61a1",
+      "worktreeBytes": 271866,
+      "sha256": "e7f39a4cb449af1cfbda1bf3ce224c138cc7cc8c4d7f6807dda7ec8381dd53bc"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/09-house-side.png",
+      "gitBlob": "578f6e8988d86fd1cdc11fb5216fbc6bf40d4639",
+      "worktreeBytes": 272190,
+      "sha256": "150852df3fd1a907227b68afbcd56e538409cc0cbbb9ec6a2d4b557e3e012672"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/10-house-behind.png",
+      "gitBlob": "35b0702b7771b1d2c3824104062e05f532f50f7f",
+      "worktreeBytes": 305558,
+      "sha256": "c316b8ba594cda6714f0271593324a2541db7ae92d5b35fc3bdd6f8ebb213ca6"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/11-canopy-detail.png",
+      "gitBlob": "a13978edf23a4956875be4a53232d360af912650",
+      "worktreeBytes": 275786,
+      "sha256": "ebf53ce6a507241bc1521aa394a3eee225c1a41cba90ec21bd5a11251e410f6f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/12-trunks-rocks-transitions.png",
+      "gitBlob": "32b15d59ddb60f8459a7b921413cd674211d9d8d",
+      "worktreeBytes": 758431,
+      "sha256": "ddb9eb88bcb81edccc11ff5462f3ed1f2b033fd292d3f5051b94246164153f93"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/13-entry-transition.png",
+      "gitBlob": "3d4e57ffaafa3acd2f342405cbb5ff7449011aaa",
+      "worktreeBytes": 593375,
+      "sha256": "30f71ba3c043c31e523a7161a61d21cbcdd7db90576d321698c4019c126061d7"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/14-final-context.png",
+      "gitBlob": "4b3698aaf306dea8a8341993e96b6a6628f3b5ce",
+      "worktreeBytes": 271874,
+      "sha256": "2e5dcd0aad7589849b9c9e226db9161a888fdde22555f8368f8b50977d7c67be"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/15-second-area-after.png",
+      "gitBlob": "9454921c6a940c17fc03936cc6a18b7c95c5ad5b",
+      "worktreeBytes": 300531,
+      "sha256": "f8a1194046d8517cd172b77c4558b6c13c8870372b02bc7062ca2a51b98983d3"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/15-second-area-before.png",
+      "gitBlob": "9003223e8e3063e8fcec2839070b5ec99a56e205",
+      "worktreeBytes": 246139,
+      "sha256": "8a1d15ce14457055c3803038f7b51cd9493781b27b9bed11b50af4b1495fb2ce"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/composition-after.png",
+      "gitBlob": "e05b4621215d7b9c5778fc94b9200b9cc353d575",
+      "worktreeBytes": 269816,
+      "sha256": "c51a95a8b295a2e36ddbeaf4a8bc9397c3ca7302fe23bafb4f75cb24b38510b8"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/composition-before.png",
+      "gitBlob": "289471772a69e8c2e468315815573986cd7a24d5",
+      "worktreeBytes": 237478,
+      "sha256": "048ce174014c795adbb2978748fb28ea772b0f3f24b322693df0880aac7b4655"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/composition-final.png",
+      "gitBlob": "6a3aa0d3b50eb66a17422a198a13ab8f0e19737f",
+      "worktreeBytes": 270735,
+      "sha256": "b465bea54e26c1b58ec1246916b873388b25e39ffe880f0cb7ba8557629d44f0"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/environment-contact-before.png",
+      "gitBlob": "1ad4fcb8bd8242a3272d8e04ba8a2eb47b314684",
+      "worktreeBytes": 668036,
+      "sha256": "c50996cd2c46703e7ee97f5026ff059841648104798563e365eabe8195b7243e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/environment-contact-final.png",
+      "gitBlob": "08b1d70369b5e8a6a188390e36c223b20462d12e",
+      "worktreeBytes": 675647,
+      "sha256": "3179a6a2fcd5ed04aa03ac893b43578b85f55a132dbe0e4ba691805b52ee942a"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-00.png",
+      "gitBlob": "67714f5aa5be9832f7c0e05cae61285a0f29b474",
+      "worktreeBytes": 289639,
+      "sha256": "b60996fccd9e4aee264285f4bb1bed1e979657e0cf8f0c4ced4147c379f5e577"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-01.png",
+      "gitBlob": "b1edaf09c601dda2611304696cccc601a78f086a",
+      "worktreeBytes": 292438,
+      "sha256": "afbdee965b39acc55a7e9ea963bc52fe92beb2ba5f857b91ddadf1fefd468184"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-02.png",
+      "gitBlob": "437d5af7b9cbb903fb33797144f76958a5839476",
+      "worktreeBytes": 294104,
+      "sha256": "3b17e71b7f28b68a54a854787d4eebd3f55bd97208ee25b120669177ed7dcbca"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-03.png",
+      "gitBlob": "98e390bd6dacb78617724c3ab3d49b0040e43365",
+      "worktreeBytes": 294706,
+      "sha256": "be8f3692ac718baec19f45b8b4c38d2f8f588de067e0dc2aa77f0e6fa56e17dd"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-04.png",
+      "gitBlob": "b9504d74a06c903f69b39291ae5152f921720056",
+      "worktreeBytes": 295538,
+      "sha256": "0927c5e2c908b61afb8263e0676e45a8380f3c3b74f5c05554d2a3ca88e94d31"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-05.png",
+      "gitBlob": "22be069d6fe9e2f9813e742ba306bb0734cc8693",
+      "worktreeBytes": 296823,
+      "sha256": "9af587d4ccda56c2144a3c539e05c88c7c6e657d77249785dc07aab74b91a912"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-06.png",
+      "gitBlob": "8192ef295d441715740d7c60271fe83f31ab2b8c",
+      "worktreeBytes": 297167,
+      "sha256": "81bf8cd8253885a6c366929a7521ac303686b5838be466a08345fd4bdc83d40e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-07.png",
+      "gitBlob": "433f27e72c7a8525946d463c7484f2e28a7a08de",
+      "worktreeBytes": 296339,
+      "sha256": "4394f2bc4b30acfa498b8aa9165f089f0600efbd0ce7a81ad83f29cfa3b86486"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-08.png",
+      "gitBlob": "35934906ea8d2cc7eeb166f6c5ba84ef551a46d0",
+      "worktreeBytes": 298578,
+      "sha256": "139ff9924703e23e221cac8dcb3139762d833cb1788a741b118807fea91cd225"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-09.png",
+      "gitBlob": "758a7937bf514bf9a4ff6eea5febfd432291b7d3",
+      "worktreeBytes": 299308,
+      "sha256": "db4b4b68ce7c43e2c789b126c4f79b61775afaa87a8bf6c30901245e5a2d57af"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-10.png",
+      "gitBlob": "5bc2a35fe16f476acf86e1f6d7e55413d8e94587",
+      "worktreeBytes": 299862,
+      "sha256": "dfcdee4cfcae39e756613c0f34bb4998603a6862f914dfb4e904ebd287aaa205"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-11.png",
+      "gitBlob": "62465124efa65570cdf2e357715154d5f98396a2",
+      "worktreeBytes": 308256,
+      "sha256": "5c61dd42cb80e33c6a66a3ccb0414a8f4019f3a6bed9f92a87002d5b45544edb"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-12.png",
+      "gitBlob": "4df85889cd1e557ab5d9b399940ed737462526f5",
+      "worktreeBytes": 309081,
+      "sha256": "d7f25d88bc63cce5d3ced439f8f5da3f24d8d51f4245cc80449755168e1f1b7f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-13.png",
+      "gitBlob": "d123a267242ef962a7275dad4d7e6ab4b980f74c",
+      "worktreeBytes": 309393,
+      "sha256": "d98ccb9c7ab78998779c93443ccd7f2bbb5b407cbeb8bc6971ed9b6d75f64948"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-14.png",
+      "gitBlob": "4170b2680ffa25cf141efdbd8abd766d4777ae66",
+      "worktreeBytes": 309523,
+      "sha256": "e070c50750f271bc82c6a1b2ea260fe9c6710327fee90b1ee76a32707a390381"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-15.png",
+      "gitBlob": "21be213c037a6b0ceb1afed2b58a2750a41cd9df",
+      "worktreeBytes": 311267,
+      "sha256": "45ee72c8189c60d22cb9c649eea7380cb366a1ee2bc4e81545cf15006d0d030f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-16.png",
+      "gitBlob": "76c305573c7d42eaa8b07d3b5d059b955370e741",
+      "worktreeBytes": 311497,
+      "sha256": "807dc3a18ee91fcdaf3163f26c480b4975ba6e695d01733cacc50baf12d3e828"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-17.png",
+      "gitBlob": "0eb95fb8c1fd278e3faf5aff9caeb081f85cb8a0",
+      "worktreeBytes": 312662,
+      "sha256": "5a28be4ddcc0dbc9adecf0379289206d1e7bdd4bc8fc34a646db2a25a57cb131"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-18.png",
+      "gitBlob": "628055fc68226eb490ca42e1b7a778dde34d1c20",
+      "worktreeBytes": 312162,
+      "sha256": "5c8a16ab2a3d0dec1fd45072c8045d43f25fb3b475fcb68edf69ce88223d018a"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/frame-19.png",
+      "gitBlob": "165a67d0b51e2b13e1c5534be168d2c953d48ece",
+      "worktreeBytes": 311708,
+      "sha256": "2aa6fee0284660f67e70678be31e161581542147dd14a9bed42a616ca94b7f4a"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/historical-tree-after.png",
+      "gitBlob": "a2c46ff02135f356b6bcf0f172ea8e678d633955",
+      "worktreeBytes": 748734,
+      "sha256": "98aa3b48a8f13b9c87053e62c125e8a2231b0665eaff90db8ec574ceb3e35701"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/historical-tree-before.png",
+      "gitBlob": "6cb0872c56013b1e78fb2c92094dbb88b53114bd",
+      "worktreeBytes": 540156,
+      "sha256": "efe4fced98fc54732563fb349fe8ec0ac077d97757bcb2a2eeb12e1b2cdb752e"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/historical-tree-final.png",
+      "gitBlob": "6feb548484c383ab23631f199c84271026ddaaa8",
+      "worktreeBytes": 749115,
+      "sha256": "8df11cfb27d036939fa0f357a31dd158d338295fcebbabf95ddc01b287e37ad3"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/legacy-tree-behind.png",
+      "gitBlob": "86319bcf979290da72ea5ffc61944f2f7e5c5f9e",
+      "worktreeBytes": 246104,
+      "sha256": "c000da64e36b8b9dacb6c67d5195c2c6ef44b3413a2b9a798fd9ba7278433e46"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/legacy-tree-front.png",
+      "gitBlob": "7404e12a8c65fd2e9faf2fb55228b03270330294",
+      "worktreeBytes": 246010,
+      "sha256": "c0d84a2274d22b5289012bc461ab437ec7299788ce5d9654badf429d80baadb7"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/legacy-trunk-contact.png",
+      "gitBlob": "09fb0f58279225f2076cbbcb9433ab871e8ef0a9",
+      "worktreeBytes": 246292,
+      "sha256": "becbd1bc7dfd6f29ce99c83b16c9d613e5bf3bf0adeab1d0e9e2a2d721418886"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/old-tree-volume-before.png",
+      "gitBlob": "bd85eb8cda0f0f7931209368e0e7b2a663df37f3",
+      "worktreeBytes": 165209,
+      "sha256": "f74085e0f1114ff3fc10a060a7b1808e885b4833b50b11052abd250f9e8ccf7f"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/old-tree-volume-final.png",
+      "gitBlob": "dfac58d3a726c125ef369d018293ca74ebb24460",
+      "worktreeBytes": 244572,
+      "sha256": "356c4b1c596cdaf10efb6f8cff5982f443ac60562a1d50d57212ffe116e62988"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/plateau-after.png",
+      "gitBlob": "0fc867bf1f8ab9c2f87ed80066b64af9f8c092f6",
+      "worktreeBytes": 713253,
+      "sha256": "18d9f4db7450a880cbac97912819ec3632e97f675f813982963d166cc4ccbacd"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/plateau-before.png",
+      "gitBlob": "aa2462681d794d1fc16f1a2aea9d8cb627fbf9a5",
+      "worktreeBytes": 524833,
+      "sha256": "d17a87982632261e2f4c5111b5e52053ace9505289c5d67ac68f9d352adace39"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/plateau-final.png",
+      "gitBlob": "31ad09405a2136a9a3f9fca52742f97877ba46b9",
+      "worktreeBytes": 718665,
+      "sha256": "249e23af68a9b4ecf44917ef58bbf1b632b248c99a32fe649bbfe2f527f3897d"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/plateau-planes-before.png",
+      "gitBlob": "5efcd8b6026daddefd6576c672fef64d026fa085",
+      "worktreeBytes": 76846,
+      "sha256": "c1c4af5621dd6af8b7cc067330a26dbc56f46d664ffa3edf51d17ee52c235386"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/plateau-planes-final.png",
+      "gitBlob": "003da47dc4e509c91a474b5051bbd5a9a9221b16",
+      "worktreeBytes": 411399,
+      "sha256": "061056e67090eba5ddfe21e0722577b1806b4733e24a336d38146ec62e6e3cbc"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/relief-upper-after.png",
+      "gitBlob": "894b25f59726ed2c24173bf98f9ae5aeebdb451a",
+      "worktreeBytes": 758445,
+      "sha256": "780da23ae41f347132219108301947cf1df15938566e672b6312f30e64fadb6c"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/relief-upper-before.png",
+      "gitBlob": "ab01900b1d9a5e03a0132d76ddf4a4b0402d047f",
+      "worktreeBytes": 551009,
+      "sha256": "4c76d00db17c789efe3ba87335d705544c63dff4d8c8f8a3c0882dd488304ead"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/relief-upper-final.png",
+      "gitBlob": "c2d1eae93e6bc3e4508ede843c3c616c53951e1b",
+      "worktreeBytes": 765844,
+      "sha256": "caf573f464b2d2bf5be93dfe9856f4f18881687fd46eb7e9843417b0cbad8147"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/second-area-after.png",
+      "gitBlob": "b95b33a322b5df57b42d9d779a008e1437ea3635",
+      "worktreeBytes": 719036,
+      "sha256": "a5a5e894f592ade04bef9c85f185eae84f3c43fb7e7f7501b2778fa35a6c2ed4"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/second-area-before.png",
+      "gitBlob": "436694d2a500c0b5e06076ec76b6768b68921ee3",
+      "worktreeBytes": 575081,
+      "sha256": "7eec9a36a6d7f4712777ea8e5d443c4e0ed484de5e4d328abe40aa0dc13eb43c"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/second-area-final.png",
+      "gitBlob": "179b8e2d2eb8b5b73c378f64afc7cf527573fb5f",
+      "worktreeBytes": 722436,
+      "sha256": "5ce8aa40dc49b7252c85db1b511b44d4a8d3b747a8a68d4218077457464dffa2"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/water-bank-after.png",
+      "gitBlob": "b3cdd63e43acee847b2e16ec4913dc3bdb78f92e",
+      "worktreeBytes": 746972,
+      "sha256": "3c927683c804c43de30f25e4b71c2fe16aa9edfb853d5172c5f31e5d08fed545"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/water-bank-before.png",
+      "gitBlob": "0264be949470b3e5cb6dfa01ce4db4050617af92",
+      "worktreeBytes": 456808,
+      "sha256": "ca1607fa122e5f7500da2a1f66e95bf84697609f8d086822d9fa1b80c8d778f1"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/water-bank-final.png",
+      "gitBlob": "41f7fd65798dfb083ade6bd09c0b27d8aa9f142d",
+      "worktreeBytes": 755126,
+      "sha256": "9734a8b73ac526618df60cf6d34a040855058e2315c5c0e8fb944ff068ba0778"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/wet-bank-before.png",
+      "gitBlob": "a81f86137930a68a2ef283f27e9fa31574bf1d98",
+      "worktreeBytes": 123687,
+      "sha256": "d055dc8fcbf6fc9d5d04b5d82d2dd0935fa16865a9332226a50c43ab66e90c87"
+    },
+    {
+      "path": "Docs/Validation/ValdoriaGround12/ReviewLite/wet-bank-final.png",
+      "gitBlob": "6225d1788b887f3898f993c1bde5b07a4f0def0d",
+      "worktreeBytes": 201599,
+      "sha256": "b505c0266046632ffa41d372262ea0fc9f41c6083ade65afc84885a932bdf287"
+    },
+    {
+      "path": "Docs/WorldGen/EnvironmentFinishContract.md",
+      "gitBlob": "9da6399fd3c37b11e6bf9b0aa4b357561698607f",
+      "worktreeBytes": 2884
+    },
+    {
+      "path": "Docs/WorldGen/VegetationContract.md",
+      "gitBlob": "717109d182c48d4823a08985dfc087cbd28e49a2",
+      "worktreeBytes": 6707
+    },
+    {
+      "path": "Docs/WorldGen/WorldHydrologyContract.md",
+      "gitBlob": "5006b77d0358267167369e033ed7d3862ec9bba3",
+      "worktreeBytes": 7835
+    },
+    {
+      "path": "Tools/ArtPipeline/WorldGen/environment_finish12.py",
+      "gitBlob": "72f69b8d3a423d1bffb980918145b4295242f937",
+      "worktreeBytes": 14065
+    },
+    {
+      "path": "Tools/ArtPipeline/WorldGen/ground12_evidence.py",
+      "gitBlob": "198df7e831c572b9d91dc6acaf86e53f99e9df48",
+      "worktreeBytes": 3327
+    },
+    {
+      "path": "Tools/ArtPipeline/WorldGen/test_environment_finish12.py",
+      "gitBlob": "1d282ef3051b29cd2834079d0f09a5dd7e394ac9",
+      "worktreeBytes": 2035
+    },
+    {
+      "path": "Tools/ArtPipeline/review_lite.py",
+      "gitBlob": "5d4dcd445d1d8e7054bb89491be5e62dc11689c9",
+      "worktreeBytes": 11157
+    },
+    {
+      "path": "Tools/ArtPipeline/test_review_lite.py",
+      "gitBlob": "1823a13a1799278dc94495533969e8067ee80158",
+      "worktreeBytes": 3735
+    }
+  ],
+  "note": "gitBlob is canonical staged content; sha256 where provided pins raw artifact bytes, with text conversion disabled for source/evidence folders. Publication records and this inventory excluded to avoid circular hashes."
+}

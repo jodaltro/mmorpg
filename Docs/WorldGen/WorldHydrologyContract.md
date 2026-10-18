@@ -1,5 +1,9 @@
 # World Hydrology — contrato v1
 
+## Apresentação Ground12
+
+[EnvironmentFinishContract](EnvironmentFinishContract.md) revisa somente RGB dos24 frames existentes e a estreita interface visual da margem. Alpha, chunks/meshes, profundidade, fluxo, recortes, bloqueio e vau permanecem do produtor05. `visualDeepScalar` é um parâmetro artístico de cor, não uma mudança hidráulica ou física. Fontes Aseprite e resultados Ground12 continuam candidatos à avaliação.
+
 Gerador `world-hydrology/1.0.0`, schemas `valdoria-hydrology-recipe/v1`, `valdoria-hydrology-patch/v1`, `valdoria-hydrology/v1`, `valdoria-hydrology-build/v1`. Leia [WorldRegion](WorldRegionContract.md), [Organic Roads](OrganicRoadsContract.md), [Terrain Materials](TerrainMaterialsContract.md) e [fronteiras compartilhadas](EnvironmentBoundaryContract.md).
 
 ## Entrada e modelo

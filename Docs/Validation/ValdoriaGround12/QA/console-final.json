@@ -1,0 +1,555 @@
+{
+  "entries": [
+    {
+      "seq": 39582,
+      "timestampUtc": "2026-10-18T19:32:01.7506524Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\JourneySession.cs(150,99): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39583,
+      "timestampUtc": "2026-10-18T19:32:01.7506524Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\JourneySession.cs(150,49): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39584,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs(28,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39585,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SwordSweepDebug.cs(11,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39586,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\DiagnosticsService.cs(16,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39587,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(39,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39588,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(53,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39589,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(66,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39590,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\RuntimeDiagnostics.cs(32,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39591,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SessionMenuView.cs(25,23): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39592,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\WorldDebugOverlay.cs(17,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39593,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs(106,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39594,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(29,81): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39595,
+      "timestampUtc": "2026-10-18T19:32:01.7516521Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(29,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39596,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(17,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39597,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(24,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39598,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(24,122): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39599,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(26,66): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39600,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(26,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39601,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(97,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39602,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(97,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39603,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(106,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39604,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(106,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39605,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(113,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39606,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(113,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39607,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(123,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39608,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(123,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39609,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(128,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39610,
+      "timestampUtc": "2026-10-18T19:32:01.7526525Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(128,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39611,
+      "timestampUtc": "2026-10-18T19:32:38.3895125Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\JourneySession.cs(150,99): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39612,
+      "timestampUtc": "2026-10-18T19:32:38.3905127Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\JourneySession.cs(150,49): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39613,
+      "timestampUtc": "2026-10-18T19:32:38.3905127Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SwordSweepDebug.cs(11,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39614,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs(28,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39615,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\DiagnosticsService.cs(16,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39616,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(39,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39617,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(53,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39618,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(66,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39619,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\RuntimeDiagnostics.cs(32,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39620,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SessionMenuView.cs(25,23): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39621,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\WorldDebugOverlay.cs(17,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39622,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs(106,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39623,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(29,81): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39624,
+      "timestampUtc": "2026-10-18T19:32:38.3915235Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(29,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39625,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(17,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39626,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(24,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39627,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(24,122): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39628,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(26,66): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39629,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ExpandedWorldTests.cs(26,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39630,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(97,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39631,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(97,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39632,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(106,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39633,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(106,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39634,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(113,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39635,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(113,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39636,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(123,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39637,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(123,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39638,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(128,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39639,
+      "timestampUtc": "2026-10-18T19:32:38.3925238Z",
+      "level": "warn",
+      "logType": "Warning",
+      "message": "Assets\\Mmorpg\\Tests\\PlayMode\\ActionSliceTests.cs(128,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "stackTrace": "",
+      "seeded": false
+    },
+    {
+      "seq": 39640,
+      "timestampUtc": "2026-10-18T19:37:25.1712203Z",
+      "level": "error",
+      "logType": "Error",
+      "message": "Failed to handle /api/exec request: Main thread operation timed out after 5000ms",
+      "stackTrace": "UnityEngine.Debug:LogError (object)\nUnity.Pipeline.BasePipelineServer/<HandleExecRequest>d__119:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2257)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetException (System.Exception)\nUnity.Pipeline.BasePipelineServer/<ExecuteGated>d__109:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:1589)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetException (System.Exception)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass119_0/<<HandleExecRequest>b__0>d:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2218)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<object>:SetException (System.Exception)\nUnity.Pipeline.BasePipelineServer/<ExecuteCommandByName>d__137:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2664)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<object>:SetException (System.Exception)\nUnity.Pipeline.BasePipelineServer/<ExecuteCommand>d__138:MoveNext () (at ./Library/PackageCache/com.unity.pipeline@62c08c808737/Runtime/Common/BasePipelineServer.cs:2703)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+      "seeded": false
+    }
+  ],
+  "cursor": 39640,
+  "session": "ca3143ad5222447a81fb6ead72ba0611",
+  "returned": 59,
+  "dropped": false,
+  "reset": false,
+  "counts": {
+    "error": 1582,
+    "warn": 418,
+    "log": 0
+  },
+  "groundTruth": {
+    "sampledUtc": "2026-10-18T19:41:21.6492028Z",
+    "ageMs": 70,
+    "compilationFailed": false,
+    "compiling": false,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "consoleLogs": 0,
+    "seeded": true
+  }
+}

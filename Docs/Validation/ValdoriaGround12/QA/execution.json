@@ -1,0 +1,17 @@
+{
+  "schema": "valdoria-ground12-execution/v1",
+  "project": "D:/unity/Mmorpg",
+  "unityVersion": "6000.6.5f1",
+  "cliVersion": "1.0.0-beta.13",
+  "asepriteVersion": "1.3.18.6-x64",
+  "initialScene": "Assets/Mmorpg/Scenes/ValdoriaGroundFinishLab.unity",
+  "initialSceneClean": true,
+  "initialPlayStopped": true,
+  "gitPull": "git pull --ff-only origin main: Already up to date",
+  "sourceValidation": "Aseprite Lua and PNG roundtrip passed; approved original unchanged",
+  "consoleBaselineCursor": 39581,
+  "finalArtBuild": "BuildV2",
+  "refreshResponse": "Direct eval timed out at5s; all27 derived Unity PNGs matched BuildV2 before final captures; permanent importer provides QueueRefresh callback",
+  "fidelityInspection": "64 paired thumbnails viewed locally in4 contact sheets; principal originals and ReviewLite inspected individually; not artistic approval",
+  "officialPromotion": false
+}

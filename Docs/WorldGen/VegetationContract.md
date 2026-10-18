@@ -1,5 +1,9 @@
 # Vegetation Contract v1
 
+## Consumidor visual Ground12
+
+[EnvironmentFinishContract](EnvironmentFinishContract.md) acrescenta substituições de apresentação sobre as âncoras existentes. Mantém IDs, pontos, espécie/variante semântica, footprint, competição e navegação; não redistribui a vegetação. Preserva os dois desenhos Nature10 aprovados. A fonte artística de cada substituto tem canvas/âncora próprios e não herda automaticamente o recorte antigo. Ground12 permanece candidato; as revisões06/09 abaixo são históricas.
+
 ## Revisão visual09
 
 Consultar `Docs/Art/ValdoriaVisualLanguage.md`. Carvalho, olmo, aveleira, samambaia e junco possuem cópias editáveis em `WorldStudio09/Vegetation/Source`, três silhuetas estáticas cada, seis camadas. A revisão muda planos/pigmento/casca; mantém alpha, canvas, âncora e footprint. As outras três espécies são copiadas sem tratamento.

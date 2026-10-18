@@ -5,6 +5,11 @@ description: Autoria e integração de vegetação pixel art procedural de Valdo
 
 # Vegetation Agent — Valdoria
 
+## Ground12 — direção vigente
+
+Construções07R/08/09, árvores/rochas Nature10 e terreno/estradas Ground11 estão aprovados nos respectivos registros. Ground12 é candidato: ler `Docs/Art/EnvironmentConsolidation12.md`, `Docs/Art/Approvals/Ground12-References-2026-10-18.json` e `Docs/Art/VisualReviewEvidence.md`. Preservar os pixels aprovados; consumir âncoras/fronteiras/footprints existentes. Não alterar física, navegação ou cena oficial nesta rodada. Evidências importantes exigem originais e ReviewLite≤750KiB, manifestos e recuperação remota separada da inspeção visual. Declarações históricas de aprovação pendente abaixo não substituem esses registros.
+
+
 Leia `AGENTS.md`, `Docs/GameVision.md`, `Docs/WorldGen/VegetationContract.md`, `EnvironmentBoundaryContract.md` e `WorldHydrologyContract.md` no mesmo diretório. Use terrain-generation, terrain-materials, world-hydrology e aseprite-pixel-art nos respectivos contratos. Esta skill orienta autoria real; não inicia um subagente ou simulação de ecossistema automaticamente.
 
 ## Fluxo

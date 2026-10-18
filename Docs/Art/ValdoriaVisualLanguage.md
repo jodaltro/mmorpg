@@ -1,5 +1,9 @@
 # Valdoria — linguagem visual v1
 
+## Consolidação Ground12 — candidata
+
+As cinco famílias de referência estão formalizadas em [Ground12 References](Approvals/Ground12-References-2026-10-18.json). [Vegetação complementar, relevo e margens Ground12](EnvironmentConsolidation12.md) continuam candidatos. Preservar os assets aprovados e a cena oficial. Toda revisão importante segue [originais + ReviewLite](VisualReviewEvidence.md).
+
 ## Aprovação vigente — terreno e estradas Ground11
 
 Em 18/10/2026, o usuário respondeu **“Ficou bom”** à entrega `37555798710a6202fe8fdd5c3d14833c4a9e9bce`. Terreno, estradas, transições e contatos Ground11 apresentados passam a compor as referências aprovadas, junto às construções e às duas árvores/duas rochas Nature10. [Registro formal e hashes](Approvals/Ground11-2026-10-18.json). A aprovação não abrange vegetação histórica, platô, novas variantes ou promoção automática à cena oficial.

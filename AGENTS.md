@@ -92,6 +92,12 @@ Números abaixo foram **medidos no repositório real**, não herdados de relato 
 - Cena nova e importador **devem recusar sobrescrita de destino**.
 - **Ferramenta de captura grava em `Assets/`.** `capture_game_view`/`screenshot` com `save_path` resolvem para `Assets/<path>`; apagar o PNG **e** o `.meta` gerado depois de usar, para não poluir o projeto.
 
+## Evidências visuais — Ground12 em diante
+
+- Toda validação visual importante entrega PNG original integral de Play e cópia ReviewLite de até **750 KiB** por imagem, com dimensões, bytes, SHA-256, câmera/escala e transformação no manifesto. Originais são a autoridade e não podem ser sobrescritos.
+- Seguir `Docs/Art/VisualReviewEvidence.md` e `Tools/ArtPipeline/review_lite.py`. Pares antes/depois usam transformações equivalentes, nearest quando necessário e nenhum dithering. Redução de cores exige registro e inspeção visual; fornecer recortes1:1 para detalhes.
+- Depois do push, testar ao menos um ReviewLite pelo mecanismo disponível; separar publicação, recuperação Base64, assinatura/hash PNG e inspeção visual. Nunca declarar leitura pelo conector sem execução.
+
 ## Aseprite, Blender e arte
 
 - Aseprite **1.3.18.6** em `D:\Aseprite\Aseprite.exe` (PATH/`ASEPRITE_EXE` podem não estar configurados: localizar/validar antes de executar). Ler `.agents/skills/aseprite-pixel-art/SKILL.md` e `Docs/Art/AsepriteWorkflow.md`.
