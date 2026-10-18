@@ -1,0 +1,24 @@
+[
+  {
+    "name": "WaterOff",
+    "frame": 1460,
+    "camera": "(20.00, 23.00, -10.00)",
+    "orthographicSize": 11.25,
+    "pixelWidth": 1280,
+    "pixelHeight": 720,
+    "actor": "(11.50, 18.50, 0.00)",
+    "drawCalls": 18,
+    "water": false
+  },
+  {
+    "name": "WaterOn",
+    "frame": 3410,
+    "camera": "(20.00, 23.00, -10.00)",
+    "orthographicSize": 11.25,
+    "pixelWidth": 1280,
+    "pixelHeight": 720,
+    "actor": "(11.50, 18.50, 0.00)",
+    "drawCalls": 24,
+    "water": true
+  }
+]

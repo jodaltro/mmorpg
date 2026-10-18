@@ -1,0 +1,77 @@
+{
+  "framesAdvanced": 290,
+  "records": [
+    {
+      "capture": "00-phase3.png",
+      "frame": 513,
+      "phase": 3,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "01-phase0.png",
+      "frame": 515,
+      "phase": 0,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "02-phase1.png",
+      "frame": 555,
+      "phase": 1,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "03-phase2.png",
+      "frame": 606,
+      "phase": 2,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "04-phase3.png",
+      "frame": 659,
+      "phase": 3,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "05-phase0.png",
+      "frame": 710,
+      "phase": 0,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "06-phase1.png",
+      "frame": 756,
+      "phase": 1,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture": "07-phase2.png",
+      "frame": 802,
+      "phase": 2,
+      "shaderTextureMatches": true,
+      "camera": "(20.00, 23.00, -10.00)",
+      "width": 1280,
+      "height": 720
+    }
+  ]
+}

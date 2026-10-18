@@ -1,0 +1,5 @@
+{
+  "initialBuildRejected": "Guard expected 33 boxes on coarse child, actual 29 coarse + 4 separate border boxes",
+  "resolution": "Validated component consumers before mutation; preserved four borders; importer rolls back only its own new destination on error",
+  "gameRuntimeDefect": false
+}

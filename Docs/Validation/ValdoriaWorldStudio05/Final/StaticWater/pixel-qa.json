@@ -1,0 +1,13 @@
+{
+  "nativeFrames": 8,
+  "fixedWaterCrop": [
+    112,
+    208,
+    192,
+    224
+  ],
+  "uniqueRenderedWaterPhases": 4,
+  "samePhasePixelIdenticalAcrossTwoCycles": true,
+  "shaderTexturesAppliedCorrectly": true,
+  "previewGifCroppedWithoutResize": true
+}

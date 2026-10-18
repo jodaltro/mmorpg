@@ -66,3 +66,10 @@ O envelope `valdoria-world-region/v2` mantém `terrainRef` e `roadRefs` por hash
 ## World Studio 03 — composição de materiais
 
 `valdoria-material-composition/v1` referencia o WorldRegion e a estrada por caminho/SHA, além dos hashes de coverage/shoulders/wear/navigable, receita, biblioteca e retângulos do atlas. Não duplica nem altera as camadas físicas. A apresentação de relevo contínua é um artefato visual independente; não autoriza escalada. Consulte [TerrainMaterialsContract.md](TerrainMaterialsContract.md). O envelope de materiais complementa a composição v2 de estradas; não exige migrar a topografia v1.
+## World Studio 05 — fronteiras e hidrologia por referência
+
+O Water Agent está implementado em `world_hydrology.py`, com skill `world-hydrology` e contratos [WorldHydrologyContract.md](WorldHydrologyContract.md) e [EnvironmentBoundaryContract.md](EnvironmentBoundaryContract.md). Ele preserva os bytes do WorldRegion e das estradas.
+
+**Revisão física explícita no laboratório05:** o campo contínuo de relevo04 fornece os mesmos loops para os pés visuais, navegação subcélula e PolygonCollider2D. Os 29 boxes grosseiros são substituídos; quatro bordas continuam. O WorldRegion v1 mantém seu bloqueio histórico, enquanto `EnvironmentRegionData` e os novos artefatos representam a ocupação refinada. Consumidores não devem misturar o grid antigo com o novo contorno e presumir equivalência. Altura original não foi alterada.
+
+Água, profundidade normalizada, solo úmido, bloqueio aquático e vaus são camadas distintas. `waterCandidate` continua sendo um proxy histórico, não é promovido automaticamente a água. Fora do laboratório, a física anterior e a cena oficial permanecem intactas.

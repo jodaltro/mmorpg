@@ -1,0 +1,19 @@
+{
+  "nativeFrames": 30,
+  "resolution": [
+    1280,
+    720
+  ],
+  "distinctCameraPositions": 28,
+  "waterAnimationFramesObserved": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cameraStart": "(20.00, 18.50, -10.00)",
+  "cameraEnd": "(27.69, 18.50, -10.00)",
+  "gifPreview": "256-color preview at nominal 80ms; original PNG frames are authoritative",
+  "playChecks": 14,
+  "allPlayChecksPass": true
+}

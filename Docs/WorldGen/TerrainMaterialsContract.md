@@ -68,3 +68,7 @@ A apresentacao de relevo e os meshes permanecem iguais ao Marco03. O importador 
 `FinalOnlyVisuals-A.prefab` e uma exportacao experimental de visuais de um unico estilo. Seu contrato exige WorldRegion e fisica no host; nao inclui ator, controlador de comparacao nem fonte de geracao em Play. Ele demonstra descarte de comparacoes por dependencias, sem prometer streaming. Futuro carregamento por regiao/chunk devera usar os retangulos e halos existentes, carregar assets pregerados e revalidar UV/sorting, sem blur ou compressao inadequada.
 
 No refino 1.1, o alfa dos motivos de desgaste Aseprite pode ser projetado na direcao da estrada com nearest; a cor vem da receita e os realces sao reaplicados em coordenadas mundiais. `allowedTransforms=translation` continua regendo a arte preiluminada de plantas/pedras. O campo `roadWearGeometry` registra a excecao de geometria de pincel, sem rotacao da iluminacao pronta.
+
+## Integração de água — Marco 05
+
+A alternativa A04 é consumida como referência provisória sem regenerar o chão. `water_art.py` acrescenta materiais de água/margem em chunks, recortados por semântica hidrológica; não redefine contornos físicos a partir de alfa. O footprint refinado pertence ao contrato `EnvironmentBoundaryContract.md`, com revisão explícita de física somente no laboratório05. Chunks aquáticos têm continuidade por contexto global/halo, quatro frames autorados e hashes próprios. Não há aprovação artística automática ou mudança de `MmorpgWorld.unity`.

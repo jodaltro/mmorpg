@@ -65,3 +65,7 @@ O Marco 02 não implementa Material Agent nem amplia sua biblioteca de materiais
 ## Medidas e limites de QA
 
 Testes verificam repetição, seed, largura/derivada, waypoints/tangentes, máscara física conexa em 4 vizinhos, cobertura visual conexa em 8 vizinhos (pixels diagonais são válidos), diagonal longa com bordas em múltiplos offsets subcélula, patch local, desvios/exclusões, recortes adjacentes, hashes e recusa de sobrescrita. Essas medidas são geométricas e de contrato, **não notas automáticas de beleza**. Capturas reais e avaliação humana continuam necessárias.
+
+## Handoff de água — Marco 05
+
+O Water Agent consome cobertura e reservas existentes por hash e rejeita interseção aquática com a estrada aprovada. Não altera seus samples, larguras ou masks. O vau do estudo05 cruza apenas o riacho, não uma estrada. Travessias entre uma futura estrada e água exigirão receita conjunta/autorizações e revalidação de clearance; `authorizedCrossingCells` histórico não cria ponte nem libera rocha. Consulte `WorldHydrologyContract.md`.

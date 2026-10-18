@@ -1,0 +1,11 @@
+{
+  "boundsPixels": [
+    480,
+    768,
+    128,
+    128
+  ],
+  "baseMatchesFullBuild": true,
+  "changedSurfacePixels": 271,
+  "patchKind": "finite arc width only"
+}

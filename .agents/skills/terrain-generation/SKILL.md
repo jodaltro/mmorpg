@@ -49,3 +49,5 @@ Para edição, acrescente `--patch caminho/patch.json`. O gerador usa Python/Pil
 - O Marco 02 reutiliza o atlas de estudo para exibir cobertura. Não iniciar Material Agent/Marco 03 dentro de uma tarefa exclusiva de estradas.
 - Fontes e receitas ficam em `ArtSource/Labs`; Python não escreve em `Assets`. O importador Unity pode criar assets/cenas experimentais no escopo autorizado. Não promover ao mundo oficial sem avaliação visual explícita.
 - Water, Climate, Material, Architecture, Vegetation e Structures devem produzir artefatos próprios referenciados por hash, sem alterar silenciosamente a topografia de outro especialista.
+
+Para água, use a skill `world-hydrology` e `Docs/WorldGen/WorldHydrologyContract.md`. O laboratório05 usa uma revisão explícita de fronteira compartilhada; isso não altera a topografia original nem autoriza o Material Agent a editar física por pigmento.

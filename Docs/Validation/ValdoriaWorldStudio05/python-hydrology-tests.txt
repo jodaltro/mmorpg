@@ -1,0 +1,33 @@
+test_art_crop_continuity_all_channels (test_world_hydrology.HydrologyTests.test_art_crop_continuity_all_channels) ... ok
+test_art_four_distinct_frames_and_rgba (test_world_hydrology.HydrologyTests.test_art_four_distinct_frames_and_rgba) ... ok
+test_cli_explicit_inputs (test_world_hydrology.HydrologyTests.test_cli_explicit_inputs) ... ok
+test_depression_spill_and_lake (test_world_hydrology.HydrologyTests.test_depression_spill_and_lake) ... ok
+test_drainage_acyclic_lexicographic (test_world_hydrology.HydrologyTests.test_drainage_acyclic_lexicographic) ... ok
+test_editable_source_pixels_consumed (test_world_hydrology.HydrologyTests.test_editable_source_pixels_consumed) ... ok
+test_finite_width_patch_locality (test_world_hydrology.HydrologyTests.test_finite_width_patch_locality) ... ok
+test_invalid_feature_and_patch (test_world_hydrology.HydrologyTests.test_invalid_feature_and_patch) ... ok
+test_masks_depth_and_crossings (test_world_hydrology.HydrologyTests.test_masks_depth_and_crossings) ... ok
+test_navigation_uses_same_shared_fields (test_world_hydrology.HydrologyTests.test_navigation_uses_same_shared_fields) ... ok
+test_overlap_between_vertices_is_detected (test_world_hydrology.HydrologyTests.test_overlap_between_vertices_is_detected) ... ok
+test_priority_flood_does_not_modify_input (test_world_hydrology.HydrologyTests.test_priority_flood_does_not_modify_input) ... ok
+test_protected_area_rejects_water (test_world_hydrology.HydrologyTests.test_protected_area_rejects_water) ... ok
+test_published_build_source_hashes (test_world_hydrology.HydrologyTests.test_published_build_source_hashes) ... ok
+test_refuse_existing_output_and_manifest_tampering (test_world_hydrology.HydrologyTests.test_refuse_existing_output_and_manifest_tampering) ... ok
+test_river_reaches_lake_and_descends_spill_surface (test_world_hydrology.HydrologyTests.test_river_reaches_lake_and_descends_spill_surface) ... ok
+test_rock_loops_match_exact_visual_triangle_field (test_world_hydrology.HydrologyTests.test_rock_loops_match_exact_visual_triangle_field) ... ok
+test_seed_changes_width_not_terrain_or_drainage (test_world_hydrology.HydrologyTests.test_seed_changes_width_not_terrain_or_drainage) ... ok
+test_seed_repeat_geometry_exact (test_world_hydrology.HydrologyTests.test_seed_repeat_geometry_exact) ... ok
+test_tiny_protected_area_inside_water_rejected (test_world_hydrology.HydrologyTests.test_tiny_protected_area_inside_water_rejected) ... ok
+test_two_axis_crop_masks_identical (test_world_hydrology.HydrologyTests.test_two_axis_crop_masks_identical) ... ok
+test_uphill_lake_seed_rejected (test_world_hydrology.HydrologyTests.test_uphill_lake_seed_rejected) ... ok
+test_version_and_nonfinite (test_world_hydrology.HydrologyTests.test_version_and_nonfinite) ... ok
+test_water_avoids_actual_road_pixels_and_reserves (test_world_hydrology.HydrologyTests.test_water_avoids_actual_road_pixels_and_reserves) ... ok
+test_water_connected (test_world_hydrology.HydrologyTests.test_water_connected) ... ok
+test_water_polygon_matches_surface_and_blocked_triangles (test_world_hydrology.HydrologyTests.test_water_polygon_matches_surface_and_blocked_triangles) ... ok
+test_width_profile_is_variable_and_bounded (test_world_hydrology.HydrologyTests.test_width_profile_is_variable_and_bounded) ... ok
+test_world_and_road_hashes_unchanged (test_world_hydrology.HydrologyTests.test_world_and_road_hashes_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 85.366s
+
+OK

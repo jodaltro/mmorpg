@@ -1,0 +1,126 @@
+test_all_stages_opaque (test_material_refinement.RefinementTests.test_all_stages_opaque) ... ok
+test_compact_clusters_not_white_noise (test_material_refinement.RefinementTests.test_compact_clusters_not_white_noise) ... ok
+test_contextual_groups_have_rest_spaces (test_material_refinement.RefinementTests.test_contextual_groups_have_rest_spaces) ... ok
+test_editable_road_alpha_changes_world_appearance (test_material_refinement.RefinementTests.test_editable_road_alpha_changes_world_appearance) ... ok
+test_global_arc_does_not_reset_at_joins (test_material_refinement.RefinementTests.test_global_arc_does_not_reset_at_joins) ... ok
+test_invalid_refinement_context_rejected (test_material_refinement.RefinementTests.test_invalid_refinement_context_rejected) ... ok
+test_joint_network_independent_of_crop_extent (test_material_refinement.RefinementTests.test_joint_network_independent_of_crop_extent) ... ok
+test_large_pigment_islands_reduced (test_material_refinement.RefinementTests.test_large_pigment_islands_reduced) ... ok
+test_local_patch_does_not_bleed (test_material_refinement.RefinementTests.test_local_patch_does_not_bleed) ... ok
+test_manifests_and_no_overwrite (test_material_refinement.RefinementTests.test_manifests_and_no_overwrite) ... ok
+test_mesh_relief_field_byte_invariant (test_material_refinement.RefinementTests.test_mesh_relief_field_byte_invariant) ... ok
+test_minimum_distance_between_group_children (test_material_refinement.RefinementTests.test_minimum_distance_between_group_children) ... ok
+test_refined_local_export_provenance_and_pixels (test_material_refinement.RefinementTests.test_refined_local_export_provenance_and_pixels) ... ok
+test_road_camouflage_contrast_reduced (test_material_refinement.RefinementTests.test_road_camouflage_contrast_reduced) ... ok
+test_seed_changes_art_not_road (test_material_refinement.RefinementTests.test_seed_changes_art_not_road) ... ok
+test_seed_reproducibility (test_material_refinement.RefinementTests.test_seed_reproducibility) ... ok
+test_six_functional_motifs_each_distinct (test_material_refinement.RefinementTests.test_six_functional_motifs_each_distinct) ... ok
+test_source_is_editable_revision (test_material_refinement.RefinementTests.test_source_is_editable_revision) ... ok
+test_top_left_slope_lighting_in_rendered_pixels (test_material_refinement.RefinementTests.test_top_left_slope_lighting_in_rendered_pixels) ... ok
+test_two_axis_chunk_continuity (test_material_refinement.RefinementTests.test_two_axis_chunk_continuity) ... ok
+test_used_grass_stays_short (test_material_refinement.RefinementTests.test_used_grass_stays_short) ... ok
+test_wear_follows_axis_and_varies_laterally (test_material_refinement.RefinementTests.test_wear_follows_axis_and_varies_laterally) ... ok
+test_adjacent_chunks_match_shared_global_road (test_organic_roads.OrganicRoadTests.test_adjacent_chunks_match_shared_global_road) ... ok
+test_blocking_wall_is_authoring_error (test_organic_roads.OrganicRoadTests.test_blocking_wall_is_authoring_error) ... ok
+test_forbidden_clearance_for_whole_corridor (test_organic_roads.OrganicRoadTests.test_forbidden_clearance_for_whole_corridor) ... ok
+test_generate_manifest_link_tamper_and_overwrite (test_organic_roads.OrganicRoadTests.test_generate_manifest_link_tamper_and_overwrite) ... ok
+test_local_patch_has_bounded_support (test_organic_roads.OrganicRoadTests.test_local_patch_has_bounded_support) ... ok
+test_long_diagonal_has_subcell_edges (test_organic_roads.OrganicRoadTests.test_long_diagonal_has_subcell_edges) ... ok
+test_mandatory_waypoints_and_tangents (test_organic_roads.OrganicRoadTests.test_mandatory_waypoints_and_tangents) ... ok
+test_minimum_width_and_distance_sampling (test_organic_roads.OrganicRoadTests.test_minimum_width_and_distance_sampling) ... ok
+test_protected_area_and_slope_are_exclusions (test_organic_roads.OrganicRoadTests.test_protected_area_and_slope_are_exclusions) ... ok
+test_reject_invalid_width_and_patch (test_organic_roads.OrganicRoadTests.test_reject_invalid_width_and_patch) ... ok
+test_seed_geometry_and_bytes_repeat (test_organic_roads.OrganicRoadTests.test_seed_geometry_and_bytes_repeat) ... ok
+test_seed_variation_is_controlled (test_organic_roads.OrganicRoadTests.test_seed_variation_is_controlled) ... ok
+test_subcell_coverage_avoids_exclusions (test_organic_roads.OrganicRoadTests.test_subcell_coverage_avoids_exclusions) ... ok
+test_terrain_never_changes (test_organic_roads.OrganicRoadTests.test_terrain_never_changes) ... ok
+test_topography_detours_instead_of_cutting_hill (test_organic_roads.OrganicRoadTests.test_topography_detours_instead_of_cutting_hill) ... ok
+test_trail_adds_valley_guides_preserving_mandatory_points (test_organic_roads.OrganicRoadTests.test_trail_adds_valley_guides_preserving_mandatory_points) ... ok
+test_visual_core_and_no_holes (test_organic_roads.OrganicRoadTests.test_visual_core_and_no_holes) ... ok
+test_water_requires_explicit_crossing (test_organic_roads.OrganicRoadTests.test_water_requires_explicit_crossing) ... ok
+test_all_candidates_routes_have_actor_clearance (test_studio01.StudioTests.test_all_candidates_routes_have_actor_clearance) ... ok
+test_candidate_refuses_destination (test_studio01.StudioTests.test_candidate_refuses_destination) ... ok
+test_compact_patch_and_neighbour_halo (test_studio01.StudioTests.test_compact_patch_and_neighbour_halo) ... ok
+test_material_variant_joins (test_studio01.StudioTests.test_material_variant_joins) ... ok
+test_no_full_region_texture (test_studio01.StudioTests.test_no_full_region_texture) ... ok
+test_thermal_conserves_mass_and_reduces_peak (test_studio01.StudioTests.test_thermal_conserves_mass_and_reduces_peak) ... ok
+test_thermal_respects_reservations (test_studio01.StudioTests.test_thermal_respects_reservations) ... ok
+test_contract_and_materials (test_terrain_agent.TerrainAgentTests.test_contract_and_materials) ... ok
+test_generate_verify_refuse_overwrite (test_terrain_agent.TerrainAgentTests.test_generate_verify_refuse_overwrite) ... ok
+test_patch_changes_only_requested_kind (test_terrain_agent.TerrainAgentTests.test_patch_changes_only_requested_kind) ... ok
+test_protected_route_is_walkable (test_terrain_agent.TerrainAgentTests.test_protected_route_is_walkable) ... ok
+test_reject_invalid_recipe_and_patch (test_terrain_agent.TerrainAgentTests.test_reject_invalid_recipe_and_patch) ... ok
+test_repeatability_and_seed (test_terrain_agent.TerrainAgentTests.test_repeatability_and_seed) ... ok
+test_aseprite_roundtrip_alpha (test_terrain_materials.MaterialTests.test_aseprite_roundtrip_alpha) ... ok
+test_atlas_chunk_rectangles_cover (test_terrain_materials.MaterialTests.test_atlas_chunk_rectangles_cover) ... ok
+test_chunks_exact_both_axes (test_terrain_materials.MaterialTests.test_chunks_exact_both_axes) ... ok
+test_cliff_world_mapping_not_periodic (test_terrain_materials.MaterialTests.test_cliff_world_mapping_not_periodic) ... ok
+test_context_not_tile_locked (test_terrain_materials.MaterialTests.test_context_not_tile_locked) ... ok
+test_contract_rejects_invalid (test_terrain_materials.MaterialTests.test_contract_rejects_invalid) ... ok
+test_eight_neighbour_and_triple_junction (test_terrain_materials.MaterialTests.test_eight_neighbour_and_triple_junction) ... ok
+test_inclination_reduces_nonrock_details (test_terrain_materials.MaterialTests.test_inclination_reduces_nonrock_details) ... ok
+test_library_editable_and_no_flips (test_terrain_materials.MaterialTests.test_library_editable_and_no_flips) ... ok
+test_local_cli_artifact_manifest_and_refusal (test_terrain_materials.MaterialTests.test_local_cli_artifact_manifest_and_refusal) ... ok
+test_local_regeneration (test_terrain_materials.MaterialTests.test_local_regeneration) ... ok
+test_manifest_tamper (test_terrain_materials.MaterialTests.test_manifest_tamper) ... ok
+test_no_32px_line_peaks_without_details (test_terrain_materials.MaterialTests.test_no_32px_line_peaks_without_details) ... ok
+test_no_overwrite (test_terrain_materials.MaterialTests.test_no_overwrite) ... ok
+test_rgba_no_holes_all_stages (test_terrain_materials.MaterialTests.test_rgba_no_holes_all_stages) ... ok
+test_seed_byte_repeat (test_terrain_materials.MaterialTests.test_seed_byte_repeat) ... ok
+test_seed_changes_appearance (test_terrain_materials.MaterialTests.test_seed_changes_appearance) ... ok
+test_shoulder_appearance_does_not_change_geometry (test_terrain_materials.MaterialTests.test_shoulder_appearance_does_not_change_geometry) ... ok
+test_stages_have_independent_appearance (test_terrain_materials.MaterialTests.test_stages_have_independent_appearance) ... ok
+test_subcell_material_boundary (test_terrain_materials.MaterialTests.test_subcell_material_boundary) ... ok
+test_topography_and_road_invariant (test_terrain_materials.MaterialTests.test_topography_and_road_invariant) ... ok
+test_variants_have_distinct_pixel_content (test_terrain_materials.MaterialTests.test_variants_have_distinct_pixel_content) ... ok
+test_art_crop_continuity_all_channels (test_world_hydrology.HydrologyTests.test_art_crop_continuity_all_channels) ... ok
+test_art_four_distinct_frames_and_rgba (test_world_hydrology.HydrologyTests.test_art_four_distinct_frames_and_rgba) ... ok
+test_cli_explicit_inputs (test_world_hydrology.HydrologyTests.test_cli_explicit_inputs) ... ok
+test_depression_spill_and_lake (test_world_hydrology.HydrologyTests.test_depression_spill_and_lake) ... ok
+test_drainage_acyclic_lexicographic (test_world_hydrology.HydrologyTests.test_drainage_acyclic_lexicographic) ... ok
+test_editable_source_pixels_consumed (test_world_hydrology.HydrologyTests.test_editable_source_pixels_consumed) ... ok
+test_finite_width_patch_locality (test_world_hydrology.HydrologyTests.test_finite_width_patch_locality) ... ok
+test_invalid_feature_and_patch (test_world_hydrology.HydrologyTests.test_invalid_feature_and_patch) ... ok
+test_masks_depth_and_crossings (test_world_hydrology.HydrologyTests.test_masks_depth_and_crossings) ... ok
+test_navigation_uses_same_shared_fields (test_world_hydrology.HydrologyTests.test_navigation_uses_same_shared_fields) ... ok
+test_overlap_between_vertices_is_detected (test_world_hydrology.HydrologyTests.test_overlap_between_vertices_is_detected) ... ok
+test_priority_flood_does_not_modify_input (test_world_hydrology.HydrologyTests.test_priority_flood_does_not_modify_input) ... ok
+test_protected_area_rejects_water (test_world_hydrology.HydrologyTests.test_protected_area_rejects_water) ... ok
+test_published_build_source_hashes (test_world_hydrology.HydrologyTests.test_published_build_source_hashes) ... ok
+test_refuse_existing_output_and_manifest_tampering (test_world_hydrology.HydrologyTests.test_refuse_existing_output_and_manifest_tampering) ... ok
+test_river_reaches_lake_and_descends_spill_surface (test_world_hydrology.HydrologyTests.test_river_reaches_lake_and_descends_spill_surface) ... ok
+test_rock_loops_match_exact_visual_triangle_field (test_world_hydrology.HydrologyTests.test_rock_loops_match_exact_visual_triangle_field) ... ok
+test_seed_changes_width_not_terrain_or_drainage (test_world_hydrology.HydrologyTests.test_seed_changes_width_not_terrain_or_drainage) ... ok
+test_seed_repeat_geometry_exact (test_world_hydrology.HydrologyTests.test_seed_repeat_geometry_exact) ... ok
+test_tiny_protected_area_inside_water_rejected (test_world_hydrology.HydrologyTests.test_tiny_protected_area_inside_water_rejected) ... ok
+test_two_axis_crop_masks_identical (test_world_hydrology.HydrologyTests.test_two_axis_crop_masks_identical) ... ok
+test_uphill_lake_seed_rejected (test_world_hydrology.HydrologyTests.test_uphill_lake_seed_rejected) ... ok
+test_version_and_nonfinite (test_world_hydrology.HydrologyTests.test_version_and_nonfinite) ... ok
+test_water_avoids_actual_road_pixels_and_reserves (test_world_hydrology.HydrologyTests.test_water_avoids_actual_road_pixels_and_reserves) ... ok
+test_water_connected (test_world_hydrology.HydrologyTests.test_water_connected) ... ok
+test_water_polygon_matches_surface_and_blocked_triangles (test_world_hydrology.HydrologyTests.test_water_polygon_matches_surface_and_blocked_triangles) ... ok
+test_width_profile_is_variable_and_bounded (test_world_hydrology.HydrologyTests.test_width_profile_is_variable_and_bounded) ... ok
+test_world_and_road_hashes_unchanged (test_world_hydrology.HydrologyTests.test_world_and_road_hashes_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 103 tests in 126.429s
+
+OK
+{
+  "valid": true,
+  "regionId": "valdoria-highlands-pilot",
+  "expected": {
+    "region.json": "bd346646cbf9ff148056bcc2e007cf0ab8c9a51b7e040d3e9f89a59728c5c676",
+    "height.png": "d207cd00a540e50d74b30dbb5be16f4e1517f86d16b2ff9397e36db78308a4e6",
+    "terrain-preview.png": "efae4770fd7dfb28b5b26be37389e4a5b7ebb5077be5c5cf61950d6cbb5fa31b"
+  }
+}
+{
+  "valid": false,
+  "regionId": "valdoria-highlands-pilot",
+  "expected": {
+    "region.json": "bd346646cbf9ff148056bcc2e007cf0ab8c9a51b7e040d3e9f89a59728c5c676",
+    "height.png": "d207cd00a540e50d74b30dbb5be16f4e1517f86d16b2ff9397e36db78308a4e6",
+    "terrain-preview.png": "efae4770fd7dfb28b5b26be37389e4a5b7ebb5077be5c5cf61950d6cbb5fa31b"
+  }
+}

@@ -1,0 +1,15 @@
+ASEPRITE_INSPECT_BEGIN
+canvas=128x192
+colorMode=0
+frames=4
+layers=6
+tags=1
+totalDurationSeconds=0.720000
+layer[1]="Shallow water" visible=true
+layer[2]="Deep water" visible=true
+layer[3]="Reflections" visible=true
+layer[4]="Shore sediment" visible=true
+layer[5]="Localized foam" visible=true
+layer[6]="Flow strokes" visible=true
+tag[1]="water_flow"
+ASEPRITE_INSPECT_END
