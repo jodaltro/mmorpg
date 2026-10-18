@@ -1,0 +1,11 @@
+test_atlas_preserves_sampled_pixels (test_ground13.Ground13Tests.test_atlas_preserves_sampled_pixels) ... ok
+test_bank_and_road_preservation (test_ground13.Ground13Tests.test_bank_and_road_preservation) ... ok
+test_manifests (test_ground13.Ground13Tests.test_manifests) ... ok
+test_rebuild_determinism (test_ground13.Ground13Tests.test_rebuild_determinism) ... ok
+test_visual_wall_feet_match_physical_contours (test_ground13.Ground13Tests.test_visual_wall_feet_match_physical_contours) ... ok
+test_water_masks_and_loop (test_ground13.Ground13Tests.test_water_masks_and_loop) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 16.818s
+
+OK

@@ -11,6 +11,8 @@ python Tools/ArtPipeline/review_lite.py verify --root Docs/Validation/REGIAO --m
 
 O índice contém `images`, cada uma com `original` relativo à raiz de evidências, `scene`, `state`, `comparison`, `camera` e `integral`. Recortes incluem `crop:{source,boundsLTRB,sampling}` e `integral:false`. Câmeras fixas registram posição, ortográfica,32PPU, resolução e escala do ator; sequências móveis referenciam também o trace por frame. O manifesto acrescenta dimensões, bytes, SHA256, método, divisor, informações de paleta e integridade.
 
+Ground13 acrescenta `reviewName` opcional: um basename PNG explícito e único para capturas de diferentes diretórios que compartilhem o nome original, como `GameplayCandidate-frame-00.png`. Sem esse campo, conserva-se o basename original. O pipeline recusa colisões de nomes e caminhos nesse campo; não há segundo compressor nem alteração dos originais.
+
 O compositor tenta recompressão PNG sem perda, remove metadados e elimina alfa redundante somente quando totalmente opaco. Se necessário, usa nearest com divisores inteiros2/3/4, sem distorcer aspecto. Nunca suaviza, altera saturação, contraste ou iluminação, nem adiciona dithering.
 
 Quando a cópia a1/2 ainda ultrapassar o limite e a1/4 prejudicar a leitura, pode-se autorizar **somente na cópia de revisão** `--allow-quantization`. Nesse modo, a1/2 usa paleta comum de256cores calculada para todo o grupo comparativo, sem dithering. O erro médio absoluto por canal deve ser≤3 e o percentil95≤9; os valores são registrados e verificados. Isso não prova equivalência artística: inspecionar contra os originais e oferecer recortes1:1 dos detalhes importantes. Não usar quantização silenciosa.

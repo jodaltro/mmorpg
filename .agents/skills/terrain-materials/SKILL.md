@@ -5,6 +5,11 @@ description: Autoria e revisão de materiais pixel art procedurais de Valdoria e
 
 # Material Agent
 
+## Ground13 — prioridade atual
+
+Seguir a delimitação mais recente em `Docs/Art/Approvals/Ground13-Direction-2026-10-18.json`: vegetação Ground12 preservada após parecer positivo; platô/água candidatos com ressalvas. Sem aprovação geral automática. Relevo pode mudar apenas a apresentação (B), mantendo o pé físico, topografia, colisores e navegação; C exige proposta/autorização específica. Otimização deve preservar pixels e ordem de sobreposição, com comparativo separado de arte idêntica. Usar ReviewLite existente, não outro sistema de evidências.
+
+
 ## Ground12 — direção vigente
 
 Construções07R/08/09, árvores/rochas Nature10 e terreno/estradas Ground11 estão aprovados nos respectivos registros. A composição Ground12 apresentada foi aprovada em `05d842d4050aa35f5b73c4e30314f4f5bb65d39f`; escopo/hashes em `Docs/Art/Approvals/Ground12-2026-10-18.json`. Não ampliar essa aprovação a futuras variantes ou à hidrologia completa. Ler `Docs/Art/EnvironmentConsolidation12.md`, `Docs/Art/Approvals/Ground12-References-2026-10-18.json` e `Docs/Art/VisualReviewEvidence.md`. Preservar os pixels aprovados; consumir âncoras/fronteiras/footprints existentes. Não alterar física, navegação ou cena oficial nesta rodada. Evidências importantes exigem originais e ReviewLite≤750KiB, manifestos e recuperação remota separada da inspeção visual. Declarações históricas de aprovação pendente abaixo não substituem esses registros.

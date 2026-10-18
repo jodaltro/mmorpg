@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "string refusal=null;try{Ground13Importer.Queue();}catch(System.IO.IOException e){refusal=e.Message;} var keyboard=UnityEngine.InputSystem.InputSystem.devices.OfType<UnityEngine.InputSystem.Keyboard>().Select(d=>new {d.name,d.enabled}).ToArray();return new {playing=UnityEditor.EditorApplication.isPlaying,scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,dirty=UnityEngine.SceneManagement.SceneManager.GetActiveScene().isDirty,compileError=UnityEditor.EditorUtility.scriptCompilationFailed,timeScale=UnityEngine.Time.timeScale,keyboard,background=UnityEngine.InputSystem.InputSystem.settings.backgroundBehavior.ToString(),editorInput=UnityEngine.InputSystem.InputSystem.settings.editorInputBehaviorInPlayMode.ToString(),fixedViewOverride=UnityEditor.SessionState.GetBool(\"Nature10.FixedView\",false),destinationRefusal=refusal};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "playing": false,
+        "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RefinementLab.unity",
+        "dirty": false,
+        "compileError": false,
+        "timeScale": 1,
+        "keyboard": [
+          {
+            "name": "Keyboard",
+            "enabled": true
+          }
+        ],
+        "background": "ResetAndDisableNonBackgroundDevices",
+        "editorInput": "PointersAndKeyboardsRespectGameViewFocus",
+        "fixedViewOverride": false,
+        "destinationRefusal": "Refuse playing/dirty/existing destination"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,67 @@
+[
+  {
+    "stage": 0,
+    "snapshot": {
+      "colliders": "c1bc2826b2a4d2ec45e73ea5f1683053bdbcb5e7c6432101086bca643ab58901",
+      "navigation": "58f245407b1fd33644bcefc4db81bfcd595b7ffb95a5548822c22f4fa02abcd3",
+      "plants": "1d1337512c3a4ddb3872c6a3fafa0ca16366748443e85eaaef937f75c542af57",
+      "relief": "0bc684ea830929e490cf9d1de377e18246d23fbc88861b4846e81348ff842cd2",
+      "colliderCount": 36
+    },
+    "sameAsBaseline": true,
+    "navigationSamples": 49152,
+    "mismatch": 0
+  },
+  {
+    "stage": 1,
+    "snapshot": {
+      "colliders": "c1bc2826b2a4d2ec45e73ea5f1683053bdbcb5e7c6432101086bca643ab58901",
+      "navigation": "58f245407b1fd33644bcefc4db81bfcd595b7ffb95a5548822c22f4fa02abcd3",
+      "plants": "1d1337512c3a4ddb3872c6a3fafa0ca16366748443e85eaaef937f75c542af57",
+      "relief": "0bc684ea830929e490cf9d1de377e18246d23fbc88861b4846e81348ff842cd2",
+      "colliderCount": 36
+    },
+    "sameAsBaseline": true,
+    "navigationSamples": 49152,
+    "mismatch": 0
+  },
+  {
+    "stage": 2,
+    "snapshot": {
+      "colliders": "c1bc2826b2a4d2ec45e73ea5f1683053bdbcb5e7c6432101086bca643ab58901",
+      "navigation": "58f245407b1fd33644bcefc4db81bfcd595b7ffb95a5548822c22f4fa02abcd3",
+      "plants": "1d1337512c3a4ddb3872c6a3fafa0ca16366748443e85eaaef937f75c542af57",
+      "relief": "0bc684ea830929e490cf9d1de377e18246d23fbc88861b4846e81348ff842cd2",
+      "colliderCount": 36
+    },
+    "sameAsBaseline": true,
+    "navigationSamples": 49152,
+    "mismatch": 0
+  },
+  {
+    "stage": 3,
+    "snapshot": {
+      "colliders": "c1bc2826b2a4d2ec45e73ea5f1683053bdbcb5e7c6432101086bca643ab58901",
+      "navigation": "58f245407b1fd33644bcefc4db81bfcd595b7ffb95a5548822c22f4fa02abcd3",
+      "plants": "1d1337512c3a4ddb3872c6a3fafa0ca16366748443e85eaaef937f75c542af57",
+      "relief": "0bc684ea830929e490cf9d1de377e18246d23fbc88861b4846e81348ff842cd2",
+      "colliderCount": 36
+    },
+    "sameAsBaseline": true,
+    "navigationSamples": 49152,
+    "mismatch": 0
+  },
+  {
+    "stage": 4,
+    "snapshot": {
+      "colliders": "c1bc2826b2a4d2ec45e73ea5f1683053bdbcb5e7c6432101086bca643ab58901",
+      "navigation": "58f245407b1fd33644bcefc4db81bfcd595b7ffb95a5548822c22f4fa02abcd3",
+      "plants": "1d1337512c3a4ddb3872c6a3fafa0ca16366748443e85eaaef937f75c542af57",
+      "relief": "0bc684ea830929e490cf9d1de377e18246d23fbc88861b4846e81348ff842cd2",
+      "colliderCount": 36
+    },
+    "sameAsBaseline": true,
+    "navigationSamples": 49152,
+    "mismatch": 0
+  }
+]

@@ -1,0 +1,108 @@
+{
+  "error": null,
+  "conditions": {
+    "resolution": "1600x900",
+    "camera": "28.5,14.25,-10",
+    "ortho": 14.0625,
+    "ppu": 32,
+    "quality": "Ultra",
+    "vSync": 1,
+    "targetFrameRate": -1,
+    "graphicsAPI": "Direct3D12",
+    "gpu": "AMD Radeon RX 5700 XT",
+    "timeScale": 1.0,
+    "context": "Editor Play, unfocused autotick; actor pose held, live water while timing; not standalone benchmark"
+  },
+  "metrics": [
+    {
+      "stage": 0,
+      "frames": 625,
+      "seconds": 2.5048989999922924,
+      "fps": 249.51083899092475,
+      "medianFrameMs": 3.7532029673457146,
+      "p95FrameMs": 5.73099497705698,
+      "frameTimingAvailable": true,
+      "cpuFrameMs": 3.4472,
+      "gpuFrameMs": 0.44488,
+      "performance": {
+        "drawCalls": 175,
+        "renderers": 309,
+        "visible": 174,
+        "textures": 24,
+        "textureBytes": 217038496
+      }
+    },
+    {
+      "stage": 1,
+      "frames": 696,
+      "seconds": 2.5031808999920031,
+      "fps": 278.04622510591366,
+      "medianFrameMs": 3.4996031317859888,
+      "p95FrameMs": 4.5511974021792412,
+      "frameTimingAvailable": true,
+      "cpuFrameMs": 3.5268,
+      "gpuFrameMs": 0.4454,
+      "performance": {
+        "drawCalls": 143,
+        "renderers": 239,
+        "visible": 142,
+        "textures": 23,
+        "textureBytes": 223760248
+      }
+    },
+    {
+      "stage": 2,
+      "frames": 692,
+      "seconds": 2.5011841000086861,
+      "fps": 276.66894745192542,
+      "medianFrameMs": 3.5185941960662603,
+      "p95FrameMs": 4.5866002328693867,
+      "frameTimingAvailable": true,
+      "cpuFrameMs": 3.3619,
+      "gpuFrameMs": 0.44468,
+      "performance": {
+        "drawCalls": 143,
+        "renderers": 238,
+        "visible": 142,
+        "textures": 22,
+        "textureBytes": 173431772
+      }
+    },
+    {
+      "stage": 3,
+      "frames": 674,
+      "seconds": 2.5007085999968695,
+      "fps": 269.52359545141684,
+      "medianFrameMs": 3.524702275171876,
+      "p95FrameMs": 5.0776996649801731,
+      "frameTimingAvailable": true,
+      "cpuFrameMs": 3.3274,
+      "gpuFrameMs": 0.42172,
+      "performance": {
+        "drawCalls": 143,
+        "renderers": 238,
+        "visible": 142,
+        "textures": 23,
+        "textureBytes": 175787896
+      }
+    },
+    {
+      "stage": 4,
+      "frames": 601,
+      "seconds": 2.5018437999970047,
+      "fps": 240.22282125616894,
+      "medianFrameMs": 4.0268991142511368,
+      "p95FrameMs": 5.3551020100712776,
+      "frameTimingAvailable": true,
+      "cpuFrameMs": 3.6511,
+      "gpuFrameMs": 0.432,
+      "performance": {
+        "drawCalls": 175,
+        "renderers": 308,
+        "visible": 174,
+        "textures": 24,
+        "textureBytes": 169066144
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "original": "Original/Optimization/stage-0.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13Lab.unity",
+    "state": "stage-0",
+    "comparison": "packing-ground12",
+    "camera": {
+      "position": [
+        28.5,
+        14.25,
+        -10.0
+      ],
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 1141,
+    "waterPhase": 0,
+    "actorAnimation": "held identical for pixel comparison"
+  },
+  {
+    "original": "Original/Optimization/stage-1.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13Lab.unity",
+    "state": "stage-1",
+    "comparison": "packing-ground12",
+    "camera": {
+      "position": [
+        28.5,
+        14.25,
+        -10.0
+      ],
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 2158,
+    "waterPhase": 0,
+    "actorAnimation": "held identical for pixel comparison"
+  },
+  {
+    "original": "Original/Optimization/stage-2.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13Lab.unity",
+    "state": "stage-2",
+    "comparison": "clay",
+    "camera": {
+      "position": [
+        28.5,
+        14.25,
+        -10.0
+      ],
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 3109,
+    "waterPhase": 0,
+    "actorAnimation": "held identical for pixel comparison"
+  },
+  {
+    "original": "Original/Optimization/stage-3.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13Lab.unity",
+    "state": "stage-3",
+    "comparison": "packing-ground13",
+    "camera": {
+      "position": [
+        28.5,
+        14.25,
+        -10.0
+      ],
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 4081,
+    "waterPhase": 0,
+    "actorAnimation": "held identical for pixel comparison"
+  },
+  {
+    "original": "Original/Optimization/stage-4.png",
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13Lab.unity",
+    "state": "stage-4",
+    "comparison": "packing-ground13",
+    "camera": {
+      "position": [
+        28.5,
+        14.25,
+        -10.0
+      ],
+      "ortho": 14.0625,
+      "ppu": 32,
+      "actorScale": 1.25,
+      "width": 1600,
+      "height": 900
+    },
+    "integral": true,
+    "frame": 5110,
+    "waterPhase": 0,
+    "actorAnimation": "held identical for pixel comparison"
+  }
+]

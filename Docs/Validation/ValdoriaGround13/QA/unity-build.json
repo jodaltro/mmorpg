@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "result": {
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGround13RefinementLab.unity",
+    "sourcePlantRenderers": 170,
+    "packedPlantRenderers": 100,
+    "oldReliefRenderers": 54,
+    "newReliefRenderers": 53,
+    "physicalChange": false,
+    "atlasSize": [
+      1024,
+      1024
+    ]
+  }
+}

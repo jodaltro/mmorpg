@@ -1,5 +1,10 @@
 # Valdoria — linguagem visual v1
 
+## Direção vigente — Ground13
+
+A solicitação Ground13 esclarece o parecer anterior: a vegetação Ground12 deve ser preservada após avaliação muito positiva, sem declarar aprovação definitiva geral; platô e água permanecem candidatos com ressalvas. [Registro da direção mais recente](Approvals/Ground13-Direction-2026-10-18.json). Construções 07R/08/09, árvores/rochas Nature10 e terreno/estradas Ground11 continuam aprovados. O registro Ground12 abaixo é histórico e não substitui esta delimitação posterior. Não mudar física ou cena oficial nesta rodada. [Candidata Ground13 e limitações](../Validation/ValdoriaGround13-ReliefWaterRendering.md), [pipeline](Ground13PresentationPipeline.md).
+
+
 ## Consolidação Ground12 — aprovada
 
 As cinco famílias de referência estão formalizadas em [Ground12 References](Approvals/Ground12-References-2026-10-18.json). O usuário aprovou a [composição Ground12 apresentada](EnvironmentConsolidation12.md), vinculada ao commit `05d842d4050aa35f5b73c4e30314f4f5bb65d39f`, com o feedback “Ficou bom”. [Registro de aprovação e hashes](Approvals/Ground12-2026-10-18.json). A aprovação do acabamento aquático parcial não abrange todo o sistema de água; futuras variantes e as pendências técnicas mantêm avaliação própria. Preservar os assets aprovados e a cena oficial. Toda revisão importante segue [originais + ReviewLite](VisualReviewEvidence.md).

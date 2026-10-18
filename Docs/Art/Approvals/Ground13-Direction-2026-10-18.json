@@ -1,0 +1,20 @@
+{
+  "schema": "valdoria-artistic-review-direction/v1",
+  "date": "2026-10-18",
+  "source": "Explicit user Ground13 request, newer than Ground12 approval interpretation",
+  "supersedesInterpretationOf": "Docs/Art/Approvals/Ground12-2026-10-18.json",
+  "approvedReferences": [
+    "architecture07R08and09",
+    "Nature10-trees",
+    "Nature10-rocks",
+    "Ground11-terrain",
+    "Ground11-roads-and-transitions"
+  ],
+  "Ground12Vegetation": "Very positive evaluation; preserve without unnecessary redraw; final formal approval remains with user",
+  "Ground12Plateau": "candidate-with-reservations",
+  "Ground12Water": "candidate-with-reservations",
+  "Ground13": "candidate-awaiting-user-evaluation",
+  "physicsChangesAuthorized": false,
+  "officialSceneChangesAuthorized": false,
+  "userQuote": "A vegetação refinada Ground12 teve uma avaliação visual bastante positiva e deve ser preservada nesta rodada, sem redesenhos desnecessários. Sua aprovação formal definitiva permanece sob responsabilidade do usuário. Não transforme automaticamente o parecer favorável em uma aprovação geral de Ground12."
+}

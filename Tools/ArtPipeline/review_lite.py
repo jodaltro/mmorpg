@@ -113,7 +113,9 @@ def build(root, index, output='ReviewLite', manifest='QA/image-manifest.json', a
             raise ValueError('Review exceeds 750 KiB; supply labelled detail crops, never silently degrade further')
         factor, transformed, encoded, quantized, errors, paletteHash = accepted
         for ordinal,(entry, im, data) in enumerate(zip(group, transformed, encoded)):
-            name = Path(entry['original']).name
+            name = entry.get('reviewName', Path(entry['original']).name)
+            if not isinstance(name,str) or Path(name).name != name or '/' in name or '\\' in name or Path(name).suffix.lower() != '.png':
+                raise ValueError('Review name must be a PNG basename')
             relative = (Path(output) / name).as_posix()
             if any(row[0]['review'] == relative for row in planned):
                 raise ValueError('Review filename collision')

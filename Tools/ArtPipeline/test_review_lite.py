@@ -26,6 +26,10 @@ class ReviewLiteTests(unittest.TestCase):
  def test_no_overwrite(self):
   index=self.index();r.build(self.root,index)
   with self.assertRaises(FileExistsError):r.build(self.root,index)
+ def test_explicit_review_names_and_escape_rejection(self):
+  index=self.index();data=json.loads(index.read_text());data['images'][0]['reviewName']='first-before.png';index.write_text(json.dumps(data));r.build(self.root,index);self.assertTrue((self.root/'ReviewLite/first-before.png').exists())
+  index=self.index();data=json.loads(index.read_text());data['images'][0]['reviewName']='../escape.png';index.write_text(json.dumps(data))
+  with self.assertRaisesRegex(ValueError,'basename'):r.build(self.root,index,output='Other',manifest='QA/other.json')
  def test_integer_reduction_symmetric(self):
   index=self.index((1000,800),True);r.build(self.root,index);data=json.loads((self.root/'QA/image-manifest.json').read_text());self.assertEqual([e['scaleDivisor'] for e in data['images']],[2,2]);self.assertTrue(all(e['reviewBytes']<=r.LIMIT for e in data['images']))
  def test_tamper_hash_and_missing_pair(self):

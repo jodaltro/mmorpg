@@ -1,0 +1,15 @@
+test_explicit_review_names_and_escape_rejection (test_review_lite.ReviewLiteTests.test_explicit_review_names_and_escape_rejection) ... ok
+test_explicit_size_failure (test_review_lite.ReviewLiteTests.test_explicit_size_failure) ... ok
+test_integer_reduction_symmetric (test_review_lite.ReviewLiteTests.test_integer_reduction_symmetric) ... ok
+test_lossless_roundtrip_and_originals (test_review_lite.ReviewLiteTests.test_lossless_roundtrip_and_originals) ... ok
+test_no_overwrite (test_review_lite.ReviewLiteTests.test_no_overwrite) ... ok
+test_pair_camera_mismatch_rejected (test_review_lite.ReviewLiteTests.test_pair_camera_mismatch_rejected) ... ok
+test_palette_pixels_preserved_and_shared (test_review_lite.ReviewLiteTests.test_palette_pixels_preserved_and_shared) ... ok
+test_path_escape_rejected (test_review_lite.ReviewLiteTests.test_path_escape_rejected) ... ok
+test_report_image_missing (test_review_lite.ReviewLiteTests.test_report_image_missing) ... ok
+test_tamper_hash_and_missing_pair (test_review_lite.ReviewLiteTests.test_tamper_hash_and_missing_pair) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.620s
+
+OK
