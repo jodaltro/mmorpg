@@ -8,4 +8,4 @@ O anexo mais recente ampliou o marco para direção visual integrada e sistema d
 - [Casa A/B/C](ValdoriaWorldStudio09/house-ABC-same-camera.png).
 - [Celeiro A/B/C](ValdoriaWorldStudio09/barn-ABC-same-camera.png).
 
-Fontes originais aprovadas preservadas. Revisões09 candidatas, sem promoção à cena oficial e sem lote mundial aprovado para o castelo.
+Fontes originais preservadas. Após a entrega09, o usuário aprovou as construções apresentadas; terreno e vegetação ainda precisam de qualidade. [Avaliação registrada](ValdoriaWorldStudio09/artistic-review.json). Sem promoção à cena oficial e sem lote mundial aprovado para o castelo. Estados de conservação não avaliados separadamente continuam candidatos.

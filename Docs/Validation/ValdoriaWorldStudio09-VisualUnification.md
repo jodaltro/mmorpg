@@ -1,6 +1,12 @@
 # Valdoria World Studio09 — direção unificada e catálogo autorado
 
-18/10/2026 · Unity6000.6.5f1 · `main`. Entrega experimental, **aguardando avaliação artística do usuário**. Nenhum prédio novo, vila, interior ou promoção à cena oficial.
+18/10/2026 · Unity6000.6.5f1 · `main`. Entrega experimental. **Construções apresentadas aprovadas como referência visual; terreno e vegetação ainda precisam de qualidade.** Nenhum prédio novo, vila, interior ou promoção à cena oficial.
+
+## Avaliação do usuário após a entrega
+
+Feedback literal: **“Ficou boa as casas, mas a vegetação e terreno ainda falta qualidade”**. Revisão avaliada: `a6ec7065e77fcc9b90ec1e1a523c2baad4967358`. [Registro com hashes das referências apresentadas](ValdoriaWorldStudio09/artistic-review.json).
+
+Preservar a arquitetura apresentada como referência. Terreno e vegetação não estão artisticamente concluídos; a mudança de pigmento09 não foi suficiente. O próximo estudo deve trabalhar massas e planos, formas vegetais, casca/ramificação, materiais do solo e rocha e transições, comparando com o acabamento arquitetônico. Essa direção de trabalho não é uma aprovação de novas variantes, de todos os estados de conservação ou da implantação geográfica do castelo. Nenhum asset foi alterado ou promovido ao registrar esta avaliação.
 
 O pedido anexado amplia a unificação arquitetônica para materiais/vegetação e produção por catálogo. `git pull --ff-only origin main` foi executado antes do trabalho: atualizado, HEAD inicial `c7f82c317209cd6f4972a8a9ad5a141961a0620f`. Referências: casa `e256f626ec9466c900c438045d8d1c2f630b28ee`; celeiro/castelo `43ee9e4657e894340001e183ff4065c763d79b5f`. Fontes aprovadas e seu [registro08](ValdoriaWorldStudio08/artistic-approval.json) foram preservados.
 

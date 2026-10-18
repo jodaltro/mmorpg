@@ -1,6 +1,6 @@
 # Valdoria — padrão arquitetônico v1
 
-Consultar primeiro a [linguagem visual central](ValdoriaVisualLanguage.md). Referências aprovadas: casa07R, celeiro08 e pequeno castelo08. Revisões09 continuam candidatas. Este guia não aprova um lote ou uma nova família automaticamente.
+Consultar primeiro a [linguagem visual central](ValdoriaVisualLanguage.md). Referências aprovadas: casa07R, celeiro08 e pequeno castelo08, incluindo as construções apresentadas na entrega09, conforme [avaliação do usuário](../Validation/ValdoriaWorldStudio09/artistic-review.json). Terreno e vegetação09 precisam de mais qualidade. Estados de conservação não avaliados separadamente continuam candidatos. Este guia não aprova um lote ou uma nova família automaticamente.
 
 ![Três famílias na mesma escala — Game View real](../Validation/ValdoriaWorldStudio09/GalleryQA/01-three-families-same-scale.png)
 

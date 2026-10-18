@@ -1,6 +1,6 @@
 # Valdoria — linguagem visual v1
 
-Direção de 18/10/2026. A casa 07R é a referência de acabamento aprovada pelo usuário. Celeiro e pequeno castelo08 complementam essa referência. **As revisões09 de materiais, conservação e vegetação são candidatas**, não recebem aprovação por passarem no QA.
+Direção de 18/10/2026. A casa07R é a referência de acabamento. Após a entrega09, o usuário aprovou as construções apresentadas e informou que **terreno e vegetação ainda precisam de qualidade**. [Avaliação registrada](../Validation/ValdoriaWorldStudio09/artistic-review.json). Preservar a arquitetura como referência; não considerar a revisão ambiental concluída. Estados de conservação não avaliados separadamente continuam candidatos. Testes não substituem aprovação artística.
 
 ![Materiais reais e rampas09](../Validation/ValdoriaWorldStudio09/visual-language-material-board.png)
 
