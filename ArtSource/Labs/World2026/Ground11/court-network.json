@@ -1,0 +1,17 @@
+{
+ "schema":"valdoria-surface-grammar-court/v1",
+ "canonicalWorld":false,
+ "sizePixels":[1920,1200],
+ "caseSizePixels":[640,400],
+ "cases":[
+  {"id":"horizontal","slot":[0,0],"widthPixels":[70,70],"paths":[[[70,200],[570,200]]]},
+  {"id":"vertical","slot":[1,0],"widthPixels":[70,70],"paths":[[[320,45],[320,355]]]},
+  {"id":"soft-curve","slot":[2,0],"curve":"catmull-rom","widthPixels":[70,70],"paths":[[[70,320],[140,300],[210,240],[270,150],[350,90],[470,70],[570,70]]]},
+  {"id":"corner","slot":[0,1],"widthPixels":[70,70],"paths":[[[80,75],[300,75],[350,95],[370,140],[370,330]]]},
+  {"id":"fork","slot":[1,1],"widthPixels":[70,70],"paths":[[[80,310],[300,220],[560,80]],[[300,220],[560,320]]]},
+  {"id":"T-junction","slot":[2,1],"widthPixels":[70,70],"paths":[[[70,120],[570,120]],[[320,120],[320,340]]]},
+  {"id":"crossing","slot":[0,2],"widthPixels":[70,70],"paths":[[[70,200],[570,200]],[[320,45],[320,355]]]},
+  {"id":"end-cap","slot":[1,2],"widthPixels":[70,70],"paths":[[[100,200],[500,200]]]},
+  {"id":"narrow-wide","slot":[2,2],"widthPixels":[44,80],"paths":[[[70,310],[200,310],[370,100],[570,100]]]}
+ ]
+}

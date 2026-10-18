@@ -5,9 +5,13 @@ description: Autoria e revisão de materiais pixel art procedurais de Valdoria e
 
 # Material Agent
 
+## Direção vigente — Ground11
+
+Terreno e estradas ainda não aprovados; construções e as duas árvores/duas rochas Nature10 são referências aprovadas. Ler `Docs/Art/GroundAndRoadProduction.md`, `Docs/WorldGen/GroundFinishContract.md` e `Docs/Validation/ValdoriaGround11-TerrainAndRoads.md`. Para acabamento novo, usar fontes Aseprite Ground11 e `ground_finish11.py`: pintura em massas, união estrada/acesso, bordas por distância, desgaste por percurso, contatos por footprint e patches globais. Não redesenhar objetos aprovados. Não usar bootstrap sobre fonte revisada. A bancada de nove conexões é visual, não planejamento/navegação de rede oficial. Importação nova recusa sobrescrita; reimportar pixels derivados é ação explícita no próprio laboratório. Os fluxos03/04/09 abaixo são referências históricas de contratos, não aprovação de seus materiais.
+
 Direção de acabamento natural: consultar `Docs/Art/NaturalEnvironmentProduction.md` e `Docs/Validation/ValdoriaNature10-ArtRefinement.md`. Solo deve sustentar volumes, manter áreas de descanso e transições vinculadas às máscaras/footprints. Inspecionar base, transições e detalhes em Game View na mesma escala. Não resolver forma com saturação nem redesenhar relevo a partir de cores. Nature10 é candidato, sem aprovação artística automática.
 
-Para autoria nova, use o refino 1.1 do Marco 04 descrito ao final. Os comandos 1.0 abaixo conservam o baseline de comparacao do Marco 03; nao representam a direcao artistica mais recente.
+Para reproduzir o Marco 04, use o refino 1.1 descrito ao final; para acabamento novo, seguir Ground11 acima. Os comandos 1.0 abaixo conservam o baseline de comparacao do Marco 03; nao representam a direcao artistica mais recente.
 
 Leia `AGENTS.md`, `Docs/Art/TerrainMaterialsStandard.md` e `Docs/WorldGen/TerrainMaterialsContract.md`. Use também `aseprite-pixel-art` para fontes e `terrain-generation` para interpretar os dados. A skill é um especialista operado pelo agente, não um serviço independente.
 

@@ -1,5 +1,7 @@
 # JEV — Valdoria: composição natural de referência
 
+**Avaliação posterior da entrega `c78d81c208d366b2addb6aa798560ff5280d2950`: árvores novas e rochas novas APROVADAS pelo usuário. Terreno e estradas NÃO APROVADOS.** [Registro formal](../Art/Approvals/Nature10-2026-10-18.json). O relatório abaixo registra a entrega e o estado candidato no momento de sua produção; não estende a aprovação aos elementos antigos ou ao solo.
+
 18/10/2026 · Unity6000.6.5f1 · `main` · baseline/feedback `046c4389df465eaaf1ed0fb795a3b1dd87fd95c6`.
 
 **Entrega candidata à avaliação visual. Terreno e vegetação não estão aprovados.** O estudo está em `Assets/Mmorpg/Scenes/ValdoriaNatureRefinementLab.unity`; cena oficial e construções aprovadas foram preservadas. Worktree conferido e `git pull --ff-only origin main` executado antes da tarefa, já atualizado. Quatro itens locais não relacionados permaneceram fora da entrega.

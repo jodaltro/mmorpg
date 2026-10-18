@@ -1,6 +1,6 @@
 # Valdoria — produção de elementos naturais
 
-Padrão **candidato**, JEV/Nature10, 18/10/2026. As casas07R/08 aprovadas são a referência. Nature10 ainda exige avaliação visual do usuário. Consulte [a validação real](../Validation/ValdoriaNature10-ArtRefinement.md) e [a linguagem arquitetônica](ArchitectureStyleGuide.md).
+Referências JEV/Nature10, 18/10/2026. As casas07R/08, as duas novas árvores e as duas novas formas de rocha estão **aprovadas artisticamente**. [Aprovação Nature10 com hashes](Approvals/Nature10-2026-10-18.json). Solo e estradas Nature10 continuam não aprovados e são o foco da rodada Ground11. Consulte [a validação real](../Validation/ValdoriaNature10-ArtRefinement.md) e [a linguagem arquitetônica](ArchitectureStyleGuide.md). Não redesenhar as fontes aprovadas para corrigir o solo.
 
 ## Forma antes de textura
 
@@ -28,6 +28,8 @@ Definir apoio e proporção; escolher um plano superior, um frontal e um lateral
 Fonte Aseprite: sombra, faces frontais, superiores, laterais, musgo basal e acentos de fratura. O footprint é um polígono **autorado** no plano de chão, separado da projeção visual. Importar a forma física a partir da mesma metadata que produz ocupação, contato de solo e envelope frontal do sorting. Nunca gerar collider com o retângulo do PNG ou inferir altura de sua cor.
 
 ## Solo e transições
+
+Para a rodada seguinte ao feedback Nature10, seguir [GroundAndRoadProduction](GroundAndRoadProduction.md) e [GroundFinishContract](../WorldGen/GroundFinishContract.md). O método Nature10 descrito abaixo é o baseline comparativo; sua superfície não recebeu aprovação. As fontes das árvores/rochas aprovadas permanecem intactas.
 
 `base.png`: pigmento contínuo em coordenadas de mundo, sem fronteira de célula. `transitions.png`: cobertura e shoulders das estradas existentes, domínio rochoso existente e manchas pequenas de contato derivadas dos footprints declarados. `final.png`: clusters esparsos de pincéis Aseprite, sem disputar a atenção com objetos. Manter os três estados comparáveis.
 

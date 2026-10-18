@@ -1,0 +1,230 @@
+{
+  "framesAdvanced": 5285,
+  "cases": 9,
+  "trace": [
+    {
+      "file": "00-overview-before.png",
+      "frame": 815,
+      "time": 3.8039289895124715,
+      "camera": "(30.00, 18.75, -10.00)",
+      "ortho": 20.0,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "00-overview-after.png",
+      "frame": 1084,
+      "time": 4.7092211876417229,
+      "camera": "(30.00, 18.75, -10.00)",
+      "ortho": 20.0,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "01-horizontal-before.png",
+      "frame": 1339,
+      "time": 5.6125897888321994,
+      "camera": "(10.00, 31.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "01-horizontal-after.png",
+      "frame": 1618,
+      "time": 6.51551658871882,
+      "camera": "(10.00, 31.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "02-vertical-before.png",
+      "frame": 1896,
+      "time": 7.4188799886621313,
+      "camera": "(30.00, 31.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "02-vertical-after.png",
+      "frame": 2158,
+      "time": 8.32214268707483,
+      "camera": "(30.00, 31.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "03-soft-curve-before.png",
+      "frame": 2426,
+      "time": 9.2254135912698416,
+      "camera": "(50.00, 31.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "03-soft-curve-after.png",
+      "frame": 2632,
+      "time": 10.127302487244897,
+      "camera": "(50.00, 31.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "04-corner-before.png",
+      "frame": 2897,
+      "time": 11.031197491496599,
+      "camera": "(10.00, 18.75, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "04-corner-after.png",
+      "frame": 3149,
+      "time": 11.934700389739229,
+      "camera": "(10.00, 18.75, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "05-fork-before.png",
+      "frame": 3427,
+      "time": 12.836243686224488,
+      "camera": "(30.00, 18.75, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "05-fork-after.png",
+      "frame": 3702,
+      "time": 13.739624489795919,
+      "camera": "(30.00, 18.75, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "06-T-junction-before.png",
+      "frame": 3978,
+      "time": 14.643413088151927,
+      "camera": "(50.00, 18.75, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "06-T-junction-after.png",
+      "frame": 4225,
+      "time": 15.546229790249432,
+      "camera": "(50.00, 18.75, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "07-crossing-before.png",
+      "frame": 4518,
+      "time": 16.450062790532879,
+      "camera": "(10.00, 6.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "07-crossing-after.png",
+      "frame": 4797,
+      "time": 17.356379691043085,
+      "camera": "(10.00, 6.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "08-end-cap-before.png",
+      "frame": 5056,
+      "time": 18.261510792233558,
+      "camera": "(30.00, 6.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "08-end-cap-after.png",
+      "frame": 5327,
+      "time": 19.163554889455781,
+      "camera": "(30.00, 6.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "09-narrow-wide-before.png",
+      "frame": 5619,
+      "time": 20.066473689058956,
+      "camera": "(50.00, 6.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 0,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    },
+    {
+      "file": "09-narrow-wide-after.png",
+      "frame": 5872,
+      "time": 20.970229386337866,
+      "camera": "(50.00, 6.25, -10.00)",
+      "ortho": 7.03125,
+      "width": 1600,
+      "height": 900,
+      "stage": 3,
+      "physicsClaim": "Visual material fixture only; no canonical world navigation"
+    }
+  ],
+  "geometryChanged": false,
+  "canonicalWorld": false,
+  "drawCalls": 2,
+  "renderers": 1
+}

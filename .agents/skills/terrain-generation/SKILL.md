@@ -43,6 +43,8 @@ Para edição, acrescente `--patch caminho/patch.json`. O gerador usa Python/Pil
 
 ## Invariantes e limites
 
+- Acabamento Ground11: consultar `Docs/WorldGen/GroundFinishContract.md` e `Docs/Art/GroundAndRoadProduction.md`. O compositor consome cobertura/percurso existentes e protege o núcleo navegável, sem reescrever largura, rota ou física. Sua bancada de conexões não amplia a API de planejamento Organic Roads para redes oficiais arbitrárias.
+
 - A física deriva de dados semânticos. A máscara visual de borda **não cria colliders**; grama invadindo visualmente uma margem não bloqueia movimento.
 - `waterCandidate` não é água renderizada. O módulo de estrada o trata como exclusão conservadora; travessias precisam de autorização explícita na receita, não removem obstáculos sólidos e não implementam pontes.
 - Elevação normalizada e relevo projetado não tornam montanhas escaláveis. O ator continua no plano 2D; o código de movimento/combate mantém autoridade independente da arte.

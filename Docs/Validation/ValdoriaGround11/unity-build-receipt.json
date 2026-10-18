@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "result": {
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaGroundFinishLab.unity",
+    "court": "Assets/Mmorpg/Scenes/ValdoriaSurfaceGrammarLab.unity",
+    "groundMeshes": 28,
+    "geometryChanged": false,
+    "approvedObjectsRepainted": false
+  }
+}

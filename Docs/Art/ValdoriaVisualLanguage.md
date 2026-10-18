@@ -1,5 +1,11 @@
 # Valdoria — linguagem visual v1
 
+## Aprovação vigente — árvores e rochas Nature10
+
+Superfícies candidatas mais recentes: [solo e estradas Ground11](GroundAndRoadProduction.md), [validação real](../Validation/ValdoriaGround11-TerrainAndRoads.md). A pintura do chão deve ter massas intermediárias e áreas calmas; o encontro estrada/acesso e os contatos dos objetos são responsabilidade da apresentação, preservando os produtores físicos.
+
+Em 18/10/2026, o usuário aprovou artisticamente as **duas árvores e duas formas de rocha** da entrega `c78d81c208d366b2addb6aa798560ff5280d2950`. Elas se juntam às construções aprovadas como referência de forma, volume, silhueta e acabamento. [Registro formal e hashes das fontes](Approvals/Nature10-2026-10-18.json). Preservar esses pixels; a aprovação não abrange vegetação histórica, platô, terreno ou estradas. **Terreno e estradas continuam não aprovados.** A rodada Ground11 concentra-se nas superfícies e interfaces, sem redesenhar esses objetos nem promover arte ao mundo oficial.
+
 Direção de 18/10/2026. A casa07R é a referência de acabamento. Após a entrega09, o usuário aprovou as construções apresentadas e informou que **terreno e vegetação ainda precisam de qualidade**. [Avaliação registrada](../Validation/ValdoriaWorldStudio09/artistic-review.json). Preservar a arquitetura como referência; não considerar a revisão ambiental concluída. Estados de conservação não avaliados separadamente continuam candidatos. Testes não substituem aprovação artística.
 
 ![Materiais reais e rampas09](../Validation/ValdoriaWorldStudio09/visual-language-material-board.png)
