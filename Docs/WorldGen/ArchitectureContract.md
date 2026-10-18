@@ -1,5 +1,20 @@
 # Architecture Contract v1
 
+## Extensão autorada 07R — prioridade visual vigente
+
+A arte A/B/C do Marco 07 foi rejeitada pelo usuário. As gramáticas geométricas descritas nas seções históricas abaixo permanecem como contexto de engenharia, **sem aprovação estética**. O 07R entrega uma referência autorada e não amplia a biblioteca. A porta fixa de 5 u e a projeção antiga não são requisitos da nova fonte.
+
+- `valdoria-authored-house/v1` (`SourceV1/house-source.json`): canvas, PPU, âncora, camadas, contornos anotados de chão/volumes, abertura da porta, escala do master, estudo escolhido e proveniência. Os contornos são dados de autoria revisáveis; alpha da imagem não vira collider automaticamente.
+- `valdoria-authored-house-export/v1`: doze partes efetivamente lidas de `rural-reference.aseprite`, recortes e offsets preservando âncora. A fonte é a autoridade dos pixels. Exportar não chama ImageGen, Blender ou `architecture_art.py`. `valdoria-authored-house-art-build/v1` assina fontes/metadados/exports. Imagem assistida por IA é uma etapa de design arquivada, sem promessa de regeneração bit a bit pelo modelo; export da fonte e build semântico são reproduzíveis.
+- `valdoria-authored-house-region/v1`: uma casa, ID/seed, posição, footprint de seis vértices, frente projetada, entrada, aproximação, acesso e QA do lote. O seed registra o build; uma referência e um lote explicitamente autorados não mudam de desenho a cada seed. `valdoria-authored-house-region-build/v1` assina outputs e contratos produtores. `RegionV1/Vegetation/manifest.json` também é validado pelo importador: apenas A é regenerado pelas exclusões, bosque B e juncos C são consumidos como seleções imutáveis.
+- Navegação reutiliza `valdoria-architecture-navigation/v1`, grade analítica .25 u, ocupação do polígono mais footprints de plantas e base ambiental; não inclui inflação do ator. Acesso precisa manter .57 u de clearance final. Não há alteração de topografia, água ou Organic Roads.
+
+Espaço da anotação: pixels do master 1254², convertidos pela escala 966/1254 e âncora nativa; coordenadas geográficas x leste/y sul e Unity=(x,48-y). Porta medida 154,8373 px / 32 = 4,8387 u; corpo visível Quaternius 117 px × 1,25 / 32 = 4,5703 u. Medida de altura aparente, sem afirmar metros anatômicos ou um piso 3D.
+
+`ReferenceHouseDepth` substitui a linha horizontal única na referência: para cada X do ator, calcula a interseção frontal mínima em Y Unity do footprint; `SortingGroup=100-round(frontY×16)`. Ator atrás e bounds visuais sobrepostos: telhado/beirais/chaminé .18, paredes/vigas/aberturas .28, fundação/sombra conservadas. É uma aproximação para **um protagonista e uma orientação**, com bounds por parte; não é oclusão exata por pixel ou interior reconstruído. Physic footprint continua bloqueante mesmo com alpha reduzido. Telhado não tem collider.
+
+Integração: `ArchitectureArt07RImporter` clona Vegetation Lab em destino novo e recusa sobrescrita; cena `ValdoriaArchitectureArtLab07R.unity`. Comparação antiga A é um rig visual desativado, sem collider nem instância de edifício. Não altera `MmorpgWorld.unity`. Recomposição/export jamais redesenha sobre a fonte Aseprite. Modularização posterior requer aprovação artística; ver `Docs/Validation/ValdoriaWorldStudio07R-ArchitectureArt.md`.
+
 Geradores: environment_architecture.py e architecture_art.py. Skills: environment-architecture e aseprite-pixel-art. Integração: ArchitectureStudioImporter, ArchitectureBuilding, ArchitectureOcclusion e ArchitectureRegionData. Autoria offline, sem geração no Play.
 
 ## Produtores e autoridade

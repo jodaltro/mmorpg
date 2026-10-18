@@ -1,0 +1,2806 @@
+{
+  "error": null,
+  "framesAdvanced": 5454,
+  "seconds": 21.488236245748297,
+  "results": [
+    {
+      "name": "W",
+      "pass": true,
+      "evidence": {
+        "from": "(28.00, 3.00)",
+        "to": "(28.00, 4.48)",
+        "animation": "walk"
+      },
+      "frame": 18617
+    },
+    {
+      "name": "A",
+      "pass": true,
+      "evidence": {
+        "from": "(28.00, 3.00)",
+        "to": "(26.52, 3.00)",
+        "animation": "walk"
+      },
+      "frame": 18766
+    },
+    {
+      "name": "S",
+      "pass": true,
+      "evidence": {
+        "from": "(28.00, 3.00)",
+        "to": "(28.00, 1.45)",
+        "animation": "walk"
+      },
+      "frame": 18936
+    },
+    {
+      "name": "D",
+      "pass": true,
+      "evidence": {
+        "from": "(28.00, 3.00)",
+        "to": "(29.48, 3.00)",
+        "animation": "walk"
+      },
+      "frame": 19110
+    },
+    {
+      "name": "Diagonal WD",
+      "pass": true,
+      "evidence": {
+        "from": "(28.00, 3.00)",
+        "to": "(29.05, 4.05)",
+        "animation": "walk"
+      },
+      "frame": 19289
+    },
+    {
+      "name": "Dodge Input System",
+      "pass": true,
+      "evidence": {
+        "observed": true
+      },
+      "frame": 19451
+    },
+    {
+      "name": "Road to new door",
+      "pass": true,
+      "evidence": {
+        "point": "(28.54, 6.20)",
+        "target": "(28.63, 6.13)",
+        "length": 15.4744444,
+        "captures": 20
+      },
+      "frame": 21172
+    },
+    {
+      "name": "Front sorting opaque",
+      "pass": true,
+      "evidence": {
+        "playerOrder": 0,
+        "houseOrder": -17,
+        "depthLine": 7.3144536,
+        "roofAlpha": 1.0,
+        "bodyBounds": "(5.00, 6.25, 0.25)",
+        "sprite": "pose_008",
+        "visualScale": "(1.25, 1.25, 1.25)",
+        "drawCalls": 128,
+        "renderers": 240
+      },
+      "frame": 21426
+    },
+    {
+      "name": "Closed front wall collision",
+      "pass": true,
+      "evidence": {
+        "actor": "(29.32, 6.73)",
+        "door": "(29.00, 7.14)",
+        "noPenetration": true
+      },
+      "frame": 21720
+    },
+    {
+      "name": "Side standing outside footprint",
+      "pass": true,
+      "evidence": {
+        "actor": "(41.80, 5.35)",
+        "depthLine": 6.646549
+      },
+      "frame": 21950
+    },
+    {
+      "name": "Walk beside projected side wall",
+      "pass": true,
+      "evidence": {
+        "from": "(41.70, 4.80)",
+        "to": "(43.88, 6.98)"
+      },
+      "frame": 22247
+    },
+    {
+      "name": "Behind volume cutaway",
+      "pass": true,
+      "evidence": {
+        "actor": "(38.00, 13.00)",
+        "depthLine": 4.709085,
+        "playerOrder": -108,
+        "houseOrder": 25,
+        "roofAlpha": 0.18,
+        "cutaway": true,
+        "noPenetration": true
+      },
+      "frame": 22543
+    }
+  ],
+  "trace": [
+    {
+      "frame": 18463,
+      "time": 58.373411734693875,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 18478,
+      "time": 58.454151133786844,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(28.69, 14.50, -10.00)"
+    },
+    {
+      "frame": 18490,
+      "time": 58.535548937074829,
+      "x": 28.0,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "W",
+      "style": null,
+      "camera": "(28.63, 14.50, -10.00)"
+    },
+    {
+      "frame": 18515,
+      "time": 58.616144139739227,
+      "x": 28.0,
+      "y": 3.218,
+      "animation": "walk",
+      "held": "W",
+      "style": null,
+      "camera": "(28.06, 14.50, -10.00)"
+    },
+    {
+      "frame": 18539,
+      "time": 58.697610636337863,
+      "x": 28.0,
+      "y": 3.49799967,
+      "animation": "walk",
+      "held": "W",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18562,
+      "time": 58.779438938492063,
+      "x": 28.0,
+      "y": 3.7779994,
+      "animation": "walk",
+      "held": "W",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18585,
+      "time": 58.861281434240361,
+      "x": 28.0,
+      "y": 4.12799931,
+      "animation": "walk",
+      "held": "W",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18607,
+      "time": 58.942094238945579,
+      "x": 28.0,
+      "y": 4.408,
+      "animation": "walk",
+      "held": "W",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18631,
+      "time": 59.025223937074827,
+      "x": 28.0,
+      "y": 4.586,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18653,
+      "time": 59.106114136904758,
+      "x": 28.0,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "A",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18674,
+      "time": 59.189181037414961,
+      "x": 27.7820015,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "A",
+      "style": null,
+      "camera": "(27.94, 14.50, -10.00)"
+    },
+    {
+      "frame": 18695,
+      "time": 59.269191439909292,
+      "x": 27.5020027,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "A",
+      "style": null,
+      "camera": "(27.69, 14.50, -10.00)"
+    },
+    {
+      "frame": 18716,
+      "time": 59.350929535147387,
+      "x": 27.2220039,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "A",
+      "style": null,
+      "camera": "(27.41, 14.50, -10.00)"
+    },
+    {
+      "frame": 18737,
+      "time": 59.435236536281174,
+      "x": 26.9420052,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "A",
+      "style": null,
+      "camera": "(27.13, 14.50, -10.00)"
+    },
+    {
+      "frame": 18757,
+      "time": 59.5191879393424,
+      "x": 26.6620064,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "A",
+      "style": null,
+      "camera": "(26.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 18782,
+      "time": 59.600693835034008,
+      "x": 26.4840069,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(26.56, 14.50, -10.00)"
+    },
+    {
+      "frame": 18806,
+      "time": 59.683093034297052,
+      "x": 28.0,
+      "y": 2.974,
+      "animation": "walk",
+      "held": "S",
+      "style": null,
+      "camera": "(26.59, 14.50, -10.00)"
+    },
+    {
+      "frame": 18831,
+      "time": 59.765460140306118,
+      "x": 28.0,
+      "y": 2.71200013,
+      "animation": "walk",
+      "held": "S",
+      "style": null,
+      "camera": "(27.88, 14.50, -10.00)"
+    },
+    {
+      "frame": 18855,
+      "time": 59.846186635487527,
+      "x": 28.0,
+      "y": 2.4320004,
+      "animation": "walk",
+      "held": "S",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18879,
+      "time": 59.926548540249428,
+      "x": 28.0,
+      "y": 2.15200067,
+      "animation": "walk",
+      "held": "S",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18902,
+      "time": 60.00701123866213,
+      "x": 28.0,
+      "y": 1.872001,
+      "animation": "walk",
+      "held": "S",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18927,
+      "time": 60.091123136337863,
+      "x": 28.0,
+      "y": 1.59200132,
+      "animation": "walk",
+      "held": "S",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18950,
+      "time": 60.174326438492059,
+      "x": 28.0,
+      "y": 1.41400146,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18974,
+      "time": 60.257289739229023,
+      "x": 28.0,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "D",
+      "style": null,
+      "camera": "(28.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 18999,
+      "time": 60.339702636054419,
+      "x": 28.2179985,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D",
+      "style": null,
+      "camera": "(28.09, 14.50, -10.00)"
+    },
+    {
+      "frame": 19024,
+      "time": 60.421699936224485,
+      "x": 28.567997,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D",
+      "style": null,
+      "camera": "(28.34, 14.50, -10.00)"
+    },
+    {
+      "frame": 19050,
+      "time": 60.50466213860544,
+      "x": 28.8479958,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D",
+      "style": null,
+      "camera": "(28.66, 14.50, -10.00)"
+    },
+    {
+      "frame": 19076,
+      "time": 60.585084934807256,
+      "x": 29.1279945,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D",
+      "style": null,
+      "camera": "(28.94, 14.50, -10.00)"
+    },
+    {
+      "frame": 19101,
+      "time": 60.667607036564625,
+      "x": 29.4079933,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D",
+      "style": null,
+      "camera": "(29.22, 14.50, -10.00)"
+    },
+    {
+      "frame": 19125,
+      "time": 60.74837873441043,
+      "x": 29.5859928,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(29.50, 14.50, -10.00)"
+    },
+    {
+      "frame": 19150,
+      "time": 60.828465539965983,
+      "x": 28.0,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "W,D",
+      "style": null,
+      "camera": "(29.47, 14.50, -10.00)"
+    },
+    {
+      "frame": 19176,
+      "time": 60.910246138038545,
+      "x": 28.15415,
+      "y": 3.154149,
+      "animation": "walk",
+      "held": "W,D",
+      "style": null,
+      "camera": "(28.19, 14.50, -10.00)"
+    },
+    {
+      "frame": 19202,
+      "time": 60.993126636904762,
+      "x": 28.35214,
+      "y": 3.35213852,
+      "animation": "walk",
+      "held": "W,D",
+      "style": null,
+      "camera": "(28.25, 14.50, -10.00)"
+    },
+    {
+      "frame": 19228,
+      "time": 61.075366333616778,
+      "x": 28.55013,
+      "y": 3.550128,
+      "animation": "walk",
+      "held": "W,D",
+      "style": null,
+      "camera": "(28.44, 14.50, -10.00)"
+    },
+    {
+      "frame": 19254,
+      "time": 61.157814937641724,
+      "x": 28.7481213,
+      "y": 3.74811745,
+      "animation": "walk",
+      "held": "W,D",
+      "style": null,
+      "camera": "(28.63, 14.50, -10.00)"
+    },
+    {
+      "frame": 19279,
+      "time": 61.238429237528344,
+      "x": 28.9461117,
+      "y": 3.946107,
+      "animation": "walk",
+      "held": "W,D",
+      "style": null,
+      "camera": "(28.84, 14.50, -10.00)"
+    },
+    {
+      "frame": 19305,
+      "time": 61.32058143424036,
+      "x": 29.0719757,
+      "y": 4.071972,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(29.03, 14.50, -10.00)"
+    },
+    {
+      "frame": 19330,
+      "time": 61.401918438208611,
+      "x": 28.18,
+      "y": 3.0,
+      "animation": "dodge",
+      "held": "D,Space",
+      "style": null,
+      "camera": "(29.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 19356,
+      "time": 61.484086734693875,
+      "x": 28.9000015,
+      "y": 3.0,
+      "animation": "dodge",
+      "held": "D,Space",
+      "style": null,
+      "camera": "(28.50, 14.50, -10.00)"
+    },
+    {
+      "frame": 19382,
+      "time": 61.566584637188207,
+      "x": 29.6200027,
+      "y": 3.0,
+      "animation": "dodge",
+      "held": "D,Space",
+      "style": null,
+      "camera": "(29.13, 14.50, -10.00)"
+    },
+    {
+      "frame": 19407,
+      "time": 61.648224936224487,
+      "x": 30.2620029,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D,Space",
+      "style": null,
+      "camera": "(29.84, 14.50, -10.00)"
+    },
+    {
+      "frame": 19431,
+      "time": 61.728917637471653,
+      "x": 30.5800018,
+      "y": 3.0,
+      "animation": "walk",
+      "held": "D,Space",
+      "style": null,
+      "camera": "(30.34, 14.50, -10.00)"
+    },
+    {
+      "frame": 19456,
+      "time": 61.811326133786842,
+      "x": 30.826,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.69, 14.50, -10.00)"
+    },
+    {
+      "frame": 19482,
+      "time": 61.892249234693878,
+      "x": 30.828001,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 19509,
+      "time": 61.972977033730153,
+      "x": 30.828001,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 19533,
+      "time": 62.053374737811787,
+      "x": 30.828001,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 19558,
+      "time": 62.134076537698412,
+      "x": 30.828001,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 19584,
+      "time": 62.215337939342405,
+      "x": 30.828001,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 19610,
+      "time": 62.2957348356009,
+      "x": 30.828001,
+      "y": 3.0,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(30.81, 14.50, -10.00)"
+    },
+    {
+      "frame": 19635,
+      "time": 62.377706235827659,
+      "x": 17.375,
+      "y": 13.625,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19661,
+      "time": 62.458164136904756,
+      "x": 17.375,
+      "y": 13.625,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19687,
+      "time": 62.540408836451242,
+      "x": 17.375,
+      "y": 13.625,
+      "animation": "idle",
+      "held": "",
+      "style": null,
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19713,
+      "time": 62.62324383503401,
+      "x": 17.375,
+      "y": 13.4070005,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19738,
+      "time": 62.703372838718821,
+      "x": 17.375,
+      "y": 13.1270018,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-00.png",
+      "frame": 19752,
+      "time": 62.747974539399088,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19754,
+      "time": 62.814379733560088,
+      "x": 17.375,
+      "y": 12.7770033,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-01.png",
+      "frame": 19761,
+      "time": 62.848320436507933,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19763,
+      "time": 62.9184708404195,
+      "x": 17.375,
+      "y": 12.4270048,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-02.png",
+      "frame": 19768,
+      "time": 62.951878535997729,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19770,
+      "time": 63.023799837018139,
+      "x": 17.5460587,
+      "y": 12.07786,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-03.png",
+      "frame": 19775,
+      "time": 63.057718735827663,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19777,
+      "time": 63.12951413690476,
+      "x": 17.57299,
+      "y": 11.7390165,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-04.png",
+      "frame": 19781,
+      "time": 63.164877033730157,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19783,
+      "time": 63.234347037981856,
+      "x": 17.57299,
+      "y": 11.3890181,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-05.png",
+      "frame": 19793,
+      "time": 63.267619139739224,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19795,
+      "time": 63.331203337585031,
+      "x": 17.7935467,
+      "y": 11.1303749,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-06.png",
+      "frame": 19806,
+      "time": 63.3704681335034,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19808,
+      "time": 63.437214335317456,
+      "x": 17.94495,
+      "y": 10.8430882,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-07.png",
+      "frame": 19818,
+      "time": 63.47224463577097,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19820,
+      "time": 63.540115235260771,
+      "x": 18.2419357,
+      "y": 10.5461025,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-08.png",
+      "frame": 19830,
+      "time": 63.574116737528342,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19832,
+      "time": 63.639494139739227,
+      "x": 18.4399261,
+      "y": 10.3481121,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-09.png",
+      "frame": 19843,
+      "time": 63.676103833616779,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19845,
+      "time": 63.741584240362812,
+      "x": 18.7369118,
+      "y": 10.0511265,
+      "animation": "walk",
+      "held": "S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-10.png",
+      "frame": 19856,
+      "time": 63.776983439625845,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19858,
+      "time": 63.8425931335034,
+      "x": 18.9603786,
+      "y": 9.793689,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-11.png",
+      "frame": 19867,
+      "time": 63.8781931335034,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19869,
+      "time": 63.945230839002264,
+      "x": 19.2078667,
+      "y": 9.546201,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-12.png",
+      "frame": 19876,
+      "time": 63.979602735260769,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19878,
+      "time": 64.068490837585031,
+      "x": 19.5048523,
+      "y": 9.249215,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-13.png",
+      "frame": 19881,
+      "time": 64.082323540249433,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19883,
+      "time": 64.160218133503392,
+      "x": 19.5812817,
+      "y": 8.930874,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-14.png",
+      "frame": 19889,
+      "time": 64.186495337301579,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19891,
+      "time": 64.264602834467112,
+      "x": 19.8018379,
+      "y": 8.672231,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-15.png",
+      "frame": 19897,
+      "time": 64.292784438775513,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19899,
+      "time": 64.371750836167791,
+      "x": 20.0493259,
+      "y": 8.424743,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-16.png",
+      "frame": 19903,
+      "time": 64.394640036848074,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19905,
+      "time": 64.464621138038552,
+      "x": 20.296814,
+      "y": 8.177255,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-17.png",
+      "frame": 19913,
+      "time": 64.496714640022674,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19915,
+      "time": 64.561987138605446,
+      "x": 20.544302,
+      "y": 7.929766,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-18.png",
+      "frame": 19923,
+      "time": 64.599766234410424,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19925,
+      "time": 64.670538839285712,
+      "x": 20.79179,
+      "y": 7.682278,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "capture": "Motion/reference-19.png",
+      "frame": 19931,
+      "time": 64.702672037981856,
+      "camera": "(25.78, 14.50, -10.00)",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "frame": 19933,
+      "time": 64.787695238095239,
+      "x": 21.0887756,
+      "y": 7.38529253,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19948,
+      "time": 64.86838083900227,
+      "x": 21.2867661,
+      "y": 7.187302,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19969,
+      "time": 64.949289335317459,
+      "x": 21.4947052,
+      "y": 7.013333,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 19988,
+      "time": 65.0329690334467,
+      "x": 21.6926956,
+      "y": 6.81534243,
+      "animation": "walk",
+      "held": "D,S",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20009,
+      "time": 65.116542736678,
+      "x": 21.9006348,
+      "y": 6.641373,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20029,
+      "time": 65.198636337868479,
+      "x": 22.1284733,
+      "y": 6.51544571,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20049,
+      "time": 65.282484438775512,
+      "x": 22.43626,
+      "y": 6.41353941,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20064,
+      "time": 65.365229435941046,
+      "x": 22.6764622,
+      "y": 6.31745625,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20079,
+      "time": 65.447453039965978,
+      "x": 22.9465122,
+      "y": 6.29343557,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20099,
+      "time": 65.530940433673464,
+      "x": 23.1867142,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20117,
+      "time": 65.61162523384354,
+      "x": 23.466713,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20134,
+      "time": 65.696416935941045,
+      "x": 23.7467117,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20152,
+      "time": 65.779227033730152,
+      "x": 24.02671,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20173,
+      "time": 65.861659339569158,
+      "x": 24.376709,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20192,
+      "time": 65.941757738095234,
+      "x": 24.6567078,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20211,
+      "time": 66.023040639172336,
+      "x": 24.9367065,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20229,
+      "time": 66.1039550382653,
+      "x": 25.2167053,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20245,
+      "time": 66.186678436791382,
+      "x": 25.4967041,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20265,
+      "time": 66.267867835884346,
+      "x": 25.7767029,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.78, 14.50, -10.00)"
+    },
+    {
+      "frame": 20285,
+      "time": 66.348774135487531,
+      "x": 26.0567017,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(25.88, 14.50, -10.00)"
+    },
+    {
+      "frame": 20308,
+      "time": 66.430201339285716,
+      "x": 26.3367,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(26.16, 14.50, -10.00)"
+    },
+    {
+      "frame": 20331,
+      "time": 66.51362663690476,
+      "x": 26.6167,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(26.44, 14.50, -10.00)"
+    },
+    {
+      "frame": 20351,
+      "time": 66.5960298398526,
+      "x": 26.896698,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(26.72, 14.50, -10.00)"
+    },
+    {
+      "frame": 20373,
+      "time": 66.67693843537414,
+      "x": 27.1766968,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(27.00, 14.50, -10.00)"
+    },
+    {
+      "frame": 20397,
+      "time": 66.757883836451242,
+      "x": 27.4566956,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(27.31, 14.50, -10.00)"
+    },
+    {
+      "frame": 20422,
+      "time": 66.840167439058959,
+      "x": 27.806694,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(27.59, 14.50, -10.00)"
+    },
+    {
+      "frame": 20447,
+      "time": 66.922534736394553,
+      "x": 28.0866928,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(27.88, 14.50, -10.00)"
+    },
+    {
+      "frame": 20471,
+      "time": 67.005519437358274,
+      "x": 28.3666916,
+      "y": 6.19735241,
+      "animation": "walk",
+      "held": "D",
+      "style": "reference",
+      "camera": "(28.16, 14.50, -10.00)"
+    },
+    {
+      "frame": 20495,
+      "time": 67.088158035714287,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.44, 14.50, -10.00)"
+    },
+    {
+      "frame": 20519,
+      "time": 67.171132738095238,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20543,
+      "time": 67.253497640306122,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20566,
+      "time": 67.3339344387755,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20588,
+      "time": 67.414898037131522,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20613,
+      "time": 67.496970734126975,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20639,
+      "time": 67.580100538548749,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20665,
+      "time": 67.6622620393991,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20688,
+      "time": 67.744735537131518,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20711,
+      "time": 67.8273631377551,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20732,
+      "time": 67.908919033446708,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20755,
+      "time": 67.992167035147389,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20775,
+      "time": 68.0741675382653,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20796,
+      "time": 68.156826636904754,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20817,
+      "time": 68.239616638321991,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20837,
+      "time": 68.320756838151922,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20856,
+      "time": 68.401448540249433,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20878,
+      "time": 68.48359923469387,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20904,
+      "time": 68.566666135204073,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20931,
+      "time": 68.647282036564619,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20958,
+      "time": 68.729747739512476,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 20984,
+      "time": 68.811715136054417,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21011,
+      "time": 68.893941234410434,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21038,
+      "time": 68.975734240362812,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21065,
+      "time": 69.057357234977317,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21092,
+      "time": 69.138290433673461,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21119,
+      "time": 69.219813435374149,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21146,
+      "time": 69.302680236678,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21172,
+      "time": 69.3829973356009,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21198,
+      "time": 69.465860437925173,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21225,
+      "time": 69.548172838718813,
+      "x": 28.5446911,
+      "y": 6.19735241,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(28.53, 14.50, -10.00)"
+    },
+    {
+      "frame": 21252,
+      "time": 69.6312565334467,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21278,
+      "time": 69.711816035997728,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21304,
+      "time": 69.7936458404195,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21330,
+      "time": 69.876189434523809,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21355,
+      "time": 69.95696303854875,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21380,
+      "time": 70.038890738378683,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21405,
+      "time": 70.119252536848066,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21428,
+      "time": 70.254780938208611,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21445,
+      "time": 70.339432936507933,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21463,
+      "time": 70.425758836451237,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21484,
+      "time": 70.510577239229022,
+      "x": 28.7784977,
+      "y": 6.350204,
+      "animation": "walk",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21501,
+      "time": 70.593973235544212,
+      "x": 28.9764881,
+      "y": 6.54819441,
+      "animation": "walk",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21518,
+      "time": 70.675341638322,
+      "x": 29.1744785,
+      "y": 6.746185,
+      "animation": "walk",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21534,
+      "time": 70.7619846371882,
+      "x": 29.2213764,
+      "y": 6.76718426,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21557,
+      "time": 70.843725233843529,
+      "x": 29.23503,
+      "y": 6.76206,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21584,
+      "time": 70.925421138038544,
+      "x": 29.2486877,
+      "y": 6.75695658,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21611,
+      "time": 71.006544635770979,
+      "x": 29.262352,
+      "y": 6.75186157,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21638,
+      "time": 71.088450538548756,
+      "x": 29.2760162,
+      "y": 6.74677,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21665,
+      "time": 71.169105236678,
+      "x": 29.28968,
+      "y": 6.741679,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21692,
+      "time": 71.24952423469388,
+      "x": 29.3033447,
+      "y": 6.73658848,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21717,
+      "time": 71.33103923611111,
+      "x": 29.317009,
+      "y": 6.731498,
+      "animation": "idle",
+      "held": "W,D",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21724,
+      "time": 71.412045039682539,
+      "x": 29.320425,
+      "y": 6.730225,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21749,
+      "time": 71.4958940334467,
+      "x": 29.320425,
+      "y": 6.730225,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21775,
+      "time": 71.578195039682541,
+      "x": 29.320425,
+      "y": 6.730225,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21801,
+      "time": 71.66107963435374,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21825,
+      "time": 71.74279983701814,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21846,
+      "time": 71.822870634920633,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21869,
+      "time": 71.904540433673461,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21892,
+      "time": 71.986797236394551,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21915,
+      "time": 72.0668587372449,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21937,
+      "time": 72.148797037981851,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21952,
+      "time": 72.258718537414964,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 21976,
+      "time": 72.339986139455775,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22001,
+      "time": 72.421696534863941,
+      "x": 41.8,
+      "y": 5.35,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22027,
+      "time": 72.505360338718816,
+      "x": 41.80465,
+      "y": 4.904652,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22050,
+      "time": 72.586312840136046,
+      "x": 42.0026321,
+      "y": 5.10264254,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22072,
+      "time": 72.666787138605443,
+      "x": 42.2006149,
+      "y": 5.300633,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22094,
+      "time": 72.747181838151931,
+      "x": 42.3985977,
+      "y": 5.49862337,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22115,
+      "time": 72.831134339569161,
+      "x": 42.59658,
+      "y": 5.696614,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22137,
+      "time": 72.914499135487532,
+      "x": 42.7945633,
+      "y": 5.894604,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22158,
+      "time": 72.994708234126975,
+      "x": 42.9925461,
+      "y": 6.09259462,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22178,
+      "time": 73.078179634353745,
+      "x": 43.19053,
+      "y": 6.290585,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22199,
+      "time": 73.161269238945579,
+      "x": 43.4380074,
+      "y": 6.538073,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22221,
+      "time": 73.244298738662124,
+      "x": 43.63599,
+      "y": 6.73606348,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22242,
+      "time": 73.326752536848076,
+      "x": 43.8339729,
+      "y": 6.934054,
+      "animation": "walk",
+      "held": "D,W",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22258,
+      "time": 73.407174135487523,
+      "x": 43.91034,
+      "y": 7.01042175,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22277,
+      "time": 73.4881716340703,
+      "x": 43.91034,
+      "y": 7.01042175,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22300,
+      "time": 73.570553436791386,
+      "x": 43.91034,
+      "y": 7.01042175,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22323,
+      "time": 73.653336536281174,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22347,
+      "time": 73.735397937925171,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22370,
+      "time": 73.81801143707483,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22393,
+      "time": 73.898105335884352,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22416,
+      "time": 73.981024539399087,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22439,
+      "time": 74.062895337301583,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22462,
+      "time": 74.1443844387755,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22488,
+      "time": 74.226324539399087,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22514,
+      "time": 74.308945939625843,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22540,
+      "time": 74.3915004393424,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22547,
+      "time": 74.4735381377551,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22574,
+      "time": 74.556632539682539,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22601,
+      "time": 74.6389341340703,
+      "x": 38.0,
+      "y": 13.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 22625,
+      "time": 74.720286536281179,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22652,
+      "time": 74.802364838435366,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22676,
+      "time": 74.883568835034012,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22701,
+      "time": 74.965269238945581,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22725,
+      "time": 75.0477600340136,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22750,
+      "time": 75.128164838435367,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22776,
+      "time": 75.209700035430842,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22793,
+      "time": 75.30860323837868,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22819,
+      "time": 75.390012535430841,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22846,
+      "time": 75.471016935941037,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(34.00, 22.20, -10.00)"
+    },
+    {
+      "frame": 22869,
+      "time": 75.551127239229018,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 22892,
+      "time": 75.633511337868484,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 22915,
+      "time": 75.715385735544217,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 22938,
+      "time": 75.797727239229019,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 22963,
+      "time": 75.879869635770973,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 22984,
+      "time": 75.960468537414968,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 22998,
+      "time": 76.080567637471646,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 23018,
+      "time": 76.161511536281182,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 23038,
+      "time": 76.241933134920629,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.70, 10.10, -10.00)"
+    },
+    {
+      "frame": 23057,
+      "time": 76.3220129393424,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23076,
+      "time": 76.403511040249427,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23096,
+      "time": 76.483871435657591,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23121,
+      "time": 76.563885834750565,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23148,
+      "time": 76.645521534863946,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23166,
+      "time": 76.7284383361678,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23191,
+      "time": 76.808832234977316,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23211,
+      "time": 76.929184438775508,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23237,
+      "time": 77.011165738378679,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23263,
+      "time": 77.091580839002262,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23286,
+      "time": 77.171754634353732,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23309,
+      "time": 77.254353238378684,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23331,
+      "time": 77.335257738095237,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23351,
+      "time": 77.415596435657591,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23374,
+      "time": 77.498365036848071,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23396,
+      "time": 77.581764739229016,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23416,
+      "time": 77.662698738662129,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23432,
+      "time": 77.7958690334467,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23453,
+      "time": 77.879784134070292,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23474,
+      "time": 77.9606258361678,
+      "x": 9.0,
+      "y": 6.0,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(26.50, 16.00, -10.00)"
+    },
+    {
+      "frame": 23493,
+      "time": 78.043736040249428,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23519,
+      "time": 78.1256168367347,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23546,
+      "time": 78.2082940334467,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23572,
+      "time": 78.291291234410423,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23600,
+      "time": 78.3733765376984,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23626,
+      "time": 78.453688938492064,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23651,
+      "time": 78.535361833900225,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23675,
+      "time": 78.617678535997726,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23698,
+      "time": 78.697946336451238,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23722,
+      "time": 78.778529839852609,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23745,
+      "time": 78.859226636904765,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23756,
+      "time": 78.939286833900226,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23781,
+      "time": 79.021699837018133,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23804,
+      "time": 79.103921740362807,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23828,
+      "time": 79.186781434240359,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23850,
+      "time": 79.269066035997724,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23870,
+      "time": 79.3506144345238,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23891,
+      "time": 79.434242736678,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    },
+    {
+      "frame": 23913,
+      "time": 79.516768438208615,
+      "x": 28.6738453,
+      "y": 6.245552,
+      "animation": "idle",
+      "held": "",
+      "style": "reference",
+      "camera": "(32.00, 16.00, -10.00)"
+    }
+  ]
+}

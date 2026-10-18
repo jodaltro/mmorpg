@@ -1,0 +1,13 @@
+test_01_manifests_and_upstream_inputs (test_architecture07r.AuthoredReferenceTests.test_01_manifests_and_upstream_inputs) ... ok
+test_02_layer_composite_is_authored_palette_pixels (test_architecture07r.AuthoredReferenceTests.test_02_layer_composite_is_authored_palette_pixels) ... ok
+test_03_imported_parts_are_exact_exports (test_architecture07r.AuthoredReferenceTests.test_03_imported_parts_are_exact_exports) ... ok
+test_04_footprint_navigation_and_access (test_architecture07r.AuthoredReferenceTests.test_04_footprint_navigation_and_access) ... ok
+test_05_door_recalibrated_to_real_protagonist (test_architecture07r.AuthoredReferenceTests.test_05_door_recalibrated_to_real_protagonist) ... ok
+test_06_existing_destinations_refused (test_architecture07r.AuthoredReferenceTests.test_06_existing_destinations_refused) ... ok
+test_07_region_repeat_has_identical_semantics_and_pixels (test_architecture07r.AuthoredReferenceTests.test_07_region_repeat_has_identical_semantics_and_pixels) ... ok
+test_08_export_reads_actual_aseprite_edit_without_redrawing (test_architecture07r.AuthoredReferenceTests.test_08_export_reads_actual_aseprite_edit_without_redrawing) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.957s
+
+OK

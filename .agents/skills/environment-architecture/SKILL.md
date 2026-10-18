@@ -5,9 +5,30 @@ description: Autoria modular de construções medievais pixel art 2D em perspect
 
 # Architecture Agent — Valdoria
 
+## Prioridade 07R: uma referência autorada antes da biblioteca
+
+As três casas do Marco 07 foram **rejeitadas artisticamente pelo usuário**. Seus testes aprovam engenharia, não desenho. A gramática `architecture_art.py` abaixo é histórica; não é a direção visual atual. Não ampliar a biblioteca nem reconstruir fachadas por polígonos e ruído para simular acabamento.
+
+Comece por planta, proporção de duas paredes realmente visíveis, estrutura/espessura do telhado, beirais, cumeeira, aberturas e fundação. Compare até três estudos de volume da **mesma casa**, preferencialmente em Blender ortográfico, com Quaternius na mesma escala aparente. Escolha uma composição antes de refinar materiais. O modelo Blender é autoria offline, não runtime 3D.
+
+O estudo atual está em `ArtSource/Labs/World2026/WorldStudio07R/`. `SourceV1/rural-reference.aseprite` é a autoridade dos pixels: doze camadas editáveis, um frame, 966², 32 PPU. `ArtDirection/` conserva a pintura assistida por IA, a direção artística e as operações iniciais de paleta/organização. Esses scripts de montagem são proveniência; **não** devem ser executados por cima da fonte editada. O exportador normal apenas lê a fonte Aseprite.
+
+```powershell
+python Tools/ArtPipeline/WorldGen/architecture07r_reference.py export --output Temp/Architecture07R/new-export
+python Tools/ArtPipeline/WorldGen/architecture07r_reference.py build --output Temp/Architecture07R/new-region
+python -m unittest discover -s Tools/ArtPipeline/WorldGen -p test_architecture07r.py -v
+unity command run_script --caller plugin --skill unity-pipeline --file AgentScripts/BuildArchitecture07R.cs --entry BuildArchitecture07R.Main --format json
+```
+
+Destinos devem estar ausentes. O importador exige Vegetation Lab limpo e recusa a cena/arte 07R já existente. O build consome a referência autorada e um lote explícito; não é um novo gerador universal. A altura da porta é medida contra o alpha do sprite real: neste estudo 4,8387 u contra corpo visível 4,5703 u, sem reutilizar automaticamente 5 u. Transformar a referência em módulos combináveis depende de avaliação visual explícita do usuário.
+
+O footprint anotado e a linha frontal projetada alimentam física/navegação e `ReferenceHouseDepth`. O sorting acompanha a borda frontal na coordenada X do ator; somente volumes interceptados reduzem alpha. Não inferir interior pintado atrás do telhado: as camadas são uma separação da pintura exterior, ainda sem reconstrução de superfícies ocultas. Evidências e limites em `Docs/Validation/ValdoriaWorldStudio07R-ArchitectureArt.md`.
+
 Leia AGENTS.md, Docs/GameVision.md, Docs/WorldGen/ArchitectureContract.md e os contratos produtores pertinentes. Use terrain-generation, terrain-materials, world-hydrology, environment-vegetation e aseprite-pixel-art nos respectivos dados. Esta skill orienta autoria e validação por ferramentas reais; não é um serviço autônomo.
 
 ## Decisões de autoria
+
+As receitas e gramáticas seguintes descrevem a engenharia e o histórico do Marco 07; não autorizam reutilizar sua arte rejeitada ou ampliar a biblioteca no 07R.
 
 - Comece por lotes estáveis e acessos, não por interpretar a imagem do chão. Recuse água, rocha, reservas, declive excessivo, falta de clearance ou de conexão com a estrada. Não aplane, seque, desvie água ou refaça a estrada como efeito colateral.
 - Use dimensões, altura da porta, silhueta e materiais explícitos na receita artística. A biblioteca inicial tem casa rural com anexo, casa maior com dormer e cabana com embasamento ventilado. São três gramáticas de exterior; não um gerador universal de plantas ou interiores.

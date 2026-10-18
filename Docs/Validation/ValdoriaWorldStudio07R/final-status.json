@@ -1,0 +1,42 @@
+{
+  "compile": {
+    "status": "up_to_date",
+    "failed": false,
+    "errors": [],
+    "compilationFailed": false
+  },
+  "console": {
+    "entries": [],
+    "cursor": 39448,
+    "session": "ca3143ad5222447a81fb6ead72ba0611",
+    "returned": 0,
+    "dropped": false,
+    "reset": false,
+    "counts": {
+      "error": 1768,
+      "warn": 232,
+      "log": 0
+    },
+    "groundTruth": {
+      "sampledUtc": "2026-10-18T10:52:49.6337208Z",
+      "ageMs": 5,
+      "compilationFailed": false,
+      "compiling": false,
+      "consoleErrors": 0,
+      "consoleWarnings": 0,
+      "consoleLogs": 0,
+      "seeded": true
+    }
+  },
+  "state": {
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaArchitectureArtLab07R.unity",
+    "dirty": false,
+    "playing": false,
+    "profile": null,
+    "timeScale": 1,
+    "fixedView": false,
+    "synthetic": 0,
+    "background": "ResetAndDisableNonBackgroundDevices",
+    "editorInput": "PointersAndKeyboardsRespectGameViewFocus"
+  }
+}
