@@ -1,11 +1,25 @@
 {
   "schema": "valdoria-github-visual-access/v1",
+  "testedUtc": "2026-10-18T19:58:06.489599+00:00",
   "repository": "jodaltro/mmorpg",
   "branch": "main",
+  "artifactCommit": "877e108d5151e345237352e23d3d52493eac82dd",
   "path": "Docs/Validation/ValdoriaGround12/ReviewLite/composition-final.png",
-  "published": false,
-  "base64RecoveryTested": false,
-  "connectorVisualInspection": "pending",
-  "localVisualInspection": "completed; original and ReviewLite viewed",
-  "note": "Updated only after confirmed push and actual connector request."
+  "displayURL": "https://github.com/jodaltro/mmorpg/blob/877e108d5151e345237352e23d3d52493eac82dd/Docs/Validation/ValdoriaGround12/ReviewLite/composition-final.png",
+  "published": true,
+  "publishedImageBytes": 270735,
+  "maxBytes": 768000,
+  "base64RecoveryTested": true,
+  "method": "GitHub plugin github_fetch_file(repository_full_name=jodaltro/mmorpg, ref=main, encoding=base64); decoded with strict Base64 validation",
+  "githubBlobSHA1": "6a3aa0d3b50eb66a17422a198a13ab8f0e19737f",
+  "pngSignatureValid": true,
+  "decodedDimensions": [
+    800,
+    450
+  ],
+  "recoveredSHA256": "b465bea54e26c1b58ec1246916b873388b25e39ffe880f0cb7ba8557629d44f0",
+  "matchesManifestAndLocalPNG": true,
+  "connectorVisualInspection": "completed: recovered bytes decoded to temporary PNG and viewed by agent with view_image",
+  "localVisualInspection": "completed against original and in paired contact sheets",
+  "scope": "One full-composition ReviewLite recovered and visually inspected;63 other ReviewLite PNGs are published and locally validated, not individually recovered. Does not guarantee future connector availability or constitute user artistic approval."
 }

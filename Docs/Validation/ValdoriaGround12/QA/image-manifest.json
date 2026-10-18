@@ -52,9 +52,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -107,9 +108,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -162,9 +164,12 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
-        "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "published": true,
+        "base64RecoveryTested": true,
+        "visualInspectionViaConnector": true,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd",
+        "signaturePNG": true,
+        "recoveredSHA256": "b465bea54e26c1b58ec1246916b873388b25e39ffe880f0cb7ba8557629d44f0"
       }
     },
     {
@@ -209,9 +214,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -256,9 +262,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -303,9 +310,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -350,9 +358,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -397,9 +406,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -444,9 +454,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -491,9 +502,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -538,9 +550,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -585,9 +598,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -632,9 +646,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -679,9 +694,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -726,9 +742,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -773,9 +790,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -820,9 +838,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -867,9 +886,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -920,9 +940,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -973,9 +994,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1026,9 +1048,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1079,9 +1102,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1132,9 +1156,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1185,9 +1210,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1238,9 +1264,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1291,9 +1318,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1350,9 +1378,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1409,9 +1438,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1468,9 +1498,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1527,9 +1558,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1578,9 +1610,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1629,9 +1662,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1688,9 +1722,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1747,9 +1782,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1806,9 +1842,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1865,9 +1902,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1916,9 +1954,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -1967,9 +2006,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2026,9 +2066,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2085,9 +2126,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2144,9 +2186,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2203,9 +2246,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2262,9 +2306,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2321,9 +2366,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2377,9 +2423,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2433,9 +2480,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2489,9 +2537,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2545,9 +2594,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2601,9 +2651,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2657,9 +2708,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2713,9 +2765,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2769,9 +2822,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2825,9 +2879,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2881,9 +2936,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2937,9 +2993,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -2993,9 +3050,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3049,9 +3107,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3105,9 +3164,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3161,9 +3221,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3217,9 +3278,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3273,9 +3335,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3329,9 +3392,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3385,9 +3449,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     },
     {
@@ -3441,9 +3506,10 @@
       },
       "visualFidelityReview": "inspected locally in original/review paired contact sheet; principal composition, water and mineral detail also inspected individually; original remains visual authority",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publicationCommit": "877e108d5151e345237352e23d3d52493eac82dd"
       }
     }
   ]
