@@ -1,0 +1,25 @@
+{
+  "builds": [
+    {
+      "style": "A",
+      "byteRebuild": true,
+      "seconds": 0.302139499981422
+    },
+    {
+      "style": "B",
+      "byteRebuild": true,
+      "seconds": 1.8772057000314817
+    },
+    {
+      "style": "C",
+      "byteRebuild": true,
+      "seconds": 0.6035508999484591
+    }
+  ],
+  "actualAsepriteExport": true,
+  "sourceDocuments": 8,
+  "exportedPartFilesIncludingEmpty": 72,
+  "atlasByteIdentical": true,
+  "spriteMetadataByteIdentical": true,
+  "allPartPngBytesIdentical": true
+}

@@ -45,3 +45,8 @@ Origens e amostragem seguem o contrato de fronteiras. `crop` gera masks de um co
 O importador constrói seis meshes recortados nas fronteiras semânticas de água/margem e 24 texturas 256×256, não um quad com PNG do mapa inteiro. A animação alterna frames existentes via MaterialPropertyBlock, sem gerar terreno ou hidrologia em Play. Point, RGBA, mipmaps/compressão off. Superfície/raso/espuma são visuais; PolygonCollider2D usa somente o limite de bloqueio por profundidade. Sorting do piso aquático -1985, abaixo do ator, e relevo mantido. Não há refração, forças de água ou natação.
 
 Vegetation Agent deve evitar água profunda e pode contextualizar margens/solo úmido. Architecture Agent deve consultar sólido, alagado, faixa de margem, clearance e reservas. Structures Agent pode propor pontes/vaus novos com revisão explícita de travessia; o Water Agent não cria estrutura. Todos validam input hashes, origem e unidades. Água desligada é modo diagnóstico do laboratório, não alteração persistente do mundo.
+
+
+## Consumidor Vegetation Agent — Marco06
+
+Veja [VegetationContract.md](VegetationContract.md). O consumidor valida referências/manifests por SHA-256, preserva os bytes deste produtor e acrescenta instâncias e overlay de navegação separados. Troncos têm footprints circulares; copas são visuais. Estradas, reservas, água profunda e vau permanecem restrições de colocação. Navegação combinada ainda requer clearance específico do ator. Não inferir ocupação física pela imagem dos sprites.

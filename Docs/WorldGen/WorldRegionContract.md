@@ -73,3 +73,8 @@ O Water Agent está implementado em `world_hydrology.py`, com skill `world-hydro
 **Revisão física explícita no laboratório05:** o campo contínuo de relevo04 fornece os mesmos loops para os pés visuais, navegação subcélula e PolygonCollider2D. Os 29 boxes grosseiros são substituídos; quatro bordas continuam. O WorldRegion v1 mantém seu bloqueio histórico, enquanto `EnvironmentRegionData` e os novos artefatos representam a ocupação refinada. Consumidores não devem misturar o grid antigo com o novo contorno e presumir equivalência. Altura original não foi alterada.
 
 Água, profundidade normalizada, solo úmido, bloqueio aquático e vaus são camadas distintas. `waterCandidate` continua sendo um proxy histórico, não é promovido automaticamente a água. Fora do laboratório, a física anterior e a cena oficial permanecem intactas.
+
+
+## Consumidor Vegetation Agent — Marco06
+
+Veja [VegetationContract.md](VegetationContract.md). O consumidor valida referências/manifests por SHA-256, preserva os bytes deste produtor e acrescenta instâncias e overlay de navegação separados. Troncos têm footprints circulares; copas são visuais. Estradas, reservas, água profunda e vau permanecem restrições de colocação. Navegação combinada ainda requer clearance específico do ator. Não inferir ocupação física pela imagem dos sprites.

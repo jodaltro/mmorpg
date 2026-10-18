@@ -72,3 +72,8 @@ No refino 1.1, o alfa dos motivos de desgaste Aseprite pode ser projetado na dir
 ## Integração de água — Marco 05
 
 A alternativa A04 é consumida como referência provisória sem regenerar o chão. `water_art.py` acrescenta materiais de água/margem em chunks, recortados por semântica hidrológica; não redefine contornos físicos a partir de alfa. O footprint refinado pertence ao contrato `EnvironmentBoundaryContract.md`, com revisão explícita de física somente no laboratório05. Chunks aquáticos têm continuidade por contexto global/halo, quatro frames autorados e hashes próprios. Não há aprovação artística automática ou mudança de `MmorpgWorld.unity`.
+
+
+## Consumidor Vegetation Agent — Marco06
+
+Veja [VegetationContract.md](VegetationContract.md). O consumidor valida referências/manifests por SHA-256, preserva os bytes deste produtor e acrescenta instâncias e overlay de navegação separados. Troncos têm footprints circulares; copas são visuais. Estradas, reservas, água profunda e vau permanecem restrições de colocação. Navegação combinada ainda requer clearance específico do ator. Não inferir ocupação física pela imagem dos sprites.

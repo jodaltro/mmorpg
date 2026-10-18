@@ -27,3 +27,8 @@ Chunks compartilham o contexto global, origem, diagonal, seed e fase. Não gerar
 QA05 compara todos os 49.152 centros da navegação com PolygonCollider2D real e os 860 vértices de rockLoops com os pés dos meshes existentes. Tolerância para conversão float Unity: 1e-5 u. Mudanças no algoritmo de interpolação, diagonal, contorno ou limiar exigem revisão e QA dos consumidores.
 
 Referência de integração: [Unity PolygonCollider2D.SetPath](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/PolygonCollider2D.SetPath.html).
+
+
+## Consumidor Vegetation Agent — Marco06
+
+Veja [VegetationContract.md](VegetationContract.md). O consumidor valida referências/manifests por SHA-256, preserva os bytes deste produtor e acrescenta instâncias e overlay de navegação separados. Troncos têm footprints circulares; copas são visuais. Estradas, reservas, água profunda e vau permanecem restrições de colocação. Navegação combinada ainda requer clearance específico do ator. Não inferir ocupação física pela imagem dos sprites.

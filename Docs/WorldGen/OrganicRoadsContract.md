@@ -69,3 +69,8 @@ Testes verificam repetição, seed, largura/derivada, waypoints/tangentes, másc
 ## Handoff de água — Marco 05
 
 O Water Agent consome cobertura e reservas existentes por hash e rejeita interseção aquática com a estrada aprovada. Não altera seus samples, larguras ou masks. O vau do estudo05 cruza apenas o riacho, não uma estrada. Travessias entre uma futura estrada e água exigirão receita conjunta/autorizações e revalidação de clearance; `authorizedCrossingCells` histórico não cria ponte nem libera rocha. Consulte `WorldHydrologyContract.md`.
+
+
+## Consumidor Vegetation Agent — Marco06
+
+Veja [VegetationContract.md](VegetationContract.md). O consumidor valida referências/manifests por SHA-256, preserva os bytes deste produtor e acrescenta instâncias e overlay de navegação separados. Troncos têm footprints circulares; copas são visuais. Estradas, reservas, água profunda e vau permanecem restrições de colocação. Navegação combinada ainda requer clearance específico do ator. Não inferir ocupação física pela imagem dos sprites.
