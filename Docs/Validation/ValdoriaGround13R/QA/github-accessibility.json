@@ -1,8 +1,24 @@
 {
   "repository": "jodaltro/mmorpg",
   "branch": "main",
-  "published": false,
-  "base64RecoveryTested": false,
-  "visualInspectionViaConnector": false,
-  "status": "Awaiting actual push and connector recovery"
+  "evidenceCommit": "7dc210525f3bc6c07bddc0efdc7fcc4332a5a477",
+  "remoteMainConfirmed": "7dc210525f3bc6c07bddc0efdc7fcc4332a5a477",
+  "path": "Docs/Validation/ValdoriaGround13R/ReviewLite/Delivery-plateau-C-Ground13R.png",
+  "bytes": 704601,
+  "dimensions": [
+    800,
+    450
+  ],
+  "sha256": "5571b53717e56e6d33cbd0d980a90a171beade00a0055c9ee0ef75f00cff5056",
+  "gitBlob": "ecda68650fb4f3d70eafaa78c6d2558742f9d606",
+  "PNGSignatureHex": "89504e470d0a1a0a",
+  "PNGDecodeVerified": true,
+  "max750KiB": true,
+  "published": true,
+  "base64RecoveryTested": true,
+  "visualInspectionViaConnector": true,
+  "mechanism": "GitHub connector github_fetch_file(ref main, encoding base64); strict decode, PNG signature, SHA256 and Git blob SHA1 verification; actual returned bytes rendered and inspected",
+  "checkedAtUTC": "2026-10-18T22:22:23.238887+00:00",
+  "url": "https://github.com/jodaltro/mmorpg/blob/main/Docs/Validation/ValdoriaGround13R/ReviewLite/Delivery-plateau-C-Ground13R.png",
+  "artisticApproval": "pending user evaluation"
 }
