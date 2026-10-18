@@ -1,5 +1,9 @@
 # Valdoria Ground13R — relevo e validação temporal da água
 
+**Atualização de aprovação — 18/10/2026:** o usuário avaliou a entrega `e2b743388ad37890d6677e7161e9e3664fea8a6c` e respondeu **“Ta boa”**. A apresentação Ground13R está artisticamente aprovada no escopo entregue, incluindo relevo, contatos e água demonstrada em replay real. [Registro formal e hashes](../Art/Approvals/Ground13R-2026-10-18.json). A cena oficial permanece intacta; não houve autorização de promoção automática ou mudança física. As limitações técnicas abaixo continuam válidas.
+
+O texto de candidatura a seguir documenta o estado original da entrega, anterior a este feedback.
+
 **Candidata à inspeção do usuário, sem aprovação artística automática.** Baseline: `a2b695895895922f782c6b36b0d7f4c944e1e100`, branch `main`. Worktree conferido e `git pull --ff-only origin main` executado: atualizado. Unity 6000.6.5f1, projeto `D:\unity\Mmorpg`, 18/10/2026.
 
 O [feedback oficial](../Art/Approvals/Ground13R-Direction-2026-10-18.json) mantém o platô Ground13 **não aprovado**, considera promissora a separação de planos e pede preservação da água e do agrupamento conservador. Não reinterpretar esse parecer como aprovação geral de Ground13 ou Ground13R.

@@ -1,0 +1,19 @@
+{
+  "schema": "valdoria-artistic-approval/v1",
+  "date": "2026-10-18",
+  "evaluatedCommit": "e2b743388ad37890d6677e7161e9e3664fea8a6c",
+  "userFeedback": "Ta boa",
+  "approved": [
+    "Ground13R-plateau-presentation",
+    "Ground13R-upper-grass-soil-mineral-contacts",
+    "Ground13-water-art-and-temporal-replay-as-presented-in-Ground13R"
+  ],
+  "scope": "Aprovação artística da candidata Ground13R apresentada, incluindo relevo, contatos e demonstração temporal da água preservada. Não abrange estados históricos Ground12/Ground13 do platô, novas variantes, alterações físicas, simulação hidráulica ou promoção automática à cena oficial. O topo permanece inacessível. Limitações técnicas documentadas continuam válidas.",
+  "report": "Docs/Validation/ValdoriaGround13R-GeologicalRefinement.md",
+  "sourceHashes": {
+    "ArtSource/Labs/World2026/Ground13R/SourceV4/upland-contacts.aseprite": "873debb93e6e4ced5a46ff536ff26fc8e64c794385c967c1aac8801152c934f3",
+    "ArtSource/Labs/World2026/Ground13R/recipe.json": "2b84d6709f3edda9a1736bf2cbb5157db6219b64601cc6c7ef93a0a0fdacd70f",
+    "ArtSource/Labs/World2026/Ground13R/ShapeV6/visual-relief.json": "e44c41c3d557fead725a029b99844b818b3447c595ad6d863321829b178a6544",
+    "Docs/Validation/ValdoriaGround13R/QA/image-manifest.json": "ae0ac2da9d40c669388e1677e3e5a2fb642644b181f1713321c356fc3c5092bf"
+  }
+}
