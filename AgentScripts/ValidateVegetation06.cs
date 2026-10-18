@@ -18,7 +18,7 @@ public static class ValidateVegetation06
  static void Result(string name,bool pass,object evidence)=>results.Add(new{name,pass,evidence,frame=Time.frameCount});
  static void Place(Vector2 p){held=Array.Empty<Key>();body.position=p;body.transform.position=p;body.linearVelocity=Vector2.zero;Physics2D.SyncTransforms();}
  static void Feed(){if(InputState.currentUpdateType==InputUpdateType.Dynamic)InputSystem.QueueStateEvent(keyboard,new KeyboardState(held));}
- static void Capture(string name){ScreenCapture.CaptureScreenshot(Path.GetFullPath(Output+"/"+name+".png"));}
+ static void Capture(string name){ScreenCapture.CaptureScreenshot(Path.GetFullPath(Output+"/"+(name.EndsWith(".png")?name:name+".png")));}
  static bool TreePenetration(){var box=body.GetComponent<BoxCollider2D>();var filter=new ContactFilter2D();filter.SetLayerMask(1<<8);var hits=new Collider2D[16];int n=Physics2D.OverlapBox(body.position+box.offset,box.size*.96f,0,filter,hits);return hits.Take(n).Any(c=>c.GetComponent<VegetationAnchor>()!=null);}
  static void Move(string name,Key[] keys){Add(.45f,()=>{Place(new Vector2(14.5f,17));start=body.position;held=keys;},()=>{held=Array.Empty<Key>();Result(name,Vector2.Distance(start,body.position)>.65f,new{from=start.ToString(),to=body.position.ToString(),animation=animator.State});});Add(.12f);}
  public static string Main()
