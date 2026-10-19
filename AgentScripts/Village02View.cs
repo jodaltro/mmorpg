@@ -13,7 +13,6 @@ public static class Village02View
     }
     public static object Begin()
     {
-        
         if(SessionState.GetBool("Village02.FixedView",false))throw new Exception("QA resolution already assigned");
         var view=EditorWindow.GetWindow(Type("GameView"));var property=Type("GameView").GetProperty("selectedSizeIndex",Instance);
         int previous=(int)property.GetValue(view);var group=Group();var gt=group.GetType();
@@ -36,4 +35,3 @@ public static class Village02View
         SessionState.SetBool("Village02.FixedView",false);return "Original Game View selection restored; temporary fixed size removed";
     }
 }
-

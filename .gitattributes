@@ -55,3 +55,6 @@
 /ArtSource/World/PlayableVillage01/** -text whitespace=cr-at-eol
 /Assets/Mmorpg/Art/World/PlayableVillage01/** -text whitespace=cr-at-eol
 /Docs/Validation/ValdoriaPlayableVillage01/** -text whitespace=cr-at-eol
+/ArtSource/World/PlayableVillage02/** -text whitespace=cr-at-eol
+/Assets/Mmorpg/Art/Experimental/Village02Blockout/** -text whitespace=cr-at-eol
+/Docs/Validation/ValdoriaVillage02/** -text whitespace=cr-at-eol
