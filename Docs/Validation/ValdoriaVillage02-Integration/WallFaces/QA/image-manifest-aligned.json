@@ -1,0 +1,1638 @@
+{
+  "schema": "valdoria-visual-review/v1",
+  "maxReviewBytes": 768000,
+  "images": [
+    {
+      "original": "Original/town-0-0-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-0-0-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(147.69516, 98.3115158, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 216,
+      "time": 1.2649697987528343,
+      "actor": "(147.69516, 93.3115158, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-0-0-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3138631,
+      "reviewBytes": 213805,
+      "originalSHA256": "c98dbe8cc98a5c4cce09bdd8ba4e8ac0e58f18d714dfe497078d1f31be0d1129",
+      "reviewSHA256": "5263d15074201c0fef9c338a486b230a023b4311fd6a534d4c9a8c70ef5920b8",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-0-0-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-0-0-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(147.69516, 98.3115158, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 247,
+      "time": 1.9725973922902493,
+      "actor": "(147.696213, 94.241745, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-0-0-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3138626,
+      "reviewBytes": 213609,
+      "originalSHA256": "e84aab875ae844261c3aad419ea04d4ba96bc3c5c84ecf94cac80b5bab0b3015",
+      "reviewSHA256": "36e64ebc30e8123f40f404f431ce7d55da7b1919c56b048fc35dd703bc1a457c",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-0-0-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-0-0-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(147.533417, 102.402771, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 254,
+      "time": 2.330564094387755,
+      "actor": "(147.533417, 97.40277, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-0-0-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3116095,
+      "reviewBytes": 216732,
+      "originalSHA256": "6af3f617e84de8b72370239b2bd4ff84feee4d112350fbb5af4dcb5b1d97b6d9",
+      "reviewSHA256": "9cc16e90bd51cc876e8bf9af7a388eebda648c8480482277a0df5fd99cf89b05",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-0-0-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-0-0-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(147.533417, 102.402771, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 285,
+      "time": 3.0330774943310654,
+      "actor": "(147.532364, 96.47255, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-0-0-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3118556,
+      "reviewBytes": 216737,
+      "originalSHA256": "5be2f0032d8fed70808dd8579fd90d039cccbc7286c13e5ee4df68b9c51a7059",
+      "reviewSHA256": "94cf2eeb7c05ff1f441fae152fc925229e31b4bf881eb1c552a4dfcec4a2a0a0",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-1-3-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-1-3-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(224.702347, 122.407082, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 941,
+      "time": 14.145872796201813,
+      "actor": "(224.702332, 117.407089, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-1-3-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3470358,
+      "reviewBytes": 212461,
+      "originalSHA256": "f5d33577feffae24b930e885eaea11aad9aa1e64a730e4ed51c1cec243512a06",
+      "reviewSHA256": "cf2822a19774729bc9b1347e974de5dead9ddf15ecbbf0ecafd3fbe60d257307",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-1-3-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-1-3-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(224.702347, 122.407082, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 970,
+      "time": 14.849160296201813,
+      "actor": "(224.0952, 118.012985, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-1-3-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3469181,
+      "reviewBytes": 212369,
+      "originalSHA256": "d659974c77f0b887f06fdc62011e8878c973183e4e856c81516885a2a2ccfec0",
+      "reviewSHA256": "ab37e13057a3649f4663e9eaba9a02990f85bbc8ab4132cdc85de4fefe07f6e7",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-1-3-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-1-3-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(221.897659, 125.392921, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 978,
+      "time": 15.193934396258502,
+      "actor": "(221.897675, 120.392929, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-1-3-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3477871,
+      "reviewBytes": 212351,
+      "originalSHA256": "ea605501cc8e305ec884b48a21f090db1e376a0cdb1bbe69535452712b2870e0",
+      "reviewSHA256": "92ed98fb2ce9ae7bdf42ce8446491edd37214c3c4aafb2e278e1aef206e02fbe",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-1-3-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-1-3-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(221.897659, 125.392921, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1008,
+      "time": 15.934484297052153,
+      "actor": "(222.504822, 119.787018, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-1-3-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3480242,
+      "reviewBytes": 212383,
+      "originalSHA256": "ff60019360db76969a46593668f125bc131ae0b226ec331bd93b9b0f747ce8fb",
+      "reviewSHA256": "d8d0933ea2a1142df14ef3edfc6b5509553c7e9793dc9c42e26b179b24314261",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-2-6-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-2-6-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(252.600113, 193.843079, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1617,
+      "time": 28.128936996882086,
+      "actor": "(252.600113, 188.843079, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-2-6-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3494770,
+      "reviewBytes": 204268,
+      "originalSHA256": "1b3cac9296052674aa70e997c341df80aa6dd91f4b0e33c8cf1b7cc8877a9de3",
+      "reviewSHA256": "0a958ae51a1b46bdf6d492a68077f5bf59c8501a5fd982cdf87f4024d9fd2f7c",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-2-6-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-2-6-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(252.600113, 193.843079, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1640,
+      "time": 28.982394238945577,
+      "actor": "(251.6294, 188.841888, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-2-6-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3494639,
+      "reviewBytes": 204178,
+      "originalSHA256": "2777ec2445642ed5aee7e65128571a3c97abff4aeade932954c3407d81c20a75",
+      "reviewSHA256": "d83c587730646cc927b2656f2caac67efde6e9a37e5283613fc5d92e426cf6f2",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-2-6-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-2-6-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(248.511, 194.02359, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1644,
+      "time": 29.433195379818592,
+      "actor": "(248.511, 189.02359, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-2-6-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3483503,
+      "reviewBytes": 203492,
+      "originalSHA256": "fdbe4738d1c87144e1beb7ecbd6570762952ea3101424210e066b3abfed87488",
+      "reviewSHA256": "d1b967f42aff4516276048887b8dce8fba00b565649774cd2f530ea62f3cc676",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-2-6-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-2-6-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(248.511, 194.02359, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1673,
+      "time": 30.285399716553286,
+      "actor": "(249.48175, 189.02478, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-2-6-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3485776,
+      "reviewBytes": 203538,
+      "originalSHA256": "582a875e88467ffa3d4a93ea1bc9d3ec62326cdfdc0881201bd44376eccd8ec9",
+      "reviewSHA256": "50f00e440469cce72b20677c9605f77cab13890b23fcea95c43b680cb65d72d0",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-3-7-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-3-7-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(234.837479, 269.3582, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2322,
+      "time": 41.544890214002265,
+      "actor": "(234.837463, 264.3582, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-3-7-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3451391,
+      "reviewBytes": 209352,
+      "originalSHA256": "2c68e65f6ddc9c4057c5847525b134c6082c16342c2e5f0ac2748f7cd771e14b",
+      "reviewSHA256": "c3c9d518b6873c3022a2150b0bd0939e608b2332bb61c0bb744058c455025e84",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-3-7-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-3-7-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(234.837479, 269.3582, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2353,
+      "time": 42.32703211451247,
+      "actor": "(233.946259, 264.361572, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-3-7-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3451140,
+      "reviewBytes": 209302,
+      "originalSHA256": "e08db2933a03899c66f825145ea7efa3f3043724198d8152caeecf6d446d7682",
+      "reviewSHA256": "3af9dd62b8ff0902f5d63a834d1215886d5554f7590d5b41cea2bca1c74312d6",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-3-7-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-3-7-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(230.829178, 268.841827, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2361,
+      "time": 42.66710151643991,
+      "actor": "(230.829163, 263.8418, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-3-7-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3383061,
+      "reviewBytes": 209959,
+      "originalSHA256": "8ce1d8b1ec0903261afbd891699b1a3e391b877750f9eb3f553b9bb26c621dd8",
+      "reviewSHA256": "0aa9ea3fd678633bffabf4cdd2f0f379b654ae5e581462b9cb361361dd99016b",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-3-7-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-3-7-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(230.829178, 268.841827, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2390,
+      "time": 43.36045351473923,
+      "actor": "(231.720322, 263.83844, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-3-7-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3385489,
+      "reviewBytes": 209895,
+      "originalSHA256": "674d5a4be9076ae4e65a91abe57df471dbc5c66a9afd74317effe37071122624",
+      "reviewSHA256": "47dd3c9398d4639dd21b3479011937661b693db171d48c331ee0f02565ec15b8",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-4-8-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-4-8-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(165.391785, 297.090057, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3047,
+      "time": 54.520839115646254,
+      "actor": "(165.391785, 292.090057, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-4-8-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3246790,
+      "reviewBytes": 203754,
+      "originalSHA256": "8cbd5e981022ba7c843f5df3b178eee3adb8f91ec2ba2f0a7fa727266dbb3d8a",
+      "reviewSHA256": "bc637a11bf780d3670da34f03c2c41c8db5e0f77a7fca6bcff490f9877e9f6e6",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-4-8-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-4-8-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(165.391785, 297.090057, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3077,
+      "time": 55.222243020124715,
+      "actor": "(165.394028, 291.19455, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-4-8-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3247368,
+      "reviewBytes": 203727,
+      "originalSHA256": "ac24ba621daed6ddabc2a789c9a7b371536891423d29c96bd91f36e6f9230b5a",
+      "reviewSHA256": "b953ae7afec2b522ca6017351fffb466008d8959f64cebb72812d03602d798fc",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-4-8-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-4-8-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(165.048218, 293.029938, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3085,
+      "time": 55.56018861961451,
+      "actor": "(165.048218, 288.029938, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-4-8-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3222628,
+      "reviewBytes": 203145,
+      "originalSHA256": "a87413ed2ae3fe44a8de47b9507c1fc6583ce7d0427f944a06e5c3e5d8824c8b",
+      "reviewSHA256": "67fd28c58bce7de7f68f247e9f7d9aee9b284850a24cf21803eb0fab1274e9c0",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-4-8-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-4-8-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(165.048218, 293.029938, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3116,
+      "time": 56.28449351615646,
+      "actor": "(165.045975, 288.925385, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-4-8-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3222536,
+      "reviewBytes": 203144,
+      "originalSHA256": "b74f91ba24c55e89d6fb69a37e5efa7d9711b48a70f37e90e1c52dfeaf90a7af",
+      "reviewSHA256": "88949fe9f51043893f31fcc957c5294f058a9e66be4a8abe6283c113c8fb1f4e",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-5-8-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-5-8-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(90.1521454, 275.390533, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3771,
+      "time": 67.4145381164966,
+      "actor": "(90.1521454, 270.390533, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-5-8-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3338206,
+      "reviewBytes": 201645,
+      "originalSHA256": "b9baf4ac747691cd4e5795ba6a9294195dd51e7745c3d11d1b53292549557cc7",
+      "reviewSHA256": "0ced9fddac2cb36ab7dfd5ee38d0959c4489f083f1306a20a1af2f91793ff677",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-5-8-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-5-8-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(90.1521454, 275.390533, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3800,
+      "time": 68.088585515873,
+      "actor": "(90.14857, 269.5353, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-5-8-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3339742,
+      "reviewBytes": 201611,
+      "originalSHA256": "4b4c99a37d541c79059ca734bfd8150aa995ce3948c2646ee47a8de43cd3dfd1",
+      "reviewSHA256": "90ac8239fb53de686910147e8249715850f71db878b6ce1d0cf2a5b0eed42e0f",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-5-8-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-5-8-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(90.68785, 271.3895, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3808,
+      "time": 68.43548561507936,
+      "actor": "(90.68785, 266.3895, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-5-8-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3342059,
+      "reviewBytes": 205940,
+      "originalSHA256": "490b5a3e77e13fd7f3e2d271b8544fa81378390133cd2118aee53fc456941428",
+      "reviewSHA256": "b57ef6f862c518235b51b3a09f98fe2fdcafa56d627d036423c109ad3e579f34",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-5-8-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-5-8-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(90.68785, 271.3895, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3837,
+      "time": 69.12491331490929,
+      "actor": "(90.69144, 267.2447, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-5-8-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3341532,
+      "reviewBytes": 206003,
+      "originalSHA256": "e0860b8bb5d62b7e49448bb941430d688b09aba9832c219f7563674c5d25cdbb",
+      "reviewSHA256": "94ef113b9fb9a35708d9a83e6f4cfc8c7935f826d98d7e32fabe6ba3e0c92946",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-7-0-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-7-0-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(37.2767754, 214.564117, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 4491,
+      "time": 80.23114321853741,
+      "actor": "(37.2767754, 209.564117, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-7-0-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3426608,
+      "reviewBytes": 204333,
+      "originalSHA256": "174b793ec5529e0914197a8c71c2df1042500608f7c81a3567a68679bd85b2a9",
+      "reviewSHA256": "c3a0cccf8fca06924e37d8b14cb78671fdf3282e126ded50dda77e3e8f5f265d",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-7-0-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-7-0-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(37.2767754, 214.564117, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 4523,
+      "time": 80.99326051587302,
+      "actor": "(38.2643738, 209.564117, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-7-0-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3429423,
+      "reviewBytes": 204367,
+      "originalSHA256": "42cbdfea66bc2cdc631faf9addd96daec73b5e9fa6f86b6c2f087c097ee657b1",
+      "reviewSHA256": "a60f388f94e4cd4864abe2c4745c51e524efd9f8d75048a6c8e90b7df281335c",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-7-0-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-7-0-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(41.3732224, 214.4609, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 4531,
+      "time": 81.34756471797051,
+      "actor": "(41.3732224, 209.4609, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-7-0-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3437726,
+      "reviewBytes": 204616,
+      "originalSHA256": "7a17e44467833321568777aaf30b4bc7d5e1584f14adb004dc3718275ac7dde6",
+      "reviewSHA256": "a5957711a3bb5895fb5e70c9265a9227eee0f191546a0449bdbca444d88c4142",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-7-0-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-7-0-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(41.3732224, 214.4609, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 4563,
+      "time": 82.08475611536281,
+      "actor": "(40.38562, 209.4609, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-7-0-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3436536,
+      "reviewBytes": 204521,
+      "originalSHA256": "3bf71a1049686ca59efc94c2b0ecd51a5de3c0c8cb2a2bd3b6e78373b35bb0b8",
+      "reviewSHA256": "096a43875a6a88de56f9925a8cce7f8c9ad0459652080aec7cd5de22edb13b04",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-8-2-face-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-8-2-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(43.8493538, 136.11351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 5244,
+      "time": 93.66605771683673,
+      "actor": "(43.8493538, 131.11351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-8-2-face-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3429111,
+      "reviewBytes": 206947,
+      "originalSHA256": "c5802264edb8b29ae36e9c74accf7b283a34b954d72fde405e29a8884136a3e8",
+      "reviewSHA256": "87c663815a0062dd9d4c2aba471c21de5813fe77ce51ae84c1086d0bf9490fc0",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-8-2-face-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-8-2-face-1",
+      "integral": true,
+      "camera": {
+        "position": "(43.8493538, 136.11351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 5273,
+      "time": 94.381096917517,
+      "actor": "(44.46276, 131.730484, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-8-2-face-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3429032,
+      "reviewBytes": 206901,
+      "originalSHA256": "55ba2de8d17ce966c9e4dc35440838ec1b2ca84a05b707e5038efa7be2ca79a0",
+      "reviewSHA256": "d59e6ecaf85475163860c5d0ad69f063e4ad25a4d8e7e1e28e7e4d7a076097eb",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-8-2-face-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Long face of outer wall: aligned actual Input System contact",
+      "comparison": "town-8-2-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(46.97922, 138.715073, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 5281,
+      "time": 94.71889881660998,
+      "actor": "(46.97922, 133.715073, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-8-2-face-3-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3422960,
+      "reviewBytes": 207977,
+      "originalSHA256": "9822f98d8b0811342c7016af752f385ab9c7f131f5acaf723d93be706610917b",
+      "reviewSHA256": "73a5e1699477c9dbabaef6731284a0f4d3fd287070a48d2e87fd3b33e890c481",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/town-8-2-face-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push against outer wall long face; see measured receipt",
+      "comparison": "town-8-2-face-3",
+      "integral": true,
+      "camera": {
+        "position": "(46.97922, 138.715073, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 5310,
+      "time": 95.4383265164399,
+      "actor": "(46.3657455, 133.098053, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLiteAligned/town-8-2-face-3-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3422823,
+      "reviewBytes": 207934,
+      "originalSHA256": "fc4498ab5409073f73411ee56c638d29cc7c56a24f4ef552173f86e5d4fa755b",
+      "reviewSHA256": "dc0b20576f7b1d503779b9629b43583ee7a600e60a75627be758e302b6339c3f",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    }
+  ]
+}

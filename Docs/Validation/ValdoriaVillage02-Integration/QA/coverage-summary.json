@@ -1,0 +1,2034 @@
+{
+  "initialResults": 304,
+  "initialPassed": 264,
+  "rawAllExecutedPassed": false,
+  "framesAdvanced": 39087,
+  "seconds": 720.4189331703515,
+  "statuses": [
+    {
+      "id": "All semantic polygons equal Unity",
+      "status": "passed-original"
+    },
+    {
+      "id": "Only bridge connects exterior",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-entry",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-common",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-castle-court",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-H1",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-H2",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-H3",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-H4",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-H5",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-H6",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-B1",
+      "status": "passed-original"
+    },
+    {
+      "id": "route-return-exterior",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-1-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-4",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-5",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-edge-6",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-corner-4",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-corner-5",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-0-corner-6",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-4",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-5",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-edge-6",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-corner-4",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-corner-5",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-0-corner-6",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-0-edge-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "fence-0-dodge",
+      "status": "replayed-target"
+    },
+    {
+      "id": "fence-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-0-edge-2",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "fence-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-0-corner-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "fence-0-corner-1",
+      "status": "replayed-target"
+    },
+    {
+      "id": "fence-0-corner-3",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "fence-1-edge-0",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "fence-1-dodge",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "fence-1-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-1-edge-2",
+      "status": "replayed-target"
+    },
+    {
+      "id": "fence-1-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-1-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-1-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "fence-1-corner-3",
+      "status": "replayed-target"
+    },
+    {
+      "id": "lowwall-0-edge-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "lowwall-0-dodge",
+      "status": "replayed-target"
+    },
+    {
+      "id": "lowwall-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-0-edge-2",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "lowwall-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-0-corner-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "lowwall-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-0-corner-3",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "lowwall-1-edge-0",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "lowwall-1-dodge",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "lowwall-1-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-1-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-1-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-1-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-1-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "lowwall-1-corner-3",
+      "status": "replayed-target"
+    },
+    {
+      "id": "corner-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-0-dodge",
+      "status": "cardinal-replay-passed-diagonal-target-unresolved"
+    },
+    {
+      "id": "corner-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-0-edge-2",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "corner-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-0-corner-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "corner-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-1-edge-0",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "corner-1-dodge",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "corner-1-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-1-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-1-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-1-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-1-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "corner-1-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-rear-curtain-0-edge-1",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-rear-curtain-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-rear-curtain-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-rear-curtain-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-1-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-1-dodge",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-west-curtain-1-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-1-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-1-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-west-curtain-1-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-1-edge-0",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "castle-compound-east-curtain-1-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-1-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-1-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-1-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-east-curtain-1-corner-3",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-south-curtain-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-south-curtain-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-south-curtain-0-edge-1",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-south-curtain-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-south-curtain-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-hall-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-keep-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-service-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-west-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-west-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-west-0-edge-1",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-gate-west-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-west-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-west-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-west-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-gate-east-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-connector-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-connector-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-connector-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-connector-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-connector-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-connector-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-connector-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-west-tower-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-east-tower-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-left-rail-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-corner-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "bridge-right-rail-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-0-6-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-1-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-1-6-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-2-0-edge-0",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "town-3-8-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-4-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-6-7-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-7-7-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-8-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "town-8-6-edge-2",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "town-9-0-edge-0",
+      "status": "blocked-by-adjacent-solid"
+    },
+    {
+      "id": "castle-compound-wood-west-0-edge-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-wood-west-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-west-0-edge-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-west-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-west-0-corner-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-wood-west-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-west-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-east-0-edge-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-wood-east-0-dodge",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-east-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-east-0-edge-2",
+      "status": "replayed-target"
+    },
+    {
+      "id": "castle-compound-wood-east-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-east-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "castle-compound-wood-east-0-corner-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-west-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-west-0-edge-2",
+      "status": "replayed-target"
+    },
+    {
+      "id": "gate-wood-west-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-west-0-corner-2",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-west-0-corner-3",
+      "status": "replayed-target"
+    },
+    {
+      "id": "gate-wood-east-0-edge-0",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-east-0-dodge",
+      "status": "cardinal-replay-passed-diagonal-target-unresolved"
+    },
+    {
+      "id": "gate-wood-east-0-edge-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-east-0-edge-3",
+      "status": "passed-original"
+    },
+    {
+      "id": "gate-wood-east-0-corner-0",
+      "status": "replayed-target"
+    },
+    {
+      "id": "gate-wood-east-0-corner-1",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "H1-opaque-rear",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "H2-opaque-rear",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "H3-opaque-rear",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "H4-opaque-rear",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "H5-opaque-rear",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "H6-opaque-rear",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-opaque-front",
+      "status": "passed-original"
+    },
+    {
+      "id": "B1-opaque-rear",
+      "status": "passed-original"
+    }
+  ],
+  "counts": {
+    "blocked-by-adjacent-solid": 15,
+    "cardinal-replay-passed-diagonal-target-unresolved": 2,
+    "passed-original": 264,
+    "replayed-target": 23
+  },
+  "originalExcluded": [
+    {
+      "id": "H1-1",
+      "edge": 1,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-rear-curtain-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-west-curtain-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-west-curtain-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-east-curtain-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-south-curtain-0",
+      "edge": 3,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-gate-west-0",
+      "edge": 3,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-gate-east-0",
+      "edge": 1,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "gate-east-connector-0",
+      "edge": 3,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-0-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-1-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-6",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-7",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-7",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-8",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-2-8",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-6",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-7",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-7",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-3-8",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-6",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-7",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-7",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-8",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-8",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-9",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-4-9",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-6",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-7",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-7",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-8",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-8",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-9",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-5-9",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-6",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-6-7",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-6",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-7-7",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-4",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-4",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-5",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-5",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-8-6",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-1",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-1",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-2",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-2",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-3",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "town-9-3",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-wood-west-0",
+      "edge": 1,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "castle-compound-wood-east-0",
+      "edge": 3,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "gate-wood-west-0",
+      "edge": 0,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    },
+    {
+      "id": "gate-wood-east-0",
+      "edge": 2,
+      "reason": "No exposed fixture: adjacent solid; retained as explicit coverage limitation"
+    }
+  ],
+  "statement": "No root-inside-solid or excessive penetration was observed. Adjacent-blocked faces and two diagonal dodge target fixtures remain explicit coverage limits; cardinal replays are not diagonal approvals. Raw false receipts are retained."
+}

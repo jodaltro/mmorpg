@@ -1,0 +1,56 @@
+{
+  "error": null,
+  "allExecutedPassed": true,
+  "framesAdvanced": 182,
+  "results": [
+    {
+      "id": "corner-0-dodge",
+      "pass": true,
+      "target": "Physics:corner-0",
+      "fixture": "(114.5, 205.481262)",
+      "direction": "(0, -1)",
+      "preflightFirst": "Physics:corner-0",
+      "preflightDistance": 0.370178223,
+      "directTargetContact": true,
+      "coverage": "Intended target contacted",
+      "contacts": [
+        "Physics:corner-0"
+      ],
+      "targetMin": -0.005783081,
+      "unionMin": -0.005783081,
+      "inside": false,
+      "travel": 0.35925293,
+      "samples": 12,
+      "dodge": true,
+      "dodged": true,
+      "realInput": true,
+      "quantizedBeforePlacement": true
+    },
+    {
+      "id": "gate-wood-east-0-dodge",
+      "pass": true,
+      "target": "Physics:gate-wood-east-0",
+      "fixture": "(119.881248, 96.58125)",
+      "direction": "(0, -1)",
+      "preflightFirst": "Physics:gate-wood-east-0",
+      "preflightDistance": 0.5710068,
+      "directTargetContact": true,
+      "coverage": "Intended target contacted",
+      "contacts": [
+        "Physics:gate-wood-east-0"
+      ],
+      "targetMin": -0.0051574707,
+      "unionMin": -0.0051574707,
+      "inside": false,
+      "travel": 0.5600128,
+      "samples": 14,
+      "dodge": true,
+      "dodged": true,
+      "realInput": true,
+      "quantizedBeforePlacement": true
+    }
+  ],
+  "inputRestored": true,
+  "timeScale": 1.0,
+  "fpsRestorePendingUntilStop": true
+}

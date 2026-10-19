@@ -1,0 +1,12 @@
+{
+  "syntheticAbsent": true,
+  "keyboards": [
+    {
+      "name": "Keyboard",
+      "enabled": true
+    }
+  ],
+  "backgroundRestored": true,
+  "editorInputRestored": true,
+  "timeScale": 1.0
+}

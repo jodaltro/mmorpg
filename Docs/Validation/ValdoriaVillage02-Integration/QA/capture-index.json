@@ -1,0 +1,1852 @@
+{
+  "images": [
+    {
+      "original": "Original/H1-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(74.69495, 124.21032, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 111892,
+      "time": 402.07131853032877,
+      "actor": "(74.69495, 119.210327, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(74.69495, 124.21032, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112055,
+      "time": 402.80220653344668,
+      "actor": "(74.98759, 119.498138, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(74.69495, 124.21032, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112080,
+      "time": 403.127056632653,
+      "actor": "(74.69495, 119.21032, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(74.69495, 124.21032, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112213,
+      "time": 403.872681335034,
+      "actor": "(74.60491, 119.677139, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(84.4245453, 123.412025, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112234,
+      "time": 404.25260053146258,
+      "actor": "(84.4245453, 118.412025, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(84.4245453, 123.412025, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112349,
+      "time": 405.04914373582767,
+      "actor": "(84.1499939, 118.682968, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(81.80505, 129.295929, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112373,
+      "time": 405.50339113520408,
+      "actor": "(81.80505, 124.295937, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(81.80505, 129.295929, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 112499,
+      "time": 406.41622717545351,
+      "actor": "(81.6515, 124.143066, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-1-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(67.263504, 127.375587, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113216,
+      "time": 409.57292042233559,
+      "actor": "(67.263504, 122.37558, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-1-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(67.263504, 127.375587, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113364,
+      "time": 410.34119902210881,
+      "actor": "(67.63262, 122.662468, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-1-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(67.263504, 127.375587, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113398,
+      "time": 410.65779891581633,
+      "actor": "(67.263504, 122.375587, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-1-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(67.263504, 127.375587, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113516,
+      "time": 411.41863932114512,
+      "actor": "(67.29442, 122.788895, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-1-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(71.205246, 132.005676, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113553,
+      "time": 411.73809272250566,
+      "actor": "(71.205246, 127.005669, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-1-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(71.205246, 132.005676, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113676,
+      "time": 412.508880619331,
+      "actor": "(70.97194, 126.868027, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H1-1-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(64.79001, 128.359375, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113867,
+      "time": 413.52274321853741,
+      "actor": "(64.79001, 123.359367, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H1-1-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H1-1-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(64.79001, 128.359375, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 113987,
+      "time": 414.32838842120179,
+      "actor": "(66.01052, 124.57988, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H2-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(165.852646, 119.033951, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114505,
+      "time": 416.6725550170068,
+      "actor": "(165.852646, 114.033951, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H2-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(165.852646, 119.033951, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114662,
+      "time": 417.45189292091834,
+      "actor": "(166.364868, 114.323486, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H2-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(165.852646, 119.033951, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114681,
+      "time": 417.77393161848073,
+      "actor": "(165.852646, 114.033951, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H2-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(165.852646, 119.033951, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114808,
+      "time": 418.58378382227892,
+      "actor": "(165.972244, 114.431564, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H2-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(178.968277, 118.613342, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114832,
+      "time": 418.91103112244895,
+      "actor": "(178.968277, 113.613342, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H2-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(178.968277, 118.613342, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114957,
+      "time": 419.68501612103171,
+      "actor": "(178.66861, 113.909012, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H2-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(174.8286, 124.1098, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 114991,
+      "time": 420.01915882227888,
+      "actor": "(174.8286, 119.1098, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H2-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(174.8286, 124.1098, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 115118,
+      "time": 420.81028281604307,
+      "actor": "(174.441925, 118.98571, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H2-0-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(156.600708, 122.064407, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 115312,
+      "time": 421.8080535218254,
+      "actor": "(156.600708, 117.064407, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H2-0-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H2-0-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(156.600708, 122.064407, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 115441,
+      "time": 422.60044192176866,
+      "actor": "(157.410034, 117.064407, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H3-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(60.8464432, 171.5105, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 115997,
+      "time": 424.92989791666668,
+      "actor": "(60.8464432, 166.5105, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H3-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(60.8464432, 171.5105, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116132,
+      "time": 425.71806851615645,
+      "actor": "(61.2123642, 166.797623, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H3-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(60.8464432, 171.5105, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116146,
+      "time": 426.05820661848071,
+      "actor": "(60.8464432, 166.5105, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H3-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(60.8464432, 171.5105, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116263,
+      "time": 426.9774892573696,
+      "actor": "(60.87889, 166.923065, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H3-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(69.26615, 169.715363, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116283,
+      "time": 427.32617635345804,
+      "actor": "(69.26615, 164.715363, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H3-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(69.26615, 169.715363, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116406,
+      "time": 428.14815905612244,
+      "actor": "(68.81152, 165.0024, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H3-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(70.9194, 170.1191, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116422,
+      "time": 428.48949985827664,
+      "actor": "(70.9194, 165.1191, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H3-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(70.9194, 170.1191, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 116545,
+      "time": 429.31903545918368,
+      "actor": "(71.21779, 165.412064, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H3-0-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(53.81642, 174.605316, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 117169,
+      "time": 432.38736345663261,
+      "actor": "(53.81642, 169.605316, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H3-0-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H3-0-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(53.81642, 174.605316, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 117310,
+      "time": 433.16548265306119,
+      "actor": "(54.6225243, 169.605316, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H4-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(104.568306, 178.319672, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118223,
+      "time": 436.81660135345805,
+      "actor": "(104.568306, 173.319672, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H4-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(104.568306, 178.319672, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118368,
+      "time": 437.60593625283445,
+      "actor": "(105.109451, 173.619659, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H4-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(104.568306, 178.319672, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118400,
+      "time": 437.93902645266439,
+      "actor": "(104.568306, 173.319672, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H4-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(104.568306, 178.319672, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118509,
+      "time": 438.74249785289112,
+      "actor": "(104.713348, 173.717255, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H4-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(119.154083, 177.6872, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118526,
+      "time": 439.10275315334468,
+      "actor": "(119.154083, 172.6872, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H4-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(119.154083, 177.6872, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118637,
+      "time": 439.88003195861677,
+      "actor": "(118.855385, 172.98082, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H4-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(113.131691, 183.311584, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118649,
+      "time": 440.24742415674604,
+      "actor": "(113.1317, 178.311584, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H4-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(113.131691, 183.311584, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118764,
+      "time": 441.06334635770975,
+      "actor": "(112.686882, 178.187866, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H4-0-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(93.62624, 181.539764, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 118937,
+      "time": 442.19302389455783,
+      "actor": "(93.62624, 176.539764, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H4-0-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H4-0-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(93.62624, 181.539764, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 119090,
+      "time": 442.95304859693874,
+      "actor": "(94.43501, 176.539764, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H5-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(197.14563, 152.370728, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 119641,
+      "time": 445.30010989937642,
+      "actor": "(197.145645, 147.370728, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H5-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(197.14563, 152.370728, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 119781,
+      "time": 446.07012089710884,
+      "actor": "(197.702866, 147.675034, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H5-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(197.14563, 152.370728, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 119796,
+      "time": 446.41566590136051,
+      "actor": "(197.14563, 147.370728, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H5-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(197.14563, 152.370728, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 119913,
+      "time": 447.22381179846934,
+      "actor": "(197.302353, 147.7689, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H5-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(214.994522, 151.073608, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 119945,
+      "time": 447.55893210034014,
+      "actor": "(214.994522, 146.073608, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H5-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(214.994522, 151.073608, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 120064,
+      "time": 448.35946669501129,
+      "actor": "(214.653137, 146.36116, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H5-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(206.223114, 157.21051, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 120076,
+      "time": 448.70213419784579,
+      "actor": "(206.223129, 152.21051, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H5-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(206.223114, 157.21051, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 120194,
+      "time": 449.51161639739229,
+      "actor": "(205.769089, 152.081757, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H5-0-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(183.16568, 156.202362, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 120375,
+      "time": 450.54887819586168,
+      "actor": "(183.16568, 151.202362, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H5-0-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H5-0-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(183.16568, 156.202362, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 120518,
+      "time": 451.32822750141719,
+      "actor": "(183.972534, 151.202362, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H6-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(78.9522858, 227.283, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121073,
+      "time": 453.647804095805,
+      "actor": "(78.9522858, 222.28299, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H6-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(78.9522858, 227.283, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121222,
+      "time": 454.42195019841267,
+      "actor": "(79.37222, 222.568466, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H6-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(78.9522858, 227.283, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121252,
+      "time": 454.7609405966553,
+      "actor": "(78.9522858, 222.283, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H6-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(78.9522858, 227.283, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121382,
+      "time": 455.58453759920633,
+      "actor": "(79.02657, 222.684464, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H6-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(89.03613, 225.76796, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121398,
+      "time": 455.91920639880948,
+      "actor": "(89.03613, 220.76796, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H6-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(89.03613, 225.76796, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121523,
+      "time": 456.72522429846936,
+      "actor": "(88.74455, 221.05481, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H6-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(91.39126, 226.029221, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121537,
+      "time": 457.06907009637189,
+      "actor": "(91.39126, 221.029236, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H6-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(91.39126, 226.029221, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 121642,
+      "time": 457.86945,
+      "actor": "(91.6498, 221.285751, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "H6-0-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(70.5834656, 230.55098, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 122259,
+      "time": 460.93580479733561,
+      "actor": "(70.5834656, 225.55098, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/H6-0-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "H6-0-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(70.5834656, 230.55098, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 122379,
+      "time": 461.87198039965983,
+      "actor": "(71.3912659, 225.551, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "B1-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(133.9523, 237.306015, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123310,
+      "time": 465.57992109552151,
+      "actor": "(133.9523, 232.306, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "B1-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(133.9523, 237.306015, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123466,
+      "time": 466.3643347009637,
+      "actor": "(134.5346, 232.615082, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "B1-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(133.9523, 237.306015, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123486,
+      "time": 466.69591669501131,
+      "actor": "(133.9523, 232.306, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "B1-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(133.9523, 237.306015, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123606,
+      "time": 467.51441240079362,
+      "actor": "(134.122284, 232.705338, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "B1-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(154.268631, 235.883347, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123620,
+      "time": 467.85231829648524,
+      "actor": "(154.268631, 230.883362, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "B1-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(154.268631, 235.883347, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123732,
+      "time": 468.59855459892287,
+      "actor": "(153.911209, 231.172, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "B1-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(143.9477, 242.400223, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123750,
+      "time": 468.99608449546486,
+      "actor": "(143.9477, 237.400238, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "B1-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(143.9477, 242.400223, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 123853,
+      "time": 469.80802050028342,
+      "actor": "(143.46962, 237.268341, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "B1-0-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(117.946663, 241.386322, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124013,
+      "time": 470.85491219529479,
+      "actor": "(117.946663, 236.386322, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/B1-0-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "B1-0-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(117.946663, 241.386322, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124134,
+      "time": 471.65824199971655,
+      "actor": "(118.753761, 236.386322, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "fence-0-edge-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(171.3715, 146.233551, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124472,
+      "time": 474.14270479733557,
+      "actor": "(171.3715, 141.233551, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "fence-0-edge-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(171.3715, 146.233551, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124554,
+      "time": 475.06915543509069,
+      "actor": "(172.057861, 140.222778, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "fence-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(171.3715, 146.233551, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124565,
+      "time": 475.52796627692743,
+      "actor": "(171.3715, 141.233551, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "fence-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(171.3715, 146.233551, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124647,
+      "time": 476.52377691326529,
+      "actor": "(172.180176, 138.047913, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "fence-0-edge-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(175.795029, 145.91655, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124660,
+      "time": 476.98508165391155,
+      "actor": "(175.795029, 140.91655, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "fence-0-edge-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(175.795029, 145.91655, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124732,
+      "time": 477.92016459041946,
+      "actor": "(175.436, 140.792542, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-edge-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Before real Input System push; fixture placed outside authored ground polygon; opaque art",
+      "comparison": "fence-0-edge-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(180.0077, 143.704971, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124740,
+      "time": 478.38326252834463,
+      "actor": "(180.0077, 138.704971, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fence-0-edge-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "After real Input System push: blocked at foundation/ground volume, no rooftop traversal",
+      "comparison": "fence-0-edge-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(180.0077, 143.704971, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 124788,
+      "time": 479.83431736819728,
+      "actor": "(179.905151, 138.805054, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    }
+  ]
+}

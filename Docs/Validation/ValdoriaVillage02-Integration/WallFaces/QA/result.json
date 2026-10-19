@@ -1,0 +1,2854 @@
+{
+  "error": null,
+  "allExecutedPassed": true,
+  "framesAdvanced": 5680,
+  "results": [
+    {
+      "id": "town-0-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-0",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-0-0"
+      ],
+      "fixture": "(147.69516, 93.3115158)",
+      "position": "(147.696213, 94.24174)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-0",
+      "direct": true,
+      "minimumSeparation": -0.00515793776,
+      "unionMin": -0.00515793776,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-0"
+      ],
+      "fixture": "(147.533417, 97.40277)",
+      "position": "(147.532364, 96.47256)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-1",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-0-1"
+      ],
+      "fixture": "(156.123749, 94.22579)",
+      "position": "(156.1248, 95.15601)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-1",
+      "direct": true,
+      "minimumSeparation": -0.00515793776,
+      "unionMin": -0.00515793776,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-1"
+      ],
+      "fixture": "(155.961975, 98.3170547)",
+      "position": "(155.960922, 97.38684)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-2",
+      "direct": true,
+      "minimumSeparation": -0.00515793776,
+      "unionMin": -0.00515793776,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-2"
+      ],
+      "fixture": "(164.5523, 95.14008)",
+      "position": "(164.55336, 96.0703049)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-2",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-2"
+      ],
+      "fixture": "(164.390533, 99.2313461)",
+      "position": "(164.389481, 98.30113)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-3",
+      "direct": true,
+      "minimumSeparation": -0.00515793776,
+      "unionMin": -0.00515793776,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-3"
+      ],
+      "fixture": "(172.980881, 96.0543747)",
+      "position": "(172.981934, 96.9846)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-3",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-0-3"
+      ],
+      "fixture": "(172.819122, 100.145622)",
+      "position": "(172.818069, 99.21541)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-4",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-4"
+      ],
+      "fixture": "(181.409454, 96.96865)",
+      "position": "(181.4105, 97.89887)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-4",
+      "direct": true,
+      "minimumSeparation": -0.00515793776,
+      "unionMin": -0.00515793776,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-4"
+      ],
+      "fixture": "(181.247681, 101.059914)",
+      "position": "(181.246628, 100.1297)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-5",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-5"
+      ],
+      "fixture": "(189.838013, 97.88294)",
+      "position": "(189.839066, 98.81316)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-5",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-5"
+      ],
+      "fixture": "(189.67627, 101.974205)",
+      "position": "(189.675217, 101.043991)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-0-6",
+      "direct": true,
+      "minimumSeparation": -0.00515793776,
+      "unionMin": -0.00515793776,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-6"
+      ],
+      "fixture": "(198.2666, 98.797226)",
+      "position": "(198.267654, 99.72745)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-0-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-0-6",
+      "direct": true,
+      "minimumSeparation": -0.005157938,
+      "unionMin": -0.005157938,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-0-6"
+      ],
+      "fixture": "(198.104828, 102.888481)",
+      "position": "(198.103775, 101.958267)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-0",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-1-0"
+      ],
+      "fixture": "(206.788055, 102.321365)",
+      "position": "(206.180908, 102.927269)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-0",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-0"
+      ],
+      "fixture": "(203.983383, 105.3072)",
+      "position": "(204.59053, 104.7013)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-1",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-1"
+      ],
+      "fixture": "(212.759476, 107.349937)",
+      "position": "(212.152328, 107.955841)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-1",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-1"
+      ],
+      "fixture": "(209.9548, 110.335777)",
+      "position": "(210.561951, 109.729881)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-2",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-2"
+      ],
+      "fixture": "(218.730911, 112.3785)",
+      "position": "(218.123764, 112.984406)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-2",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-2"
+      ],
+      "fixture": "(215.926224, 115.364342)",
+      "position": "(216.533371, 114.758446)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-3",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-1-3"
+      ],
+      "fixture": "(224.702347, 117.407082)",
+      "position": "(224.0952, 118.012985)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-3",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-3"
+      ],
+      "fixture": "(221.897659, 120.392921)",
+      "position": "(222.5048, 119.787025)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-4",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-1-4"
+      ],
+      "fixture": "(230.673767, 122.435646)",
+      "position": "(230.06662, 123.04155)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-4",
+      "direct": true,
+      "minimumSeparation": -0.00515977666,
+      "unionMin": -0.00515977666,
+      "inside": false,
+      "samples": 23,
+      "contacts": [
+        "Physics:town-1-4"
+      ],
+      "fixture": "(227.8691, 125.421486)",
+      "position": "(228.476242, 124.815582)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-5",
+      "direct": true,
+      "minimumSeparation": -0.00562080555,
+      "unionMin": -0.00562080555,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-1-5"
+      ],
+      "fixture": "(236.645187, 127.464233)",
+      "position": "(236.038025, 128.07019)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-5",
+      "direct": true,
+      "minimumSeparation": -0.005153941,
+      "unionMin": -0.005153941,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-1-5"
+      ],
+      "fixture": "(233.84053, 130.450073)",
+      "position": "(234.447678, 129.844147)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-1-6",
+      "direct": true,
+      "minimumSeparation": -0.005620806,
+      "unionMin": -0.005620806,
+      "inside": false,
+      "samples": 23,
+      "contacts": [
+        "Physics:town-1-6"
+      ],
+      "fixture": "(242.616623, 132.4928)",
+      "position": "(242.00946, 133.098755)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-1-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-1-6",
+      "direct": true,
+      "minimumSeparation": -0.005153941,
+      "unionMin": -0.005153941,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-1-6"
+      ],
+      "fixture": "(239.811951, 135.478638)",
+      "position": "(240.4191, 134.872711)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-0",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-2-0"
+      ],
+      "fixture": "(246.733444, 140.443085)",
+      "position": "(245.762726, 140.4419)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-0",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-2-0"
+      ],
+      "fixture": "(242.644333, 140.6236)",
+      "position": "(243.615067, 140.624786)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-1",
+      "direct": true,
+      "minimumSeparation": -0.00562492572,
+      "unionMin": -0.00562492572,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-2-1"
+      ],
+      "fixture": "(247.711227, 148.509766)",
+      "position": "(246.7405, 148.508575)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-1",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-2-1"
+      ],
+      "fixture": "(243.622116, 148.690247)",
+      "position": "(244.59285, 148.691437)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-2",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-2-2"
+      ],
+      "fixture": "(248.689, 156.576416)",
+      "position": "(247.718277, 156.575226)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-2",
+      "direct": true,
+      "minimumSeparation": -0.00541101862,
+      "unionMin": -0.00541101862,
+      "inside": false,
+      "samples": 20,
+      "contacts": [
+        "Physics:town-2-2"
+      ],
+      "fixture": "(244.5999, 156.756927)",
+      "position": "(245.5706, 156.758118)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-3",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-2-3"
+      ],
+      "fixture": "(249.666779, 164.6431)",
+      "position": "(248.69606, 164.6419)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-3",
+      "direct": true,
+      "minimumSeparation": -0.005411019,
+      "unionMin": -0.005411019,
+      "inside": false,
+      "samples": 21,
+      "contacts": [
+        "Physics:town-2-3"
+      ],
+      "fixture": "(245.577667, 164.823578)",
+      "position": "(246.548355, 164.824768)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-4",
+      "direct": true,
+      "minimumSeparation": -0.00550374249,
+      "unionMin": -0.00550374249,
+      "inside": false,
+      "samples": 7,
+      "contacts": [
+        "Physics:town-2-4"
+      ],
+      "fixture": "(250.644547, 172.709747)",
+      "position": "(249.673874, 172.708557)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-4",
+      "direct": true,
+      "minimumSeparation": -0.005501907,
+      "unionMin": -0.005501907,
+      "inside": false,
+      "samples": 12,
+      "contacts": [
+        "Physics:town-2-4"
+      ],
+      "fixture": "(246.55545, 172.890259)",
+      "position": "(247.526138, 172.891449)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-5",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 17,
+      "contacts": [
+        "Physics:town-2-5"
+      ],
+      "fixture": "(251.62233, 180.776428)",
+      "position": "(250.651611, 180.775238)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-5",
+      "direct": true,
+      "minimumSeparation": -0.00562492572,
+      "unionMin": -0.00562492572,
+      "inside": false,
+      "samples": 21,
+      "contacts": [
+        "Physics:town-2-5"
+      ],
+      "fixture": "(247.533218, 180.956909)",
+      "position": "(248.503922, 180.9581)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-6",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 15,
+      "contacts": [
+        "Physics:town-2-6"
+      ],
+      "fixture": "(252.600113, 188.843079)",
+      "position": "(251.62941, 188.841888)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-6",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 20,
+      "contacts": [
+        "Physics:town-2-6"
+      ],
+      "fixture": "(248.511, 189.02359)",
+      "position": "(249.481735, 189.02478)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-7",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-7",
+      "direct": true,
+      "minimumSeparation": -0.00562492572,
+      "unionMin": -0.00562492572,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-2-7"
+      ],
+      "fixture": "(253.5779, 196.90976)",
+      "position": "(252.607162, 196.908569)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-7",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-7",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-2-7"
+      ],
+      "fixture": "(249.488785, 197.09024)",
+      "position": "(250.459518, 197.091431)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-8",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-2-8",
+      "direct": true,
+      "minimumSeparation": -0.005624926,
+      "unionMin": -0.005624926,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-2-8"
+      ],
+      "fixture": "(254.555664, 204.97641)",
+      "position": "(253.584946, 204.97522)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-2-8",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-2-8",
+      "direct": true,
+      "minimumSeparation": -0.00562492572,
+      "unionMin": -0.00562492572,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-2-8"
+      ],
+      "fixture": "(250.466568, 205.156921)",
+      "position": "(251.4373, 205.158112)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-0",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-0"
+      ],
+      "fixture": "(253.659714, 213.024872)",
+      "position": "(252.76857, 213.028275)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-0",
+      "direct": true,
+      "minimumSeparation": -0.005155969,
+      "unionMin": -0.005155969,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-0"
+      ],
+      "fixture": "(249.651382, 212.508484)",
+      "position": "(250.542526, 212.505066)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-1",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-3-1"
+      ],
+      "fixture": "(250.97084, 220.358185)",
+      "position": "(250.0797, 220.361588)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-1",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 23,
+      "contacts": [
+        "Physics:town-3-1"
+      ],
+      "fixture": "(246.962509, 219.841827)",
+      "position": "(247.853653, 219.838409)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-2",
+      "direct": true,
+      "minimumSeparation": -0.00512206368,
+      "unionMin": -0.00512206368,
+      "inside": false,
+      "samples": 20,
+      "contacts": [
+        "Physics:town-3-2"
+      ],
+      "fixture": "(248.281937, 227.691528)",
+      "position": "(247.390778, 227.694946)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-2",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 21,
+      "contacts": [
+        "Physics:town-3-2"
+      ],
+      "fixture": "(244.2736, 227.17514)",
+      "position": "(245.164749, 227.171722)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-3",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-3"
+      ],
+      "fixture": "(245.593063, 235.024872)",
+      "position": "(244.70192, 235.028275)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-3",
+      "direct": true,
+      "minimumSeparation": -0.005155969,
+      "unionMin": -0.005155969,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-3"
+      ],
+      "fixture": "(241.584732, 234.508484)",
+      "position": "(242.475876, 234.505066)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-4",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-4"
+      ],
+      "fixture": "(242.90416, 242.358185)",
+      "position": "(242.013016, 242.361588)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-4",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-3-4"
+      ],
+      "fixture": "(238.895828, 241.841827)",
+      "position": "(239.786972, 241.838409)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-5",
+      "direct": true,
+      "minimumSeparation": -0.005155969,
+      "unionMin": -0.005155969,
+      "inside": false,
+      "samples": 23,
+      "contacts": [
+        "Physics:town-3-5"
+      ],
+      "fixture": "(240.215286, 249.691528)",
+      "position": "(239.324127, 249.694946)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-5",
+      "direct": true,
+      "minimumSeparation": -0.00515596941,
+      "unionMin": -0.00515596941,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-3-5"
+      ],
+      "fixture": "(236.206955, 249.17514)",
+      "position": "(237.0981, 249.171722)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-6",
+      "direct": true,
+      "minimumSeparation": -0.005629209,
+      "unionMin": -0.005629209,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-6"
+      ],
+      "fixture": "(237.526382, 257.024872)",
+      "position": "(236.635162, 257.028259)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-6",
+      "direct": true,
+      "minimumSeparation": -0.00515071675,
+      "unionMin": -0.00515071675,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-6"
+      ],
+      "fixture": "(233.518051, 256.508484)",
+      "position": "(234.4092, 256.5051)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-7",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-7",
+      "direct": true,
+      "minimumSeparation": -0.0056292084,
+      "unionMin": -0.0056292084,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-3-7"
+      ],
+      "fixture": "(234.837479, 264.3582)",
+      "position": "(233.946274, 264.361572)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-7",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-7",
+      "direct": true,
+      "minimumSeparation": -0.00516504236,
+      "unionMin": -0.00516504236,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-3-7"
+      ],
+      "fixture": "(230.829178, 263.841827)",
+      "position": "(231.720322, 263.83844)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-8",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-3-8",
+      "direct": true,
+      "minimumSeparation": -0.005629208,
+      "unionMin": -0.005629208,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-3-8"
+      ],
+      "fixture": "(232.1486, 271.691528)",
+      "position": "(231.257385, 271.694916)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-3-8",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-3-8",
+      "direct": true,
+      "minimumSeparation": -0.00516504236,
+      "unionMin": -0.00516504236,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-3-8"
+      ],
+      "fixture": "(228.140274, 271.17514)",
+      "position": "(229.031418, 271.171753)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-0",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-4-0"
+      ],
+      "fixture": "(225.231781, 278.01004)",
+      "position": "(225.234024, 277.114563)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-0",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-4-0"
+      ],
+      "fixture": "(224.888214, 273.949951)",
+      "position": "(224.885971, 274.8454)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-1",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-1"
+      ],
+      "fixture": "(217.75177, 279.77005)",
+      "position": "(217.754013, 278.874573)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-1",
+      "direct": true,
+      "minimumSeparation": -0.005611002,
+      "unionMin": -0.005611002,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-1"
+      ],
+      "fixture": "(217.408218, 275.709961)",
+      "position": "(217.405975, 276.6054)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-2",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-2"
+      ],
+      "fixture": "(210.27179, 281.53006)",
+      "position": "(210.274033, 280.634583)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-2",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-2"
+      ],
+      "fixture": "(209.928223, 277.46994)",
+      "position": "(209.92598, 278.3654)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-3",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-3"
+      ],
+      "fixture": "(202.791779, 283.29007)",
+      "position": "(202.794022, 282.3946)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-3",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-3"
+      ],
+      "fixture": "(202.448212, 279.22995)",
+      "position": "(202.445969, 280.1254)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-4",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-4-4"
+      ],
+      "fixture": "(195.311768, 285.050049)",
+      "position": "(195.314011, 284.154572)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-4",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-4"
+      ],
+      "fixture": "(194.968231, 280.98996)",
+      "position": "(194.965988, 281.8854)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-5",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-4-5"
+      ],
+      "fixture": "(187.831787, 286.810059)",
+      "position": "(187.83403, 285.914581)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-5",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-5"
+      ],
+      "fixture": "(187.48822, 282.749969)",
+      "position": "(187.485977, 283.645416)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-6",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-6"
+      ],
+      "fixture": "(180.351776, 288.570038)",
+      "position": "(180.354019, 287.674561)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-6",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-6"
+      ],
+      "fixture": "(180.008209, 284.509949)",
+      "position": "(180.005966, 285.4054)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-7",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-7",
+      "direct": true,
+      "minimumSeparation": -0.005611002,
+      "unionMin": -0.005611002,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-7"
+      ],
+      "fixture": "(172.87178, 290.330048)",
+      "position": "(172.874023, 289.43457)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-7",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-7",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-7"
+      ],
+      "fixture": "(172.528229, 286.269958)",
+      "position": "(172.525986, 287.1654)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-8",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-8",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-8"
+      ],
+      "fixture": "(165.391785, 292.090057)",
+      "position": "(165.394028, 291.19458)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-8",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-8",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-4-8"
+      ],
+      "fixture": "(165.048218, 288.029938)",
+      "position": "(165.045975, 288.925385)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-9",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-4-9",
+      "direct": true,
+      "minimumSeparation": -0.00561100245,
+      "unionMin": -0.00561100245,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-9"
+      ],
+      "fixture": "(157.911774, 293.850067)",
+      "position": "(157.914017, 292.9546)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-4-9",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-4-9",
+      "direct": true,
+      "minimumSeparation": -0.005611002,
+      "unionMin": -0.005611002,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-4-9"
+      ],
+      "fixture": "(157.568222, 289.789948)",
+      "position": "(157.565979, 290.6854)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-0",
+      "direct": true,
+      "minimumSeparation": -0.005163178,
+      "unionMin": -0.005163178,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-5-0"
+      ],
+      "fixture": "(149.992157, 293.270538)",
+      "position": "(149.988617, 292.4153)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-0",
+      "direct": true,
+      "minimumSeparation": -0.005163178,
+      "unionMin": -0.005163178,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-0"
+      ],
+      "fixture": "(150.527863, 289.2695)",
+      "position": "(150.5314, 290.1247)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-1",
+      "direct": true,
+      "minimumSeparation": -0.00516317738,
+      "unionMin": -0.00516317738,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-1"
+      ],
+      "fixture": "(142.512146, 290.410553)",
+      "position": "(142.5086, 289.555328)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-1",
+      "direct": true,
+      "minimumSeparation": -0.00516317738,
+      "unionMin": -0.00516317738,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-1"
+      ],
+      "fixture": "(143.047852, 286.4095)",
+      "position": "(143.051392, 287.264679)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-2",
+      "direct": true,
+      "minimumSeparation": -0.005163178,
+      "unionMin": -0.005163178,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-2"
+      ],
+      "fixture": "(135.032135, 287.550537)",
+      "position": "(135.0286, 286.6953)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-2",
+      "direct": true,
+      "minimumSeparation": -0.005163178,
+      "unionMin": -0.005163178,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-2"
+      ],
+      "fixture": "(135.567841, 283.549469)",
+      "position": "(135.571381, 284.404663)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-3",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-3"
+      ],
+      "fixture": "(127.552147, 284.690521)",
+      "position": "(127.548561, 283.8353)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-3",
+      "direct": true,
+      "minimumSeparation": -0.005163178,
+      "unionMin": -0.005163178,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-3"
+      ],
+      "fixture": "(128.08786, 280.689484)",
+      "position": "(128.0914, 281.544678)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-4",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-4"
+      ],
+      "fixture": "(120.072144, 281.830536)",
+      "position": "(120.068565, 280.9753)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-4",
+      "direct": true,
+      "minimumSeparation": -0.00516045233,
+      "unionMin": -0.00516045233,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-4"
+      ],
+      "fixture": "(120.607849, 277.8295)",
+      "position": "(120.611435, 278.6847)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-5",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-5-5"
+      ],
+      "fixture": "(112.592148, 278.970551)",
+      "position": "(112.588562, 278.115326)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-5",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-5"
+      ],
+      "fixture": "(113.127853, 274.969482)",
+      "position": "(113.131432, 275.824677)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-6",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-6"
+      ],
+      "fixture": "(105.112152, 276.110535)",
+      "position": "(105.108574, 275.2553)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-6",
+      "direct": true,
+      "minimumSeparation": -0.00516045233,
+      "unionMin": -0.00516045233,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-6"
+      ],
+      "fixture": "(105.647858, 272.109467)",
+      "position": "(105.651443, 272.964661)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-7",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-7",
+      "direct": true,
+      "minimumSeparation": -0.00516045233,
+      "unionMin": -0.00516045233,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-7"
+      ],
+      "fixture": "(97.63214, 273.250519)",
+      "position": "(97.6285553, 272.3953)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-7",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-7",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-7"
+      ],
+      "fixture": "(98.1678543, 269.249481)",
+      "position": "(98.17143, 270.104675)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-8",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-8",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 23,
+      "contacts": [
+        "Physics:town-5-8"
+      ],
+      "fixture": "(90.1521454, 270.390533)",
+      "position": "(90.14857, 269.5353)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-8",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-8",
+      "direct": true,
+      "minimumSeparation": -0.00516045233,
+      "unionMin": -0.00516045233,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-5-8"
+      ],
+      "fixture": "(90.68785, 266.3895)",
+      "position": "(90.69144, 267.2447)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-9",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-5-9",
+      "direct": true,
+      "minimumSeparation": -0.00516045233,
+      "unionMin": -0.00516045233,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-5-9"
+      ],
+      "fixture": "(82.67215, 267.530548)",
+      "position": "(82.6685638, 266.675323)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-5-9",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-5-9",
+      "direct": true,
+      "minimumSeparation": -0.005160453,
+      "unionMin": -0.005160453,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-5-9"
+      ],
+      "fixture": "(83.2078552, 263.52948)",
+      "position": "(83.21143, 264.384674)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-0",
+      "direct": true,
+      "minimumSeparation": -0.00560407061,
+      "unionMin": -0.00560407061,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-6-0"
+      ],
+      "fixture": "(75.21513, 262.319)",
+      "position": "(75.8260651, 261.7064)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-0",
+      "direct": true,
+      "minimumSeparation": -0.00514640333,
+      "unionMin": -0.00514640333,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-0"
+      ],
+      "fixture": "(78.23486, 259.55603)",
+      "position": "(77.62401, 260.16864)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-1",
+      "direct": true,
+      "minimumSeparation": -0.00515241176,
+      "unionMin": -0.00515241176,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-1"
+      ],
+      "fixture": "(70.26514, 255.993973)",
+      "position": "(70.87599, 255.381378)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-1",
+      "direct": true,
+      "minimumSeparation": -0.005619483,
+      "unionMin": -0.005619483,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-1"
+      ],
+      "fixture": "(73.28487, 253.231033)",
+      "position": "(72.67395, 253.843628)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-2",
+      "direct": true,
+      "minimumSeparation": -0.005152411,
+      "unionMin": -0.005152411,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-6-2"
+      ],
+      "fixture": "(65.31514, 249.668961)",
+      "position": "(65.9259949, 249.056366)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-2",
+      "direct": true,
+      "minimumSeparation": -0.005619483,
+      "unionMin": -0.005619483,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-2"
+      ],
+      "fixture": "(68.33486, 246.906052)",
+      "position": "(67.7239456, 247.518646)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-3",
+      "direct": true,
+      "minimumSeparation": -0.005152411,
+      "unionMin": -0.005152411,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-3"
+      ],
+      "fixture": "(60.36513, 243.343979)",
+      "position": "(60.97598, 242.731369)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-3",
+      "direct": true,
+      "minimumSeparation": -0.0056194826,
+      "unionMin": -0.0056194826,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-3"
+      ],
+      "fixture": "(63.38487, 240.581039)",
+      "position": "(62.77397, 241.193665)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-4",
+      "direct": true,
+      "minimumSeparation": -0.005152411,
+      "unionMin": -0.005152411,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-4"
+      ],
+      "fixture": "(55.4151344, 237.018967)",
+      "position": "(56.02598, 236.406357)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-4",
+      "direct": true,
+      "minimumSeparation": -0.00515241176,
+      "unionMin": -0.00515241176,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-4"
+      ],
+      "fixture": "(58.4348679, 234.256027)",
+      "position": "(57.82402, 234.868622)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-5",
+      "direct": true,
+      "minimumSeparation": -0.005152411,
+      "unionMin": -0.005152411,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-5"
+      ],
+      "fixture": "(50.46513, 230.693985)",
+      "position": "(51.0759773, 230.081375)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-5",
+      "direct": true,
+      "minimumSeparation": -0.005619482,
+      "unionMin": -0.005619482,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-5"
+      ],
+      "fixture": "(53.4848671, 227.931046)",
+      "position": "(52.87397, 228.543671)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-6",
+      "direct": true,
+      "minimumSeparation": -0.00515241176,
+      "unionMin": -0.00515241176,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-6"
+      ],
+      "fixture": "(45.5151329, 224.368973)",
+      "position": "(46.12598, 223.756363)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-6",
+      "direct": true,
+      "minimumSeparation": -0.005619482,
+      "unionMin": -0.005619482,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-6"
+      ],
+      "fixture": "(48.53487, 221.606033)",
+      "position": "(47.9239731, 222.218658)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-7",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-6-7",
+      "direct": true,
+      "minimumSeparation": -0.00515241176,
+      "unionMin": -0.00515241176,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-7"
+      ],
+      "fixture": "(40.5651321, 218.043961)",
+      "position": "(41.17598, 217.431351)",
+      "direction": "(0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-6-7",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-6-7",
+      "direct": true,
+      "minimumSeparation": -0.005619482,
+      "unionMin": -0.005619482,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-6-7"
+      ],
+      "fixture": "(43.5848656, 215.281052)",
+      "position": "(42.97397, 215.893677)",
+      "direction": "(-0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-0",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-0"
+      ],
+      "fixture": "(37.2767754, 209.564117)",
+      "position": "(38.26437, 209.564117)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-0",
+      "direct": true,
+      "minimumSeparation": -0.005444452,
+      "unionMin": -0.005444452,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-0"
+      ],
+      "fixture": "(41.3732224, 209.4609)",
+      "position": "(40.3856277, 209.4609)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-1",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-1"
+      ],
+      "fixture": "(36.72678, 201.589111)",
+      "position": "(37.7143745, 201.589111)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-1",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-1"
+      ],
+      "fixture": "(40.8232231, 201.4859)",
+      "position": "(39.83563, 201.4859)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-2",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-2"
+      ],
+      "fixture": "(36.1767769, 193.6141)",
+      "position": "(37.16437, 193.6141)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-2",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-2"
+      ],
+      "fixture": "(40.27322, 193.5109)",
+      "position": "(39.2856255, 193.5109)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-3",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-3"
+      ],
+      "fixture": "(35.6267776, 185.6391)",
+      "position": "(36.6143723, 185.6391)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-3",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-7-3"
+      ],
+      "fixture": "(39.7232246, 185.5359)",
+      "position": "(38.73563, 185.5359)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-4",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-4"
+      ],
+      "fixture": "(35.07678, 177.664108)",
+      "position": "(36.064373, 177.664108)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-4",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-7-4"
+      ],
+      "fixture": "(39.17322, 177.560913)",
+      "position": "(38.185627, 177.560913)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-5",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-5"
+      ],
+      "fixture": "(34.5267754, 169.689117)",
+      "position": "(35.51437, 169.689117)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-5",
+      "direct": true,
+      "minimumSeparation": -0.005444452,
+      "unionMin": -0.005444452,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-5"
+      ],
+      "fixture": "(38.6232224, 169.5859)",
+      "position": "(37.6356277, 169.5859)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-6",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-6"
+      ],
+      "fixture": "(33.97678, 161.714111)",
+      "position": "(34.9643745, 161.714111)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-6",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-7-6"
+      ],
+      "fixture": "(38.0732231, 161.6109)",
+      "position": "(37.08563, 161.6109)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-7",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-7-7",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-7"
+      ],
+      "fixture": "(33.4267769, 153.7391)",
+      "position": "(34.41437, 153.7391)",
+      "direction": "(1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-7-7",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-7-7",
+      "direct": true,
+      "minimumSeparation": -0.00544445263,
+      "unionMin": -0.00544445263,
+      "inside": false,
+      "samples": 27,
+      "contacts": [
+        "Physics:town-7-7"
+      ],
+      "fixture": "(37.52322, 153.6359)",
+      "position": "(36.5356255, 153.6359)",
+      "direction": "(-1, 0)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-0",
+      "direct": true,
+      "minimumSeparation": -0.005146898,
+      "unionMin": -0.005146898,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-8-0"
+      ],
+      "fixture": "(35.67792, 144.9421)",
+      "position": "(36.2913246, 145.559067)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-0",
+      "direct": true,
+      "minimumSeparation": -0.005622506,
+      "unionMin": -0.005622506,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-8-0"
+      ],
+      "fixture": "(38.80779, 147.543655)",
+      "position": "(38.1943321, 146.926651)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-1",
+      "direct": true,
+      "minimumSeparation": -0.00514689833,
+      "unionMin": -0.00514689833,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-1"
+      ],
+      "fixture": "(39.7636375, 138.027786)",
+      "position": "(40.37704, 138.64476)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-1",
+      "direct": true,
+      "minimumSeparation": -0.005622506,
+      "unionMin": -0.005622506,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-1"
+      ],
+      "fixture": "(42.8935051, 140.629349)",
+      "position": "(42.28005, 140.012344)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-2",
+      "direct": true,
+      "minimumSeparation": -0.005146898,
+      "unionMin": -0.005146898,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-8-2"
+      ],
+      "fixture": "(43.8493538, 131.11351)",
+      "position": "(44.4627571, 131.730484)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-2",
+      "direct": true,
+      "minimumSeparation": -0.005622506,
+      "unionMin": -0.005622506,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-8-2"
+      ],
+      "fixture": "(46.97922, 133.715073)",
+      "position": "(46.3657455, 133.098053)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-3",
+      "direct": true,
+      "minimumSeparation": -0.00515794475,
+      "unionMin": -0.00515794475,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-3"
+      ],
+      "fixture": "(47.9350662, 124.199219)",
+      "position": "(48.5484734, 124.816193)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-3",
+      "direct": true,
+      "minimumSeparation": -0.00562638743,
+      "unionMin": -0.00562638743,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-3"
+      ],
+      "fixture": "(51.0649338, 126.800781)",
+      "position": "(50.4514771, 126.183777)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-4",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-4",
+      "direct": true,
+      "minimumSeparation": -0.005626387,
+      "unionMin": -0.005626387,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-4"
+      ],
+      "fixture": "(52.02078, 117.284935)",
+      "position": "(52.63424, 117.901939)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-4",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-4",
+      "direct": true,
+      "minimumSeparation": -0.005626387,
+      "unionMin": -0.005626387,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-4"
+      ],
+      "fixture": "(55.1506462, 119.8865)",
+      "position": "(54.5372047, 119.2695)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-5",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-5",
+      "direct": true,
+      "minimumSeparation": -0.005626387,
+      "unionMin": -0.005626387,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-5"
+      ],
+      "fixture": "(56.1064949, 110.370644)",
+      "position": "(56.7199554, 110.987648)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-5",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-5",
+      "direct": true,
+      "minimumSeparation": -0.005626387,
+      "unionMin": -0.005626387,
+      "inside": false,
+      "samples": 22,
+      "contacts": [
+        "Physics:town-8-5"
+      ],
+      "fixture": "(59.2363625, 112.972206)",
+      "position": "(58.6228867, 112.355194)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-6",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-8-6",
+      "direct": true,
+      "minimumSeparation": -0.00562638743,
+      "unionMin": -0.00562638743,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-6"
+      ],
+      "fixture": "(60.19221, 103.45636)",
+      "position": "(60.80567, 104.073364)",
+      "direction": "(0.707106769, 0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-8-6",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-8-6",
+      "direct": true,
+      "minimumSeparation": -0.005626387,
+      "unionMin": -0.005626387,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-8-6"
+      ],
+      "fixture": "(63.32208, 106.05793)",
+      "position": "(62.708622, 105.440926)",
+      "direction": "(-0.707106769, -0.707106769)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-0",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-9-0",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-9-0"
+      ],
+      "fixture": "(67.2933655, 99.4221649)",
+      "position": "(67.29385, 100.368637)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-0",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-9-0",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-9-0"
+      ],
+      "fixture": "(67.21913, 103.520332)",
+      "position": "(67.21864, 102.573868)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-1",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-9-1",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-9-1"
+      ],
+      "fixture": "(74.20587, 99.76466)",
+      "position": "(74.20636, 100.711136)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-1",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-9-1",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-9-1"
+      ],
+      "fixture": "(74.13164, 103.862831)",
+      "position": "(74.13115, 102.916367)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-2",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-9-2",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 26,
+      "contacts": [
+        "Physics:town-9-2"
+      ],
+      "fixture": "(81.11836, 100.107162)",
+      "position": "(81.11885, 101.053635)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-2",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-9-2",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-9-2"
+      ],
+      "fixture": "(81.04413, 104.20533)",
+      "position": "(81.04364, 103.258865)",
+      "direction": "(0, -1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-3",
+      "edge": 1,
+      "pass": true,
+      "firstHit": "Physics:town-9-3",
+      "direct": true,
+      "minimumSeparation": -0.00562994368,
+      "unionMin": -0.00562994368,
+      "inside": false,
+      "samples": 24,
+      "contacts": [
+        "Physics:town-9-3"
+      ],
+      "fixture": "(88.03087, 100.449661)",
+      "position": "(88.03136, 101.396133)",
+      "direction": "(0, 1)",
+      "realInput": true
+    },
+    {
+      "id": "town-9-3",
+      "edge": 3,
+      "pass": true,
+      "firstHit": "Physics:town-9-3",
+      "direct": true,
+      "minimumSeparation": -0.005629944,
+      "unionMin": -0.005629944,
+      "inside": false,
+      "samples": 25,
+      "contacts": [
+        "Physics:town-9-3"
+      ],
+      "fixture": "(87.9566345, 104.547829)",
+      "position": "(87.95615, 103.601364)",
+      "direction": "(0, -1)",
+      "realInput": true
+    }
+  ],
+  "inputRestored": true,
+  "timeScale": 1.0,
+  "fpsRestorePendingUntilStop": true
+}

@@ -1,0 +1,92 @@
+{
+  "images": [
+    {
+      "original": "Original/corner-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Aligned eight-direction contact replay; actual Play and opaque art; see correction receipt for measured contact",
+      "comparison": "corner-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(114.5, 210.481262, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 10235,
+      "time": 171.76409788123581,
+      "actor": "(114.499992, 205.481247, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/corner-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Aligned eight-direction contact replay; actual Play and opaque art; see correction receipt for measured contact",
+      "comparison": "corner-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(114.5, 210.481262, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 10254,
+      "time": 172.31462257653061,
+      "actor": "(114.5, 205.122, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/gate-wood-east-0-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Aligned eight-direction contact replay; actual Play and opaque art; see correction receipt for measured contact",
+      "comparison": "gate-wood-east-0-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(119.881248, 101.581253, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 10325,
+      "time": 173.70554637896825,
+      "actor": "(119.881248, 96.58125, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/gate-wood-east-0-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Integrated.unity",
+      "state": "Aligned eight-direction contact replay; actual Play and opaque art; see correction receipt for measured contact",
+      "comparison": "gate-wood-east-0-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(119.881248, 101.581253, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 10345,
+      "time": 174.23063247590702,
+      "actor": "(119.881256, 96.02124, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    }
+  ]
+}
