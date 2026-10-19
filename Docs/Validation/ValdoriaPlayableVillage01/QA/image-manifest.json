@@ -49,9 +49,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -101,9 +102,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -153,9 +155,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -205,9 +208,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -257,9 +261,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -309,9 +314,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -361,9 +367,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -413,9 +420,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -465,9 +473,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -517,9 +526,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -569,9 +579,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -621,9 +632,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -673,9 +685,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -725,9 +738,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -777,9 +791,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -829,9 +844,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -881,9 +897,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -933,9 +950,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -985,9 +1003,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1037,9 +1056,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1089,9 +1109,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1141,9 +1162,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1193,9 +1215,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1245,9 +1268,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1297,9 +1321,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1349,9 +1374,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1401,9 +1427,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1453,9 +1480,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1505,9 +1533,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1557,9 +1586,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1609,9 +1639,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1661,9 +1692,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1713,9 +1745,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1765,9 +1798,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1817,9 +1851,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1869,9 +1904,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1921,9 +1957,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -1973,9 +2010,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2025,9 +2063,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2077,9 +2116,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2129,9 +2169,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2181,9 +2222,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2233,9 +2275,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2285,9 +2328,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2337,9 +2381,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2389,9 +2434,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2441,9 +2487,10 @@
       },
       "visualFidelityReview": "inspected locally against original; nearest transform retains palette; native crop provided",
       "github": {
-        "published": false,
-        "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "published": true,
+        "base64RecoveryTested": true,
+        "visualInspectionViaConnector": true,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2493,9 +2540,10 @@
       },
       "visualFidelityReview": "inspected locally against original; nearest transform retains palette; native crop provided",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2545,9 +2593,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2597,9 +2646,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2649,9 +2699,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2701,9 +2752,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2753,9 +2805,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2805,9 +2858,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2857,9 +2911,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2909,9 +2964,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -2961,9 +3017,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3013,9 +3070,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3065,9 +3123,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3117,9 +3176,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3169,9 +3229,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3224,9 +3285,10 @@
       },
       "visualFidelityReview": "pending",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3279,9 +3341,10 @@
       },
       "visualFidelityReview": "pixel-identical",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3334,9 +3397,10 @@
       },
       "visualFidelityReview": "inspected locally against original; nearest transform retains palette; native crop provided",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     },
     {
@@ -3389,9 +3453,10 @@
       },
       "visualFidelityReview": "pixel-identical",
       "github": {
-        "published": false,
+        "published": true,
         "base64RecoveryTested": false,
-        "visualInspectionViaConnector": false
+        "visualInspectionViaConnector": false,
+        "publishedCommit": "5638a9b9715e5b2c8d070d739ca315d0585070db"
       }
     }
   ]

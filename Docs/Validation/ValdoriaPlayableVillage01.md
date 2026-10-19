@@ -55,4 +55,6 @@ PNGs integrais de Play são a autoridade, em `Original/`; `ReviewLite/` contém 
 
 Sem natação, escalada, interiores ou povoamento. A ponte é fixa e o portão permanece aberto; não há mecânica de cerco. Fachadas e muros laterais ainda dependem da avaliação artística do usuário. O enquadramento geral usa câmera de inspeção: o gameplay conserva escala 32 pixels de tela/u, câmera ortográfica 14,0625 e visual Quaternius 1,25.
 
-O resultado técnico habilita exploração e inicialização, não representa aprovação artística. As fontes anteriores permanecem preservadas. Publicação e recuperação remota são registradas separadamente em `QA/github-accessibility.json` após a operação real.
+Os 10 testes do pipeline ReviewLite passaram; 65 pares foram verificados, sem quantização, com máximo de 765.977 bytes (abaixo de 750 KiB). A visão geral foi recuperada de `main` pelo conector GitHub em Base64, decodificada, aberta visualmente e conferida contra o SHA-256 do manifesto. [Registro da recuperação](ValdoriaPlayableVillage01/QA/github-accessibility.json). Apenas essa imagem foi aberta pelo conector; as demais não recebem essa alegação.
+
+O resultado técnico habilita exploração e inicialização, não representa aprovação artística. As fontes anteriores permanecem preservadas. Implementação publicada em `5638a9b9715e5b2c8d070d739ca315d0585070db`; a verificação remota é registrada em commit posterior, sem alterar os pixels publicados.

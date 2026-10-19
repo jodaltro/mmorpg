@@ -4,6 +4,10 @@ Unity **6000.6.5f1**, C#, **Input System**, URP 2D, pixel art com autoria Blende
 
 - **Antes de iniciar uma tarefa, conferir o worktree e executar `git pull --ff-only origin main` na `main`.** Preservar alterações locais; se a atualização falhar ou houver divergência, informar o impedimento antes de concluir que ferramentas/skills estão ausentes.
 
+## Estado atual — vila jogável 01 (18/10/2026)
+
+`Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity` é a primeira cena habilitada de inicialização após QA técnico. `MmorpgWorld.unity` permanece preservada e habilitada como rollback; as medições de 17/10 abaixo são históricas. A nova composição e as peças de ponte/muralha continuam candidatas à avaliação artística. Receita: `ArtSource/World/PlayableVillage01/recipe.json`; contrato: `Docs/WorldGen/PlayableVillage01Contract.md`; resultados e limitações reais: `Docs/Validation/ValdoriaPlayableVillage01.md`. Não executar o importador inicial sobre o destino existente.
+
 ## Diretriz vigente — reconstrução autorizada de Valdoria
 
 > **Decisão do usuário:** a postura de preservação de legado foi **substituída**. O objetivo é **construir a melhor versão futura de Valdoria**, não manter intactas todas as versões anteriores. Refatoração destrutiva está autorizada.
