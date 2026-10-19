@@ -1,0 +1,124 @@
+{
+  "error": null,
+  "results": [
+    {
+      "name": "bridge-right-rail",
+      "pass": true,
+      "from": "(56, 24)",
+      "to": "(57.7100067, 24)",
+      "frame": 428,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "south-wall",
+      "pass": true,
+      "from": "(46, 37)",
+      "to": "(46, 35.43999)",
+      "frame": 756,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "river-outside-bridge",
+      "pass": true,
+      "from": "(70, 31)",
+      "to": "(70, 28.4720116)",
+      "frame": 1066,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "tree-trunk",
+      "pass": true,
+      "from": "(19, 8)",
+      "to": "(19, 9.260143)",
+      "frame": 1341,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "house-wall",
+      "pass": true,
+      "from": "(36, 44.5)",
+      "to": "(35.99657, 46.61648)",
+      "frame": 1603,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "rock-footprint",
+      "pass": true,
+      "from": "(38, 8.3)",
+      "to": "(38.00042, 10.1474094)",
+      "frame": 1828,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "west-world-edge",
+      "pass": true,
+      "from": "(2, 8)",
+      "to": "(0.2899997, 8)",
+      "frame": 2060,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "diagonal-input",
+      "pass": true,
+      "from": "(56, 10)",
+      "to": "(57.7875023, 11.787571)",
+      "frame": 2279,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "dodge-input",
+      "pass": true,
+      "from": "(56, 8)",
+      "to": "(60.159996, 8)",
+      "frame": 2526,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "house-front-opaque",
+      "pass": true,
+      "from": "(30, 45.5)",
+      "to": "(30, 45.5)",
+      "frame": 2785,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "house-behind-cutaway",
+      "pass": true,
+      "from": "(30, 58)",
+      "to": "(30, 58)",
+      "frame": 3035,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "tree-front-sorting",
+      "pass": true,
+      "from": "(19, 8)",
+      "to": "(19, 8)",
+      "frame": 3307,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    },
+    {
+      "name": "tree-behind-sorting",
+      "pass": true,
+      "from": "(19, 11.8)",
+      "to": "(19, 11.8)",
+      "frame": 3564,
+      "fixturePlacement": true,
+      "realKeyboard": true
+    }
+  ],
+  "placement": "Explicit fixture setups, not part of mandatory continuous exploration",
+  "inputRestored": true
+}

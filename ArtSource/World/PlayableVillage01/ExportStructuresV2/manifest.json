@@ -1,0 +1,13 @@
+{
+  "source": {
+    "path": "ArtSource/World/PlayableVillage01/StructuresV1/village-structures-v2.aseprite",
+    "sha256": "91cc0a36c6a593c810c49f90c0dbeff334ee63981617ea36f038e6c13bd215bc"
+  },
+  "files": {
+    "wall-horizontal.png": "a1afbea383a4f71f56fc795dc6701005c531e28acbe5c6355811ce6aa0bd54be",
+    "wall-vertical.png": "58b8b4d6c2a36887e13509904281dc9f95deeab65a282241c7e5465db5eb6d4d",
+    "bridge-left.png": "b4eba001bfaef97283556051eef25070be803199217501141ff38abb2c72df11",
+    "bridge-deck.png": "de9eb19f48a500d774f6d41939e6740435fded2797d0f2df520e694534d6dae2",
+    "bridge-right.png": "ea66453a49fd14d0515a6efb6c7fe78717c54668d3304f5b8a4f4d7b4f00c59c"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "inputSmokePassed": true,
+  "exitCode": "0",
+  "screenCaptureAvailable": false,
+  "limitation": "Hidden standalone window had no capturable framebuffer. No standalone PNG is claimed. Actual visual evidence is Unity Editor Play Mode. Full exploration only tested in Editor; standalone tests spawn, W movement, S return and isolated profile.",
+  "relevantPlayerLogLines": [
+    "CaptureScreenshotAsTexture() failed to generate texture! Was method called before the 'end of frame' state was reached?",
+    "UnityEngine.ScreenCapture:CaptureScreenshotAsTexture (int,UnityEngine.ScreenCapture/StereoScreenCaptureMode)",
+    "UnityEngine.ScreenCapture:CaptureScreenshotAsTexture () (at C:/build/output/unity/unity/Modules/ScreenCapture/ScriptBindings/ScreenCapture.bindings.cs:25)",
+    "Mmorpg.Runtime.VillageStandaloneSmoke/<Capture>d__10:MoveNext () (at D:/unity/Mmorpg/Assets/Mmorpg/Runtime/VillageStandaloneSmoke.cs:26)",
+    "Standalone smoke: screen capture unavailable in hidden window; gameplay test continues, Editor Play PNGs remain the visual evidence.",
+    "UnityEngine.Debug:LogWarning (object) (at C:/build/output/unity/unity/Runtime/Export/Debug/Debug.bindings.cs:223)",
+    "Mmorpg.Runtime.VillageStandaloneSmoke/<Capture>d__10:MoveNext () (at D:/unity/Mmorpg/Assets/Mmorpg/Runtime/VillageStandaloneSmoke.cs:27)",
+    "CaptureScreenshotAsTexture() failed to generate texture! Was method called before the 'end of frame' state was reached?",
+    "UnityEngine.ScreenCapture:CaptureScreenshotAsTexture (int,UnityEngine.ScreenCapture/StereoScreenCaptureMode)",
+    "UnityEngine.ScreenCapture:CaptureScreenshotAsTexture () (at C:/build/output/unity/unity/Modules/ScreenCapture/ScriptBindings/ScreenCapture.bindings.cs:25)",
+    "Mmorpg.Runtime.VillageStandaloneSmoke/<Capture>d__10:MoveNext () (at D:/unity/Mmorpg/Assets/Mmorpg/Runtime/VillageStandaloneSmoke.cs:26)",
+    "Standalone smoke: screen capture unavailable in hidden window; gameplay test continues, Editor Play PNGs remain the visual evidence.",
+    "UnityEngine.Debug:LogWarning (object) (at C:/build/output/unity/unity/Runtime/Export/Debug/Debug.bindings.cs:223)",
+    "Mmorpg.Runtime.VillageStandaloneSmoke/<Capture>d__10:MoveNext () (at D:/unity/Mmorpg/Assets/Mmorpg/Runtime/VillageStandaloneSmoke.cs:27)",
+    "CaptureScreenshotAsTexture() failed to generate texture! Was method called before the 'end of frame' state was reached?",
+    "UnityEngine.ScreenCapture:CaptureScreenshotAsTexture (int,UnityEngine.ScreenCapture/StereoScreenCaptureMode)",
+    "UnityEngine.ScreenCapture:CaptureScreenshotAsTexture () (at C:/build/output/unity/unity/Modules/ScreenCapture/ScriptBindings/ScreenCapture.bindings.cs:25)",
+    "Mmorpg.Runtime.VillageStandaloneSmoke/<Capture>d__10:MoveNext () (at D:/unity/Mmorpg/Assets/Mmorpg/Runtime/VillageStandaloneSmoke.cs:26)",
+    "Standalone smoke: screen capture unavailable in hidden window; gameplay test continues, Editor Play PNGs remain the visual evidence.",
+    "UnityEngine.Debug:LogWarning (object) (at C:/build/output/unity/unity/Runtime/Export/Debug/Debug.bindings.cs:223)",
+    "Mmorpg.Runtime.VillageStandaloneSmoke/<Capture>d__10:MoveNext () (at D:/unity/Mmorpg/Assets/Mmorpg/Runtime/VillageStandaloneSmoke.cs:27)",
+    "VILLAGE_STANDALONE_SMOKE_PASS",
+    "GarbageCollector disposing of ComputeBuffer. Please use ComputeBuffer.Release() or .Dispose() to manually release the buffer.",
+    "PlayerConnection::Cleanup[d3d12] Unreleased non-evictable resource 000002155FCE8810 (size 65536 B, lastUsedFence 10) 'Buffer-16-4096'"
+  ]
+}

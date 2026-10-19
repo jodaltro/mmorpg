@@ -1,0 +1,15 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity",
+  "playing": false,
+  "dirty": false,
+  "physicalPolygons": 46,
+  "mismatch": 0,
+  "colliders": 47,
+  "players": 1,
+  "cameras": 1,
+  "actors": 1,
+  "comparativeControllers": 0,
+  "refusesExistingDestination": true,
+  "spawn": "(56.00, 8.00, 0.00)",
+  "profile": "C:\\Users\\Administrator\\AppData\\LocalLow\\DefaultCompany\\Mmorpg\\DevelopmentJourneys\\marco06b4"
+}

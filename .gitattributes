@@ -52,3 +52,6 @@
 /ArtSource/Labs/World2026/Ground13R/** -text
 /Docs/Validation/ValdoriaGround13R/** -text
 /Docs/Art/Approvals/Ground13R-Direction-2026-10-18.json -text
+/ArtSource/World/PlayableVillage01/** -text whitespace=cr-at-eol
+/Assets/Mmorpg/Art/World/PlayableVillage01/** -text whitespace=cr-at-eol
+/Docs/Validation/ValdoriaPlayableVillage01/** -text whitespace=cr-at-eol

@@ -1,0 +1,57 @@
+{
+  "schema": "valdoria-structure-source/v1",
+  "source": "village-structures-v2.aseprite",
+  "canvas": [
+    512,
+    640
+  ],
+  "ppu": 32,
+  "nativeRects": {
+    "wall-horizontal": [
+      0,
+      0,
+      384,
+      192
+    ],
+    "wall-vertical": [
+      0,
+      0,
+      96,
+      384
+    ],
+    "bridge-left": [
+      0,
+      0,
+      320,
+      576
+    ],
+    "bridge-deck": [
+      0,
+      0,
+      320,
+      576
+    ],
+    "bridge-right": [
+      0,
+      0,
+      320,
+      576
+    ]
+  },
+  "masters": {
+    "wall": {
+      "file": "Masters/wall.png",
+      "sha256": "76409b20272fa51acc4286c1ebea3598d7e47a682fefae8a5770c15892a6fd01"
+    },
+    "wall-side-study": {
+      "file": "Masters/wall-side-study.png",
+      "sha256": "cab6be22a038f1f9b4684592baa4b316caa9cff4d55bb8c90e1117446721557f"
+    },
+    "bridge": {
+      "file": "Masters/bridge.png",
+      "sha256": "bba9430986f63fedbfaa46a3b3e6dfaeac852d4513365c4111920a038c590b77"
+    }
+  },
+  "provenance": "ImageGen built-in: new environment sprites referenced approved castle only. Nearest native fit, no dithering. Side master retained as rejected diagonal study; longitudinal wall authored as distinct planes. Bootstrap is provenance, never overwrite edited source. Sources approved only after explicit user review. No character pixels generated.",
+  "revision": "V2: alpha>10 bounds remove empty tiling margins; wall reaches 6u; physics unchanged"
+}

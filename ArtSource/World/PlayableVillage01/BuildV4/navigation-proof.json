@@ -1,0 +1,20 @@
+{
+  "open": {
+    "components": 2,
+    "spawn": 2,
+    "village": 2,
+    "castle": 2,
+    "connected": true,
+    "bridgeOpen": true
+  },
+  "bridgeRemoved": {
+    "components": 3,
+    "spawn": 3,
+    "village": 2,
+    "castle": 2,
+    "connected": false,
+    "bridgeOpen": false
+  },
+  "actorClearance": 0.625,
+  "method": "4-connected flood fill on 0.25u grid; all semantic physical polygons rasterized; bridge removed must disconnect spawn from both interior targets"
+}

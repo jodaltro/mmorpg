@@ -1,0 +1,19 @@
+{
+  "output": null,
+  "diagnostics": [],
+  "success": true,
+  "result": {
+    "scene": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity",
+    "dirty": false,
+    "playing": false,
+    "timeScale": 1,
+    "keyboards": [
+      {
+        "name": "Keyboard",
+        "enabled": true
+      }
+    ],
+    "temporaryProbes": 0,
+    "startup": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity"
+  }
+}

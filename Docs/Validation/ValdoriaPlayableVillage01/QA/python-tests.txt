@@ -1,0 +1,15 @@
+test_aseprite_reexport_pixels (test_playable_village01.VillageTests.test_aseprite_reexport_pixels) ... ok
+test_buildings_do_not_share_physical_occupancy (test_playable_village01.VillageTests.test_buildings_do_not_share_physical_occupancy) ... ok
+test_contextual_stamp_iteration_matches_ground11 (test_playable_village01.VillageTests.test_contextual_stamp_iteration_matches_ground11) ... ok
+test_gate_and_bridge_only_access (test_playable_village01.VillageTests.test_gate_and_bridge_only_access) ... ok
+test_ground_chunk_coverage (test_playable_village01.VillageTests.test_ground_chunk_coverage) ... ok
+test_layout_deterministic (test_playable_village01.VillageTests.test_layout_deterministic) ... ok
+test_physical_coverage_river_extremities (test_playable_village01.VillageTests.test_physical_coverage_river_extremities) ... ok
+test_sources_untouched_and_manifest (test_playable_village01.VillageTests.test_sources_untouched_and_manifest) ... ok
+test_unique_ids (test_playable_village01.VillageTests.test_unique_ids) ... ok
+test_water_alpha_stable_and_loop_has_motion (test_playable_village01.VillageTests.test_water_alpha_stable_and_loop_has_motion) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.895s
+
+OK

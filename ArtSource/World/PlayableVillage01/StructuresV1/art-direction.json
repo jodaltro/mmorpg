@@ -1,0 +1,21 @@
+{
+  "schema": "valdoria-art-provenance/v1",
+  "date": "2026-10-18",
+  "tool": "OpenAI built-in ImageGen, environment assets only",
+  "reference": "ArtSource/Labs/World2026/WorldStudio08/Castle/ExportV1/composite.png",
+  "referenceSha256": "4f12d89375368eb621661fa496d43a98b9ecf56cb7493cad155772ada1d54862",
+  "generatedAssets": [
+    "horizontal limestone curtain, six merlons, light upper left, no openings",
+    "vertical wall study, rejected as diagonal; corrected study retained for design only",
+    "north-south oak bridge, iron bindings and stone abutments"
+  ],
+  "finalPixelAuthority": "village-structures-v2.aseprite",
+  "authoredOperations": [
+    "nearest native fit, explicitly new candidate geometry",
+    "low-alpha fringe rejection and source bounds",
+    "new longitudinal side-wall planes without rotating baked light",
+    "bridge split into deck and two rail ownership layers",
+    "unapproved source V1 and V2 both retained"
+  ],
+  "rightsAndScope": "Uses project-owned approved castle as reference; no character regeneration or external third-party asset download. Generated masters retain original provenance metadata. Artistic approval is pending for these new structures."
+}
