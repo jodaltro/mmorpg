@@ -48,4 +48,6 @@ Fase F deve adaptar volumes artísticos aos lotes, revisar projeção/escala de 
 
 Fase G deve repetir percurso contínuo e contatos de todas as construções, inclusive H6/B1, visibilidade atrás de volumes e performance. Somente após essas evidências e revisão artística documentada considerar promoção da cena candidata. Cena01 e `MmorpgWorld` continuam como entradas/rollback existentes.
 
-Publicação e recuperação remota de ReviewLite são registradas separadamente após o push; ver recibo `ValdoriaVillage02-ArtProduction/QA/github-accessibility.json` quando disponível.
+Publicado em `cc0c629700677c3b77065ed649d9c0d8230724cb`, branch `main`. O ReviewLite do castelo foi recuperado pelo conector GitHub em Base64, decodificado, conferido por assinatura PNG/SHA256 e aberto visualmente. [Recibo](ValdoriaVillage02-ArtProduction/QA/github-accessibility.json). Essa verificação remota cobre somente essa imagem.
+
+Para detalhes sem redução, abrir os originais de Play: [castelo](ValdoriaVillage02-ArtProduction/Original/castle-compound-whole.png), [portão](ValdoriaVillage02-ArtProduction/Original/gate-whole.png), [celeiro](ValdoriaVillage02-ArtProduction/Original/B1-whole.png). Os três também foram abertos integralmente para comparação local com suas cópias ReviewLite.
