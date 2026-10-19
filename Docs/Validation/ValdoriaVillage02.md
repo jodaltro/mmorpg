@@ -2,6 +2,8 @@
 
 Entrega do marco **A–D**, em18–19/10/2026. **Não é a vila definitiva nem uma candidata promovida.** A composição01 foi rejeitada artisticamente pelo usuário. Nenhum sprite final novo foi produzido; as fontes aprovadas Ground11–13R e arquitetura07R/08/09 permanecem intactas.
 
+**Avaliação recebida em19/10/2026:** o usuário respondeu **“parece bom”** à entrega `18ba686aec6aa846edf3c21c01fcf863a5f4bad5`. Registrada como aprovação intermediária da planta e do blockout apresentados, liberando a direção espacial para a próxima etapa. Não aprova sprites finais, encerra pendências técnicas ou promove a cena. [Registro com escopo e hashes](ValdoriaVillage02/QA/layout-blockout-approval.json). As pendências H6/B1, visibilidade e cobertura de contato continuam vigentes; o pedido de avaliação ao final deste relatório fica preservado como histórico do marco.
+
 [Diagnóstico por categoria](ValdoriaVillage02-Diagnosis.md) · [Painel histórico, isekai e jogos de gestão](ValdoriaVillage02-References.md) · [Contrato/reprodução/promoção](../WorldGen/PlayableVillage02BlockoutContract.md) · [Índice de223 capturas](ValdoriaVillage02/Index.md).
 
 ## Planta e proposta
