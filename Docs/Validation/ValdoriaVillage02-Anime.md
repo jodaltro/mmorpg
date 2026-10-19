@@ -1,5 +1,7 @@
 # Village02 — direção da adaptação animada
 
+Atualização de19/10/2026: o usuário pediu ampliar o recinto e autorizou aplicar a cena principal. A [entrega RoyalGardens](ValdoriaRoyalGardens.md) substitui o estado de promoção e o jardim compacto descritos neste relatório histórico; as evidências originais abaixo permanecem imutáveis.
+
 19/10/2026. Cena candidata: `Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity`. A cena inicial continua Village01; esta versão não foi promovida nem aprovada artisticamente.
 
 As 14 famílias arquitetônicas foram repintadas a partir da direção autorizada pelo usuário: anime **Release That Witch**, vila pobre e desgastada contrastando com o interior cuidado do castelo. Cinco das sete moradias receberam revisão explícita de pobreza; H2 e H5 permanecem mais conservadas. Pedra clara, ardósia, gramado interno, uma fonte, duas árvores e 14 pequenos canteiros formam o jardim. A fonte tem água pintada estática. O terreno Ground11 e o rio permanecem iguais, portanto o exterior ainda tem bastante grama verde; o contraste sombrio do mundo inteiro ainda não está concluído.

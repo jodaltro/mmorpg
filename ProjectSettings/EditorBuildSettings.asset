@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity
+    guid: d594aec611dd0c8429591513fae03c64
+  - enabled: 1
     path: Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity
     guid: 518d3cadde2dc0b4584a7833b7ed67f4
   - enabled: 1

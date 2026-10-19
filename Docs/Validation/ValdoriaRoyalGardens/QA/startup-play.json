@@ -1,0 +1,17 @@
+{
+  "error": null,
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+  "firstEnabled": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+  "framesAdvanced": 237,
+  "travel": 3.54598427,
+  "physical": 172,
+  "playerCount": 1,
+  "syntheticAbsent": true,
+  "physicalKeyboards": [
+    {
+      "name": "Keyboard",
+      "enabled": true
+    }
+  ],
+  "profile": "D:\\unity\\Mmorpg\\Temp\\RoyalGardens\\IsolatedProfile"
+}

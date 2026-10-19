@@ -1,0 +1,847 @@
+{
+  "schema": "valdoria-visual-review/v1",
+  "maxReviewBytes": 768000,
+  "images": [
+    {
+      "original": "Original/court-fountain-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "court-fountain-edge-0-bccdc7ea8d",
+      "integral": true,
+      "camera": {
+        "position": "(188.879776, 205.921814, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 18291,
+      "time": 242.79898752834467,
+      "actor": "(188.879776, 200.921814, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-court-fountain-edge-0-before.png",
+      "review": "ReviewLite/Final-court-fountain-edge-0-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1170201,
+      "reviewBytes": 502181,
+      "originalSHA256": "040d4c458ea5b88d1396b1fe797149e8589812d199e526f6195215a951a50b8b",
+      "reviewSHA256": "f2521946e1fecfc5dcf4691d0318000836606dbdb9cd4797c6289912352e1e41",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/court-fountain-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "court-fountain-edge-0-bccdc7ea8d",
+      "integral": true,
+      "camera": {
+        "position": "(188.879776, 205.921814, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 18347,
+      "time": 243.82917042942177,
+      "actor": "(188.552429, 200.593262, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-court-fountain-edge-0-after.png",
+      "review": "ReviewLite/Final-court-fountain-edge-0-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1168721,
+      "reviewBytes": 501714,
+      "originalSHA256": "bee9f82326597c96e1bd168d96f9a0747e3e87a21497ef8a6bad652b41bdf34d",
+      "reviewSHA256": "b9c77e7a8e70a5a18eafcb29bf4ee39499dc06a4a54688cfb6190c73ebd6e46a",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/royal-wall-0-0-edge-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "royal-wall-0-0-edge-1-65077ebc65",
+      "integral": true,
+      "camera": {
+        "position": "(137.3, 178.450012, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 20934,
+      "time": 287.248299029195,
+      "actor": "(137.3, 173.450012, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-royal-wall-0-0-edge-1-before.png",
+      "review": "ReviewLite/Final-royal-wall-0-0-edge-1-before.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 2584889,
+      "reviewBytes": 665664,
+      "originalSHA256": "f386c60bc5f1d3fb3d8309ece1bd83624709fc1378be9096df1205cc1fb3ef9a",
+      "reviewSHA256": "ce908e0ea487ecd4c513d81a370a7b60429a5fa2b6c32e123ed47cf3c3940e36",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/royal-wall-0-0-edge-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "royal-wall-0-0-edge-1-65077ebc65",
+      "integral": true,
+      "camera": {
+        "position": "(137.3, 178.450012, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 20990,
+      "time": 288.3393112244898,
+      "actor": "(137.3, 174.010025, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-royal-wall-0-0-edge-1-after.png",
+      "review": "ReviewLite/Final-royal-wall-0-0-edge-1-after.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 2585455,
+      "reviewBytes": 665928,
+      "originalSHA256": "fc27d0031316258ffeae2acaca2ea6c746f8bcb229c7c0bbe780a4eb0ab84dcf",
+      "reviewSHA256": "753a9e8418f617194f51f10aa208849550b29e9afe9cd366d4a39fb2c786c6bc",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/fountain-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Enlarged fountain opaque depth fixture front",
+      "comparison": "fountain-opaque-front-ec65c209d8",
+      "integral": true,
+      "camera": {
+        "position": "(182, 204, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26492,
+      "time": 382.15258273100903,
+      "actor": "(182, 197, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-fountain-opaque-front.png",
+      "review": "ReviewLite/Final-fountain-opaque-front.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1228309,
+      "reviewBytes": 516103,
+      "originalSHA256": "9b7e1bef35f6a02144655c552b7543f21fe72277ca43f13354e49a129a659a21",
+      "reviewSHA256": "f3455fd663868609c84422d7b949386dd72932858e7aa76830f3688abfbc1267",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/fountain-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Enlarged fountain opaque depth fixture rear",
+      "comparison": "fountain-opaque-rear-ec65c209d8",
+      "integral": true,
+      "camera": {
+        "position": "(182, 204, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26505,
+      "time": 382.4776420280612,
+      "actor": "(182, 203, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-fountain-opaque-rear.png",
+      "review": "ReviewLite/Final-fountain-opaque-rear.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1228187,
+      "reviewBytes": 516078,
+      "originalSHA256": "a86ec1ecbe27021559b60cbd01a8afbaa7f083424806eba47cd608bc2c07e593",
+      "reviewSHA256": "44385492ab61fbbab0d1c45db7fa2442744d29d98f03204b4012055be27e3dec",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Expanded royal gardens in actual Play; native assets scale1, actor unchanged",
+      "comparison": "overview-946715ac5a",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26522,
+      "time": 382.869212627551,
+      "actor": "(116.6, 26.4, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-overview.png",
+      "review": "ReviewLite/Final-overview.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1886481,
+      "reviewBytes": 392699,
+      "originalSHA256": "445650aaac044baaea97bccd66e632edecca2373dd399a1214a3b51b4357439e",
+      "reviewSHA256": "f584d979d2477d6b5b50e877384a3d784ac700194249b8080577c88d48e5856a",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Preview/Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "overview-946715ac5a",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2379,
+      "time": 10.503249893707483,
+      "actor": "(116.6, 26.4000015, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Preview-overview.png",
+      "review": "ReviewLite/Preview-overview.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1886541,
+      "reviewBytes": 392686,
+      "originalSHA256": "3dd937e60affc1dfb2ef9501531969323b511a6daf8f78ac6b40dada83389ea3",
+      "reviewSHA256": "0b5e02b816c17adc513b4bbf60b16e5c8e48c9355d2fd0653176564c7e55406c",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Before/Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Copied unchanged original of preceding compact castle composition; actual historical Play",
+      "comparison": "overview-946715ac5a",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3119,
+      "time": 11.613200488945578,
+      "actor": "(116.6, 26.3999977, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Before-overview.png",
+      "review": "ReviewLite/Before-overview.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1889891,
+      "reviewBytes": 390526,
+      "originalSHA256": "5647459f55c584e0a2801f5543f76458f816178e787808dccd2cb87519e4f058",
+      "reviewSHA256": "8b853516d954852d5971a3d88e62efd06dffde9f237ac9a299bdb34ab8e6226b",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/royal-precinct.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Expanded royal gardens in actual Play; native assets scale1, actor unchanged",
+      "comparison": "royal-precinct-c8f3263e7a",
+      "integral": true,
+      "camera": {
+        "position": "(182, 226, -10)",
+        "ortho": 59.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26539,
+      "time": 383.27830372732427,
+      "actor": "(182, 191, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-royal-precinct.png",
+      "review": "ReviewLite/Final-royal-precinct.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3656696,
+      "reviewBytes": 215696,
+      "originalSHA256": "42526206aa323a2f97095bb5f84450760ab5b3e1e9bc190d8df67ea07e440e44",
+      "reviewSHA256": "d9fcea8dce910777a32fa38b9e5db30ee1e7cc2e8466fb0d97b71deaeaab8a3b",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Preview/Original/royal-precinct.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "royal-precinct-c8f3263e7a",
+      "integral": true,
+      "camera": {
+        "position": "(182, 226, -10)",
+        "ortho": 59.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2293,
+      "time": 9.692204889455782,
+      "actor": "(182, 191, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Preview-royal-precinct.png",
+      "review": "ReviewLite/Preview-royal-precinct.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        400,
+        225
+      ],
+      "originalBytes": 3656750,
+      "reviewBytes": 215684,
+      "originalSHA256": "db7137b147d4fd40bd54f64f317b944cd3c838eb92478236140c919adc99336f",
+      "reviewSHA256": "bcfa71133adfcfff0fb6f76d54fb34de9f64ecfe11949efe784abd00b4af96f0",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/4",
+      "scaleDivisor": 4,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/fountain.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Expanded royal gardens in actual Play; native assets scale1, actor unchanged",
+      "comparison": "fountain-fd9b7b854e",
+      "integral": true,
+      "camera": {
+        "position": "(182, 203, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26556,
+      "time": 383.77785572562357,
+      "actor": "(178, 195, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-fountain.png",
+      "review": "ReviewLite/Final-fountain.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1247415,
+      "reviewBytes": 520396,
+      "originalSHA256": "006733f422e8bfc09c88ef74bc60876a69bd4a4996bed3c33953fb68a961ae69",
+      "reviewSHA256": "18b0ab16537cee641a6cdda32e1f0ba84d481cf5a9e212f2979891870c9ef1e5",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Preview/Original/fountain.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "fountain-fd9b7b854e",
+      "integral": true,
+      "camera": {
+        "position": "(182, 203, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2346,
+      "time": 10.162672895408162,
+      "actor": "(178, 195, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Preview-fountain.png",
+      "review": "ReviewLite/Preview-fountain.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1249977,
+      "reviewBytes": 520627,
+      "originalSHA256": "699bb49634a3b8251862fd3e69e8687247efb86cc7313d60ffe200a2e3fbca61",
+      "reviewSHA256": "151cb830eab44e8657d50584733f5c1140a168ce3b4ee6e82531fc261d5492ff",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/garden-avenue.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Expanded royal gardens in actual Play; native assets scale1, actor unchanged",
+      "comparison": "garden-avenue-8acbe4ffdc",
+      "integral": true,
+      "camera": {
+        "position": "(182, 203, -10)",
+        "ortho": 30.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26573,
+      "time": 384.1663644274376,
+      "actor": "(182, 190, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Final-garden-avenue.png",
+      "review": "ReviewLite/Final-garden-avenue.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 2510275,
+      "reviewBytes": 663005,
+      "originalSHA256": "ebaa53d5015d0f81447320525fd9cb8369d4e776c66814dccd8a124ccb8a9c41",
+      "reviewSHA256": "970093063f4cf0ca24260c65ef36bca764c1cf5b71d5f3a4eeca628e1a7cda18",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Preview/Original/entry.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "entry-d62ad789e8",
+      "integral": true,
+      "camera": {
+        "position": "(116.6, 98, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2257,
+      "time": 9.23264439484127,
+      "actor": "(116.600006, 91, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Preview-entry.png",
+      "review": "ReviewLite/Preview-entry.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 2784220,
+      "reviewBytes": 662058,
+      "originalSHA256": "86c5de198b9af9be342d82e4def9437ab1bc7be0d5a564131478111c05cd1a55",
+      "reviewSHA256": "525c88936dd6d5e24f2dd29ad1e47a8744c2629dd1cb40cc3a0e96958c1d5120",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Details/fountain-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Expanded royal gardens in actual Play; native assets scale1, actor unchanged",
+      "comparison": "fountain-native",
+      "integral": false,
+      "camera": {
+        "position": "(182, 203, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26556,
+      "time": 383.77785572562357,
+      "actor": "(178, 195, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Detail-fountain-native.png",
+      "crop": {
+        "source": "Original/fountain.png",
+        "boundsLTRB": [
+          560,
+          220,
+          1080,
+          760
+        ],
+        "sampling": "1:1 no resampling"
+      },
+      "review": "ReviewLite/Detail-fountain-native.png",
+      "originalDimensions": [
+        520,
+        540
+      ],
+      "reviewDimensions": [
+        520,
+        540
+      ],
+      "originalBytes": 262319,
+      "reviewBytes": 251313,
+      "originalSHA256": "8f586ee8bf7b80643c8bc919150267b3181d9c48e2915ffb704632c82e286c1e",
+      "reviewSHA256": "3856ba02184f578e34aceea57189f9e2a082be52eac98e2ee066261de8f8aa27",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    }
+  ]
+}

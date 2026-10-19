@@ -1,0 +1,26 @@
+{
+  "images": [
+    {
+      "original": "Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Copied unchanged original of preceding compact castle composition; actual historical Play",
+      "comparison": "overview",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3119,
+      "time": 11.613200488945578,
+      "actor": "(116.6, 26.3999977, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    }
+  ]
+}

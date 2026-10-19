@@ -1,5 +1,7 @@
 # Village02 Anime — contrato de autoria
 
+Atualização de19/10/2026: a ampliação e promoção autorizadas são regidas por [RoyalGardensContract](RoyalGardensContract.md). A receita AnimeRebuildV1 abaixo é o baseline histórico da arquitetura; a cena agora consome RoyalGardensV1, com172 volumes.
+
 Direção autorizada em 19/10/2026: somente a adaptação animada de Release That Witch. Moradias pobres, madeira e reboco gastos; castelo mantido com pedra clara, gramado, fonte, árvores e flores. Autorização de direção não é aprovação dos assets resultantes. A premissa narrativa consta em GameVision.
 
 Autoridade: AnimeRebuildV1/SourceV2 e GardenSourceV1; ExportV2 e GardenExportV1 verificam a exportação. IntegrationV2 contém a separação final de coberturas opacas. IntegrationV1 é evidência anterior à correção visual. Masters e selected-prompts.json preservam entradas e prompts. O produtor histórico da IntegrationV1 foi arquivado com hash coincidente em Docs/Validation/ValdoriaVillage02-Anime/QA/integration-producer-v1.py.

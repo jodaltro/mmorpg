@@ -1,0 +1,92 @@
+{
+  "images": [
+    {
+      "original": "Original/entry.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "entry",
+      "integral": true,
+      "camera": {
+        "position": "(116.6, 98, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2257,
+      "time": 9.23264439484127,
+      "actor": "(116.600006, 91, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/royal-precinct.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "royal-precinct",
+      "integral": true,
+      "camera": {
+        "position": "(182, 226, -10)",
+        "ortho": 59.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2293,
+      "time": 9.6922048894557822,
+      "actor": "(182, 191, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/fountain.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "fountain",
+      "integral": true,
+      "camera": {
+        "position": "(182, 203, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2346,
+      "time": 10.162672895408162,
+      "actor": "(178, 195, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "overview",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2379,
+      "time": 10.503249893707483,
+      "actor": "(116.6, 26.4000015, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    }
+  ]
+}

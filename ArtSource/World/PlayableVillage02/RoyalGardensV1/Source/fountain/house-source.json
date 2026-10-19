@@ -1,0 +1,30 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "fountain",
+  "ppu": 32,
+  "canvas": [
+    649,
+    432
+  ],
+  "groundAnchorPixels": [
+    323.03505154639174,
+    339.5035051546392
+  ],
+  "sourceFile": "fountain.aseprite",
+  "layers": [
+    "Basin",
+    "Water",
+    "Spout"
+  ],
+  "roles": {
+    "Basin": "wall",
+    "Water": "wall",
+    "Spout": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/RoyalGardensV1/Masters/fountain.png",
+    "sha256": "99c38a2b1f7b5f8d42518f819fb7a45f2f20d0e10086556d9c922d0d83cc7b67"
+  },
+  "authority": "Aseprite pixels; nearest uniform resampling, octree192 no dithering",
+  "artisticApproval": false
+}
