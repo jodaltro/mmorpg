@@ -1,0 +1,12 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0",
+  "FriendlyName": "WorldSim Client",
+  "Description": "Connects an Unreal game to the World Simulation Engine (HTTP contract v1): joins the player, reports regions and confirmed occurrences, shows quests offered by NPCs and world events.",
+  "Category": "Gameplay",
+  "CanContainContent": false,
+  "Modules": [
+    { "Name": "WorldSim", "Type": "Runtime", "LoadingPhase": "Default" }
+  ]
+}

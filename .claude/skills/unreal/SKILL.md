@@ -1,0 +1,38 @@
+---
+name: unreal
+description: Drive Unreal Engine 5.8 on this PC - build the WorldSimDemo project, launch the editor with the Unreal MCP server, run headless game tests against the World Simulation Engine, read logs. Use for any Unreal task in this repo.
+---
+
+# Unreal on this machine
+
+| Item | Path |
+|---|---|
+| Engine | `D:\UE_5.8` (installed by the Epic Launcher) |
+| Editor | `D:\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe` |
+| Commandlet/headless | `D:\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe` |
+| Build | `D:\UE_5.8\Engine\Build\BatchFiles\Build.bat` |
+| UAT | `D:\UE_5.8\Engine\Build\BatchFiles\RunUAT.bat` |
+| Visual Studio 2022 | `D:\VS` (Game development with C++, MSVC 14.44) |
+| Demo project | `D:\UnrealProjects\WorldSimDemo\WorldSimDemo.uproject` (outside the repo: Epic template content is not redistributed) |
+| Our plugin | `clients/unreal/WorldSim`, linked into `WorldSimDemo\Plugins\WorldSim` by a directory junction |
+| World engine | `engine/` (`worldsim serve` on `127.0.0.1:8095`) |
+
+Helper scripts live in `tools/unreal/` (PowerShell). Prefer them over ad-hoc commands.
+
+## Control channels
+
+1. **CLI** (always available, no editor UI needed):
+   - Build editor target: `tools/unreal/build.ps1`
+   - Headless game test with console commands: `tools/unreal/play-test.ps1` (runs `-game -nullrhi -unattended -ExecCmds=...`, then greps `LogWorldSim`).
+   - Editor Python: `UnrealEditor-Cmd.exe <uproject> -run=pythonscript -script=<file.py>` (needs the Python Editor Script Plugin, enabled in the demo project).
+2. **Unreal MCP** (official, experimental, UE 5.8): plugins `ModelContextProtocol` + `AllToolsets` enabled in the project. Start the editor with `tools/unreal/editor.ps1`, which passes `-ModelContextProtocolStartServer`. Server: `http://127.0.0.1:8000/mcp` (Streamable HTTP, loopback only, no auth). The repo `.mcp.json` registers it as `unreal-mcp` for Claude Code. In tool-search mode use `list_toolsets`, `describe_toolset`, `call_tool`. Tool calls run serially on the game thread: never overlap calls.
+   - If the MCP tools are not loaded in the session, the server can still be called with JSON-RPC over HTTP (`initialize`, then `tools/call`) using curl.
+3. **Console commands of our plugin** (in PIE, `-game` or via MCP): `ws.join [id] [name]`, `ws.move <region>`, `ws.act <action> [k=v]`, `ws.occur <action> [k=v]`, `ws.accept`, `ws.decline`, `ws.status`.
+
+## Rules
+
+- Start `worldsim serve` before Play; the client tolerates the engine being offline (the game keeps running).
+- The game is the authority of positions and combat: it reports regions (`move`) and confirmed occurrences (`adapter`). Never send damage or HP to the world engine.
+- Logs: `D:\UnrealProjects\WorldSimDemo\Saved\Logs\WorldSimDemo.log`. Our lines start with `WorldSim:`.
+- Do not commit Epic template content, `Binaries/`, `Intermediate/`, `Saved/` or `DerivedDataCache/`.
+- Record only tests that actually ran, in `Docs/Validation/Unreal.md`.

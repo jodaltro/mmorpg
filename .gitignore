@@ -15,3 +15,9 @@ data/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Unreal build output (plugin and any local project copy).
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
