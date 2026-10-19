@@ -19,9 +19,11 @@ func scripted(t *testing.T) *harness {
 	h.join("p1", "p2")
 	h.tick(6)
 	h.mustAct("player", "p1", "examinar-poco", nil)
+	h.move("p1", "estrada")
 	h.tick(1)
 	q := h.steer("p1", "cenario-origem")
 	h.accept("p1", q)
+	h.move("p1", "floresta")
 	h.mustAct("adapter", "p1", "seguir-rastro", nil)
 	h.tick(40)
 	return h
@@ -79,6 +81,9 @@ func TestSecondUniverseRunsOnSameCore(t *testing.T) {
 	if s := h.events("sealed"); len(s) == 0 || s[0].Actor != "ines" {
 		t.Fatalf("crew should seal leaks autonomously, sealed by %+v", s)
 	}
+	h.move("x1", "antena")
+	h.move("x2", "antena")
+	h.tick(1)
 	q1 := h.steer("x1", "contato")
 	q2 := h.steer("x2", "contato")
 	h.accept("x1", q1)

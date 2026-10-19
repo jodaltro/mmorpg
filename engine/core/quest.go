@@ -28,6 +28,49 @@ func pick(seed string, n int) int {
 	return int(h.Sum64() % uint64(n))
 }
 
+// local reports whether the quest can be offered to p now. Offers are not
+// gated by distance: the giver reaches the player wherever they are (the
+// client decides how: walking up, a messenger, a call). Coherence comes
+// from eligibility, the situation of the world and the advisor. Only a
+// quest that explicitly declares a Region is limited to that place.
+func (w *World) local(s *State, def QuestDef, b Bind) bool {
+	if def.Giver != "" {
+		if _, ok := s.Entities[resolve(def.Giver, b)]; !ok {
+			return false
+		}
+	}
+	return def.Region == "" || s.Entities[b["self"]].Region == resolve(def.Region, b)
+}
+
+// refreshOffers withdraws pending offers that stopped making sense:
+// ineligible, already achieved, or the player walked away from the giver.
+func (w *World) refreshOffers(s *State, p ID, cause string) {
+	for _, k := range sortedKeys(s.Quests) {
+		q := s.Quests[k]
+		if q.State != "offered" || p != "" && q.Holder != p {
+			continue
+		}
+		def := w.quests[q.Def]
+		b := maps.Clone(q.Bind)
+		if b == nil {
+			b = Bind{}
+		}
+		b["self"] = q.Holder
+		if !w.Holds(s, def.Eligible, Bind{"self": q.Holder}) || w.Holds(s, def.Goal, b) || !w.local(s, def, b) {
+			q.State = "withdrawn"
+			s.Quests[k] = q
+			w.emit(s, Event{Kind: "quest-withdrawn", Holder: q.Holder, Text: q.Title, Cause: cause, Data: map[string]string{"quest": k}})
+		}
+	}
+}
+
+// rest marks the end of a quest for p: the next offer waits QuestGap ticks.
+func (w *World) rest(s *State, p ID) {
+	if w.U.Limits.QuestGap > 0 {
+		s.Cooldowns["next-offer|"+string(p)] = s.Tick + w.U.Limits.QuestGap
+	}
+}
+
 func (w *World) questTick(s *State, cause string) {
 	l := w.U.Limits
 	for _, k := range sortedKeys(s.Quests) {
@@ -37,33 +80,18 @@ func (w *World) questTick(s *State, cause string) {
 			// the quest no longer makes sense and frees the active slot.
 			q.State = "obsolete"
 			s.Quests[k] = q
+			w.rest(s, q.Holder)
 			w.emit(s, Event{Kind: "quest-obsolete", Holder: q.Holder, Text: q.Title, Cause: cause})
 			continue
 		}
-		if q.State != "offered" {
-			continue
-		}
-		// An offer that no longer makes sense is withdrawn instead of
-		// blocking the single proposal slot of the player.
-		def := w.quests[q.Def]
-		b := maps.Clone(q.Bind)
-		if b == nil {
-			b = Bind{}
-		}
-		b["self"] = q.Holder
-		if !w.Holds(s, def.Eligible, Bind{"self": q.Holder}) || w.Holds(s, def.Goal, b) {
-			q.State = "withdrawn"
-			s.Quests[k] = q
-			w.emit(s, Event{Kind: "quest-withdrawn", Holder: q.Holder, Text: q.Title, Cause: cause})
-			continue
-		}
-		if s.Tick-q.At >= l.OfferExpiry {
+		if q.State == "offered" && s.Tick-q.At >= l.OfferExpiry {
 			q.State = "expired"
 			s.Quests[k] = q
 			s.Declined[k] = s.Tick
 			w.emit(s, Event{Kind: "quest-expired", Holder: q.Holder, Text: q.Title, Cause: cause})
 		}
 	}
+	w.refreshOffers(s, "", cause)
 	w.completeAll(s, cause)
 	for _, p := range sortedIDs(s.Entities) {
 		if s.Entities[p].Kind == w.U.PlayerKind {
@@ -106,6 +134,7 @@ func (w *World) tryComplete(s *State, key string, cause string) {
 	q = s.Quests[key]
 	q.State = "done"
 	s.Quests[key] = q
+	w.rest(s, q.Holder)
 	w.apply(s, def.Rewards, b, cause)
 	w.emit(s, Event{Kind: "quest-done", Holder: q.Holder, Text: q.Title, Cause: cause, Data: map[string]string{"quest": key}})
 }
@@ -234,7 +263,7 @@ func (w *World) candidates(s *State, p ID) []candidate {
 					}
 				}
 			}
-			if w.Holds(s, def.Goal, b) {
+			if w.Holds(s, def.Goal, b) || !w.local(s, def, b) {
 				continue
 			}
 			delete(b, "self")
@@ -254,7 +283,7 @@ func (w *World) offer(s *State, p ID, cause string) {
 			active++
 		}
 	}
-	if active >= w.U.Limits.MaxActiveQuests {
+	if active >= w.U.Limits.MaxActiveQuests || s.Cooldowns["next-offer|"+string(p)] > s.Tick {
 		return
 	}
 	for _, d := range s.Decisions {
@@ -274,7 +303,11 @@ func (w *World) offer(s *State, p ID, cause string) {
 	for _, c := range cands {
 		b := maps.Clone(c.bind)
 		b["self"] = p
-		opts = append(opts, Option{ID: c.key, Title: w.render(s, c.def.Title, b), Desc: w.render(s, c.def.Desc, b)})
+		desc := w.render(s, c.def.Desc, b)
+		if c.def.Giver != "" {
+			desc = "Offered by " + w.name(s, resolve(c.def.Giver, b)) + ". " + desc
+		}
+		opts = append(opts, Option{ID: c.key, Title: w.render(s, c.def.Title, b), Desc: desc})
 	}
 	id := "offer:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
 	ctx := w.profile(s, p)
@@ -289,9 +322,19 @@ func (w *World) createOffer(s *State, p ID, c candidate, cause string) {
 	b := maps.Clone(c.bind)
 	b["self"] = p
 	q := Quest{Key: c.key, Def: c.def.ID, Holder: p, Bind: c.bind, State: "offered", At: s.Tick,
-		Title: w.render(s, c.def.Title, b), Desc: w.render(s, c.def.Desc, b)}
+		Title: w.render(s, c.def.Title, b), Desc: w.render(s, c.def.Desc, b), Region: s.Entities[p].Region}
+	data := map[string]string{"quest": c.key}
+	if c.def.Giver != "" {
+		q.Giver = resolve(c.def.Giver, b)
+		data["giver"] = string(q.Giver)
+	}
+	if q.Region != "" {
+		data["region"] = string(q.Region)
+	}
 	s.Quests[c.key] = q
-	w.emit(s, Event{Kind: "quest-offered", Holder: p, Text: q.Title, Cause: cause, Data: map[string]string{"quest": c.key}})
+	// The client turns this into presentation: the giver walks up to the
+	// player and calls them. The engine only says who, where and what.
+	w.emit(s, Event{Kind: "quest-offered", Actor: q.Giver, Holder: p, Text: q.Title, Cause: cause, Data: data})
 }
 
 func (w *World) questCommand(s *State, c Command, cause string) error {
@@ -312,9 +355,13 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 		q.State = "declined"
 		s.Declined[q.Key] = s.Tick
 	case "abandon":
+		if !w.U.Limits.AllowAbandon {
+			return reject("this world requires finishing the accepted quest")
+		}
 		if q.State != "active" {
 			return reject("quest state")
 		}
+		w.rest(s, q.Holder)
 		q.State = "abandoned"
 		s.Declined[q.Key] = s.Tick
 	}

@@ -119,3 +119,71 @@ func TestObsoleteQuestFreesTheSlot(t *testing.T) {
 		t.Fatalf("quest should be obsolete once the village is healthy: %+v", q)
 	}
 }
+
+// Offers are not gated by distance: Mira calls the player even while they
+// are in the forest. Coherence comes from the situation, not proximity.
+func TestOfferReachesPlayerAnywhereWithGiver(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.move("p1", "floresta")
+	h.tick(6)
+	q, ok := h.quest("p1", "investigar-poco")
+	if !ok || q.State != "offered" || q.Giver != "mira" || q.Region != "floresta" {
+		t.Fatalf("Mira should reach the player in the forest: %+v", q)
+	}
+	var ev core.Event
+	for _, e := range h.events("quest-offered") {
+		ev = e
+	}
+	if ev.Actor != "mira" || ev.Data["giver"] != "mira" || ev.Data["region"] != "floresta" {
+		t.Fatalf("the offer event must tell the client who calls and where the player is: %+v", ev)
+	}
+	// Coherence: once the player already knows the cause, the offer is withdrawn.
+	h.move("p1", "vila")
+	h.mustAct("player", "p1", "examinar-poco", nil)
+	h.tick(1)
+	if q, _ := h.quest("p1", "investigar-poco"); q.State != "withdrawn" {
+		t.Fatalf("an offer that no longer makes sense must be withdrawn: %+v", q)
+	}
+}
+
+// One quest at a time, and in this world it must be finished.
+func TestAcceptedQuestMustBeFinished(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.tick(6)
+	q, _ := h.quest("p1", "investigar-poco")
+	h.accept("p1", q)
+	if _, err := h.try(core.Command{Kind: "abandon", Origin: "player", Actor: "p1", Quest: q.Key}); !isRejected(err) {
+		t.Fatal("valdoria does not allow abandoning an accepted quest")
+	}
+	h.tick(5)
+	for _, x := range h.s.Quests {
+		if x.Holder == "p1" && x.State == "offered" {
+			t.Fatalf("no new proposal while a quest is active: %+v", x)
+		}
+	}
+	h.mustAct("player", "p1", "examinar-poco", nil)
+	if q, _ := h.quest("p1", "investigar-poco"); q.State != "done" {
+		t.Fatalf("quest should complete: %+v", q)
+	}
+	h.tick(int(h.w.U.Limits.QuestGap) - 1)
+	for _, x := range h.s.Quests {
+		if x.Holder == "p1" && x.State == "offered" {
+			t.Fatalf("the next quest waits the quiet gap: %+v", x)
+		}
+	}
+	for _, d := range h.s.Decisions {
+		if d.Subject == "p1" {
+			t.Fatalf("no decision during the gap: %+v", d)
+		}
+	}
+	h.tick(2 + int(h.w.U.Limits.DecisionTimeout))
+	got := false
+	for _, x := range h.s.Quests {
+		got = got || x.Holder == "p1" && x.State == "offered"
+	}
+	if !got {
+		t.Fatal("after the gap the world offers the next quest")
+	}
+}

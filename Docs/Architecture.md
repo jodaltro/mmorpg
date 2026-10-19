@@ -32,14 +32,15 @@ Regra de dependência: `core` importa só a biblioteca padrão (verificado por `
 
 | Conceito | No motor |
 |---|---|
-| Entidade | `Entity{ID, Kind, Name, Num, Tag}`: tipos e propriedades declarados pelo universo |
+| Entidade | `Entity{ID, Kind, Name, Region, Num, Tag}`: tipos e propriedades declarados pelo universo |
+| Lugares | Entidades dos tipos em `regionKinds`. Cada entidade pode estar em um lugar. O servidor de jogo informa as mudanças (`move`); a posição exata fica no cliente. Ações podem exigir lugar (`in`, `near`); NPCs podem se deslocar (`relocate`) |
 | Verdade do mundo | `Fact{Holder, P, S, O, Cause}`. `Holder` vazio = verdade compartilhada (que ninguém conhece automaticamente); preenchido = fato privado daquele personagem |
 | Conhecimento | `Belief{P, S, O, Holds, Source, From, At}` por entidade. Fontes: `observation`, `communication`, `publication`, `initial`. Pode ficar desatualizado |
 | Regras | Periódicas (`every`), por tipo de entidade (`forEach`) ou agendadas (`schedule`). É isso que mantém o mundo vivo |
 | Ações | Declaradas com quem pode enviá-las: `player` (intenção), `adapter` (servidor de jogo confirmando um acontecimento), `agent` (NPC, só interno) |
 | Agentes NPC | Objetivos com prioridade e condição (normalmente sobre crenças). Se a tentativa falha contra a verdade, o NPC observa os fatos que leu errado |
 | Histórias | `Arc` = DAG de `Beat`. Capítulo único (primeiro a cumprir o objetivo vence) ou compartilhado (todos podem cumprir; o arco avança por condição coletiva) |
-| Missões | Modelos com elegibilidade, parâmetros ligados a entidades, objetivo e recompensas. Geram instâncias diferentes por jogador |
+| Missões | Modelos com elegibilidade, parâmetros ligados a entidades, objetivo, recompensas e o NPC que oferece (`giver`). Geram instâncias diferentes por jogador. A oferta chega onde o jogador estiver: a distância não limita, a coerência sim |
 | Decisões | Escolhas pendentes (`offer`, `story`, `world`) com opções já validadas, contexto, padrão e prazo |
 | Diretor do Mundo | A cada `director.every` ticks, reúne os acontecimentos (`happenings`) elegíveis e pergunta ao Jev qual ocorre (ou `none`). Cada acontecimento tem `cooldown` |
 | Efeitos | Conjunto fechado: `assert`, `retract`, `adjust`, `set`, `observe`, `inform`, `schedule`, `emit` (com `reveals`), todos com `if` opcional |
@@ -54,6 +55,7 @@ Condições: `all`, `any`, `not`, `fact`, `knows` (de `$self` ou de outro), `num
 |---|---|---|
 | `tick` | `system` | Avança o tempo (sequencial: `tick:N+1`) |
 | `join` | `adapter`, `system` | Cria um personagem a partir do modelo do universo |
+| `move` | `adapter`, `system` | O servidor de jogo informa a região em que o personagem entrou |
 | `act` | `player`, `adapter` | Executa uma ação permitida para essa origem |
 | `accept` / `decline` / `abandon` | `player` | Ciclo de vida de missões |
 | `resolve` | `advisor` | Aplica a escolha de uma decisão pendente, revalidada |
@@ -67,7 +69,14 @@ Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expec
 3. Histórias: abre o capítulo atual quando `opens` vale; capítulos compartilhados avançam quando `advanceWhen` vale. Depois, o Diretor do Mundo cria a decisão `world`, se for a hora.
 4. Decisões vencidas recebem o padrão. Se o padrão perdeu a validade, oferece-se outra opção ainda válida.
 5. Agentes NPC, em ordem de ID: no máximo uma tentativa por agente.
-6. Missões: encerra como `obsolete` as missões ativas que perderam a elegibilidade, retira ofertas sem sentido, expira as ignoradas, conclui as cumpridas, reivindica capítulos e gera novas ofertas.
+6. Missões: encerra como `obsolete` as missões ativas que perderam a elegibilidade, retira ofertas sem sentido, expira as ignoradas, conclui as cumpridas, reivindica capítulos e gera novas ofertas (uma missão por vez, respeitando `questGap`).
+
+## Como uma missão chega ao jogador
+
+1. Algo acontece no mundo (uma regra, um acontecimento do diretor, um capítulo da história, uma ação de alguém) e torna um modelo de missão elegível para aquele jogador.
+2. Se o jogador não tem missão ativa nem proposta pendente, e o intervalo `questGap` já passou, o motor monta os candidatos. Com um só candidato, oferece direto; com vários, o Jev escolhe o mais coerente (contexto: perfil, local, história, o que outros receberam).
+3. O evento `quest-offered` diz **quem chama** (`actor` e `data.giver`), **onde o jogador está** (`data.region`) e **o quê** (`text`, `data.quest`). O cliente apresenta como quiser: o NPC vem até o jogador, um mensageiro, um chamado no rádio.
+4. O jogador aceita ou recusa. Aceita, a missão precisa ser concluída antes da próxima (se o universo não permitir abandono). Se deixar de fazer sentido, ela é encerrada como `obsolete` e libera a vaga.
 
 ## Cenários únicos e histórias dinâmicas
 
@@ -95,6 +104,8 @@ Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expec
 | Valdoria, 150 ticks de 0,8 s, 4 jogadores | 14 (13 `world`, 1 `story`) | 14 | ~680 ms | US$ 0,00042 |
 | Valdoria, 120 ticks de 0,7 s, 4 jogadores | 11 | 11 | ~635 ms | US$ 0,00033 |
 | Kepler-9, 100 ticks de 0,7 s, 3 jogadores | 9 | 9 | ~645 ms | US$ 0,00025 |
+| Valdoria com lugares e quem oferece, 150 ticks de 0,7 s | 16 (2 `offer`, 13 `world`, 1 `story`) | 16 | ~650 ms | US$ 0,00048 |
+| Kepler-9 com lugares, 100 ticks de 0,7 s | 10 | 10 | ~640 ms | US$ 0,00027 |
 
 Com `decisionTimeout` de 3 ticks e ticks de 0,7 a 1 s, o prazo (2,1 a 3 s) fica bem acima da latência observada. Ticks mais curtos pedem um `decisionTimeout` maior.
 

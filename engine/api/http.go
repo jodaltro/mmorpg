@@ -26,9 +26,10 @@ type CommandRequest struct {
 	Version          int                `json:"version"`
 	RequestID        string             `json:"requestId"`
 	Origin           string             `json:"origin"` // player | adapter
-	Kind             string             `json:"kind"`   // join | act | accept | decline | abandon
+	Kind             string             `json:"kind"`   // join | move | act | accept | decline | abandon
 	Actor            core.ID            `json:"actor"`
 	Name             string             `json:"name,omitempty"`
+	Region           core.ID            `json:"region,omitempty"`
 	Action           string             `json:"action,omitempty"`
 	Args             map[string]core.ID `json:"args,omitempty"`
 	Quest            string             `json:"quest,omitempty"`
@@ -84,12 +85,12 @@ func Handler(r *sim.Runner) http.Handler {
 			return
 		}
 		if in.Version != Version || in.Origin != "player" && in.Origin != "adapter" ||
-			in.Kind != "join" && in.Kind != "act" && in.Kind != "accept" && in.Kind != "decline" && in.Kind != "abandon" {
+			in.Kind != "join" && in.Kind != "move" && in.Kind != "act" && in.Kind != "accept" && in.Kind != "decline" && in.Kind != "abandon" {
 			reply(rw, 400, errorBody{Version, "invalid_contract"})
 			return
 		}
 		d, err := r.Submit(core.Command{Version: 1, RequestID: in.RequestID, Origin: in.Origin, Kind: in.Kind, Actor: in.Actor,
-			Name: in.Name, Action: in.Action, Args: in.Args, Quest: in.Quest, ExpectedRevision: in.ExpectedRevision})
+			Name: in.Name, Region: in.Region, Action: in.Action, Args: in.Args, Quest: in.Quest, ExpectedRevision: in.ExpectedRevision})
 		if errors.Is(err, core.ErrRejected) {
 			reply(rw, 409, errorBody{Version, err.Error()})
 			return

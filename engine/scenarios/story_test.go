@@ -15,13 +15,21 @@ func TestUniqueScenarioOnlyOneAdvancesTheStory(t *testing.T) {
 	h.tick(6)
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.mustAct("player", p, "examinar-poco", nil)
+		h.move(p, "estrada") // old Tomas calls them on the road
 	}
 	h.tick(1)
 	q1 := h.steer("p1", "cenario-origem")
 	q2 := h.steer("p2", "cenario-origem")
+	if q1.Giver != "tomas" || q1.Region != "estrada" {
+		t.Fatalf("the offer must say who calls and where: %+v", q1)
+	}
 	h.accept("p1", q1)
 	h.accept("p2", q2)
-
+	if err := h.act("adapter", "p1", "seguir-rastro", nil); !isRejected(err) {
+		t.Fatal("the trail is in the forest, not on the road")
+	}
+	h.move("p1", "floresta")
+	h.move("p2", "floresta")
 	h.mustAct("adapter", "p1", "seguir-rastro", nil)
 	if q, _ := h.quest("p1", "cenario-origem"); q.State != "done" {
 		t.Fatalf("p1 should have claimed: %+v", q)
@@ -59,6 +67,7 @@ func TestUniqueScenarioOnlyOneAdvancesTheStory(t *testing.T) {
 	}
 	// p2 can reach the witness quest that only rivals get: declining other
 	// offers makes room for it.
+	h.move("p2", "estrada")
 	found := false
 	for i := 0; i < 8 && !found; i++ {
 		h.tick(1 + int(h.w.U.Limits.DecisionTimeout))
@@ -87,9 +96,11 @@ func TestAdvisorChoosesStoryBranchAndIsRevalidated(t *testing.T) {
 	h.join("p1")
 	h.tick(6)
 	h.mustAct("player", "p1", "examinar-poco", nil)
+	h.move("p1", "estrada")
 	h.tick(1)
 	q := h.steer("p1", "cenario-origem")
 	h.accept("p1", q)
+	h.move("p1", "floresta")
 	h.mustAct("adapter", "p1", "seguir-rastro", nil)
 	id := "story:maldicao:origem"
 	if _, err := h.try(core.Command{Kind: "resolve", Origin: "advisor", Decision: id, Choice: "invented-ending"}); !isRejected(err) {
@@ -107,7 +118,6 @@ func TestAdvisorChoosesStoryBranchAndIsRevalidated(t *testing.T) {
 	}
 	// The dark branch: the pact is a unique scenario too.
 	h.tick(1)
-	h.mustAct("player", "p1", "examinar-poco", nil)
 	if a := h.s.Arcs["maldicao"]; a.Beats["pacto"].State != "open" {
 		t.Fatalf("pact should open: %+v", a)
 	}

@@ -18,9 +18,10 @@ type View struct {
 }
 
 type Seen struct {
-	ID   ID     `json:"id"`
-	Kind string `json:"kind"`
-	Name string `json:"name"`
+	ID     ID     `json:"id"`
+	Kind   string `json:"kind"`
+	Name   string `json:"name"`
+	Region ID     `json:"region,omitempty"`
 }
 
 // StoryView shows the public chronicle of an arc: which chapters were
@@ -51,7 +52,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]
-			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name})
+			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region})
 		}
 	}
 	for _, k := range sortedKeys(s.Facts) {

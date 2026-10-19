@@ -99,7 +99,15 @@ func simulate(args []string) error {
 		}
 		r.Tick()
 		s := r.Snapshot()
+		places := []core.ID{}
+		for _, id := range sortedEntitiesOfKinds(s, w.U.RegionKinds) {
+			places = append(places, id)
+		}
 		for i, id := range ids {
+			if len(places) > 0 && (t+i)%6 == 0 {
+				// The game server reports where each player wanders.
+				submit(core.Command{Origin: "adapter", Kind: "move", Actor: id, Region: places[(t/6+i)%len(places)]})
+			}
 			if (t+i)%4 != 0 {
 				continue
 			}
@@ -231,6 +239,14 @@ func contains(xs []string, x string) bool {
 		}
 	}
 	return false
+}
+
+func sortedEntitiesOfKinds(s core.State, kinds []string) []core.ID {
+	out := []core.ID{}
+	for _, k := range kinds {
+		out = append(out, sortedEntities(s, k)...)
+	}
+	return out
 }
 
 func sortedEntities(s core.State, kind string) []core.ID {

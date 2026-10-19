@@ -14,9 +14,10 @@ type Command struct {
 	Version          int           `json:"version"`
 	RequestID        string        `json:"requestId"`
 	Origin           string        `json:"origin"` // system | player | adapter | advisor
-	Kind             string        `json:"kind"`   // tick | join | act | accept | decline | abandon | resolve
+	Kind             string        `json:"kind"`   // tick | join | move | act | accept | decline | abandon | resolve
 	Actor            ID            `json:"actor,omitempty"`
 	Name             string        `json:"name,omitempty"`
+	Region           ID            `json:"region,omitempty"` // move: the region the game server saw the actor enter
 	Action           string        `json:"action,omitempty"`
 	Args             map[string]ID `json:"args,omitempty"`
 	Quest            string        `json:"quest,omitempty"`
@@ -73,7 +74,7 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 	if c.ExpectedRevision != nil && *c.ExpectedRevision != prev.Revision {
 		return prev, Delta{}, reject("revision")
 	}
-	allowed := map[string][]string{"tick": {"system"}, "join": {"system", "adapter"}, "act": {"player", "adapter"},
+	allowed := map[string][]string{"tick": {"system"}, "join": {"system", "adapter"}, "move": {"system", "adapter"}, "act": {"player", "adapter"},
 		"accept": {"player"}, "decline": {"player"}, "abandon": {"player"}, "resolve": {"advisor"}}
 	if !slices.Contains(allowed[c.Kind], c.Origin) {
 		return prev, Delta{}, reject("origin")
@@ -90,6 +91,8 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 		w.tick(&s, cause)
 	case "join":
 		err = w.join(&s, c)
+	case "move":
+		err = w.move(&s, c, cause)
 	case "act":
 		if err = w.act(&s, c.Origin, c.Actor, c.Action, c.Args, cause); err == nil {
 			w.completeFor(&s, c.Actor, cause)
@@ -165,6 +168,29 @@ func (w *World) join(s *State, c Command) error {
 	}
 	s.Entities[c.Actor] = newEntity(seed)
 	w.emit(s, Event{Kind: "join", Actor: c.Actor, Holder: c.Actor, Text: s.Entities[c.Actor].Name})
+	return nil
+}
+
+// move records the region where the game server saw an actor. Exact
+// positions stay in the client; the world only needs coarse places. Moving
+// can make an NPC nearby call the player with a quest right away.
+func (w *World) move(s *State, c Command, cause string) error {
+	ent, ok := s.Entities[c.Actor]
+	place, isPlace := s.Entities[c.Region]
+	if !ok || !isPlace || !w.regions[place.Kind] {
+		return reject("move")
+	}
+	if ent.Region == c.Region {
+		return nil
+	}
+	ent.Region = c.Region
+	s.Entities[c.Actor] = ent
+	w.emit(s, Event{Kind: "moved", Actor: c.Actor, Holder: c.Actor, Text: place.Name, Cause: cause, Data: map[string]string{"region": string(c.Region)}})
+	if ent.Kind == w.U.PlayerKind {
+		w.refreshOffers(s, c.Actor, cause)
+		w.completeFor(s, c.Actor, cause)
+		w.offer(s, c.Actor, cause)
+	}
 	return nil
 }
 

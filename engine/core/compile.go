@@ -22,6 +22,7 @@ type World struct {
 	kinds     map[string]bool
 	preds     map[string]bool
 	perceives map[string]bool
+	regions   map[string]bool
 }
 
 var ErrUniverse = errors.New("invalid_universe")
@@ -35,7 +36,7 @@ func invalid(format string, a ...any) error {
 func Compile(u Universe) (*World, error) {
 	w := &World{U: u, actions: map[string]ActionDef{}, rules: map[string]RuleDef{}, agents: map[ID]AgentDef{},
 		arcs: map[string]ArcDef{}, beats: map[string]map[string]BeatDef{}, quests: map[string]QuestDef{},
-		kinds: map[string]bool{}, preds: map[string]bool{}, perceives: map[string]bool{}}
+		kinds: map[string]bool{}, preds: map[string]bool{}, perceives: map[string]bool{}, regions: map[string]bool{}}
 	if u.Version != 1 {
 		return nil, invalid("unsupported version %d", u.Version)
 	}
@@ -63,6 +64,12 @@ func Compile(u Universe) (*World, error) {
 		}
 		w.perceives[k] = true
 	}
+	for _, k := range u.RegionKinds {
+		if !w.kinds[k] || k == u.PlayerKind {
+			return nil, invalid("region kind %q", k)
+		}
+		w.regions[k] = true
+	}
 	ents := map[ID]string{}
 	for _, e := range u.Entities {
 		if e.ID == "" || ents[e.ID] != "" || strings.HasPrefix(string(e.ID), "$") {
@@ -73,7 +80,18 @@ func Compile(u Universe) (*World, error) {
 		}
 		ents[e.ID] = e.Kind
 	}
+	for _, e := range append([]EntitySeed{u.Player}, u.Entities...) {
+		if e.Region != "" && !w.regions[ents[e.Region]] {
+			return nil, invalid("entity %s: region %q is not a place", e.ID, e.Region)
+		}
+	}
+	if len(w.regions) > 0 && u.Player.Region == "" {
+		return nil, invalid("player needs a starting region")
+	}
 	l := u.Limits
+	if l.QuestGap < 0 {
+		return nil, invalid("limits")
+	}
 	if l.MaxActiveQuests < 1 || l.DecisionTimeout < 1 || l.DeclineCooldown < 0 || l.OfferExpiry < 1 || l.MaxEvents < 16 {
 		return nil, invalid("limits")
 	}
@@ -322,6 +340,19 @@ func (w *World) compileQuests(v *validator) error {
 		if e := v.cond(q.Eligible, map[string]bool{"self": true}, "quest "+q.ID); e != nil {
 			return e
 		}
+		if q.Giver != "" {
+			if e := v.ref(q.Giver, vars, "quest "+q.ID+" giver"); e != nil {
+				return e
+			}
+			if q.Giver == "$self" {
+				return invalid("quest %s: a player cannot be their own giver", q.ID)
+			}
+		}
+		if q.Region != "" {
+			if e := v.place(q.Region, vars, "quest "+q.ID+" region"); e != nil {
+				return e
+			}
+		}
 		if e := v.cond(q.Goal, vars, "quest "+q.ID); e != nil {
 			return e
 		}
@@ -350,6 +381,17 @@ func (v *validator) ref(r string, vars map[string]bool, where string) error {
 	}
 	if v.ents[ID(r)] == "" {
 		return invalid("%s: unknown entity %s", where, r)
+	}
+	return nil
+}
+
+// place is a reference to a region: a variable, or a literal place entity.
+func (v *validator) place(r string, vars map[string]bool, where string) error {
+	if e := v.ref(r, vars, where); e != nil {
+		return e
+	}
+	if !strings.HasPrefix(r, "$") && !v.w.regions[v.ents[ID(r)]] {
+		return invalid("%s: %s is not a place", where, r)
 	}
 	return nil
 }
@@ -445,6 +487,24 @@ func (v *validator) cond(c Cond, vars map[string]bool, where string) error {
 			return invalid("%s: beat state %q", where, b.State)
 		}
 	}
+	if c.In != nil {
+		n++
+		if e := v.ref(c.In.E, vars, where); e != nil {
+			return e
+		}
+		if e := v.place(c.In.Region, vars, where); e != nil {
+			return e
+		}
+	}
+	if c.Near != nil {
+		n++
+		if e := v.ref(c.Near.A, vars, where); e != nil {
+			return e
+		}
+		if e := v.ref(c.Near.B, vars, where); e != nil {
+			return e
+		}
+	}
 	if n > 1 {
 		return invalid("%s: condition node with %d operators", where, n)
 	}
@@ -484,6 +544,13 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 				return invalid("%s: %s needs key/delta", where, e.Op)
 			}
 			if err := v.ref(e.E, vars, where); err != nil {
+				return err
+			}
+		case "relocate":
+			if err := v.ref(e.E, vars, where); err != nil {
+				return err
+			}
+			if err := v.place(e.To, vars, where); err != nil {
 				return err
 			}
 		case "schedule":

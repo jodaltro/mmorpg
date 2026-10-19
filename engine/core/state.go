@@ -11,11 +11,12 @@ import (
 )
 
 type Entity struct {
-	ID   ID                `json:"id"`
-	Kind string            `json:"kind"`
-	Name string            `json:"name"`
-	Num  map[string]int64  `json:"num"`
-	Tag  map[string]string `json:"tag"`
+	ID     ID                `json:"id"`
+	Kind   string            `json:"kind"`
+	Name   string            `json:"name"`
+	Region ID                `json:"region,omitempty"`
+	Num    map[string]int64  `json:"num"`
+	Tag    map[string]string `json:"tag"`
 }
 
 // Fact is ground truth. Holder "" means world scope (shared, but not
@@ -82,7 +83,9 @@ type Quest struct {
 	Def    string `json:"def"`
 	Holder ID     `json:"holder"`
 	Bind   Bind   `json:"bind,omitempty"`
-	State  string `json:"state"` // offered active done declined expired superseded abandoned
+	State  string `json:"state"` // offered active done declined expired withdrawn obsolete superseded abandoned
+	Giver  ID     `json:"giver,omitempty"`
+	Region ID     `json:"region,omitempty"`
 	At     Tick   `json:"at"`
 	Title  string `json:"title"`
 	Desc   string `json:"desc,omitempty"`
@@ -216,7 +219,7 @@ func NewState(w *World) State {
 }
 
 func newEntity(e EntitySeed) Entity {
-	n := Entity{ID: e.ID, Kind: e.Kind, Name: e.Name, Num: maps.Clone(e.Num), Tag: maps.Clone(e.Tag)}
+	n := Entity{ID: e.ID, Kind: e.Kind, Name: e.Name, Region: e.Region, Num: maps.Clone(e.Num), Tag: maps.Clone(e.Tag)}
 	if n.Num == nil {
 		n.Num = map[string]int64{}
 	}

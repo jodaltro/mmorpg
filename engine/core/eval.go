@@ -99,8 +99,26 @@ func (w *World) Holds(s *State, c Cond, b Bind) bool {
 		return ok && e.Tag[c.Tag.K] == c.Tag.V
 	case c.Beat != nil:
 		return s.Arcs[c.Beat.Arc].Beats[c.Beat.Beat].State == c.Beat.State
+	case c.In != nil:
+		e, ok := s.Entities[resolve(c.In.E, b)]
+		return ok && e.Region != "" && e.Region == resolve(c.In.Region, b)
+	case c.Near != nil:
+		return w.near(s, resolve(c.Near.A, b), resolve(c.Near.B, b))
 	}
 	return true
+}
+
+// near: a is where b is, or inside b when b is itself a place.
+func (w *World) near(s *State, a, b ID) bool {
+	ea, ok := s.Entities[a]
+	if !ok || ea.Region == "" {
+		return false
+	}
+	if ea.Region == b {
+		return true
+	}
+	eb, ok := s.Entities[b]
+	return ok && eb.Region == ea.Region
 }
 
 // patterns collects the world fact patterns a condition reads; an agent
@@ -211,6 +229,12 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 			if mine, has := s.Beliefs[self][k]; has {
 				mine.Source, mine.From, mine.At = "communication", self, s.Tick
 				s.believe(to, mine)
+			}
+		case "relocate":
+			id, to := resolve(e.E, b), resolve(e.To, b)
+			if ent, ok := s.Entities[id]; ok && w.regions[s.Entities[to].Kind] {
+				ent.Region = to
+				s.Entities[id] = ent
 			}
 		case "schedule":
 			s.Seq++

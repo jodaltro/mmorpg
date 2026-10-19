@@ -18,6 +18,9 @@ func (w *World) name(s *State, id ID) string {
 func (w *World) profile(s *State, p ID) []string {
 	e := s.Entities[p]
 	out := []string{"player: " + e.Name}
+	if e.Region != "" {
+		out = append(out, "location: "+w.name(s, e.Region))
+	}
 	if t := e.Tag["title"]; t != "" {
 		out = append(out, "title: "+t)
 	}

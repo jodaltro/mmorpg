@@ -7,7 +7,8 @@
     "settlement",
     "landmark",
     "npc",
-    "player"
+    "player",
+    "wilds"
   ],
   "predicates": [
     "poisoned",
@@ -37,7 +38,8 @@
       "reputation": 0,
       "relics": 0,
       "infamy": 0
-    }
+    },
+    "region": "vila"
   },
   "perceivers": [
     "npc",
@@ -56,7 +58,8 @@
     {
       "id": "poco",
       "kind": "landmark",
-      "name": "Poco Antigo"
+      "name": "Poco Antigo",
+      "region": "vila"
     },
     {
       "id": "selo",
@@ -64,7 +67,8 @@
       "name": "Selo da Floresta",
       "num": {
         "forest": 0
-      }
+      },
+      "region": "floresta"
     },
     {
       "id": "mira",
@@ -73,17 +77,30 @@
       "num": {
         "herbs": 0,
         "antidotes": 0
-      }
+      },
+      "region": "vila"
     },
     {
       "id": "orin",
       "kind": "npc",
-      "name": "Orin, o guarda"
+      "name": "Orin, o guarda",
+      "region": "vila"
     },
     {
       "id": "tomas",
       "kind": "npc",
-      "name": "Velho Tomas"
+      "name": "Velho Tomas",
+      "region": "estrada"
+    },
+    {
+      "id": "floresta",
+      "kind": "wilds",
+      "name": "Floresta Cinzenta"
+    },
+    {
+      "id": "estrada",
+      "kind": "wilds",
+      "name": "Estrada do Leste"
     }
   ],
   "schedules": [
@@ -438,7 +455,12 @@
         "adapter"
       ],
       "desc": "Examina a agua do Poco Antigo.",
-      "requires": {},
+      "requires": {
+        "near": {
+          "a": "$self",
+          "b": "poco"
+        }
+      },
       "effects": [
         {
           "op": "observe",
@@ -482,10 +504,20 @@
         }
       ],
       "requires": {
-        "knows": {
-          "p": "poisoned",
-          "s": "poco"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "$npc"
+            }
+          }
+        ]
       },
       "effects": [
         {
@@ -574,6 +606,12 @@
               "p": "poisoned",
               "s": "poco"
             }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "poco"
+            }
           }
         ]
       },
@@ -611,10 +649,20 @@
       ],
       "desc": "Servidor de jogo confirma: o jogador seguiu o rastro ate o selo.",
       "requires": {
-        "fact": {
-          "p": "seal-broken",
-          "s": "selo"
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
+            }
+          }
+        ]
       },
       "effects": [
         {
@@ -646,12 +694,22 @@
         "player"
       ],
       "requires": {
-        "fact": {
-          "p": "witnessed",
-          "s": "$self",
-          "o": "selo",
-          "private": true
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "witnessed",
+              "s": "$self",
+              "o": "selo",
+              "private": true
+            }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "tomas"
+            }
+          }
+        ]
       },
       "effects": [
         {
@@ -690,6 +748,12 @@
               "k": "relics",
               "op": "<",
               "v": 1
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
             }
           }
         ]
@@ -736,6 +800,12 @@
               "op": "<",
               "v": 1
             }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "selo"
+            }
           }
         ]
       },
@@ -774,6 +844,12 @@
                 "o": "selo",
                 "private": true
               }
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
             }
           }
         ]
@@ -815,10 +891,20 @@
       ],
       "desc": "Servidor de jogo confirma: o jogador repeliu criaturas corrompidas na vila.",
       "requires": {
-        "fact": {
-          "p": "seal-shattered",
-          "s": "selo"
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "seal-shattered",
+              "s": "selo"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          }
+        ]
       },
       "effects": [
         {
@@ -867,6 +953,12 @@
                 "o": "vila",
                 "private": true
               }
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "estrada"
             }
           }
         ]
@@ -917,6 +1009,12 @@
                 "o": "vila",
                 "private": true
               }
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
             }
           }
         ]
@@ -1371,7 +1469,8 @@
           "k": "reputation",
           "d": 1
         }
-      ]
+      ],
+      "giver": "mira"
     },
     {
       "id": "avisar",
@@ -1429,7 +1528,7 @@
       "arc": "maldicao",
       "beat": "origem",
       "title": "Cenario Unico: A Origem da Maldicao",
-      "desc": "Siga o rastro da corrupcao ate a floresta. So um aventureiro chegara primeiro.",
+      "desc": "O Velho Tomas manda te chamar: luzes na floresta, a origem da doenca. So um aventureiro chegara primeiro.",
       "eligible": {
         "fact": {
           "p": "noticed",
@@ -1453,7 +1552,8 @@
           "k": "reputation",
           "d": 2
         }
-      ]
+      ],
+      "giver": "tomas"
     },
     {
       "id": "testemunha",
@@ -1482,7 +1582,8 @@
           "k": "reputation",
           "d": 2
         }
-      ]
+      ],
+      "giver": "tomas"
     },
     {
       "id": "cenario-restaurar",
@@ -1503,7 +1604,8 @@
           "op": ">=",
           "v": 1
         }
-      }
+      },
+      "giver": "orin"
     },
     {
       "id": "cenario-pacto",
@@ -1548,7 +1650,8 @@
           "k": "reputation",
           "d": 1
         }
-      ]
+      ],
+      "giver": "mira"
     },
     {
       "id": "resistir",
@@ -1564,7 +1667,8 @@
           "o": "vila",
           "private": true
         }
-      }
+      },
+      "giver": "orin"
     },
     {
       "id": "escoltar",
@@ -1618,7 +1722,8 @@
           "k": "reputation",
           "d": 1
         }
-      ]
+      ],
+      "giver": "orin"
     }
   ],
   "limits": {
@@ -1626,7 +1731,9 @@
     "decisionTimeout": 3,
     "declineCooldown": 20,
     "offerExpiry": 30,
-    "maxEvents": 2000
+    "maxEvents": 2000,
+    "allowAbandon": false,
+    "questGap": 5
   },
   "happenings": [
     {
@@ -1829,5 +1936,9 @@
   "director": {
     "every": 10,
     "allowNone": true
-  }
+  },
+  "regionKinds": [
+    "settlement",
+    "wilds"
+  ]
 }

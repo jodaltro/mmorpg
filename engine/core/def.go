@@ -29,6 +29,7 @@ type Universe struct {
 	Kinds       []string     `json:"kinds"`
 	Predicates  []string     `json:"predicates"`
 	PlayerKind  string       `json:"playerKind"`
+	RegionKinds []string     `json:"regionKinds,omitempty"` // kinds whose entities are places
 	Player      EntitySeed   `json:"player"`
 	Perceivers  []string     `json:"perceivers"`
 	Entities    []EntitySeed `json:"entities"`
@@ -64,11 +65,12 @@ type Director struct {
 }
 
 type EntitySeed struct {
-	ID   ID                `json:"id"`
-	Kind string            `json:"kind"`
-	Name string            `json:"name"`
-	Num  map[string]int64  `json:"num,omitempty"`
-	Tag  map[string]string `json:"tag,omitempty"`
+	ID     ID                `json:"id"`
+	Kind   string            `json:"kind"`
+	Name   string            `json:"name"`
+	Region ID                `json:"region,omitempty"` // where it is; players start here
+	Num    map[string]int64  `json:"num,omitempty"`
+	Tag    map[string]string `json:"tag,omitempty"`
 }
 
 type FactSeed struct {
@@ -94,11 +96,13 @@ type Schedule struct {
 
 // Limits encode the product rules that keep the world readable for players.
 type Limits struct {
-	MaxActiveQuests int  `json:"maxActiveQuests"` // per player; GameVision: 1
-	DecisionTimeout Tick `json:"decisionTimeout"` // ticks before the deterministic default applies
-	DeclineCooldown Tick `json:"declineCooldown"` // a declined offer is not proposed again before this
-	OfferExpiry     Tick `json:"offerExpiry"`     // an ignored offer expires
-	MaxEvents       int  `json:"maxEvents"`       // chronicle retention
+	MaxActiveQuests int  `json:"maxActiveQuests"`        // per player; GameVision: 1
+	DecisionTimeout Tick `json:"decisionTimeout"`        // ticks before the deterministic default applies
+	DeclineCooldown Tick `json:"declineCooldown"`        // a declined offer is not proposed again before this
+	OfferExpiry     Tick `json:"offerExpiry"`            // an ignored offer expires
+	MaxEvents       int  `json:"maxEvents"`              // chronicle retention
+	AllowAbandon    bool `json:"allowAbandon,omitempty"` // false: an accepted quest must be finished
+	QuestGap        Tick `json:"questGap,omitempty"`     // quiet ticks after a quest ends before the next offer
 }
 
 // Pattern addresses a fact. Private facts belong to $self.
@@ -120,6 +124,20 @@ type Cond struct {
 	Num   *NumCmp  `json:"num,omitempty"`
 	Tag   *TagCmp  `json:"tag,omitempty"`
 	Beat  *BeatCmp `json:"beat,omitempty"`
+	In    *InCmp   `json:"in,omitempty"`
+	Near  *NearCmp `json:"near,omitempty"`
+}
+
+// InCmp holds when entity E is in region Region.
+type InCmp struct {
+	E      string `json:"e"`
+	Region string `json:"region"`
+}
+
+// NearCmp holds when A is in the same region as B, or inside B when B is a region.
+type NearCmp struct {
+	A string `json:"a"`
+	B string `json:"b"`
 }
 
 // Knows holds when Who (default $self) believes the world fact holds.
@@ -153,7 +171,7 @@ type BeatCmp struct {
 
 // Effect is one of a closed set of operations. Universes cannot inject code.
 type Effect struct {
-	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit
+	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate
 	Fact    *Pattern `json:"fact,omitempty"`
 	E       string   `json:"e,omitempty"`
 	K       string   `json:"k,omitempty"`
@@ -256,6 +274,8 @@ type QuestDef struct {
 	Desc     string       `json:"desc,omitempty"`
 	Arc      string       `json:"arc,omitempty"` // with Beat: this quest pursues a story beat
 	Beat     string       `json:"beat,omitempty"`
+	Giver    string       `json:"giver,omitempty"`  // NPC who reaches out to the player, wherever they are
+	Region   string       `json:"region,omitempty"` // optional: offered only while the player is in this region
 	Eligible Cond         `json:"eligible"`
 	Params   []QuestParam `json:"params,omitempty"`
 	Goal     Cond         `json:"goal"`

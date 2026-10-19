@@ -24,13 +24,19 @@
     "name": "",
     "num": {
       "merit": 0
-    }
+    },
+    "region": "habitat"
   },
   "perceivers": [
     "crew",
     "player"
   ],
   "entities": [
+    {
+      "id": "habitat",
+      "kind": "module",
+      "name": "Modulo Habitacional"
+    },
     {
       "id": "reator",
       "kind": "module",
@@ -50,12 +56,14 @@
       "name": "Dra. Ines, engenheira-chefe",
       "num": {
         "patches": 0
-      }
+      },
+      "region": "reator"
     },
     {
       "id": "kai",
       "kind": "crew",
-      "name": "Kai, tecnico"
+      "name": "Kai, tecnico",
+      "region": "habitat"
     }
   ],
   "schedules": [
@@ -211,7 +219,12 @@
         "agent",
         "adapter"
       ],
-      "requires": {},
+      "requires": {
+        "near": {
+          "a": "$self",
+          "b": "reator"
+        }
+      },
       "effects": [
         {
           "op": "observe",
@@ -240,10 +253,20 @@
         }
       ],
       "requires": {
-        "knows": {
-          "p": "leak",
-          "s": "reator"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "leak",
+              "s": "reator"
+            }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "$crew"
+            }
+          }
+        ]
       },
       "effects": [
         {
@@ -297,6 +320,12 @@
               "p": "leak",
               "s": "reator"
             }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "reator"
+            }
           }
         ]
       },
@@ -333,10 +362,20 @@
         "adapter"
       ],
       "requires": {
-        "fact": {
-          "p": "signal",
-          "s": "antena"
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "signal",
+              "s": "antena"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "antena"
+            }
+          }
+        ]
       },
       "effects": [
         {
@@ -376,6 +415,12 @@
                 "o": "antena",
                 "private": true
               }
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "antena"
             }
           }
         ]
@@ -420,6 +465,12 @@
                 "private": true
               }
             }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "reator"
+            }
           }
         ]
       },
@@ -438,6 +489,32 @@
           "e": "$self",
           "k": "merit",
           "d": 1
+        }
+      ]
+    },
+    {
+      "id": "ir-ao-reator",
+      "by": [
+        "agent"
+      ],
+      "requires": {
+        "not": {
+          "in": {
+            "e": "$self",
+            "region": "reator"
+          }
+        }
+      },
+      "effects": [
+        {
+          "op": "relocate",
+          "e": "$self",
+          "to": "reator"
+        },
+        {
+          "op": "emit",
+          "event": "walk",
+          "text": "{self} corre para o Modulo do Reator."
         }
       ]
     }
@@ -531,6 +608,37 @@
                   "knows": {
                     "p": "leak",
                     "s": "reator"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "ir-reator",
+          "priority": 7,
+          "action": "ir-ao-reator",
+          "when": {
+            "all": [
+              {
+                "knows": {
+                  "p": "alarm",
+                  "s": "reator"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "p": "leak",
+                    "s": "reator"
+                  }
+                }
+              },
+              {
+                "not": {
+                  "in": {
+                    "e": "$self",
+                    "region": "reator"
                   }
                 }
               }
@@ -679,7 +787,8 @@
           "k": "merit",
           "d": 1
         }
-      ]
+      ],
+      "giver": "kai"
     },
     {
       "id": "contato",
@@ -725,7 +834,8 @@
           "o": "reator",
           "private": true
         }
-      }
+      },
+      "giver": "ines"
     }
   ],
   "limits": {
@@ -733,7 +843,9 @@
     "decisionTimeout": 3,
     "declineCooldown": 15,
     "offerExpiry": 25,
-    "maxEvents": 1000
+    "maxEvents": 1000,
+    "allowAbandon": true,
+    "questGap": 3
   },
   "happenings": [
     {
@@ -805,5 +917,8 @@
   "director": {
     "every": 8,
     "allowNone": true
-  }
+  },
+  "regionKinds": [
+    "module"
+  ]
 }

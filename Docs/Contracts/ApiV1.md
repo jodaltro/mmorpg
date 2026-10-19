@@ -20,16 +20,26 @@ Todos os corpos são JSON com `"version": 1`. Campos desconhecidos são recusado
 |---|---|
 | `requestId` | Único por comando (`[A-Za-z0-9-_.:]`, até 128). Repetir = no-op com `duplicate: true` |
 | `origin` | `player` (intenção do jogador) ou `adapter` (servidor de jogo confirmando um acontecimento) |
-| `kind` | `join`, `act`, `accept`, `decline`, `abandon` |
+| `kind` | `join`, `move`, `act`, `accept`, `decline`, `abandon` |
 | `actor` | Personagem que age (ou que entra, em `join`) |
 | `name` | Nome exibido (`join`) |
+| `region` | Lugar em que o servidor de jogo viu o personagem entrar (`move`, origem `adapter`) |
 | `action`, `args` | Ação do universo e seus parâmetros (`act`) |
 | `quest` | Chave da missão (`accept`/`decline`/`abandon`) |
 | `expectedRevision` | Opcional: recusa (409) se o mundo mudou |
 
 Respostas: 200 `{version, revision, tick, duplicate, events}` com os eventos visíveis ao ator; 400 contrato inválido; 409 recusado pelas regras (`rejected: requirements`, `rejected: action`...); 503 log indisponível.
 
-`tick` e `resolve` são internos e não podem ser enviados pela API.
+`tick` e `resolve` são internos e não podem ser enviados pela API. `abandon` é recusado (409) quando o universo exige concluir a missão aceita.
+
+## Oferta de missão no stream
+
+```json
+{"kind": "quest-offered", "actor": "mira", "holder": "p1", "text": "Os aldeoes estao adoecendo",
+ "data": {"quest": "investigar-poco|p1", "giver": "mira", "region": "floresta"}}
+```
+
+`actor`/`giver` é o NPC que chama; `region` é onde o jogador está naquele momento. A distância não importa: o cliente decide como o NPC alcança o jogador. Os detalhes completos ficam em `GET /v1/views/{id}` → `quests`.
 
 ## Integração por engine
 

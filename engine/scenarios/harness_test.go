@@ -142,3 +142,9 @@ func (h *harness) events(kind string) []core.Event {
 }
 
 func isRejected(err error) bool { return errors.Is(err, core.ErrRejected) }
+
+// move reports, as the game server would, that actor entered a region.
+func (h *harness) move(actor, region core.ID) {
+	h.t.Helper()
+	h.do(core.Command{Kind: "move", Origin: "adapter", Actor: actor, Region: region})
+}
