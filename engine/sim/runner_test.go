@@ -13,6 +13,16 @@ import (
 	"github.com/jodaltro/mmorpg/engine/universe"
 )
 
+func offers(s core.State) int {
+	n := 0
+	for _, d := range s.Decisions {
+		if d.Kind == "offer" {
+			n++
+		}
+	}
+	return n
+}
+
 func world(t *testing.T) *core.World {
 	w, err := universe.Load("../../universes/valdoria/universe.json")
 	if err != nil {
@@ -132,7 +142,7 @@ func TestSlowAdvisorNeverBlocksTheWorld(t *testing.T) {
 	ticks(t, r, 6)
 	must(t, r, core.Command{RequestID: "look", Origin: "player", Kind: "act", Actor: "p1", Action: "examinar-poco"})
 	ticks(t, r, 1)
-	if len(r.Snapshot().Decisions) == 0 {
+	if offers(r.Snapshot()) == 0 {
 		t.Fatal("expected a pending offer decision")
 	}
 	start := time.Now()
@@ -143,7 +153,7 @@ func TestSlowAdvisorNeverBlocksTheWorld(t *testing.T) {
 	if el := time.Since(start); el > time.Second {
 		t.Fatalf("game commands waited for the advisor: %v", el)
 	}
-	if len(r.Snapshot().Decisions) != 0 {
+	if offers(r.Snapshot()) != 0 {
 		t.Fatalf("default should have applied: %+v", r.Snapshot().Decisions)
 	}
 	close(release)
@@ -167,7 +177,7 @@ func TestAdvisorAnswerAppliedOrRejected(t *testing.T) {
 	ticks(t, r, 1)
 	r.Drain()
 	s := r.Snapshot()
-	if len(s.Decisions) != 0 {
+	if offers(s) != 0 {
 		t.Fatal("advisor answer should resolve the decision immediately")
 	}
 	applied := false
@@ -187,11 +197,11 @@ func TestAdvisorAnswerAppliedOrRejected(t *testing.T) {
 	must(t, bad, core.Command{RequestID: "look", Origin: "player", Kind: "act", Actor: "p1", Action: "examinar-poco"})
 	ticks(t, bad, 1)
 	bad.Drain()
-	if len(bad.Snapshot().Decisions) != 1 {
+	if offers(bad.Snapshot()) != 1 {
 		t.Fatal("an invalid answer must leave the decision pending for the default")
 	}
 	ticks(t, bad, int(w.U.Limits.DecisionTimeout))
-	if len(bad.Snapshot().Decisions) != 0 {
+	if offers(bad.Snapshot()) != 0 {
 		t.Fatal("default must apply after an invalid answer")
 	}
 	bad.Close()

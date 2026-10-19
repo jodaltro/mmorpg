@@ -44,6 +44,7 @@ type jevRequest struct {
 
 var instructions = map[string]string{
 	"offer": "Choose the single opportunity that best fits this player now, given what they know, what they did recently and what is happening in the world. Prefer variety and personal relevance. Use only the supplied criteria IDs.",
+	"world": "You are the director of a shared persistent world. Choose which of the supplied happenings occurs now, or none, so the world feels alive, coherent with recent events and the ongoing story, and gives players new things to react to. Avoid repeating what just happened. Use only the supplied criteria IDs.",
 	"story": "Choose how the shared world story continues after this chapter, given who concluded it and the recent public events. Prefer the continuation that makes the world feel reactive and coherent. Use only the supplied criteria IDs.",
 }
 
@@ -62,7 +63,7 @@ func (j *Jev) Decide(ctx context.Context, universe string, d core.Decision) (Ans
 		back[k] = o.ID
 	}
 	ctxLines := []string{}
-	for _, c := range d.Context {
+	for _, c := range head(d.Context, 32) {
 		ctxLines = append(ctxLines, clip(c, 256))
 	}
 	body, err := json.Marshal(jevRequest{Model: JevModel,
@@ -91,6 +92,7 @@ func (j *Jev) Decide(ctx context.Context, universe string, d core.Decision) (Ans
 	if client == nil {
 		client = &http.Client{CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
 	}
+	started := time.Now()
 	res, err := client.Do(req)
 	if err != nil {
 		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
@@ -107,7 +109,11 @@ func (j *Jev) Decide(ctx context.Context, universe string, d core.Decision) (Ans
 		return Answer{}, errors.New("invalid_response")
 	}
 	var wire struct {
-		Model    string `json:"model"`
+		ID    string `json:"id"`
+		Model string `json:"model"`
+		Usage *struct {
+			Cost *float64 `json:"cost"`
+		} `json:"usage"`
 		Provider string `json:"provider"`
 		Answers  map[string]struct {
 			Type          string             `json:"type"`
@@ -129,7 +135,33 @@ func (j *Jev) Decide(ctx context.Context, universe string, d core.Decision) (Ans
 	if !strings.HasPrefix(wire.Model, JevModel) || strings.Contains(wire.Model, j.APIKey) || len(wire.Model) > 64 {
 		return Answer{}, errors.New("invalid_model")
 	}
-	return Answer{Choice: back[a.Choice], Provider: "jev", Model: wire.Model, Confidence: a.Confidence}, nil
+	ans := Answer{Choice: back[a.Choice], Provider: "jev", Model: wire.Model, Confidence: a.Confidence, LatencyMS: time.Since(started).Milliseconds()}
+	if validCall(wire.ID) && !strings.Contains(wire.ID, j.APIKey) {
+		ans.Call = wire.ID
+	}
+	if wire.Usage != nil && wire.Usage.Cost != nil && *wire.Usage.Cost >= 0 && !math.IsInf(*wire.Usage.Cost, 0) {
+		ans.Cost = wire.Usage.Cost
+	}
+	return ans, nil
+}
+
+func validCall(id string) bool {
+	if !strings.HasPrefix(id, "gen-dec-") || len(id) > 128 {
+		return false
+	}
+	for _, c := range id {
+		if !(c >= 0x61 && c <= 0x7a || c >= 0x41 && c <= 0x5a || c >= 0x30 && c <= 0x39 || c == 0x2d || c == 0x5f) {
+			return false
+		}
+	}
+	return true
+}
+
+func head(xs []string, n int) []string {
+	if len(xs) > n {
+		return xs[:n]
+	}
+	return xs
 }
 
 func clip(s string, n int) string {

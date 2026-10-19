@@ -1,10 +1,12 @@
 # Validação do motor — 19/10/2026
 
-Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.dev/dl`), instalado em `D:\tools\go`, fora do repositório. Nenhuma chamada paga ao Jev foi feita: os testes do provider usam `httptest`.
+Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.dev/dl`), instalado em `D:\tools\go`, fora do repositório. Os testes automáticos do provider usam `httptest`. As chamadas reais ao Jev, autorizadas pelo usuário, estão na seção "Jev ao vivo".
 
 ## Executado
 
-`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **25 testes, 25 passaram**.
+`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **24 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
+
+> Correção: a primeira versão deste registro dizia "25 testes"; a contagem real da época era 21. Os três testes do Diretor e das missões obsoletas foram acrescentados depois.
 
 | Pacote | Teste | Prova |
 |---|---|---|
@@ -29,14 +31,34 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | advisor | `TestJevTimeout` | Timeout de 50 ms respeitado |
 | api | `TestCommandsAndPerObserverViews` | Contrato v1; `tick`/`resolve`/campo `damage` recusados; visões separadas; cross-origin 403 |
 | api | `TestStreamPushesOnlyVisibleEvents` | O SSE de p2 recebe eventos públicos e nenhum evento privado de p1 |
+| scenarios | `TestDirectorProposesHappeningsAndAdvisorPicks` | O diretor propõe acontecimentos elegíveis e `none`; um acontecimento inventado é recusado; "lobos" ocorre, é revelado e cria a missão de caça; o cooldown impede a repetição |
+| scenarios | `TestDirectorDefaultsWithoutAdvisor` | Sem conselheiro, o padrão faz acontecimentos ocorrerem |
+| scenarios | `TestObsoleteQuestFreesTheSlot` | A missão ativa que perdeu o sentido vira `obsolete` |
+| scenarios | `TestLiveJevDecidesRealWorldDecisions` | Opt-in, com chamada real (ver abaixo) |
 
 ## Execuções manuais
 
 - `worldsim simulate` com 4 jogadores roteirizados por 240 ticks, nos dois universos. Em Valdoria, o arco *A Maldição do Selo* foi concluído: origem e restauração pelo Jogador 2, capítulo coletivo por três jogadores, continuações de rival para os outros. Em Kepler-9, Primeiro Contato pelo Jogador 1 e Aliança para todos.
 - `worldsim serve` real em `127.0.0.1:8095` (tick de 100 ms, conselheiro determinístico): `health`, `join`, `act`, `views` e cross-origin 403 via `curl`. O processo foi encerrado e reaberto sobre o mesmo log: voltou no tick 29 com as crenças e missões da jogadora.
 
+## Jev ao vivo (chamadas reais, OpenRouter Decisions, `typesafe/jev-1.13-20260917`)
+
+- Sonda bruta: HTTP 200 em 1,6 s; formato da resposta igual ao esperado pelo motor (`answers.choice`, `probabilities`, `confidence`, `usage.cost`, `id gen-dec-…`, `provider TypeSafe`).
+- `TestLiveJevDecidesRealWorldDecisions`: 3 de 3 decisões reais (duas ofertas e um ramo de história) com escolha válida; latência de 600 a 960 ms; cerca de US$ 0,00003 por decisão. O ramo escolhido foi aplicado pelo motor.
+- Mundo rodando com `-advisor jev`:
+
+| Corrida | Decisões | Resolvidas pelo Jev no prazo | Latência média | Confiança média (world / story) | Custo |
+|---|---|---|---|---|---|
+| Valdoria, 120 ticks de 1 s, antes do diretor | 1 (`story`) | 1 | 926 ms | — / 0,94 | US$ 0,000031 |
+| Valdoria, 150 ticks de 0,8 s | 14 (13 `world`, 1 `story`) | 14 | ~680 ms | 0,43 / 0,86 | US$ 0,00042 |
+| Valdoria, 120 ticks de 0,7 s | 11 | 11 | ~635 ms | 0,43 / 0,88 | US$ 0,00033 |
+| Kepler-9, 100 ticks de 0,7 s | 9 | 9 | ~645 ms | 0,31 / 0,38 | US$ 0,00025 |
+
+Na Kepler-9 o Jev escolheu o ramo "A Ameaça", que não é o padrão determinístico, então a escolha mudou a história. A primeira sonda, com contexto mínimo, teve confiança de 0,08; depois do contexto enriquecido, as decisões de história ficaram entre 0,38 e 0,94.
+
+Problemas encontrados nessas corridas e corrigidos: missão ativa impossível prendendo o jogador (agora `obsolete`); ações repetíveis no universo orbital (agora limitadas).
+
 ## Não executado
 
-- Chamada real ao Jev (custo; exige `OPENROUTER_API_KEY` em `engine/.env`, já copiada do arquivo local, e `-advisor jev`).
 - `-race`: indisponível sem cgo/gcc nesta máquina.
 - Nenhum cliente de engine (Unity/Unreal/Godot) foi conectado ainda.

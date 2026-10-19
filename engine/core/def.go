@@ -40,7 +40,27 @@ type Universe struct {
 	Agents      []AgentDef   `json:"agents,omitempty"`
 	Arcs        []ArcDef     `json:"arcs,omitempty"`
 	Quests      []QuestDef   `json:"quests,omitempty"`
+	Happenings  []Happening  `json:"happenings,omitempty"`
+	Director    *Director    `json:"director,omitempty"`
 	Limits      Limits       `json:"limits"`
+}
+
+// Happening is an optional world event. The director periodically gathers
+// the happenings that make sense now and asks the advisor (Jev) which one
+// occurs, keeping the shared world moving between and after story arcs.
+type Happening struct {
+	ID       string   `json:"id"`
+	Title    string   `json:"title"`
+	Desc     string   `json:"desc,omitempty"`
+	When     Cond     `json:"when"`
+	Effects  []Effect `json:"effects"`
+	Cooldown Tick     `json:"cooldown,omitempty"`
+}
+
+// Director paces happenings. AllowNone lets the advisor keep things quiet.
+type Director struct {
+	Every     Tick `json:"every"`
+	AllowNone bool `json:"allowNone,omitempty"`
 }
 
 type EntitySeed struct {

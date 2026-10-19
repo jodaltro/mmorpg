@@ -24,6 +24,10 @@ type Command struct {
 	Choice           string        `json:"choice,omitempty"`
 	Provider         string        `json:"provider,omitempty"`
 	Model            string        `json:"model,omitempty"`
+	Call             string        `json:"call,omitempty"`       // provider call id, for audit
+	Confidence       *float64      `json:"confidence,omitempty"` // advisor self-reported confidence
+	LatencyMS        int64         `json:"latencyMs,omitempty"`
+	Cost             *float64      `json:"cost,omitempty"` // USD reported by the provider
 	ExpectedRevision *int64        `json:"expectedRevision,omitempty"`
 }
 
@@ -97,7 +101,7 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 		if !ok {
 			return prev, Delta{}, reject("unknown decision")
 		}
-		err = w.decide(&s, d, c.Choice, c.Provider, c.Model, cause)
+		err = w.decide(&s, d, c.Choice, audit(c), cause)
 	}
 	if err != nil {
 		return prev, Delta{}, err
@@ -125,6 +129,25 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 		}
 	}
 	return s, d, nil
+}
+
+// audit keeps advisor metadata with the decision event. It is data from
+// the advisor, recorded for analysis; it never changes what is applied.
+func audit(c Command) map[string]string {
+	m := map[string]string{"provider": c.Provider, "model": c.Model}
+	if c.Call != "" {
+		m["call"] = c.Call
+	}
+	if c.Confidence != nil {
+		m["confidence"] = strconv.FormatFloat(*c.Confidence, 'f', 3, 64)
+	}
+	if c.LatencyMS > 0 {
+		m["latencyMs"] = strconv.FormatInt(c.LatencyMS, 10)
+	}
+	if c.Cost != nil {
+		m["cost"] = strconv.FormatFloat(*c.Cost, 'f', 9, 64)
+	}
+	return m
 }
 
 func (w *World) join(s *State, c Command) error {

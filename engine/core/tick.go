@@ -41,6 +41,7 @@ func (w *World) tick(s *State, cause string) {
 		}
 	}
 	w.stories(s, cause)
+	w.direct(s)
 	for _, id := range sortedKeys(s.Decisions) {
 		if d := s.Decisions[id]; d.Due <= s.Tick {
 			w.decideDefault(s, d, cause)
@@ -109,13 +110,12 @@ func (w *World) advance(s *State, arc string, beat BeatDef, claimant *ID, cause 
 	if def == "" {
 		def = beat.Next[0]
 	}
-	ctx := []string{"arc: " + w.arcs[arc].Title, "concluded: " + beat.Title}
+	ctx := []string{"arc: " + w.arcs[arc].Title, "just concluded: " + beat.Title}
 	if claimant != nil {
-		ctx = append(ctx, "claimed by: "+s.Entities[*claimant].Name)
-		for _, k := range sortedKeys(s.Entities[*claimant].Tag) {
-			ctx = append(ctx, "claimant "+k+": "+s.Entities[*claimant].Tag[k])
-		}
+		ctx = append(ctx, "concluded by:")
+		ctx = append(ctx, w.profile(s, *claimant)...)
 	}
+	ctx = append(ctx, w.storySoFar(s)...)
 	ctx = append(ctx, w.recentPublic(s, 6)...)
 	st.Choosing = true
 	s.Arcs[arc] = st

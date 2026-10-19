@@ -150,7 +150,8 @@ func (r *Runner) dispatch(ds []core.Decision) {
 			}
 			// A late or stale answer is rejected by the engine; that is fine.
 			_, _ = r.Submit(core.Command{Version: 1, RequestID: "resolve:" + d.ID, Origin: "advisor", Kind: "resolve",
-				Decision: d.ID, Choice: a.Choice, Provider: a.Provider, Model: a.Model})
+				Decision: d.ID, Choice: a.Choice, Provider: a.Provider, Model: a.Model, Call: a.Call,
+				Confidence: a.Confidence, LatencyMS: a.LatencyMS, Cost: a.Cost})
 		}(d)
 	}
 }

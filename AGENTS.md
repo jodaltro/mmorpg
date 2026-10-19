@@ -32,7 +32,8 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 ## Segurança e segredos
 
 - Nunca versionar segredos, `.env`, logs de mundo (`data/`), executáveis ou caches. A chave do Jev fica em `engine/.env` (ignorado) ou na variável `OPENROUTER_API_KEY`.
-- Chamadas pagas ao Jev só com pedido explícito do usuário; os testes usam `httptest`.
+- **Chamadas ao Jev estão liberadas** (decisão do usuário em 19/10/2026: o Jev é um dos corações do sistema e precisa ser validado de verdade). Os testes automáticos usam `httptest`; os ao vivo rodam com `JEV_LIVE=1` ou `simulate -advisor jev`. Registrar latência, custo e taxa de resolução no prazo em `Docs/Validation/`.
+- **Autenticação e publicação online ficam para depois**, por decisão do usuário. Não priorizar agora.
 - O `serve` de desenvolvimento só escuta em loopback, porque a origem ainda vem no corpo. Antes de expor em rede: autenticação que derive `player`/`adapter` da credencial.
 - Segredos e materiais do projeto antigo estão fora do repositório, em `D:\unity\Mmorpg-archive-2026-10-19` (inclui `secrets/`). Não apagar sem pedido do usuário.
 - Respeitar licenças de assets e bases de engine; não redistribuir conteúdo com licença restritiva neste repositório público.

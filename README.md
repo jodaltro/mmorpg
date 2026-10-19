@@ -36,6 +36,8 @@ cd engine && go run ./cmd/worldsim simulate -universe ../universes/valdoria/univ
 cd engine && go run ./cmd/worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic
 ```
 
+Para ver o Jev decidindo ao vivo: `simulate ... -advisor jev -pace 800ms` mostra no fim quantas decisões o Jev resolveu, com latência, confiança e custo.
+
 Com o Jev: copie `engine/.env.example` para `engine/.env`, preencha `OPENROUTER_API_KEY` e use `-advisor jev`. Sem chave ou com o Jev lento/fora do ar, o mundo segue com escolhas determinísticas.
 
 Documentação: [Visão](Docs/GameVision.md) · [Arquitetura](Docs/Architecture.md) · [Contrato API v1](Docs/Contracts/ApiV1.md) · [Autoria de universos](Docs/Universes.md) · [Validação](Docs/Validation/Engine.md).

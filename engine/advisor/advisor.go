@@ -15,7 +15,10 @@ type Answer struct {
 	Choice     string
 	Provider   string
 	Model      string
+	Call       string
 	Confidence *float64
+	Cost       *float64
+	LatencyMS  int64
 }
 
 type Advisor interface {

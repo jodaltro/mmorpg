@@ -20,6 +20,7 @@ cd engine && go run ./cmd/worldsim validate ../universes/valdoria/universe.json
 | `agents` | NPCs: objetivos com `priority`, `when`, `action`, `args`, `cooldown` |
 | `arcs` | Histórias: `start` e `beats` com `unique`, `opens`, `goal`, `claim`, `rival`, `next`, `advanceWhen` |
 | `quests` | Modelos de oportunidade: `eligible`, `params` (`where` com `$it`), `goal`, `rewards`, opcionalmente `arc`/`beat` |
+| `happenings`, `director` | Acontecimentos opcionais (`when`, `effects`, `cooldown`) e o ritmo do diretor (`every`, `allowNone`). O Jev escolhe qual ocorre |
 | `limits` | `maxActiveQuests`, `decisionTimeout`, `declineCooldown`, `offerExpiry`, `maxEvents` |
 
 ## O que o validador recusa
@@ -32,4 +33,6 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **Sintomas podem voltar enquanto a causa existir** (regra `ressurgir`), para a história não travar quando alguém resolve só o sintoma.
 - **Limite ações repetíveis** (`relics < 1`, `infamy < 1`), porque servidores e robôs podem reenviá-las.
 - **Capítulos compartilhados devem avançar por uma condição coletiva** (`selo.forest >= 3`), não por um estado que já pode ser verdadeiro.
+- **Missões avulsas precisam continuar fazendo sentido:** quando a `eligible` deixa de valer para uma missão ativa (a caravana partiu, o poço está limpo), ela vira `obsolete` e libera a vaga. Escreva `eligible` como "isso ainda faz sentido", não só como "pode começar".
+- **Acontecimentos devem criar algo a fazer** (uma missão, um estado temporário com regra de fim agendada), senão o Jev escolhe entre opções sem consequência.
 - Objetivos de NPC devem usar `knows`. Assim o NPC age pelo que sabe e o mundo fica coerente com a informação de cada um.

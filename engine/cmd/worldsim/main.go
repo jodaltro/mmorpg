@@ -64,12 +64,19 @@ func simulate(args []string) error {
 	path := fs.String("universe", "", "universe.json")
 	n := fs.Int("ticks", 120, "ticks to run")
 	players := fs.Int("players", 3, "scripted players")
+	mode := fs.String("advisor", "none", "none | deterministic | jev")
+	envFile := fs.String("env-file", ".env", "local file with OPENROUTER_API_KEY (jev only)")
+	pace := fs.Duration("pace", 0, "wall-clock time per tick (give async advisors time to answer)")
 	fs.Parse(args)
 	w, err := universe.Load(*path)
 	if err != nil {
 		return err
 	}
-	r, err := sim.Open(w, &store.Memory{}, sim.Options{})
+	adv, err := pickAdvisor(*mode, *envFile, 8*time.Second)
+	if err != nil {
+		return err
+	}
+	r, err := sim.Open(w, &store.Memory{}, sim.Options{Advisor: adv, AdvisorTimeout: 10 * time.Second})
 	if err != nil {
 		return err
 	}
@@ -87,6 +94,9 @@ func simulate(args []string) error {
 		r.Submit(c) // rejections are normal: players try things
 	}
 	for t := 0; t < *n; t++ {
+		if *pace > 0 {
+			time.Sleep(*pace)
+		}
 		r.Tick()
 		s := r.Snapshot()
 		for i, id := range ids {
@@ -148,8 +158,70 @@ func simulate(args []string) error {
 			fmt.Printf("    %-10s %s\n", q.State, q.Title)
 		}
 	}
+	r.Drain()
+	s = r.Snapshot()
+	report(s)
 	fmt.Printf("\ndigest %s\n", s.Digest())
 	return nil
+}
+
+// report summarizes who decided what: the advisor or the deadline default.
+func report(s core.State) {
+	type agg struct {
+		n, lat       int64
+		conf, cost   float64
+		nconf, ncost int64
+	}
+	by := map[string]*agg{}
+	keys := []string{}
+	for _, e := range s.Events {
+		if e.Kind != "decision" {
+			continue
+		}
+		k := e.Data["kind"] + "/" + e.Data["provider"]
+		if by[k] == nil {
+			by[k] = &agg{}
+			keys = append(keys, k)
+		}
+		a := by[k]
+		a.n++
+		if v, err := strconv.ParseInt(e.Data["latencyMs"], 10, 64); err == nil {
+			a.lat += v
+		}
+		if v, err := strconv.ParseFloat(e.Data["confidence"], 64); err == nil {
+			a.conf += v
+			a.nconf++
+		}
+		if v, err := strconv.ParseFloat(e.Data["cost"], 64); err == nil {
+			a.cost += v
+			a.ncost++
+		}
+	}
+	fmt.Println("\ndecisions (kind/provider): count, mean latency, mean confidence, total cost")
+	for _, k := range keys {
+		a := by[k]
+		conf := 0.0
+		if a.nconf > 0 {
+			conf = a.conf / float64(a.nconf)
+		}
+		fmt.Printf("  %-22s %4d  %5dms  %.2f  $%.6f\n", k, a.n, a.lat/a.n, conf, a.cost)
+	}
+}
+
+func pickAdvisor(mode, envFile string, timeout time.Duration) (advisor.Advisor, error) {
+	switch mode {
+	case "none":
+		return nil, nil
+	case "deterministic":
+		return advisor.Deterministic{}, nil
+	case "jev":
+		key, err := advisor.ResolveKey(envFile)
+		if err != nil || key == "" {
+			return nil, errors.New("jev advisor needs OPENROUTER_API_KEY (environment or -env-file)")
+		}
+		return &advisor.Jev{APIKey: key, Timeout: timeout}, nil
+	}
+	return nil, errors.New("unknown advisor")
 }
 
 func contains(xs []string, x string) bool {
@@ -196,19 +268,9 @@ func serve(args []string) error {
 	if err != nil {
 		return err
 	}
-	var adv advisor.Advisor
-	switch *mode {
-	case "none":
-	case "deterministic":
-		adv = advisor.Deterministic{}
-	case "jev":
-		key, err := advisor.ResolveKey(*envFile)
-		if err != nil || key == "" {
-			return errors.New("jev advisor needs OPENROUTER_API_KEY (environment or -env-file)")
-		}
-		adv = &advisor.Jev{APIKey: key, Timeout: *jevTimeout}
-	default:
-		return errors.New("unknown advisor")
+	adv, err := pickAdvisor(*mode, *envFile, *jevTimeout)
+	if err != nil {
+		return err
 	}
 	if err := os.MkdirAll(*data, 0o700); err != nil {
 		return err

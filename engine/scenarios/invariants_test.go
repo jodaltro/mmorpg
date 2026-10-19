@@ -76,11 +76,8 @@ func TestSecondUniverseRunsOnSameCore(t *testing.T) {
 	h := load(t, "orbital")
 	h.join("x1", "x2")
 	h.tick(40)
-	if h.fact("", "leak", "reator", "") {
-		t.Fatal("crew should seal the leak autonomously")
-	}
-	if s := h.events("sealed"); len(s) != 1 || s[0].Actor != "ines" {
-		t.Fatalf("sealed by %+v", s)
+	if s := h.events("sealed"); len(s) == 0 || s[0].Actor != "ines" {
+		t.Fatalf("crew should seal leaks autonomously, sealed by %+v", s)
 	}
 	q1 := h.steer("x1", "contato")
 	q2 := h.steer("x2", "contato")

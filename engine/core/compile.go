@@ -157,7 +157,33 @@ func Compile(u Universe) (*World, error) {
 	if e := w.compileQuests(v); e != nil {
 		return nil, e
 	}
+	if e := w.compileDirector(v); e != nil {
+		return nil, e
+	}
 	return w, nil
+}
+
+func (w *World) compileDirector(v *validator) error {
+	seen := map[string]bool{}
+	for _, h := range w.U.Happenings {
+		if h.ID == "" || h.ID == "none" || seen[h.ID] || h.Title == "" || h.Cooldown < 0 || len(h.Effects) == 0 {
+			return invalid("happening %q", h.ID)
+		}
+		seen[h.ID] = true
+		if e := v.cond(h.When, map[string]bool{}, "happening "+h.ID); e != nil {
+			return e
+		}
+		if e := v.effects(h.Effects, map[string]bool{}, "happening "+h.ID); e != nil {
+			return e
+		}
+	}
+	if d := w.U.Director; d != nil && (d.Every < 1 || len(w.U.Happenings) == 0) {
+		return invalid("director")
+	}
+	if w.U.Director == nil && len(w.U.Happenings) > 0 {
+		return invalid("happenings without director")
+	}
+	return nil
 }
 
 func (w *World) compileAgents(v *validator) error {

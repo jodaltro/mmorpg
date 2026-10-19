@@ -3,200 +3,1831 @@
   "id": "valdoria",
   "name": "Valdoria",
   "description": "Reino precario onde um selo antigo foi rompido. Uma historia fixa do mundo avanca por cenarios unicos; quem chega primeiro muda o destino de todos.",
-  "kinds": ["settlement", "landmark", "npc", "player"],
-  "predicates": ["poisoned", "outbreak", "seal-broken", "seal-revealed", "seal-restored", "seal-shattered", "clue-found", "noticed", "witnessed", "lore-known", "planted", "defended"],
-  "playerKind": "player",
-  "player": {"id": "template", "kind": "player", "name": "", "num": {"reputation": 0, "relics": 0, "infamy": 0}},
-  "perceivers": ["npc", "player"],
-  "entities": [
-    {"id": "vila", "kind": "settlement", "name": "Vila Cinzenta", "num": {"health": 100}},
-    {"id": "poco", "kind": "landmark", "name": "Poco Antigo"},
-    {"id": "selo", "kind": "landmark", "name": "Selo da Floresta", "num": {"forest": 0}},
-    {"id": "mira", "kind": "npc", "name": "Mira, a curandeira", "num": {"herbs": 0, "antidotes": 0}},
-    {"id": "orin", "kind": "npc", "name": "Orin, o guarda"},
-    {"id": "tomas", "kind": "npc", "name": "Velho Tomas"}
+  "kinds": [
+    "settlement",
+    "landmark",
+    "npc",
+    "player"
   ],
-  "schedules": [{"rule": "despertar", "at": 5}],
+  "predicates": [
+    "poisoned",
+    "outbreak",
+    "seal-broken",
+    "seal-revealed",
+    "seal-restored",
+    "seal-shattered",
+    "clue-found",
+    "noticed",
+    "witnessed",
+    "lore-known",
+    "planted",
+    "defended",
+    "caravan-here",
+    "escorted",
+    "wolves",
+    "hunted",
+    "festival"
+  ],
+  "playerKind": "player",
+  "player": {
+    "id": "template",
+    "kind": "player",
+    "name": "",
+    "num": {
+      "reputation": 0,
+      "relics": 0,
+      "infamy": 0
+    }
+  },
+  "perceivers": [
+    "npc",
+    "player"
+  ],
+  "entities": [
+    {
+      "id": "vila",
+      "kind": "settlement",
+      "name": "Vila Cinzenta",
+      "num": {
+        "health": 100,
+        "prosperity": 0
+      }
+    },
+    {
+      "id": "poco",
+      "kind": "landmark",
+      "name": "Poco Antigo"
+    },
+    {
+      "id": "selo",
+      "kind": "landmark",
+      "name": "Selo da Floresta",
+      "num": {
+        "forest": 0
+      }
+    },
+    {
+      "id": "mira",
+      "kind": "npc",
+      "name": "Mira, a curandeira",
+      "num": {
+        "herbs": 0,
+        "antidotes": 0
+      }
+    },
+    {
+      "id": "orin",
+      "kind": "npc",
+      "name": "Orin, o guarda"
+    },
+    {
+      "id": "tomas",
+      "kind": "npc",
+      "name": "Velho Tomas"
+    }
+  ],
+  "schedules": [
+    {
+      "rule": "despertar",
+      "at": 5
+    }
+  ],
   "rules": [
-    {"id": "despertar", "desc": "O selo se rompe e envenena o poco. Ninguem sabe a causa.",
-     "when": {}, "effects": [
-      {"op": "assert", "fact": {"p": "seal-broken", "s": "selo"}},
-      {"op": "assert", "fact": {"p": "poisoned", "s": "poco"}},
-      {"op": "emit", "event": "omen", "public": true, "text": "A terra treme durante a noite na Floresta Cinzenta."}]},
-    {"id": "doenca", "every": 3, "when": {"fact": {"p": "poisoned", "s": "poco"}},
-     "effects": [{"op": "adjust", "e": "vila", "k": "health", "d": -5, "min": 0}]},
-    {"id": "surto", "every": 3,
-     "when": {"all": [{"fact": {"p": "poisoned", "s": "poco"}}, {"num": {"e": "vila", "k": "health", "op": "<", "v": 70}}, {"not": {"fact": {"p": "outbreak", "s": "vila"}}}]},
-     "effects": [
-      {"op": "assert", "fact": {"p": "outbreak", "s": "vila"}},
-      {"op": "emit", "event": "outbreak", "public": true, "text": "Os aldeoes da Vila Cinzenta estao adoecendo.", "reveals": {"p": "outbreak", "s": "vila"}}]},
-    {"id": "recuperacao", "every": 4,
-     "when": {"all": [{"not": {"fact": {"p": "poisoned", "s": "poco"}}}, {"not": {"fact": {"p": "seal-shattered", "s": "selo"}}}, {"num": {"e": "vila", "k": "health", "op": "<", "v": 100}}]},
-     "effects": [{"op": "adjust", "e": "vila", "k": "health", "d": 4, "max": 100}]},
-    {"id": "fim-surto", "every": 4,
-     "when": {"all": [{"not": {"fact": {"p": "poisoned", "s": "poco"}}}, {"fact": {"p": "outbreak", "s": "vila"}}, {"num": {"e": "vila", "k": "health", "op": ">=", "v": 90}}]},
-     "effects": [
-      {"op": "retract", "fact": {"p": "outbreak", "s": "vila"}},
-      {"op": "emit", "event": "recovery", "public": true, "text": "A Vila Cinzenta se recupera.", "reveals": {"p": "outbreak", "s": "vila"}}]},
-    {"id": "corrupcao", "every": 6, "when": {"fact": {"p": "seal-shattered", "s": "selo"}},
-     "effects": [{"op": "adjust", "e": "vila", "k": "health", "d": -3, "min": 0}]},
-    {"id": "ressurgir", "every": 20, "desc": "Enquanto o selo estiver rompido, curar o poco so alivia: a corrupcao volta.",
-     "when": {"all": [{"fact": {"p": "seal-broken", "s": "selo"}}, {"not": {"fact": {"p": "poisoned", "s": "poco"}}}]},
-     "effects": [
-      {"op": "assert", "fact": {"p": "poisoned", "s": "poco"}},
-      {"op": "emit", "event": "omen", "public": true, "text": "A agua do Poco Antigo volta a escurecer."}]}
+    {
+      "id": "despertar",
+      "desc": "O selo se rompe e envenena o poco. Ninguem sabe a causa.",
+      "when": {},
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "omen",
+          "public": true,
+          "text": "A terra treme durante a noite na Floresta Cinzenta."
+        }
+      ]
+    },
+    {
+      "id": "doenca",
+      "every": 3,
+      "when": {
+        "fact": {
+          "p": "poisoned",
+          "s": "poco"
+        }
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": -5,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "surto",
+      "every": 3,
+      "when": {
+        "all": [
+          {
+            "fact": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          },
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": "<",
+              "v": 70
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "outbreak",
+                "s": "vila"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "outbreak",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "outbreak",
+          "public": true,
+          "text": "Os aldeoes da Vila Cinzenta estao adoecendo.",
+          "reveals": {
+            "p": "outbreak",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recuperacao",
+      "every": 4,
+      "when": {
+        "all": [
+          {
+            "not": {
+              "fact": {
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "seal-shattered",
+                "s": "selo"
+              }
+            }
+          },
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": "<",
+              "v": 100
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": 4,
+          "max": 100
+        }
+      ]
+    },
+    {
+      "id": "fim-surto",
+      "every": 4,
+      "when": {
+        "all": [
+          {
+            "not": {
+              "fact": {
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          },
+          {
+            "fact": {
+              "p": "outbreak",
+              "s": "vila"
+            }
+          },
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": ">=",
+              "v": 90
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "outbreak",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "recovery",
+          "public": true,
+          "text": "A Vila Cinzenta se recupera.",
+          "reveals": {
+            "p": "outbreak",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "corrupcao",
+      "every": 6,
+      "when": {
+        "fact": {
+          "p": "seal-shattered",
+          "s": "selo"
+        }
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": -3,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "ressurgir",
+      "every": 20,
+      "desc": "Enquanto o selo estiver rompido, curar o poco so alivia: a corrupcao volta.",
+      "when": {
+        "all": [
+          {
+            "fact": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "omen",
+          "public": true,
+          "text": "A agua do Poco Antigo volta a escurecer."
+        }
+      ]
+    },
+    {
+      "id": "caravana-parte",
+      "when": {
+        "fact": {
+          "p": "caravan-here",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "caravan-here",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "caravan-left",
+          "public": true,
+          "text": "A caravana deixa a Vila Cinzenta.",
+          "reveals": {
+            "p": "caravan-here",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lobos-atacam",
+      "every": 4,
+      "when": {
+        "fact": {
+          "p": "wolves",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": -2,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "lobos-partem",
+      "when": {
+        "fact": {
+          "p": "wolves",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "wolves",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "wolves-left",
+          "public": true,
+          "text": "Os lobos corrompidos voltam para a floresta.",
+          "reveals": {
+            "p": "wolves",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fim-festival",
+      "when": {
+        "fact": {
+          "p": "festival",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "festival",
+            "s": "vila"
+          }
+        }
+      ]
+    }
   ],
   "actions": [
-    {"id": "examinar-poco", "by": ["player", "agent", "adapter"], "desc": "Examina a agua do Poco Antigo.",
-     "requires": {}, "effects": [
-      {"op": "observe", "fact": {"p": "poisoned", "s": "poco"}},
-      {"op": "assert", "fact": {"p": "noticed", "s": "$self", "o": "poco", "private": true}, "if": {"fact": {"p": "poisoned", "s": "poco"}}},
-      {"op": "emit", "event": "examined", "text": "{self} examina a agua do Poco Antigo."}]},
-    {"id": "contar-veneno", "by": ["player", "agent"], "params": [{"name": "npc", "kind": "npc"}],
-     "requires": {"knows": {"p": "poisoned", "s": "poco"}},
-     "effects": [
-      {"op": "inform", "to": "$npc", "fact": {"p": "poisoned", "s": "poco"}},
-      {"op": "emit", "event": "told", "text": "{self} conta a {npc} que o poco esta envenenado."}]},
-    {"id": "colher-ervas", "by": ["agent"], "requires": {},
-     "effects": [{"op": "adjust", "e": "$self", "k": "herbs", "d": 1}]},
-    {"id": "preparar-antidoto", "by": ["agent"], "requires": {"num": {"e": "$self", "k": "herbs", "op": ">=", "v": 1}},
-     "effects": [
-      {"op": "adjust", "e": "$self", "k": "herbs", "d": -1, "min": 0},
-      {"op": "adjust", "e": "$self", "k": "antidotes", "d": 1},
-      {"op": "emit", "event": "brewing", "public": true, "text": "{self} prepara um antidoto."}]},
-    {"id": "purificar-poco", "by": ["agent", "player"],
-     "requires": {"all": [{"num": {"e": "$self", "k": "antidotes", "op": ">=", "v": 1}}, {"fact": {"p": "poisoned", "s": "poco"}}]},
-     "effects": [
-      {"op": "adjust", "e": "$self", "k": "antidotes", "d": -1, "min": 0},
-      {"op": "retract", "fact": {"p": "poisoned", "s": "poco"}},
-      {"op": "emit", "event": "purified", "public": true, "text": "{self} purificou o Poco Antigo.", "reveals": {"p": "poisoned", "s": "poco"}}]},
-    {"id": "seguir-rastro", "by": ["adapter"], "desc": "Servidor de jogo confirma: o jogador seguiu o rastro ate o selo.",
-     "requires": {"fact": {"p": "seal-broken", "s": "selo"}},
-     "effects": [
-      {"op": "assert", "fact": {"p": "clue-found", "s": "$self", "o": "selo", "private": true}},
-      {"op": "observe", "fact": {"p": "seal-broken", "s": "selo"}},
-      {"op": "emit", "event": "clue", "text": "{self} encontra o Selo da Floresta rachado."}]},
-    {"id": "consultar-anciao", "by": ["player"],
-     "requires": {"fact": {"p": "witnessed", "s": "$self", "o": "selo", "private": true}},
-     "effects": [
-      {"op": "assert", "fact": {"p": "lore-known", "s": "$self", "o": "selo", "private": true}},
-      {"op": "emit", "event": "lore", "text": "Velho Tomas conta a {self} a lenda do selo: ele pode ser restaurado com uma reliquia, ou quebrado de vez num pacto."}]},
-    {"id": "recuperar-reliquia", "by": ["adapter"], "desc": "Servidor de jogo confirma: o guardiao da reliquia foi derrotado por este jogador.",
-     "requires": {"all": [{"fact": {"p": "seal-revealed", "s": "selo"}}, {"num": {"e": "$self", "k": "relics", "op": "<", "v": 1}}]},
-     "effects": [
-      {"op": "adjust", "e": "$self", "k": "relics", "d": 1},
-      {"op": "emit", "event": "relic", "text": "{self} recupera uma reliquia do selo."}]},
-    {"id": "aceitar-pacto", "by": ["player"],
-     "requires": {"all": [{"fact": {"p": "seal-revealed", "s": "selo"}}, {"fact": {"p": "lore-known", "s": "$self", "o": "selo", "private": true}}, {"num": {"e": "$self", "k": "infamy", "op": "<", "v": 1}}]},
-     "effects": [
-      {"op": "adjust", "e": "$self", "k": "infamy", "d": 1},
-      {"op": "emit", "event": "pact", "text": "{self} aceita o pacto sombrio do selo."}]},
-    {"id": "plantar-mudas", "by": ["player"],
-     "requires": {"all": [{"fact": {"p": "seal-restored", "s": "selo"}}, {"not": {"fact": {"p": "planted", "s": "$self", "o": "selo", "private": true}}}]},
-     "effects": [
-      {"op": "adjust", "e": "selo", "k": "forest", "d": 1},
-      {"op": "assert", "fact": {"p": "planted", "s": "$self", "o": "selo", "private": true}},
-      {"op": "adjust", "e": "vila", "k": "health", "d": 5, "max": 100},
-      {"op": "emit", "event": "planted", "text": "{self} replanta a floresta ao redor do selo."}]},
-    {"id": "defender-vila", "by": ["adapter"], "desc": "Servidor de jogo confirma: o jogador repeliu criaturas corrompidas na vila.",
-     "requires": {"fact": {"p": "seal-shattered", "s": "selo"}},
-     "effects": [
-      {"op": "assert", "fact": {"p": "defended", "s": "$self", "o": "vila", "private": true}},
-      {"op": "adjust", "e": "vila", "k": "health", "d": 10, "max": 100},
-      {"op": "emit", "event": "defended", "public": true, "text": "{self} defende a Vila Cinzenta da corrupcao."}]}
+    {
+      "id": "examinar-poco",
+      "by": [
+        "player",
+        "agent",
+        "adapter"
+      ],
+      "desc": "Examina a agua do Poco Antigo.",
+      "requires": {},
+      "effects": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "noticed",
+            "s": "$self",
+            "o": "poco",
+            "private": true
+          },
+          "if": {
+            "fact": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "examined",
+          "text": "{self} examina a agua do Poco Antigo."
+        }
+      ]
+    },
+    {
+      "id": "contar-veneno",
+      "by": [
+        "player",
+        "agent"
+      ],
+      "params": [
+        {
+          "name": "npc",
+          "kind": "npc"
+        }
+      ],
+      "requires": {
+        "knows": {
+          "p": "poisoned",
+          "s": "poco"
+        }
+      },
+      "effects": [
+        {
+          "op": "inform",
+          "to": "$npc",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "told",
+          "text": "{self} conta a {npc} que o poco esta envenenado."
+        }
+      ]
+    },
+    {
+      "id": "colher-ervas",
+      "by": [
+        "agent"
+      ],
+      "requires": {},
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "herbs",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "preparar-antidoto",
+      "by": [
+        "agent"
+      ],
+      "requires": {
+        "num": {
+          "e": "$self",
+          "k": "herbs",
+          "op": ">=",
+          "v": 1
+        }
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "herbs",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "antidotes",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "brewing",
+          "public": true,
+          "text": "{self} prepara um antidoto."
+        }
+      ]
+    },
+    {
+      "id": "purificar-poco",
+      "by": [
+        "agent",
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "antidotes",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "fact": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "antidotes",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "retract",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "purified",
+          "public": true,
+          "text": "{self} purificou o Poco Antigo.",
+          "reveals": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguir-rastro",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor de jogo confirma: o jogador seguiu o rastro ate o selo.",
+      "requires": {
+        "fact": {
+          "p": "seal-broken",
+          "s": "selo"
+        }
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "clue-found",
+            "s": "$self",
+            "o": "selo",
+            "private": true
+          }
+        },
+        {
+          "op": "observe",
+          "fact": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "clue",
+          "text": "{self} encontra o Selo da Floresta rachado."
+        }
+      ]
+    },
+    {
+      "id": "consultar-anciao",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "fact": {
+          "p": "witnessed",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "lore-known",
+            "s": "$self",
+            "o": "selo",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "lore",
+          "text": "Velho Tomas conta a {self} a lenda do selo: ele pode ser restaurado com uma reliquia, ou quebrado de vez num pacto."
+        }
+      ]
+    },
+    {
+      "id": "recuperar-reliquia",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor de jogo confirma: o guardiao da reliquia foi derrotado por este jogador.",
+      "requires": {
+        "all": [
+          {
+            "fact": {
+              "p": "seal-revealed",
+              "s": "selo"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "relics",
+              "op": "<",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "relics",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "relic",
+          "text": "{self} recupera uma reliquia do selo."
+        }
+      ]
+    },
+    {
+      "id": "aceitar-pacto",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "fact": {
+              "p": "seal-revealed",
+              "s": "selo"
+            }
+          },
+          {
+            "fact": {
+              "p": "lore-known",
+              "s": "$self",
+              "o": "selo",
+              "private": true
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "infamy",
+              "op": "<",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "infamy",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "pact",
+          "text": "{self} aceita o pacto sombrio do selo."
+        }
+      ]
+    },
+    {
+      "id": "plantar-mudas",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "fact": {
+              "p": "seal-restored",
+              "s": "selo"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "planted",
+                "s": "$self",
+                "o": "selo",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "selo",
+          "k": "forest",
+          "d": 1
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "planted",
+            "s": "$self",
+            "o": "selo",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": 5,
+          "max": 100
+        },
+        {
+          "op": "emit",
+          "event": "planted",
+          "text": "{self} replanta a floresta ao redor do selo."
+        }
+      ]
+    },
+    {
+      "id": "defender-vila",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor de jogo confirma: o jogador repeliu criaturas corrompidas na vila.",
+      "requires": {
+        "fact": {
+          "p": "seal-shattered",
+          "s": "selo"
+        }
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "defended",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": 10,
+          "max": 100
+        },
+        {
+          "op": "emit",
+          "event": "defended",
+          "public": true,
+          "text": "{self} defende a Vila Cinzenta da corrupcao."
+        }
+      ]
+    },
+    {
+      "id": "escoltar-caravana",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor de jogo confirma: o jogador protegeu a caravana na estrada.",
+      "requires": {
+        "all": [
+          {
+            "fact": {
+              "p": "caravan-here",
+              "s": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "escorted",
+                "s": "$self",
+                "o": "vila",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "escorted",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "prosperity",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "escorted",
+          "public": true,
+          "text": "{self} escolta a caravana em seguranca."
+        }
+      ]
+    },
+    {
+      "id": "cacar-lobos",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor de jogo confirma: o jogador abateu lobos corrompidos.",
+      "requires": {
+        "all": [
+          {
+            "fact": {
+              "p": "wolves",
+              "s": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "hunted",
+                "s": "$self",
+                "o": "vila",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "hunted",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": 3,
+          "max": 100
+        },
+        {
+          "op": "emit",
+          "event": "hunted",
+          "public": true,
+          "text": "{self} afugenta lobos corrompidos da vila."
+        }
+      ]
+    }
   ],
   "agents": [
-    {"entity": "mira", "goals": [
-      {"id": "purificar", "priority": 10, "action": "purificar-poco",
-       "when": {"all": [{"knows": {"p": "poisoned", "s": "poco"}}, {"num": {"e": "$self", "k": "antidotes", "op": ">=", "v": 1}}]}},
-      {"id": "preparar", "priority": 5, "action": "preparar-antidoto",
-       "when": {"all": [{"knows": {"p": "poisoned", "s": "poco"}}, {"num": {"e": "$self", "k": "antidotes", "op": "<", "v": 1}}, {"num": {"e": "$self", "k": "herbs", "op": ">=", "v": 1}}]}},
-      {"id": "colher", "priority": 1, "action": "colher-ervas", "cooldown": 2,
-       "when": {"all": [{"knows": {"p": "poisoned", "s": "poco"}}, {"num": {"e": "$self", "k": "antidotes", "op": "<", "v": 1}}, {"num": {"e": "$self", "k": "herbs", "op": "<", "v": 1}}]}}]},
-    {"entity": "orin", "goals": [
-      {"id": "avisar-mira", "priority": 10, "action": "contar-veneno", "args": {"npc": "mira"}, "cooldown": 50,
-       "when": {"knows": {"p": "poisoned", "s": "poco"}}},
-      {"id": "investigar", "priority": 5, "action": "examinar-poco", "cooldown": 5,
-       "when": {"all": [{"knows": {"p": "outbreak", "s": "vila"}}, {"not": {"knows": {"p": "poisoned", "s": "poco"}}}]}}]}
+    {
+      "entity": "mira",
+      "goals": [
+        {
+          "id": "purificar",
+          "priority": 10,
+          "action": "purificar-poco",
+          "when": {
+            "all": [
+              {
+                "knows": {
+                  "p": "poisoned",
+                  "s": "poco"
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "antidotes",
+                  "op": ">=",
+                  "v": 1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "preparar",
+          "priority": 5,
+          "action": "preparar-antidoto",
+          "when": {
+            "all": [
+              {
+                "knows": {
+                  "p": "poisoned",
+                  "s": "poco"
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "antidotes",
+                  "op": "<",
+                  "v": 1
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "herbs",
+                  "op": ">=",
+                  "v": 1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "colher",
+          "priority": 1,
+          "action": "colher-ervas",
+          "cooldown": 2,
+          "when": {
+            "all": [
+              {
+                "knows": {
+                  "p": "poisoned",
+                  "s": "poco"
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "antidotes",
+                  "op": "<",
+                  "v": 1
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "herbs",
+                  "op": "<",
+                  "v": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "entity": "orin",
+      "goals": [
+        {
+          "id": "avisar-mira",
+          "priority": 10,
+          "action": "contar-veneno",
+          "args": {
+            "npc": "mira"
+          },
+          "cooldown": 50,
+          "when": {
+            "knows": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          }
+        },
+        {
+          "id": "investigar",
+          "priority": 5,
+          "action": "examinar-poco",
+          "cooldown": 5,
+          "when": {
+            "all": [
+              {
+                "knows": {
+                  "p": "outbreak",
+                  "s": "vila"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "p": "poisoned",
+                    "s": "poco"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
   ],
   "arcs": [
-    {"id": "maldicao", "title": "A Maldicao do Selo", "start": "origem", "beats": [
-      {"id": "origem", "title": "Cenario Unico: A Origem da Maldicao", "unique": true,
-       "desc": "Descobrir que o Selo da Floresta foi rompido.",
-       "opens": {"fact": {"p": "seal-broken", "s": "selo"}},
-       "goal": {"fact": {"p": "clue-found", "s": "$self", "o": "selo", "private": true}},
-       "claim": [
-        {"op": "assert", "fact": {"p": "seal-revealed", "s": "selo"}},
-        {"op": "set", "e": "$self", "k": "title", "v": "Descobridor do Selo"},
-        {"op": "adjust", "e": "$self", "k": "reputation", "d": 5},
-        {"op": "emit", "event": "revelation", "public": true, "text": "{self} descobriu que o Selo da Floresta foi rompido!", "reveals": {"p": "seal-broken", "s": "selo"}}],
-       "rival": [
-        {"op": "assert", "fact": {"p": "witnessed", "s": "$self", "o": "selo", "private": true}},
-        {"op": "emit", "event": "rival", "text": "{claimant} chegou ao selo antes de {self}. Mas {self} viu marcas que ninguem mais viu."}],
-       "next": ["restaurar", "pacto"]},
-      {"id": "restaurar", "title": "Cenario Unico: Restaurar o Selo", "unique": true,
-       "desc": "Um heroi devolve a reliquia ao selo e salva a floresta.",
-       "opens": {"fact": {"p": "seal-revealed", "s": "selo"}},
-       "goal": {"num": {"e": "$self", "k": "relics", "op": ">=", "v": 1}},
-       "claim": [
-        {"op": "assert", "fact": {"p": "seal-restored", "s": "selo"}},
-        {"op": "retract", "fact": {"p": "seal-broken", "s": "selo"}},
-        {"op": "set", "e": "$self", "k": "title", "v": "Guardiao do Selo"},
-        {"op": "emit", "event": "restored", "public": true, "text": "{self} restaurou o Selo da Floresta.", "reveals": {"p": "seal-restored", "s": "selo"}}],
-       "rival": [{"op": "emit", "event": "rival", "text": "{claimant} restaurou o selo primeiro. A reliquia de {self} agora e so uma lembranca."}],
-       "next": ["paz"]},
-      {"id": "pacto", "title": "Cenario Unico: O Pacto Sombrio", "unique": true,
-       "desc": "Alguem aceita o poder do selo e o quebra de vez.",
-       "opens": {"fact": {"p": "seal-revealed", "s": "selo"}},
-       "goal": {"num": {"e": "$self", "k": "infamy", "op": ">=", "v": 1}},
-       "claim": [
-        {"op": "assert", "fact": {"p": "seal-shattered", "s": "selo"}},
-        {"op": "set", "e": "$self", "k": "title", "v": "Portador do Pacto"},
-        {"op": "emit", "event": "shattered", "public": true, "text": "{self} quebrou o Selo de vez. A corrupcao se espalha.", "reveals": {"p": "seal-shattered", "s": "selo"}}],
-       "rival": [{"op": "emit", "event": "rival", "text": "{claimant} aceitou o pacto antes de {self}."}],
-       "next": ["resistencia"]},
-      {"id": "paz", "title": "Capitulo: A Floresta Respira",
-       "opens": {"fact": {"p": "seal-restored", "s": "selo"}},
-       "goal": {"fact": {"p": "planted", "s": "$self", "o": "selo", "private": true}},
-       "advanceWhen": {"num": {"e": "selo", "k": "forest", "op": ">=", "v": 3}}},
-      {"id": "resistencia", "title": "Capitulo: A Resistencia",
-       "opens": {"fact": {"p": "seal-shattered", "s": "selo"}},
-       "goal": {"fact": {"p": "defended", "s": "$self", "o": "vila", "private": true}},
-       "claim": [{"op": "adjust", "e": "$self", "k": "reputation", "d": 3}]}
-    ]}
+    {
+      "id": "maldicao",
+      "title": "A Maldicao do Selo",
+      "start": "origem",
+      "beats": [
+        {
+          "id": "origem",
+          "title": "Cenario Unico: A Origem da Maldicao",
+          "unique": true,
+          "desc": "Descobrir que o Selo da Floresta foi rompido.",
+          "opens": {
+            "fact": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          },
+          "goal": {
+            "fact": {
+              "p": "clue-found",
+              "s": "$self",
+              "o": "selo",
+              "private": true
+            }
+          },
+          "claim": [
+            {
+              "op": "assert",
+              "fact": {
+                "p": "seal-revealed",
+                "s": "selo"
+              }
+            },
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "title",
+              "v": "Descobridor do Selo"
+            },
+            {
+              "op": "adjust",
+              "e": "$self",
+              "k": "reputation",
+              "d": 5
+            },
+            {
+              "op": "emit",
+              "event": "revelation",
+              "public": true,
+              "text": "{self} descobriu que o Selo da Floresta foi rompido!",
+              "reveals": {
+                "p": "seal-broken",
+                "s": "selo"
+              }
+            }
+          ],
+          "rival": [
+            {
+              "op": "assert",
+              "fact": {
+                "p": "witnessed",
+                "s": "$self",
+                "o": "selo",
+                "private": true
+              }
+            },
+            {
+              "op": "emit",
+              "event": "rival",
+              "text": "{claimant} chegou ao selo antes de {self}. Mas {self} viu marcas que ninguem mais viu."
+            }
+          ],
+          "next": [
+            "restaurar",
+            "pacto"
+          ]
+        },
+        {
+          "id": "restaurar",
+          "title": "Cenario Unico: Restaurar o Selo",
+          "unique": true,
+          "desc": "Um heroi devolve a reliquia ao selo e salva a floresta.",
+          "opens": {
+            "fact": {
+              "p": "seal-revealed",
+              "s": "selo"
+            }
+          },
+          "goal": {
+            "num": {
+              "e": "$self",
+              "k": "relics",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          "claim": [
+            {
+              "op": "assert",
+              "fact": {
+                "p": "seal-restored",
+                "s": "selo"
+              }
+            },
+            {
+              "op": "retract",
+              "fact": {
+                "p": "seal-broken",
+                "s": "selo"
+              }
+            },
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "title",
+              "v": "Guardiao do Selo"
+            },
+            {
+              "op": "emit",
+              "event": "restored",
+              "public": true,
+              "text": "{self} restaurou o Selo da Floresta.",
+              "reveals": {
+                "p": "seal-restored",
+                "s": "selo"
+              }
+            }
+          ],
+          "rival": [
+            {
+              "op": "emit",
+              "event": "rival",
+              "text": "{claimant} restaurou o selo primeiro. A reliquia de {self} agora e so uma lembranca."
+            }
+          ],
+          "next": [
+            "paz"
+          ]
+        },
+        {
+          "id": "pacto",
+          "title": "Cenario Unico: O Pacto Sombrio",
+          "unique": true,
+          "desc": "Alguem aceita o poder do selo e o quebra de vez.",
+          "opens": {
+            "fact": {
+              "p": "seal-revealed",
+              "s": "selo"
+            }
+          },
+          "goal": {
+            "num": {
+              "e": "$self",
+              "k": "infamy",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          "claim": [
+            {
+              "op": "assert",
+              "fact": {
+                "p": "seal-shattered",
+                "s": "selo"
+              }
+            },
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "title",
+              "v": "Portador do Pacto"
+            },
+            {
+              "op": "emit",
+              "event": "shattered",
+              "public": true,
+              "text": "{self} quebrou o Selo de vez. A corrupcao se espalha.",
+              "reveals": {
+                "p": "seal-shattered",
+                "s": "selo"
+              }
+            }
+          ],
+          "rival": [
+            {
+              "op": "emit",
+              "event": "rival",
+              "text": "{claimant} aceitou o pacto antes de {self}."
+            }
+          ],
+          "next": [
+            "resistencia"
+          ]
+        },
+        {
+          "id": "paz",
+          "title": "Capitulo: A Floresta Respira",
+          "opens": {
+            "fact": {
+              "p": "seal-restored",
+              "s": "selo"
+            }
+          },
+          "goal": {
+            "fact": {
+              "p": "planted",
+              "s": "$self",
+              "o": "selo",
+              "private": true
+            }
+          },
+          "advanceWhen": {
+            "num": {
+              "e": "selo",
+              "k": "forest",
+              "op": ">=",
+              "v": 3
+            }
+          }
+        },
+        {
+          "id": "resistencia",
+          "title": "Capitulo: A Resistencia",
+          "opens": {
+            "fact": {
+              "p": "seal-shattered",
+              "s": "selo"
+            }
+          },
+          "goal": {
+            "fact": {
+              "p": "defended",
+              "s": "$self",
+              "o": "vila",
+              "private": true
+            }
+          },
+          "claim": [
+            {
+              "op": "adjust",
+              "e": "$self",
+              "k": "reputation",
+              "d": 3
+            }
+          ]
+        }
+      ]
+    }
   ],
   "quests": [
-    {"id": "investigar-poco", "title": "Os aldeoes estao adoecendo", "desc": "Descubra o que contamina a Vila Cinzenta.",
-     "eligible": {"all": [{"num": {"e": "vila", "k": "health", "op": "<", "v": 100}}, {"not": {"knows": {"p": "poisoned", "s": "poco"}}}]},
-     "goal": {"knows": {"p": "poisoned", "s": "poco"}},
-     "rewards": [{"op": "adjust", "e": "$self", "k": "reputation", "d": 1}]},
-    {"id": "avisar", "title": "Avise {npc}", "desc": "{npc} ainda nao sabe que o poco esta envenenado.",
-     "eligible": {"all": [{"knows": {"p": "poisoned", "s": "poco"}}, {"fact": {"p": "poisoned", "s": "poco"}}]},
-     "params": [{"name": "npc", "kind": "npc", "where": {"not": {"knows": {"who": "$it", "p": "poisoned", "s": "poco"}}}}],
-     "goal": {"knows": {"who": "$npc", "p": "poisoned", "s": "poco"}},
-     "rewards": [{"op": "adjust", "e": "$self", "k": "reputation", "d": 1}]},
-    {"id": "cenario-origem", "arc": "maldicao", "beat": "origem", "title": "Cenario Unico: A Origem da Maldicao",
-     "desc": "Siga o rastro da corrupcao ate a floresta. So um aventureiro chegara primeiro.",
-     "eligible": {"fact": {"p": "noticed", "s": "$self", "o": "poco", "private": true}},
-     "goal": {"fact": {"p": "clue-found", "s": "$self", "o": "selo", "private": true}},
-     "rewards": [{"op": "adjust", "e": "$self", "k": "reputation", "d": 2}]},
-    {"id": "testemunha", "title": "O que voce viu no selo", "desc": "Procure o Velho Tomas e conte as marcas que viu.",
-     "eligible": {"fact": {"p": "witnessed", "s": "$self", "o": "selo", "private": true}},
-     "goal": {"fact": {"p": "lore-known", "s": "$self", "o": "selo", "private": true}},
-     "rewards": [{"op": "adjust", "e": "$self", "k": "reputation", "d": 2}]},
-    {"id": "cenario-restaurar", "arc": "maldicao", "beat": "restaurar", "title": "Cenario Unico: Restaurar o Selo",
-     "desc": "Derrote o guardiao e devolva a reliquia ao selo antes de todos.",
-     "eligible": {"knows": {"p": "seal-broken", "s": "selo"}},
-     "goal": {"num": {"e": "$self", "k": "relics", "op": ">=", "v": 1}}},
-    {"id": "cenario-pacto", "arc": "maldicao", "beat": "pacto", "title": "Cenario Unico: O Pacto Sombrio",
-     "desc": "O selo oferece poder a quem o quebrar.",
-     "eligible": {"knows": {"p": "seal-broken", "s": "selo"}},
-     "goal": {"num": {"e": "$self", "k": "infamy", "op": ">=", "v": 1}}},
-    {"id": "replantar", "arc": "maldicao", "beat": "paz", "title": "A Floresta Respira", "desc": "Ajude a replantar a floresta.",
-     "eligible": {}, "goal": {"fact": {"p": "planted", "s": "$self", "o": "selo", "private": true}},
-     "rewards": [{"op": "adjust", "e": "$self", "k": "reputation", "d": 1}]},
-    {"id": "resistir", "arc": "maldicao", "beat": "resistencia", "title": "A Resistencia", "desc": "Defenda a vila das criaturas corrompidas.",
-     "eligible": {}, "goal": {"fact": {"p": "defended", "s": "$self", "o": "vila", "private": true}}}
+    {
+      "id": "investigar-poco",
+      "title": "Os aldeoes estao adoecendo",
+      "desc": "Descubra o que contamina a Vila Cinzenta.",
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": "<",
+              "v": 100
+            }
+          },
+          {
+            "not": {
+              "knows": {
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "knows": {
+          "p": "poisoned",
+          "s": "poco"
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "avisar",
+      "title": "Avise {npc}",
+      "desc": "{npc} ainda nao sabe que o poco esta envenenado.",
+      "eligible": {
+        "all": [
+          {
+            "knows": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          },
+          {
+            "fact": {
+              "p": "poisoned",
+              "s": "poco"
+            }
+          }
+        ]
+      },
+      "params": [
+        {
+          "name": "npc",
+          "kind": "npc",
+          "where": {
+            "not": {
+              "knows": {
+                "who": "$it",
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          }
+        }
+      ],
+      "goal": {
+        "knows": {
+          "who": "$npc",
+          "p": "poisoned",
+          "s": "poco"
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "cenario-origem",
+      "arc": "maldicao",
+      "beat": "origem",
+      "title": "Cenario Unico: A Origem da Maldicao",
+      "desc": "Siga o rastro da corrupcao ate a floresta. So um aventureiro chegara primeiro.",
+      "eligible": {
+        "fact": {
+          "p": "noticed",
+          "s": "$self",
+          "o": "poco",
+          "private": true
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "clue-found",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ]
+    },
+    {
+      "id": "testemunha",
+      "title": "O que voce viu no selo",
+      "desc": "Procure o Velho Tomas e conte as marcas que viu.",
+      "eligible": {
+        "fact": {
+          "p": "witnessed",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "lore-known",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ]
+    },
+    {
+      "id": "cenario-restaurar",
+      "arc": "maldicao",
+      "beat": "restaurar",
+      "title": "Cenario Unico: Restaurar o Selo",
+      "desc": "Derrote o guardiao e devolva a reliquia ao selo antes de todos.",
+      "eligible": {
+        "knows": {
+          "p": "seal-broken",
+          "s": "selo"
+        }
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "relics",
+          "op": ">=",
+          "v": 1
+        }
+      }
+    },
+    {
+      "id": "cenario-pacto",
+      "arc": "maldicao",
+      "beat": "pacto",
+      "title": "Cenario Unico: O Pacto Sombrio",
+      "desc": "O selo oferece poder a quem o quebrar.",
+      "eligible": {
+        "knows": {
+          "p": "seal-broken",
+          "s": "selo"
+        }
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "infamy",
+          "op": ">=",
+          "v": 1
+        }
+      }
+    },
+    {
+      "id": "replantar",
+      "arc": "maldicao",
+      "beat": "paz",
+      "title": "A Floresta Respira",
+      "desc": "Ajude a replantar a floresta.",
+      "eligible": {},
+      "goal": {
+        "fact": {
+          "p": "planted",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "resistir",
+      "arc": "maldicao",
+      "beat": "resistencia",
+      "title": "A Resistencia",
+      "desc": "Defenda a vila das criaturas corrompidas.",
+      "eligible": {},
+      "goal": {
+        "fact": {
+          "p": "defended",
+          "s": "$self",
+          "o": "vila",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "escoltar",
+      "title": "Escolte a caravana",
+      "desc": "Mercadores precisam de protecao na estrada da Vila Cinzenta.",
+      "eligible": {
+        "knows": {
+          "p": "caravan-here",
+          "s": "vila"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "escorted",
+          "s": "$self",
+          "o": "vila",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "cacar",
+      "title": "Lobos na vila",
+      "desc": "Lobos corrompidos rondam as casas. Afugente-os.",
+      "eligible": {
+        "knows": {
+          "p": "wolves",
+          "s": "vila"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "hunted",
+          "s": "$self",
+          "o": "vila",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    }
   ],
-  "limits": {"maxActiveQuests": 1, "decisionTimeout": 3, "declineCooldown": 20, "offerExpiry": 30, "maxEvents": 2000}
+  "limits": {
+    "maxActiveQuests": 1,
+    "decisionTimeout": 3,
+    "declineCooldown": 20,
+    "offerExpiry": 30,
+    "maxEvents": 2000
+  },
+  "happenings": [
+    {
+      "id": "caravana",
+      "title": "Uma caravana de mercadores chega",
+      "desc": "Traz comercio e precisa de escolta.",
+      "when": {
+        "all": [
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": ">=",
+              "v": 50
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "caravan-here",
+                "s": "vila"
+              }
+            }
+          }
+        ]
+      },
+      "cooldown": 30,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "caravan-here",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "caravana-parte",
+          "after": 25
+        },
+        {
+          "op": "emit",
+          "event": "caravan",
+          "public": true,
+          "text": "Uma caravana de mercadores chega a Vila Cinzenta.",
+          "reveals": {
+            "p": "caravan-here",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lobos",
+      "title": "Lobos corrompidos rondam a vila",
+      "desc": "A corrupcao do selo atrai feras.",
+      "when": {
+        "all": [
+          {
+            "any": [
+              {
+                "fact": {
+                  "p": "seal-broken",
+                  "s": "selo"
+                }
+              },
+              {
+                "fact": {
+                  "p": "seal-shattered",
+                  "s": "selo"
+                }
+              }
+            ]
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "wolves",
+                "s": "vila"
+              }
+            }
+          }
+        ]
+      },
+      "cooldown": 30,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "wolves",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "lobos-partem",
+          "after": 30
+        },
+        {
+          "op": "emit",
+          "event": "wolves",
+          "public": true,
+          "text": "Uivos: lobos corrompidos rondam a Vila Cinzenta.",
+          "reveals": {
+            "p": "wolves",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "boato",
+      "title": "Um boato sobre o selo se espalha",
+      "desc": "Viajantes falam de luzes na floresta, apontando a causa da doenca.",
+      "when": {
+        "all": [
+          {
+            "fact": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "seal-revealed",
+                "s": "selo"
+              }
+            }
+          }
+        ]
+      },
+      "cooldown": 40,
+      "effects": [
+        {
+          "op": "emit",
+          "event": "rumor",
+          "public": true,
+          "text": "Viajantes falam de luzes estranhas perto do Selo da Floresta.",
+          "reveals": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "festival",
+      "title": "A vila celebra um festival",
+      "desc": "Um momento de alivio que aumenta a prosperidade.",
+      "when": {
+        "all": [
+          {
+            "not": {
+              "fact": {
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          },
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": ">=",
+              "v": 90
+            }
+          }
+        ]
+      },
+      "cooldown": 60,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "festival",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "prosperity",
+          "d": 2
+        },
+        {
+          "op": "schedule",
+          "rule": "fim-festival",
+          "after": 10
+        },
+        {
+          "op": "emit",
+          "event": "festival",
+          "public": true,
+          "text": "A Vila Cinzenta celebra um festival sob as lanternas."
+        }
+      ]
+    }
+  ],
+  "director": {
+    "every": 10,
+    "allowNone": true
+  }
 }

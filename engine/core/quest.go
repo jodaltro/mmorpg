@@ -32,6 +32,14 @@ func (w *World) questTick(s *State, cause string) {
 	l := w.U.Limits
 	for _, k := range sortedKeys(s.Quests) {
 		q := s.Quests[k]
+		if q.State == "active" && w.quests[q.Def].Arc == "" && !w.Holds(s, w.quests[q.Def].Eligible, Bind{"self": q.Holder}) {
+			// The world moved on (the caravan left, the well is clean):
+			// the quest no longer makes sense and frees the active slot.
+			q.State = "obsolete"
+			s.Quests[k] = q
+			w.emit(s, Event{Kind: "quest-obsolete", Holder: q.Holder, Text: q.Title, Cause: cause})
+			continue
+		}
 		if q.State != "offered" {
 			continue
 		}
@@ -269,21 +277,9 @@ func (w *World) offer(s *State, p ID, cause string) {
 		opts = append(opts, Option{ID: c.key, Title: w.render(s, c.def.Title, b), Desc: w.render(s, c.def.Desc, b)})
 	}
 	id := "offer:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
-	ctx := []string{"player: " + s.Entities[p].Name}
-	for _, k := range sortedKeys(s.Beliefs[p]) {
-		bel := s.Beliefs[p][k]
-		if len(ctx) >= 12 {
-			break
-		}
-		ctx = append(ctx, "believes "+bel.P+" "+string(bel.S)+" "+string(bel.O)+" = "+boolText(bel.Holds)+" ("+bel.Source+")")
-	}
-	n := 0
-	for i := len(s.Events) - 1; i >= 0 && n < 4; i-- {
-		if e := s.Events[i]; e.Holder == p && e.Text != "" {
-			ctx = append(ctx, "recent: "+e.Kind+" "+e.Text)
-			n++
-		}
-	}
+	ctx := w.profile(s, p)
+	ctx = append(ctx, w.storySoFar(s)...)
+	ctx = append(ctx, w.offeredToOthers(s, p, 5)...)
 	ctx = append(ctx, w.recentPublic(s, 4)...)
 	s.Decisions[id] = Decision{ID: id, Kind: "offer", Subject: string(p), Options: opts,
 		Default: cands[pick(id, len(cands))].key, Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
@@ -333,7 +329,7 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 
 // decide applies an advisor choice. The choice must be one of the options
 // AND still valid now; otherwise it is rejected and the default will apply.
-func (w *World) decide(s *State, d Decision, choice, provider, model string, cause string) error {
+func (w *World) decide(s *State, d Decision, choice string, meta map[string]string, cause string) error {
 	if !slices.ContainsFunc(d.Options, func(o Option) bool { return o.ID == choice }) {
 		return reject("choice")
 	}
@@ -359,21 +355,33 @@ func (w *World) decide(s *State, d Decision, choice, provider, model string, cau
 		}
 		delete(s.Decisions, d.ID)
 		w.setBeat(s, d.Subject, choice)
+	case "world":
+		if err := w.occur(s, choice, cause); err != nil {
+			return err
+		}
+		delete(s.Decisions, d.ID)
 	}
-	w.emit(s, Event{Kind: "decision", Cause: cause, Data: map[string]string{"decision": d.ID, "choice": choice, "provider": provider, "model": model}})
+	data := map[string]string{"decision": d.ID, "kind": d.Kind, "subject": d.Subject, "choice": choice, "default": d.Default}
+	for k, v := range meta {
+		data[k] = v
+	}
+	w.emit(s, Event{Kind: "decision", Cause: cause, Data: data})
 	return nil
 }
 
 // decideDefault runs at the deadline. If even the default became invalid,
 // an offer decision is dropped (the next tick recomputes candidates).
 func (w *World) decideDefault(s *State, d Decision, cause string) {
-	if w.decide(s, d, d.Default, "default", "", cause) == nil {
+	if w.decide(s, d, d.Default, map[string]string{"provider": "default"}, cause) == nil {
 		return
 	}
 	delete(s.Decisions, d.ID)
 	if d.Kind == "story" {
 		w.setBeat(s, d.Subject, d.Options[0].ID)
 		return
+	}
+	if d.Kind == "world" {
+		return // nothing still valid: the director tries again next time
 	}
 	// The world moved on while the decision was pending: offer the first
 	// option that is still valid, else any current candidate, so a fast

@@ -40,7 +40,8 @@ Regra de dependência: `core` importa só a biblioteca padrão (verificado por `
 | Agentes NPC | Objetivos com prioridade e condição (normalmente sobre crenças). Se a tentativa falha contra a verdade, o NPC observa os fatos que leu errado |
 | Histórias | `Arc` = DAG de `Beat`. Capítulo único (primeiro a cumprir o objetivo vence) ou compartilhado (todos podem cumprir; o arco avança por condição coletiva) |
 | Missões | Modelos com elegibilidade, parâmetros ligados a entidades, objetivo e recompensas. Geram instâncias diferentes por jogador |
-| Decisões | Escolhas pendentes (`offer`, `story`) com opções já validadas, contexto, padrão e prazo |
+| Decisões | Escolhas pendentes (`offer`, `story`, `world`) com opções já validadas, contexto, padrão e prazo |
+| Diretor do Mundo | A cada `director.every` ticks, reúne os acontecimentos (`happenings`) elegíveis e pergunta ao Jev qual ocorre (ou `none`). Cada acontecimento tem `cooldown` |
 | Efeitos | Conjunto fechado: `assert`, `retract`, `adjust`, `set`, `observe`, `inform`, `schedule`, `emit` (com `reveals`), todos com `if` opcional |
 
 Condições: `all`, `any`, `not`, `fact`, `knows` (de `$self` ou de outro), `num`, `tag`, `beat`. Variáveis: `$self`, parâmetros de ação/missão, `$it`, `$claimant`.
@@ -63,10 +64,10 @@ Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expec
 
 1. Agendamentos vencidos (ordem estável por prazo e chave).
 2. Regras periódicas, na ordem declarada; `forEach` em ordem de ID.
-3. Histórias: abre o capítulo atual quando `opens` vale; capítulos compartilhados avançam quando `advanceWhen` vale.
+3. Histórias: abre o capítulo atual quando `opens` vale; capítulos compartilhados avançam quando `advanceWhen` vale. Depois, o Diretor do Mundo cria a decisão `world`, se for a hora.
 4. Decisões vencidas recebem o padrão. Se o padrão perdeu a validade, oferece-se outra opção ainda válida.
 5. Agentes NPC, em ordem de ID: no máximo uma tentativa por agente.
-6. Missões: retira ofertas sem sentido, expira as ignoradas, conclui as cumpridas, reivindica capítulos e gera novas ofertas.
+6. Missões: encerra como `obsolete` as missões ativas que perderam a elegibilidade, retira ofertas sem sentido, expira as ignoradas, conclui as cumpridas, reivindica capítulos e gera novas ofertas.
 
 ## Cenários únicos e histórias dinâmicas
 
@@ -84,6 +85,18 @@ Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expec
 - O motor revalida a escolha: precisa estar entre as opções **e** continuar válida agora. Resposta atrasada ou inválida é recusada, e o padrão determinístico vale no prazo.
 - Testado: 200 comandos de jogo concluídos com um conselheiro travado (`TestSlowAdvisorNeverBlocksTheWorld`).
 - As resoluções entram no log, então o replay é determinístico mesmo com um conselheiro não determinístico.
+- Cada decisão aplicada guarda, no evento `decision`, o provedor, o modelo, o ID da chamada, a confiança, a latência e o custo informados.
+- O contexto enviado ao Jev inclui o perfil do jogador (título, atributos, missões concluídas e perdidas, crenças com fonte, eventos recentes), a história até agora, os indicadores do mundo e o que já foi oferecido a outros jogadores, para dar variedade.
+
+### O Jev medido ao vivo (19/10/2026)
+
+| Corrida | Decisões | Pelo Jev no prazo | Latência média | Custo |
+|---|---|---|---|---|
+| Valdoria, 150 ticks de 0,8 s, 4 jogadores | 14 (13 `world`, 1 `story`) | 14 | ~680 ms | US$ 0,00042 |
+| Valdoria, 120 ticks de 0,7 s, 4 jogadores | 11 | 11 | ~635 ms | US$ 0,00033 |
+| Kepler-9, 100 ticks de 0,7 s, 3 jogadores | 9 | 9 | ~645 ms | US$ 0,00025 |
+
+Com `decisionTimeout` de 3 ticks e ticks de 0,7 a 1 s, o prazo (2,1 a 3 s) fica bem acima da latência observada. Ticks mais curtos pedem um `decisionTimeout` maior.
 
 ## Persistência
 
