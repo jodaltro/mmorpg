@@ -1,0 +1,74 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "wall",
+  "sourceFile": "wall.aseprite",
+  "canvas": [
+    417,
+    278
+  ],
+  "ppu": 32,
+  "layers": [
+    "Masonry",
+    "Coping",
+    "Foundation"
+  ],
+  "groundAnchorPixels": [
+    207.685546875,
+    206.328125
+  ],
+  "roles": {
+    "Masonry": "wall",
+    "Coping": "wall",
+    "Foundation": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/Masters/wall.png",
+    "sha256": "d706de502dcdb77964c0cd81b263ccbf26a0bec2bb942e3555cb223c07cd0184",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.271484375,
+    0.271484375
+  ],
+  "doorMaster": null,
+  "doorHeightUnits": null,
+  "normalizedBy": "Uniform silhouette registration against known authored placement; final doorway/foundation reviewed in Unity",
+  "spanMaster": [
+    75,
+    1490
+  ],
+  "spanUnits": 12,
+  "alphaOperation": "Aseprite alpha<250 ->0, remaining ->255; no halo retained",
+  "paletteOperation": "Aseprite octree<=192, no dithering",
+  "authority": "Editable Aseprite; export reads pixels",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate anime revision; not approved",
+  "registration": {
+    "scale": 0.2798154406885449,
+    "offset": [
+      -6,
+      3
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      417,
+      278
+    ],
+    "weightedLowerSilhouetteIoU": 0.9598204629028768,
+    "referenceCanvas": [
+      417,
+      278
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  }
+}

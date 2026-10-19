@@ -1,0 +1,346 @@
+{
+  "H1": {
+    "scale": 0.7545548080346851,
+    "offset": [
+      0,
+      1
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1009,
+      1009
+    ],
+    "weightedLowerSilhouetteIoU": 0.9885915140715733,
+    "referenceCanvas": [
+      945,
+      945
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "H2": {
+    "scale": 0.7294792217456667,
+    "offset": [
+      11,
+      -6
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1144,
+      874
+    ],
+    "weightedLowerSilhouetteIoU": 0.9842482479653435,
+    "referenceCanvas": [
+      1080,
+      810
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "H3": {
+    "scale": 0.6271360486105749,
+    "offset": [
+      -1,
+      1
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      950,
+      788
+    ],
+    "weightedLowerSilhouetteIoU": 0.98726005992939,
+    "referenceCanvas": [
+      886,
+      724
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "H4": {
+    "scale": 0.7279702935074257,
+    "offset": [
+      0,
+      2
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1183,
+      810
+    ],
+    "weightedLowerSilhouetteIoU": 0.9906080003009818,
+    "referenceCanvas": [
+      1119,
+      746
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "H5": {
+    "scale": 0.8526077531542477,
+    "offset": [
+      10,
+      -4
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1353,
+      923
+    ],
+    "weightedLowerSilhouetteIoU": 0.981037302617411,
+    "referenceCanvas": [
+      1289,
+      859
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "H6": {
+    "scale": 0.7806090826137781,
+    "offset": [
+      1,
+      0
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1256,
+      859
+    ],
+    "weightedLowerSilhouetteIoU": 0.9883028223157471,
+    "referenceCanvas": [
+      1192,
+      795
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "B1": {
+    "scale": 0.9346603807522676,
+    "offset": [
+      0,
+      0
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1500,
+      1021
+    ],
+    "weightedLowerSilhouetteIoU": 0.9905888869027056,
+    "referenceCanvas": [
+      1436,
+      957
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "castle-compound": {
+    "scale": 1.5247469894170194,
+    "offset": [
+      -1,
+      3
+    ],
+    "padding": [
+      64,
+      192,
+      64,
+      32
+    ],
+    "canvas": [
+      1887,
+      2295
+    ],
+    "weightedLowerSilhouetteIoU": 0.9897682492827737,
+    "referenceCanvas": [
+      1759,
+      2071
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "gate": {
+    "scale": 1.109395557109294,
+    "offset": [
+      -2,
+      -3
+    ],
+    "padding": [
+      64,
+      192,
+      64,
+      32
+    ],
+    "canvas": [
+      1838,
+      1364
+    ],
+    "weightedLowerSilhouetteIoU": 0.9400328610104646,
+    "referenceCanvas": [
+      1710,
+      1140
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "wall": {
+    "scale": 0.2798154406885449,
+    "offset": [
+      -6,
+      3
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      417,
+      278
+    ],
+    "weightedLowerSilhouetteIoU": 0.9598204629028768,
+    "referenceCanvas": [
+      417,
+      278
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "corner": {
+    "scale": 0.2654729677274356,
+    "offset": [
+      2,
+      1
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      414,
+      276
+    ],
+    "weightedLowerSilhouetteIoU": 0.9866028708133973,
+    "referenceCanvas": [
+      414,
+      276
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "lowwall": {
+    "scale": 0.2495128586746668,
+    "offset": [
+      1,
+      0
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      378,
+      252
+    ],
+    "weightedLowerSilhouetteIoU": 0.9842456504295751,
+    "referenceCanvas": [
+      378,
+      252
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "bridge": {
+    "scale": 0.7799311257930439,
+    "offset": [
+      -1,
+      3
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      796,
+      1195
+    ],
+    "weightedLowerSilhouetteIoU": 0.9890469837078211,
+    "referenceCanvas": [
+      796,
+      1195
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "fence": {
+    "scale": 0.25937898570074874,
+    "offset": [
+      1,
+      0
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      386,
+      257
+    ],
+    "weightedLowerSilhouetteIoU": 0.9342868988391375,
+    "referenceCanvas": [
+      386,
+      257
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  },
+  "fountain": {
+    "scale": 0.10556701030927836,
+    "offset": [
+      0,
+      0
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      162,
+      108
+    ],
+    "anchor": [
+      80.75876288659794,
+      77.06391752577319
+    ],
+    "note": "Explicit painted basin diameter annotation 970 master pixels ->3.2u; no inferred collider"
+  }
+}

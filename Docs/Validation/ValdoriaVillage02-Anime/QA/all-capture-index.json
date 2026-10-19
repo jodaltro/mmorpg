@@ -1,0 +1,993 @@
+{
+  "images": [
+    {
+      "original": "Original/H1-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "H1-0-edge-0-4b911de32b",
+      "integral": true,
+      "camera": {
+        "position": "(74.3636, 124.3261, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31339,
+      "time": 425.8580218679138,
+      "actor": "(74.3636, 119.3261, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H1-0-edge-0-before.png"
+    },
+    {
+      "original": "Original/H1-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "H1-0-edge-0-4b911de32b",
+      "integral": true,
+      "camera": {
+        "position": "(74.3636, 124.3261, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31395,
+      "time": 427.0116444727891,
+      "actor": "(74.68295, 119.640625, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H1-0-edge-0-after.png"
+    },
+    {
+      "original": "Original/H3-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "H3-0-edge-0-a0ed54a7e2",
+      "integral": true,
+      "camera": {
+        "position": "(61.1, 171.384384, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33035,
+      "time": 454.79364877409296,
+      "actor": "(61.1, 166.384384, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H3-0-edge-0-before.png"
+    },
+    {
+      "original": "Original/H3-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "H3-0-edge-0-a0ed54a7e2",
+      "integral": true,
+      "camera": {
+        "position": "(61.1, 171.384384, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33090,
+      "time": 455.9445954719388,
+      "actor": "(61.09649, 166.841217, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H3-0-edge-0-after.png"
+    },
+    {
+      "original": "Original/B1-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "B1-0-edge-0-58bc5fe310",
+      "integral": true,
+      "camera": {
+        "position": "(134.106247, 237.209381, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36238,
+      "time": 508.92666867205213,
+      "actor": "(134.106247, 232.209381, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-B1-0-edge-0-before.png"
+    },
+    {
+      "original": "Original/B1-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "B1-0-edge-0-58bc5fe310",
+      "integral": true,
+      "camera": {
+        "position": "(134.106247, 237.209381, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36294,
+      "time": 510.0402784722222,
+      "actor": "(134.106247, 232.707428, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-B1-0-edge-0-after.png"
+    },
+    {
+      "original": "Original/castle-compound-keep-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "castle-compound-keep-0-edge-0-08f4a99215",
+      "integral": true,
+      "camera": {
+        "position": "(200.0875, 242.300018, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41590,
+      "time": 599.6838417729591,
+      "actor": "(200.0875, 237.300018, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-castle-compound-keep-0-edge-0-before.png"
+    },
+    {
+      "original": "Original/castle-compound-keep-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "castle-compound-keep-0-edge-0-08f4a99215",
+      "integral": true,
+      "camera": {
+        "position": "(200.0875, 242.300018, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41646,
+      "time": 600.7539969671202,
+      "actor": "(200.085678, 237.80896, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-castle-compound-keep-0-edge-0-after.png"
+    },
+    {
+      "original": "Original/gate-west-tower-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "gate-west-tower-0-edge-0-0f383ee9ef",
+      "integral": true,
+      "camera": {
+        "position": "(102.068748, 101.22187, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44739,
+      "time": 653.0611698696144,
+      "actor": "(102.068748, 96.22187, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-gate-west-tower-0-edge-0-before.png"
+    },
+    {
+      "original": "Original/gate-west-tower-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "gate-west-tower-0-edge-0-0f383ee9ef",
+      "integral": true,
+      "camera": {
+        "position": "(102.068748, 101.22187, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44794,
+      "time": 654.1766041737528,
+      "actor": "(102.06546, 96.6859, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-gate-west-tower-0-edge-0-after.png"
+    },
+    {
+      "original": "Original/bridge-left-rail-0-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "bridge-left-rail-0-edge-0-a379585866",
+      "integral": true,
+      "camera": {
+        "position": "(112.0375, 96.60625, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45869,
+      "time": 672.5322741709183,
+      "actor": "(112.0375, 91.60625, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-bridge-left-rail-0-edge-0-before.png"
+    },
+    {
+      "original": "Original/bridge-left-rail-0-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "bridge-left-rail-0-edge-0-a379585866",
+      "integral": true,
+      "camera": {
+        "position": "(112.0375, 96.60625, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45925,
+      "time": 673.6280361678005,
+      "actor": "(112.037491, 91.0462341, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-bridge-left-rail-0-edge-0-after.png"
+    },
+    {
+      "original": "Original/court-fountain-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "court-fountain-edge-0-fe7dc9b293",
+      "integral": true,
+      "camera": {
+        "position": "(194.997238, 240.81366, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48825,
+      "time": 722.8126532738095,
+      "actor": "(194.997238, 235.81366, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-court-fountain-edge-0-before.png"
+    },
+    {
+      "original": "Original/court-fountain-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "court-fountain-edge-0-fe7dc9b293",
+      "integral": true,
+      "camera": {
+        "position": "(194.997238, 240.81366, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48881,
+      "time": 723.8722365717119,
+      "actor": "(194.665253, 235.47731, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-court-fountain-edge-0-after.png"
+    },
+    {
+      "original": "Original/court-oak-west-edge-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Before aligned real Input System contact; explicit fixture placement",
+      "comparison": "court-oak-west-edge-0-a1c21db546",
+      "integral": true,
+      "camera": {
+        "position": "(175.387756, 240.177261, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49204,
+      "time": 729.5136808673469,
+      "actor": "(175.387756, 235.177277, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-court-oak-west-edge-0-before.png"
+    },
+    {
+      "original": "Original/court-oak-west-edge-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "After real input contact with the explicit ground volume; new anime painting remains opaque",
+      "comparison": "court-oak-west-edge-0-a1c21db546",
+      "integral": true,
+      "camera": {
+        "position": "(175.387756, 240.177261, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49260,
+      "time": 730.5903966695012,
+      "actor": "(174.789963, 235.177261, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-court-oak-west-edge-0-after.png"
+    },
+    {
+      "original": "Original/H1-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "H1-opaque-front-c9667ca9c7",
+      "integral": true,
+      "camera": {
+        "position": "(77, 122.827019, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49775,
+      "time": 739.4358266723356,
+      "actor": "(77, 117.827026, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H1-opaque-front.png"
+    },
+    {
+      "original": "Original/H1-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "H1-opaque-rear-caae7e831a",
+      "integral": true,
+      "camera": {
+        "position": "(77, 132.4625, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49787,
+      "time": 739.8313436720521,
+      "actor": "(77, 127.4625, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H1-opaque-rear.png"
+    },
+    {
+      "original": "Original/H2-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "H2-opaque-front-551aab7e44",
+      "integral": true,
+      "camera": {
+        "position": "(167.2, 118.309837, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49798,
+      "time": 740.2307072704082,
+      "actor": "(167.2, 113.309837, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H2-opaque-front.png"
+    },
+    {
+      "original": "Original/H2-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "H2-opaque-rear-f2f85ab724",
+      "integral": true,
+      "camera": {
+        "position": "(167.2, 126.8125, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49809,
+      "time": 740.6436286706349,
+      "actor": "(167.200012, 121.8125, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H2-opaque-rear.png"
+    },
+    {
+      "original": "Original/H3-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "H3-opaque-front-5dc0a1436e",
+      "integral": true,
+      "camera": {
+        "position": "(61.6, 170.89624, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49821,
+      "time": 741.0408174674036,
+      "actor": "(61.6000023, 165.89624, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H3-opaque-front.png"
+    },
+    {
+      "original": "Original/H3-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "H3-opaque-rear-e87f3c9b8f",
+      "integral": true,
+      "camera": {
+        "position": "(61.6, 180.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49832,
+      "time": 741.461861571712,
+      "actor": "(61.6, 175.8, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H3-opaque-rear.png"
+    },
+    {
+      "original": "Original/H4-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "H4-opaque-front-be0e029c0a",
+      "integral": true,
+      "camera": {
+        "position": "(105.6, 177.706924, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49844,
+      "time": 741.8713950680271,
+      "actor": "(105.6, 172.706924, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H4-opaque-front.png"
+    },
+    {
+      "original": "Original/H4-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "H4-opaque-rear-27ef6e9312",
+      "integral": true,
+      "camera": {
+        "position": "(105.6, 186.181259, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49855,
+      "time": 742.2733219671202,
+      "actor": "(105.6, 181.181259, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H4-opaque-rear.png"
+    },
+    {
+      "original": "Original/H5-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "H5-opaque-front-7621d8ed38",
+      "integral": true,
+      "camera": {
+        "position": "(200.2, 151.296814, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49867,
+      "time": 742.6853032738095,
+      "actor": "(200.2, 146.296814, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H5-opaque-front.png"
+    },
+    {
+      "original": "Original/H5-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "H5-opaque-rear-247c4e9663",
+      "integral": true,
+      "camera": {
+        "position": "(200.2, 160.65625, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49878,
+      "time": 743.1154284722222,
+      "actor": "(200.2, 155.65625, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H5-opaque-rear.png"
+    },
+    {
+      "original": "Original/H6-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "H6-opaque-front-5a3f693157",
+      "integral": true,
+      "camera": {
+        "position": "(81.4, 226.121414, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49890,
+      "time": 743.5210662698412,
+      "actor": "(81.4, 221.121414, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H6-opaque-front.png"
+    },
+    {
+      "original": "Original/H6-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "H6-opaque-rear-098544ba8d",
+      "integral": true,
+      "camera": {
+        "position": "(81.4, 236.425, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49901,
+      "time": 743.9285863732993,
+      "actor": "(81.3999939, 231.424988, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-H6-opaque-rear.png"
+    },
+    {
+      "original": "Original/B1-opaque-front.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: front; actor blocked from volume, structure never fades",
+      "comparison": "B1-opaque-front-244525599d",
+      "integral": true,
+      "camera": {
+        "position": "(123.2, 239.296524, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49913,
+      "time": 744.3263366709183,
+      "actor": "(123.200005, 234.296524, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-B1-opaque-front.png"
+    },
+    {
+      "original": "Original/B1-opaque-rear.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Opaque depth fixture: rear; actor blocked from volume, structure never fades",
+      "comparison": "B1-opaque-rear-67d43a4f11",
+      "integral": true,
+      "camera": {
+        "position": "(123.2, 246.09375, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49924,
+      "time": 744.7220005739796,
+      "actor": "(123.2, 241.09375, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-B1-opaque-rear.png"
+    },
+    {
+      "original": "Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Integrated village in actual Play; fixed review fixture",
+      "comparison": "overview-946715ac5a",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49939,
+      "time": 745.1951549674036,
+      "actor": "(116.600006, 26.4, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-overview.png"
+    },
+    {
+      "original": "Original/entry.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Integrated village in actual Play; fixed review fixture",
+      "comparison": "entry-d62ad789e8",
+      "integral": true,
+      "camera": {
+        "position": "(116.6, 98, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49956,
+      "time": 745.6108746740363,
+      "actor": "(116.6, 91, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-entry.png"
+    },
+    {
+      "original": "Original/common.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Integrated village in actual Play; fixed review fixture",
+      "comparison": "common-afefa8e9fa",
+      "integral": true,
+      "camera": {
+        "position": "(143, 153, -10)",
+        "ortho": 28.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49972,
+      "time": 746.0483242701247,
+      "actor": "(143, 145.199982, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-common.png"
+    },
+    {
+      "original": "Original/garden.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Integrated village in actual Play; fixed review fixture",
+      "comparison": "garden-8f9965a44b",
+      "integral": true,
+      "camera": {
+        "position": "(191, 237, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49989,
+      "time": 746.5485032738095,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-garden.png"
+    },
+    {
+      "original": "Original/castle.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Integrated village in actual Play; fixed review fixture",
+      "comparison": "castle-b6440fe2ff",
+      "integral": true,
+      "camera": {
+        "position": "(190, 240, -10)",
+        "ortho": 35.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50004,
+      "time": 747.0341097718253,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "Contacts-castle.png"
+    },
+    {
+      "original": "InitialViews/Original/entry.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "entry-d62ad789e8",
+      "integral": true,
+      "camera": {
+        "position": "(116.6, 98, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 156,
+      "time": 0.7975881944444444,
+      "actor": "(116.6, 91, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "InitialViews-entry.png"
+    },
+    {
+      "original": "InitialViews/Original/castle.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "castle-b6440fe2ff",
+      "integral": true,
+      "camera": {
+        "position": "(190, 240, -10)",
+        "ortho": 35.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 209,
+      "time": 1.187998795351474,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "InitialViews-castle.png"
+    },
+    {
+      "original": "InitialViews/Original/garden.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "garden-8f9965a44b",
+      "integral": true,
+      "camera": {
+        "position": "(191, 237, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 251,
+      "time": 1.6118507936507935,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "InitialViews-garden.png"
+    },
+    {
+      "original": "InitialViews/Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Initial anime-directed actual Play inspection; fixed review fixture before full QA",
+      "comparison": "overview-946715ac5a",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 288,
+      "time": 2.0233508928571426,
+      "actor": "(116.6, 26.4, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "InitialViews-overview.png"
+    },
+    {
+      "original": "FinalDepthV2/Original/entry.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "entry-d62ad789e8",
+      "integral": true,
+      "camera": {
+        "position": "(116.6, 98, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2986,
+      "time": 10.374805789399092,
+      "actor": "(116.6, 91, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "FinalDepthV2-entry.png"
+    },
+    {
+      "original": "FinalDepthV2/Original/castle.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "castle-b6440fe2ff",
+      "integral": true,
+      "camera": {
+        "position": "(190, 240, -10)",
+        "ortho": 35.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3043,
+      "time": 10.763761089852608,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "FinalDepthV2-castle.png"
+    },
+    {
+      "original": "FinalDepthV2/Original/garden.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "garden-8f9965a44b",
+      "integral": true,
+      "camera": {
+        "position": "(191, 237, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3081,
+      "time": 11.194240093537415,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "FinalDepthV2-garden.png"
+    },
+    {
+      "original": "FinalDepthV2/Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "overview-946715ac5a",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3119,
+      "time": 11.613200488945578,
+      "actor": "(116.6, 26.3999977, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "reviewName": "FinalDepthV2-overview.png"
+    }
+  ]
+}

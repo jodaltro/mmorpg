@@ -1,0 +1,13 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+  "originalPhysicalPlanesVerified": 120,
+  "physical": 123,
+  "newGardenSolids": 3,
+  "flowers": 14,
+  "replacedArchitecturalFamilies": 14,
+  "ppu": 32,
+  "actorUnchanged": true,
+  "baseGroundAndRiverUnchanged": true,
+  "promoted": false,
+  "artisticApproval": false
+}

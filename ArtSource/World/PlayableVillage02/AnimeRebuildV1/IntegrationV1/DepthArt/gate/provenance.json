@@ -1,0 +1,20 @@
+{
+  "source": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/SourceV2/gate/gate.aseprite",
+  "sourceSHA256": "01085d5785ce63ae9ff59498183ecc56f69b41e19b14b8132ec4291dc81961be",
+  "canvas": [
+    1838,
+    1364
+  ],
+  "parts": [
+    "arch",
+    "west-connector",
+    "east-connector",
+    "west-tower",
+    "east-tower",
+    "wood-west",
+    "wood-east"
+  ],
+  "pixelIdenticalRecomposition": true,
+  "groundPlanesUnchanged": true,
+  "ownershipOrigin": "Existing explicit ground/depth partition translated by canvas padding; visually reviewed in Play"
+}

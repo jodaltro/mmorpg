@@ -1,0 +1,35 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "daisies",
+  "sourceFile": "daisies.aseprite",
+  "canvas": [
+    64,
+    48
+  ],
+  "ppu": 32,
+  "groundAnchorPixels": [
+    32,
+    42
+  ],
+  "layers": [
+    "Blossoms",
+    "Foliage"
+  ],
+  "roles": {
+    "Blossoms": "wall",
+    "Foliage": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/Masters/daisies.png",
+    "sha256": "c35ad144c9ffc341ea4724af3e7d40cf9ec4bd3f2d9401cdd0118e6550ff629b",
+    "size": [
+      1448,
+      1086
+    ]
+  },
+  "doorHeightUnits": null,
+  "spanUnits": 2,
+  "physical": "Non-solid low flowers; do not block paths",
+  "authority": "Aseprite pixels",
+  "artisticStatus": "candidate"
+}

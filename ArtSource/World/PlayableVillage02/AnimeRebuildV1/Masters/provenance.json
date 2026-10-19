@@ -1,0 +1,74 @@
+{
+  "tool": "built-in image_gen",
+  "files": {
+    "H1": {
+      "sourceFilename": "exec-0fe53510-219f-4fcd-9c0b-58547d682ed2.png",
+      "sha256": "286fcc033a5faff0912fd5fdef263ff7c9d6161bb38d45621fd5e0229ed49404"
+    },
+    "H2": {
+      "sourceFilename": "exec-f7c7f772-d152-4543-a64a-395e3ddaee43.png",
+      "sha256": "02710b7ab62581869854b22293c5903569f3dfe183c805354125fef7ab80420d"
+    },
+    "H3": {
+      "sourceFilename": "exec-20d43725-ba50-4ed5-a87c-4a8abc19f60f.png",
+      "sha256": "d8891164ec9f460abe9574861ad10193086cc262260ac572c1b9dba85093ea4d"
+    },
+    "H4": {
+      "sourceFilename": "exec-d3cb7a46-63b8-4779-a458-9a600a72ecbb.png",
+      "sha256": "38c8fc5562e55cb4a2dd5e3f8a9185ebe297d9e7af262524488dd55a1e14fecf"
+    },
+    "H5": {
+      "sourceFilename": "exec-eb608047-40b5-453c-ace8-5a37e322fff4.png",
+      "sha256": "8ed206012cbbdfb1083a60cb792db1300d5abbea45740dde065c69d32c37cade"
+    },
+    "H6": {
+      "sourceFilename": "exec-56d99779-b41e-4d3d-9290-bb1798e3f8a3.png",
+      "sha256": "848b55d96975ac2caf9bdc4b4cd5dbc9ada7eedde0f46da8c609aea16c73a224"
+    },
+    "B1": {
+      "sourceFilename": "exec-d7ad8427-9aef-4c51-a550-a3fe344237ab.png",
+      "sha256": "2ae6454f3eb053e165551b7fe569b86c9d5f3fc816fe0a97825ce28bee493e0a"
+    },
+    "castle-compound": {
+      "sourceFilename": "exec-ba2bf498-4056-4766-a2ff-63e493e2c254.png",
+      "sha256": "dbd13f6af8a08b8850044d602343d634bc66698860d5fc56db34c9b6e1252b51"
+    },
+    "gate": {
+      "sourceFilename": "exec-5c18248a-bd64-4ac1-9ada-269ab4145169.png",
+      "sha256": "77c5fe81ca947c71413b1a8e7603f6205ad005d34e5a94f2ec2effc4788445d9"
+    },
+    "wall": {
+      "sourceFilename": "exec-7d9c51df-f4df-4369-b300-9e9414755c34.png",
+      "sha256": "d706de502dcdb77964c0cd81b263ccbf26a0bec2bb942e3555cb223c07cd0184"
+    },
+    "corner": {
+      "sourceFilename": "exec-7479f07e-5dc7-4882-8e4a-b252fe20b664.png",
+      "sha256": "ba8dd3a955e28f5843cb643286df78acc90e5814a020901a913bdc2db216f8fc"
+    },
+    "lowwall": {
+      "sourceFilename": "exec-fe70ac58-037f-4765-a9f1-1f9fc3e90a66.png",
+      "sha256": "758a3944174d995f29a750ff3112124ce780f9ef0b92f75e7142d463cf6f2cf1"
+    },
+    "bridge": {
+      "sourceFilename": "exec-e3c3cc4e-1e4f-4b0d-8bab-24a7115863cd.png",
+      "sha256": "85448f080866e5bb492531f4e2b0fe0d71033b61b065a6b576e552ec711e8d73"
+    },
+    "fence": {
+      "sourceFilename": "exec-eedc130f-009a-4ebd-8d18-dd716ab8895f.png",
+      "sha256": "8add48b7a79d4cb8c8e57fb65c8dcfe0ff0059ead682e24c8d0a8c0b12f51048"
+    },
+    "fountain": {
+      "sourceFilename": "exec-470f4251-1a7b-4286-a3d3-6567c948090a.png",
+      "sha256": "99c38a2b1f7b5f8d42518f819fb7a45f2f20d0e10086556d9c922d0d83cc7b67"
+    },
+    "daisies": {
+      "sourceFilename": "exec-346778d9-9764-443b-9d08-12da7f2e84e8.png",
+      "sha256": "c35ad144c9ffc341ea4724af3e7d40cf9ec4bd3f2d9401cdd0118e6550ff629b"
+    }
+  },
+  "direction": "Release That Witch OFFICIAL ANIME only; poor neglected town / maintained bright castle",
+  "artisticApproval": false,
+  "deterministicFromSeed": false,
+  "selectedPrompts": "../selected-prompts.json",
+  "reference": "Official Crunchyroll animated trailer S4P2Mr_Cwys, 00:13 / 00:21 / 00:29"
+}

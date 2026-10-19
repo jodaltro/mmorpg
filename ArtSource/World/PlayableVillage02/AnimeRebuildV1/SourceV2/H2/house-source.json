@@ -1,0 +1,79 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "H2",
+  "sourceFile": "H2.aseprite",
+  "canvas": [
+    1144,
+    874
+  ],
+  "ppu": 32,
+  "layers": [
+    "Walls",
+    "Roof",
+    "Foundation",
+    "Openings",
+    "Details"
+  ],
+  "groundAnchorPixels": [
+    457.1381215469613,
+    676.4198895027624
+  ],
+  "roles": {
+    "Walls": "wall",
+    "Roof": "roof",
+    "Foundation": "wall",
+    "Openings": "wall",
+    "Details": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/Masters/H2.png",
+    "sha256": "02710b7ab62581869854b22293c5903569f3dfe183c805354125fef7ab80420d",
+    "size": [
+      1448,
+      1086
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.7458563535911602,
+    0.7458563535911602
+  ],
+  "doorMaster": [
+    570,
+    656,
+    864
+  ],
+  "doorHeightUnits": 4.848066298342541,
+  "normalizedBy": "Uniform silhouette registration against known authored placement; final doorway/foundation reviewed in Unity",
+  "spanMaster": null,
+  "spanUnits": null,
+  "alphaOperation": "Aseprite alpha<250 ->0, remaining ->255; no halo retained",
+  "paletteOperation": "Aseprite octree<=192, no dithering",
+  "authority": "Editable Aseprite; export reads pixels",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate anime revision; not approved",
+  "registration": {
+    "scale": 0.7294792217456667,
+    "offset": [
+      11,
+      -6
+    ],
+    "padding": [
+      32,
+      32,
+      32,
+      32
+    ],
+    "canvas": [
+      1144,
+      874
+    ],
+    "weightedLowerSilhouetteIoU": 0.9842482479653435,
+    "referenceCanvas": [
+      1080,
+      810
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  }
+}

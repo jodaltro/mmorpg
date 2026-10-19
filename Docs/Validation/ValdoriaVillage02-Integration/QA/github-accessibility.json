@@ -1,0 +1,14 @@
+{
+  "repository": "jodaltro/mmorpg",
+  "ref": "main",
+  "publicationCommit": "e85b571b",
+  "path": "Docs/Validation/ValdoriaVillage02-Integration/ReviewLite/FinalV2-entry.png",
+  "published": true,
+  "base64RecoveryTested": true,
+  "pngSignatureVerified": true,
+  "sha256MatchesManifest": true,
+  "visualInspectionOfRecoveredFile": true,
+  "directImageRenderingInConnector": false,
+  "connectorGitBlobSHA": "18e8d2f500d0c12f75c5b7faea8180930b6fa6c8",
+  "sourceURL": "https://github.com/jodaltro/mmorpg/blob/main/Docs/Validation/ValdoriaVillage02-Integration/ReviewLite/FinalV2-entry.png"
+}

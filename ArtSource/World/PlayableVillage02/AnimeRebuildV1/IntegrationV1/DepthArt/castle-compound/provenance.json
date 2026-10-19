@@ -1,0 +1,26 @@
+{
+  "source": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/SourceV2/castle-compound/castle-compound.aseprite",
+  "sourceSHA256": "8710a5e2b259ac02c4c9b701fffd832698be5f22cc3b8994f2696e1d54953b44",
+  "canvas": [
+    1887,
+    2295
+  ],
+  "parts": [
+    "court",
+    "rear-curtain",
+    "west-curtain",
+    "east-curtain",
+    "south-curtain",
+    "hall",
+    "keep",
+    "service",
+    "arch",
+    "gate-west",
+    "gate-east",
+    "wood-west",
+    "wood-east"
+  ],
+  "pixelIdenticalRecomposition": true,
+  "groundPlanesUnchanged": true,
+  "ownershipOrigin": "Existing explicit ground/depth partition translated by canvas padding; visually reviewed in Play"
+}

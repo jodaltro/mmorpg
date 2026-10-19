@@ -1,0 +1,92 @@
+{
+  "images": [
+    {
+      "original": "Original/entry.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "entry",
+      "integral": true,
+      "camera": {
+        "position": "(116.6, 98, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2986,
+      "time": 10.374805789399092,
+      "actor": "(116.6, 91, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/castle.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "castle",
+      "integral": true,
+      "camera": {
+        "position": "(190, 240, -10)",
+        "ortho": 35.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3043,
+      "time": 10.763761089852608,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/garden.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "garden",
+      "integral": true,
+      "camera": {
+        "position": "(191, 237, -10)",
+        "ortho": 24.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3081,
+      "time": 11.194240093537415,
+      "actor": "(188, 233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity",
+      "state": "Final opaque revision in actual Play; camera/actor fixtures equal initial views",
+      "comparison": "overview",
+      "integral": true,
+      "camera": {
+        "position": "(141, 167.5, -10)",
+        "ortho": 167.5,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 3119,
+      "time": 11.613200488945578,
+      "actor": "(116.6, 26.3999977, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    }
+  ]
+}

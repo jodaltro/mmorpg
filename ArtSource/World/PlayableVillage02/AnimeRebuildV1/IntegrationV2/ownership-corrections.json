@@ -1,0 +1,111 @@
+[
+  {
+    "id": "castle-compound",
+    "ownershipPixelsChanged": 18029,
+    "rgbAndAlphaUnchanged": true,
+    "recompositionPixelIdentical": true,
+    "unassignedCapSlatePixels": 0,
+    "blueGroundPixelsOutsideAuthoredCaps": 7465,
+    "outsideCapsNote": "Colour criterion can include cool stone paths/edge stones; not classified as roof outside the explicit cap regions",
+    "authoredCapRegions": [
+      [
+        "gate-west",
+        [
+          80,
+          1000,
+          520,
+          1460
+        ]
+      ],
+      [
+        "gate-east",
+        [
+          560,
+          1070,
+          1080,
+          1490
+        ]
+      ]
+    ],
+    "canvas": [
+      1887,
+      2295
+    ],
+    "parts": [
+      "court",
+      "rear-curtain",
+      "west-curtain",
+      "east-curtain",
+      "south-curtain",
+      "hall",
+      "keep",
+      "service",
+      "arch",
+      "gate-west",
+      "gate-east",
+      "wood-west",
+      "wood-east"
+    ]
+  },
+  {
+    "id": "gate",
+    "ownershipPixelsChanged": 7041,
+    "rgbAndAlphaUnchanged": true,
+    "recompositionPixelIdentical": true,
+    "unassignedCapSlatePixels": 0,
+    "blueGroundPixelsOutsideAuthoredCaps": 0,
+    "outsideCapsNote": "Colour criterion can include cool stone paths/edge stones; not classified as roof outside the explicit cap regions",
+    "authoredCapRegions": [
+      [
+        "west-tower",
+        [
+          140,
+          0,
+          800,
+          430
+        ]
+      ],
+      [
+        "east-tower",
+        [
+          850,
+          0,
+          1620,
+          520
+        ]
+      ]
+    ],
+    "canvas": [
+      1838,
+      1364
+    ],
+    "parts": [
+      "arch",
+      "west-connector",
+      "east-connector",
+      "west-tower",
+      "east-tower",
+      "wood-west",
+      "wood-east"
+    ]
+  },
+  {
+    "id": "bridge",
+    "ownershipPixelsChanged": 0,
+    "rgbAndAlphaUnchanged": true,
+    "recompositionPixelIdentical": true,
+    "unassignedCapSlatePixels": 0,
+    "blueGroundPixelsOutsideAuthoredCaps": 437,
+    "outsideCapsNote": "Colour criterion can include cool stone paths/edge stones; not classified as roof outside the explicit cap regions",
+    "authoredCapRegions": [],
+    "canvas": [
+      796,
+      1195
+    ],
+    "parts": [
+      "deck",
+      "left-rail",
+      "right-rail"
+    ]
+  }
+]

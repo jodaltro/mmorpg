@@ -18,3 +18,7 @@
 
 O modelo de propostas acima é uma diretriz futura. O Marco 06B.2 apenas o documenta; não implementa propostas, novas missões ou progressão.
 Movimento, colisão, acertos e dano precisam de validação independente na futura autoridade multiplayer. A experiência action offline usa a autoridade local e não depende de HTTP.
+
+## Direção inicial de ambientação —19/10/2026
+
+Valdoria deve apresentar um reino inicialmente precário e marcado por corrupção. A pobreza e o abandono das moradias e ruas contrastam com os recursos concentrados no castelo: interior protegido, mais bonito e iluminado, com gramado, fonte, árvores e flores. O usuário escolheu a adaptação animada de **Release That Witch** como referência de cenário; o manhua não orienta a estética atual. Essa premissa informa autoria ambiental e futuras consequências do mundo, sem importar personagens ou copiar a história da obra. Não representa implementação de um sistema de corrupção, novas missões ou progressão.

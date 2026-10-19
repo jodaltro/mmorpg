@@ -64,3 +64,5 @@
 /Assets/Mmorpg/Art/World/Village02Integrated/** -text whitespace=cr-at-eol
 /Docs/Validation/ValdoriaVillage02-Integration/** -text whitespace=cr-at-eol
 /Docs/Art/Approvals/Village02-Architecture-2026-10-19.json -text
+/Assets/Mmorpg/Art/World/Village02Anime/** -text whitespace=cr-at-eol
+/Docs/Validation/ValdoriaVillage02-Anime/** -text whitespace=cr-at-eol

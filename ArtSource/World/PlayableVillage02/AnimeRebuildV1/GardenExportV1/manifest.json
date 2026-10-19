@@ -1,0 +1,12 @@
+{
+  "files": {
+    "daisies/export.lua": "a3801cf57ce2e8c3219aa8fb171a67394ec0c65d3888683a8bdca9c1461d3dce",
+    "daisies/Blossoms.png": "fd3719ce304f76f8f4a4f38b5a52efa32c4b7fb85d37c624fe782ded304eaa65",
+    "daisies/Foliage.png": "3b7ac6e1fe24b5e5a1f3e88a7c6f8a52946ad2df9edcdc138559c5cc1aa55577",
+    "daisies/composite.png": "4308b397137e58342a9a44bc71422467abfc6ec0c189675455cf0faea3eab314",
+    "daisies/Blossoms-trim.png": "8cad5e5371ef8d07aaeebc1bf5659d7982ffeeb6f782c1d2abdcd1d24ad1aa6e",
+    "daisies/Foliage-trim.png": "40b370b3dd306756809da0ed296f152cf63b110489e58894147a3a0ee60040a5",
+    "daisies/export.json": "54ef9bb461c83277e4e493e4419730854df3cfe8475f7755ba5c3a277a0379a6",
+    "daisies/manifest.json": "03aaa4a0ae29ebd6064bccbbfca6604253248e7ad4ed3b37b9fcc004ccdc10d6"
+  }
+}

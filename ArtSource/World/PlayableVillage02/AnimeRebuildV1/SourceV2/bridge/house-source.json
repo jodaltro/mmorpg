@@ -1,0 +1,76 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "bridge",
+  "sourceFile": "bridge.aseprite",
+  "canvas": [
+    796,
+    1195
+  ],
+  "ppu": 32,
+  "layers": [
+    "Deck",
+    "LeftRail",
+    "RightRail",
+    "Abutments"
+  ],
+  "groundAnchorPixels": [
+    397.22265625,
+    1050.29296875
+  ],
+  "roles": {
+    "Deck": "wall",
+    "LeftRail": "wall",
+    "RightRail": "wall",
+    "Abutments": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/Masters/bridge.png",
+    "sha256": "85448f080866e5bb492531f4e2b0fe0d71033b61b065a6b576e552ec711e8d73",
+    "size": [
+      1024,
+      1536
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.77734375,
+    0.7779947916666666
+  ],
+  "doorMaster": null,
+  "doorHeightUnits": null,
+  "normalizedBy": "Uniform silhouette registration against known authored placement; final doorway/foundation reviewed in Unity",
+  "spanMaster": [
+    367,
+    655
+  ],
+  "spanUnits": 7,
+  "alphaOperation": "Aseprite alpha<250 ->0, remaining ->255; no halo retained",
+  "paletteOperation": "Aseprite octree<=192, no dithering",
+  "authority": "Editable Aseprite; export reads pixels",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate anime revision; not approved",
+  "registration": {
+    "scale": 0.7799311257930439,
+    "offset": [
+      -1,
+      3
+    ],
+    "padding": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canvas": [
+      796,
+      1195
+    ],
+    "weightedLowerSilhouetteIoU": 0.9890469837078211,
+    "referenceCanvas": [
+      796,
+      1195
+    ],
+    "note": "Uniform nearest registration in Aseprite; mask comparison measures placement, not physical geometry"
+  }
+}

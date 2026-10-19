@@ -1,0 +1,22 @@
+{
+  "pythonTests": 7,
+  "pythonPassed": 7,
+  "playResults": 291,
+  "playPassed": 291,
+  "contactResults": 264,
+  "insideObserved": 0,
+  "exclusions": 69,
+  "reviewImages": 43,
+  "reviewGroups": 27,
+  "maxReviewBytes": 737182,
+  "finalConsoleErrors": 0,
+  "finalConsoleWarnings": 0,
+  "compilationFailed": false,
+  "visuallyInspected": [
+    "FinalDepthV2/Original/garden.png",
+    "ReviewLite/FinalDepthV2-garden.png",
+    "ReviewLite/FinalDepthV2-entry.png"
+  ],
+  "reviewFidelityScope": "Selected final images inspected; other transformed images integrity verified, not individually aesthetically approved",
+  "artisticApproval": false
+}

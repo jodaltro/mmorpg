@@ -1,0 +1,16 @@
+{
+  "source": "ArtSource/World/PlayableVillage02/AnimeRebuildV1/SourceV2/bridge/bridge.aseprite",
+  "sourceSHA256": "9dea8967b2ef3a393f74217b0049729c28f3ff00290206ae0b357e56cc705aac",
+  "canvas": [
+    796,
+    1195
+  ],
+  "parts": [
+    "deck",
+    "left-rail",
+    "right-rail"
+  ],
+  "pixelIdenticalRecomposition": true,
+  "groundPlanesUnchanged": true,
+  "ownershipOrigin": "Existing explicit ground/depth partition translated by canvas padding; visually reviewed in Play"
+}
