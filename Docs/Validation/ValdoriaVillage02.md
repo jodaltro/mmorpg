@@ -50,4 +50,6 @@ Publicado inicialmente em `bbaf4de6d4a9a528f4a70eae52fd5cbb7eb451a6`, branch `ma
 
 ## Decisão solicitada neste marco
 
+Atualização19/10: o usuário aprovou o layout/blockout e autorizou a próxima etapa; registro em `e0dcc7d`. A [biblioteca arquitetônica candidata da fase E](ValdoriaVillage02-ArtProduction.md) contém as novas fontes e evidências. A aprovação do layout não aprova automaticamente esses pixels nem promove a cena.
+
 Avaliar **organização de ruas/lotes, escala, entrada e silhueta do castelo**, comparando com o painel ampliado. O estudo ainda pede ajuste dos afastamentos H6/B1 e decisão de visibilidade atrás dos volumes. Conforme a exigência explícita do pedido, **a produção completa de sprites/texturas aguarda sua avaliação do layout/blockout**. Não houve aprovação artística automática nem promoção.

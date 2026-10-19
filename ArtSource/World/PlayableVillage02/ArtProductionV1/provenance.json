@@ -1,0 +1,39 @@
+{
+  "tool": "OpenAI built-in image_gen",
+  "date": "2026-10-19",
+  "references": [
+    "ArtSource/Labs/World2026/WorldStudio07R/ArtDirection/cottage-painted-master-v1.png",
+    "ArtSource/Labs/World2026/WorldStudio08/Castle/painted-master.png",
+    "Guides/castle-layout.png"
+  ],
+  "referenceUse": "Own project references; layout/material/light guidance; no anime/game screenshots copied into assets",
+  "characterGeneration": false,
+  "blenderUsed": false,
+  "files": {
+    "Masters/castle-compound.png": "68346e3ea76db9c81c9a91032cb11689baa8204df9ef996177a6319341205463",
+    "Masters/H1.png": "f0209a5fb82129952b2fbbc441fda406eeddc3056cbf32edb0505d52df49b6e0",
+    "Masters/H2.png": "9acd00ad4355ed6cc3edface94272b9c299de414dffa1ce5cd80c939f2a0b87e",
+    "Masters/H3.png": "d91b6e27f7a1240560dbf2b211f85e1ac4eaa629501921fcd66f1ca8889e2905",
+    "Masters/H4.png": "75e09e5724ee06d45cc83e4c4049b1b0961731e0c29e11d3617485046dac094e",
+    "Masters/H5.png": "e0a0dda9233733573884fcc2163c39e3d4a8ee5e4a35f05ffbcb3488d8e83142",
+    "Masters/bridge-v1.png": "e7f68a0a9ee65cd86e185499fde7af96af1e3ccc7aa0be4d2c4bc5c69b59af1b",
+    "Masters/H6.png": "dab795f0dbb7d44bcc501a6ac0e23e3be51d3b085c9497a53158359d448381c8",
+    "Masters/B1.png": "4b270c3116f6c914ae55fab26325b203027298a67892779bf3f17a7c6ce9787d",
+    "Masters/gate.png": "46a0d1d436b97c00114511b7c380bde900bc7e38ae002fdbe46c04c4f72ca159",
+    "Masters/wall.png": "ca559e5e3b7dbc9920881fcca7e4ec6441adc11a5a4eed4e7a8e678b62de13b8",
+    "Masters/corner.png": "ca8452888cbbf7d511dc2fb705508f47d14310df7f30a664cca1fa9e9dd4ca2d",
+    "Masters/bridge.png": "fe8aad303b5c9c5b0e9c46db9dd1f2429951ddf7b79dbf5e3d09cb7a8667618a",
+    "Masters/fence.png": "11a91530a2bec015a2bbb30dab8d2ab8ceb98ddf45bfb33caf2425f735577cc2",
+    "Masters/lowwall.png": "51de8fd9086bf80332ce2980bf83f3568273b19f539dff1a9db7602c280ee22d",
+    "Guides/castle-layout.png": "1d42574829a32ba6b0e8303b27dfd6bca4370e47a915a9da59e56cb6d0df1294",
+    "Guides/castle-layout.json": "60c261c1a96baf8d5c5391075053430c7bd877f3bf3796b85ef52d3628ec0ad8"
+  },
+  "rejected": [
+    "Masters/bridge-v1.png"
+  ],
+  "selectedBridge": "Masters/bridge.png",
+  "licenseNote": "AI-generated original environmental candidates using project references. No third-party sprite pack redistribution license claimed. Existing protagonist reused unchanged.",
+  "finalAlpha": "Aseprite threshold alpha<250 to0, others255 BEFORE nearest resize; octree <=192 without dithering; RGBA with every nonzero alpha restored to255 AFTER palette conversion. bootstrap.lua records exact operation.",
+  "sourceAuthority": "SourceV1/*.aseprite editable pixels; export never regenerates masters",
+  "worldReady": false
+}

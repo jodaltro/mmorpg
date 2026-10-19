@@ -1,0 +1,51 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "fence",
+  "sourceFile": "fence.aseprite",
+  "canvas": [
+    386,
+    257
+  ],
+  "ppu": 32,
+  "layers": [
+    "Rails",
+    "PostsAndFootings",
+    "Gate"
+  ],
+  "groundAnchorPixels": [
+    268.8932291666667,
+    205.80078125
+  ],
+  "roles": {
+    "Rails": "wall",
+    "PostsAndFootings": "wall",
+    "Gate": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/ArtProductionV1/Masters/fence.png",
+    "sha256": "11a91530a2bec015a2bbb30dab8d2ab8ceb98ddf45bfb33caf2425f735577cc2",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.2513020833333333,
+    0.2509765625
+  ],
+  "doorMaster": null,
+  "doorHeightUnits": null,
+  "normalizedBy": "explicit span annotation",
+  "spanMaster": [
+    50,
+    1070
+  ],
+  "spanUnits": 8,
+  "alphaOperation": "Aseprite: alpha <250 ->0, remaining ->255; removes generated fringe/halo",
+  "paletteOperation": "Aseprite octree <=192, no dithering; RGBA export",
+  "authority": "Editable .aseprite; export reads current pixels without rebuilding from master",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate; layout approval does not approve these pixels"
+}

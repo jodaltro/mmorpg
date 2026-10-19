@@ -1,0 +1,56 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "H3",
+  "sourceFile": "H3.aseprite",
+  "canvas": [
+    886,
+    724
+  ],
+  "ppu": 32,
+  "layers": [
+    "Walls",
+    "Roof",
+    "Foundation",
+    "Openings",
+    "Details"
+  ],
+  "groundAnchorPixels": [
+    248.48882480173035,
+    584.1798941798942
+  ],
+  "roles": {
+    "Walls": "wall",
+    "Roof": "roof",
+    "Foundation": "wall",
+    "Openings": "wall",
+    "Details": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/ArtProductionV1/Masters/H3.png",
+    "sha256": "d91b6e27f7a1240560dbf2b211f85e1ac4eaa629501921fcd66f1ca8889e2905",
+    "size": [
+      1387,
+      1134
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.638788752703677,
+    0.6384479717813051
+  ],
+  "doorMaster": [
+    389,
+    672,
+    915
+  ],
+  "doorHeightUnits": 4.848214285714286,
+  "normalizedBy": "human door annotation, 4.85u target",
+  "spanMaster": null,
+  "spanUnits": null,
+  "alphaOperation": "Aseprite: alpha <250 ->0, remaining ->255; removes generated fringe/halo",
+  "paletteOperation": "Aseprite octree <=192, no dithering; RGBA export",
+  "authority": "Editable .aseprite; export reads current pixels without rebuilding from master",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate; layout approval does not approve these pixels"
+}

@@ -1,0 +1,32 @@
+{
+  "source": "approved semantic layout, not pixel-derived geometry",
+  "worldBounds": [
+    67,
+    92,
+    112,
+    145
+  ],
+  "ppu": 32,
+  "volumeIDs": [
+    "C-keep",
+    "C-hall",
+    "C-service",
+    "ward-0-0",
+    "ward-0-1",
+    "ward-1",
+    "ward-2",
+    "ward-3",
+    "ward-4",
+    "ward-5",
+    "ward-6",
+    "ward-joint-0",
+    "ward-joint-1",
+    "ward-joint-2",
+    "ward-joint-3",
+    "ward-joint-4",
+    "ward-joint-5",
+    "C-gate-west",
+    "C-gate-east",
+    "C-lintel"
+  ]
+}

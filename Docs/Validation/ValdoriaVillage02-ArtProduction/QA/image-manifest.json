@@ -1,0 +1,1230 @@
+{
+  "schema": "valdoria-visual-review/v1",
+  "maxReviewBytes": 768000,
+  "images": [
+    {
+      "original": "Original/H1-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "H1-whole",
+      "integral": true,
+      "camera": {
+        "position": "(49.45836, 55.1969948, -10)",
+        "ortho": 17.265625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 522,
+      "time": 2.538735232426304,
+      "actor": "(54, 44, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H1-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 319715,
+      "reviewBytes": 269757,
+      "originalSHA256": "0445f31203f659a05cf3a702dda123f5cbf26dd189fd6b50376ebecab797a4f7",
+      "reviewSHA256": "85b8b07ff49f24521d261b1f730e3cc2b897caaa5b42fe79935a77f4ea3b00e0",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H1-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "H1-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 50, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 614,
+      "time": 2.9021470308956916,
+      "actor": "(54, 44, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H1-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 417877,
+      "reviewBytes": 345799,
+      "originalSHA256": "bf591c5c11d190110cbff55e8f5bcb4d9ed2040adeac2ce55e1afc1daec94c64",
+      "reviewSHA256": "fdfcc4e2e93242f3311862492d9e5ef7638404b3adbd2b97902deec8ea1a53d1",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H2-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "H2-whole",
+      "integral": true,
+      "camera": {
+        "position": "(53.58943, 142.481873, -10)",
+        "ortho": 15.15625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 701,
+      "time": 3.2914215277777776,
+      "actor": "(54, 134, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H2-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 407027,
+      "reviewBytes": 331717,
+      "originalSHA256": "cf66bbc7883294f696ef98a54447a0189e613dff41d03b98891aae7329989a6d",
+      "reviewSHA256": "eb8dbe6cf2566c193093719a32b288ee392cc597af9c7f75b6bb626ab1c1c7ed",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H2-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "H2-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 140, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 780,
+      "time": 3.628564129818594,
+      "actor": "(54, 134, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H2-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 459740,
+      "reviewBytes": 372852,
+      "originalSHA256": "63ea81f7e1714c637c62338c52cbda646df9c384468c7b8708720102d3fa19bf",
+      "reviewSHA256": "9c3e1764423168ebfdc7ca454972d9035b8eb3615c7e3083dae5556a5e3084da",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H3-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "H3-whole",
+      "integral": true,
+      "camera": {
+        "position": "(56.078476, 231.943115, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 860,
+      "time": 4.018646130952381,
+      "actor": "(54, 224, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H3-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 581946,
+      "reviewBytes": 511097,
+      "originalSHA256": "92580fcab48f58a9d41f3420af2b75cacb87610d8f0f128a22b622ce7d3d7fa8",
+      "reviewSHA256": "be2847a6cd5fc4ec74d943c025927b02e6d43ddd1e8f758d37661c89511e9ce2",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H3-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "H3-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 230, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 923,
+      "time": 4.37604223356009,
+      "actor": "(54, 224, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H3-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 581163,
+      "reviewBytes": 510123,
+      "originalSHA256": "50699d4ad3cd2124fec148ddd491a2b486cc4751a5c40298d81e97a549b2cced",
+      "reviewSHA256": "b6f383509051723005e16d86c25598360e6eb5e6e7c2dd45ba62eddefd12f793",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H4-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "H4-whole",
+      "integral": true,
+      "camera": {
+        "position": "(52.57257, 322.626648, -10)",
+        "ortho": 14.15625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1006,
+      "time": 4.791649929138321,
+      "actor": "(54, 314, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H4-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 744134,
+      "reviewBytes": 621533,
+      "originalSHA256": "9cad3a334f278e5242f7da7c17393ee2b54e05e8874776e80238b5f83c5d515f",
+      "reviewSHA256": "5987333fd262b3de6a5502a523b8304615e00d5c1b8b9731385b4292a0aabf38",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H4-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "H4-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 320, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1066,
+      "time": 5.15625012755102,
+      "actor": "(54, 314, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H4-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 752613,
+      "reviewBytes": 627499,
+      "originalSHA256": "31841ceda6d317382e51955a00a0d98ce814e21f88ea3864dd4bca430cf1efa0",
+      "reviewSHA256": "460ec6a647a4aaccc8f726d012dd0cdbf53d5b7bab4489955157a2d35db10cc5",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H5-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "H5-whole",
+      "integral": true,
+      "camera": {
+        "position": "(50.524498, 414.5159, -10)",
+        "ortho": 15.921875,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1150,
+      "time": 5.5802265306122445,
+      "actor": "(54, 404, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H5-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 902633,
+      "reviewBytes": 756378,
+      "originalSHA256": "e7d5c5825c9ec9c943b055f2ec4fab37ab7e19b7bf86c59259a9b5aedbc4e900",
+      "reviewSHA256": "5d5f5840409dc6488db8f6810df51f1633fe7c17af7e2348c7b9b8400ec5eb75",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H5-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "H5-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 410, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1223,
+      "time": 5.943268027210884,
+      "actor": "(54, 404, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H5-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1102947,
+      "reviewBytes": 301150,
+      "originalSHA256": "da16153e404823d06ff4110452997b0f6f8c8971cf54965f9791ee608d4ef620",
+      "reviewSHA256": "efef3fd98272d9afacbe88bcc5a642c66b05630971f865a1bccd38e272f2fe28",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H6-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "H6-whole",
+      "integral": true,
+      "camera": {
+        "position": "(53.6134453, 503.6856, -10)",
+        "ortho": 14.921875,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1313,
+      "time": 6.373053528911564,
+      "actor": "(54, 494, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H6-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 933182,
+      "reviewBytes": 240703,
+      "originalSHA256": "cb8bb80db93fd5d4ec2f8836651a864d84b4cdd4330c9f13a54eb71852dbb345",
+      "reviewSHA256": "25b2b3053cb449f55eeaa041fbf80b6ffc06250f756c4261a9fd9e0e2a1adbf9",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/H6-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "H6-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 500, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1367,
+      "time": 6.744279627267574,
+      "actor": "(54, 494, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/H6-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1032177,
+      "reviewBytes": 267719,
+      "originalSHA256": "44c5577e5dba31c823249e4b90522a50725ee77ca9358fb3fc98bffb21629a30",
+      "reviewSHA256": "ffc74c008719ace691684544ebf8016a6d3d245dad417ff8a41cd1729a4e44c8",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/B1-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "B1-whole",
+      "integral": true,
+      "camera": {
+        "position": "(65.4549942, 593.1191, -10)",
+        "ortho": 17.453125,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1437,
+      "time": 7.172062131519274,
+      "actor": "(54, 584, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/B1-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1082880,
+      "reviewBytes": 277122,
+      "originalSHA256": "332001347e638ed480628e0af557352282251214f79339034f9a1715159b52b0",
+      "reviewSHA256": "c6e7dea91a1c14c6336cbc78d0a9cc2a8d4325a28604afef2326c4aef480b17c",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/B1-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "B1-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 590, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1525,
+      "time": 7.5421231292517,
+      "actor": "(54, 584, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/B1-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1276339,
+      "reviewBytes": 332292,
+      "originalSHA256": "5c3af4ad7c33ad86b46c1bdce9b7a51c64e0f38c677ebd6613d5998866e172ed",
+      "reviewSHA256": "8e30f6fa161fd0cd7cf9fdc4a08e3c53b37a161d66eebdaaf3b37dfd80325ce5",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/castle-compound-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "castle-compound-whole",
+      "integral": true,
+      "camera": {
+        "position": "(41.86881, 677.3538, -10)",
+        "ortho": 34.859375,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1613,
+      "time": 7.967444933390023,
+      "actor": "(54, 674, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/castle-compound-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 978456,
+      "reviewBytes": 243519,
+      "originalSHA256": "03efb7baf975b49bd5252b6a3dd6baaed73efebe7da52c274158757ed730bd02",
+      "reviewSHA256": "38f220eaa5126bde6c313f616c3a2523c44f7235eaf212529009a1b8406b6ecd",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/castle-compound-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "castle-compound-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 680, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1678,
+      "time": 8.34188652919501,
+      "actor": "(54, 674, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/castle-compound-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1337695,
+      "reviewBytes": 580747,
+      "originalSHA256": "771aef281580152c817cff1152e70979d3713d449b1f540d48d84142cbcc70f8",
+      "reviewSHA256": "1212b96406ed08fee2cce466d6e2442aa22720950ef710900381d9dd49559c23",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/gate-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "gate-whole",
+      "integral": true,
+      "camera": {
+        "position": "(51.21765, 777.1417, -10)",
+        "ortho": 20.3125,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1774,
+      "time": 8.777713931405895,
+      "actor": "(54, 764, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/gate-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1001384,
+      "reviewBytes": 281705,
+      "originalSHA256": "7abd6ec3414ec4dea656d6f353ebbcff9b097cf3c7f9a7644b288e3377c37e35",
+      "reviewSHA256": "a9d7cb6d56d979acd00040c50bcb42032a301cd5a0b6cb8b968903b507ae5ccc",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/gate-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "gate-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 770, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1843,
+      "time": 9.154441128117913,
+      "actor": "(54, 764, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/gate-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        800,
+        450
+      ],
+      "originalBytes": 1450640,
+      "reviewBytes": 435000,
+      "originalSHA256": "29827c60d6b112178606a599ba79408cfd71a6e069a85fb4a1ab618d67957b53",
+      "reviewSHA256": "8b14ce3ff2e3f39f48185dc1dbb3a38c0287b554283f391c8cd44e95292853b3",
+      "method": "lossless PNG recompression; metadata removed; nearest integer reduction 1/2",
+      "scaleDivisor": 2,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pending",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/wall-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "wall-whole",
+      "integral": true,
+      "camera": {
+        "position": "(50.02545, 857.104, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 1905,
+      "time": 9.616972633219953,
+      "actor": "(54, 854, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/wall-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 183235,
+      "reviewBytes": 139943,
+      "originalSHA256": "c17fc983e2dc0af113e7e17a8763da7889cdf37fa9d45aed37dca3190d1adffa",
+      "reviewSHA256": "a63bfed460308b14671db2bde335644aefb823540c09586d01bbea67ca938416",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/corner-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "corner-whole",
+      "integral": true,
+      "camera": {
+        "position": "(48.0459, 948.478638, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2000,
+      "time": 9.992116829648525,
+      "actor": "(54, 944, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/corner-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 199107,
+      "reviewBytes": 151440,
+      "originalSHA256": "14f98b2ce8d6751b640314cf9319ec3bbf86d8be472bfc8247242ad144fd5bd3",
+      "reviewSHA256": "dc42121b64d5b9db3a19e9469353112551ebaeed27fa3e33a4bca5c319bedf8d",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/bridge-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "bridge-whole",
+      "integral": true,
+      "camera": {
+        "position": "(50.024292, 1049.14978, -10)",
+        "ortho": 21.171875,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2078,
+      "time": 10.365317828798185,
+      "actor": "(54, 1034, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/bridge-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 334858,
+      "reviewBytes": 268185,
+      "originalSHA256": "135a1d6463572cb6d6c0e9e5e4bd957c90a757aadc67e346fc48feffaa51b822",
+      "reviewSHA256": "50a8473fa1d3b659d01d0063bb30389ef28677370b07a04782cff728be09c9fd",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/bridge-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E native 32 screen pixels/u at 1600x900; close-up may crop the entire building; not a footprint or collision proof",
+      "comparison": "bridge-native",
+      "integral": true,
+      "camera": {
+        "position": "(50, 1040, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2139,
+      "time": 10.711523731575964,
+      "actor": "(54, 1034, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/bridge-native.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 426953,
+      "reviewBytes": 338157,
+      "originalSHA256": "bcc96e407a93ecee333b5145ce542157741dd0d94f148064fe01d7cc87f9e494",
+      "reviewSHA256": "f6301f3db52db055da529cacab54738561d483e3fa342965431f750c5674d83c",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/fence-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "fence-whole",
+      "integral": true,
+      "camera": {
+        "position": "(47.6283379, 1127.41565, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2214,
+      "time": 11.108943027210884,
+      "actor": "(54, 1124, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/fence-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 89124,
+      "reviewBytes": 59224,
+      "originalSHA256": "9d2f26f3da12970c1385cd850b9c637c9440cde89ba917af1231398d4e93ba7a",
+      "reviewSHA256": "4f58434be0d447ab2c86bc0087e475d92f4fdfa67eee1447df5f85a10f720276",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    },
+    {
+      "original": "Original/lowwall-whole.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02ArtGallery.unity",
+      "state": "Phase E art gallery, whole asset with protagonist; fixed art-review fixture; no world collision integration",
+      "comparison": "lowwall-whole",
+      "integral": true,
+      "camera": {
+        "position": "(47.52368, 1217.83008, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 2311,
+      "time": 11.483718728741497,
+      "actor": "(54, 1214, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true,
+      "review": "ReviewLite/lowwall-whole.png",
+      "originalDimensions": [
+        1600,
+        900
+      ],
+      "reviewDimensions": [
+        1600,
+        900
+      ],
+      "originalBytes": 122265,
+      "reviewBytes": 87033,
+      "originalSHA256": "f1cd03c63b781f40089a19d8d260de0d164cfcb07d117b326cbcf3a82cdb2880",
+      "reviewSHA256": "890d481a4d496ef4f5b0fa7552f688f7926185892f713f22906c27f8d8615cac",
+      "method": "lossless PNG recompression; metadata removed",
+      "scaleDivisor": 1,
+      "crop": null,
+      "quantized": false,
+      "colourReduction": null,
+      "integrity": {
+        "decodable": true,
+        "originalUnchanged": true,
+        "pixelsMatchDeclaredTransform": true
+      },
+      "visualFidelityReview": "pixel-identical",
+      "github": {
+        "published": false,
+        "base64RecoveryTested": false,
+        "visualInspectionViaConnector": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "lowwall",
+  "sourceFile": "lowwall.aseprite",
+  "canvas": [
+    378,
+    252
+  ],
+  "ppu": 32,
+  "layers": [
+    "Masonry",
+    "Coping",
+    "Foundation"
+  ],
+  "groundAnchorPixels": [
+    268.2421875,
+    216.5625
+  ],
+  "roles": {
+    "Masonry": "wall",
+    "Coping": "wall",
+    "Foundation": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/ArtProductionV1/Masters/lowwall.png",
+    "sha256": "51de8fd9086bf80332ce2980bf83f3568273b19f539dff1a9db7602c280ee22d",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.24609375,
+    0.24609375
+  ],
+  "doorMaster": null,
+  "doorHeightUnits": null,
+  "normalizedBy": "explicit span annotation",
+  "spanMaster": [
+    50,
+    1090
+  ],
+  "spanUnits": 8,
+  "alphaOperation": "Aseprite: alpha <250 ->0, remaining ->255; removes generated fringe/halo",
+  "paletteOperation": "Aseprite octree <=192, no dithering; RGBA export",
+  "authority": "Editable .aseprite; export reads current pixels without rebuilding from master",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate; layout approval does not approve these pixels"
+}

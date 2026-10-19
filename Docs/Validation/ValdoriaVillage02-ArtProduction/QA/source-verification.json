@@ -1,0 +1,147 @@
+{
+  "passed": true,
+  "assets": 14,
+  "results": [
+    {
+      "id": "H1",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.851226076555024,
+      "canvas": [
+        945,
+        945
+      ]
+    },
+    {
+      "id": "H2",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.848066298342541,
+      "canvas": [
+        1080,
+        810
+      ]
+    },
+    {
+      "id": "H3",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.848214285714286,
+      "canvas": [
+        886,
+        724
+      ]
+    },
+    {
+      "id": "H4",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.84918212890625,
+      "canvas": [
+        1119,
+        746
+      ]
+    },
+    {
+      "id": "H5",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.849700927734375,
+      "canvas": [
+        1289,
+        859
+      ]
+    },
+    {
+      "id": "H6",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.852294921875,
+      "canvas": [
+        1192,
+        795
+      ]
+    },
+    {
+      "id": "B1",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.84808349609375,
+      "canvas": [
+        1436,
+        957
+      ]
+    },
+    {
+      "id": "castle-compound",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": 4.850339823659074,
+      "canvas": [
+        1759,
+        2071
+      ]
+    },
+    {
+      "id": "gate",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": null,
+      "canvas": [
+        1710,
+        1140
+      ]
+    },
+    {
+      "id": "wall",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": null,
+      "canvas": [
+        417,
+        278
+      ]
+    },
+    {
+      "id": "corner",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": null,
+      "canvas": [
+        414,
+        276
+      ]
+    },
+    {
+      "id": "bridge",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": null,
+      "canvas": [
+        796,
+        1195
+      ]
+    },
+    {
+      "id": "fence",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": null,
+      "canvas": [
+        386,
+        257
+      ]
+    },
+    {
+      "id": "lowwall",
+      "binaryAlpha": true,
+      "sourceAndExportHashes": true,
+      "doorHeightUnits": null,
+      "canvas": [
+        378,
+        252
+      ]
+    }
+  ],
+  "worldIntegrationTested": false
+}

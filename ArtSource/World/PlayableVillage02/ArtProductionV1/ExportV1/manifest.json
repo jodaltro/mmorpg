@@ -1,0 +1,36 @@
+{
+  "schema": "valdoria-village02-art-build/v1",
+  "catalogSHA256": "7297bd8a2429181efee12decf50518a01363006fb3fba893870056d138357196",
+  "inputs": {
+    "H1": "18b47912ce595d7b3e2026e9845cb5f0081712656bce7cda3704deb103de6fe6",
+    "H2": "98191a5bd8f66de687d36bbddb2c93d9d753be8bb24e2f082c1992425c959b21",
+    "H3": "176d3c4cc8c5e1d9305dda6b31e52543c27054db625c15637aebda9c9af259d8",
+    "H4": "14606f40665c05401cde58d6c425b08745469de45324402fbd113406c337cd20",
+    "H5": "c64297351ab1471000f49a2a63e574f4d1b60cf7450915d318265faa1df53a6b",
+    "H6": "1642524590ae969ccb043f39973a42a0755a3225dc875e4b0f0df82ec18ea985",
+    "B1": "8a7d4d99bba340b49d2af9a9eff1f68618c67bc0fa7229bf49ab27ba9a9057d0",
+    "castle-compound": "8a51e58334cc84c983538cd62621b85b95a35d898cb0cb9c9ad6d1dc539b49ea",
+    "gate": "89fbfa70dc427feccb924144f9bbfc71438aa3232289cb95393f6a0e3bce9523",
+    "wall": "70af0135da0fbcc156a4087e80bf02e8097754022e79d3cc02e2d722f18ec09b",
+    "corner": "9ce6440341cb47e9fdcba3addf79d2f4a10b718d8b4567daf3fa3f509f5cbc6f",
+    "bridge": "c6c7ef1f803711ed3677fa5c569e9fbd6e9afeee6dcd9f94d089aec399506749",
+    "fence": "d6a319e55f5c2906c5641dfe1d76ef8dc673f0d3ebace25dd40a32908d8c5a21",
+    "lowwall": "7dd02ac54222e0f7f8598900841f63835aef1c7470435e230abd1ea1c8dd5cc8"
+  },
+  "files": {
+    "H1/composite.png": "a6094e09ccf37258805e327ce5be1ae7abe25f776769e2d9245361304e95a0da",
+    "H2/composite.png": "af6b3843c826e48188aa50a3d3fa0ef66714340ca7e62ad70d1dbadd36f16f76",
+    "H3/composite.png": "dced5fe2466a7420620c2fdc9358ef0fb0440f998c99c7872eba89d37ed6e828",
+    "H4/composite.png": "263c855e3821c320473a065f57e4982c1122c695ce8ff8341be589c54a9d3647",
+    "H5/composite.png": "1bd0e5cddd0279a0b0b11211ec05c5202d2c0a2c52d04fb056a891f7f333a993",
+    "H6/composite.png": "85872a6c04bf7c134d52a916989d54b3db808e7622cf25664347d66b742779f3",
+    "B1/composite.png": "6a8d6cfce1a802756857a29861cf06d9f7f5a30b1c04423f16733b5554eb7267",
+    "castle-compound/composite.png": "084efa257f358e7aa960cc0ce26c53029d5a5a75ee90c352d603d1a53695cdb5",
+    "gate/composite.png": "0f0234287997a1f3e682b3331e03f3b148f6de0e2d1e87ce67ff3955244ed355",
+    "wall/composite.png": "c407ab82aa0d8f4f07fe4cbdab84229c9df6f1eebb69a6470cdfc5bfd99678e6",
+    "corner/composite.png": "68fe8ad073e6a4d584573e9f1bb09e65f895c7110c304aefdd0204fa647dd989",
+    "bridge/composite.png": "06a391b0104fdd92bc7f2a9daee58e7d82ee337fb996c322a94fa0057ee1431b",
+    "fence/composite.png": "99df5f313700fe5572581f3be89d6c580bf81c15dc095293b133159dcebbdce7",
+    "lowwall/composite.png": "3e5de684a91395214e5debc2a7b5d456c11cdf4010fb66dd7ab29c328ec934ef"
+  }
+}

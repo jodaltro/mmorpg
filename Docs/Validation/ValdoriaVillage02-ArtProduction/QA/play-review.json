@@ -1,0 +1,110 @@
+{
+  "completed": true,
+  "inputMoved": true,
+  "assets": 14,
+  "framesAdvanced": 2037,
+  "seconds": 10.307075042517006,
+  "profile": "D:\\unity\\Mmorpg\\Temp\\Village02ArtGallery\\IsolatedProfile",
+  "rows": [
+    {
+      "id": "H1",
+      "wholeOrtho": 17.265625,
+      "canvasWorld": "(29.53125, 29.53125, 0.2)",
+      "actor": "(54, 44)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "H2",
+      "wholeOrtho": 15.15625,
+      "canvasWorld": "(33.75, 25.3125, 0.2)",
+      "actor": "(54, 134)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "H3",
+      "wholeOrtho": 14.0625,
+      "canvasWorld": "(27.6875, 22.625, 0.2)",
+      "actor": "(54, 224)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "H4",
+      "wholeOrtho": 14.15625,
+      "canvasWorld": "(34.96875, 23.3125, 0.2)",
+      "actor": "(54, 314)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "H5",
+      "wholeOrtho": 15.921875,
+      "canvasWorld": "(40.28125, 26.84375, 0.2)",
+      "actor": "(54, 404)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "H6",
+      "wholeOrtho": 14.921875,
+      "canvasWorld": "(37.25, 24.84375, 0.2)",
+      "actor": "(54, 494)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "B1",
+      "wholeOrtho": 17.453125,
+      "canvasWorld": "(44.875, 29.90625, 0.2)",
+      "actor": "(54, 584)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "castle-compound",
+      "wholeOrtho": 34.859375,
+      "canvasWorld": "(54.96875, 64.71875, 0.2)",
+      "actor": "(54, 674)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "gate",
+      "wholeOrtho": 20.3125,
+      "canvasWorld": "(53.4375, 35.625, 0.2)",
+      "actor": "(54, 764)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "wall",
+      "wholeOrtho": 14.0625,
+      "canvasWorld": "(13.03125, 8.6875, 0.2)",
+      "actor": "(54, 854)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "corner",
+      "wholeOrtho": 14.0625,
+      "canvasWorld": "(12.9375, 8.625, 0.2)",
+      "actor": "(54, 944)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "bridge",
+      "wholeOrtho": 21.171875,
+      "canvasWorld": "(24.875, 37.34375, 0.2)",
+      "actor": "(54, 1034)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "fence",
+      "wholeOrtho": 14.0625,
+      "canvasWorld": "(12.0625, 8.03125, 0.2)",
+      "actor": "(54, 1124)",
+      "scale": "(1, 1, 1)"
+    },
+    {
+      "id": "lowwall",
+      "wholeOrtho": 14.0625,
+      "canvasWorld": "(11.8125, 7.875, 0.2)",
+      "actor": "(54, 1214)",
+      "scale": "(1, 1, 1)"
+    }
+  ],
+  "worldPhysicsTested": false,
+  "artisticApproval": false
+}

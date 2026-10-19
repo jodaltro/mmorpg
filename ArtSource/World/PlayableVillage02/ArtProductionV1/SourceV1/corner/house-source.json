@@ -1,0 +1,51 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "corner",
+  "sourceFile": "corner.aseprite",
+  "canvas": [
+    414,
+    276
+  ],
+  "ppu": 32,
+  "layers": [
+    "Masonry",
+    "Coping",
+    "Foundation"
+  ],
+  "groundAnchorPixels": [
+    269.53125,
+    249.31640625
+  ],
+  "roles": {
+    "Masonry": "wall",
+    "Coping": "wall",
+    "Foundation": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/ArtProductionV1/Masters/corner.png",
+    "sha256": "ca8452888cbbf7d511dc2fb705508f47d14310df7f30a664cca1fa9e9dd4ca2d",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.26953125,
+    0.26953125
+  ],
+  "doorMaster": null,
+  "doorHeightUnits": null,
+  "normalizedBy": "explicit span annotation",
+  "spanMaster": [
+    50,
+    1000
+  ],
+  "spanUnits": 8,
+  "alphaOperation": "Aseprite: alpha <250 ->0, remaining ->255; removes generated fringe/halo",
+  "paletteOperation": "Aseprite octree <=192, no dithering; RGBA export",
+  "authority": "Editable .aseprite; export reads current pixels without rebuilding from master",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate; layout approval does not approve these pixels"
+}

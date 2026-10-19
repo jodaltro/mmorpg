@@ -1,0 +1,53 @@
+{
+  "schema": "valdoria-authored-house/v1",
+  "id": "bridge",
+  "sourceFile": "bridge.aseprite",
+  "canvas": [
+    796,
+    1195
+  ],
+  "ppu": 32,
+  "layers": [
+    "Deck",
+    "LeftRail",
+    "RightRail",
+    "Abutments"
+  ],
+  "groundAnchorPixels": [
+    397.22265625,
+    1050.29296875
+  ],
+  "roles": {
+    "Deck": "wall",
+    "LeftRail": "wall",
+    "RightRail": "wall",
+    "Abutments": "wall"
+  },
+  "master": {
+    "path": "ArtSource/World/PlayableVillage02/ArtProductionV1/Masters/bridge.png",
+    "sha256": "fe8aad303b5c9c5b0e9c46db9dd1f2429951ddf7b79dbf5e3d09cb7a8667618a",
+    "size": [
+      1024,
+      1536
+    ]
+  },
+  "scaleFromPaintedMaster": [
+    0.77734375,
+    0.7779947916666666
+  ],
+  "doorMaster": null,
+  "doorHeightUnits": null,
+  "normalizedBy": "explicit span annotation",
+  "spanMaster": [
+    367,
+    655
+  ],
+  "spanUnits": 7,
+  "alphaOperation": "Aseprite: alpha <250 ->0, remaining ->255; removes generated fringe/halo",
+  "paletteOperation": "Aseprite octree <=192, no dithering; RGBA export",
+  "authority": "Editable .aseprite; export reads current pixels without rebuilding from master",
+  "layerOwnership": "Authored broad semantic masks; independent editable visible pixels, no hidden surfaces reconstructed",
+  "worldReady": false,
+  "worldIntegration": "Phase F must annotate/validate exact source footprints and connections; no collider inferred from these raster bounds",
+  "artisticStatus": "candidate; layout approval does not approve these pixels"
+}
