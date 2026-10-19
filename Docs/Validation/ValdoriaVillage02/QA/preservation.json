@@ -1,0 +1,31 @@
+{
+  "baseCommit": "5fda3cead7563ca6f4a12472d25c284e3f3c0d3a",
+  "files": [
+    {
+      "path": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity",
+      "rawGitBlobBytesEqual": true,
+      "normalizedContentEqual": true,
+      "worktreeSHA256": "4917bbe7cf8fe5c37121d73cb50e711c257f917d1c3f15896b5ee74151ab7500",
+      "baseGitBlobSHA256": "4917bbe7cf8fe5c37121d73cb50e711c257f917d1c3f15896b5ee74151ab7500",
+      "baselineWorktreeHash": "not recorded at task start; no claim of independently measured initial byte identity"
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/MmorpgWorld.unity",
+      "rawGitBlobBytesEqual": false,
+      "normalizedContentEqual": true,
+      "worktreeSHA256": "6d2404560d66e708280cb478b0208b9ab34a6c0cdce0122d5fda71ba3f189f61",
+      "baseGitBlobSHA256": "c8b95eeac1928d58a4b0b90196ef8d7baf0008fb478875fb7409f6d886276f9c",
+      "baselineWorktreeHash": "not recorded at task start; no claim of independently measured initial byte identity"
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "rawGitBlobBytesEqual": true,
+      "normalizedContentEqual": true,
+      "worktreeSHA256": "d8671059d3a0fb38e101ed5f1d860cf08903e1a5439ceb3765bbf876d0fc9aa5",
+      "baseGitBlobSHA256": "d8671059d3a0fb38e101ed5f1d860cf08903e1a5439ceb3765bbf876d0fc9aa5",
+      "baselineWorktreeHash": "not recorded at task start; no claim of independently measured initial byte identity"
+    }
+  ],
+  "approvedSourceTrackedDiffEmpty": true,
+  "trackedRollbackAndSettingsDiffEmpty": true
+}

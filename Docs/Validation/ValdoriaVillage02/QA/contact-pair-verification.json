@@ -1,0 +1,430 @@
+{
+  "pairs": 106,
+  "allEquivalent": true,
+  "checks": [
+    {
+      "pair": "contact-H1-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H1-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H2-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H3-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H4-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H5-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-H6-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-B1-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-keep-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-keep-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-keep-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-keep-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-keep-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-keep-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-hall-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-hall-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-hall-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-hall-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-hall-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-hall-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-service-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-west-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-west-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-west-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-west-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-west-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-east-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-east-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-east-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-east-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-G-east-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-side-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-west-corner-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-side-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-front-dodge",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-side-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-side-3",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-corner-0",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-corner-1",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-corner-2",
+      "equivalentCameraAndDimensions": true
+    },
+    {
+      "pair": "contact-C-gate-east-corner-3",
+      "equivalentCameraAndDimensions": true
+    }
+  ]
+}
