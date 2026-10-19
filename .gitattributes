@@ -60,3 +60,7 @@
 /Docs/Validation/ValdoriaVillage02/** -text whitespace=cr-at-eol
 /Assets/Mmorpg/Art/Experimental/Village02ArtGallery/** -text whitespace=cr-at-eol
 /Docs/Validation/ValdoriaVillage02-ArtProduction/** -text whitespace=cr-at-eol
+/ArtSource/World/PlayableVillage02/IntegrationV1/** -text whitespace=cr-at-eol
+/Assets/Mmorpg/Art/World/Village02Integrated/** -text whitespace=cr-at-eol
+/Docs/Validation/ValdoriaVillage02-Integration/** -text whitespace=cr-at-eol
+/Docs/Art/Approvals/Village02-Architecture-2026-10-19.json -text

@@ -1,0 +1,39 @@
+{
+  "base": {
+    "path": "ArtSource/World/PlayableVillage02/IntegrationV1/manifest.json",
+    "sha256": "e41ce16cd6df4114d3ccccd5b246be0b8526cf99b21bb4981bc908fcf6d54617"
+  },
+  "generatorSHA256": "2a4f4df1de36633c5d33db5528e69494ffe28f1304306b499630c7d30b23c4f5",
+  "files": {
+    "layout.json": "1c458f8533a31a9f1f2b47f85b47507f686f873b7631575080f50eb06c890e4e",
+    "navigation-proof.json": "47ccc34951c915fa4daf694224b89cd856bab97217388cf471201e35db9308fc",
+    "DepthArt/castle-compound/ownership.png": "a98b3029773ddf7704fb96abf6799fefacce35087f4fc1100fda8fccc9ac5250",
+    "DepthArt/castle-compound/partition.lua": "242f8c19531d77207a0c3dfba08a3fe32670334052b45e5e2766ddc4c5cabc35",
+    "DepthArt/castle-compound/court.png": "64064763804a649c80296350cfac13f76f20fe0380f3c5e0610fe7503d856915",
+    "DepthArt/castle-compound/rear-curtain.png": "ce5bb5d6037bd08557b4003ce8a88f042620ace1e65a4388ddc1afb843b89b10",
+    "DepthArt/castle-compound/west-curtain.png": "e0094237e2cc52240b83a6c412d646526ca217c2c474fc8ab0920f4f6531b206",
+    "DepthArt/castle-compound/east-curtain.png": "592cde94eae4b3fcc1f70ed9d7d413dcb86760a2c104d0044b7b09a41bab52c1",
+    "DepthArt/castle-compound/south-curtain.png": "115cf6e1100c4e417214c165129b7353c70f3d28465fcb627c4cb3a9ebf88d5b",
+    "DepthArt/castle-compound/hall.png": "951ec7f9c3ace2679b8d6406e1b7c7c080a070bad5fae6b97a0da7a2618be840",
+    "DepthArt/castle-compound/keep.png": "37f891f9feb5e739d7bf3cd86ee89d3501ad24f415b13191dae1197ae089ece6",
+    "DepthArt/castle-compound/service.png": "ba1f7b42a84389ebaf9fca7442fc9a845c5c9e02b5d0865d04d9b0427fdd1149",
+    "DepthArt/castle-compound/arch.png": "b622d4774cdedf5794c5deb10e0d57aaa0b319a35d7d8ead95544b9b47bf8882",
+    "DepthArt/castle-compound/gate-west.png": "5fa85bfe207353727073325ec669afe48aaaa8ba2e653c789a9d07341f5cd9bb",
+    "DepthArt/castle-compound/gate-east.png": "11561fd88544ca28dfdc42bd1e36db6852baf9fcdb6cd3598d34289e913a846d",
+    "DepthArt/castle-compound/wood-west.png": "26c309fe479903834606dd8f0c06cb74929909f3fc2952de2930ab763252aee1",
+    "DepthArt/castle-compound/wood-east.png": "16b015b2313a1d9215ab211e763973fa4a4bb9220f487f0660bc414afa9d1ceb",
+    "DepthArt/castle-compound/castle-compound.aseprite": "2142aa7f435bbd76bfe201e447a50595cb200c6450ab7391db5550453719f932",
+    "DepthArt/castle-compound/provenance.json": "86a653092b663a7397248d656c2a3e4e2336c1e0f5b45e25954dabb2132d9f95",
+    "DepthArt/gate/ownership.png": "7c7109954620e0d49d79a71cdc04e0dca37d98cbe862f744c0184524992f84ee",
+    "DepthArt/gate/partition.lua": "fb8325f263e7f3e76df9d663797ed59af5619e7a94dbb3aecef60be4360804f6",
+    "DepthArt/gate/arch.png": "a96e2fb8d2fed372cd5f4c4ae469e916fe70903b2dccece919f81e93639cf383",
+    "DepthArt/gate/west-connector.png": "9c667cab657cdc67443f8d6ed90e1b4f1e13f4df2d451d9f58232b9b02ac8678",
+    "DepthArt/gate/east-connector.png": "e378321af51e7b68b853be709defb77b6576a2bc06e5fc5d8fe431f68d8d16ee",
+    "DepthArt/gate/west-tower.png": "3c9b0c5ebbae6ae1be9d637f5517173aa79a979f78b35a9081f9db79328c5337",
+    "DepthArt/gate/east-tower.png": "4ae1dde3e69969f2289db6001fefd4452e5b2d51d88bbf545edec6433f79908c",
+    "DepthArt/gate/wood-west.png": "2458e1b17e4b85320c86e146857bfedc50b25cf93da223e0c1e04586a18160d4",
+    "DepthArt/gate/wood-east.png": "bd77d9364a409dbfed33df5e7a5c3ef1ff669667f20d9020e1fe7f659f00417d",
+    "DepthArt/gate/gate.aseprite": "7fe4b2ed214709dd32c3a8f733c9f24e0cda1dcff21895cfd0de996ce96fb70c",
+    "DepthArt/gate/provenance.json": "f4ea2e0238ee07b8dee23e8eb11cc22b1eb072cb7c6221c7476326e60025b012"
+  }
+}
