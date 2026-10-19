@@ -127,3 +127,12 @@ InitTestScene*.unity*
 # Python bytecode produced by Tools/ArtPipeline scripts (regenerate, never version).
 __pycache__/
 *.py[cod]
+
+# Licensed Unity 3D Game Kit; install with Tools/Action3D/install_gamekit.py.
+# Do not redistribute Asset Store source assets in this public repository.
+/Assets/3DGamekit/
+/Assets/3DGamekit.meta
+/Assets/3DGameKit_Third-PartyNotice.txt*
+/Assets/Action3DLocal/
+/Assets/Action3DLocal.meta
+/Tools/Action3D/Dependencies/

@@ -6,51 +6,54 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mmorpg/Scenes/ValdoriaAction3D.unity
+    guid: 0fd958cd7c1b9804184902e61ccdcd64
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/ValdoriaVillage02Anime.unity
     guid: d594aec611dd0c8429591513fae03c64
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity
     guid: 518d3cadde2dc0b4584a7833b7ed67f4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/MmorpgWorld.unity
     guid: 68a781384dafc644182c37e25e5e914f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/Marco06B2World.unity
     guid: b80a3582413db4b4698b63ca4e3dda3b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/OfflineClearing.unity
     guid: d1e0e46ef4cfc8741a86b256e04f7a50
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/Marco05World.unity
     guid: 834aa0a4fa1772f44a0e3b81193cac9c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/ActionVerticalSlice.unity
     guid: b03c73b83a3d38c4580e4bee79230873
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/Marco06B1World.unity
     guid: 93b1cf988f79d914b931d2694465532d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/Marco06B4Polish.unity
     guid: 608fa236e1cd73f47b85345ffbf0ef4c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/Marco06B5Animation.unity
     guid: 935183aae28993240832127d782ddd59
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/HumanoidScale2026.unity
     guid: 59278bfd3ed71e943943c87e1b29a83a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/HumanoidOutfit2026.unity
     guid: a13edba8b17292940899b09fe0851486
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/HumanoidCombat8Dir2026.unity
     guid: de660900fb46e10419b58266244f2628
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/HumanoidSwordR7.unity
     guid: f58872e72607ce74bb2551116b6da3ed
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mmorpg/Scenes/HumanoidStatesR8.unity
     guid: b2be2d7db9ea05247bf84bc80f45747e
   m_configObjects:

@@ -1,0 +1,58 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaAction3D.unity",
+  "startFrame": 272,
+  "endFrame": 4260,
+  "checks": [
+    {
+      "name": "rendered-frames",
+      "passed": true,
+      "detail": "272 -> 496"
+    },
+    {
+      "name": "input-movement",
+      "passed": true,
+      "detail": "distance=7,437; from=(0.00, 0.00, -6.00); to=(0.00, 0.00, 1.44)"
+    },
+    {
+      "name": "input-camera",
+      "passed": true,
+      "detail": "angle=76,10"
+    },
+    {
+      "name": "input-jump",
+      "passed": true,
+      "detail": "rise=2,512"
+    },
+    {
+      "name": "wall-collision",
+      "passed": true,
+      "detail": "x=15,099; flags=Sides"
+    },
+    {
+      "name": "input-interaction",
+      "passed": true,
+      "detail": "interactions=1; gate=False"
+    },
+    {
+      "name": "enemy-ai-pursuit",
+      "passed": true,
+      "detail": "from=(0.00, 0.10, 5.00); to=(0.00, 0.00, -3.73); target=True"
+    },
+    {
+      "name": "out-of-range-rejected",
+      "passed": true,
+      "detail": "before=4; after=4"
+    },
+    {
+      "name": "damage-without-animation",
+      "passed": true,
+      "detail": "before=4; after=3; hits=1"
+    },
+    {
+      "name": "enemy-damage-death-respawn",
+      "passed": true,
+      "detail": "dead=True; respawn=True; hp=2; enemyHits=1"
+    }
+  ],
+  "complete": true
+}

@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {
+      "since": "1851",
+      "level": "error",
+      "tail": "30"
+    },
+    "result": {
+      "entries": [],
+      "cursor": 1851,
+      "session": "7b373b9ece6c4eafad605edd61846ce8",
+      "returned": 0,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 47,
+        "warn": 1804,
+        "log": 0
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-19T17:29:40.8280238Z",
+        "ageMs": 13,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 0,
+        "consoleLogs": 0,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

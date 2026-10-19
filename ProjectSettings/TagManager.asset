@@ -21,20 +21,20 @@ TagManager:
   - 
   - 
   - 
+  - Environment
   - 
   - 
   - 
   - 
   - 
   - 
+  - Enemy
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Checkpoint
   - 
   - 
   m_SortingLayers:

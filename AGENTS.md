@@ -1,5 +1,15 @@
 # Mmorpg — instruções para agentes (Codex, DeepSeek Harness e outros)
 
+## Diretriz vigente — Action RPG 3D (19/10/2026)
+
+O usuário substituiu a direção 2D/isométrica por **Action RPG 3D em terceira pessoa**. Priorizar experimentação rápida e reutilização de jogos/templates funcionais. A primeira entrega cobre comparação de fundações e uma experiência Action 3D validada na Unity; simulação completa, economia e rota comercial ficam para depois dessa avaliação.
+
+Pode substituir a apresentação anterior inteira, incluindo Quaternius e cenários pixel art. As exigências históricas de protagonista único Quaternius, Aseprite, pixel perfect e direção visual 2D abaixo deixam de orientar a nova fundação. Preservar Git, checkpoints recuperáveis, segredos, licenças e trabalho não relacionado. Checkpoint anterior: tag `archive/valdoria-2d-2026-10-19` (`88ad73f7`).
+
+Não reconstruir manualmente sistemas já disponíveis sem justificativa técnica. Documentar origem/licença/revisão, não redistribuir assets com licença restritiva no repositório público e solicitar aprovação antes de tornar compra obrigatória. Não criar arte nesta etapa. Manter autoridade de dano independente de animações e serviços externos, separar domínio de apresentação e registrar apenas testes realmente executados. O texto histórico abaixo é referência para recuperação, sujeito a esta diretriz.
+
+Fundação de avaliação: `Assets/Mmorpg/Scenes/ValdoriaAction3D.unity`, primeira e única cena habilitada nesta etapa; 3D Game Kit oficial fixado pelo instalador `Tools/Action3D/install_gamekit.py`, Built-in e Cinemachine2.10.7 por tarball oficial. Os assets licenciados ficam locais e ignorados. Comparação/instalação: `Docs/Development/Action3DFoundation.md`; resultados reais: `Docs/Validation/Action3DFoundation.md`. Não tratar o kit como arquitetura MMORPG pronta nem como aprovação artística. Cenas2D permanecem no histórico e desabilitadas na nova configuração.
+
 Unity **6000.6.5f1**, C#, **Input System**, URP 2D, pixel art com autoria Blender/Aseprite. Repositório `jodaltro/mmorpg`; branch de trabalho/publicação do projeto: **`main`** (especificar a branch nas operações GitHub, não presumir a branch padrão da API).
 
 - **Antes de iniciar uma tarefa, conferir o worktree e executar `git pull --ff-only origin main` na `main`.** Preservar alterações locais; se a atualização falhar ou houver divergência, informar o impedimento antes de concluir que ferramentas/skills estão ausentes.

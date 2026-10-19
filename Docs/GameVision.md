@@ -1,6 +1,6 @@
 # Visão obrigatória do jogo
 
-1. O jogo é um action RPG 2D em tempo real, futuramente multiplayer.
+1. O jogo é um Action RPG **3D em terceira pessoa**, em tempo real, futuramente MMORPG. Diretriz de19/10/2026: reutilizar uma fundação jogável e validar controle/combate antes de desenvolver a simulação completa.
 2. O mundo possui memória persistente e evolui conforme as ações dos jogadores.
 3. O Jev avalia contextualmente oportunidades e consequências.
 4. Missões são oferecidas proativamente pelos NPCs ou pelo mundo, sem exigir procurar NPCs para descobrir todas as missões.

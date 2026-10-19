@@ -1,0 +1,658 @@
+{
+  "success": true,
+  "command": "command build_status",
+  "data": {
+    "command": "build_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "buildId": "build_66a1e37ab74e",
+      "result": "Failed",
+      "platform": "StandaloneWindows64",
+      "outputPath": "D:/unity/Mmorpg/Builds/Action3D/ValdoriaAction3D.exe",
+      "totalSizeBytes": 644089164,
+      "buildTimeMs": 124874,
+      "buildStartedAt": "2026-10-19T17:30:04.8780423Z",
+      "buildEndedAt": "2026-10-19T17:32:09.7528338Z",
+      "totalWarnings": 52,
+      "totalErrors": 1,
+      "buildSteps": [
+        {
+          "name": "Build player",
+          "durationMs": 124838,
+          "depth": 0,
+          "messages": [
+            {
+              "type": "Warning",
+              "content": "Pre-baked collision is disabled on 2 mesh(es) referenced by Mesh Collider components in this build. In future versions of Unity, the build process will no longer automatically pre-bake collision for these meshes; enable pre-baked collision in the Mesh import settings. Use Project Auditor (Window > Analysis > Project Auditor > Game Objects) to find and fix similar issues across the project. Affected meshes:\n - 'WallLong01_LOD1' (convex collision is disabled)\n - 'RockChunk01_LOD1' (triangle collision is disabled)"
+            }
+          ]
+        },
+        {
+          "name": "Call PrepareForBuild callbacks",
+          "durationMs": 3,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Call internal build started callbacks",
+          "durationMs": 2,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Preprocess Player",
+          "durationMs": 638,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Log",
+              "content": "[TestRunBuilder] Creating new file 'Assets/Resources/PerformanceTestRunInfo.json' (3515 bytes)"
+            },
+            {
+              "type": "Log",
+              "content": "[TestRunBuilder] Creating new file 'Assets/Resources/PerformanceTestRunSettings.json' (23 bytes)"
+            },
+            {
+              "type": "Warning",
+              "content": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+            }
+          ]
+        },
+        {
+          "name": "Save scenes before build",
+          "durationMs": 5,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prepare For Build",
+          "durationMs": 6,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "ProducePlayerScriptAssemblies",
+          "durationMs": 39737,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prebuild Cleanup and Recompile",
+          "durationMs": 31599,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Compile scripts",
+          "durationMs": 31341,
+          "depth": 3,
+          "messages": [
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SimpleSFX\\Runtime\\SimpleFXSynth.cs(20,32): warning CS0109: The member 'SimpleFXSynth.audio' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\Skybox3D\\Runtime\\Skybox3D.cs(11,27): warning CS0109: The member 'Skybox3D.camera' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs(53,41): warning CS0618: 'NavMeshLinkInstance.valid' is obsolete: 'valid has been deprecated. Use NavMesh.IsLinkValid() instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs(60,13): warning CS0618: 'NavMeshLinkInstance.Remove()' is obsolete: 'Remove() has been deprecated. Use NavMesh.RemoveLink() instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs(65,13): warning CS0618: 'NavMeshLinkInstance.Remove()' is obsolete: 'Remove() has been deprecated. Use NavMesh.RemoveLink() instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs(123,17): warning CS0618: 'NavMeshLinkInstance.valid' is obsolete: 'valid has been deprecated. Use NavMesh.IsLinkValid() instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs(124,17): warning CS0618: 'NavMeshLinkInstance.owner' is obsolete: 'owner has been deprecated. Use NavMesh.GetLinkOwner() and NavMesh.SetLinkOwner() instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\JourneySession.cs(150,99): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\JourneySession.cs(150,49): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\VillageStandaloneSmoke.cs(1,5): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\SwordSweepDebug.cs(11,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs(28,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\DiagnosticsService.cs(16,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(39,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(53,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs(66,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\SessionMenuView.cs(25,23): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\RuntimeDiagnostics.cs(32,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\WorldDebugOverlay.cs(17,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs(106,21): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\Interactive\\Runtime\\Actions\\SimpleTranslator.cs(8,30): warning CS0109: The member 'SimpleTranslator.rigidbody' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Core\\InteractionTrigger.cs(13,28): warning CS0109: The member 'InteractionTrigger.collider' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Camera\\LayerCullDistances.cs(21,27): warning CS0109: The member 'LayerCullDistances.camera' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\Interactive\\Runtime\\Collectable.cs(8,29): warning CS0109: The member 'Collectable.collider' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\Interactive\\Runtime\\Teleporter.cs(11,29): warning CS0109: The member 'Teleporter.collider' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Core\\InventoryItem.cs(15,29): warning CS0109: The member 'InventoryItem.collider' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\DamageSystem\\DeathVolume.cs(10,32): warning CS0109: The member 'DeathVolume.audio' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Core\\InteractOnTrigger.cs(13,22): warning CS0109: The member 'InteractOnTrigger.collider' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Graphics\\ModulatedLight.cs(22,26): warning CS0109: The member 'ModulatedLight.light' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Enemies\\Grenadier\\GrenadierShield.cs(11,35): warning CS0109: The member 'GrenadierShield.particleSystem' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Scripts\\AmbientAudio.cs(18,25): warning CS0109: The member 'AmbientAudio.audio' does not hide an accessible member. The new keyword is not required."
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs(19,28): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs(51,29): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Scripts\\AmbientAudio.cs(32,56): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\PersistentDataManager.cs(15,28): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs(21,28): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SavedData.cs(15,28): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs(77,37): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs(64,29): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\ScreenFader.cs(21,30): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs(112,33): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs(117,29): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs(134,54): warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs(99,54): warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Camera\\ScreenshotWithAlpha.cs(29,44): warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Helpers\\CameraSettings.cs(48,49): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Localization\\Translator.cs(16,30): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\UI\\StartUI.cs(36,27): warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\3DGamekit\\Scripts\\Game\\Player\\PlayerController.cs(130,30): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\Action3DLocal\\Action3DBuildSmoke.cs(1,5): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details."
+            }
+          ]
+        },
+        {
+          "name": "Generate and validate platform script types",
+          "durationMs": 83,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Verify Build setup",
+          "durationMs": 214,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "GetUnityAssemblies",
+          "durationMs": 75,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "GetPlayerAssemblies",
+          "durationMs": 65,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Check old data build",
+          "durationMs": 24,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Prepare assets for target platform",
+          "durationMs": 3,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prepare splash screen",
+          "durationMs": 2,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Log",
+              "content": "Including Unity Splash Screen logo because 'Show Unity Logo' is enabled."
+            }
+          ]
+        },
+        {
+          "name": "Build scripts DLLs",
+          "durationMs": 273,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "GetSystemAssemblies",
+          "durationMs": 3,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Building scenes",
+          "durationMs": 1658,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Building scene Assets/Mmorpg/Scenes/ValdoriaAction3D.unity",
+          "durationMs": 1658,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Build GlobalGameManagers file",
+          "durationMs": 473,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Writing asset files",
+          "durationMs": 71953,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Packaging assets - globalgamemanagers.assets",
+          "durationMs": 115,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Packaging assets - resources.assets",
+          "durationMs": 1351,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Packaging assets - sharedassets0.assets = additional assets for scene 0: Assets/Mmorpg/Scenes/ValdoriaAction3D.unity",
+          "durationMs": 70412,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Building Resources/unity_builtin_extra",
+          "durationMs": 763,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Write data build dirty tracking information",
+          "durationMs": 1297,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Postprocess built player",
+          "durationMs": 5252,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Error",
+              "content": "Building Builds\\Action3D\\ValdoriaAction3D_Data\\sharedassets0.assets.resS failed with output:\nCopying the file failed: Espaço insuficiente no disco.\r\n"
+            }
+          ]
+        },
+        {
+          "name": "Setup incremental player build",
+          "durationMs": 85,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Incremental player build",
+          "durationMs": 5144,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Call Post-Process callbacks",
+          "durationMs": 1,
+          "depth": 1,
+          "messages": []
+        }
+      ],
+      "errors": [
+        {
+          "message": "Building Builds\\Action3D\\ValdoriaAction3D_Data\\sharedassets0.assets.resS failed with output:\nCopying the file failed: Espaço insuficiente no disco.\r\n"
+        }
+      ],
+      "warnings": [
+        {
+          "message": "Pre-baked collision is disabled on 2 mesh(es) referenced by Mesh Collider components in this build. In future versions of Unity, the build process will no longer automatically pre-bake collision for these meshes; enable pre-baked collision in the Mesh import settings. Use Project Auditor (Window > Analysis > Project Auditor > Game Objects) to find and fix similar issues across the project. Affected meshes:\n - 'WallLong01_LOD1' (convex collision is disabled)\n - 'RockChunk01_LOD1' (triangle collision is disabled)"
+        },
+        {
+          "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+        },
+        {
+          "message": "warning CS0109: The member 'SimpleFXSynth.audio' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Packages\\SimpleSFX\\Runtime\\SimpleFXSynth.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'Skybox3D.camera' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Packages\\Skybox3D\\Runtime\\Skybox3D.cs"
+        },
+        {
+          "message": "warning CS0618: 'NavMeshLinkInstance.valid' is obsolete: 'valid has been deprecated. Use NavMesh.IsLinkValid() instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs"
+        },
+        {
+          "message": "warning CS0618: 'NavMeshLinkInstance.Remove()' is obsolete: 'Remove() has been deprecated. Use NavMesh.RemoveLink() instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs"
+        },
+        {
+          "message": "warning CS0618: 'NavMeshLinkInstance.Remove()' is obsolete: 'Remove() has been deprecated. Use NavMesh.RemoveLink() instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs"
+        },
+        {
+          "message": "warning CS0618: 'NavMeshLinkInstance.valid' is obsolete: 'valid has been deprecated. Use NavMesh.IsLinkValid() instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs"
+        },
+        {
+          "message": "warning CS0618: 'NavMeshLinkInstance.owner' is obsolete: 'owner has been deprecated. Use NavMesh.GetLinkOwner() and NavMesh.SetLinkOwner() instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\NavMeshComponents\\Scripts\\NavMeshLink.cs"
+        },
+        {
+          "message": "warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "file": "Assets\\Mmorpg\\Runtime\\JourneySession.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "file": "Assets\\Mmorpg\\Runtime\\JourneySession.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\VillageStandaloneSmoke.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\SwordSweepDebug.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\DiagnosticsService.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\LocalSessionCommands.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\SessionMenuView.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\RuntimeDiagnostics.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\WorldDebugOverlay.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Mmorpg\\Runtime\\SwordSwing.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'SimpleTranslator.rigidbody' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Packages\\Interactive\\Runtime\\Actions\\SimpleTranslator.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'InteractionTrigger.collider' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Core\\InteractionTrigger.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'LayerCullDistances.camera' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Camera\\LayerCullDistances.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'Collectable.collider' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Packages\\Interactive\\Runtime\\Collectable.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'Teleporter.collider' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Packages\\Interactive\\Runtime\\Teleporter.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'InventoryItem.collider' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Core\\InventoryItem.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'DeathVolume.audio' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\DamageSystem\\DeathVolume.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'InteractOnTrigger.collider' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Core\\InteractOnTrigger.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'ModulatedLight.light' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Graphics\\ModulatedLight.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'GrenadierShield.particleSystem' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Enemies\\Grenadier\\GrenadierShield.cs"
+        },
+        {
+          "message": "warning CS0109: The member 'AmbientAudio.audio' does not hide an accessible member. The new keyword is not required.",
+          "file": "Assets\\3DGamekit\\Scripts\\Scripts\\AmbientAudio.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Scripts\\Scripts\\AmbientAudio.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\PersistentDataManager.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SavedData.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\ScreenFader.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\SceneController.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'",
+          "file": "Assets\\3DGamekit\\Packages\\SceneManagement\\Runtime\\GameObjectTeleporter.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Camera\\ScreenshotWithAlpha.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Helpers\\CameraSettings.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Localization\\Translator.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectsOfType<T>()' is obsolete: 'Object.FindObjectsOfType has been deprecated. Use Object.FindObjectsByType instead which lets you decide whether you need the results sorted or not.  FindObjectsOfType sorts the results by InstanceID but if you do not need this using FindObjectSortMode.None is considerably faster.'",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\UI\\StartUI.cs"
+        },
+        {
+          "message": "warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'",
+          "file": "Assets\\3DGamekit\\Scripts\\Game\\Player\\PlayerController.cs"
+        },
+        {
+          "message": "warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.",
+          "file": "Assets\\Action3DLocal\\Action3DBuildSmoke.cs"
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "D:\\unity\\Mmorpg"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
