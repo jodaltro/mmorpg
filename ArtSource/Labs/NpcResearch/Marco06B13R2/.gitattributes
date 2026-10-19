@@ -1,5 +1,0 @@
-# Preserve downloaded originals and license notices byte for byte on Windows checkouts.
-**/Originals/** -text
-Wardrobe/Sources/** -text
-Licenses/** -text
-*.aseprite binary

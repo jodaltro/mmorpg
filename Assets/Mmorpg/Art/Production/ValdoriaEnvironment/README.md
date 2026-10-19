@@ -1,5 +1,0 @@
-# Valdoria generated environment backdrop
-
-`ValdoriaVillageScene.png` is the detailed village backdrop integrated into the official `MmorpgWorld` scene. Its generated source reference and editable Aseprite document are retained at `ArtSource/References/Generated/ValdoriaVillageR10-Detail-LLM-v3.png` and `ArtSource/Labs/World2026/R10/Aseprite/valdoria-village-detail-v3.aseprite`; the cleanup/preparation script is `Tools/ArtPipeline/Aseprite/prepare_valdoria_llm_reference.lua`.
-
-Unity imports the final scene crop as one 1536×800 sprite, 32 PPU, Point filtered, uncompressed, and without mipmaps. It is a visual backdrop only and provides no collision geometry. Existing world actors, interaction points, physics, and gameplay remain scene objects. As one flat image, it cannot sort actors between depicted foreground trees/buildings and background terrain. This generated art is a candidate implementation awaiting the user's visual sign-off and a depth-layer pass; it should not be represented as manually pixel-authored, finished level art, or artistically approved.

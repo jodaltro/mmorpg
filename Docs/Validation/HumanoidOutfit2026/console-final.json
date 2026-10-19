@@ -1,8 +1,0 @@
-{
-  "sampledUtc": "2026-10-16T18:31:39.7011874Z",
-  "groundTruthConsoleErrors": 0,
-  "groundTruthConsoleWarnings": 0,
-  "compilationFailed": false,
-  "connectorHistoricalErrors": 2,
-  "explanation": "Two initial missing CharacterSet exceptions were fixed. The connector history remains; current Unity console groundTruth is clean."
-}

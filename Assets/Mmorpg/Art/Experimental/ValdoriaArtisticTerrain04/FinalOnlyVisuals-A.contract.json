@@ -1,8 +1,0 @@
-{
-  "schema": "valdoria-final-material-visuals/v1",
-  "artStatus": "candidate-not-approved",
-  "requiresHostWorldRegion": true,
-  "physicalDataOwnedByHost": true,
-  "comparisonStatesIncluded": false,
-  "generatorRunsInPlay": false
-}

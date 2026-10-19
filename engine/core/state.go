@@ -1,0 +1,267 @@
+package core
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"maps"
+	"slices"
+	"strconv"
+	"strings"
+)
+
+type Entity struct {
+	ID   ID                `json:"id"`
+	Kind string            `json:"kind"`
+	Name string            `json:"name"`
+	Num  map[string]int64  `json:"num"`
+	Tag  map[string]string `json:"tag"`
+}
+
+// Fact is ground truth. Holder "" means world scope (shared, but not
+// automatically known by anyone); otherwise it is private to Holder.
+type Fact struct {
+	Holder ID     `json:"holder,omitempty"`
+	P      string `json:"p"`
+	S      ID     `json:"s"`
+	O      ID     `json:"o,omitempty"`
+	At     Tick   `json:"at"`
+	Cause  string `json:"cause,omitempty"`
+}
+
+// Belief is what an entity thinks about a world fact, and where it came
+// from. Beliefs can be stale: the world may have changed since.
+type Belief struct {
+	P      string `json:"p"`
+	S      ID     `json:"s"`
+	O      ID     `json:"o,omitempty"`
+	Holds  bool   `json:"holds"`
+	Source string `json:"source"` // observation | communication | publication | initial
+	From   ID     `json:"from,omitempty"`
+	At     Tick   `json:"at"`
+}
+
+// Event is the chronicle. Public events are seen by everyone; private ones
+// only by Holder; system events (no Holder, not Public) by no client.
+type Event struct {
+	Seq    int64             `json:"seq"`
+	At     Tick              `json:"at"`
+	Kind   string            `json:"kind"`
+	Actor  ID                `json:"actor,omitempty"`
+	Holder ID                `json:"holder,omitempty"`
+	Public bool              `json:"public,omitempty"`
+	Text   string            `json:"text,omitempty"`
+	Cause  string            `json:"cause,omitempty"`
+	Data   map[string]string `json:"data,omitempty"`
+}
+
+type Scheduled struct {
+	Key   string `json:"key"`
+	Due   Tick   `json:"due"`
+	Rule  string `json:"rule"`
+	Bind  Bind   `json:"bind,omitempty"`
+	Cause string `json:"cause,omitempty"`
+}
+
+type BeatState struct {
+	State string `json:"state"` // locked | open | claimed
+	By    []ID   `json:"by,omitempty"`
+	At    Tick   `json:"at,omitempty"`
+}
+
+type ArcState struct {
+	Current  string               `json:"current,omitempty"`
+	Done     bool                 `json:"done,omitempty"`
+	Choosing bool                 `json:"choosing,omitempty"`
+	Beats    map[string]BeatState `json:"beats"`
+	Path     []string             `json:"path"`
+}
+
+type Quest struct {
+	Key    string `json:"key"`
+	Def    string `json:"def"`
+	Holder ID     `json:"holder"`
+	Bind   Bind   `json:"bind,omitempty"`
+	State  string `json:"state"` // offered active done declined expired superseded abandoned
+	At     Tick   `json:"at"`
+	Title  string `json:"title"`
+	Desc   string `json:"desc,omitempty"`
+}
+
+type Option struct {
+	ID    string `json:"id"`
+	Title string `json:"title"`
+	Desc  string `json:"desc,omitempty"`
+}
+
+// Decision is a pending choice offered to an external advisor (Jev).
+// The world never waits for it: at Due the Default applies.
+type Decision struct {
+	ID      string   `json:"id"`
+	Kind    string   `json:"kind"` // offer | story
+	Subject string   `json:"subject"`
+	Options []Option `json:"options"`
+	Default string   `json:"default"`
+	Created Tick     `json:"created"`
+	Due     Tick     `json:"due"`
+	Context []string `json:"context,omitempty"`
+}
+
+type State struct {
+	Universe  string                   `json:"universe"`
+	Revision  int64                    `json:"revision"`
+	Tick      Tick                     `json:"tick"`
+	Seq       int64                    `json:"seq"`
+	Entities  map[ID]Entity            `json:"entities"`
+	Facts     map[string]Fact          `json:"facts"`
+	Beliefs   map[ID]map[string]Belief `json:"beliefs"`
+	Events    []Event                  `json:"events"`
+	Schedules []Scheduled              `json:"schedules"`
+	Arcs      map[string]ArcState      `json:"arcs"`
+	Quests    map[string]Quest         `json:"quests"`
+	Declined  map[string]Tick          `json:"declined"`
+	Decisions map[string]Decision      `json:"decisions"`
+	Cooldowns map[string]Tick          `json:"cooldowns"`
+	Receipts  map[string]int64         `json:"receipts"`
+}
+
+func factKey(holder ID, p string, s, o ID) string {
+	return string(holder) + "|" + p + "|" + string(s) + "|" + string(o)
+}
+
+// Digest is a canonical hash of the whole state. encoding/json sorts map
+// keys and every slice is kept in deterministic order, so a replay of the
+// same command log must reproduce it byte for byte.
+func (s State) Digest() string {
+	b, err := json.Marshal(s)
+	if err != nil {
+		panic(err)
+	}
+	h := sha256.Sum256(b)
+	return hex.EncodeToString(h[:])
+}
+
+func (s *State) Clone() State {
+	c := *s
+	c.Entities = make(map[ID]Entity, len(s.Entities))
+	for k, e := range s.Entities {
+		e.Num = maps.Clone(e.Num)
+		e.Tag = maps.Clone(e.Tag)
+		c.Entities[k] = e
+	}
+	c.Facts = maps.Clone(s.Facts)
+	c.Beliefs = make(map[ID]map[string]Belief, len(s.Beliefs))
+	for k, b := range s.Beliefs {
+		c.Beliefs[k] = maps.Clone(b)
+	}
+	c.Events = slices.Clone(s.Events)
+	c.Schedules = slices.Clone(s.Schedules)
+	for i := range c.Schedules {
+		c.Schedules[i].Bind = maps.Clone(c.Schedules[i].Bind)
+	}
+	c.Arcs = make(map[string]ArcState, len(s.Arcs))
+	for k, a := range s.Arcs {
+		a.Beats = maps.Clone(a.Beats)
+		for id, b := range a.Beats {
+			b.By = slices.Clone(b.By)
+			a.Beats[id] = b
+		}
+		a.Path = slices.Clone(a.Path)
+		c.Arcs[k] = a
+	}
+	c.Quests = make(map[string]Quest, len(s.Quests))
+	for k, q := range s.Quests {
+		q.Bind = maps.Clone(q.Bind)
+		c.Quests[k] = q
+	}
+	c.Declined = maps.Clone(s.Declined)
+	c.Decisions = make(map[string]Decision, len(s.Decisions))
+	for k, d := range s.Decisions {
+		d.Options = slices.Clone(d.Options)
+		d.Context = slices.Clone(d.Context)
+		c.Decisions[k] = d
+	}
+	c.Cooldowns = maps.Clone(s.Cooldowns)
+	c.Receipts = maps.Clone(s.Receipts)
+	return c
+}
+
+// NewState builds tick 0 from a compiled universe.
+func NewState(w *World) State {
+	u := w.U
+	s := State{Universe: u.ID, Entities: map[ID]Entity{}, Facts: map[string]Fact{}, Beliefs: map[ID]map[string]Belief{},
+		Arcs: map[string]ArcState{}, Quests: map[string]Quest{}, Declined: map[string]Tick{}, Decisions: map[string]Decision{},
+		Cooldowns: map[string]Tick{}, Receipts: map[string]int64{}, Events: []Event{}, Schedules: []Scheduled{}}
+	for _, e := range u.Entities {
+		s.Entities[e.ID] = newEntity(e)
+	}
+	for _, f := range u.Facts {
+		s.Facts[factKey(f.Holder, f.P, f.S, f.O)] = Fact{Holder: f.Holder, P: f.P, S: f.S, O: f.O, Cause: "initial"}
+	}
+	for _, b := range u.Beliefs {
+		s.believe(b.Who, Belief{P: b.P, S: b.S, O: b.O, Holds: !b.False, Source: "initial"})
+	}
+	for i, sc := range u.Schedules {
+		s.Schedules = append(s.Schedules, Scheduled{Key: "initial:" + strconv.Itoa(i), Due: sc.At, Rule: sc.Rule, Cause: "initial"})
+	}
+	sortSchedules(s.Schedules)
+	for _, a := range u.Arcs {
+		st := ArcState{Current: a.Start, Beats: map[string]BeatState{}, Path: []string{a.Start}}
+		for _, b := range a.Beats {
+			st.Beats[b.ID] = BeatState{State: "locked"}
+		}
+		s.Arcs[a.ID] = st
+	}
+	return s
+}
+
+func newEntity(e EntitySeed) Entity {
+	n := Entity{ID: e.ID, Kind: e.Kind, Name: e.Name, Num: maps.Clone(e.Num), Tag: maps.Clone(e.Tag)}
+	if n.Num == nil {
+		n.Num = map[string]int64{}
+	}
+	if n.Tag == nil {
+		n.Tag = map[string]string{}
+	}
+	if n.Name == "" {
+		n.Name = string(e.ID)
+	}
+	return n
+}
+
+func (s *State) believe(who ID, b Belief) {
+	if s.Beliefs[who] == nil {
+		s.Beliefs[who] = map[string]Belief{}
+	}
+	s.Beliefs[who][factKey("", b.P, b.S, b.O)] = b
+}
+
+func sortSchedules(x []Scheduled) {
+	slices.SortStableFunc(x, func(a, b Scheduled) int {
+		if a.Due != b.Due {
+			if a.Due < b.Due {
+				return -1
+			}
+			return 1
+		}
+		return strings.Compare(a.Key, b.Key)
+	})
+}
+
+func sortedKeys[V any](m map[string]V) []string {
+	k := make([]string, 0, len(m))
+	for x := range m {
+		k = append(k, x)
+	}
+	slices.Sort(k)
+	return k
+}
+
+func sortedIDs[V any](m map[ID]V) []ID {
+	k := make([]ID, 0, len(m))
+	for x := range m {
+		k = append(k, x)
+	}
+	slices.Sort(k)
+	return k
+}

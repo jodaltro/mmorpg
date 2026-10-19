@@ -1,9 +1,0 @@
-{
-  "pass": true,
-  "from": "(33.50, 23.50)",
-  "to": "(35.26, 23.50)",
-  "pressed": false,
-  "current": "RoadInputProbe",
-  "focus": false,
-  "mode": "AllDeviceInputAlwaysGoesToGameView"
-}

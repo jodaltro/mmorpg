@@ -1,9 +1,0 @@
-{
-  "output": null,
-  "diagnostics": [],
-  "success": true,
-  "result": {
-    "refused": true,
-    "reason": "Refuse existing destination"
-  }
-}

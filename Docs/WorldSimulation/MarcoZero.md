@@ -1,5 +1,7 @@
 # Marco Zero — World Simulation Engine (auditoria e plano)
 
+> **Histórico.** Esta auditoria descreve o repositório antes da reconstrução de 19/10/2026. O projeto Unity e o backend `backend/`/`supabase/` foram removidos (recuperáveis no branch `archive/unity-2026-10-19`). A arquitetura vigente está em [Architecture.md](../Architecture.md).
+
 Data: 19/10/2026. Missão somente de auditoria/planejamento: **nenhum código, schema ou cena foi alterado**. Base auditada: `main` em `88ad73f7` (igual a `origin/main`), mais o worktree com a fundação Action3D Unity em *staged* e não commitada.
 
 ## 0. Checkpoint e evidência

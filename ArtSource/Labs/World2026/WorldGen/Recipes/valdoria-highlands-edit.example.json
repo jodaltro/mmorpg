@@ -1,8 +1,0 @@
-{
-  "schema": "valdoria-terrain-patch/v1",
-  "operations": [
-    {"kind": "raise", "center": [45, 10], "radius": 8, "strength": 0.12},
-    {"kind": "lower", "center": [29, 39], "radius": 6, "strength": 0.14},
-    {"kind": "paint", "center": [43, 13], "radius": 5, "material": "rock"}
-  ]
-}

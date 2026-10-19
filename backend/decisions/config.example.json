@@ -1,7 +1,0 @@
-{
-  "mode": "Deterministic",
-  "listen": "127.0.0.1:8091",
-  "timeout": "5s",
-  "minimumConfidence": 0,
-  "dataDirectory": "data"
-}

@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "id": "orbital",
+  "name": "Estacao Orbital Kepler-9",
+  "description": "Uma estacao de pesquisa isolada. Um vazamento ameaca a tripulacao e um sinal desconhecido chega do espaco profundo.",
+  "kinds": ["module", "crew", "player"],
+  "predicates": ["leak", "alarm", "signal", "decoded", "logged", "greeted", "fortified"],
+  "playerKind": "player",
+  "player": {"id": "template", "kind": "player", "name": "", "num": {"merit": 0}},
+  "perceivers": ["crew", "player"],
+  "entities": [
+    {"id": "reator", "kind": "module", "name": "Modulo do Reator", "num": {"pressure": 100}},
+    {"id": "antena", "kind": "module", "name": "Antena de Longo Alcance"},
+    {"id": "ines", "kind": "crew", "name": "Dra. Ines, engenheira-chefe", "num": {"patches": 0}},
+    {"id": "kai", "kind": "crew", "name": "Kai, tecnico"}
+  ],
+  "schedules": [{"rule": "vazamento", "at": 3}, {"rule": "sinal", "at": 8}],
+  "rules": [
+    {"id": "vazamento", "when": {}, "effects": [{"op": "assert", "fact": {"p": "leak", "s": "reator"}}]},
+    {"id": "sinal", "when": {}, "effects": [
+      {"op": "assert", "fact": {"p": "signal", "s": "antena"}},
+      {"op": "emit", "event": "static", "public": true, "text": "Estatica estranha nos alto-falantes da estacao."}]},
+    {"id": "despressurizar", "every": 2, "when": {"fact": {"p": "leak", "s": "reator"}},
+     "effects": [{"op": "adjust", "e": "reator", "k": "pressure", "d": -4, "min": 0}]},
+    {"id": "alerta", "every": 2,
+     "when": {"all": [{"fact": {"p": "leak", "s": "reator"}}, {"num": {"e": "reator", "k": "pressure", "op": "<", "v": 85}}, {"not": {"fact": {"p": "alarm", "s": "reator"}}}]},
+     "effects": [
+      {"op": "assert", "fact": {"p": "alarm", "s": "reator"}},
+      {"op": "emit", "event": "alarm", "public": true, "text": "Alarme de pressao no Modulo do Reator.", "reveals": {"p": "alarm", "s": "reator"}}]},
+    {"id": "repressurizar", "every": 3,
+     "when": {"all": [{"not": {"fact": {"p": "leak", "s": "reator"}}}, {"num": {"e": "reator", "k": "pressure", "op": "<", "v": 100}}]},
+     "effects": [{"op": "adjust", "e": "reator", "k": "pressure", "d": 5, "max": 100}]}
+  ],
+  "actions": [
+    {"id": "inspecionar-reator", "by": ["player", "agent", "adapter"], "requires": {},
+     "effects": [{"op": "observe", "fact": {"p": "leak", "s": "reator"}}, {"op": "emit", "event": "inspected", "text": "{self} inspeciona o reator."}]},
+    {"id": "reportar-vazamento", "by": ["player", "agent"], "params": [{"name": "crew", "kind": "crew"}],
+     "requires": {"knows": {"p": "leak", "s": "reator"}},
+     "effects": [{"op": "inform", "to": "$crew", "fact": {"p": "leak", "s": "reator"}}, {"op": "emit", "event": "reported", "text": "{self} reporta o vazamento a {crew}."}]},
+    {"id": "fabricar-remendo", "by": ["agent"], "requires": {}, "effects": [{"op": "adjust", "e": "$self", "k": "patches", "d": 1}]},
+    {"id": "selar-vazamento", "by": ["agent", "player"],
+     "requires": {"all": [{"num": {"e": "$self", "k": "patches", "op": ">=", "v": 1}}, {"fact": {"p": "leak", "s": "reator"}}]},
+     "effects": [
+      {"op": "adjust", "e": "$self", "k": "patches", "d": -1, "min": 0},
+      {"op": "retract", "fact": {"p": "leak", "s": "reator"}},
+      {"op": "emit", "event": "sealed", "public": true, "text": "{self} selou o vazamento.", "reveals": {"p": "leak", "s": "reator"}}]},
+    {"id": "registrar-sinal", "by": ["adapter"], "requires": {"fact": {"p": "signal", "s": "antena"}},
+     "effects": [{"op": "assert", "fact": {"p": "logged", "s": "$self", "o": "antena", "private": true}}, {"op": "emit", "event": "logged", "text": "{self} isola o sinal na antena."}]},
+    {"id": "saudar", "by": ["player"], "requires": {"fact": {"p": "decoded", "s": "antena"}},
+     "effects": [{"op": "assert", "fact": {"p": "greeted", "s": "$self", "o": "antena", "private": true}}, {"op": "adjust", "e": "$self", "k": "merit", "d": 1}]},
+    {"id": "fortificar", "by": ["adapter"], "requires": {"fact": {"p": "decoded", "s": "antena"}},
+     "effects": [{"op": "assert", "fact": {"p": "fortified", "s": "$self", "o": "reator", "private": true}}, {"op": "adjust", "e": "$self", "k": "merit", "d": 1}]}
+  ],
+  "agents": [
+    {"entity": "ines", "goals": [
+      {"id": "selar", "priority": 10, "action": "selar-vazamento",
+       "when": {"all": [{"knows": {"p": "leak", "s": "reator"}}, {"num": {"e": "$self", "k": "patches", "op": ">=", "v": 1}}]}},
+      {"id": "fabricar", "priority": 5, "action": "fabricar-remendo", "cooldown": 2,
+       "when": {"all": [{"knows": {"p": "leak", "s": "reator"}}, {"num": {"e": "$self", "k": "patches", "op": "<", "v": 1}}]}}]},
+    {"entity": "kai", "goals": [
+      {"id": "reportar", "priority": 10, "action": "reportar-vazamento", "args": {"crew": "ines"}, "cooldown": 50,
+       "when": {"knows": {"p": "leak", "s": "reator"}}},
+      {"id": "inspecionar", "priority": 5, "action": "inspecionar-reator", "cooldown": 4,
+       "when": {"all": [{"knows": {"p": "alarm", "s": "reator"}}, {"not": {"knows": {"p": "leak", "s": "reator"}}}]}}]}
+  ],
+  "arcs": [
+    {"id": "sinal", "title": "O Sinal de Proxima", "start": "contato", "beats": [
+      {"id": "contato", "title": "Cenario Unico: Primeiro Contato", "unique": true,
+       "opens": {"fact": {"p": "signal", "s": "antena"}},
+       "goal": {"fact": {"p": "logged", "s": "$self", "o": "antena", "private": true}},
+       "claim": [
+        {"op": "assert", "fact": {"p": "decoded", "s": "antena"}},
+        {"op": "set", "e": "$self", "k": "title", "v": "Primeiro Contato"},
+        {"op": "emit", "event": "contact", "public": true, "text": "{self} decodificou o sinal de Proxima.", "reveals": {"p": "decoded", "s": "antena"}}],
+       "rival": [{"op": "adjust", "e": "$self", "k": "merit", "d": 1}],
+       "next": ["alianca", "ameaca"]},
+      {"id": "alianca", "title": "Capitulo: A Alianca", "opens": {"fact": {"p": "decoded", "s": "antena"}},
+       "goal": {"fact": {"p": "greeted", "s": "$self", "o": "antena", "private": true}}},
+      {"id": "ameaca", "title": "Capitulo: A Ameaca", "opens": {"fact": {"p": "decoded", "s": "antena"}},
+       "goal": {"fact": {"p": "fortified", "s": "$self", "o": "reator", "private": true}}}
+    ]}
+  ],
+  "quests": [
+    {"id": "inspecionar", "title": "Pressao caindo", "desc": "Descubra por que o reator perde pressao.",
+     "eligible": {"all": [{"num": {"e": "reator", "k": "pressure", "op": "<", "v": 100}}, {"not": {"knows": {"p": "leak", "s": "reator"}}}]},
+     "goal": {"knows": {"p": "leak", "s": "reator"}}, "rewards": [{"op": "adjust", "e": "$self", "k": "merit", "d": 1}]},
+    {"id": "contato", "arc": "sinal", "beat": "contato", "title": "Cenario Unico: Primeiro Contato", "desc": "Isole o sinal antes de todos.",
+     "eligible": {}, "goal": {"fact": {"p": "logged", "s": "$self", "o": "antena", "private": true}}},
+    {"id": "saudacao", "arc": "sinal", "beat": "alianca", "title": "Responder ao sinal", "eligible": {},
+     "goal": {"fact": {"p": "greeted", "s": "$self", "o": "antena", "private": true}}},
+    {"id": "defesa", "arc": "sinal", "beat": "ameaca", "title": "Preparar a defesa", "eligible": {},
+     "goal": {"fact": {"p": "fortified", "s": "$self", "o": "reator", "private": true}}}
+  ],
+  "limits": {"maxActiveQuests": 1, "decisionTimeout": 3, "declineCooldown": 15, "offerExpiry": 25, "maxEvents": 1000}
+}

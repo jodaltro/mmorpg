@@ -1,111 +1,113 @@
-# Cena offline e motor de acontecimentos
+# Arquitetura do World Simulation Engine
 
-## Marco 05A — camada persistente em validação
+## Camadas
 
-[SupabaseIntegration](SupabaseIntegration.md) descreve a nova autoridade Go/pgxpool, autenticação JWKS/Auth Server, schema game privado e RLS, HTTP v1, encontro mínimo por turnos simulado no servidor, transações e importação explícita de saves em mundos de teste. SupabaseSession/OnlineAuthorityClient são adaptadores opt-in separados da cena offline. Não há sincronização automática de recompensas locais. O serviço Go/Jev anterior continua consultivo e preservado.
+```mermaid
+flowchart LR
+  subgraph Clientes
+    C1[Unity / Unreal / Godot / Web]
+    GS[Servidor de jogo: combate em tempo real]
+  end
+  subgraph engine
+    API[api: HTTP v1 + SSE]
+    SIM[sim: relógio, log, despacho]
+    CORE[core: Step puro e determinístico]
+    ADV[advisor: determinístico ou Jev]
+    ST[store: log de comandos]
+  end
+  U[(universes/*.json)]
+  C1 -- intenções do jogador --> API
+  GS -- acontecimentos confirmados --> API
+  API --> SIM --> CORE
+  SIM --> ST
+  SIM -. decisões pendentes, fora do lock .-> ADV
+  ADV -. resolve .-> SIM
+  U --> CORE
+  API -- visão por observador + push --> C1
+```
 
-O encontro Go é uma demonstração discreta de obtenção legítima; não substitui movimento, colisão ou combate em tempo real da Unity. A agenda Go depende de tick autenticado, o outbox ainda não tem consumidor e não há interface de login no HUD. A expansão 05B e o simulador 05C aguardam validação completa do 05A. [Auditoria/plano](Marco05Plan.md), [evidências e impedimentos](Validation/Marco05.md). Não há XP/níveis nem Nakama nesta entrega.
+Regra de dependência: `core` importa só a biblioteca padrão (verificado por `TestCoreHasNoInfrastructureImports`). Não conhece rede, banco, engine gráfica, combate ou gênero. Tudo o que é específico de um jogo está no universo JSON.
 
-### Modo expandido
+## Conceitos do núcleo
 
-`Backend/authority/journey` carrega o cat?logo versionado e executa consequ?ncias, encontros distintos, habilidades, materiais, equipamento, oportunidades e agenda por a??es. `Store.Apply` usa o mesmo motor e grava proje??es normalizadas, fatos/outbox/decis?es em transa??o com revis?o/receipts. O simulador executa Catalog.Step sem banco/rede; n?o h? outro motor de recompensas. Regras do mundo s?o selecionadas pelo servidor, preservando a demonstra??o 05A e os saves offline. Aus?ncia da proje??o obrigat?ria do mundo expandido falha fechada.
-
-`WorldJourneySession` usa SupabaseSession/OnlineAuthorityClient; `WorldJourneyHud` apresenta a??es e invent?rio; `WorldJourneyView` apresenta a regi?o confirmada e movimenta??o visual local. A cena nova n?o possui JourneySession nem sincroniza saves. As cinco ?reas s?o salas conectadas na mesma cena, com sprites originais e placeholders. `BuildExpandedWorld.Build` recusa sobrescrita; ajustes de apresenta??o usam opera??es espec?ficas.
-
-O farol de Asterion e consequ?ncias regionais s?o ?nicos por mundo e possuem autoria. Lock transacional mundial + UNIQUE protegem ativa??es; reservas de agenda cancelada s?o devolvidas uma vez. Esse lock ? uma escolha do prot?tipo de teste, n?o um desenho de escala MMO. O Jev existente segue consultivo para candidatos do Marco 04; a expans?o permanece determin?stica e revalida toda inten??o.
-
-## Marco 04
-
-[WorldEventOrchestrator](WorldEventOrchestrator.md) descreve acontecimentos opcionais derivados das a??es existentes: alerta persistente, pista interativa e treino por esquiva confirmada. Domain permanece C# puro; JourneyEngine conserva invent?rio, rotas e Leitura de Fraquezas. WorldEventSession adapta agenda, rel?gio e apresenta??o na mesma cena. Save v3 aceita v1/v2. O servi?o Go existente recebe m?ltiplos candidatos pela pol?tica world-context-v1, com Jev consultivo e fallback sem backend. [Valida??o](Validation/Marco04.md) registra regress?o e chamadas reais autorizadas. Sem Nakama, multiplayer, XP ou n?veis.
-
-## Marco 02
-
-Atualização Marco 03: [JevIntegration](JevIntegration.md) descreve o serviço Go local e a seleção assíncrona de reações de Mira, revalidadas/persistidas no Domain. Rotas A/B e técnica mantêm a política síncrona anterior. Consulte [validação Marco03](Validation/Marco03.md). Trechos abaixo sobre ausência de integração correspondem aos marcos anteriores.
-
-A cena existente recebeu a história **A Corrupção da Floresta**, com Mira, Orin, rastros, amostra, memória persistente, diário e a técnica Leitura de Fraquezas. Consulte [Event System](EventSystem.md) para arquitetura, arquivos, caminhos A/B, persistência e limitações; [contrato Go preliminar](GoEventContract.md) para envelopes e validação futura; [validação do Marco 02](Validation/Marco02.md) para resultados executados.
-
-`Domain/JourneyEngine` separa fatos, regras de elegibilidade, seleção determinística e aplicação validada de consequências. `IJourneyPersistence` e `IConsequencePolicy` marcam pontos de substituição por backend e política futura. O domínio continua sem referência a Unity. Nenhuma API Jev, Go ou Nakama foi integrada.
-
-Controles adicionais: **E** interage; **Q** usa a técnica aprendida; **Tab** abre o diário, pois J permanece ataque; **N** inicia nova jornada. **R** agora continua a memória salva ao recarregar a cena, restaurando as consequências narrativas do encontro. Vida/posição/cooldowns transitórios são reiniciados. A mensagem de vitória permite continuar explorando.
-
-O combate original foi mantido, com duas extensões: callback após dano aceito para reconhecer derrota e bônus limitado da marca, consumido somente depois do acerto confirmado. `CombatState` e suas regras de ataque/esquiva/imunidade foram preservados. Os testes antigos usam persistência isolada em memória para não alterar o save do jogador.
-
-O histórico abaixo descreve a entrega do Marco 01; o Marco 02 e seus controles prevalecem onde houve atualização.
-
-## Ambiente inspecionado
-
-Unity **6000.6.5f1**, CLI **1.0.0-beta.13** (atualizada na verificação), plugin Unity **0.1.8-beta**, Pipeline **0.8.0-exp.1** conectado ao Editor local na porta 7800. Projeto original mantido; `Assets/Scenes/SampleScene.unity` preservada. Input System **1.20.0**, URP **17.6.0**, uGUI **2.6.0**, Test Framework **1.8.0** já instalados. Física usada: Rigidbody2D/Collider2D, sem Physics Core.
-
-O render pipeline ativo é UniversalRenderPipelineAsset, selecionado pelas configurações de qualidade existentes (GraphicsSettings global está vazio). As configurações URP originais foram preservadas.
-
-## Executar
-
-Abra `Assets/Mmorpg/Scenes/OfflineClearing.unity` e pressione Play. A cena também está em primeiro lugar em Build Settings.
-
-| Entrada | Ação |
+| Conceito | No motor |
 |---|---|
-| WASD ou setas | Movimento em quatro direções; empate diagonal prioriza vertical |
-| J ou botão esquerdo | Ataque na direção em que o personagem está olhando |
-| Espaço ou Shift esquerdo | Esquiva na direção do movimento ou orientação atual |
-| R | Reinício completo da cena, inclusive após vitória ou morte |
+| Entidade | `Entity{ID, Kind, Name, Num, Tag}`: tipos e propriedades declarados pelo universo |
+| Verdade do mundo | `Fact{Holder, P, S, O, Cause}`. `Holder` vazio = verdade compartilhada (que ninguém conhece automaticamente); preenchido = fato privado daquele personagem |
+| Conhecimento | `Belief{P, S, O, Holds, Source, From, At}` por entidade. Fontes: `observation`, `communication`, `publication`, `initial`. Pode ficar desatualizado |
+| Regras | Periódicas (`every`), por tipo de entidade (`forEach`) ou agendadas (`schedule`). É isso que mantém o mundo vivo |
+| Ações | Declaradas com quem pode enviá-las: `player` (intenção), `adapter` (servidor de jogo confirmando um acontecimento), `agent` (NPC, só interno) |
+| Agentes NPC | Objetivos com prioridade e condição (normalmente sobre crenças). Se a tentativa falha contra a verdade, o NPC observa os fatos que leu errado |
+| Histórias | `Arc` = DAG de `Beat`. Capítulo único (primeiro a cumprir o objetivo vence) ou compartilhado (todos podem cumprir; o arco avança por condição coletiva) |
+| Missões | Modelos com elegibilidade, parâmetros ligados a entidades, objetivo e recompensas. Geram instâncias diferentes por jogador |
+| Decisões | Escolhas pendentes (`offer`, `story`) com opções já validadas, contexto, padrão e prazo |
+| Efeitos | Conjunto fechado: `assert`, `retract`, `adjust`, `set`, `observe`, `inform`, `schedule`, `emit` (com `reveals`), todos com `if` opcional |
 
-O jogador começa com 100 de vida, o lobo com 60. Três acertos derrotam o lobo. Ataque do jogador: 20 de dano, alcance 1,25, cooldown 0,4 s. Esquiva: 0,22 s, cooldown 0,9 s e invulnerabilidade durante toda a janela. O lobo causa 15 de dano, prepara o golpe por 0,35 s (cor laranja) e recupera por 0,8 s. Dano recebido tem imunidade de 0,35 s. Cor ciano indica esquiva; vermelho indica dano; cinza indica morte.
+Condições: `all`, `any`, `not`, `fact`, `knows` (de `$self` ou de outro), `num`, `tag`, `beat`. Variáveis: `$self`, parâmetros de ação/missão, `$it`, `$claimant`.
 
-## Separação de responsabilidades
+## Um comando = um passo puro
 
-- `Domain/CombatRules.cs`: parâmetros de gameplay compartilháveis como especificação futura.
-- `Domain/CombatState.cs`: vida, morte, cooldowns e janelas temporais em C# puro; recebe o tempo da autoridade.
-- `Runtime/OfflineAuthority.cs`: decide ataques e esquivas; valida facção, estado, alcance, direção e parede; calcula dano conforme regras, sem receber valor de dano do input.
-- `PlayerController`: traduz teclado/mouse em intenções.
-- `ActorMotor`: converte intenção cardinal em velocidade de Rigidbody2D no FixedUpdate.
-- `ActorHealth`: adapta o estado de combate a eventos Unity e desativa física na morte.
-- `WolfBrain`: patrulha → perseguição → preparação → recuperação; para na morte.
-- `CameraFollow`, `ActorVisual`, `HealthHud`: apresentação independente da regra de combate.
-- `GameSession`: referências da partida e recarga da cena.
+`World.Step(state, command) -> (state', delta, err)` trabalha sobre uma cópia. Comando recusado não tem efeito. Repetir o mesmo log a partir de `NewState` reproduz o mesmo `Digest` (SHA-256 do estado canônico).
 
-As referências estão serializadas na cena. As assemblies Domain e Runtime são separadas; Domain usa `noEngineReferences`. Não há SDK de rede, níveis, experiência, Jev ou Nakama.
+| Tipo | Origem permitida | Efeito |
+|---|---|---|
+| `tick` | `system` | Avança o tempo (sequencial: `tick:N+1`) |
+| `join` | `adapter`, `system` | Cria um personagem a partir do modelo do universo |
+| `act` | `player`, `adapter` | Executa uma ação permitida para essa origem |
+| `accept` / `decline` / `abandon` | `player` | Ciclo de vida de missões |
+| `resolve` | `advisor` | Aplica a escolha de uma decisão pendente, revalidada |
 
-## Transição para autoridade Go + Nakama
+Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expectedRevision`.
 
-Hoje intenção e simulação rodam no mesmo processo. Esta separação é estrutural, não uma implementação multiplayer nem uma abstração de transporte pronta. O futuro servidor deve possuir posição, colisões, velocidade, alcance, tempo monotônico, cooldowns e vida. Deve receber comandos de movimento/ataque/esquiva com sequência, validar e produzir snapshots/eventos. O cliente deve apresentar esses snapshots, reconciliar previsão e nunca determinar dano ou morte. `ActorMotor` e os raycasts atuais são adaptadores offline que terão equivalentes no servidor; Rigidbody2D não roda em Go. As regras Domain servem de contrato de comportamento a portar com testes equivalentes, não de código C# executado pelo Nakama.
+### Ordem de um tick
 
-## Cena e placeholders
+1. Agendamentos vencidos (ordem estável por prazo e chave).
+2. Regras periódicas, na ordem declarada; `forEach` em ordem de ID.
+3. Histórias: abre o capítulo atual quando `opens` vale; capítulos compartilhados avançam quando `advanceWhen` vale.
+4. Decisões vencidas recebem o padrão. Se o padrão perdeu a validade, oferece-se outra opção ainda válida.
+5. Agentes NPC, em ordem de ID: no máximo uma tentativa por agente.
+6. Missões: retira ofertas sem sentido, expira as ignoradas, conclui as cumpridas, reivindica capítulos e gera novas ofertas.
 
-Arena limitada por colliders, quatro obstáculos, jogador e um lobo, câmera ortográfica e HUD uGUI/TMP. Arte gerada por código, sprites 16×16 com filtro Point e sem compressão/mipmaps. Câmera arredonda posição para a grade de 16 pixels/unidade. Não é uma configuração PixelPerfectCamera completa: escalas arbitrárias da Game view podem produzir pixels de tamanhos diferentes.
+## Cenários únicos e histórias dinâmicas
 
-Camadas 8 (`Obstacles`) e 9 (`Actors`) são reservadas e verificadas pelo gerador. Paredes bloqueiam visão e ataques. O lobo usa perseguição cardinal e linha de visão simples; não há pathfinding contornando obstáculos.
+1. Um capítulo único abre silenciosamente. Os jogadores o descobrem pelas missões oferecidas a eles.
+2. Vários jogadores podem persegui-lo em paralelo, em estado privado.
+3. **Qualquer jogador que cumpra o objetivo reivindica o capítulo**, com ou sem a missão-guia. O primeiro vence de forma atômica, dentro de um único `Step`.
+4. Os demais concorrentes têm a missão marcada como `superseded` e recebem os efeitos `rival` (fatos privados, recompensas de consolação), que liberam continuações próprias.
+5. Com várias continuações possíveis, cria-se uma decisão `story`. O Jev escolhe pelo contexto; no prazo, aplica-se o padrão (primeiro ramo cuja condição já vale).
+6. O novo capítulo muda o que é elegível para todos, e as ofertas de cada jogador mudam junto.
 
-`AgentScripts/BuildOfflineScene.cs` é ferramenta de autoria executada por Pipeline, fora de Assets. O gerador recusa sobrescrever a cena e recusa trocar cenas sujas. Recursos TMP foram importados sem diálogos interativos. O projeto e seus pacotes originais não foram recriados.
+## Jev assíncrono sem afetar o jogo
 
-## Validar pela Unity CLI
+- O lock do runtime só envolve `Step` (microssegundos). Chamadas ao Jev rodam em goroutines, fora do lock.
+- O Jev recebe as opções com IDs opacos (`o1..oN`), contexto curto e instruções fixas. A resposta é mapeada de volta, conferida (opção, modelo, confiança) e enviada como comando `resolve`.
+- O motor revalida a escolha: precisa estar entre as opções **e** continuar válida agora. Resposta atrasada ou inválida é recusada, e o padrão determinístico vale no prazo.
+- Testado: 200 comandos de jogo concluídos com um conselheiro travado (`TestSlowAdvisorNeverBlocksTheWorld`).
+- As resoluções entram no log, então o replay é determinístico mesmo com um conselheiro não determinístico.
 
-Com o Editor deste projeto aberto:
+## Persistência
 
-```powershell
-unity status --format json
-unity command set_autotick --caller plugin --skill unity-pipeline
-unity command recompile --caller plugin --skill unity-pipeline
-unity command recompile_status --caller plugin --skill unity-pipeline
-unity command run_tests --caller plugin --skill unity-pipeline -- --mode editor --filter Mmorpg.Tests --async_tests true
-unity command test_status --caller plugin --skill unity-pipeline
-unity command run_tests --caller plugin --skill unity-pipeline -- --mode playmode --filter Mmorpg.Tests --async_tests true
-unity command test_status --caller plugin --skill unity-pipeline
-unity command console_status --caller plugin --skill unity-pipeline
-```
+O log de comandos é a fonte da verdade. `store.FileLog` grava JSONL com `fsync` a cada comando; o cabeçalho prende o log ao universo (`Fingerprint`); uma última linha corrompida por queda é descartada. Na abertura, o runtime refaz o estado pelo replay e redespacha as decisões que estavam pendentes. Nada é publicado antes de estar gravado.
 
-Aguarde conclusão da compilação antes dos testes e de cada suite antes de iniciar a próxima. `test_status` deve mostrar `completed`, testes executados e zero falhas. Resultados da execução desta entrega ficam em `Docs/Validation`.
+## Confiança
 
-Nesta versão do Pipeline, `editor_play` não habilita `runInBackground` automaticamente. Se o jogo ou os testes congelarem no frame 1 com o Editor sem foco, execute antes de iniciar:
+- Clientes de jogador enviam **intenções**; o servidor de jogo envia **acontecimentos confirmados** (`adapter`); o motor nunca recebe dano, HP ou inventário declarados.
+- Hoje, a origem vem no corpo da requisição. Por isso o `serve` só escuta em loopback. Em produção, a origem deve vir da autenticação: token de jogador → `player`; credencial do servidor de jogo → `adapter`.
+- A visão de um observador nunca inclui crenças, fatos privados ou eventos privados de outros (`TestPrivateKnowledgeAndViews`, `TestStreamPushesOnlyVisibleEvents`).
 
-```powershell
-unity command eval --caller plugin --skill unity-pipeline -- --code 'UnityEngine.Application.runInBackground = true;'
-```
+## Limitações conhecidas
 
-Sem Editor aberto, o modo batch é uma alternativa:
+- Uma instância por mundo; o estado inteiro é copiado a cada comando. Adequado a protótipos e a mundos de dezenas de jogadores; para milhares, ver os próximos passos.
+- O replay parte do tick 0 (ainda sem snapshots).
+- A crônica guarda até `maxEvents` eventos; os mais antigos saem da visão, mas continuam no log.
+- Os arcos têm fim. Um mundo vivo de longo prazo precisa de novos arcos, escritos à mão ou gerados.
+- Sem autenticação de produção, rate limiting nem CORS.
 
-```powershell
-unity test . --mode EditMode --filter Mmorpg.Tests --output Docs/Validation/editmode.xml --timeout 300
-unity test . --mode PlayMode --filter Mmorpg.Tests --output Docs/Validation/playmode.xml --timeout 300
-```
+## Próximos passos
 
-Referências técnicas consultadas: [Rigidbody2D](https://docs.unity3d.com/6000.6/Documentation/ScriptReference/Rigidbody2D.html), [Physics2D.Raycast](https://docs.unity3d.com/6000.6/Documentation/ScriptReference/Physics2D.Raycast.html), skills `unity-cli`, `unity-pipeline`, `create-2d-physics` (referência `legacy-2d-physics.md`), `ui` e `ui-ugui`.
+1. Snapshots periódicos e compactação do log.
+2. Autenticação (JWT Supabase do backend anterior, recuperável no histórico) mapeando a origem por credencial.
+3. Particionar por região ou shard e reduzir a cópia de estado (estrutura persistente ou deltas).
+4. SDKs finos de cliente (C# para Unity, C++ para Unreal, GDScript para Godot) gerados a partir do contrato v1.
+5. Geração de novos arcos e modelos de missão assistida pelo Jev, sempre validada pelo `Compile`.
+6. Integração com um servidor de jogo 3D real, que envia acontecimentos `adapter`.

@@ -1,0 +1,135 @@
+package core
+
+// View is what one observer may see. World truth is never exposed directly:
+// a player sees their own entity, their private facts, their beliefs, their
+// quests and the events visible to them. Two players in the same world see
+// different worlds because they know different things.
+type View struct {
+	Universe string      `json:"universe"`
+	Tick     Tick        `json:"tick"`
+	Revision int64       `json:"revision"`
+	Self     Entity      `json:"self"`
+	Others   []Seen      `json:"others"`
+	Facts    []Fact      `json:"facts"`
+	Beliefs  []Belief    `json:"beliefs"`
+	Quests   []Quest     `json:"quests"`
+	Events   []Event     `json:"events"`
+	Story    []StoryView `json:"story"`
+}
+
+type Seen struct {
+	ID   ID     `json:"id"`
+	Kind string `json:"kind"`
+	Name string `json:"name"`
+}
+
+// StoryView shows the public chronicle of an arc: which chapters were
+// claimed, by whom. Open unique scenarios stay hidden unless the observer
+// is pursuing one.
+type StoryView struct {
+	Arc       string    `json:"arc"`
+	Title     string    `json:"title"`
+	Done      bool      `json:"done"`
+	Chronicle []Chapter `json:"chronicle"`
+	Pursuing  *Chapter  `json:"pursuing,omitempty"`
+}
+
+type Chapter struct {
+	Beat  string   `json:"beat"`
+	Title string   `json:"title"`
+	By    []string `json:"by,omitempty"`
+	At    Tick     `json:"at,omitempty"`
+}
+
+func (w *World) View(s *State, observer ID, limit int) (View, bool) {
+	self, ok := s.Entities[observer]
+	if !ok {
+		return View{}, false
+	}
+	v := View{Universe: s.Universe, Tick: s.Tick, Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}}
+	for _, id := range sortedIDs(s.Entities) {
+		if id != observer {
+			e := s.Entities[id]
+			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name})
+		}
+	}
+	for _, k := range sortedKeys(s.Facts) {
+		if f := s.Facts[k]; f.Holder == observer {
+			v.Facts = append(v.Facts, f)
+		}
+	}
+	for _, k := range sortedKeys(s.Beliefs[observer]) {
+		v.Beliefs = append(v.Beliefs, s.Beliefs[observer][k])
+	}
+	for _, k := range sortedKeys(s.Quests) {
+		if q := s.Quests[k]; q.Holder == observer {
+			v.Quests = append(v.Quests, q)
+		}
+	}
+	for _, e := range s.Events {
+		if e.Public || e.Holder == observer {
+			v.Events = append(v.Events, e)
+		}
+	}
+	if limit > 0 && len(v.Events) > limit {
+		v.Events = v.Events[len(v.Events)-limit:]
+	}
+	for _, a := range w.U.Arcs {
+		sv := w.storyView(s, a)
+		for _, q := range v.Quests {
+			d := w.quests[q.Def]
+			if d.Arc == a.ID && (q.State == "offered" || q.State == "active") {
+				b := w.beats[a.ID][d.Beat]
+				sv.Pursuing = &Chapter{Beat: b.ID, Title: b.Title}
+			}
+		}
+		v.Story = append(v.Story, sv)
+	}
+	return v, true
+}
+
+func (w *World) storyView(s *State, a ArcDef) StoryView {
+	st := s.Arcs[a.ID]
+	sv := StoryView{Arc: a.ID, Title: a.Title, Done: st.Done, Chronicle: []Chapter{}}
+	for _, id := range st.Path {
+		bs := st.Beats[id]
+		if len(bs.By) == 0 {
+			continue
+		}
+		c := Chapter{Beat: id, Title: w.beats[a.ID][id].Title, At: bs.At}
+		for _, by := range bs.By {
+			c.By = append(c.By, s.Entities[by].Name)
+		}
+		sv.Chronicle = append(sv.Chronicle, c)
+	}
+	return sv
+}
+
+// Chronicle is the public face of the world, for spectators and lobbies.
+type Chronicle struct {
+	Universe string      `json:"universe"`
+	Tick     Tick        `json:"tick"`
+	Revision int64       `json:"revision"`
+	Events   []Event     `json:"events"`
+	Story    []StoryView `json:"story"`
+}
+
+func (w *World) Chronicle(s *State, limit int) Chronicle {
+	c := Chronicle{Universe: s.Universe, Tick: s.Tick, Revision: s.Revision, Events: []Event{}, Story: []StoryView{}}
+	for _, e := range s.Events {
+		if e.Public {
+			c.Events = append(c.Events, e)
+		}
+	}
+	if limit > 0 && len(c.Events) > limit {
+		c.Events = c.Events[len(c.Events)-limit:]
+	}
+	for _, a := range w.U.Arcs {
+		c.Story = append(c.Story, w.storyView(s, a))
+	}
+	return c
+}
+
+// Universe returns the compiled definition (read-only by convention).
+func (w *World) Universe() Universe { return w.U }

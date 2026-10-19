@@ -1,1 +1,0 @@
-{"name":"Mmorpg.EditMode.Tests","references":["Mmorpg.Domain","Mmorpg.Runtime"],"includePlatforms":["Editor"],"optionalUnityReferences":["TestAssemblies"]}

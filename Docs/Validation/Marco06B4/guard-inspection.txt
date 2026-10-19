@@ -1,1 +1,0 @@
-F8 toggled both ways; authenticated-session guard blocked reset using an in-memory fixture, with zero network/auth calls.

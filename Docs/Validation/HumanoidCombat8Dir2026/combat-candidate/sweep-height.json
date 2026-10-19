@@ -1,9 +1,0 @@
-{
-  "handWorldYRange": [
-    1.29196358,
-    2.591266
-  ],
-  "targetWorldY": 0.0,
-  "playerRootY": 0,
-  "notes": "Observed projected glove-to-Sweep origin during the failed near attack. This is screen-projected anatomy coupled to ground-plane damage geometry, not an authorized new reach."
-}
