@@ -1,0 +1,15 @@
+{
+  "repository": "jodaltro/mmorpg",
+  "ref": "main",
+  "publishedArtCommit": "185b5df6",
+  "path": "Docs/Validation/ValdoriaVillage02-Anime/ReviewLite/FinalDepthV2-garden.png",
+  "retrieval": "GitHub connector fetch_file, encoding base64, explicit ref main",
+  "base64RecoveryExecuted": true,
+  "pngSignatureVerified": true,
+  "bytes": 215864,
+  "sha256": "1269f9655b7330da581b2eb62b105340a3d548679460b2b001cbaca64baa5711",
+  "matchesImageManifest": true,
+  "visualInspectionOfRecoveredFile": true,
+  "directImageRenderingInConnector": false,
+  "inspectionMechanism": "view_image on decoded connector payload; final garden recovered and inspected"
+}
