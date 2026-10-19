@@ -1,0 +1,12 @@
+test_bridge_cut_disconnects_every_interior_target (test_village02_blockout.Village02Tests.test_bridge_cut_disconnects_every_interior_target) ... ok
+test_building_resize_updates_geometry_and_physics_together (test_village02_blockout.Village02Tests.test_building_resize_updates_geometry_and_physics_together) ... ok
+test_compile_does_not_mutate_authored_recipe (test_village02_blockout.Village02Tests.test_compile_does_not_mutate_authored_recipe) ... ok
+test_gate_spans_never_create_ground_blockers (test_village02_blockout.Village02Tests.test_gate_spans_never_create_ground_blockers) ... ok
+test_ids_and_repeatability (test_village02_blockout.Village02Tests.test_ids_and_repeatability) ... ok
+test_lots_do_not_overlap_building_footprints (test_village02_blockout.Village02Tests.test_lots_do_not_overlap_building_footprints) ... ok
+test_moved_house_cannot_silently_keep_old_door_access (test_village02_blockout.Village02Tests.test_moved_house_cannot_silently_keep_old_door_access) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.109s
+
+OK

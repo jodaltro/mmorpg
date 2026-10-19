@@ -1,0 +1,67 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity",
+  "dirty": false,
+  "buildScenes": [
+    {
+      "path": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/MmorpgWorld.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/Marco06B2World.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/OfflineClearing.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Scenes/SampleScene.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/Marco05World.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/ActionVerticalSlice.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/Marco06B1World.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/Marco06B4Polish.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/Marco06B5Animation.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/HumanoidScale2026.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/HumanoidOutfit2026.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/HumanoidCombat8Dir2026.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/HumanoidSwordR7.unity",
+      "enabled": true
+    },
+    {
+      "path": "Assets/Mmorpg/Scenes/HumanoidStatesR8.unity",
+      "enabled": true
+    }
+  ],
+  "timeScale": 1.0
+}

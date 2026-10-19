@@ -1,0 +1,21 @@
+{
+  "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+  "dirty": false,
+  "cameras": 1,
+  "players": 1,
+  "physical": 57,
+  "groups": 53,
+  "noCutaway01": true,
+  "promoted": false,
+  "firstBuildScene": "Assets/Mmorpg/Scenes/ValdoriaPlayableVillage01.unity",
+  "timeScale": 1.0,
+  "keyboards": [
+    {
+      "name": "Keyboard",
+      "enabled": true
+    }
+  ],
+  "synthetic": false,
+  "fixedViewOverride": false,
+  "temporaryCaptures": 0
+}

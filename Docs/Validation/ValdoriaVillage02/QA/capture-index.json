@@ -1,0 +1,4910 @@
+{
+  "images": [
+    {
+      "original": "Original/contact-H1-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(34.2732277, 55.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 25920,
+      "time": 85.097980732709743,
+      "actor": "(34.2732277, 51.92351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(34.2732277, 55.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26176,
+      "time": 85.897464037698413,
+      "actor": "(35.9216156, 53.54489, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(34.2732277, 55.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26251,
+      "time": 86.149182135770971,
+      "actor": "(34.2732277, 51.92351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(34.2732277, 55.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26487,
+      "time": 86.9534771329365,
+      "actor": "(34.6403542, 53.7750053, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(44.5652046, 60.530262, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26547,
+      "time": 87.205903238378681,
+      "actor": "(44.5652046, 56.5302658, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(44.5652046, 60.530262, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26763,
+      "time": 88.008870833333333,
+      "actor": "(43.1432724, 57.9876862, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(38.5267677, 68.07649, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 26813,
+      "time": 88.262876438492057,
+      "actor": "(38.5267677, 64.07649, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(38.5267677, 68.07649, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27004,
+      "time": 89.0650144345238,
+      "actor": "(37.0011978, 62.6334457, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(28.2347965, 63.469738, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27066,
+      "time": 89.317856632653061,
+      "actor": "(28.2347965, 59.469738, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(28.2347965, 63.469738, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27270,
+      "time": 90.121080839002261,
+      "actor": "(29.6021729, 58.05612, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(26.767519, 58.1990776, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27331,
+      "time": 90.378127834467122,
+      "actor": "(26.767519, 54.1990776, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(26.767519, 58.1990776, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27539,
+      "time": 91.18134743480725,
+      "actor": "(28.4595089, 55.8910027, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(42.6109238, 55.140976, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27594,
+      "time": 91.436391234410422,
+      "actor": "(42.6109238, 51.140976, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(42.6109238, 55.140976, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27808,
+      "time": 92.243278635204078,
+      "actor": "(40.97689, 52.6804962, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(46.0324821, 65.80092, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 27866,
+      "time": 92.495325233843531,
+      "actor": "(46.032486, 61.8009224, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(46.0324821, 65.80092, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28098,
+      "time": 93.297596336451249,
+      "actor": "(44.34984, 60.11828, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H1-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(30.1890736, 68.859024, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28160,
+      "time": 93.552408333333332,
+      "actor": "(30.1890755, 64.859024, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H1-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H1-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(30.1890736, 68.859024, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28362,
+      "time": 94.357815235260773,
+      "actor": "(31.7358665, 63.5193367, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(75.27323, 53.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28432,
+      "time": 94.610595833333335,
+      "actor": "(75.27323, 49.92351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(75.27323, 53.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28631,
+      "time": 95.412173533163255,
+      "actor": "(76.91732, 51.5457, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(75.27323, 53.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28688,
+      "time": 95.66622223639456,
+      "actor": "(75.27323, 49.92351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(75.27323, 53.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28899,
+      "time": 96.470777033730158,
+      "actor": "(75.63814, 51.7754059, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(86.56521, 58.3502655, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 28958,
+      "time": 96.726582837301578,
+      "actor": "(86.56521, 54.3502655, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(86.56521, 58.3502655, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29185,
+      "time": 97.533890639172327,
+      "actor": "(85.14353, 55.8089, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(79.52677, 66.07649, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29251,
+      "time": 97.788911139455777,
+      "actor": "(79.52678, 62.0764923, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(79.52677, 66.07649, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29460,
+      "time": 98.593221534863943,
+      "actor": "(77.9942551, 60.634697, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(68.2347946, 61.6497345, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29531,
+      "time": 98.847029237528346,
+      "actor": "(68.2347946, 57.6497345, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(68.2347946, 61.6497345, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29707,
+      "time": 99.655980938208614,
+      "actor": "(69.6025, 56.2374268, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(66.7183151, 56.5157356, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29756,
+      "time": 99.911188839285714,
+      "actor": "(66.7183151, 52.5157356, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(66.7183151, 56.5157356, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 29963,
+      "time": 100.71662283871882,
+      "actor": "(68.39868, 54.1959763, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(84.74933, 53.09688, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30018,
+      "time": 100.96962823837868,
+      "actor": "(84.74933, 49.09688, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(84.74933, 53.09688, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30238,
+      "time": 101.77321653911564,
+      "actor": "(83.31007, 50.5706024, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(88.08169, 63.4842644, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30303,
+      "time": 102.02436093395691,
+      "actor": "(88.08169, 59.4842644, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(88.08169, 63.4842644, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30488,
+      "time": 102.82791393849206,
+      "actor": "(86.4228745, 57.8255768, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H2-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(70.0506744, 66.90312, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30531,
+      "time": 103.08596203939909,
+      "actor": "(70.0506744, 62.9031219, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H2-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H2-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(70.0506744, 66.90312, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30687,
+      "time": 103.89019353741496,
+      "actor": "(71.4365158, 61.4769135, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(27.27323, 77.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30729,
+      "time": 104.1411225340136,
+      "actor": "(27.2732315, 73.92352, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(27.27323, 77.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30892,
+      "time": 104.94578733701813,
+      "actor": "(28.9118786, 75.5467148, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(27.27323, 77.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 30939,
+      "time": 105.19734973781179,
+      "actor": "(27.27323, 73.9235153, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(27.27323, 77.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31080,
+      "time": 105.99936703514739,
+      "actor": "(27.6285782, 75.7771, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(37.7402039, 83.03026, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31137,
+      "time": 106.25402683531746,
+      "actor": "(37.7402039, 79.03026, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(37.7402039, 83.03026, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31341,
+      "time": 107.05790663265306,
+      "actor": "(36.3189278, 80.49001, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(31.8767719, 91.0764847, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31391,
+      "time": 107.31303573554422,
+      "actor": "(31.8767719, 87.0764847, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(31.8767719, 91.0764847, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31550,
+      "time": 108.11734473497732,
+      "actor": "(30.3409023, 85.6351242, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(21.4097977, 85.96974, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31598,
+      "time": 108.37211893424036,
+      "actor": "(21.4097977, 81.96974, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(21.4097977, 85.96974, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31812,
+      "time": 109.17812933673468,
+      "actor": "(22.7774, 80.55675, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(19.8126049, 80.09242, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 31870,
+      "time": 109.42981743905895,
+      "actor": "(19.8126049, 76.09242, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(19.8126049, 80.09242, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32088,
+      "time": 110.23349073837868,
+      "actor": "(21.4851685, 77.7650452, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(35.49124, 77.03952, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32148,
+      "time": 110.48681433531746,
+      "actor": "(35.49124, 73.03952, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(35.49124, 77.03952, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32338,
+      "time": 111.28777813917233,
+      "actor": "(33.84062, 74.67866, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(39.3373947, 88.90758, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32401,
+      "time": 111.54227353316325,
+      "actor": "(39.3373947, 84.90758, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(39.3373947, 88.90758, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32577,
+      "time": 112.34777613378684,
+      "actor": "(37.6790352, 83.2491, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H3-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(23.65876, 91.96048, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32632,
+      "time": 112.60118113662131,
+      "actor": "(23.65876, 87.96048, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H3-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H3-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(23.65876, 91.96048, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32821,
+      "time": 113.40407933673468,
+      "actor": "(25.224762, 86.51974, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(47.2732277, 80.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 32874,
+      "time": 113.65963003826531,
+      "actor": "(47.2732277, 76.9235153, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(47.2732277, 80.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33084,
+      "time": 114.47101503684807,
+      "actor": "(48.9161072, 78.5455, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(47.2732277, 80.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33131,
+      "time": 114.72441043792517,
+      "actor": "(47.2732239, 76.9235153, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(47.2732277, 80.9235153, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33280,
+      "time": 115.52795433673469,
+      "actor": "(47.5690155, 78.78784, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(58.0652046, 85.44027, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33343,
+      "time": 115.7789725340136,
+      "actor": "(58.0652046, 81.44027, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(58.0652046, 85.44027, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33544,
+      "time": 116.58085823412698,
+      "actor": "(56.6441841, 82.90074, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(51.5267677, 93.07649, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33602,
+      "time": 116.83442363945578,
+      "actor": "(51.5267677, 89.07649, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(51.5267677, 93.07649, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33816,
+      "time": 117.63926373299319,
+      "actor": "(49.98933, 87.63541, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(40.7348, 88.55973, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 33874,
+      "time": 117.89159103599773,
+      "actor": "(40.7348, 84.55973, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(40.7348, 88.55973, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34101,
+      "time": 118.6936021329365,
+      "actor": "(42.10278, 83.1478, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(39.2405968, 83.36062, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34165,
+      "time": 118.9463598356009,
+      "actor": "(39.2405968, 79.36061, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(39.2405968, 83.36062, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34320,
+      "time": 119.75238403486394,
+      "actor": "(40.9103622, 81.03051, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(56.18545, 80.12142, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34376,
+      "time": 120.00493763463719,
+      "actor": "(56.1854477, 76.12142, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(56.18545, 80.12142, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34564,
+      "time": 120.81044233276644,
+      "actor": "(54.5950851, 77.59007, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(59.5594025, 90.63938, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34610,
+      "time": 121.07155163690476,
+      "actor": "(59.5594025, 86.63938, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(59.5594025, 90.63938, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34783,
+      "time": 121.87392353316326,
+      "actor": "(57.8858261, 84.9656754, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H4-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(42.6145477, 93.87858, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 34839,
+      "time": 122.12794463577097,
+      "actor": "(42.6145477, 89.87858, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H4-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H4-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(42.6145477, 93.87858, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35041,
+      "time": 122.93141693594104,
+      "actor": "(43.96881, 88.47931, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(90.27323, 68.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35098,
+      "time": 123.18545143849205,
+      "actor": "(90.2732239, 64.92351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(90.27323, 68.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35297,
+      "time": 123.98814153911565,
+      "actor": "(91.91382, 66.54592, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(90.27323, 68.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35360,
+      "time": 124.24477973356008,
+      "actor": "(90.27323, 64.92351, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(90.27323, 68.92351, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35574,
+      "time": 125.04782213718821,
+      "actor": "(90.6356659, 66.77584, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(102.065208, 73.26027, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35630,
+      "time": 125.30177933673468,
+      "actor": "(102.065208, 69.26027, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(102.065208, 73.26027, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35857,
+      "time": 126.10785563350339,
+      "actor": "(100.643044, 70.71753, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(94.52678, 81.0764847, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 35912,
+      "time": 126.36331053713151,
+      "actor": "(94.52678, 77.0764847, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(94.52678, 81.0764847, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36149,
+      "time": 127.16972493622448,
+      "actor": "(92.9972, 75.63396, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(82.7347946, 76.73974, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36205,
+      "time": 127.42524293509069,
+      "actor": "(82.7347946, 72.73974, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(82.7347946, 76.73974, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36395,
+      "time": 128.22845493905896,
+      "actor": "(84.10324, 71.3291245, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(81.1998, 71.66511, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36464,
+      "time": 128.48204573412698,
+      "actor": "(81.1998, 67.66511, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(81.1998, 71.66511, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36673,
+      "time": 129.2890403344671,
+      "actor": "(82.86142, 69.32674, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(100.304352, 68.0675, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36734,
+      "time": 129.53892323554422,
+      "actor": "(100.304352, 64.0675, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(100.304352, 68.0675, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 36948,
+      "time": 130.33983013747164,
+      "actor": "(98.8398056, 65.5655, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(103.600204, 78.33489, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37008,
+      "time": 130.59409523809524,
+      "actor": "(103.600204, 74.33489, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(103.600204, 78.33489, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37237,
+      "time": 131.39833303571427,
+      "actor": "(101.915573, 72.65027, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H5-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(84.49565, 81.9325, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37294,
+      "time": 131.65125793650793,
+      "actor": "(84.49565, 77.9325, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H5-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H5-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(84.49565, 81.9325, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37481,
+      "time": 132.45576673752834,
+      "actor": "(85.90672, 76.48233, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(33.2732277, 102.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37539,
+      "time": 132.7102899376417,
+      "actor": "(33.2732277, 98.9235153, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(33.2732277, 102.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37722,
+      "time": 133.51220953798185,
+      "actor": "(34.9171066, 100.545319, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(33.2732277, 102.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37774,
+      "time": 133.76246113945578,
+      "actor": "(33.2732277, 98.9235153, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(33.2732277, 102.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 37988,
+      "time": 134.56849863945578,
+      "actor": "(33.6362152, 100.775742, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(44.0652046, 107.440269, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38047,
+      "time": 134.82536703514739,
+      "actor": "(44.0652046, 103.440269, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(44.0652046, 107.440269, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38238,
+      "time": 135.62675243764173,
+      "actor": "(42.6429558, 104.897324, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(37.5267677, 115.076492, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38284,
+      "time": 135.88055123299318,
+      "actor": "(37.5267677, 111.076492, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(37.5267677, 115.076492, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38470,
+      "time": 136.6829137329932,
+      "actor": "(36.0029564, 109.6329, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(25.2405968, 105.360619, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38535,
+      "time": 136.93755503826529,
+      "actor": "(25.2405968, 101.360619, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(25.2405968, 105.360619, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38742,
+      "time": 137.74151373299318,
+      "actor": "(26.93304, 103.053123, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(42.18545, 102.121422, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38806,
+      "time": 137.99433473639456,
+      "actor": "(42.18545, 98.12142, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(42.18545, 102.121422, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 38990,
+      "time": 138.79861863662131,
+      "actor": "(40.58293, 99.590065, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-H6-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(45.5594025, 112.639381, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39046,
+      "time": 139.05558193735828,
+      "actor": "(45.5594025, 108.639381, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-H6-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-H6-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(45.5594025, 112.639381, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39239,
+      "time": 139.86068933531746,
+      "actor": "(43.8690643, 106.948921, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(57.2732277, 108.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39295,
+      "time": 140.1129638392857,
+      "actor": "(57.2732277, 104.923515, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(57.2732277, 108.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39475,
+      "time": 140.91923113662131,
+      "actor": "(58.922966, 106.54425, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(57.2732277, 108.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39533,
+      "time": 141.17253293650793,
+      "actor": "(57.27323, 104.923523, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(57.2732277, 108.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39716,
+      "time": 141.97802653769841,
+      "actor": "(57.62748, 106.777306, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(62.2267723, 123.076485, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39764,
+      "time": 142.23177273951248,
+      "actor": "(62.2267723, 119.076492, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(62.2267723, 123.076485, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 39969,
+      "time": 143.03565353599774,
+      "actor": "(60.6923447, 117.634857, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(49.0847969, 117.919739, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40017,
+      "time": 143.28697073412698,
+      "actor": "(49.0847969, 113.919739, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(49.0847969, 117.919739, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40206,
+      "time": 144.09904113520409,
+      "actor": "(50.4521866, 112.506531, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(47.2267342, 111.760414, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40257,
+      "time": 144.34950723497732,
+      "actor": "(47.2267342, 107.760414, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(47.2267342, 111.760414, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40467,
+      "time": 145.15076163548753,
+      "actor": "(48.89251, 109.426315, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(68.22494, 107.801285, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40536,
+      "time": 145.40461333616778,
+      "actor": "(68.22494, 103.801277, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(68.22494, 107.801285, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40739,
+      "time": 146.20859793792516,
+      "actor": "(66.7947845, 105.262726, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-B1-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(51.2750664, 124.198715, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 40796,
+      "time": 146.46242193877549,
+      "actor": "(51.2750664, 120.198715, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-B1-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-B1-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(51.2750664, 124.198715, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41008,
+      "time": 147.27027363945578,
+      "actor": "(52.64917, 118.783134, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-keep-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(97.27323, 116.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41064,
+      "time": 147.523830236678,
+      "actor": "(97.27323, 112.923508, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-keep-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(97.27323, 116.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41283,
+      "time": 148.32553803854876,
+      "actor": "(98.91167, 114.546326, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-keep-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(97.27323, 116.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41340,
+      "time": 148.57756863662132,
+      "actor": "(97.27323, 112.923508, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-keep-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(97.27323, 116.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41524,
+      "time": 149.38207973356009,
+      "actor": "(97.6308746, 114.776695, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-keep-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(91.7347946, 124.379738, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41589,
+      "time": 149.640617736678,
+      "actor": "(91.7347946, 120.379738, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-keep-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(91.7347946, 124.379738, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41783,
+      "time": 150.4410804350907,
+      "actor": "(93.10215, 118.966064, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-keep-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(90.3002, 119.030373, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41831,
+      "time": 150.69814113520408,
+      "actor": "(90.3002, 115.030373, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-keep-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(90.3002, 119.030373, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 41987,
+      "time": 151.51529953939908,
+      "actor": "(92.02684, 116.757011, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-keep-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(105.023613, 116.155655, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42037,
+      "time": 151.76753933531745,
+      "actor": "(105.023605, 112.155655, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-keep-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(105.023613, 116.155655, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42214,
+      "time": 152.57078993764171,
+      "actor": "(103.374283, 113.770142, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-keep-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(108.4998, 126.969627, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42271,
+      "time": 152.82785113378685,
+      "actor": "(108.499794, 122.96962, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-keep-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-keep-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(108.4998, 126.969627, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42452,
+      "time": 153.63240573270974,
+      "actor": "(107.54126, 121.759224, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-hall-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(80.27323, 118.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42507,
+      "time": 153.89042893282311,
+      "actor": "(80.27323, 114.923508, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-hall-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(80.27323, 118.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42678,
+      "time": 154.69341783588436,
+      "actor": "(81.9183044, 116.545517, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-hall-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(80.27323, 118.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42732,
+      "time": 154.94418513321995,
+      "actor": "(80.27323, 114.923508, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-hall-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(80.27323, 118.923508, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42931,
+      "time": 155.74792043650794,
+      "actor": "(80.63576, 116.775833, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-hall-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(91.3902, 122.850258, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 42987,
+      "time": 156.00298223497731,
+      "actor": "(91.3902, 118.85025, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-hall-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(91.3902, 122.850258, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43204,
+      "time": 156.80475203373015,
+      "actor": "(89.96776, 120.306763, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-hall-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(89.85198, 118.213516, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43268,
+      "time": 157.05975303287983,
+      "actor": "(89.85198, 114.213516, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-hall-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(89.85198, 118.213516, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43449,
+      "time": 157.86325493905895,
+      "actor": "(88.36673, 115.719513, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-hall-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(92.7656555, 127.370644, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43508,
+      "time": 158.11677753684808,
+      "actor": "(92.7656555, 123.370636, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-hall-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(92.7656555, 127.370644, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43695,
+      "time": 158.91779413265306,
+      "actor": "(91.08234, 121.687332, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-hall-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(74.5980148, 130.786484, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43731,
+      "time": 159.180692736678,
+      "actor": "(74.5980148, 126.786484, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-hall-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-hall-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(74.5980148, 130.786484, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43915,
+      "time": 159.98620263605443,
+      "actor": "(76.0318146, 125.324417, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(98.27323, 106.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 43960,
+      "time": 160.24538383645125,
+      "actor": "(98.27323, 102.923515, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(98.27323, 106.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44134,
+      "time": 161.05208943452379,
+      "actor": "(99.9172058, 104.545715, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(98.27323, 106.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44193,
+      "time": 161.30468103741495,
+      "actor": "(98.27323, 102.923515, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(98.27323, 106.923515, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44398,
+      "time": 162.10619233276643,
+      "actor": "(98.6343155, 104.776085, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(106.040207, 110.390259, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44462,
+      "time": 162.35634323270975,
+      "actor": "(106.040207, 106.390259, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(106.040207, 110.390259, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44624,
+      "time": 163.16019263747165,
+      "actor": "(104.619255, 107.850456, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(101.476768, 116.076485, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44661,
+      "time": 163.41453523951247,
+      "actor": "(101.476768, 112.076485, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(101.476768, 116.076485, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44804,
+      "time": 164.22553063350338,
+      "actor": "(99.93404, 110.636566, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(93.70979, 112.609741, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 44843,
+      "time": 164.47919373582766,
+      "actor": "(93.70979, 108.609741, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(93.70979, 112.609741, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45001,
+      "time": 165.28331023242629,
+      "actor": "(95.07868, 107.200363, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(92.745575, 108.896851, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45050,
+      "time": 165.53937483701813,
+      "actor": "(92.745575, 104.896851, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(92.745575, 108.896851, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45223,
+      "time": 166.34111983418367,
+      "actor": "(94.38763, 106.53891, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(107.004425, 114.103149, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45284,
+      "time": 166.59298463718821,
+      "actor": "(107.004425, 110.103149, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(107.004425, 114.103149, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45468,
+      "time": 167.39812713293651,
+      "actor": "(105.320274, 108.419006, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-service-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(95.07854, 116.442276, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45505,
+      "time": 167.65303323412698,
+      "actor": "(95.07854, 112.442276, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-service-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-service-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(95.07854, 116.442276, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45665,
+      "time": 168.45442163407029,
+      "actor": "(96.42538, 111.048508, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-west-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(51.2, 47, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45719,
+      "time": 168.70735093537414,
+      "actor": "(51.2000046, 43, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-west-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(51.2, 47, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45937,
+      "time": 169.50892123724489,
+      "actor": "(49.3235474, 42.9985352, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-west-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(46, 52.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 45999,
+      "time": 169.76007683531745,
+      "actor": "(46, 48.2, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-west-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(46, 52.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46196,
+      "time": 170.56548013747164,
+      "actor": "(46, 46.4420052, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-west-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(50.6970558, 42.3029442, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46263,
+      "time": 170.81576073554422,
+      "actor": "(50.6970558, 38.3029442, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-west-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(50.6970558, 42.3029442, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46455,
+      "time": 171.62336733276643,
+      "actor": "(49.2899933, 39.8876572, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-west-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(50.6970558, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46502,
+      "time": 171.87943083900225,
+      "actor": "(50.6970558, 47.6970558, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-west-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(50.6970558, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46703,
+      "time": 172.68350783730159,
+      "actor": "(49.28999, 46.11213, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-west-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(41.3029442, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46760,
+      "time": 172.93753443877551,
+      "actor": "(41.3029442, 47.6970558, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-west-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-west-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(41.3029442, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 46969,
+      "time": 173.74242533304988,
+      "actor": "(42.7100067, 46.11374, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-east-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(60, 52.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47030,
+      "time": 173.9948390376984,
+      "actor": "(60, 48.2, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-east-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(60, 52.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47209,
+      "time": 174.80103293650794,
+      "actor": "(60, 46.4420052, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-east-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(54.8, 47, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47267,
+      "time": 175.05582803287982,
+      "actor": "(54.8000031, 43, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-east-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(54.8, 47, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47449,
+      "time": 175.86011083475057,
+      "actor": "(56.6922379, 42.9995041, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-east-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(55.3029442, 42.3029442, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47496,
+      "time": 176.11621043792516,
+      "actor": "(55.3029442, 38.3029442, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-east-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(55.3029442, 42.3029442, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47686,
+      "time": 176.9157210388322,
+      "actor": "(56.7100067, 39.87631, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-east-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(64.69706, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47740,
+      "time": 177.16873783304987,
+      "actor": "(64.69706, 47.6970558, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-east-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(64.69706, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 47956,
+      "time": 177.97169203514738,
+      "actor": "(63.2899933, 46.1296768, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-G-east-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(55.3029442, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48014,
+      "time": 178.22517203798185,
+      "actor": "(55.30294, 47.6970558, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-G-east-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-G-east-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(55.3029442, 51.6970558, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48204,
+      "time": 179.0303747378118,
+      "actor": "(56.7100067, 46.13163, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(76, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48253,
+      "time": 179.28398773384353,
+      "actor": "(76, 92.8, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(76, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48414,
+      "time": 180.10365433673468,
+      "actor": "(76, 94.7607956, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(76, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48466,
+      "time": 180.36036693594104,
+      "actor": "(76, 92.8, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(76, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48675,
+      "time": 181.16257853599774,
+      "actor": "(76, 94.76002, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-side-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(81.2, 102, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48732,
+      "time": 181.41644443735828,
+      "actor": "(81.2, 98, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-side-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(81.2, 102, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 48960,
+      "time": 182.22260073696145,
+      "actor": "(79.29, 97.99999, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(76, 107.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49022,
+      "time": 182.47316693594104,
+      "actor": "(76, 103.2, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(76, 107.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49210,
+      "time": 183.27901483843536,
+      "actor": "(76.23717, 101.438866, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(70.8, 102, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49270,
+      "time": 183.53356173469388,
+      "actor": "(70.8, 98, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(70.8, 102, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49468,
+      "time": 184.33911283304988,
+      "actor": "(72.7100143, 98, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(71.30294, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49523,
+      "time": 184.59230183531744,
+      "actor": "(71.30294, 93.30294, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(71.30294, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49730,
+      "time": 185.39394973781179,
+      "actor": "(72.89359, 94.76002, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(80.69706, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49775,
+      "time": 185.65602963435373,
+      "actor": "(80.69706, 93.30294, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(80.69706, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 49998,
+      "time": 186.45746523526077,
+      "actor": "(79.10118, 94.760025, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(80.69706, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50057,
+      "time": 186.71143313492064,
+      "actor": "(80.69706, 102.69706, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(80.69706, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50231,
+      "time": 187.51361713435372,
+      "actor": "(79.2899857, 101.1267, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-west-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(71.30294, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50283,
+      "time": 187.77015903486395,
+      "actor": "(71.30294, 102.69706, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-west-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-west-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(71.30294, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50483,
+      "time": 188.57340533588436,
+      "actor": "(72.7100143, 101.127014, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-side-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-side-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(88, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50542,
+      "time": 188.82678493480725,
+      "actor": "(88, 92.8, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-side-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-side-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(88, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50755,
+      "time": 189.63237723922902,
+      "actor": "(88, 94.7606659, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-front-dodge-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-front-dodge-before",
+      "integral": true,
+      "camera": {
+        "position": "(88, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 50812,
+      "time": 189.88715173611109,
+      "actor": "(88, 92.8, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-front-dodge-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-front-dodge-after",
+      "integral": true,
+      "camera": {
+        "position": "(88, 96.8, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51041,
+      "time": 190.68978283730158,
+      "actor": "(88, 94.76002, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-side-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-side-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(88, 107.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51103,
+      "time": 190.94601153628116,
+      "actor": "(88, 103.2, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-side-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-side-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(88, 107.2, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51276,
+      "time": 191.75257803287982,
+      "actor": "(88, 101.442, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-side-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-side-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(82.8, 102, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51338,
+      "time": 192.00193053429703,
+      "actor": "(82.8, 97.99999, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-side-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-side-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(82.8, 102, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51537,
+      "time": 192.81163233418366,
+      "actor": "(84.71, 98, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-0-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-corner-0-before",
+      "integral": true,
+      "camera": {
+        "position": "(83.30294, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51595,
+      "time": 193.06051933815192,
+      "actor": "(83.30294, 93.30294, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-0-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-corner-0-after",
+      "integral": true,
+      "camera": {
+        "position": "(83.30294, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51793,
+      "time": 193.86719323270975,
+      "actor": "(84.88356, 94.76001, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-1-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-corner-1-before",
+      "integral": true,
+      "camera": {
+        "position": "(92.69706, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 51839,
+      "time": 194.12043033588435,
+      "actor": "(92.69706, 93.30294, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-1-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-corner-1-after",
+      "integral": true,
+      "camera": {
+        "position": "(92.69706, 97.30294, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52068,
+      "time": 194.92305193452381,
+      "actor": "(91.12259, 94.760025, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-2-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-corner-2-before",
+      "integral": true,
+      "camera": {
+        "position": "(92.69706, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52126,
+      "time": 195.18320623582767,
+      "actor": "(92.69706, 102.69706, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-2-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-corner-2-after",
+      "integral": true,
+      "camera": {
+        "position": "(92.69706, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52310,
+      "time": 195.98900203373015,
+      "actor": "(91.2899857, 101.133545, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-3-before.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Explicit collision fixture before real Input System push",
+      "comparison": "contact-C-gate-east-corner-3-before",
+      "integral": true,
+      "camera": {
+        "position": "(83.30294, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52360,
+      "time": 196.2413635345805,
+      "actor": "(83.30294, 102.697052, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/contact-C-gate-east-corner-3-after.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "After real Input System push; collision and visual evidence inspected separately",
+      "comparison": "contact-C-gate-east-corner-3-after",
+      "integral": true,
+      "camera": {
+        "position": "(83.30294, 106.69706, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52561,
+      "time": 197.04174093679137,
+      "actor": "(84.7100143, 101.144333, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/01-overview.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Neutral blockout in actual Play; fixed review fixture, not continuous exploration; opaque exterior occlusion",
+      "comparison": "01-overview",
+      "integral": true,
+      "camera": {
+        "position": "(64, 76, -10)",
+        "ortho": 76.0,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52652,
+      "time": 197.55955993480725,
+      "actor": "(53, 12, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/02-entry-gameplay.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Neutral blockout in actual Play; fixed review fixture, not continuous exploration; opaque exterior occlusion",
+      "comparison": "02-entry-gameplay",
+      "integral": true,
+      "camera": {
+        "position": "(53, 47, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52803,
+      "time": 198.26375793650791,
+      "actor": "(52.9999962, 40, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/03-internal-gameplay.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Neutral blockout in actual Play; fixed review fixture, not continuous exploration; opaque exterior occlusion",
+      "comparison": "03-internal-gameplay",
+      "integral": true,
+      "camera": {
+        "position": "(65, 76, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 52980,
+      "time": 198.96609763321996,
+      "actor": "(65, 66, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/04-castle-silhouette.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Neutral blockout in actual Play; fixed review fixture, not continuous exploration; opaque exterior occlusion",
+      "comparison": "04-castle-silhouette",
+      "integral": true,
+      "camera": {
+        "position": "(90, 119, -10)",
+        "ortho": 28.0,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 53138,
+      "time": 199.66896113945577,
+      "actor": "(83, 108, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/05-castle-gameplay.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Neutral blockout in actual Play; fixed review fixture, not continuous exploration; opaque exterior occlusion",
+      "comparison": "05-castle-gameplay",
+      "integral": true,
+      "camera": {
+        "position": "(83, 110, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 53312,
+      "time": 200.37335163690474,
+      "actor": "(83, 108, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/06-physical-diagnostic.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Neutral blockout in actual Play; fixed review fixture, not continuous exploration; opaque exterior occlusion",
+      "comparison": "06-physical-diagnostic",
+      "integral": true,
+      "camera": {
+        "position": "(64, 76, -10)",
+        "ortho": 76.0,
+        "resolution": [
+          1101,
+          510
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 53461,
+      "time": 201.07988123582766,
+      "actor": "(53, 49, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/07-overview-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Actual Play, 1600x900 fixed Game View, neutral massing; review fixture, not continuous route",
+      "comparison": "07-overview-native",
+      "integral": true,
+      "camera": {
+        "position": "(64, 76, -10)",
+        "ortho": 76.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 58229,
+      "time": 219.59676623441041,
+      "actor": "(53, 12, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/08-entry-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Actual Play, 1600x900 fixed Game View, neutral massing; review fixture, not continuous route",
+      "comparison": "08-entry-native",
+      "integral": true,
+      "camera": {
+        "position": "(53, 47, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 58346,
+      "time": 220.07316613520408,
+      "actor": "(53, 40, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/09-internal-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Actual Play, 1600x900 fixed Game View, neutral massing; review fixture, not continuous route",
+      "comparison": "09-internal-native",
+      "integral": true,
+      "camera": {
+        "position": "(65, 76, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 58462,
+      "time": 220.56837303713152,
+      "actor": "(65, 66, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/10-castle-silhouette-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Actual Play, 1600x900 fixed Game View, neutral massing; review fixture, not continuous route",
+      "comparison": "10-castle-silhouette-native",
+      "integral": true,
+      "camera": {
+        "position": "(90, 119, -10)",
+        "ortho": 28.0,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 58576,
+      "time": 221.04129173752833,
+      "actor": "(83, 108, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    },
+    {
+      "original": "Original/11-castle-gameplay-native.png",
+      "scene": "Assets/Mmorpg/Scenes/ValdoriaVillage02Blockout.unity",
+      "state": "Actual Play, 1600x900 fixed Game View, neutral massing; review fixture, not continuous route",
+      "comparison": "11-castle-gameplay-native",
+      "integral": true,
+      "camera": {
+        "position": "(83, 110, -10)",
+        "ortho": 14.0625,
+        "resolution": [
+          1600,
+          900
+        ],
+        "ppu": 32,
+        "actorScale": 1.25
+      },
+      "frame": 58692,
+      "time": 221.51407013888888,
+      "actor": "(83, 108, 0)",
+      "playMode": true,
+      "afterEndOfFrame": true
+    }
+  ]
+}

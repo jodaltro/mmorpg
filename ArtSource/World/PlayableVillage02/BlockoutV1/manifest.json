@@ -1,0 +1,11 @@
+{
+  "schema": "valdoria-village02-build/v1",
+  "recipe": "125b48dbf6532ea490ef3e242a0727431da078c3090da617a527374309a33675",
+  "generator": "1dfde2be092cb6e61fca1db3976a2d67219874720af500bc9c1802be1a87700c",
+  "files": {
+    "layout.json": "10caa9d35ccccddcf3fff45aa2f15316c62fded4fcf029514a5ad5d3ab1888b1",
+    "navigation-proof.json": "f8283a024ae89d6e5e442e34dc01d536d7bd1e3eb9d0ee214c305066f13ab4ef",
+    "navigation.png": "909965955f5df86b74968ee7f8633fe849d8f2d4d4b1a3a2d743777b984ad549",
+    "plan.png": "53c17c5a73f84648f5e7de750484ee0e713e8c5aedbca4c4269d8b1af5a35faa"
+  }
+}

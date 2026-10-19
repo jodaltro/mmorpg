@@ -1,0 +1,120 @@
+{
+  "replayIdenticalOutputs": {
+    "layout.json": true,
+    "navigation-proof.json": true,
+    "navigation.png": true,
+    "plan.png": true
+  },
+  "pythonTests": 7,
+  "playSeconds": 193.8661574404762,
+  "framesAdvanced": 51362,
+  "continuousRouteSeconds": 76.79414759778912,
+  "contactFixturesExecuted": 106,
+  "contactFixturesPassed": 106,
+  "unavailableSideFixtures": [
+    {
+      "name": "H6-side-3-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(26.73, 106.56)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "B1-side-1-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(70.42, 110.08)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "C-keep-side-1-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(107.07, 117.62)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "C-keep-side-2-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(101.53, 125.08)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "C-hall-side-2-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(84.18, 126.08)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "C-hall-side-3-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(73.06, 122.15)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "G-west-side-0-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(46.00, 37.80)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "G-west-side-3-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(40.80, 43.00)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "G-east-side-0-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(60.00, 37.80)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "G-east-side-1-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(65.20, 43.00)"
+      },
+      "frame": 2150
+    },
+    {
+      "name": "C-gate-east-side-1-fixture",
+      "pass": false,
+      "evidence": {
+        "reason": "adjacent obstruction; review access",
+        "from": "(93.20, 98.00)"
+      },
+      "frame": 2150
+    }
+  ],
+  "rawAllPassed": false,
+  "visualApproval": false,
+  "productionArtStarted": false,
+  "images": 223,
+  "maxReviewBytes": 21558
+}
