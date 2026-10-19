@@ -1,0 +1,15 @@
+{
+  "repository": "jodaltro/mmorpg",
+  "ref": "main",
+  "publishedArtCommit": "eef6217a",
+  "path": "Docs/Validation/ValdoriaRoyalGardens/ReviewLite/Detail-fountain-native.png",
+  "retrieval": "GitHub connector fetch_file with explicit main ref and base64 encoding",
+  "base64RecoveryExecuted": true,
+  "pngSignatureVerified": true,
+  "bytes": 251313,
+  "sha256": "3856ba02184f578e34aceea57189f9e2a082be52eac98e2ee066261de8f8aa27",
+  "matchesImageManifest": true,
+  "visualInspectionOfRecoveredFile": true,
+  "directImageRenderingInConnector": false,
+  "inspectionMechanism": "view_image on the decoded GitHub connector payload"
+}
