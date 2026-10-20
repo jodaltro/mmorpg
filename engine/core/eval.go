@@ -79,21 +79,7 @@ func (w *World) Holds(s *State, c Cond, b Bind) bool {
 		if !ok {
 			return false
 		}
-		x := e.Num[c.Num.K]
-		switch c.Num.Op {
-		case "<":
-			return x < c.Num.V
-		case "<=":
-			return x <= c.Num.V
-		case "==":
-			return x == c.Num.V
-		case "!=":
-			return x != c.Num.V
-		case ">=":
-			return x >= c.Num.V
-		default:
-			return x > c.Num.V
-		}
+		return compare(e.Num[c.Num.K], c.Num.Op, c.Num.V)
 	case c.Tag != nil:
 		e, ok := s.Entities[resolve(c.Tag.E, b)]
 		return ok && e.Tag[c.Tag.K] == c.Tag.V
@@ -104,9 +90,47 @@ func (w *World) Holds(s *State, c Cond, b Bind) bool {
 		return ok && e.Region != "" && e.Region == resolve(c.In.Region, b)
 	case c.Near != nil:
 		return w.near(s, resolve(c.Near.A, b), resolve(c.Near.B, b))
+	case c.Chance != nil:
+		roll := pick(c.Chance.Seed+"|"+string(b["self"])+"|"+strconv.FormatInt(int64(s.Tick), 10)+"|"+strconv.FormatInt(s.Seq, 10), 1000)
+		return int64(roll) < c.Chance.Permille
+	case c.Time != nil:
+		h := w.Hour(s)
+		if c.Time.From <= c.Time.To {
+			return h >= c.Time.From && h < c.Time.To
+		}
+		return h >= c.Time.From || h < c.Time.To
+	case c.Rel != nil:
+		return compare(s.Relations[relKey(resolve(c.Rel.A, b), resolve(c.Rel.B, b))], c.Rel.Op, c.Rel.V)
 	}
 	return true
 }
+
+// Hour is the in-game hour (0-23), or -1 when the universe has no days.
+func (w *World) Hour(s *State) int64 {
+	if w.U.DayLength < 1 {
+		return -1
+	}
+	return int64(s.Tick%w.U.DayLength) * 24 / int64(w.U.DayLength)
+}
+
+func compare(x int64, op string, v int64) bool {
+	switch op {
+	case "<":
+		return x < v
+	case "<=":
+		return x <= v
+	case "==":
+		return x == v
+	case "!=":
+		return x != v
+	case ">=":
+		return x >= v
+	default:
+		return x > v
+	}
+}
+
+func relKey(a, b ID) string { return string(a) + "|" + string(b) }
 
 // near: a is where b is, or inside b when b is itself a place.
 func (w *World) near(s *State, a, b ID) bool {
@@ -230,6 +254,21 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 				mine.Source, mine.From, mine.At = "communication", self, s.Tick
 				s.believe(to, mine)
 			}
+		case "relate":
+			// What E feels about To, remembered per pair (Nemesis-style memory).
+			a, to := resolve(e.E, b), resolve(e.To, b)
+			if a == "" || to == "" {
+				continue
+			}
+			k := relKey(a, to)
+			x := s.Relations[k] + e.D
+			if e.Min != nil && x < *e.Min {
+				x = *e.Min
+			}
+			if e.Max != nil && x > *e.Max {
+				x = *e.Max
+			}
+			s.Relations[k] = x
 		case "relocate":
 			id, to := resolve(e.E, b), resolve(e.To, b)
 			if ent, ok := s.Entities[id]; ok && w.regions[s.Entities[to].Kind] {

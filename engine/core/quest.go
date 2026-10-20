@@ -204,6 +204,7 @@ func (w *World) tryComplete(s *State, key string, cause string) {
 	q.State = "done"
 	s.Quests[key] = q
 	w.rest(s, q.Holder)
+	w.learn(s, q.Holder, def.Tags, 2)
 	w.apply(s, def.Rewards, b, cause)
 	w.emit(s, Event{Kind: "quest-done", Holder: q.Holder, Text: q.Title, Cause: cause, Data: map[string]string{"quest": key}})
 }
@@ -390,6 +391,10 @@ func (w *World) offer(s *State, p ID, cause string) {
 		if c.def.Rank != "" {
 			desc = "Rank " + c.def.Rank + ". " + desc
 		}
+		if len(c.def.Tags) > 0 {
+			desc += " [style: " + strings.Join(c.def.Tags, ", ") + "]"
+		}
+		desc += " [fit " + strconv.FormatInt(w.salience(s, p, c), 10) + "]"
 		opts = append(opts, Option{ID: c.key, Title: w.render(s, c.def.Title, b), Desc: desc})
 	}
 	id := "offer:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
@@ -398,7 +403,7 @@ func (w *World) offer(s *State, p ID, cause string) {
 	ctx = append(ctx, w.offeredToOthers(s, p, 5)...)
 	ctx = append(ctx, w.recentPublic(s, 4)...)
 	s.Decisions[id] = Decision{ID: id, Kind: "offer", Subject: string(p), Options: opts,
-		Default: cands[pick(id, len(cands))].key, Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
+		Default: w.best(s, p, cands, id).key, Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
 }
 
 func (w *World) createOffer(s *State, p ID, c candidate, cause string) {
@@ -445,6 +450,7 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 		q.State = "declined"
 		s.Declined[q.Key] = s.Tick
 		w.apply(s, w.quests[q.Def].OnDecline, questBind(q), cause)
+		w.learn(s, q.Holder, w.quests[q.Def].Tags, -1)
 	case "abandon":
 		if !w.U.Limits.AllowAbandon {
 			return reject("this world requires finishing the accepted quest")
@@ -532,12 +538,14 @@ func (w *World) decideDefault(s *State, d Decision, cause string) {
 	if len(cands) == 0 {
 		return
 	}
-	chosen := cands[pick(d.ID, len(cands))]
-	for _, o := range d.Options {
-		if i := slices.IndexFunc(cands, func(c candidate) bool { return c.key == o.ID }); i >= 0 {
-			chosen = cands[i]
-			break
+	still := []candidate{}
+	for _, c := range cands {
+		if slices.ContainsFunc(d.Options, func(o Option) bool { return o.ID == c.key }) {
+			still = append(still, c)
 		}
 	}
-	w.createOffer(s, p, chosen, cause)
+	if len(still) == 0 {
+		still = cands
+	}
+	w.createOffer(s, p, w.best(s, p, still, d.ID), cause)
 }

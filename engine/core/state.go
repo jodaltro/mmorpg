@@ -133,6 +133,9 @@ type State struct {
 	Decisions map[string]Decision      `json:"decisions"`
 	Cooldowns map[string]Tick          `json:"cooldowns"`
 	Receipts  map[string]int64         `json:"receipts"`
+	Relations map[string]int64         `json:"relations"` // "a|b": what a feels about b
+	Styles    map[ID]map[string]int64  `json:"styles"`    // play style learned per player
+	Tension   int64                    `json:"tension"`   // world tension for pacing
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -193,6 +196,11 @@ func (s *State) Clone() State {
 	}
 	c.Cooldowns = maps.Clone(s.Cooldowns)
 	c.Receipts = maps.Clone(s.Receipts)
+	c.Relations = maps.Clone(s.Relations)
+	c.Styles = make(map[ID]map[string]int64, len(s.Styles))
+	for k, v := range s.Styles {
+		c.Styles[k] = maps.Clone(v)
+	}
 	return c
 }
 
@@ -201,7 +209,8 @@ func NewState(w *World) State {
 	u := w.U
 	s := State{Universe: u.ID, Entities: map[ID]Entity{}, Facts: map[string]Fact{}, Beliefs: map[ID]map[string]Belief{},
 		Arcs: map[string]ArcState{}, Quests: map[string]Quest{}, Declined: map[string]Tick{}, Decisions: map[string]Decision{},
-		Cooldowns: map[string]Tick{}, Receipts: map[string]int64{}, Events: []Event{}, Schedules: []Scheduled{}}
+		Cooldowns: map[string]Tick{}, Receipts: map[string]int64{}, Events: []Event{}, Schedules: []Scheduled{},
+		Relations: map[string]int64{}, Styles: map[ID]map[string]int64{}}
 	for _, e := range u.Entities {
 		s.Entities[e.ID] = newEntity(e)
 	}

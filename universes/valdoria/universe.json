@@ -49,7 +49,15 @@
     "ore-purified",
     "trophy-taken",
     "legend-smith",
-    "forbidden-blade"
+    "forbidden-blade",
+    "mira-secret",
+    "white-boar-sign",
+    "white-boar-slain",
+    "old-coin",
+    "coin-shown",
+    "ruins-map",
+    "heard-song",
+    "thanked-elena"
   ],
   "playerKind": "player",
   "player": {
@@ -777,6 +785,45 @@
           }
         }
       ]
+    },
+    {
+      "id": "cancao-alvorada",
+      "every": 1,
+      "forEach": "player",
+      "desc": "Muito especifico: quem ajudou a vila de tres formas e esta la ao amanhecer ouve a cancao.",
+      "when": {
+        "all": [
+          {
+            "time": {
+              "from": 5,
+              "to": 7
+            }
+          },
+          {
+            "in": {
+              "e": "$it",
+              "region": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "heard-song",
+                "s": "$it"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "heard-song",
+            "s": "$it"
+          }
+        }
+      ]
     }
   ],
   "actions": [
@@ -822,6 +869,9 @@
           "event": "examined",
           "text": "{self} examina a agua do Poco Antigo."
         }
+      ],
+      "tags": [
+        "mystery"
       ]
     },
     {
@@ -866,6 +916,10 @@
           "event": "told",
           "text": "{self} conta a {npc} que o poco esta envenenado."
         }
+      ],
+      "tags": [
+        "social",
+        "help"
       ]
     },
     {
@@ -973,6 +1027,9 @@
             "s": "poco"
           }
         }
+      ],
+      "tags": [
+        "help"
       ]
     },
     {
@@ -1019,6 +1076,10 @@
           "event": "clue",
           "text": "{self} encontra o Selo da Floresta rachado."
         }
+      ],
+      "tags": [
+        "explore",
+        "mystery"
       ]
     },
     {
@@ -1059,6 +1120,10 @@
           "event": "lore",
           "text": "Velho Tomas conta a {self} a lenda do selo: ele pode ser restaurado com uma reliquia, ou quebrado de vez num pacto."
         }
+      ],
+      "tags": [
+        "social",
+        "mystery"
       ]
     },
     {
@@ -1103,6 +1168,10 @@
           "event": "relic",
           "text": "{self} recupera uma reliquia do selo."
         }
+      ],
+      "tags": [
+        "combat",
+        "explore"
       ]
     },
     {
@@ -1154,6 +1223,9 @@
           "event": "pact",
           "text": "{self} aceita o pacto sombrio do selo."
         }
+      ],
+      "tags": [
+        "mystery"
       ]
     },
     {
@@ -1215,6 +1287,9 @@
           "event": "planted",
           "text": "{self} replanta a floresta ao redor do selo."
         }
+      ],
+      "tags": [
+        "help"
       ]
     },
     {
@@ -1262,6 +1337,10 @@
           "public": true,
           "text": "{self} defende a Vila Cinzenta da corrupcao."
         }
+      ],
+      "tags": [
+        "combat",
+        "help"
       ]
     },
     {
@@ -1318,6 +1397,10 @@
           "public": true,
           "text": "{self} escolta a caravana em seguranca."
         }
+      ],
+      "tags": [
+        "combat",
+        "social"
       ]
     },
     {
@@ -1375,6 +1458,9 @@
           "public": true,
           "text": "{self} afugenta lobos corrompidos da vila."
         }
+      ],
+      "tags": [
+        "combat"
       ]
     },
     {
@@ -1412,7 +1498,67 @@
           "op": "emit",
           "event": "mined",
           "text": "{self} extrai minerio da Mina de Kharum."
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "old-coin",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          },
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "moeda-asterion",
+                  "permille": 30
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "old-coin",
+                    "s": "$self",
+                    "o": "mina",
+                    "private": true
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "coin",
+          "text": "Entre as pedras, {self} encontra uma moeda antiga com o brasao de Asterion!",
+          "if": {
+            "all": [
+              {
+                "fact": {
+                  "p": "old-coin",
+                  "s": "$self",
+                  "o": "mina",
+                  "private": true
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "coin-shown",
+                    "s": "$self",
+                    "o": "lia",
+                    "private": true
+                  }
+                }
+              }
+            ]
+          }
         }
+      ],
+      "tags": [
+        "craft",
+        "explore"
       ]
     },
     {
@@ -1465,6 +1611,9 @@
           "event": "forged",
           "text": "{self} forja uma peca com Brom."
         }
+      ],
+      "tags": [
+        "craft"
       ]
     },
     {
@@ -1522,6 +1671,10 @@
           "text": "{self} resgata um mineiro dos escombros.",
           "public": true
         }
+      ],
+      "tags": [
+        "help",
+        "combat"
       ]
     },
     {
@@ -1579,6 +1732,9 @@
           "text": "{self} derrota um grupo de bandidos na estrada.",
           "public": true
         }
+      ],
+      "tags": [
+        "combat"
       ]
     },
     {
@@ -1637,6 +1793,10 @@
             "s": "lia"
           }
         }
+      ],
+      "tags": [
+        "help",
+        "social"
       ]
     },
     {
@@ -1688,6 +1848,10 @@
             "s": "floresta"
           }
         }
+      ],
+      "tags": [
+        "help",
+        "explore"
       ]
     },
     {
@@ -1743,6 +1907,10 @@
           "event": "roof",
           "text": "{self} ajuda a consertar telhados depois da tempestade."
         }
+      ],
+      "tags": [
+        "help",
+        "craft"
       ]
     },
     {
@@ -1785,6 +1953,9 @@
           "event": "blessed",
           "text": "Irma Elena abencoa {self}."
         }
+      ],
+      "tags": [
+        "social"
       ]
     },
     {
@@ -1822,6 +1993,9 @@
           "event": "herbs",
           "text": "{self} colhe ervas medicinais."
         }
+      ],
+      "tags": [
+        "explore"
       ]
     },
     {
@@ -1875,6 +2049,10 @@
           "event": "herbs-given",
           "text": "{self} entrega ervas a Mira."
         }
+      ],
+      "tags": [
+        "help",
+        "social"
       ]
     },
     {
@@ -1908,7 +2086,80 @@
           "op": "emit",
           "event": "boar",
           "text": "{self} abate um javali na floresta."
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "white-boar-sign",
+            "s": "$self",
+            "o": "floresta",
+            "private": true
+          },
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "javali-branco",
+                  "permille": 80
+                }
+              },
+              {
+                "time": {
+                  "from": 20,
+                  "to": 4
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "trophies",
+                  "op": ">=",
+                  "v": 3
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "white-boar-sign",
+                    "s": "$self",
+                    "o": "floresta",
+                    "private": true
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "white-sign",
+          "text": "Na lama, pegadas enormes e brancas. Algo antigo caminha na Floresta Cinzenta a noite...",
+          "if": {
+            "all": [
+              {
+                "fact": {
+                  "p": "white-boar-sign",
+                  "s": "$self",
+                  "o": "floresta",
+                  "private": true
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "white-boar-slain",
+                    "s": "$self",
+                    "o": "floresta",
+                    "private": true
+                  }
+                }
+              }
+            ]
+          }
         }
+      ],
+      "tags": [
+        "combat"
       ]
     },
     {
@@ -1952,6 +2203,10 @@
           "event": "ruins",
           "text": "{self} encontra uma bigorna antiga coberta de runas nas Ruinas de Asterion."
         }
+      ],
+      "tags": [
+        "explore",
+        "mystery"
       ]
     },
     {
@@ -1998,6 +2253,10 @@
           "event": "ore-purified",
           "text": "Irma Elena purifica o minerio de {self}."
         }
+      ],
+      "tags": [
+        "craft",
+        "mystery"
       ]
     },
     {
@@ -2068,6 +2327,10 @@
           "text": "{self} entrega minerio para a obra-prima da forja.",
           "public": true
         }
+      ],
+      "tags": [
+        "craft",
+        "help"
       ]
     },
     {
@@ -2115,6 +2378,221 @@
           "op": "emit",
           "event": "blade",
           "text": "{self} tempera uma lamina na energia do selo quebrado."
+        }
+      ],
+      "tags": [
+        "craft",
+        "mystery"
+      ]
+    },
+    {
+      "id": "ouvir-segredo",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social",
+        "mystery"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "mira"
+            }
+          },
+          {
+            "rel": {
+              "a": "mira",
+              "b": "$self",
+              "op": ">=",
+              "v": 4
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "mira-secret",
+            "s": "$self",
+            "o": "mira",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "secret",
+          "text": "Mira confia em {self} e revela: ela ja viu o selo se romper uma vez, ha cinquenta anos."
+        }
+      ]
+    },
+    {
+      "id": "cacar-javali-branco",
+      "by": [
+        "adapter"
+      ],
+      "tags": [
+        "combat",
+        "explore"
+      ],
+      "desc": "Servidor confirma: o jogador abateu o Javali Branco.",
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
+            }
+          },
+          {
+            "time": {
+              "from": 20,
+              "to": 4
+            }
+          },
+          {
+            "fact": {
+              "p": "white-boar-sign",
+              "s": "$self",
+              "o": "floresta",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "white-boar-slain",
+                "s": "$self",
+                "o": "floresta",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "white-boar-slain",
+            "s": "$self",
+            "o": "floresta",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "trophies",
+          "d": 5
+        },
+        {
+          "op": "emit",
+          "event": "white-boar",
+          "text": "{self} abateu o lendario Javali Branco da Floresta Cinzenta!",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "mostrar-moeda",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "lia"
+            }
+          },
+          {
+            "fact": {
+              "p": "old-coin",
+              "s": "$self",
+              "o": "mina",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "coin-shown",
+                "s": "$self",
+                "o": "lia",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "coin-shown",
+            "s": "$self",
+            "o": "lia",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "coin-shown",
+          "text": "Lia examina a moeda de {self} com os olhos brilhando."
+        }
+      ]
+    },
+    {
+      "id": "agradecer-elena",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "elena"
+            }
+          },
+          {
+            "fact": {
+              "p": "heard-song",
+              "s": "$self"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "thanked-elena",
+                "s": "$self",
+                "o": "elena",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "thanked-elena",
+            "s": "$self",
+            "o": "elena",
+            "private": true
+          }
         }
       ]
     }
@@ -2711,19 +3189,31 @@
       "eligible": {
         "all": [
           {
-            "num": {
-              "e": "vila",
-              "k": "health",
-              "op": "<",
-              "v": 100
-            }
+            "all": [
+              {
+                "num": {
+                  "e": "vila",
+                  "k": "health",
+                  "op": "<",
+                  "v": 100
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "p": "poisoned",
+                    "s": "poco"
+                  }
+                }
+              }
+            ]
           },
           {
-            "not": {
-              "knows": {
-                "p": "poisoned",
-                "s": "poco"
-              }
+            "rel": {
+              "a": "mira",
+              "b": "$self",
+              "op": ">",
+              "v": -3
             }
           }
         ]
@@ -2740,12 +3230,33 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "giver": "mira",
       "rank": "E",
       "objective": "Descubra o que adoece a Vila Cinzenta examinando o Poco Antigo.",
-      "reward": "Reputacao +1"
+      "reward": "Reputacao +1",
+      "tags": [
+        "mystery"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "avisar",
@@ -2799,7 +3310,11 @@
       ],
       "rank": "F",
       "objective": "Conte a {npc} que o poco esta envenenado.",
-      "reward": "Reputacao +1"
+      "reward": "Reputacao +1",
+      "tags": [
+        "social",
+        "help"
+      ]
     },
     {
       "id": "cenario-origem",
@@ -2808,12 +3323,24 @@
       "title": "Cenario Unico: A Origem da Maldicao",
       "desc": "O Velho Tomas manda te chamar: luzes na floresta, a origem da doenca. So um aventureiro chegara primeiro.",
       "eligible": {
-        "fact": {
-          "p": "noticed",
-          "s": "$self",
-          "o": "poco",
-          "private": true
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "noticed",
+              "s": "$self",
+              "o": "poco",
+              "private": true
+            }
+          },
+          {
+            "rel": {
+              "a": "tomas",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -2829,25 +3356,59 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "giver": "tomas",
       "rank": "S",
       "objective": "Siga o rastro da corrupcao ate o Selo da Floresta antes de todos.",
       "reward": "Titulo unico e reputacao",
-      "penalty": "Se outro chegar primeiro, o cenario se fecha para voce."
+      "penalty": "Se outro chegar primeiro, o cenario se fecha para voce.",
+      "tags": [
+        "explore",
+        "mystery"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "testemunha",
       "title": "O que voce viu no selo",
       "desc": "Procure o Velho Tomas e conte as marcas que viu.",
       "eligible": {
-        "fact": {
-          "p": "witnessed",
-          "s": "$self",
-          "o": "selo",
-          "private": true
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "witnessed",
+              "s": "$self",
+              "o": "selo",
+              "private": true
+            }
+          },
+          {
+            "rel": {
+              "a": "tomas",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -2863,12 +3424,34 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "giver": "tomas",
       "rank": "C",
       "objective": "Conte ao Velho Tomas as marcas que viu no selo.",
-      "reward": "Reputacao +2 e a lenda do selo"
+      "reward": "Reputacao +2 e a lenda do selo",
+      "tags": [
+        "social",
+        "mystery"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "cenario-restaurar",
@@ -2877,10 +3460,22 @@
       "title": "Cenario Unico: Restaurar o Selo",
       "desc": "Derrote o guardiao e devolva a reliquia ao selo antes de todos.",
       "eligible": {
-        "knows": {
-          "p": "seal-broken",
-          "s": "selo"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          },
+          {
+            "rel": {
+              "a": "orin",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "num": {
@@ -2894,7 +3489,31 @@
       "rank": "S",
       "objective": "Derrote o guardiao das ruinas, recupere a reliquia e restaure o selo.",
       "reward": "Titulo Guardiao do Selo",
-      "penalty": "Unico: so um heroi restaura o selo."
+      "penalty": "Unico: so um heroi restaura o selo.",
+      "tags": [
+        "combat",
+        "explore"
+      ],
+      "rewards": [
+        {
+          "op": "relate",
+          "e": "orin",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "orin",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "cenario-pacto",
@@ -2919,7 +3538,10 @@
       "rank": "SS",
       "objective": "Aceite o poder do selo e quebre-o de vez.",
       "reward": "Titulo Portador do Pacto",
-      "penalty": "A vila sofrera com a corrupcao."
+      "penalty": "A vila sofrera com a corrupcao.",
+      "tags": [
+        "mystery"
+      ]
     },
     {
       "id": "replantar",
@@ -2927,7 +3549,14 @@
       "beat": "paz",
       "title": "A Floresta Respira",
       "desc": "Ajude a replantar a floresta.",
-      "eligible": {},
+      "eligible": {
+        "rel": {
+          "a": "mira",
+          "b": "$self",
+          "op": ">",
+          "v": -3
+        }
+      },
       "goal": {
         "fact": {
           "p": "planted",
@@ -2942,12 +3571,33 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "giver": "mira",
       "rank": "D",
       "objective": "Replante a floresta ao redor do selo restaurado.",
-      "reward": "Reputacao +1"
+      "reward": "Reputacao +1",
+      "tags": [
+        "help"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "resistir",
@@ -2955,7 +3605,14 @@
       "beat": "resistencia",
       "title": "A Resistencia",
       "desc": "Defenda a vila das criaturas corrompidas.",
-      "eligible": {},
+      "eligible": {
+        "rel": {
+          "a": "orin",
+          "b": "$self",
+          "op": ">",
+          "v": -3
+        }
+      },
       "goal": {
         "fact": {
           "p": "defended",
@@ -2967,7 +3624,31 @@
       "giver": "orin",
       "rank": "C",
       "objective": "Defenda a vila das criaturas corrompidas.",
-      "reward": "Reputacao +3"
+      "reward": "Reputacao +3",
+      "tags": [
+        "combat",
+        "help"
+      ],
+      "rewards": [
+        {
+          "op": "relate",
+          "e": "orin",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "orin",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "escoltar",
@@ -2997,17 +3678,33 @@
       ],
       "rank": "D",
       "objective": "Proteja a caravana na Estrada do Leste.",
-      "reward": "Reputacao +1"
+      "reward": "Reputacao +1",
+      "tags": [
+        "combat",
+        "social"
+      ]
     },
     {
       "id": "cacar",
       "title": "Lobos na vila",
       "desc": "Lobos corrompidos rondam as casas. Afugente-os.",
       "eligible": {
-        "knows": {
-          "p": "wolves",
-          "s": "vila"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "wolves",
+              "s": "vila"
+            }
+          },
+          {
+            "rel": {
+              "a": "orin",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3023,12 +3720,33 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "orin",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "giver": "orin",
       "rank": "D",
       "objective": "Afugente os lobos corrompidos da vila.",
-      "reward": "Reputacao +1"
+      "reward": "Reputacao +1",
+      "tags": [
+        "combat"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "orin",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "minerio-brom",
@@ -3041,19 +3759,31 @@
       "eligible": {
         "all": [
           {
-            "num": {
-              "e": "$self",
-              "k": "ore",
-              "op": "<",
-              "v": 1
-            }
+            "all": [
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "ore",
+                  "op": "<",
+                  "v": 1
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": "<",
+                  "v": 1
+                }
+              }
+            ]
           },
           {
-            "num": {
-              "e": "$self",
-              "k": "forge",
-              "op": "<",
-              "v": 1
+            "rel": {
+              "a": "brom",
+              "b": "$self",
+              "op": ">",
+              "v": -3
             }
           }
         ]
@@ -3072,6 +3802,27 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "craft"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
       ]
     },
@@ -3086,19 +3837,31 @@
       "eligible": {
         "all": [
           {
-            "num": {
-              "e": "$self",
-              "k": "ore",
-              "op": ">=",
-              "v": 1
-            }
+            "all": [
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "ore",
+                  "op": ">=",
+                  "v": 1
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": "<",
+                  "v": 1
+                }
+              }
+            ]
           },
           {
-            "num": {
-              "e": "$self",
-              "k": "forge",
-              "op": "<",
-              "v": 1
+            "rel": {
+              "a": "brom",
+              "b": "$self",
+              "op": ">",
+              "v": -3
             }
           }
         ]
@@ -3117,6 +3880,14 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "stages": [
@@ -3144,6 +3915,19 @@
             ]
           }
         }
+      ],
+      "tags": [
+        "craft"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
       ]
     },
     {
@@ -3157,19 +3941,31 @@
       "eligible": {
         "all": [
           {
-            "num": {
-              "e": "$self",
-              "k": "forge",
-              "op": ">=",
-              "v": 1
-            }
+            "all": [
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": ">=",
+                  "v": 1
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": "<",
+                  "v": 3
+                }
+              }
+            ]
           },
           {
-            "num": {
-              "e": "$self",
-              "k": "forge",
-              "op": "<",
-              "v": 3
+            "rel": {
+              "a": "brom",
+              "b": "$self",
+              "op": ">",
+              "v": -3
             }
           }
         ]
@@ -3188,6 +3984,27 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "craft"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
       ]
     },
@@ -3201,10 +4018,22 @@
       "reward": "Reputacao +2",
       "penalty": "Se o tempo acabar, os mineiros morrem e a vila perde a esperanca.",
       "eligible": {
-        "knows": {
-          "p": "miners-trapped",
-          "s": "mina"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "miners-trapped",
+              "s": "mina"
+            }
+          },
+          {
+            "rel": {
+              "a": "garrick",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3220,6 +4049,14 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "garrick",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "timeLimit": 35,
@@ -3268,6 +4105,20 @@
           "desc": "A corrupcao do selo se espalha pelos tuneis onde os mineiros estao presos.",
           "objective": "Resgate um mineiro antes que a corrupcao o alcance."
         }
+      ],
+      "tags": [
+        "help",
+        "combat"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "garrick",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
       ]
     },
     {
@@ -3279,10 +4130,22 @@
       "objective": "Derrote um grupo de bandidos na estrada.",
       "reward": "Reputacao +2",
       "eligible": {
-        "knows": {
-          "p": "bandits",
-          "s": "estrada"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "bandits",
+              "s": "estrada"
+            }
+          },
+          {
+            "rel": {
+              "a": "lia",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3298,6 +4161,14 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "lia",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "stages": [
@@ -3322,6 +4193,20 @@
             }
           }
         }
+      ],
+      "tags": [
+        "combat",
+        "help"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "lia",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
       ]
     },
     {
@@ -3334,10 +4219,22 @@
       "reward": "Reputacao +2",
       "penalty": "Se outro encontrar Nino antes, voce chega tarde demais.",
       "eligible": {
-        "knows": {
-          "p": "child-lost",
-          "s": "floresta"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "child-lost",
+              "s": "floresta"
+            }
+          },
+          {
+            "rel": {
+              "a": "elena",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3353,6 +4250,14 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "elena",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "timeLimit": 30,
@@ -3392,6 +4297,20 @@
           "desc": "Lobos corrompidos rondam a floresta onde Nino desapareceu.",
           "objective": "Encontre Nino antes dos lobos."
         }
+      ],
+      "tags": [
+        "help",
+        "explore"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "elena",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
       ]
     },
     {
@@ -3403,10 +4322,22 @@
       "objective": "Ajude a consertar um telhado.",
       "reward": "Reputacao +1",
       "eligible": {
-        "knows": {
-          "p": "storm",
-          "s": "vila"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "storm",
+              "s": "vila"
+            }
+          },
+          {
+            "rel": {
+              "a": "nino",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3422,6 +4353,28 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "nino",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "help",
+        "craft"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "nino",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
       ]
     },
@@ -3434,19 +4387,31 @@
       "objective": "Colha ervas na floresta e entregue a Mira.",
       "reward": "Reputacao +1",
       "eligible": {
-        "any": [
+        "all": [
           {
-            "knows": {
-              "p": "outbreak",
-              "s": "vila"
-            }
+            "any": [
+              {
+                "knows": {
+                  "p": "outbreak",
+                  "s": "vila"
+                }
+              },
+              {
+                "num": {
+                  "e": "vila",
+                  "k": "health",
+                  "op": "<",
+                  "v": 90
+                }
+              }
+            ]
           },
           {
-            "num": {
-              "e": "vila",
-              "k": "health",
-              "op": "<",
-              "v": 90
+            "rel": {
+              "a": "mira",
+              "b": "$self",
+              "op": ">",
+              "v": -3
             }
           }
         ]
@@ -3465,6 +4430,28 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "help",
+        "explore"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
       ]
     },
@@ -3478,12 +4465,24 @@
       "reward": "Reputacao +1",
       "penalty": "Kael nao esquece quem recusa um desafio.",
       "eligible": {
-        "num": {
-          "e": "$self",
-          "k": "trophies",
-          "op": "<",
-          "v": 1
-        }
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "trophies",
+              "op": "<",
+              "v": 1
+            }
+          },
+          {
+            "rel": {
+              "a": "kael",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "num": {
@@ -3499,6 +4498,14 @@
           "e": "$self",
           "k": "reputation",
           "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "kael",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
         }
       ],
       "onDecline": [
@@ -3508,7 +4515,18 @@
           "k": "respect",
           "d": -1,
           "min": 0
+        },
+        {
+          "op": "relate",
+          "e": "kael",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
+      ],
+      "tags": [
+        "combat"
       ]
     },
     {
@@ -3520,10 +4538,22 @@
       "objective": "Receba a bencao da Irma Elena.",
       "reward": "Bencao do santuario",
       "eligible": {
-        "knows": {
-          "p": "pilgrims",
-          "s": "vila"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "pilgrims",
+              "s": "vila"
+            }
+          },
+          {
+            "rel": {
+              "a": "elena",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3532,7 +4562,30 @@
           "o": "vila",
           "private": true
         }
-      }
+      },
+      "tags": [
+        "social"
+      ],
+      "rewards": [
+        {
+          "op": "relate",
+          "e": "elena",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "elena",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "ruinas-asterion",
@@ -3543,10 +4596,22 @@
       "objective": "Explore o salao interno das Ruinas de Asterion.",
       "reward": "Reputacao +2",
       "eligible": {
-        "knows": {
-          "p": "legacy-hint",
-          "s": "ruinas"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "legacy-hint",
+              "s": "ruinas"
+            }
+          },
+          {
+            "rel": {
+              "a": "tomas",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3562,6 +4627,28 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "explore",
+        "mystery"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
       ]
     },
@@ -3624,7 +4711,11 @@
             }
           }
         ]
-      }
+      },
+      "tags": [
+        "craft",
+        "explore"
+      ]
     },
     {
       "id": "aprendiz",
@@ -3635,12 +4726,24 @@
       "objective": "Forje cinco pecas.",
       "reward": "Reputacao +3",
       "eligible": {
-        "fact": {
-          "p": "apprentice",
-          "s": "$self",
-          "o": "brom",
-          "private": true
-        }
+        "all": [
+          {
+            "fact": {
+              "p": "apprentice",
+              "s": "$self",
+              "o": "brom",
+              "private": true
+            }
+          },
+          {
+            "rel": {
+              "a": "brom",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "num": {
@@ -3656,6 +4759,27 @@
           "e": "$self",
           "k": "reputation",
           "d": 3
+        },
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "craft"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
         }
       ]
     },
@@ -3669,7 +4793,14 @@
       "desc": "O herdeiro e Brom vao forjar uma obra-prima com minerio de todos.",
       "objective": "Entregue minerio para a obra-prima.",
       "reward": "Reputacao +2",
-      "eligible": {},
+      "eligible": {
+        "rel": {
+          "a": "brom",
+          "b": "$self",
+          "op": ">",
+          "v": -3
+        }
+      },
       "goal": {
         "fact": {
           "p": "contributed",
@@ -3677,7 +4808,31 @@
           "o": "brom",
           "private": true
         }
-      }
+      },
+      "tags": [
+        "craft",
+        "help"
+      ],
+      "rewards": [
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
     },
     {
       "id": "lamina-proibida",
@@ -3716,7 +4871,11 @@
           "o": "selo",
           "private": true
         }
-      }
+      },
+      "tags": [
+        "craft",
+        "mystery"
+      ]
     },
     {
       "id": "veios-roxos",
@@ -3727,10 +4886,22 @@
       "objective": "Extraia minerio e leve para Irma Elena purificar.",
       "reward": "Reputacao +2",
       "eligible": {
-        "knows": {
-          "p": "ore-cursed",
-          "s": "mina"
-        }
+        "all": [
+          {
+            "knows": {
+              "p": "ore-cursed",
+              "s": "mina"
+            }
+          },
+          {
+            "rel": {
+              "a": "garrick",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
       },
       "goal": {
         "fact": {
@@ -3746,6 +4917,292 @@
           "e": "$self",
           "k": "reputation",
           "d": 2
+        },
+        {
+          "op": "relate",
+          "e": "garrick",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "craft",
+        "mystery"
+      ],
+      "onDecline": [
+        {
+          "op": "relate",
+          "e": "garrick",
+          "to": "$self",
+          "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "id": "segredo-mira",
+      "giver": "mira",
+      "rank": "B",
+      "tags": [
+        "social",
+        "mystery"
+      ],
+      "title": "A confianca de Mira",
+      "desc": "Voce ajudou Mira tantas vezes que ela quer contar algo que nunca contou a ninguem.",
+      "objective": "Ouca o segredo de Mira.",
+      "reward": "Reputacao +3 e uma memoria antiga do selo",
+      "eligible": {
+        "rel": {
+          "a": "mira",
+          "b": "$self",
+          "op": ">=",
+          "v": 4
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "mira-secret",
+          "s": "$self",
+          "o": "mira",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 3
+        }
+      ]
+    },
+    {
+      "id": "javali-branco",
+      "rank": "A",
+      "tags": [
+        "combat",
+        "explore"
+      ],
+      "title": "Quest oculta: O Javali Branco",
+      "desc": "Pegadas que nenhum cacador viu. Dizem que o Javali Branco so aparece a noite para quem ja provou seu valor.",
+      "objective": "Cace o Javali Branco na Floresta Cinzenta, a noite.",
+      "reward": "Titulo Cacador do Javali Branco, Kael +5, trofeus +5",
+      "penalty": "Se o dia nascer, as pegadas somem por um tempo.",
+      "eligible": {
+        "all": [
+          {
+            "fact": {
+              "p": "white-boar-sign",
+              "s": "$self",
+              "o": "floresta",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "white-boar-slain",
+                "s": "$self",
+                "o": "floresta",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "white-boar-slain",
+          "s": "$self",
+          "o": "floresta",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "set",
+          "e": "$self",
+          "k": "title",
+          "v": "Cacador do Javali Branco"
+        },
+        {
+          "op": "relate",
+          "e": "kael",
+          "to": "$self",
+          "d": 5,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "id": "colecionador",
+      "giver": "lia",
+      "rank": "C",
+      "tags": [
+        "social",
+        "explore"
+      ],
+      "title": "Quest oculta: A moeda de Asterion",
+      "desc": "Lia ouviu falar da moeda que voce achou na mina.",
+      "objective": "Mostre a moeda antiga para Lia.",
+      "reward": "Talvez um mapa raro das Ruinas... ou so a gratidao de Lia",
+      "eligible": {
+        "all": [
+          {
+            "fact": {
+              "p": "old-coin",
+              "s": "$self",
+              "o": "mina",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "coin-shown",
+                "s": "$self",
+                "o": "lia",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "coin-shown",
+          "s": "$self",
+          "o": "lia",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "ruins-map",
+            "s": "$self",
+            "o": "ruinas",
+            "private": true
+          },
+          "if": {
+            "chance": {
+              "seed": "mapa-ruinas",
+              "permille": 400
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "map",
+          "text": "Lia entrega a {self} um mapa antigo das Ruinas de Asterion!",
+          "if": {
+            "fact": {
+              "p": "ruins-map",
+              "s": "$self",
+              "o": "ruinas",
+              "private": true
+            }
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2,
+          "if": {
+            "not": {
+              "fact": {
+                "p": "ruins-map",
+                "s": "$self",
+                "o": "ruinas",
+                "private": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cancao-alvorada",
+      "giver": "elena",
+      "rank": "B",
+      "tags": [
+        "social",
+        "help"
+      ],
+      "title": "Quest oculta: A cancao da alvorada",
+      "desc": "Ao amanhecer, Irma Elena canta para quem ajudou a vila de corpo e alma.",
+      "objective": "Agradeca a Irma Elena pela cancao.",
+      "reward": "Elena +5 e a Bencao da Alvorada",
+      "eligible": {
+        "all": [
+          {
+            "fact": {
+              "p": "heard-song",
+              "s": "$self"
+            }
+          },
+          {
+            "fact": {
+              "p": "blessed",
+              "s": "$self",
+              "o": "vila",
+              "private": true
+            }
+          },
+          {
+            "fact": {
+              "p": "roof-fixed",
+              "s": "$self",
+              "o": "vila",
+              "private": true
+            }
+          },
+          {
+            "fact": {
+              "p": "herbs-given",
+              "s": "$self",
+              "o": "mira",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "thanked-elena",
+                "s": "$self",
+                "o": "elena",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "thanked-elena",
+          "s": "$self",
+          "o": "elena",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "set",
+          "e": "$self",
+          "k": "blessing",
+          "v": "Bencao da Alvorada"
+        },
+        {
+          "op": "relate",
+          "e": "elena",
+          "to": "$self",
+          "d": 5,
+          "max": 10
         }
       ]
     }
@@ -3808,7 +5265,8 @@
             "s": "vila"
           }
         }
-      ]
+      ],
+      "intensity": 1
     },
     {
       "id": "lobos",
@@ -3866,7 +5324,8 @@
             "s": "vila"
           }
         }
-      ]
+      ],
+      "intensity": 4
     },
     {
       "id": "boato",
@@ -3902,7 +5361,8 @@
             "s": "selo"
           }
         }
-      ]
+      ],
+      "intensity": 1
     },
     {
       "id": "festival",
@@ -3954,7 +5414,8 @@
           "public": true,
           "text": "A Vila Cinzenta celebra um festival sob as lanternas."
         }
-      ]
+      ],
+      "intensity": -4
     },
     {
       "id": "desabamento",
@@ -4000,7 +5461,8 @@
             "s": "mina"
           }
         }
-      ]
+      ],
+      "intensity": 6
     },
     {
       "id": "bandidos",
@@ -4053,7 +5515,8 @@
             "s": "estrada"
           }
         }
-      ]
+      ],
+      "intensity": 5
     },
     {
       "id": "crianca-perdida",
@@ -4091,7 +5554,8 @@
             "s": "floresta"
           }
         }
-      ]
+      ],
+      "intensity": 4
     },
     {
       "id": "tempestade",
@@ -4129,7 +5593,8 @@
             "s": "vila"
           }
         }
-      ]
+      ],
+      "intensity": 3
     },
     {
       "id": "minerio-amaldicoado",
@@ -4187,7 +5652,8 @@
             "s": "mina"
           }
         }
-      ]
+      ],
+      "intensity": 3
     },
     {
       "id": "peregrinos",
@@ -4225,7 +5691,8 @@
             "s": "vila"
           }
         }
-      ]
+      ],
+      "intensity": -2
     },
     {
       "id": "mercador-misterioso",
@@ -4258,15 +5725,52 @@
             "s": "ruinas"
           }
         }
-      ]
+      ],
+      "intensity": 1
     }
   ],
   "director": {
     "every": 8,
-    "allowNone": true
+    "allowNone": true,
+    "peak": 8,
+    "calm": 2,
+    "decay": 97
   },
   "regionKinds": [
     "settlement",
     "wilds"
-  ]
+  ],
+  "gossip": {
+    "every": 3,
+    "kinds": [
+      "npc",
+      "player"
+    ],
+    "predicates": [
+      "poisoned",
+      "outbreak",
+      "bandits",
+      "wolves",
+      "miners-trapped",
+      "child-lost",
+      "storm",
+      "ore-cursed",
+      "seal-broken",
+      "legacy-hint",
+      "caravan-here",
+      "pilgrims"
+    ],
+    "texts": {
+      "poisoned": "{from} cochicha: dizem que a agua do {s} esta envenenada.",
+      "bandits": "{from} avisa: tem bandidos na {s}.",
+      "wolves": "{from} comenta que lobos corrompidos rondam a {s}.",
+      "miners-trapped": "{from} conta que ha mineiros presos na {s}.",
+      "child-lost": "{from} diz que o Nino sumiu na {s}.",
+      "ore-cursed": "{from} sussurra que o minerio da {s} esta amaldicoado.",
+      "seal-broken": "{from} jura que o {s} foi rompido.",
+      "legacy-hint": "{from} fala de uma bigorna lendaria nas {s}.",
+      "caravan-here": "{from} conta que chegou uma caravana na {s}."
+    }
+  },
+  "dayLength": 48
 }

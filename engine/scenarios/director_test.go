@@ -45,25 +45,9 @@ func TestDirectorProposesHappeningsAndAdvisorPicks(t *testing.T) {
 	if holds, _ := h.believes("p1", "wolves", "vila"); !holds {
 		t.Fatal("public happening must be revealed to players")
 	}
-	// It creates new personal opportunities once the single proposal slot
-	// of the player is free.
-	for _, q := range h.s.Quests {
-		if q.Holder == "p1" && q.State == "offered" {
-			h.do(core.Command{Kind: "decline", Origin: "player", Actor: "p1", Quest: q.Key})
-		}
-	}
-	h.tick(1 + int(h.w.U.Limits.DecisionTimeout))
-	found := false
-	for _, q := range h.s.Quests {
-		found = found || q.Holder == "p1" && q.Def == "cacar"
-	}
-	for _, d := range h.s.Decisions {
-		for _, o := range d.Options {
-			found = found || d.Subject == "p1" && len(o.ID) > 5 && o.ID[:5] == "cacar"
-		}
-	}
-	if !found {
-		t.Fatalf("the wolves should create a hunting opportunity: %+v %+v", h.s.Quests, h.s.Decisions)
+	// It creates a new personal opportunity: hunting the wolves.
+	if q := h.steer("p1", "cacar"); q.Giver != "orin" {
+		t.Fatalf("the hunt is offered by Orin: %+v", q)
 	}
 	// Cooldown: wolves cannot be proposed again right away.
 	h.tick(10)
@@ -96,24 +80,18 @@ func TestDirectorDefaultsWithoutAdvisor(t *testing.T) {
 func TestObsoleteQuestFreesTheSlot(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
-	h.tick(6)
-	q := h.steer("p1", "investigar-poco")
+	h.happen("caravana")
+	q := h.steer("p1", "escoltar")
 	h.accept("p1", q)
-	// Orin and Mira solve it on their own, and the seal is later restored by
-	// the world itself in this test: no more poison, the village heals.
-	h.tick(30)
-	h.s.Facts = func() map[string]core.Fact {
-		f := map[string]core.Fact{}
-		for k, v := range h.s.Facts {
-			if v.P != "seal-broken" && v.P != "poisoned" {
-				f[k] = v
-			}
+	// The caravan leaves before p1 escorts it: the quest no longer makes sense.
+	for i := 0; i < 40; i++ {
+		h.tick(1)
+		if q, _ := h.quest("p1", "escoltar"); q.State != "active" {
+			break
 		}
-		return f
-	}()
-	h.tick(60)
-	if q, _ := h.quest("p1", "investigar-poco"); q.State != "obsolete" {
-		t.Fatalf("quest should be obsolete once the village is healthy: %+v", q)
+	}
+	if q, _ := h.quest("p1", "escoltar"); q.State != "obsolete" {
+		t.Fatalf("quest should be obsolete once the caravan left: %+v", q)
 	}
 }
 

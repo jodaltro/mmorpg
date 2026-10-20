@@ -5,16 +5,18 @@ package core
 // quests and the events visible to them. Two players in the same world see
 // different worlds because they know different things.
 type View struct {
-	Universe string      `json:"universe"`
-	Tick     Tick        `json:"tick"`
-	Revision int64       `json:"revision"`
-	Self     Entity      `json:"self"`
-	Others   []Seen      `json:"others"`
-	Facts    []Fact      `json:"facts"`
-	Beliefs  []Belief    `json:"beliefs"`
-	Quests   []Quest     `json:"quests"`
-	Events   []Event     `json:"events"`
-	Story    []StoryView `json:"story"`
+	Universe string           `json:"universe"`
+	Tick     Tick             `json:"tick"`
+	Hour     int64            `json:"hour"` // in-game hour, -1 without days
+	Revision int64            `json:"revision"`
+	Self     Entity           `json:"self"`
+	Style    map[string]int64 `json:"style,omitempty"` // what the world learned about this player
+	Others   []Seen           `json:"others"`
+	Facts    []Fact           `json:"facts"`
+	Beliefs  []Belief         `json:"beliefs"`
+	Quests   []Quest          `json:"quests"`
+	Events   []Event          `json:"events"`
+	Story    []StoryView      `json:"story"`
 }
 
 type Seen struct {
@@ -47,7 +49,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	if !ok {
 		return View{}, false
 	}
-	v := View{Universe: s.Universe, Tick: s.Tick, Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
+	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
 		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {

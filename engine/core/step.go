@@ -224,5 +224,6 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 		return reject("requirements")
 	}
 	w.apply(s, a.Effects, b, cause)
+	w.learn(s, actor, a.Tags, 1)
 	return nil
 }

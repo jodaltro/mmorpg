@@ -4,7 +4,7 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 
 ## Executado
 
-`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **31 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
+`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **37 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
 
 > Correção: a primeira versão deste registro dizia "25 testes"; a contagem real da época era 21. Os três testes do Diretor e das missões obsoletas foram acrescentados depois.
 
@@ -41,6 +41,12 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | scenarios | `TestQuestTimeLimit` | O resgate na mina falha no prazo e aplica as consequências |
 | scenarios | `TestRefusalAndImmediateOffer` | Recusar o Kael derruba o respeito dele; minerar revela uma missão no mesmo passo |
 | scenarios | `TestLegendaryClassIsUnique` | Só um herda a classe Ferreiro Lendário; o outro, que perseguia sem a missão, vira aprendiz (`contender`) e recebe a continuação de rank B |
+| scenarios | `TestPlayStyleShapesOffers` | Minerar e forjar ensinam o estilo craft; o Jev recebe o estilo; um artesão recebe a missão de forja |
+| scenarios | `TestGossipSpreadsBeliefs` | p2 chega à vila e ouve o boato do veneno (`rumor`, com quem contou), mantendo a idade da observação |
+| scenarios | `TestNPCsRememberEachPlayer` | Três recusas deixam o Kael em −3 e ele para de chamar; confiança 4 com a Mira libera o segredo dela |
+| scenarios | `TestDirectorPacesTension` | Crise sobe a tensão; no pico, fase "relax" e padrão mais calmo; a tensão decai |
+| scenarios | `TestChanceIsDeterministicAndCalibrated` | Mesmo estado, mesmo sorteio; 10% deu entre 8% e 12% em 4.000 sorteios |
+| scenarios | `TestHiddenWhiteBoarQuest` | Sinal raro só com 3 troféus e à noite; missão oculta do Sistema (rank A); o Javali Branco só aparece à noite; título raro concedido |
 | scenarios | `TestLiveJevDecidesRealWorldDecisions` | Opt-in, com chamada real (ver abaixo) |
 
 ## Execuções manuais
@@ -70,6 +76,18 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | Sem histórico de acontecimentos | 54 (22 offer, 29 world, 2 story) | 53 | US$ 0,0020 | O Jev repetiu muito a caravana |
 | Com recência por acontecimento | 53 (25 offer, 23 world, 2 story) | 50 | US$ 0,0020 | Bandidos, tempestade, desabamento e Nino apareceram; 6 falhas reais |
 | Com recência e prazo de 4 ticks | 53 (23 offer, 27 world, 2 story) | 52 | US$ 0,0020 | 9 acontecimentos diferentes (máximo de 5 caravanas); os dois arcos concluídos; o herdeiro do legado mudou de jogador entre as corridas |
+
+### Com a "mente" do mundo (6 jogadores, 240 ticks de 0,6 s, Jev)
+
+| Medida | Antes | Depois |
+|---|---|---|
+| Missões diferentes oferecidas | 10 | 15 |
+| Decisões de oferta pelo Jev | 23 | 28 |
+| Missões ocultas oferecidas | 0 | 2 |
+| Relações NPC-jogador formadas | 0 | 13 |
+| Decisões do Jev no prazo | 52/53 | 57/58 |
+
+Só 2 boatos foram ouvidos, porque a maioria dos acontecimentos já é anunciada (`reveals`); o boato pesa mais em informação privada.
 
 Na Kepler-9 o Jev escolheu o ramo "A Ameaça", que não é o padrão determinístico, então a escolha mudou a história. A primeira sonda, com contexto mínimo, teve confiança de 0,08; depois do contexto enriquecido, as decisões de história ficaram entre 0,38 e 0,94.
 

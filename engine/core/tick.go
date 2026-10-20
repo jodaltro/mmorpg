@@ -40,6 +40,8 @@ func (w *World) tick(s *State, cause string) {
 			}
 		}
 	}
+	w.decayTension(s)
+	w.gossip(s, cause)
 	w.stories(s, cause)
 	w.direct(s)
 	for _, id := range sortedKeys(s.Decisions) {

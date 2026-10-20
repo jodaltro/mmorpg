@@ -30,6 +30,7 @@ type Universe struct {
 	Predicates  []string     `json:"predicates"`
 	PlayerKind  string       `json:"playerKind"`
 	RegionKinds []string     `json:"regionKinds,omitempty"` // kinds whose entities are places
+	DayLength   Tick         `json:"dayLength,omitempty"`   // ticks per in-game day (enables "time")
 	Player      EntitySeed   `json:"player"`
 	Perceivers  []string     `json:"perceivers"`
 	Entities    []EntitySeed `json:"entities"`
@@ -43,6 +44,7 @@ type Universe struct {
 	Quests      []QuestDef   `json:"quests,omitempty"`
 	Happenings  []Happening  `json:"happenings,omitempty"`
 	Director    *Director    `json:"director,omitempty"`
+	Gossip      *Gossip      `json:"gossip,omitempty"`
 	Limits      Limits       `json:"limits"`
 }
 
@@ -56,12 +58,27 @@ type Happening struct {
 	When     Cond     `json:"when"`
 	Effects  []Effect `json:"effects"`
 	Cooldown Tick     `json:"cooldown,omitempty"`
+	// Intensity moves world tension: threats raise it, relief lowers it.
+	Intensity int64 `json:"intensity,omitempty"`
 }
 
-// Director paces happenings. AllowNone lets the advisor keep things quiet.
+// Director paces happenings like an AI director: tension decays every
+// tick; above Peak the world needs relief, below Calm it builds up.
 type Director struct {
-	Every     Tick `json:"every"`
-	AllowNone bool `json:"allowNone,omitempty"`
+	Every     Tick  `json:"every"`
+	AllowNone bool  `json:"allowNone,omitempty"`
+	Peak      int64 `json:"peak,omitempty"`
+	Calm      int64 `json:"calm,omitempty"`
+	Decay     int64 `json:"decay,omitempty"` // percent of tension kept per tick (default 95)
+}
+
+// Gossip spreads beliefs between entities that share a place, so news
+// and stale rumors travel without anyone scripting it.
+type Gossip struct {
+	Every      Tick              `json:"every"`
+	Kinds      []string          `json:"kinds"`
+	Predicates []string          `json:"predicates"`
+	Texts      map[string]string `json:"texts,omitempty"` // what a player hears, by predicate: {from}, {s}
 }
 
 type EntitySeed struct {
@@ -116,16 +133,41 @@ type Pattern struct {
 // Cond is a condition tree. Exactly one field is set per node; the zero
 // value is "always true".
 type Cond struct {
-	All   []Cond   `json:"all,omitempty"`
-	Any   []Cond   `json:"any,omitempty"`
-	Not   *Cond    `json:"not,omitempty"`
-	Fact  *Pattern `json:"fact,omitempty"`
-	Knows *Knows   `json:"knows,omitempty"`
-	Num   *NumCmp  `json:"num,omitempty"`
-	Tag   *TagCmp  `json:"tag,omitempty"`
-	Beat  *BeatCmp `json:"beat,omitempty"`
-	In    *InCmp   `json:"in,omitempty"`
-	Near  *NearCmp `json:"near,omitempty"`
+	All    []Cond     `json:"all,omitempty"`
+	Any    []Cond     `json:"any,omitempty"`
+	Not    *Cond      `json:"not,omitempty"`
+	Fact   *Pattern   `json:"fact,omitempty"`
+	Knows  *Knows     `json:"knows,omitempty"`
+	Num    *NumCmp    `json:"num,omitempty"`
+	Tag    *TagCmp    `json:"tag,omitempty"`
+	Beat   *BeatCmp   `json:"beat,omitempty"`
+	In     *InCmp     `json:"in,omitempty"`
+	Near   *NearCmp   `json:"near,omitempty"`
+	Rel    *RelCmp    `json:"rel,omitempty"`
+	Chance *ChanceCmp `json:"chance,omitempty"`
+	Time   *TimeCmp   `json:"time,omitempty"`
+}
+
+// ChanceCmp is luck that replays identically: a stable hash of the seed,
+// $self, the tick and the event sequence, compared to Permille (1 = 0.1%).
+// Use it in an effect "if" to set a durable sign; base rare quests on the sign.
+type ChanceCmp struct {
+	Seed     string `json:"seed"`
+	Permille int64  `json:"permille"`
+}
+
+// TimeCmp holds during in-game hours [From, To), wrapping past midnight.
+type TimeCmp struct {
+	From int64 `json:"from"`
+	To   int64 `json:"to"`
+}
+
+// RelCmp compares what A feels about B (a remembered relationship).
+type RelCmp struct {
+	A  string `json:"a"`
+	B  string `json:"b"`
+	Op string `json:"op"`
+	V  int64  `json:"v"`
 }
 
 // InCmp holds when entity E is in region Region.
@@ -171,7 +213,7 @@ type BeatCmp struct {
 
 // Effect is one of a closed set of operations. Universes cannot inject code.
 type Effect struct {
-	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate
+	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate relate
 	Fact    *Pattern `json:"fact,omitempty"`
 	E       string   `json:"e,omitempty"`
 	K       string   `json:"k,omitempty"`
@@ -200,6 +242,7 @@ type Param struct {
 type ActionDef struct {
 	ID       string   `json:"id"`
 	By       []string `json:"by"`
+	Tags     []string `json:"tags,omitempty"` // play style the deed expresses: combat, explore, social, craft, help...
 	Params   []Param  `json:"params,omitempty"`
 	Requires Cond     `json:"requires"`
 	Effects  []Effect `json:"effects"`
@@ -284,10 +327,11 @@ type QuestDef struct {
 	Repeat   bool         `json:"repeat,omitempty"`
 
 	// What the system window shows (all rendered with the bindings).
-	Rank      string `json:"rank,omitempty"`      // e.g. F..S, SS, SSS
-	Objective string `json:"objective,omitempty"` // what to do
-	Reward    string `json:"reward,omitempty"`    // what you get
-	Penalty   string `json:"penalty,omitempty"`   // failure or refusal consequence
+	Tags      []string `json:"tags,omitempty"`      // play styles this quest serves
+	Rank      string   `json:"rank,omitempty"`      // e.g. F..S, SS, SSS
+	Objective string   `json:"objective,omitempty"` // what to do
+	Reward    string   `json:"reward,omitempty"`    // what you get
+	Penalty   string   `json:"penalty,omitempty"`   // failure or refusal consequence
 
 	// A living quest: stages replace title, objective, rank and goal when
 	// the world changes while it is active (forward only, first match wins).

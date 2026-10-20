@@ -16,6 +16,7 @@ import (
 	"os/signal"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/jodaltro/mmorpg/engine/advisor"
@@ -195,6 +196,17 @@ func report(s core.State) {
 		fmt.Printf(" %s=%d", id, len(perPlayer[id]))
 	}
 	fmt.Printf("\nquest states: %v\n", states)
+	hidden := 0
+	for _, q := range s.Quests {
+		if strings.HasPrefix(q.Title, "Quest oculta") {
+			hidden++
+		}
+	}
+	rel := []string{}
+	for _, k := range sortedRelKeys(s.Relations) {
+		rel = append(rel, fmt.Sprintf("%s=%d", k, s.Relations[k]))
+	}
+	fmt.Printf("rumors heard=%d hidden quests offered=%d relations: %v\n", counts["rumor"], hidden, rel)
 	fmt.Printf("updates (stages)=%d failed=%d unique-lost=%d story=%d happenings=%d\n",
 		counts["quest-updated"], counts["quest-failed"], counts["beat-lost"], counts["story"], countHappenings(s))
 	type agg struct {
@@ -240,6 +252,21 @@ func report(s core.State) {
 
 func sortedKeysID[V any](m map[core.ID]V) []core.ID {
 	out := []core.ID{}
+	for k := range m {
+		out = append(out, k)
+	}
+	for i := range out {
+		for j := i + 1; j < len(out); j++ {
+			if out[j] < out[i] {
+				out[i], out[j] = out[j], out[i]
+			}
+		}
+	}
+	return out
+}
+
+func sortedRelKeys(m map[string]int64) []string {
+	out := []string{}
 	for k := range m {
 		out = append(out, k)
 	}

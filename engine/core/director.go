@@ -40,18 +40,19 @@ func (w *World) direct(s *State) {
 			if at, ok := last[h.ID]; ok {
 				when = "last happened " + strconv.FormatInt(int64(s.Tick-at), 10) + " ticks ago"
 			}
-			opts = append(opts, Option{ID: h.ID, Title: h.Title, Desc: h.Desc + " (" + when + ")"})
+			opts = append(opts, Option{ID: h.ID, Title: h.Title, Desc: h.Desc + " (" + when + ", intensity " + strconv.FormatInt(h.Intensity, 10) + ")"})
 		}
 	}
 	if len(opts) == 0 {
 		return
 	}
 	id := "world:" + strconv.FormatInt(int64(s.Tick), 10)
-	def := opts[pick(id, len(opts))].ID
+	def := w.paced(s, opts, id)
 	if d.AllowNone {
 		opts = append(opts, Option{ID: "none", Title: "Nothing happens", Desc: "Keep the world quiet for now."})
 	}
-	ctx := w.storySoFar(s)
+	ctx := []string{"world tension: " + strconv.FormatInt(s.Tension, 10) + ", pacing phase: " + w.phase(s)}
+	ctx = append(ctx, w.storySoFar(s)...)
 	ctx = append(ctx, w.indicators(s)...)
 	ctx = append(ctx, w.recentPublic(s, 8)...)
 	s.Decisions[id] = Decision{ID: id, Kind: "world", Subject: "director", Options: opts, Default: def,
@@ -69,6 +70,34 @@ func (w *World) lastHappenings(s *State) map[string]Tick {
 	return out
 }
 
+// paced picks the default happening by pacing phase: after a peak the
+// world gets relief, when calm it builds up, otherwise it varies.
+func (w *World) paced(s *State, opts []Option, seed string) string {
+	intensity := func(id string) int64 {
+		h, _ := w.happening(id)
+		return h.Intensity
+	}
+	switch w.phase(s) {
+	case "relax":
+		best := opts[0].ID
+		for _, o := range opts {
+			if intensity(o.ID) < intensity(best) {
+				best = o.ID
+			}
+		}
+		return best
+	case "build-up":
+		best := opts[0].ID
+		for _, o := range opts {
+			if intensity(o.ID) > intensity(best) {
+				best = o.ID
+			}
+		}
+		return best
+	}
+	return opts[pick(seed, len(opts))].ID
+}
+
 // occur applies a chosen happening after revalidating it.
 func (w *World) occur(s *State, id, cause string) error {
 	if id == "none" {
@@ -81,6 +110,7 @@ func (w *World) occur(s *State, id, cause string) error {
 	if h.Cooldown > 0 {
 		s.Cooldowns[happeningKey(id)] = s.Tick + h.Cooldown
 	}
+	s.Tension = max(0, s.Tension+h.Intensity)
 	w.apply(s, h.Effects, Bind{}, "happening:"+id)
 	return nil
 }

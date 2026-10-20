@@ -21,8 +21,17 @@ func (w *World) profile(s *State, p ID) []string {
 	if e.Region != "" {
 		out = append(out, "location: "+w.name(s, e.Region))
 	}
+	if h := w.Hour(s); h >= 0 {
+		out = append(out, "time of day: "+strconv.FormatInt(h, 10)+"h")
+	}
 	if t := e.Tag["title"]; t != "" {
 		out = append(out, "title: "+t)
+	}
+	out = append(out, "play style learned from deeds: "+w.styleText(s, p))
+	for _, k := range sortedKeys(s.Relations) {
+		if a, b, ok := strings.Cut(k, "|"); ok && ID(b) == p && s.Relations[k] != 0 {
+			out = append(out, w.name(s, ID(a))+" feels "+strconv.FormatInt(s.Relations[k], 10)+" about this player")
+		}
 	}
 	nums := []string{}
 	for _, k := range sortedKeys(e.Num) {

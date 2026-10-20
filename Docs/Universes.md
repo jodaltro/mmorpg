@@ -26,6 +26,8 @@ cd engine && go run ./cmd/worldsim validate ../universes/valdoria/universe.json
 
 Campos de missão para a janela do sistema e missões vivas: `rank`, `objective`, `reward`, `penalty` (texto renderizado), `stages` (`id`, `when`, `title`, `desc`, `objective`, `rank`, `goal`, `effects`; só avançam, o primeiro que valer entra), `fail`, `failEffects`, `timeLimit` (ticks após aceitar), `onDecline`. Em capítulos: `contender` define quem, mesmo sem a missão, vira rival.
 
+Mente do mundo: `tags` em ações e missões; `intensity` em acontecimentos; `director.peak`, `calm`, `decay`; `gossip` (`every`, `kinds`, `predicates`, `texts` com `{from}` e `{s}`); efeito `relate` e condição `rel`; `chance` (`seed`, `permille`) e `time` (`from`, `to`) com `dayLength`. Para raridade, um efeito `if` grava um sinal durável e a missão oculta depende do sinal.
+
 Condições de lugar: `{"in": {"e": "$self", "region": "floresta"}}` e `{"near": {"a": "$self", "b": "poco"}}` (mesmo lugar, ou dentro de `b` quando `b` é um lugar). Efeito `relocate`: `{"op": "relocate", "e": "$self", "to": "reator"}`.
 
 ## O que o validador recusa

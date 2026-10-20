@@ -89,6 +89,9 @@ func Compile(u Universe) (*World, error) {
 		return nil, invalid("player needs a starting region")
 	}
 	l := u.Limits
+	if u.DayLength < 0 {
+		return nil, invalid("dayLength")
+	}
 	if l.QuestGap < 0 {
 		return nil, invalid("limits")
 	}
@@ -195,8 +198,28 @@ func (w *World) compileDirector(v *validator) error {
 			return e
 		}
 	}
-	if d := w.U.Director; d != nil && (d.Every < 1 || len(w.U.Happenings) == 0) {
+	if d := w.U.Director; d != nil && (d.Every < 1 || len(w.U.Happenings) == 0 || d.Decay < 0 || d.Decay > 100 || d.Peak < 0 || d.Calm < 0 || d.Peak > 0 && d.Calm >= d.Peak) {
 		return invalid("director")
+	}
+	if g := w.U.Gossip; g != nil {
+		if g.Every < 1 || len(g.Kinds) == 0 || len(g.Predicates) == 0 {
+			return invalid("gossip")
+		}
+		for _, k := range g.Kinds {
+			if !w.kinds[k] {
+				return invalid("gossip kind %q", k)
+			}
+		}
+		for _, p := range g.Predicates {
+			if !w.preds[p] {
+				return invalid("gossip predicate %q", p)
+			}
+		}
+		for p := range g.Texts {
+			if !w.preds[p] {
+				return invalid("gossip text for unknown predicate %q", p)
+			}
+		}
 	}
 	if w.U.Director == nil && len(w.U.Happenings) > 0 {
 		return invalid("happenings without director")
@@ -533,6 +556,30 @@ func (v *validator) cond(c Cond, vars map[string]bool, where string) error {
 			return e
 		}
 	}
+	if c.Chance != nil {
+		n++
+		if c.Chance.Seed == "" || c.Chance.Permille < 1 || c.Chance.Permille > 1000 {
+			return invalid("%s: chance", where)
+		}
+	}
+	if c.Time != nil {
+		n++
+		if v.w.U.DayLength < 1 || c.Time.From < 0 || c.Time.From > 23 || c.Time.To < 0 || c.Time.To > 24 {
+			return invalid("%s: time needs dayLength and hours 0-24", where)
+		}
+	}
+	if c.Rel != nil {
+		n++
+		if !slices.Contains([]string{"<", "<=", "==", "!=", ">=", ">"}, c.Rel.Op) {
+			return invalid("%s: rel comparison", where)
+		}
+		if e := v.ref(c.Rel.A, vars, where); e != nil {
+			return e
+		}
+		if e := v.ref(c.Rel.B, vars, where); e != nil {
+			return e
+		}
+	}
 	if c.Near != nil {
 		n++
 		if e := v.ref(c.Near.A, vars, where); e != nil {
@@ -581,6 +628,16 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 				return invalid("%s: %s needs key/delta", where, e.Op)
 			}
 			if err := v.ref(e.E, vars, where); err != nil {
+				return err
+			}
+		case "relate":
+			if e.D == 0 {
+				return invalid("%s: relate needs a delta", where)
+			}
+			if err := v.ref(e.E, vars, where); err != nil {
+				return err
+			}
+			if err := v.ref(e.To, vars, where); err != nil {
 				return err
 			}
 		case "relocate":
