@@ -99,6 +99,19 @@ func (w *World) Holds(s *State, c Cond, b Bind) bool {
 			return h >= c.Time.From && h < c.Time.To
 		}
 		return h >= c.Time.From || h < c.Time.To
+	case c.Has != nil:
+		who := c.Has.E
+		if who == "" {
+			who = "$self"
+		}
+		_, ok := s.Skills[resolve(who, b)][c.Has.Skill]
+		return ok
+	case c.Deeds != nil:
+		who := c.Deeds.E
+		if who == "" {
+			who = "$self"
+		}
+		return compare(s.Deeds[resolve(who, b)][c.Deeds.Action], c.Deeds.Op, c.Deeds.V)
 	case c.Rel != nil:
 		return compare(s.Relations[relKey(resolve(c.Rel.A, b), resolve(c.Rel.B, b))], c.Rel.Op, c.Rel.V)
 	}
@@ -254,6 +267,12 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 				mine.Source, mine.From, mine.At = "communication", self, s.Tick
 				s.believe(to, mine)
 			}
+		case "grant":
+			who := self
+			if e.E != "" {
+				who = resolve(e.E, b)
+			}
+			w.grantSkill(s, who, e.V, "reward", cause)
 		case "relate":
 			// What E feels about To, remembered per pair (Nemesis-style memory).
 			a, to := resolve(e.E, b), resolve(e.To, b)

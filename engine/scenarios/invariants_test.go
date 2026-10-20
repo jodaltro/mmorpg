@@ -113,6 +113,13 @@ func TestValidatorRejectsBrokenUniverses(t *testing.T) {
 		"two-operator node":  func(u *core.Universe) { u.Rules[1].When.Num = &core.NumCmp{E: "vila", K: "health", Op: "<", V: 1} },
 		"quest on bad beat":  func(u *core.Universe) { u.Quests[2].Beat = "missing" },
 		"unknown field kind": func(u *core.Universe) { u.Entities[0].Kind = "dragon" },
+		"luck in skill learn": func(u *core.Universe) {
+			u.Skills[0].Learn = &core.Cond{All: []core.Cond{*u.Skills[0].Learn, {Chance: &core.ChanceCmp{Seed: "x", Permille: 5}}}}
+		},
+		"grant unknown skill": func(u *core.Universe) {
+			u.Actions[0].Effects = append(u.Actions[0].Effects, core.Effect{Op: "grant", V: "fly"})
+		},
+		"bad rarity": func(u *core.Universe) { u.Skills[0].Rarity = "mythic" },
 	}
 	for name, mutate := range cases {
 		var u core.Universe

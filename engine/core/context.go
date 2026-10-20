@@ -28,6 +28,13 @@ func (w *World) profile(s *State, p ID) []string {
 		out = append(out, "title: "+t)
 	}
 	out = append(out, "play style learned from deeds: "+w.styleText(s, p))
+	if ks := w.skillsOf(s, p); len(ks) > 0 {
+		names := []string{}
+		for _, k := range ks {
+			names = append(names, k.Name+" ("+k.Rarity+")")
+		}
+		out = append(out, "skills: "+strings.Join(names, ", "))
+	}
 	for _, k := range sortedKeys(s.Relations) {
 		if a, b, ok := strings.Cut(k, "|"); ok && ID(b) == p && s.Relations[k] != 0 {
 			out = append(out, w.name(s, ID(a))+" feels "+strconv.FormatInt(s.Relations[k], 10)+" about this player")

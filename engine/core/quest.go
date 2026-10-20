@@ -115,6 +115,7 @@ func (w *World) completeAll(s *State, cause string) {
 }
 
 func (w *World) completeFor(s *State, holder ID, cause string) {
+	w.discover(s, holder, cause)
 	w.claimStories(s, holder, cause)
 	for _, k := range sortedKeys(s.Quests) {
 		if q := s.Quests[k]; q.Holder == holder && q.State == "active" {
@@ -205,6 +206,7 @@ func (w *World) tryComplete(s *State, key string, cause string) {
 	s.Quests[key] = q
 	w.rest(s, q.Holder)
 	w.learn(s, q.Holder, def.Tags, 2)
+	w.count(s, q.Holder, "quest")
 	w.apply(s, def.Rewards, b, cause)
 	w.emit(s, Event{Kind: "quest-done", Holder: q.Holder, Text: q.Title, Cause: cause, Data: map[string]string{"quest": key}})
 }
@@ -451,6 +453,7 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 		s.Declined[q.Key] = s.Tick
 		w.apply(s, w.quests[q.Def].OnDecline, questBind(q), cause)
 		w.learn(s, q.Holder, w.quests[q.Def].Tags, -1)
+		w.count(s, q.Holder, "decline")
 	case "abandon":
 		if !w.U.Limits.AllowAbandon {
 			return reject("this world requires finishing the accepted quest")

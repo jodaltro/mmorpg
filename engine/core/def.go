@@ -45,6 +45,7 @@ type Universe struct {
 	Happenings  []Happening  `json:"happenings,omitempty"`
 	Director    *Director    `json:"director,omitempty"`
 	Gossip      *Gossip      `json:"gossip,omitempty"`
+	Skills      []SkillDef   `json:"skills,omitempty"`
 	Limits      Limits       `json:"limits"`
 }
 
@@ -70,6 +71,17 @@ type Director struct {
 	Peak      int64 `json:"peak,omitempty"`
 	Calm      int64 `json:"calm,omitempty"`
 	Decay     int64 `json:"decay,omitempty"` // percent of tension kept per tick (default 95)
+}
+
+// SkillDef is an ability a player can discover by doing things in the
+// world (Learn) or receive as a reward (effect "grant"). Rarity is shown in
+// the system window: comum, incomum, rara, epica, lendaria, absurda.
+type SkillDef struct {
+	ID     string `json:"id"`
+	Name   string `json:"name"`
+	Desc   string `json:"desc"`
+	Rarity string `json:"rarity"`
+	Learn  *Cond  `json:"learn,omitempty"` // discovered when this holds for the player
 }
 
 // Gossip spreads beliefs between entities that share a place, so news
@@ -146,6 +158,23 @@ type Cond struct {
 	Rel    *RelCmp    `json:"rel,omitempty"`
 	Chance *ChanceCmp `json:"chance,omitempty"`
 	Time   *TimeCmp   `json:"time,omitempty"`
+	Has    *HasCmp    `json:"has,omitempty"`
+	Deeds  *DeedsCmp  `json:"deeds,omitempty"`
+}
+
+// HasCmp holds when entity E (default $self) knows skill Skill.
+type HasCmp struct {
+	E     string `json:"e,omitempty"`
+	Skill string `json:"skill"`
+}
+
+// DeedsCmp counts how many times E (default $self) did Action. Besides
+// action ids, the engine counts "move", "rumor", "decline" and "quest".
+type DeedsCmp struct {
+	E      string `json:"e,omitempty"`
+	Action string `json:"action"`
+	Op     string `json:"op"`
+	V      int64  `json:"v"`
 }
 
 // ChanceCmp is luck that replays identically: a stable hash of the seed,
@@ -213,7 +242,7 @@ type BeatCmp struct {
 
 // Effect is one of a closed set of operations. Universes cannot inject code.
 type Effect struct {
-	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate relate
+	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate relate grant
 	Fact    *Pattern `json:"fact,omitempty"`
 	E       string   `json:"e,omitempty"`
 	K       string   `json:"k,omitempty"`

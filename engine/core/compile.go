@@ -70,6 +70,13 @@ func Compile(u Universe) (*World, error) {
 		}
 		w.regions[k] = true
 	}
+	seenSkill := map[string]bool{}
+	for _, k := range u.Skills {
+		if k.ID == "" || seenSkill[k.ID] || k.Name == "" || !slices.Contains(rarities, k.Rarity) {
+			return nil, invalid("skill %q", k.ID)
+		}
+		seenSkill[k.ID] = true
+	}
 	ents := map[ID]string{}
 	for _, e := range u.Entities {
 		if e.ID == "" || ents[e.ID] != "" || strings.HasPrefix(string(e.ID), "$") {
@@ -180,6 +187,18 @@ func Compile(u Universe) (*World, error) {
 	}
 	if e := w.compileDirector(v); e != nil {
 		return nil, e
+	}
+	for _, k := range u.Skills {
+		if k.Learn != nil {
+			if e := v.cond(*k.Learn, map[string]bool{"self": true}, "skill "+k.ID); e != nil {
+				return nil, e
+			}
+			// Discovery is re-checked constantly, so luck there would add up
+			// until everyone has the skill. Put chance in an action effect.
+			if usesChance(*k.Learn) {
+				return nil, invalid("skill %s: chance in learn conditions; use an action effect with if+grant", k.ID)
+			}
+		}
 	}
 	return w, nil
 }
@@ -445,6 +464,18 @@ func (v *validator) ref(r string, vars map[string]bool, where string) error {
 	return nil
 }
 
+func usesChance(c Cond) bool {
+	if c.Chance != nil {
+		return true
+	}
+	for _, x := range append(append([]Cond{}, c.All...), c.Any...) {
+		if usesChance(x) {
+			return true
+		}
+	}
+	return c.Not != nil && usesChance(*c.Not)
+}
+
 // place is a reference to a region: a variable, or a literal place entity.
 func (v *validator) place(r string, vars map[string]bool, where string) error {
 	if e := v.ref(r, vars, where); e != nil {
@@ -568,6 +599,33 @@ func (v *validator) cond(c Cond, vars map[string]bool, where string) error {
 			return invalid("%s: time needs dayLength and hours 0-24", where)
 		}
 	}
+	if c.Has != nil {
+		n++
+		if !slices.ContainsFunc(v.w.U.Skills, func(k SkillDef) bool { return k.ID == c.Has.Skill }) {
+			return invalid("%s: unknown skill %q", where, c.Has.Skill)
+		}
+		if c.Has.E != "" {
+			if e := v.ref(c.Has.E, vars, where); e != nil {
+				return e
+			}
+		} else if !vars["self"] {
+			return invalid("%s: has without $self", where)
+		}
+	}
+	if c.Deeds != nil {
+		n++
+		_, isAction := v.w.actions[c.Deeds.Action]
+		if !isAction && !slices.Contains(builtinDeeds, c.Deeds.Action) || !slices.Contains([]string{"<", "<=", "==", "!=", ">=", ">"}, c.Deeds.Op) {
+			return invalid("%s: deeds %q", where, c.Deeds.Action)
+		}
+		if c.Deeds.E != "" {
+			if e := v.ref(c.Deeds.E, vars, where); e != nil {
+				return e
+			}
+		} else if !vars["self"] {
+			return invalid("%s: deeds without $self", where)
+		}
+	}
 	if c.Rel != nil {
 		n++
 		if !slices.Contains([]string{"<", "<=", "==", "!=", ">=", ">"}, c.Rel.Op) {
@@ -629,6 +687,17 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 			}
 			if err := v.ref(e.E, vars, where); err != nil {
 				return err
+			}
+		case "grant":
+			if !slices.ContainsFunc(v.w.U.Skills, func(k SkillDef) bool { return k.ID == e.V }) {
+				return invalid("%s: grant unknown skill %q", where, e.V)
+			}
+			if e.E != "" {
+				if err := v.ref(e.E, vars, where); err != nil {
+					return err
+				}
+			} else if !vars["self"] {
+				return invalid("%s: grant without $self", where)
 			}
 		case "relate":
 			if e.D == 0 {

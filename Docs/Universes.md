@@ -28,6 +28,8 @@ Campos de missão para a janela do sistema e missões vivas: `rank`, `objective`
 
 Mente do mundo: `tags` em ações e missões; `intensity` em acontecimentos; `director.peak`, `calm`, `decay`; `gossip` (`every`, `kinds`, `predicates`, `texts` com `{from}` e `{s}`); efeito `relate` e condição `rel`; `chance` (`seed`, `permille`) e `time` (`from`, `to`) com `dayLength`. Para raridade, um efeito `if` grava um sinal durável e a missão oculta depende do sinal.
 
+Habilidades: `skills` (`id`, `name`, `desc`, `rarity` em comum/incomum/rara/epica/lendaria/absurda, `learn` opcional); condição `{"has": {"skill"}}`; contagem `{"deeds": {"action", "op", "v"}}` (ids de ação e também `move`, `rumor`, `decline`, `quest`); efeito `{"op": "grant", "v": "skill"}`. **Sorte nunca vai em `learn`** (o validador recusa): a descoberta é reavaliada o tempo todo e a chance se acumularia; use `grant` com `if` e `chance` dentro do efeito de uma ação. Habilidades raras ou melhores viram evento público `fame`; épicas e lendárias melhoram a relação com os NPCs do lugar.
+
 Condições de lugar: `{"in": {"e": "$self", "region": "floresta"}}` e `{"near": {"a": "$self", "b": "poco"}}` (mesmo lugar, ou dentro de `b` quando `b` é um lugar). Efeito `relocate`: `{"op": "relocate", "e": "$self", "to": "reator"}`.
 
 ## O que o validador recusa

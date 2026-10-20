@@ -42,6 +42,8 @@ struct FWorldSimEvent
 	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Actor;
 	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Text;
 	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") bool bPublic = false;
+	/** Extra data, e.g. skill rarity and description for "skill-learned". */
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") TMap<FString, FString> Data;
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWorldSimEventSignature, const FWorldSimEvent&, Event);

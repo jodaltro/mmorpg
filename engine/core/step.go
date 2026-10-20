@@ -191,6 +191,7 @@ func (w *World) move(s *State, c Command, cause string) error {
 	}
 	ent.Region = c.Region
 	s.Entities[c.Actor] = ent
+	w.count(s, c.Actor, "move")
 	w.emit(s, Event{Kind: "moved", Actor: c.Actor, Holder: c.Actor, Text: place.Name, Cause: cause, Data: map[string]string{"region": string(c.Region)}})
 	if ent.Kind == w.U.PlayerKind {
 		w.refreshOffers(s, c.Actor, cause)
@@ -223,6 +224,7 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 	if !w.Holds(s, a.Requires, b) {
 		return reject("requirements")
 	}
+	w.count(s, actor, a.ID)
 	w.apply(s, a.Effects, b, cause)
 	w.learn(s, actor, a.Tags, 1)
 	return nil

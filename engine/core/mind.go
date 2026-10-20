@@ -160,6 +160,7 @@ func (w *World) gossip(s *State, cause string) {
 				}
 				heard := Belief{P: b.P, S: b.S, O: b.O, Holds: b.Holds, Source: "rumor", From: teller[k], At: b.At}
 				s.believe(m, heard)
+				w.count(s, m, "rumor")
 				if s.Entities[m].Kind == w.U.PlayerKind && g.Texts[b.P] != "" && b.Holds {
 					text := w.render(s, g.Texts[b.P], Bind{"from": teller[k], "s": b.S})
 					w.emit(s, Event{Kind: "rumor", Actor: teller[k], Holder: m, Text: text, Cause: cause, Data: map[string]string{"p": b.P}})

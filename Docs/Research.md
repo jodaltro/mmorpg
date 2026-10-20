@@ -27,3 +27,12 @@ Pesquisa de 20/10/2026 sobre narrativa interativa e IA de jogos, aplicada ao Wor
 2. **Esquecimento e distorção** (Talk of the Town).
 3. **Motivações dos NPCs** (Doran & Parberry) escolhendo que missão pedir.
 4. **Modelo do jogador com o que ele ignora** (PaSSAGE).
+
+## Habilidades (pedido do usuário, 20/10/2026)
+
+| Inspiração | Ideia original no motor |
+|---|---|
+| *Shangri-La Frontier*: os coelhos vorpais ensinam técnicas que só existem na linha de missões deles | A **Toca dos Lebrinos**: um lugar escondido (achado por sorte ao amanhecer), um povo com técnicas exclusivas (Passo Leve, Corte Lunar) e um cenário único de Guardião, que exige também ter caçado o Javali Branco |
+| *Frieren*: coleção de magias inúteis com efeitos engraçados ou de utilidade duvidosa | **Grimório de magias inúteis** achadas por sorte enquanto se faz outra coisa (Florescer, Remover Ferrugem, Chá Morno, Achar Botões, Uvas Azedas); **fusões** (Chá de Flores) e o título épico de **Colecionador**; a "inútil" Remover Ferrugem purifica minério amaldiçoado |
+| Habilidades por hábito (ideia própria) | Contagem de feitos: Martelo Firme (forjar dobra a prática), Cochilo Estratégico (abre um sonho que dá pista da história principal), Teimosia Lendária (recusar seis vezes muda o Kael) |
+| Fama (ideia própria) | Habilidades raras viram boato público; épicas e lendárias melhoram a relação com quem estava no lugar |

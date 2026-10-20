@@ -51,6 +51,10 @@ Condições: `all`, `any`, `not`, `fact`, `knows` (de `$self` ou de outro), `num
 
 Baseada na literatura listada em [Research.md](Research.md): modelo do jogador (`tags`, `Styles`); saliência para a escolha padrão de oferta (especificidade, estilo, história, relação, menos cansaço e lotação), também enviada ao Jev como `[fit N]`; boatos (`gossip`); relações por par (`relate`/`rel`); ritmo (`tension`, `intensity`, fases do diretor); sorte determinística (`chance`) e hora do dia (`time`, `dayLength`).
 
+## Habilidades (`core/skills.go`)
+
+O motor conta o que cada jogador faz (`Deeds`), descobre habilidades quando a condição `learn` vale (`discover`, avaliado em `completeFor`), concede por efeito `grant`, anuncia com `skill-learned` (raridade, descrição, como foi obtida) e transforma as raras em `fame` pública. O Jev recebe as habilidades no perfil do jogador; a visão traz `skills`.
+
 ## Um comando = um passo puro
 
 `World.Step(state, command) -> (state', delta, err)` trabalha sobre uma cópia. Comando recusado não tem efeito. Repetir o mesmo log a partir de `NewState` reproduz o mesmo `Digest` (SHA-256 do estado canônico).

@@ -11,6 +11,7 @@ type View struct {
 	Revision int64            `json:"revision"`
 	Self     Entity           `json:"self"`
 	Style    map[string]int64 `json:"style,omitempty"` // what the world learned about this player
+	Skills   []SkillView      `json:"skills"`
 	Others   []Seen           `json:"others"`
 	Facts    []Fact           `json:"facts"`
 	Beliefs  []Belief         `json:"beliefs"`
@@ -49,7 +50,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	if !ok {
 		return View{}, false
 	}
-	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
+	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
 		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {

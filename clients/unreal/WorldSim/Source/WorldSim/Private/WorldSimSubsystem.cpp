@@ -268,7 +268,24 @@ void UWorldSimSubsystem::OnView(FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
 			E.Actor = Str(O, TEXT("actor"));
 			E.Text = Str(O, TEXT("text"));
 			O->TryGetBoolField(TEXT("public"), E.bPublic);
-			if (!E.Text.IsEmpty() && !E.Kind.StartsWith(TEXT("quest-")))
+			const TSharedPtr<FJsonObject>* DataObj = nullptr;
+			if (O->TryGetObjectField(TEXT("data"), DataObj) && DataObj)
+			{
+				for (const TPair<FString, TSharedPtr<FJsonValue>>& P : (*DataObj)->Values)
+				{
+					E.Data.Add(P.Key, P.Value->AsString());
+				}
+			}
+			if (E.Kind == TEXT("skill-learned"))
+			{
+				// A system window, Overgeared/Shangri-La style.
+				const FString Rarity = E.Data.FindRef(TEXT("rarity"));
+				const FColor C = Rarity == TEXT("lendaria") ? FColor::Orange : Rarity == TEXT("absurda") ? FColor::Magenta
+					: Rarity == TEXT("epica") || Rarity == TEXT("rara") ? FColor::Cyan : FColor::White;
+				UE_LOG(LogWorldSim, Log, TEXT("WorldSim: SKILL %s (%s)"), *E.Text, *Rarity);
+				Say(1004, C, FString::Printf(TEXT("Habilidade adquirida!\n%s  [%s]\n%s"), *E.Text, *Rarity, *E.Data.FindRef(TEXT("desc"))), 15.f);
+			}
+			if (!E.Text.IsEmpty() && !E.Kind.StartsWith(TEXT("quest-")) && E.Kind != TEXT("skill-learned"))
 			{
 				UE_LOG(LogWorldSim, Log, TEXT("WorldSim: EVENT [%lld] %s: %s"), E.Tick, *E.Kind, *E.Text);
 				Say(-1, E.bPublic ? FColor::White : FColor(180, 220, 255), E.Text, 6.f);

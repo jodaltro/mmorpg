@@ -57,7 +57,16 @@
     "coin-shown",
     "ruins-map",
     "heard-song",
-    "thanked-elena"
+    "thanked-elena",
+    "mira-garden",
+    "tomas-stories",
+    "buttons-found",
+    "found-den",
+    "gift-pipo",
+    "lebrinos-awake",
+    "dreamed",
+    "fair",
+    "traded-spell"
   ],
   "playerKind": "player",
   "player": {
@@ -193,6 +202,23 @@
       "kind": "npc",
       "name": "Garrick, chefe da mina",
       "region": "mina"
+    },
+    {
+      "id": "toca",
+      "kind": "wilds",
+      "name": "Toca dos Lebrinos"
+    },
+    {
+      "id": "pipo",
+      "kind": "npc",
+      "name": "Pipo, o lebrino anciao",
+      "region": "toca"
+    },
+    {
+      "id": "sora",
+      "kind": "npc",
+      "name": "Sora, mestra de laminas",
+      "region": "toca"
     }
   ],
   "schedules": [
@@ -821,6 +847,34 @@
           "fact": {
             "p": "heard-song",
             "s": "$it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fim-feira",
+      "when": {
+        "fact": {
+          "p": "fair",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "fair",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "fair-end",
+          "text": "Os magos errantes recolhem suas tendas.",
+          "public": true,
+          "reveals": {
+            "p": "fair",
+            "s": "vila"
           }
         }
       ]
@@ -1554,6 +1608,48 @@
               }
             ]
           }
+        },
+        {
+          "op": "grant",
+          "v": "remover-ferrugem",
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "grim-ferrugem",
+                  "permille": 40
+                }
+              },
+              {
+                "not": {
+                  "has": {
+                    "skill": "remover-ferrugem"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "sorte-de-principiante",
+          "if": {
+            "all": [
+              {
+                "deeds": {
+                  "action": "move",
+                  "op": ">=",
+                  "v": 5
+                }
+              },
+              {
+                "chance": {
+                  "seed": "sorte-minerar",
+                  "permille": 8
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -1610,6 +1706,17 @@
           "op": "emit",
           "event": "forged",
           "text": "{self} forja uma peca com Brom."
+        },
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "forge",
+          "d": 1,
+          "if": {
+            "has": {
+              "skill": "martelo-firme"
+            }
+          }
         }
       ],
       "tags": [
@@ -1757,12 +1864,21 @@
             }
           },
           {
-            "fact": {
-              "p": "beat-bandits",
-              "s": "$self",
-              "o": "estrada",
-              "private": true
-            }
+            "any": [
+              {
+                "fact": {
+                  "p": "beat-bandits",
+                  "s": "$self",
+                  "o": "estrada",
+                  "private": true
+                }
+              },
+              {
+                "has": {
+                  "skill": "passo-leve"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1906,6 +2022,27 @@
           "op": "emit",
           "event": "roof",
           "text": "{self} ajuda a consertar telhados depois da tempestade."
+        },
+        {
+          "op": "grant",
+          "v": "achar-botoes",
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "grim-botoes",
+                  "permille": 250
+                }
+              },
+              {
+                "not": {
+                  "has": {
+                    "skill": "achar-botoes"
+                  }
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -1952,6 +2089,33 @@
           "op": "emit",
           "event": "blessed",
           "text": "Irma Elena abencoa {self}."
+        },
+        {
+          "op": "grant",
+          "v": "uvas-azedas",
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "grim-uvas",
+                  "permille": 300
+                }
+              },
+              {
+                "not": {
+                  "has": {
+                    "skill": "uvas-azedas"
+                  }
+                }
+              },
+              {
+                "time": {
+                  "from": 20,
+                  "to": 4
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -1992,6 +2156,144 @@
           "op": "emit",
           "event": "herbs",
           "text": "{self} colhe ervas medicinais."
+        },
+        {
+          "op": "grant",
+          "v": "florescer",
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "grim-flores",
+                  "permille": 60
+                }
+              },
+              {
+                "not": {
+                  "has": {
+                    "skill": "florescer"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "grim",
+          "text": "Entre as ervas, {self} acha uma pagina rasgada de grimorio: Florescer.",
+          "if": {
+            "all": [
+              {
+                "has": {
+                  "skill": "florescer"
+                }
+              },
+              {
+                "deeds": {
+                  "action": "colher-ervas-campo",
+                  "op": "<=",
+                  "v": 1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "found-den",
+            "s": "$self",
+            "o": "toca",
+            "private": true
+          },
+          "if": {
+            "all": [
+              {
+                "time": {
+                  "from": 5,
+                  "to": 7
+                }
+              },
+              {
+                "chance": {
+                  "seed": "toca-colher-ervas-campo",
+                  "permille": 70
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "found-den",
+                    "s": "$self",
+                    "o": "toca",
+                    "private": true
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "den",
+          "text": "Ao amanhecer, {self} ve orelhas compridas sumindo atras de uma raiz enorme. Uma toca!",
+          "if": {
+            "all": [
+              {
+                "fact": {
+                  "p": "found-den",
+                  "s": "$self",
+                  "o": "toca",
+                  "private": true
+                }
+              },
+              {
+                "deeds": {
+                  "action": "colher-ervas-campo",
+                  "op": "<=",
+                  "v": 999
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "gift-pipo",
+                    "s": "$self",
+                    "o": "pipo",
+                    "private": true
+                  }
+                }
+              },
+              {
+                "time": {
+                  "from": 5,
+                  "to": 7
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "sorte-de-principiante",
+          "if": {
+            "all": [
+              {
+                "deeds": {
+                  "action": "move",
+                  "op": ">=",
+                  "v": 5
+                }
+              },
+              {
+                "chance": {
+                  "seed": "sorte-colher-ervas-campo",
+                  "permille": 8
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -2156,6 +2458,102 @@
               }
             ]
           }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "found-den",
+            "s": "$self",
+            "o": "toca",
+            "private": true
+          },
+          "if": {
+            "all": [
+              {
+                "time": {
+                  "from": 5,
+                  "to": 7
+                }
+              },
+              {
+                "chance": {
+                  "seed": "toca-cacar-javali",
+                  "permille": 70
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "found-den",
+                    "s": "$self",
+                    "o": "toca",
+                    "private": true
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "den",
+          "text": "Ao amanhecer, {self} ve orelhas compridas sumindo atras de uma raiz enorme. Uma toca!",
+          "if": {
+            "all": [
+              {
+                "fact": {
+                  "p": "found-den",
+                  "s": "$self",
+                  "o": "toca",
+                  "private": true
+                }
+              },
+              {
+                "deeds": {
+                  "action": "cacar-javali",
+                  "op": "<=",
+                  "v": 999
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "gift-pipo",
+                    "s": "$self",
+                    "o": "pipo",
+                    "private": true
+                  }
+                }
+              },
+              {
+                "time": {
+                  "from": 5,
+                  "to": 7
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "sorte-de-principiante",
+          "if": {
+            "all": [
+              {
+                "deeds": {
+                  "action": "move",
+                  "op": ">=",
+                  "v": 5
+                }
+              },
+              {
+                "chance": {
+                  "seed": "sorte-cacar-javali",
+                  "permille": 8
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -2202,6 +2600,48 @@
           "op": "emit",
           "event": "ruins",
           "text": "{self} encontra uma bigorna antiga coberta de runas nas Ruinas de Asterion."
+        },
+        {
+          "op": "grant",
+          "v": "cha-morno",
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "grim-cha",
+                  "permille": 300
+                }
+              },
+              {
+                "not": {
+                  "has": {
+                    "skill": "cha-morno"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "sorte-de-principiante",
+          "if": {
+            "all": [
+              {
+                "deeds": {
+                  "action": "move",
+                  "op": ">=",
+                  "v": 5
+                }
+              },
+              {
+                "chance": {
+                  "seed": "sorte-explorar-ruinas",
+                  "permille": 8
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -2217,12 +2657,6 @@
       "requires": {
         "all": [
           {
-            "near": {
-              "a": "$self",
-              "b": "elena"
-            }
-          },
-          {
             "num": {
               "e": "$self",
               "k": "ore",
@@ -2235,6 +2669,21 @@
               "p": "ore-cursed",
               "s": "mina"
             }
+          },
+          {
+            "any": [
+              {
+                "near": {
+                  "a": "$self",
+                  "b": "elena"
+                }
+              },
+              {
+                "has": {
+                  "skill": "remover-ferrugem"
+                }
+              }
+            ]
           }
         ]
       },
@@ -2593,6 +3042,666 @@
             "o": "elena",
             "private": true
           }
+        }
+      ]
+    },
+    {
+      "id": "descansar",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          },
+          {
+            "time": {
+              "from": 20,
+              "to": 4
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "emit",
+          "event": "rest",
+          "text": "{self} cochila encostado no Poco Antigo."
+        }
+      ]
+    },
+    {
+      "id": "diagnosticar",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "mystery",
+        "help"
+      ],
+      "requires": {
+        "all": [
+          {
+            "has": {
+              "skill": "olho-de-curandeira"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        },
+        {
+          "op": "observe",
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        },
+        {
+          "op": "observe",
+          "fact": {
+            "p": "outbreak",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "diagnose",
+          "text": "Com o Olho de Curandeira, {self} examina os doentes da vila e entende a causa."
+        }
+      ]
+    },
+    {
+      "id": "usar-florescer",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social"
+      ],
+      "requires": {
+        "all": [
+          {
+            "has": {
+              "skill": "florescer"
+            }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "mira"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "mira-garden",
+                "s": "$self",
+                "o": "mira",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "mira-garden",
+            "s": "$self",
+            "o": "mira",
+            "private": true
+          }
+        },
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": 2,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "flowers",
+          "text": "Flores brotam aos pes de Mira. Ela ri pela primeira vez em semanas.",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "servir-cha",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social"
+      ],
+      "requires": {
+        "all": [
+          {
+            "has": {
+              "skill": "cha-morno"
+            }
+          },
+          {
+            "near": {
+              "a": "$self",
+              "b": "tomas"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "tomas-stories",
+            "s": "$self",
+            "o": "tomas",
+            "private": true
+          }
+        },
+        {
+          "op": "relate",
+          "e": "tomas",
+          "to": "$self",
+          "d": 1,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "tea",
+          "text": "Com o cha na temperatura perfeita, o Velho Tomas conta historias de Asterion para {self}."
+        },
+        {
+          "op": "observe",
+          "fact": {
+            "p": "legacy-hint",
+            "s": "ruinas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "procurar-botoes",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "explore"
+      ],
+      "requires": {
+        "all": [
+          {
+            "has": {
+              "skill": "achar-botoes"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "buttons-found",
+            "s": "$self",
+            "o": "nino",
+            "private": true
+          }
+        },
+        {
+          "op": "relate",
+          "e": "nino",
+          "to": "$self",
+          "d": 1,
+          "max": 10
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "old-coin",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          },
+          "if": {
+            "chance": {
+              "seed": "botao-moeda",
+              "permille": 100
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "buttons",
+          "text": "{self} acha os botoes que Nino perdeu. Entre eles, algo brilha."
+        }
+      ]
+    },
+    {
+      "id": "acalmar-doentes",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "help"
+      ],
+      "requires": {
+        "all": [
+          {
+            "has": {
+              "skill": "cha-de-flores"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          },
+          {
+            "fact": {
+              "p": "outbreak",
+              "s": "vila"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": 6,
+          "max": 100
+        },
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": 2,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "calm-tea",
+          "text": "{self} serve Cha de Flores aos doentes. A vila respira melhor.",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "presentear-pipo",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social",
+        "help"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "pipo"
+            }
+          },
+          {
+            "fact": {
+              "p": "found-den",
+              "s": "$self",
+              "o": "toca",
+              "private": true
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "herbs",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "gift-pipo",
+                "s": "$self",
+                "o": "pipo",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "herbs",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "gift-pipo",
+            "s": "$self",
+            "o": "pipo",
+            "private": true
+          }
+        },
+        {
+          "op": "relate",
+          "e": "pipo",
+          "to": "$self",
+          "d": 3,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "pipo",
+          "text": "Pipo cheira as ervas de {self}, sorri e bate o pe tres vezes."
+        }
+      ]
+    },
+    {
+      "id": "treinar-sora",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "combat"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "sora"
+            }
+          },
+          {
+            "has": {
+              "skill": "passo-leve"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "relate",
+          "e": "sora",
+          "to": "$self",
+          "d": 1,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "train",
+          "text": "Sora corrige a postura de {self} com um tapinha de orelha."
+        }
+      ]
+    },
+    {
+      "id": "sonhar",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "mystery"
+      ],
+      "requires": {
+        "all": [
+          {
+            "has": {
+              "skill": "cochilo-estrategico"
+            }
+          },
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          },
+          {
+            "time": {
+              "from": 20,
+              "to": 4
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "dreamed",
+                "s": "$self",
+                "o": "selo",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "dreamed",
+            "s": "$self",
+            "o": "selo",
+            "private": true
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "noticed",
+            "s": "$self",
+            "o": "poco",
+            "private": true
+          },
+          "if": {
+            "fact": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          }
+        },
+        {
+          "op": "observe",
+          "fact": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "dream",
+          "text": "{self} cochila e sonha com um selo de pedra rachado no meio da floresta..."
+        }
+      ]
+    },
+    {
+      "id": "trocar-magia",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social",
+        "mystery"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          },
+          {
+            "fact": {
+              "p": "fair",
+              "s": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "traded-spell",
+                "s": "$self",
+                "o": "vila",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "traded-spell",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        },
+        {
+          "op": "grant",
+          "v": "florescer",
+          "if": {
+            "all": [
+              {
+                "not": {
+                  "has": {
+                    "skill": "florescer"
+                  }
+                }
+              },
+              {
+                "chance": {
+                  "seed": "feira-florescer",
+                  "permille": 350
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "remover-ferrugem",
+          "if": {
+            "all": [
+              {
+                "not": {
+                  "has": {
+                    "skill": "remover-ferrugem"
+                  }
+                }
+              },
+              {
+                "chance": {
+                  "seed": "feira-remover-ferrugem",
+                  "permille": 350
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "cha-morno",
+          "if": {
+            "all": [
+              {
+                "not": {
+                  "has": {
+                    "skill": "cha-morno"
+                  }
+                }
+              },
+              {
+                "chance": {
+                  "seed": "feira-cha-morno",
+                  "permille": 350
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "achar-botoes",
+          "if": {
+            "all": [
+              {
+                "not": {
+                  "has": {
+                    "skill": "achar-botoes"
+                  }
+                }
+              },
+              {
+                "chance": {
+                  "seed": "feira-achar-botoes",
+                  "permille": 350
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "grant",
+          "v": "uvas-azedas",
+          "if": {
+            "all": [
+              {
+                "not": {
+                  "has": {
+                    "skill": "uvas-azedas"
+                  }
+                }
+              },
+              {
+                "chance": {
+                  "seed": "feira-uvas-azedas",
+                  "permille": 350
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "fair-trade",
+          "text": "{self} troca uma magia inutil por outra na Feira dos Magos Errantes."
         }
       ]
     }
@@ -3175,6 +4284,83 @@
               "op": "emit",
               "event": "rival",
               "text": "{claimant} forjou a Lamina Proibida primeiro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua",
+      "title": "A Lua dos Lebrinos",
+      "start": "guardiao",
+      "beats": [
+        {
+          "id": "guardiao",
+          "title": "Cenario Unico: O Guardiao da Toca",
+          "unique": true,
+          "desc": "Os lebrinos escolhem um unico humano para guardar a toca.",
+          "opens": {
+            "fact": {
+              "p": "lebrinos-awake",
+              "s": "toca"
+            }
+          },
+          "goal": {
+            "all": [
+              {
+                "has": {
+                  "skill": "corte-lunar"
+                }
+              },
+              {
+                "deeds": {
+                  "action": "treinar-sora",
+                  "op": ">=",
+                  "v": 5
+                }
+              },
+              {
+                "fact": {
+                  "p": "white-boar-slain",
+                  "s": "$self",
+                  "o": "floresta",
+                  "private": true
+                }
+              }
+            ]
+          },
+          "contender": {
+            "has": {
+              "skill": "corte-lunar"
+            }
+          },
+          "claim": [
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "title",
+              "v": "Guardiao da Toca"
+            },
+            {
+              "op": "grant",
+              "v": "salto-lunar"
+            },
+            {
+              "op": "emit",
+              "event": "guardian",
+              "text": "Os lebrinos escolheram {self} como Guardiao da Toca!",
+              "public": true
+            }
+          ],
+          "rival": [
+            {
+              "op": "grant",
+              "v": "amigo-dos-lebrinos"
+            },
+            {
+              "op": "emit",
+              "event": "rival",
+              "text": "{claimant} virou Guardiao da Toca. Pipo diz a {self}: a porta continua aberta para voce."
             }
           ]
         }
@@ -5205,6 +6391,367 @@
           "max": 10
         }
       ]
+    },
+    {
+      "id": "lebrinos-gentileza",
+      "giver": "pipo",
+      "rank": "C",
+      "tags": [
+        "social",
+        "explore"
+      ],
+      "title": "Quest oculta: A toca sob a raiz",
+      "desc": "Um povo pequeno de orelhas compridas observa voce. Pipo, o anciao, quer saber se voce e gentil.",
+      "objective": "Traga ervas da floresta para Pipo.",
+      "reward": "Tecnica dos lebrinos: Passo Leve",
+      "eligible": {
+        "all": [
+          {
+            "fact": {
+              "p": "found-den",
+              "s": "$self",
+              "o": "toca",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "gift-pipo",
+                "s": "$self",
+                "o": "pipo",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "gift-pipo",
+          "s": "$self",
+          "o": "pipo",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "grant",
+          "v": "passo-leve"
+        }
+      ]
+    },
+    {
+      "id": "lebrinos-lamina",
+      "giver": "sora",
+      "rank": "B",
+      "tags": [
+        "combat"
+      ],
+      "title": "O treino de Sora",
+      "desc": "Sora nunca treinou um humano. Talvez voce seja o primeiro.",
+      "objective": "Treine tres vezes com Sora na toca.",
+      "reward": "Tecnica dos lebrinos: Corte Lunar",
+      "eligible": {
+        "all": [
+          {
+            "has": {
+              "skill": "passo-leve"
+            }
+          },
+          {
+            "not": {
+              "has": {
+                "skill": "corte-lunar"
+              }
+            }
+          },
+          {
+            "rel": {
+              "a": "pipo",
+              "b": "$self",
+              "op": ">=",
+              "v": 3
+            }
+          }
+        ]
+      },
+      "goal": {
+        "deeds": {
+          "action": "treinar-sora",
+          "op": ">=",
+          "v": 3
+        }
+      },
+      "rewards": [
+        {
+          "op": "grant",
+          "v": "corte-lunar"
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "lebrinos-awake",
+            "s": "toca"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cenario-guardiao",
+      "arc": "lua",
+      "beat": "guardiao",
+      "giver": "sora",
+      "rank": "S",
+      "tags": [
+        "combat",
+        "explore"
+      ],
+      "title": "Cenario Unico: O Guardiao da Toca",
+      "desc": "Sora diz que so quem venceu o Javali Branco pode guardar a toca.",
+      "objective": "Treine cinco vezes com Sora e cace o Javali Branco.",
+      "reward": "Titulo Guardiao da Toca e a tecnica lendaria Salto Lunar",
+      "penalty": "Unico: so um humano sera o Guardiao.",
+      "eligible": {
+        "has": {
+          "skill": "corte-lunar"
+        }
+      },
+      "goal": {
+        "all": [
+          {
+            "deeds": {
+              "action": "treinar-sora",
+              "op": ">=",
+              "v": 5
+            }
+          },
+          {
+            "fact": {
+              "p": "white-boar-slain",
+              "s": "$self",
+              "o": "floresta",
+              "private": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sonho-do-selo",
+      "rank": "C",
+      "tags": [
+        "mystery"
+      ],
+      "title": "Quest oculta: O sonho do selo",
+      "desc": "Desde que voce aprendeu a cochilar em qualquer lugar, tem sonhado com a floresta.",
+      "objective": "Durma na vila a noite e preste atencao no sonho.",
+      "reward": "Uma pista sobre a origem da maldicao",
+      "eligible": {
+        "all": [
+          {
+            "has": {
+              "skill": "cochilo-estrategico"
+            }
+          },
+          {
+            "fact": {
+              "p": "seal-broken",
+              "s": "selo"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "dreamed",
+                "s": "$self",
+                "o": "selo",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "dreamed",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "respeito-teimoso",
+      "giver": "kael",
+      "rank": "D",
+      "tags": [
+        "combat",
+        "social"
+      ],
+      "title": "Quest oculta: O teimoso",
+      "desc": "Kael: ninguem nunca me recusou tantas vezes. Isso merece um desafio de verdade.",
+      "objective": "Abata dois javalis.",
+      "reward": "O respeito de Kael",
+      "eligible": {
+        "all": [
+          {
+            "has": {
+              "skill": "teimosia-lendaria"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "trophies",
+              "op": "<",
+              "v": 2
+            }
+          }
+        ]
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "trophies",
+          "op": ">=",
+          "v": 2
+        }
+      },
+      "rewards": [
+        {
+          "op": "relate",
+          "e": "kael",
+          "to": "$self",
+          "d": 8,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "stubborn",
+          "text": "Kael ri alto: gosto de gente teimosa, {self}."
+        }
+      ]
+    },
+    {
+      "id": "magias-da-feira",
+      "rank": "D",
+      "tags": [
+        "social",
+        "mystery"
+      ],
+      "title": "A Feira dos Magos Errantes",
+      "desc": "Os magos trocam magias inuteis. Quem sabe uma delas sirva para algo?",
+      "objective": "Troque uma magia na feira.",
+      "reward": "Talvez uma magia nova",
+      "eligible": {
+        "all": [
+          {
+            "knows": {
+              "p": "fair",
+              "s": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "traded-spell",
+                "s": "$self",
+                "o": "vila",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "traded-spell",
+          "s": "$self",
+          "o": "vila",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "jardim-mira",
+      "giver": "mira",
+      "rank": "E",
+      "tags": [
+        "social",
+        "help"
+      ],
+      "title": "Um jardim para Mira",
+      "desc": "Mira sente falta das flores que a corrupcao matou.",
+      "objective": "Use Florescer perto de Mira.",
+      "reward": "Mira +2",
+      "eligible": {
+        "all": [
+          {
+            "has": {
+              "skill": "florescer"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "mira-garden",
+                "s": "$self",
+                "o": "mira",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "mira-garden",
+          "s": "$self",
+          "o": "mira",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "historias-tomas",
+      "giver": "tomas",
+      "rank": "E",
+      "tags": [
+        "social",
+        "mystery"
+      ],
+      "title": "Cha para o Velho Tomas",
+      "desc": "Tomas fala mais quando o cha esta bom.",
+      "objective": "Sirva cha morno ao Velho Tomas.",
+      "reward": "Historias de Asterion",
+      "eligible": {
+        "all": [
+          {
+            "has": {
+              "skill": "cha-morno"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "tomas-stories",
+                "s": "$self",
+                "o": "tomas",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "tomas-stories",
+          "s": "$self",
+          "o": "tomas",
+          "private": true
+        }
+      }
     }
   ],
   "limits": {
@@ -5727,6 +7274,45 @@
         }
       ],
       "intensity": 1
+    },
+    {
+      "id": "feira-magos",
+      "title": "A Feira dos Magos Errantes",
+      "desc": "Magos excentricos trocam magias inuteis por historias.",
+      "intensity": -2,
+      "cooldown": 80,
+      "when": {
+        "not": {
+          "fact": {
+            "p": "fair",
+            "s": "vila"
+          }
+        }
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "fair",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "fim-feira",
+          "after": 30
+        },
+        {
+          "op": "emit",
+          "event": "fair",
+          "text": "Tendas coloridas: a Feira dos Magos Errantes chegou a Vila Cinzenta!",
+          "public": true,
+          "reveals": {
+            "p": "fair",
+            "s": "vila"
+          }
+        }
+      ]
     }
   ],
   "director": {
@@ -5772,5 +7358,220 @@
       "caravan-here": "{from} conta que chegou uma caravana na {s}."
     }
   },
-  "dayLength": 48
+  "dayLength": 48,
+  "skills": [
+    {
+      "id": "andarilho",
+      "name": "Andarilho",
+      "rarity": "comum",
+      "desc": "Seus pes conhecem cada atalho de Valdoria.",
+      "learn": {
+        "deeds": {
+          "action": "move",
+          "op": ">=",
+          "v": 15
+        }
+      }
+    },
+    {
+      "id": "martelo-firme",
+      "name": "Martelo Firme",
+      "rarity": "comum",
+      "desc": "Cada peca forjada rende o dobro de pratica.",
+      "learn": {
+        "deeds": {
+          "action": "forjar",
+          "op": ">=",
+          "v": 3
+        }
+      }
+    },
+    {
+      "id": "olho-de-curandeira",
+      "name": "Olho de Curandeira",
+      "rarity": "incomum",
+      "desc": "Voce reconhece venenos e corrupcao so de olhar.",
+      "learn": {
+        "deeds": {
+          "action": "examinar-poco",
+          "op": ">=",
+          "v": 3
+        }
+      }
+    },
+    {
+      "id": "lingua-de-prata",
+      "name": "Lingua de Prata",
+      "rarity": "incomum",
+      "desc": "As pessoas acreditam no que voce conta.",
+      "learn": {
+        "deeds": {
+          "action": "contar-veneno",
+          "op": ">=",
+          "v": 3
+        }
+      }
+    },
+    {
+      "id": "ouvido-de-taverna",
+      "name": "Ouvido de Taverna",
+      "rarity": "rara",
+      "desc": "Nenhum boato passa sem que voce escute.",
+      "learn": {
+        "deeds": {
+          "action": "rumor",
+          "op": ">=",
+          "v": 12
+        }
+      }
+    },
+    {
+      "id": "teimosia-lendaria",
+      "name": "Teimosia Lendaria",
+      "rarity": "absurda",
+      "desc": "Voce recusou tanto que o mundo desistiu de insistir. Nao serve para nada. Ou serve?",
+      "learn": {
+        "deeds": {
+          "action": "decline",
+          "op": ">=",
+          "v": 6
+        }
+      }
+    },
+    {
+      "id": "cochilo-estrategico",
+      "name": "Cochilo Estrategico",
+      "rarity": "absurda",
+      "desc": "Dorme em qualquer lugar, ate em pe. Acorda sempre na hora certa.",
+      "learn": {
+        "deeds": {
+          "action": "descansar",
+          "op": ">=",
+          "v": 5
+        }
+      }
+    },
+    {
+      "id": "sorte-de-principiante",
+      "name": "Sorte de Principiante",
+      "rarity": "rara",
+      "desc": "As coisas simplesmente dao certo para voce. Por enquanto."
+    },
+    {
+      "id": "florescer",
+      "name": "Florescer",
+      "rarity": "absurda",
+      "desc": "Faz flores desabrocharem onde voce pisa. Totalmente inutil. Mira adora."
+    },
+    {
+      "id": "remover-ferrugem",
+      "name": "Remover Ferrugem",
+      "rarity": "incomum",
+      "desc": "Limpa ferrugem de qualquer metal. Por algum motivo, tambem limpa minerio corrompido."
+    },
+    {
+      "id": "cha-morno",
+      "name": "Cha Morno",
+      "rarity": "absurda",
+      "desc": "Deixa qualquer cha na temperatura perfeita. O Velho Tomas fala mais quando o cha esta bom."
+    },
+    {
+      "id": "achar-botoes",
+      "name": "Achar Botoes",
+      "rarity": "absurda",
+      "desc": "Voce sempre encontra botoes perdidos. As vezes, nao sao botoes."
+    },
+    {
+      "id": "uvas-azedas",
+      "name": "Uvas Azedas",
+      "rarity": "absurda",
+      "desc": "Deixa uvas doces azedas. Ninguem sabe por que alguem inventou isso."
+    },
+    {
+      "id": "cha-de-flores",
+      "name": "Cha de Flores",
+      "rarity": "rara",
+      "desc": "Fusao de Florescer e Cha Morno: um cha que acalma qualquer pessoa. Curandeiras pagariam caro.",
+      "learn": {
+        "all": [
+          {
+            "has": {
+              "skill": "florescer"
+            }
+          },
+          {
+            "has": {
+              "skill": "cha-morno"
+            }
+          },
+          {
+            "deeds": {
+              "action": "servir-cha",
+              "op": ">=",
+              "v": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "colecionador-de-magias",
+      "name": "Colecionador de Magias Inuteis",
+      "rarity": "epica",
+      "desc": "Quem junta cinco magias inuteis passa a enxergar o mundo de outro jeito.",
+      "learn": {
+        "all": [
+          {
+            "has": {
+              "skill": "florescer"
+            }
+          },
+          {
+            "has": {
+              "skill": "remover-ferrugem"
+            }
+          },
+          {
+            "has": {
+              "skill": "cha-morno"
+            }
+          },
+          {
+            "has": {
+              "skill": "achar-botoes"
+            }
+          },
+          {
+            "has": {
+              "skill": "uvas-azedas"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "passo-leve",
+      "name": "Passo Leve",
+      "rarity": "incomum",
+      "desc": "Tecnica dos lebrinos: voce anda sem fazer barulho."
+    },
+    {
+      "id": "corte-lunar",
+      "name": "Corte Lunar",
+      "rarity": "epica",
+      "desc": "Golpe que so os lebrinos ensinam. Rapido como a lua cheia."
+    },
+    {
+      "id": "salto-lunar",
+      "name": "Salto Lunar",
+      "rarity": "lendaria",
+      "desc": "A tecnica do Guardiao da Toca. Nenhum outro humano a aprendeu."
+    },
+    {
+      "id": "amigo-dos-lebrinos",
+      "name": "Amigo dos Lebrinos",
+      "rarity": "rara",
+      "desc": "Voce nao virou Guardiao, mas os lebrinos sempre abrirao a porta para voce."
+    }
+  ]
 }

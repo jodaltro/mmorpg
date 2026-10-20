@@ -4,7 +4,7 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 
 ## Executado
 
-`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **37 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
+`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **42 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
 
 > Correção: a primeira versão deste registro dizia "25 testes"; a contagem real da época era 21. Os três testes do Diretor e das missões obsoletas foram acrescentados depois.
 
@@ -47,6 +47,11 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | scenarios | `TestDirectorPacesTension` | Crise sobe a tensão; no pico, fase "relax" e padrão mais calmo; a tensão decai |
 | scenarios | `TestChanceIsDeterministicAndCalibrated` | Mesmo estado, mesmo sorteio; 10% deu entre 8% e 12% em 4.000 sorteios |
 | scenarios | `TestHiddenWhiteBoarQuest` | Sinal raro só com 3 troféus e à noite; missão oculta do Sistema (rank A); o Javali Branco só aparece à noite; título raro concedido |
+| scenarios | `TestHabitTeachesSkillThatChangesDeeds` | Forjar três vezes ensina Martelo Firme (janela com raridade); depois cada forja conta em dobro |
+| scenarios | `TestSillySkillLeadsIntoTheMainStory` | Cinco cochilos ensinam Cochilo Estratégico; o sonho dá a pista que libera o cenário único da história principal |
+| scenarios | `TestUselessSpellsFuseAndBecomeFamous` | Florescer achado por sorte; com Chá Morno e servindo chá, vira Chá de Flores (rara) e fama pública; o Tomás leva o jogador ao boato do legado |
+| scenarios | `TestSkillsOpenAlternativePaths` | Remover Ferrugem purifica o minério sem a Elena; Passo Leve recupera a carga da Lia sem lutar |
+| scenarios | `TestLebrinosTeachTheirOwnTechniques` | Pipo ensina Passo Leve; Sora ensina Corte Lunar (épica, aumenta o respeito); só um vira Guardião (lendária), o outro ganha Amigo dos Lebrinos |
 | scenarios | `TestLiveJevDecidesRealWorldDecisions` | Opt-in, com chamada real (ver abaixo) |
 
 ## Execuções manuais
@@ -88,6 +93,10 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | Decisões do Jev no prazo | 52/53 | 57/58 |
 
 Só 2 boatos foram ouvidos, porque a maioria dos acontecimentos já é anunciada (`reveals`); o boato pesa mais em informação privada.
+
+### Com habilidades (6 jogadores, 300 ticks de 0,5 s, Jev)
+
+65 de 65 decisões pelo Jev no prazo (28 offer, 35 world, 2 story), 18 missões diferentes, 39 boatos ouvidos, relações com 11 NPCs, 3 atualizações de estágio, a Feira dos Magos escolhida 3 vezes. Defeito encontrado: Sorte de Principiante (rara) aprendida por 5 de 6, porque a sorte estava na condição de descoberta. Corrigido: o validador recusa `chance` em `learn`, e a sorte foi para os efeitos das ações. Simulação de conferência: 1 de 6.
 
 Na Kepler-9 o Jev escolheu o ramo "A Ameaça", que não é o padrão determinístico, então a escolha mudou a história. A primeira sonda, com contexto mínimo, teve confiança de 0,08; depois do contexto enriquecido, as decisões de história ficaram entre 0,38 e 0,94.
 
