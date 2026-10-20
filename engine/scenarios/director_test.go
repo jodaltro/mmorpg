@@ -97,10 +97,7 @@ func TestObsoleteQuestFreesTheSlot(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
 	h.tick(6)
-	q, ok := h.quest("p1", "investigar-poco")
-	if !ok {
-		t.Fatal("expected the investigation offer")
-	}
+	q := h.steer("p1", "investigar-poco")
 	h.accept("p1", q)
 	// Orin and Mira solve it on their own, and the seal is later restored by
 	// the world itself in this test: no more poison, the village heals.
@@ -127,8 +124,8 @@ func TestOfferReachesPlayerAnywhereWithGiver(t *testing.T) {
 	h.join("p1")
 	h.move("p1", "floresta")
 	h.tick(6)
-	q, ok := h.quest("p1", "investigar-poco")
-	if !ok || q.State != "offered" || q.Giver != "mira" || q.Region != "floresta" {
+	q := h.steer("p1", "investigar-poco")
+	if q.State != "offered" || q.Giver != "mira" || q.Region != "floresta" || q.Rank != "E" || q.Objective == "" {
 		t.Fatalf("Mira should reach the player in the forest: %+v", q)
 	}
 	var ev core.Event
@@ -152,7 +149,7 @@ func TestAcceptedQuestMustBeFinished(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
 	h.tick(6)
-	q, _ := h.quest("p1", "investigar-poco")
+	q := h.steer("p1", "investigar-poco")
 	h.accept("p1", q)
 	if _, err := h.try(core.Command{Kind: "abandon", Origin: "player", Actor: "p1", Quest: q.Key}); !isRejected(err) {
 		t.Fatal("valdoria does not allow abandoning an accepted quest")

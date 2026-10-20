@@ -67,23 +67,9 @@ func TestUniqueScenarioOnlyOneAdvancesTheStory(t *testing.T) {
 	}
 	// p2 can reach the witness quest that only rivals get: declining other
 	// offers makes room for it.
-	h.move("p2", "estrada")
-	found := false
-	for i := 0; i < 8 && !found; i++ {
-		h.tick(1 + int(h.w.U.Limits.DecisionTimeout))
-		for _, q := range h.s.Quests {
-			if q.Holder != "p2" || q.State != "offered" {
-				continue
-			}
-			if q.Def == "testemunha" {
-				found = true
-			} else {
-				h.do(core.Command{Kind: "decline", Origin: "player", Actor: "p2", Quest: q.Key})
-			}
-		}
-	}
-	if !found {
-		t.Fatalf("p2 should be offered the witness continuation: %+v", h.s.Quests)
+	// p2 can reach the witness quest that only rivals get.
+	if q := h.steer("p2", "testemunha"); q.Giver != "tomas" {
+		t.Fatalf("the witness quest is told by old Tomas: %+v", q)
 	}
 	if _, ok := h.quest("p1", "testemunha"); ok {
 		t.Fatal("the claimant must not get the rival continuation")

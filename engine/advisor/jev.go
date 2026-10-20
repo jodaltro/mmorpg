@@ -44,7 +44,7 @@ type jevRequest struct {
 
 var instructions = map[string]string{
 	"offer": "Choose the single opportunity that best fits this player now, given what they know, what they did recently and what is happening in the world. Prefer variety and personal relevance. Use only the supplied criteria IDs.",
-	"world": "You are the director of a shared persistent world. Choose which of the supplied happenings occurs now, or none, so the world feels alive, coherent with recent events and the ongoing story, and gives players new things to react to. Avoid repeating what just happened. Use only the supplied criteria IDs.",
+	"world": "You are the director of a shared persistent world. Choose which of the supplied happenings occurs now, or none, so the world feels alive, coherent with recent events and the ongoing story, and gives players new things to react to. Strongly prefer variety: favor happenings that never happened or happened long ago, and avoid repeating the same kind of event. Use only the supplied criteria IDs.",
 	"story": "Choose how the shared world story continues after this chapter, given who concluded it and the recent public events. Prefer the continuation that makes the world feel reactive and coherent. Use only the supplied criteria IDs.",
 }
 

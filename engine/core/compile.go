@@ -277,6 +277,11 @@ func (w *World) compileArcs(v *validator) error {
 			if e := v.effects(b.Rival, map[string]bool{"self": true, "claimant": true}, "beat "+b.ID); e != nil {
 				return e
 			}
+			if b.Contender != nil {
+				if e := v.cond(*b.Contender, self, "beat "+b.ID+" contender"); e != nil {
+					return e
+				}
+			}
 			if b.AdvanceWhen != nil {
 				if e := v.cond(*b.AdvanceWhen, map[string]bool{}, "beat "+b.ID); e != nil {
 					return e
@@ -358,6 +363,38 @@ func (w *World) compileQuests(v *validator) error {
 		}
 		if e := v.effects(q.Rewards, vars, "quest "+q.ID); e != nil {
 			return e
+		}
+		if q.TimeLimit < 0 {
+			return invalid("quest %s: time limit", q.ID)
+		}
+		if q.Fail != nil {
+			if e := v.cond(*q.Fail, vars, "quest "+q.ID+" fail"); e != nil {
+				return e
+			}
+		}
+		if e := v.effects(q.FailEffects, vars, "quest "+q.ID+" failEffects"); e != nil {
+			return e
+		}
+		if e := v.effects(q.OnDecline, vars, "quest "+q.ID+" onDecline"); e != nil {
+			return e
+		}
+		stageIDs := map[string]bool{}
+		for _, st := range q.Stages {
+			if st.ID == "" || stageIDs[st.ID] {
+				return invalid("quest %s stage %q", q.ID, st.ID)
+			}
+			stageIDs[st.ID] = true
+			if e := v.cond(st.When, vars, "quest "+q.ID+" stage "+st.ID); e != nil {
+				return e
+			}
+			if st.Goal != nil {
+				if e := v.cond(*st.Goal, vars, "quest "+q.ID+" stage "+st.ID); e != nil {
+					return e
+				}
+			}
+			if e := v.effects(st.Effects, vars, "quest "+q.ID+" stage "+st.ID); e != nil {
+				return e
+			}
 		}
 		w.quests[q.ID] = q
 	}

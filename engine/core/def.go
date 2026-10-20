@@ -256,6 +256,7 @@ type BeatDef struct {
 	Goal        Cond     `json:"goal"`
 	Claim       []Effect `json:"claim,omitempty"`
 	Rival       []Effect `json:"rival,omitempty"`
+	Contender   *Cond    `json:"contender,omitempty"` // players pursuing it without the quest also become rivals
 	Next        []string `json:"next,omitempty"`
 	AdvanceWhen *Cond    `json:"advanceWhen,omitempty"`
 }
@@ -281,4 +282,30 @@ type QuestDef struct {
 	Goal     Cond         `json:"goal"`
 	Rewards  []Effect     `json:"rewards,omitempty"`
 	Repeat   bool         `json:"repeat,omitempty"`
+
+	// What the system window shows (all rendered with the bindings).
+	Rank      string `json:"rank,omitempty"`      // e.g. F..S, SS, SSS
+	Objective string `json:"objective,omitempty"` // what to do
+	Reward    string `json:"reward,omitempty"`    // what you get
+	Penalty   string `json:"penalty,omitempty"`   // failure or refusal consequence
+
+	// A living quest: stages replace title, objective, rank and goal when
+	// the world changes while it is active (forward only, first match wins).
+	Stages      []QuestStage `json:"stages,omitempty"`
+	Fail        *Cond        `json:"fail,omitempty"`        // the quest fails when this holds
+	FailEffects []Effect     `json:"failEffects,omitempty"` // applied on failure or timeout
+	OnDecline   []Effect     `json:"onDecline,omitempty"`   // refusing has consequences
+	TimeLimit   Tick         `json:"timeLimit,omitempty"`   // ticks after acceptance
+}
+
+// QuestStage is a turn of events inside an accepted quest.
+type QuestStage struct {
+	ID        string   `json:"id"`
+	When      Cond     `json:"when"`
+	Title     string   `json:"title,omitempty"`
+	Desc      string   `json:"desc,omitempty"`
+	Objective string   `json:"objective,omitempty"`
+	Rank      string   `json:"rank,omitempty"`
+	Goal      *Cond    `json:"goal,omitempty"`
+	Effects   []Effect `json:"effects,omitempty"`
 }

@@ -76,7 +76,10 @@ Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expec
 1. Algo acontece no mundo (uma regra, um acontecimento do diretor, um capítulo da história, uma ação de alguém) e torna um modelo de missão elegível para aquele jogador.
 2. Se o jogador não tem missão ativa nem proposta pendente, e o intervalo `questGap` já passou, o motor monta os candidatos. Com um só candidato, oferece direto; com vários, o Jev escolhe o mais coerente (contexto: perfil, local, história, o que outros receberam).
 3. O evento `quest-offered` diz **quem chama** (`actor` e `data.giver`), **onde o jogador está** (`data.region`) e **o quê** (`text`, `data.quest`). O cliente apresenta como quiser: o NPC vem até o jogador, um mensageiro, um chamado no rádio.
-4. O jogador aceita ou recusa. Aceita, a missão precisa ser concluída antes da próxima (se o universo não permitir abandono). Se deixar de fazer sentido, ela é encerrada como `obsolete` e libera a vaga.
+4. A oferta traz a "janela do sistema": `rank`, `objective`, `reward`, `penalty`.
+5. Enquanto ativa, a missão **evolui**: estágios (`stages`) entram quando sua condição vale, trocando título, objetivo, rank e meta (evento `quest-updated` com `rankFrom` → `rank`). Ela **falha** se `fail` valer ou o `timeLimit` vencer (`quest-failed`, com `failEffects`). Recusar aplica `onDecline`.
+6. Num cenário único, quem tinha a missão do capítulo **ou** cumpria o critério `contender` recebe os efeitos de rival e uma continuação própria.
+7. O jogador aceita ou recusa. Aceita, a missão precisa ser concluída antes da próxima (se o universo não permitir abandono). Se deixar de fazer sentido, ela é encerrada como `obsolete` e libera a vaga.
 
 ## Cenários únicos e histórias dinâmicas
 

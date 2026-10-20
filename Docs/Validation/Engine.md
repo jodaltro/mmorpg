@@ -4,7 +4,7 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 
 ## Executado
 
-`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **26 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
+`go vet ./...` sem avisos e `gofmt -l .` vazio. Depois, `go test -count=1 -v ./...`: **31 testes aprovados, 1 pulado** (o teste ao vivo do Jev, que só roda com `JEV_LIVE=1`).
 
 > Correção: a primeira versão deste registro dizia "25 testes"; a contagem real da época era 21. Os três testes do Diretor e das missões obsoletas foram acrescentados depois.
 
@@ -36,6 +36,11 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | scenarios | `TestObsoleteQuestFreesTheSlot` | A missão ativa que perdeu o sentido vira `obsolete` |
 | scenarios | `TestOfferReachesPlayerAnywhereWithGiver` | Mira chama o jogador mesmo na floresta; o evento traz `giver` e `region`; a oferta é retirada quando perde o sentido |
 | scenarios | `TestAcceptedQuestMustBeFinished` | `abandon` recusado em Valdoria; nenhuma proposta com missão ativa; intervalo `questGap` respeitado; a próxima oferta chega depois |
+| scenarios | `TestQuestEvolvesWithTheWorld` | A janela mostra rank, objetivo e recompensa; com a carga roubada, "Bandidos na estrada" (C) vira "A carga de Lia" (B) com nova meta; o cliente recebe `rankFrom`/`rank` |
+| scenarios | `TestQuestFailsWhenSomeoneElseSolvesIt` | Dois procuram o Nino; quem acha conclui, o outro **falha** |
+| scenarios | `TestQuestTimeLimit` | O resgate na mina falha no prazo e aplica as consequências |
+| scenarios | `TestRefusalAndImmediateOffer` | Recusar o Kael derruba o respeito dele; minerar revela uma missão no mesmo passo |
+| scenarios | `TestLegendaryClassIsUnique` | Só um herda a classe Ferreiro Lendário; o outro, que perseguia sem a missão, vira aprendiz (`contender`) e recebe a continuação de rank B |
 | scenarios | `TestLiveJevDecidesRealWorldDecisions` | Opt-in, com chamada real (ver abaixo) |
 
 ## Execuções manuais
@@ -57,6 +62,14 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | Kepler-9, 100 ticks de 0,7 s | 9 | 9 | ~645 ms | 0,31 / 0,38 | US$ 0,00025 |
 | Valdoria com lugares e quem oferece, 150 ticks de 0,7 s | 16 (2 `offer`) | 16 | ~650 ms | 0,40 / 0,88; offer 0,57 | US$ 0,00048 |
 | Kepler-9 com lugares, 100 ticks de 0,7 s | 10 | 10 | ~640 ms | 0,25 / 0,04 | US$ 0,00027 |
+
+### Valdoria ampliada (26 missões, 28 ações, 11 acontecimentos, 2 arcos), 6 jogadores, 240 ticks de 0,6 s
+
+| Corrida | Decisões | Pelo Jev no prazo | Custo | Observação |
+|---|---|---|---|---|
+| Sem histórico de acontecimentos | 54 (22 offer, 29 world, 2 story) | 53 | US$ 0,0020 | O Jev repetiu muito a caravana |
+| Com recência por acontecimento | 53 (25 offer, 23 world, 2 story) | 50 | US$ 0,0020 | Bandidos, tempestade, desabamento e Nino apareceram; 6 falhas reais |
+| Com recência e prazo de 4 ticks | 53 (23 offer, 27 world, 2 story) | 52 | US$ 0,0020 | 9 acontecimentos diferentes (máximo de 5 caravanas); os dois arcos concluídos; o herdeiro do legado mudou de jogador entre as corridas |
 
 Na Kepler-9 o Jev escolheu o ramo "A Ameaça", que não é o padrão determinístico, então a escolha mudou a história. A primeira sonda, com contexto mínimo, teve confiança de 0,08; depois do contexto enriquecido, as decisões de história ficaram entre 0,38 e 0,94.
 

@@ -13,10 +13,12 @@ import (
 	"github.com/jodaltro/mmorpg/engine/universe"
 )
 
+// offers counts pending director decisions (created every few ticks), the
+// asynchronous path these runtime tests exercise.
 func offers(s core.State) int {
 	n := 0
 	for _, d := range s.Decisions {
-		if d.Kind == "offer" {
+		if d.Kind == "world" {
 			n++
 		}
 	}
@@ -141,7 +143,7 @@ func TestSlowAdvisorNeverBlocksTheWorld(t *testing.T) {
 	must(t, r, core.Command{RequestID: "j", Origin: "adapter", Kind: "join", Actor: "p1"})
 	ticks(t, r, 6)
 	must(t, r, core.Command{RequestID: "look", Origin: "player", Kind: "act", Actor: "p1", Action: "examinar-poco"})
-	ticks(t, r, 1)
+	ticks(t, r, 2)
 	if offers(r.Snapshot()) == 0 {
 		t.Fatal("expected a pending offer decision")
 	}
@@ -174,7 +176,7 @@ func TestAdvisorAnswerAppliedOrRejected(t *testing.T) {
 	must(t, r, core.Command{RequestID: "j", Origin: "adapter", Kind: "join", Actor: "p1"})
 	ticks(t, r, 6)
 	must(t, r, core.Command{RequestID: "look", Origin: "player", Kind: "act", Actor: "p1", Action: "examinar-poco"})
-	ticks(t, r, 1)
+	ticks(t, r, 2)
 	r.Drain()
 	s := r.Snapshot()
 	if offers(s) != 0 {
@@ -195,7 +197,7 @@ func TestAdvisorAnswerAppliedOrRejected(t *testing.T) {
 	must(t, bad, core.Command{RequestID: "j", Origin: "adapter", Kind: "join", Actor: "p1"})
 	ticks(t, bad, 6)
 	must(t, bad, core.Command{RequestID: "look", Origin: "player", Kind: "act", Actor: "p1", Action: "examinar-poco"})
-	ticks(t, bad, 1)
+	ticks(t, bad, 2)
 	bad.Drain()
 	if offers(bad.Snapshot()) != 1 {
 		t.Fatal("an invalid answer must leave the decision pending for the default")

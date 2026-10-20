@@ -32,10 +32,15 @@ func (w *World) direct(s *State) {
 			return
 		}
 	}
+	last := w.lastHappenings(s)
 	opts := []Option{}
 	for _, h := range w.U.Happenings {
 		if w.happeningReady(s, h) {
-			opts = append(opts, Option{ID: h.ID, Title: h.Title, Desc: h.Desc})
+			when := "never happened yet"
+			if at, ok := last[h.ID]; ok {
+				when = "last happened " + strconv.FormatInt(int64(s.Tick-at), 10) + " ticks ago"
+			}
+			opts = append(opts, Option{ID: h.ID, Title: h.Title, Desc: h.Desc + " (" + when + ")"})
 		}
 	}
 	if len(opts) == 0 {
@@ -51,6 +56,17 @@ func (w *World) direct(s *State) {
 	ctx = append(ctx, w.recentPublic(s, 8)...)
 	s.Decisions[id] = Decision{ID: id, Kind: "world", Subject: "director", Options: opts, Default: def,
 		Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
+}
+
+// lastHappenings maps each happening to the tick it last occurred.
+func (w *World) lastHappenings(s *State) map[string]Tick {
+	out := map[string]Tick{}
+	for _, e := range s.Events {
+		if e.Kind == "decision" && e.Data["kind"] == "world" && e.Data["choice"] != "none" {
+			out[e.Data["choice"]] = e.At
+		}
+	}
+	return out
 }
 
 // occur applies a chosen happening after revalidating it.

@@ -24,6 +24,8 @@ cd engine && go run ./cmd/worldsim validate ../universes/valdoria/universe.json
 | `happenings`, `director` | Acontecimentos opcionais (`when`, `effects`, `cooldown`) e o ritmo do diretor (`every`, `allowNone`). O Jev escolhe qual ocorre |
 | `limits` | `maxActiveQuests`, `decisionTimeout`, `declineCooldown`, `offerExpiry`, `maxEvents`, `allowAbandon`, `questGap` |
 
+Campos de missão para a janela do sistema e missões vivas: `rank`, `objective`, `reward`, `penalty` (texto renderizado), `stages` (`id`, `when`, `title`, `desc`, `objective`, `rank`, `goal`, `effects`; só avançam, o primeiro que valer entra), `fail`, `failEffects`, `timeLimit` (ticks após aceitar), `onDecline`. Em capítulos: `contender` define quem, mesmo sem a missão, vira rival.
+
 Condições de lugar: `{"in": {"e": "$self", "region": "floresta"}}` e `{"near": {"a": "$self", "b": "poco"}}` (mesmo lugar, ou dentro de `b` quando `b` é um lugar). Efeito `relocate`: `{"op": "relocate", "e": "$self", "to": "reator"}`.
 
 ## O que o validador recusa

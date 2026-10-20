@@ -96,6 +96,12 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 	case "act":
 		if err = w.act(&s, c.Origin, c.Actor, c.Action, c.Args, cause); err == nil {
 			w.completeFor(&s, c.Actor, cause)
+			if s.Entities[c.Actor].Kind == w.U.PlayerKind {
+				// A deed can reveal a quest at once, like a system window
+				// popping up right after the player did something.
+				w.refreshOffers(&s, c.Actor, cause)
+				w.offer(&s, c.Actor, cause)
+			}
 		}
 	case "accept", "decline", "abandon":
 		err = w.questCommand(&s, c, cause)

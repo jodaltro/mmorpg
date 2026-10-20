@@ -95,24 +95,33 @@ func (h *harness) offerDecision(p core.ID) (core.Decision, bool) {
 	return core.Decision{}, false
 }
 
-// steer resolves the pending offer of p toward a quest def, as an advisor would.
+// steer gets quest def offered to p, as a player who declines other
+// offers and an advisor who picks def would. Ticks the world as needed.
 func (h *harness) steer(p core.ID, def string) core.Quest {
 	h.t.Helper()
-	if q, ok := h.quest(p, def); ok && q.State == "offered" {
-		return q
-	}
-	d, ok := h.offerDecision(p)
-	if !ok {
-		h.t.Fatalf("no offer decision for %s; quests %+v", p, h.s.Quests)
-	}
-	for _, o := range d.Options {
-		if strings.HasPrefix(o.ID, def+"|") {
-			h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: o.ID, Provider: "test"})
-			q, _ := h.quest(p, def)
+	for i := 0; i < 40; i++ {
+		if q, ok := h.quest(p, def); ok && q.State == "offered" {
 			return q
 		}
+		if d, ok := h.offerDecision(p); ok {
+			for _, o := range d.Options {
+				if strings.HasPrefix(o.ID, def+"|") {
+					h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: o.ID, Provider: "test"})
+					break
+				}
+			}
+		}
+		for _, q := range h.s.Quests {
+			if q.Holder == p && q.State == "offered" && q.Def != def {
+				h.do(core.Command{Kind: "decline", Origin: "player", Actor: p, Quest: q.Key})
+			}
+		}
+		if q, ok := h.quest(p, def); ok && q.State == "offered" {
+			return q
+		}
+		h.tick(1)
 	}
-	h.t.Fatalf("decision for %s has no %s option: %+v", p, def, d.Options)
+	h.t.Fatalf("%s was never offered %s: %+v", p, def, h.s.Quests)
 	return core.Quest{}
 }
 

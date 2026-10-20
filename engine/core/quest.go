@@ -75,6 +75,12 @@ func (w *World) questTick(s *State, cause string) {
 	l := w.U.Limits
 	for _, k := range sortedKeys(s.Quests) {
 		q := s.Quests[k]
+		if q.State == "active" {
+			// Failure and turns of events come first: a quest that someone
+			// else resolved fails, it does not just become pointless.
+			w.evolve(s, k, cause)
+			q = s.Quests[k]
+		}
 		if q.State == "active" && w.quests[q.Def].Arc == "" && !w.Holds(s, w.quests[q.Def].Eligible, Bind{"self": q.Holder}) {
 			// The world moved on (the caravan left, the well is clean):
 			// the quest no longer makes sense and frees the active slot.
@@ -112,20 +118,83 @@ func (w *World) completeFor(s *State, holder ID, cause string) {
 	w.claimStories(s, holder, cause)
 	for _, k := range sortedKeys(s.Quests) {
 		if q := s.Quests[k]; q.Holder == holder && q.State == "active" {
-			w.tryComplete(s, k, cause)
+			w.evolve(s, k, cause)
+			if s.Quests[k].State == "active" {
+				w.tryComplete(s, k, cause)
+			}
 		}
 	}
 }
 
-func (w *World) tryComplete(s *State, key string, cause string) {
-	q := s.Quests[key]
-	def := w.quests[q.Def]
+func questBind(q Quest) Bind {
 	b := maps.Clone(q.Bind)
 	if b == nil {
 		b = Bind{}
 	}
 	b["self"] = q.Holder
-	if !w.Holds(s, def.Goal, b) {
+	return b
+}
+
+// evolve lets an accepted quest react to the world: it can fail (by
+// condition or timeout) or move to a later stage, which rewrites its title,
+// objective, rank and goal, like a system window updating mid-quest.
+func (w *World) evolve(s *State, key, cause string) {
+	q := s.Quests[key]
+	def := w.quests[q.Def]
+	b := questBind(q)
+	if q.Deadline > 0 && s.Tick >= q.Deadline || def.Fail != nil && w.Holds(s, *def.Fail, b) {
+		q.State = "failed"
+		s.Quests[key] = q
+		w.apply(s, def.FailEffects, b, cause)
+		w.rest(s, q.Holder)
+		w.emit(s, Event{Kind: "quest-failed", Holder: q.Holder, Text: q.Title, Cause: cause, Data: map[string]string{"quest": key}})
+		return
+	}
+	from := slices.IndexFunc(def.Stages, func(st QuestStage) bool { return st.ID == q.Stage })
+	for i := from + 1; i < len(def.Stages); i++ {
+		st := def.Stages[i]
+		if !w.Holds(s, st.When, b) {
+			continue
+		}
+		q.Stage = st.ID
+		if st.Title != "" {
+			q.Title = w.render(s, st.Title, b)
+		}
+		if st.Desc != "" {
+			q.Desc = w.render(s, st.Desc, b)
+		}
+		if st.Objective != "" {
+			q.Objective = w.render(s, st.Objective, b)
+		}
+		old := q.Rank
+		if st.Rank != "" {
+			q.Rank = st.Rank
+		}
+		s.Quests[key] = q
+		w.apply(s, st.Effects, b, cause)
+		data := map[string]string{"quest": key, "stage": st.ID, "rank": q.Rank}
+		if old != q.Rank {
+			data["rankFrom"] = old
+		}
+		w.emit(s, Event{Kind: "quest-updated", Holder: q.Holder, Text: q.Title, Cause: cause, Data: data})
+		return
+	}
+}
+
+// goalOf is the goal of the current stage, else the quest goal.
+func (w *World) goalOf(q Quest) Cond {
+	def := w.quests[q.Def]
+	if i := slices.IndexFunc(def.Stages, func(st QuestStage) bool { return st.ID == q.Stage }); i >= 0 && def.Stages[i].Goal != nil {
+		return *def.Stages[i].Goal
+	}
+	return def.Goal
+}
+
+func (w *World) tryComplete(s *State, key string, cause string) {
+	q := s.Quests[key]
+	def := w.quests[q.Def]
+	b := questBind(q)
+	if !w.Holds(s, w.goalOf(q), b) {
 		return
 	}
 	if def.Arc != "" && !slices.Contains(s.Arcs[def.Arc].Beats[def.Beat].By, q.Holder) && !w.claim(s, def.Arc, def.Beat, q.Holder, cause) {
@@ -180,6 +249,7 @@ func (w *World) claim(s *State, arc, beatID string, holder ID, cause string) boo
 	if !beat.Unique {
 		return true
 	}
+	rivals := map[ID]bool{}
 	for _, k := range sortedKeys(s.Quests) {
 		r := s.Quests[k]
 		rd := w.quests[r.Def]
@@ -188,8 +258,18 @@ func (w *World) claim(s *State, arc, beatID string, holder ID, cause string) boo
 		}
 		r.State = "superseded"
 		s.Quests[k] = r
-		w.apply(s, beat.Rival, Bind{"self": r.Holder, "claimant": holder}, cause)
-		w.emit(s, Event{Kind: "beat-lost", Holder: r.Holder, Text: beat.Title, Cause: cause,
+		rivals[r.Holder] = true
+	}
+	if beat.Contender != nil {
+		for _, p := range sortedIDs(s.Entities) {
+			if p != holder && s.Entities[p].Kind == w.U.PlayerKind && w.Holds(s, *beat.Contender, Bind{"self": p}) {
+				rivals[p] = true
+			}
+		}
+	}
+	for _, p := range sortedIDs(rivals) {
+		w.apply(s, beat.Rival, Bind{"self": p, "claimant": holder}, cause)
+		w.emit(s, Event{Kind: "beat-lost", Holder: p, Text: beat.Title, Cause: cause,
 			Data: map[string]string{"arc": def.Arc, "beat": beat.ID, "claimant": string(holder)}})
 	}
 	claimant := holder
@@ -307,6 +387,9 @@ func (w *World) offer(s *State, p ID, cause string) {
 		if c.def.Giver != "" {
 			desc = "Offered by " + w.name(s, resolve(c.def.Giver, b)) + ". " + desc
 		}
+		if c.def.Rank != "" {
+			desc = "Rank " + c.def.Rank + ". " + desc
+		}
 		opts = append(opts, Option{ID: c.key, Title: w.render(s, c.def.Title, b), Desc: desc})
 	}
 	id := "offer:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
@@ -322,8 +405,12 @@ func (w *World) createOffer(s *State, p ID, c candidate, cause string) {
 	b := maps.Clone(c.bind)
 	b["self"] = p
 	q := Quest{Key: c.key, Def: c.def.ID, Holder: p, Bind: c.bind, State: "offered", At: s.Tick,
-		Title: w.render(s, c.def.Title, b), Desc: w.render(s, c.def.Desc, b), Region: s.Entities[p].Region}
+		Title: w.render(s, c.def.Title, b), Desc: w.render(s, c.def.Desc, b), Region: s.Entities[p].Region,
+		Rank: c.def.Rank, Objective: w.render(s, c.def.Objective, b), Reward: w.render(s, c.def.Reward, b), Penalty: w.render(s, c.def.Penalty, b)}
 	data := map[string]string{"quest": c.key}
+	if q.Rank != "" {
+		data["rank"] = q.Rank
+	}
 	if c.def.Giver != "" {
 		q.Giver = resolve(c.def.Giver, b)
 		data["giver"] = string(q.Giver)
@@ -348,12 +435,16 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 			return reject("quest state")
 		}
 		q.State = "active"
+		if lim := w.quests[q.Def].TimeLimit; lim > 0 {
+			q.Deadline = s.Tick + lim
+		}
 	case "decline":
 		if q.State != "offered" {
 			return reject("quest state")
 		}
 		q.State = "declined"
 		s.Declined[q.Key] = s.Tick
+		w.apply(s, w.quests[q.Def].OnDecline, questBind(q), cause)
 	case "abandon":
 		if !w.U.Limits.AllowAbandon {
 			return reject("this world requires finishing the accepted quest")
@@ -369,7 +460,10 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 	s.Quests[q.Key] = q
 	w.emit(s, Event{Kind: "quest-" + q.State, Holder: q.Holder, Text: q.Title, Cause: cause, Data: map[string]string{"quest": q.Key}})
 	if q.State == "active" {
-		w.tryComplete(s, q.Key, cause)
+		w.evolve(s, q.Key, cause)
+		if s.Quests[q.Key].State == "active" {
+			w.tryComplete(s, q.Key, cause)
+		}
 	}
 	return nil
 }

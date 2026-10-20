@@ -27,7 +27,29 @@
     "escorted",
     "wolves",
     "hunted",
-    "festival"
+    "festival",
+    "ore-cursed",
+    "miners-trapped",
+    "rescued",
+    "bandits",
+    "beat-bandits",
+    "robbed",
+    "goods-returned",
+    "child-lost",
+    "child-found",
+    "storm",
+    "roof-fixed",
+    "pilgrims",
+    "blessed",
+    "legacy-hint",
+    "ruins-explored",
+    "herbs-given",
+    "apprentice",
+    "contributed",
+    "ore-purified",
+    "trophy-taken",
+    "legend-smith",
+    "forbidden-blade"
   ],
   "playerKind": "player",
   "player": {
@@ -37,7 +59,11 @@
     "num": {
       "reputation": 0,
       "relics": 0,
-      "infamy": 0
+      "infamy": 0,
+      "ore": 0,
+      "forge": 0,
+      "herbs": 0,
+      "trophies": 0
     },
     "region": "vila"
   },
@@ -100,7 +126,65 @@
     {
       "id": "estrada",
       "kind": "wilds",
-      "name": "Estrada do Leste"
+      "name": "Estrada do Leste",
+      "num": {
+        "bandits": 0
+      }
+    },
+    {
+      "id": "mina",
+      "kind": "wilds",
+      "name": "Mina de Kharum",
+      "num": {
+        "trapped": 0
+      }
+    },
+    {
+      "id": "ruinas",
+      "kind": "wilds",
+      "name": "Ruinas de Asterion"
+    },
+    {
+      "id": "brom",
+      "kind": "npc",
+      "name": "Brom, o ferreiro",
+      "region": "vila",
+      "num": {
+        "masterwork": 0
+      }
+    },
+    {
+      "id": "lia",
+      "kind": "npc",
+      "name": "Lia, a comerciante",
+      "region": "estrada"
+    },
+    {
+      "id": "kael",
+      "kind": "npc",
+      "name": "Kael, o cacador",
+      "region": "floresta",
+      "num": {
+        "respect": 0
+      }
+    },
+    {
+      "id": "elena",
+      "kind": "npc",
+      "name": "Irma Elena",
+      "region": "vila"
+    },
+    {
+      "id": "nino",
+      "kind": "npc",
+      "name": "Nino",
+      "region": "vila"
+    },
+    {
+      "id": "garrick",
+      "kind": "npc",
+      "name": "Garrick, chefe da mina",
+      "region": "mina"
     }
   ],
   "schedules": [
@@ -441,6 +525,255 @@
           "fact": {
             "p": "festival",
             "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fim-desabamento",
+      "when": {
+        "fact": {
+          "p": "miners-trapped",
+          "s": "mina"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "collapse-end",
+          "text": "Os mineiros presos foram dados como perdidos. A mina fica em silencio.",
+          "public": true,
+          "reveals": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mineiros-salvos",
+      "every": 2,
+      "when": {
+        "all": [
+          {
+            "fact": {
+              "p": "miners-trapped",
+              "s": "mina"
+            }
+          },
+          {
+            "num": {
+              "e": "mina",
+              "k": "trapped",
+              "op": "<=",
+              "v": 0
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "miners-saved",
+          "text": "Todos os mineiros de Kharum foram resgatados!",
+          "public": true,
+          "reveals": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bandidos-partem",
+      "when": {
+        "fact": {
+          "p": "bandits",
+          "s": "estrada"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "bandits-left",
+          "text": "Os bandidos abandonam a Estrada do Leste.",
+          "public": true,
+          "reveals": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bandidos-vencidos",
+      "every": 2,
+      "when": {
+        "all": [
+          {
+            "fact": {
+              "p": "bandits",
+              "s": "estrada"
+            }
+          },
+          {
+            "num": {
+              "e": "estrada",
+              "k": "bandits",
+              "op": "<=",
+              "v": 0
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "bandits-beaten",
+          "text": "A Estrada do Leste esta livre dos bandidos.",
+          "public": true,
+          "reveals": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crianca-some",
+      "when": {
+        "fact": {
+          "p": "child-lost",
+          "s": "floresta"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "child-back",
+          "text": "Nino volta sozinho para a vila, assustado mas vivo.",
+          "public": true,
+          "reveals": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fim-tempestade",
+      "when": {
+        "fact": {
+          "p": "storm",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "storm",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tempestade-fere",
+      "every": 5,
+      "when": {
+        "fact": {
+          "p": "storm",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": -2,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "peregrinos-partem",
+      "when": {
+        "fact": {
+          "p": "pilgrims",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "pilgrims",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "minerio-limpo",
+      "when": {
+        "fact": {
+          "p": "ore-cursed",
+          "s": "mina"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "ore-clean",
+          "text": "O brilho roxo some dos veios da Mina de Kharum.",
+          "public": true,
+          "reveals": {
+            "p": "ore-cursed",
+            "s": "mina"
           }
         }
       ]
@@ -1043,6 +1376,747 @@
           "text": "{self} afugenta lobos corrompidos da vila."
         }
       ]
+    },
+    {
+      "id": "minerar",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor confirma: o jogador minerou um veio.",
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "mina"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "ore",
+              "op": "<",
+              "v": 5
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "ore",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "mined",
+          "text": "{self} extrai minerio da Mina de Kharum."
+        }
+      ]
+    },
+    {
+      "id": "forjar",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "brom"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "ore",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "ore-cursed",
+                "s": "mina"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "ore",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "forge",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "forged",
+          "text": "{self} forja uma peca com Brom."
+        }
+      ]
+    },
+    {
+      "id": "resgatar-mineiro",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor confirma: o jogador tirou um mineiro dos escombros.",
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "mina"
+            }
+          },
+          {
+            "fact": {
+              "p": "miners-trapped",
+              "s": "mina"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "rescued",
+                "s": "$self",
+                "o": "mina",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "rescued",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "mina",
+          "k": "trapped",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "emit",
+          "event": "rescued",
+          "text": "{self} resgata um mineiro dos escombros.",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "enfrentar-bandidos",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor confirma: o jogador derrotou bandidos.",
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "estrada"
+            }
+          },
+          {
+            "fact": {
+              "p": "bandits",
+              "s": "estrada"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "beat-bandits",
+                "s": "$self",
+                "o": "estrada",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "beat-bandits",
+            "s": "$self",
+            "o": "estrada",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "estrada",
+          "k": "bandits",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "emit",
+          "event": "bandits-fight",
+          "text": "{self} derrota um grupo de bandidos na estrada.",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "recuperar-mercadorias",
+      "by": [
+        "adapter"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "estrada"
+            }
+          },
+          {
+            "fact": {
+              "p": "robbed",
+              "s": "lia"
+            }
+          },
+          {
+            "fact": {
+              "p": "beat-bandits",
+              "s": "$self",
+              "o": "estrada",
+              "private": true
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "goods-returned",
+            "s": "$self",
+            "o": "lia",
+            "private": true
+          }
+        },
+        {
+          "op": "retract",
+          "fact": {
+            "p": "robbed",
+            "s": "lia"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "goods",
+          "text": "{self} devolve as mercadorias roubadas de Lia.",
+          "public": true,
+          "reveals": {
+            "p": "robbed",
+            "s": "lia"
+          }
+        }
+      ]
+    },
+    {
+      "id": "achar-crianca",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor confirma: o jogador encontrou Nino na floresta.",
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
+            }
+          },
+          {
+            "fact": {
+              "p": "child-lost",
+              "s": "floresta"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "child-found",
+            "s": "$self",
+            "o": "nino",
+            "private": true
+          }
+        },
+        {
+          "op": "retract",
+          "fact": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "child-found",
+          "text": "{self} encontra Nino perdido na Floresta Cinzenta e o traz de volta.",
+          "public": true,
+          "reveals": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "consertar-telhado",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          },
+          {
+            "fact": {
+              "p": "storm",
+              "s": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "roof-fixed",
+                "s": "$self",
+                "o": "vila",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "roof-fixed",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": 2,
+          "max": 100
+        },
+        {
+          "op": "emit",
+          "event": "roof",
+          "text": "{self} ajuda a consertar telhados depois da tempestade."
+        }
+      ]
+    },
+    {
+      "id": "receber-bencao",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "elena"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "blessed",
+                "s": "$self",
+                "o": "vila",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "blessed",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "blessed",
+          "text": "Irma Elena abencoa {self}."
+        }
+      ]
+    },
+    {
+      "id": "colher-ervas-campo",
+      "by": [
+        "adapter"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "herbs",
+              "op": "<",
+              "v": 3
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "herbs",
+          "d": 1
+        },
+        {
+          "op": "emit",
+          "event": "herbs",
+          "text": "{self} colhe ervas medicinais."
+        }
+      ]
+    },
+    {
+      "id": "entregar-ervas",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "mira"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "herbs",
+              "op": ">=",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "herbs",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "adjust",
+          "e": "mira",
+          "k": "herbs",
+          "d": 1
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "herbs-given",
+            "s": "$self",
+            "o": "mira",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "herbs-given",
+          "text": "{self} entrega ervas a Mira."
+        }
+      ]
+    },
+    {
+      "id": "cacar-javali",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor confirma: o jogador abateu um javali.",
+      "requires": {
+        "in": {
+          "e": "$self",
+          "region": "floresta"
+        }
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "trophies",
+          "d": 1,
+          "max": 9
+        },
+        {
+          "op": "adjust",
+          "e": "kael",
+          "k": "respect",
+          "d": 1,
+          "max": 20
+        },
+        {
+          "op": "emit",
+          "event": "boar",
+          "text": "{self} abate um javali na floresta."
+        }
+      ]
+    },
+    {
+      "id": "explorar-ruinas",
+      "by": [
+        "adapter"
+      ],
+      "desc": "Servidor confirma: o jogador chegou ao salao interno das ruinas.",
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "ruinas"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "ruins-explored",
+                "s": "$self",
+                "o": "ruinas",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "ruins-explored",
+            "s": "$self",
+            "o": "ruinas",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "ruins",
+          "text": "{self} encontra uma bigorna antiga coberta de runas nas Ruinas de Asterion."
+        }
+      ]
+    },
+    {
+      "id": "purificar-minerio",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "elena"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "ore",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "fact": {
+              "p": "ore-cursed",
+              "s": "mina"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "ore-purified",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "ore-purified",
+          "text": "Irma Elena purifica o minerio de {self}."
+        }
+      ]
+    },
+    {
+      "id": "contribuir-obra",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "brom"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "ore",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "fact": {
+              "p": "legend-smith",
+              "s": "brom"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "contributed",
+                "s": "$self",
+                "o": "brom",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "ore",
+          "d": -1,
+          "min": 0
+        },
+        {
+          "op": "adjust",
+          "e": "brom",
+          "k": "masterwork",
+          "d": 1
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "contributed",
+            "s": "$self",
+            "o": "brom",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "masterwork",
+          "text": "{self} entrega minerio para a obra-prima da forja.",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "forjar-lamina-proibida",
+      "by": [
+        "player"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "selo"
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": ">=",
+              "v": 3
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "infamy",
+              "op": ">=",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "forbidden-blade",
+            "s": "$self",
+            "o": "selo",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "blade",
+          "text": "{self} tempera uma lamina na energia do selo quebrado."
+        }
+      ]
     }
   ],
   "agents": [
@@ -1257,7 +2331,15 @@
           "next": [
             "restaurar",
             "pacto"
-          ]
+          ],
+          "contender": {
+            "fact": {
+              "p": "noticed",
+              "s": "$self",
+              "o": "poco",
+              "private": true
+            }
+          }
         },
         {
           "id": "restaurar",
@@ -1429,6 +2511,196 @@
           ]
         }
       ]
+    },
+    {
+      "id": "legado",
+      "title": "O Legado do Ferreiro Lendario",
+      "start": "bigorna",
+      "beats": [
+        {
+          "id": "bigorna",
+          "title": "Cenario Unico: A Bigorna Esquecida",
+          "unique": true,
+          "desc": "Quem domina a forja e encontra a bigorna herda o legado do ferreiro lendario.",
+          "opens": {
+            "fact": {
+              "p": "legacy-hint",
+              "s": "ruinas"
+            }
+          },
+          "goal": {
+            "all": [
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": ">=",
+                  "v": 3
+                }
+              },
+              {
+                "fact": {
+                  "p": "ruins-explored",
+                  "s": "$self",
+                  "o": "ruinas",
+                  "private": true
+                }
+              }
+            ]
+          },
+          "claim": [
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "title",
+              "v": "Herdeiro do Ferreiro Lendario"
+            },
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "class",
+              "v": "Ferreiro Lendario"
+            },
+            {
+              "op": "assert",
+              "fact": {
+                "p": "legend-smith",
+                "s": "brom"
+              }
+            },
+            {
+              "op": "adjust",
+              "e": "$self",
+              "k": "reputation",
+              "d": 8
+            },
+            {
+              "op": "emit",
+              "event": "legacy",
+              "text": "{self} tocou a bigorna esquecida e herdou o legado do Ferreiro Lendario!",
+              "public": true,
+              "reveals": {
+                "p": "legend-smith",
+                "s": "brom"
+              }
+            }
+          ],
+          "rival": [
+            {
+              "op": "assert",
+              "fact": {
+                "p": "apprentice",
+                "s": "$self",
+                "o": "brom",
+                "private": true
+              }
+            },
+            {
+              "op": "emit",
+              "event": "rival",
+              "text": "{claimant} herdou o legado antes de {self}. Brom oferece a {self} um lugar como aprendiz."
+            }
+          ],
+          "next": [
+            "obra-prima",
+            "lamina"
+          ],
+          "contender": {
+            "any": [
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": ">=",
+                  "v": 1
+                }
+              },
+              {
+                "fact": {
+                  "p": "ruins-explored",
+                  "s": "$self",
+                  "o": "ruinas",
+                  "private": true
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "obra-prima",
+          "title": "Capitulo: A Obra-Prima de Valdoria",
+          "opens": {
+            "fact": {
+              "p": "legend-smith",
+              "s": "brom"
+            }
+          },
+          "goal": {
+            "fact": {
+              "p": "contributed",
+              "s": "$self",
+              "o": "brom",
+              "private": true
+            }
+          },
+          "claim": [
+            {
+              "op": "adjust",
+              "e": "$self",
+              "k": "reputation",
+              "d": 2
+            }
+          ],
+          "advanceWhen": {
+            "num": {
+              "e": "brom",
+              "k": "masterwork",
+              "op": ">=",
+              "v": 3
+            }
+          }
+        },
+        {
+          "id": "lamina",
+          "title": "Cenario Unico: A Lamina Proibida",
+          "unique": true,
+          "opens": {
+            "fact": {
+              "p": "legend-smith",
+              "s": "brom"
+            }
+          },
+          "goal": {
+            "fact": {
+              "p": "forbidden-blade",
+              "s": "$self",
+              "o": "selo",
+              "private": true
+            }
+          },
+          "claim": [
+            {
+              "op": "set",
+              "e": "$self",
+              "k": "title",
+              "v": "Portador da Lamina Proibida"
+            },
+            {
+              "op": "emit",
+              "event": "blade-claimed",
+              "text": "{self} forjou a Lamina Proibida. O selo geme.",
+              "public": true
+            }
+          ],
+          "rival": [
+            {
+              "op": "emit",
+              "event": "rival",
+              "text": "{claimant} forjou a Lamina Proibida primeiro."
+            }
+          ]
+        }
+      ]
     }
   ],
   "quests": [
@@ -1470,7 +2742,10 @@
           "d": 1
         }
       ],
-      "giver": "mira"
+      "giver": "mira",
+      "rank": "E",
+      "objective": "Descubra o que adoece a Vila Cinzenta examinando o Poco Antigo.",
+      "reward": "Reputacao +1"
     },
     {
       "id": "avisar",
@@ -1521,7 +2796,10 @@
           "k": "reputation",
           "d": 1
         }
-      ]
+      ],
+      "rank": "F",
+      "objective": "Conte a {npc} que o poco esta envenenado.",
+      "reward": "Reputacao +1"
     },
     {
       "id": "cenario-origem",
@@ -1553,7 +2831,11 @@
           "d": 2
         }
       ],
-      "giver": "tomas"
+      "giver": "tomas",
+      "rank": "S",
+      "objective": "Siga o rastro da corrupcao ate o Selo da Floresta antes de todos.",
+      "reward": "Titulo unico e reputacao",
+      "penalty": "Se outro chegar primeiro, o cenario se fecha para voce."
     },
     {
       "id": "testemunha",
@@ -1583,7 +2865,10 @@
           "d": 2
         }
       ],
-      "giver": "tomas"
+      "giver": "tomas",
+      "rank": "C",
+      "objective": "Conte ao Velho Tomas as marcas que viu no selo.",
+      "reward": "Reputacao +2 e a lenda do selo"
     },
     {
       "id": "cenario-restaurar",
@@ -1605,7 +2890,11 @@
           "v": 1
         }
       },
-      "giver": "orin"
+      "giver": "orin",
+      "rank": "S",
+      "objective": "Derrote o guardiao das ruinas, recupere a reliquia e restaure o selo.",
+      "reward": "Titulo Guardiao do Selo",
+      "penalty": "Unico: so um heroi restaura o selo."
     },
     {
       "id": "cenario-pacto",
@@ -1626,7 +2915,11 @@
           "op": ">=",
           "v": 1
         }
-      }
+      },
+      "rank": "SS",
+      "objective": "Aceite o poder do selo e quebre-o de vez.",
+      "reward": "Titulo Portador do Pacto",
+      "penalty": "A vila sofrera com a corrupcao."
     },
     {
       "id": "replantar",
@@ -1651,7 +2944,10 @@
           "d": 1
         }
       ],
-      "giver": "mira"
+      "giver": "mira",
+      "rank": "D",
+      "objective": "Replante a floresta ao redor do selo restaurado.",
+      "reward": "Reputacao +1"
     },
     {
       "id": "resistir",
@@ -1668,7 +2964,10 @@
           "private": true
         }
       },
-      "giver": "orin"
+      "giver": "orin",
+      "rank": "C",
+      "objective": "Defenda a vila das criaturas corrompidas.",
+      "reward": "Reputacao +3"
     },
     {
       "id": "escoltar",
@@ -1695,7 +2994,10 @@
           "k": "reputation",
           "d": 1
         }
-      ]
+      ],
+      "rank": "D",
+      "objective": "Proteja a caravana na Estrada do Leste.",
+      "reward": "Reputacao +1"
     },
     {
       "id": "cacar",
@@ -1723,12 +3025,734 @@
           "d": 1
         }
       ],
-      "giver": "orin"
+      "giver": "orin",
+      "rank": "D",
+      "objective": "Afugente os lobos corrompidos da vila.",
+      "reward": "Reputacao +1"
+    },
+    {
+      "id": "minerio-brom",
+      "giver": "brom",
+      "rank": "E",
+      "title": "Minerio para a forja",
+      "desc": "Brom precisa de minerio para manter a forja acesa.",
+      "objective": "Extraia minerio na Mina de Kharum.",
+      "reward": "Reputacao +1 e acesso a forja",
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "ore",
+              "op": "<",
+              "v": 1
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": "<",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "ore",
+          "op": ">=",
+          "v": 1
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "primeira-forja",
+      "giver": "brom",
+      "rank": "D",
+      "title": "A primeira peca",
+      "desc": "Brom quer ver se voce tem mao para a forja.",
+      "objective": "Forje uma peca com Brom.",
+      "reward": "Reputacao +1",
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "ore",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": "<",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "forge",
+          "op": ">=",
+          "v": 1
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ],
+      "stages": [
+        {
+          "id": "minerio-roxo",
+          "when": {
+            "fact": {
+              "p": "ore-cursed",
+              "s": "mina"
+            }
+          },
+          "rank": "C",
+          "title": "A primeira peca: minerio corrompido",
+          "objective": "O minerio esta corrompido. Leve-o para Irma Elena purificar antes de forjar.",
+          "goal": {
+            "all": [
+              {
+                "fact": {
+                  "p": "ore-purified",
+                  "s": "$self",
+                  "o": "mina",
+                  "private": true
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "martelo-incansavel",
+      "giver": "brom",
+      "rank": "C",
+      "title": "Martelo incansavel",
+      "desc": "So quem forja muitas vezes entende o metal.",
+      "objective": "Forje tres pecas.",
+      "reward": "Reputacao +2",
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": "<",
+              "v": 3
+            }
+          }
+        ]
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "forge",
+          "op": ">=",
+          "v": 3
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ]
+    },
+    {
+      "id": "resgate-mina",
+      "giver": "garrick",
+      "rank": "C",
+      "title": "Desabamento em Kharum",
+      "desc": "Mineiros estao presos nos escombros.",
+      "objective": "Va a Mina de Kharum e resgate um mineiro.",
+      "reward": "Reputacao +2",
+      "penalty": "Se o tempo acabar, os mineiros morrem e a vila perde a esperanca.",
+      "eligible": {
+        "knows": {
+          "p": "miners-trapped",
+          "s": "mina"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "rescued",
+          "s": "$self",
+          "o": "mina",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ],
+      "timeLimit": 35,
+      "fail": {
+        "all": [
+          {
+            "not": {
+              "fact": {
+                "p": "miners-trapped",
+                "s": "mina"
+              }
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "rescued",
+                "s": "$self",
+                "o": "mina",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "failEffects": [
+        {
+          "op": "adjust",
+          "e": "vila",
+          "k": "health",
+          "d": -5,
+          "min": 0
+        }
+      ],
+      "stages": [
+        {
+          "id": "veios-roxos",
+          "when": {
+            "fact": {
+              "p": "ore-cursed",
+              "s": "mina"
+            }
+          },
+          "rank": "B",
+          "title": "Desabamento em Kharum: a corrupcao",
+          "desc": "A corrupcao do selo se espalha pelos tuneis onde os mineiros estao presos.",
+          "objective": "Resgate um mineiro antes que a corrupcao o alcance."
+        }
+      ]
+    },
+    {
+      "id": "estrada-segura",
+      "giver": "lia",
+      "rank": "C",
+      "title": "Bandidos na estrada",
+      "desc": "Lia nao consegue mais passar pela Estrada do Leste.",
+      "objective": "Derrote um grupo de bandidos na estrada.",
+      "reward": "Reputacao +2",
+      "eligible": {
+        "knows": {
+          "p": "bandits",
+          "s": "estrada"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "beat-bandits",
+          "s": "$self",
+          "o": "estrada",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ],
+      "stages": [
+        {
+          "id": "carga-roubada",
+          "when": {
+            "fact": {
+              "p": "robbed",
+              "s": "lia"
+            }
+          },
+          "rank": "B",
+          "title": "A carga de Lia",
+          "desc": "Os bandidos levaram a carga de Lia.",
+          "objective": "Derrote os bandidos e recupere as mercadorias de Lia.",
+          "goal": {
+            "fact": {
+              "p": "goods-returned",
+              "s": "$self",
+              "o": "lia",
+              "private": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "nino-perdido",
+      "giver": "elena",
+      "rank": "D",
+      "title": "Onde esta Nino?",
+      "desc": "Irma Elena esta desesperada: Nino sumiu na floresta.",
+      "objective": "Encontre Nino na Floresta Cinzenta.",
+      "reward": "Reputacao +2",
+      "penalty": "Se outro encontrar Nino antes, voce chega tarde demais.",
+      "eligible": {
+        "knows": {
+          "p": "child-lost",
+          "s": "floresta"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "child-found",
+          "s": "$self",
+          "o": "nino",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ],
+      "timeLimit": 30,
+      "fail": {
+        "all": [
+          {
+            "not": {
+              "fact": {
+                "p": "child-lost",
+                "s": "floresta"
+              }
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "child-found",
+                "s": "$self",
+                "o": "nino",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": "uivos",
+          "when": {
+            "fact": {
+              "p": "wolves",
+              "s": "vila"
+            }
+          },
+          "rank": "C",
+          "title": "Onde esta Nino? Lobos na mata",
+          "desc": "Lobos corrompidos rondam a floresta onde Nino desapareceu.",
+          "objective": "Encontre Nino antes dos lobos."
+        }
+      ]
+    },
+    {
+      "id": "telhados",
+      "giver": "nino",
+      "rank": "F",
+      "title": "Telhados quebrados",
+      "desc": "A tempestade destruiu casas da vila.",
+      "objective": "Ajude a consertar um telhado.",
+      "reward": "Reputacao +1",
+      "eligible": {
+        "knows": {
+          "p": "storm",
+          "s": "vila"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "roof-fixed",
+          "s": "$self",
+          "o": "vila",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "ervas-mira",
+      "giver": "mira",
+      "rank": "E",
+      "title": "Ervas para a curandeira",
+      "desc": "Mira precisa de ervas para tratar os doentes.",
+      "objective": "Colha ervas na floresta e entregue a Mira.",
+      "reward": "Reputacao +1",
+      "eligible": {
+        "any": [
+          {
+            "knows": {
+              "p": "outbreak",
+              "s": "vila"
+            }
+          },
+          {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": "<",
+              "v": 90
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "herbs-given",
+          "s": "$self",
+          "o": "mira",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ]
+    },
+    {
+      "id": "javali",
+      "giver": "kael",
+      "rank": "E",
+      "title": "O javali da Floresta Cinzenta",
+      "desc": "Kael quer saber se voce sabe cacar.",
+      "objective": "Abata um javali na floresta.",
+      "reward": "Reputacao +1",
+      "penalty": "Kael nao esquece quem recusa um desafio.",
+      "eligible": {
+        "num": {
+          "e": "$self",
+          "k": "trophies",
+          "op": "<",
+          "v": 1
+        }
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "trophies",
+          "op": ">=",
+          "v": 1
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        }
+      ],
+      "onDecline": [
+        {
+          "op": "adjust",
+          "e": "kael",
+          "k": "respect",
+          "d": -1,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "bencao",
+      "giver": "elena",
+      "rank": "F",
+      "title": "A bencao dos peregrinos",
+      "desc": "Irma Elena abencoa quem ajuda os peregrinos.",
+      "objective": "Receba a bencao da Irma Elena.",
+      "reward": "Bencao do santuario",
+      "eligible": {
+        "knows": {
+          "p": "pilgrims",
+          "s": "vila"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "blessed",
+          "s": "$self",
+          "o": "vila",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "ruinas-asterion",
+      "giver": "tomas",
+      "rank": "C",
+      "title": "As Ruinas de Asterion",
+      "desc": "Tomas ouviu a historia do mercador e quer saber se e verdade.",
+      "objective": "Explore o salao interno das Ruinas de Asterion.",
+      "reward": "Reputacao +2",
+      "eligible": {
+        "knows": {
+          "p": "legacy-hint",
+          "s": "ruinas"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "ruins-explored",
+          "s": "$self",
+          "o": "ruinas",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ]
+    },
+    {
+      "id": "cenario-bigorna",
+      "arc": "legado",
+      "beat": "bigorna",
+      "rank": "S",
+      "title": "Cenario Unico: A Bigorna Esquecida",
+      "desc": "O legado do Ferreiro Lendario espera por quem dominar a forja e encontrar sua bigorna.",
+      "objective": "Forje tres pecas e encontre a bigorna nas Ruinas de Asterion.",
+      "reward": "Classe unica: Ferreiro Lendario",
+      "penalty": "Unico: so um jogador herda o legado.",
+      "eligible": {
+        "all": [
+          {
+            "knows": {
+              "p": "legacy-hint",
+              "s": "ruinas"
+            }
+          },
+          {
+            "any": [
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "forge",
+                  "op": ">=",
+                  "v": 1
+                }
+              },
+              {
+                "fact": {
+                  "p": "ruins-explored",
+                  "s": "$self",
+                  "o": "ruinas",
+                  "private": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "goal": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": ">=",
+              "v": 3
+            }
+          },
+          {
+            "fact": {
+              "p": "ruins-explored",
+              "s": "$self",
+              "o": "ruinas",
+              "private": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "aprendiz",
+      "giver": "brom",
+      "rank": "B",
+      "title": "O aprendiz do herdeiro",
+      "desc": "Voce chegou tarde ao legado, mas Brom ve talento em voce.",
+      "objective": "Forje cinco pecas.",
+      "reward": "Reputacao +3",
+      "eligible": {
+        "fact": {
+          "p": "apprentice",
+          "s": "$self",
+          "o": "brom",
+          "private": true
+        }
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "forge",
+          "op": ">=",
+          "v": 5
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 3
+        }
+      ]
+    },
+    {
+      "id": "obra-prima",
+      "arc": "legado",
+      "beat": "obra-prima",
+      "giver": "brom",
+      "rank": "A",
+      "title": "A Obra-Prima de Valdoria",
+      "desc": "O herdeiro e Brom vao forjar uma obra-prima com minerio de todos.",
+      "objective": "Entregue minerio para a obra-prima.",
+      "reward": "Reputacao +2",
+      "eligible": {},
+      "goal": {
+        "fact": {
+          "p": "contributed",
+          "s": "$self",
+          "o": "brom",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "lamina-proibida",
+      "arc": "legado",
+      "beat": "lamina",
+      "rank": "SS",
+      "title": "Cenario Unico: A Lamina Proibida",
+      "desc": "Dizem que uma lamina temperada no selo quebrado nao tem igual.",
+      "objective": "Forje a lamina no Selo da Floresta.",
+      "reward": "Titulo Portador da Lamina Proibida",
+      "penalty": "Exige infamia: quem a forjar carrega o peso do pacto.",
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "infamy",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": ">=",
+              "v": 1
+            }
+          }
+        ]
+      },
+      "goal": {
+        "fact": {
+          "p": "forbidden-blade",
+          "s": "$self",
+          "o": "selo",
+          "private": true
+        }
+      }
+    },
+    {
+      "id": "veios-roxos",
+      "giver": "garrick",
+      "rank": "B",
+      "title": "Veios roxos",
+      "desc": "Garrick precisa saber se o minerio corrompido pode ser salvo.",
+      "objective": "Extraia minerio e leve para Irma Elena purificar.",
+      "reward": "Reputacao +2",
+      "eligible": {
+        "knows": {
+          "p": "ore-cursed",
+          "s": "mina"
+        }
+      },
+      "goal": {
+        "fact": {
+          "p": "ore-purified",
+          "s": "$self",
+          "o": "mina",
+          "private": true
+        }
+      },
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 2
+        }
+      ]
     }
   ],
   "limits": {
     "maxActiveQuests": 1,
-    "decisionTimeout": 3,
+    "decisionTimeout": 4,
     "declineCooldown": 20,
     "offerExpiry": 30,
     "maxEvents": 2000,
@@ -1931,10 +3955,314 @@
           "text": "A Vila Cinzenta celebra um festival sob as lanternas."
         }
       ]
+    },
+    {
+      "id": "desabamento",
+      "title": "Desabamento na Mina de Kharum",
+      "desc": "Mineiros ficam presos; alguem precisa tira-los dos escombros.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        }
+      },
+      "cooldown": 60,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "mina",
+          "k": "trapped",
+          "d": 3,
+          "min": 0,
+          "max": 3
+        },
+        {
+          "op": "schedule",
+          "rule": "fim-desabamento",
+          "after": 40
+        },
+        {
+          "op": "emit",
+          "event": "collapse",
+          "text": "Um estrondo: parte da Mina de Kharum desaba com mineiros la dentro!",
+          "public": true,
+          "reveals": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bandidos",
+      "title": "Bandidos tomam a Estrada do Leste",
+      "desc": "Atacam viajantes e roubam a carga de Lia.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        }
+      },
+      "cooldown": 50,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        },
+        {
+          "op": "adjust",
+          "e": "estrada",
+          "k": "bandits",
+          "d": 3,
+          "min": 0,
+          "max": 3
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "robbed",
+            "s": "lia"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "bandidos-partem",
+          "after": 45
+        },
+        {
+          "op": "emit",
+          "event": "bandits",
+          "text": "Bandidos emboscam a Estrada do Leste e roubam a carga de Lia.",
+          "public": true,
+          "reveals": {
+            "p": "bandits",
+            "s": "estrada"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crianca-perdida",
+      "title": "Nino se perde na floresta",
+      "desc": "A crianca da vila entrou na Floresta Cinzenta e nao voltou.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        }
+      },
+      "cooldown": 70,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "crianca-some",
+          "after": 35
+        },
+        {
+          "op": "emit",
+          "event": "child-lost",
+          "text": "Nino entrou na Floresta Cinzenta e nao voltou.",
+          "public": true,
+          "reveals": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tempestade",
+      "title": "Uma tempestade atinge a vila",
+      "desc": "Telhados quebrados e moradores feridos.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "storm",
+            "s": "vila"
+          }
+        }
+      },
+      "cooldown": 50,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "storm",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "fim-tempestade",
+          "after": 20
+        },
+        {
+          "op": "emit",
+          "event": "storm",
+          "text": "Uma tempestade violenta castiga a Vila Cinzenta.",
+          "public": true,
+          "reveals": {
+            "p": "storm",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "minerio-amaldicoado",
+      "title": "O minerio de Kharum brilha roxo",
+      "desc": "A corrupcao do selo chegou aos veios da mina.",
+      "when": {
+        "all": [
+          {
+            "any": [
+              {
+                "fact": {
+                  "p": "seal-broken",
+                  "s": "selo"
+                }
+              },
+              {
+                "fact": {
+                  "p": "seal-shattered",
+                  "s": "selo"
+                }
+              }
+            ]
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "ore-cursed",
+                "s": "mina"
+              }
+            }
+          }
+        ]
+      },
+      "cooldown": 60,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "minerio-limpo",
+          "after": 40
+        },
+        {
+          "op": "emit",
+          "event": "ore-cursed",
+          "text": "Os veios da Mina de Kharum passam a brilhar em roxo.",
+          "public": true,
+          "reveals": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "peregrinos",
+      "title": "Peregrinos visitam o santuario",
+      "desc": "Irma Elena oferece bencaos aos viajantes.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "pilgrims",
+            "s": "vila"
+          }
+        }
+      },
+      "cooldown": 60,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "pilgrims",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "peregrinos-partem",
+          "after": 25
+        },
+        {
+          "op": "emit",
+          "event": "pilgrims",
+          "text": "Peregrinos chegam ao santuario da Irma Elena.",
+          "public": true,
+          "reveals": {
+            "p": "pilgrims",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mercador-misterioso",
+      "title": "Um mercador misterioso fala de um ferreiro lendario",
+      "desc": "Revela a pista de uma bigorna antiga nas Ruinas de Asterion.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "legacy-hint",
+            "s": "ruinas"
+          }
+        }
+      },
+      "cooldown": 200,
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "legacy-hint",
+            "s": "ruinas"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "legend",
+          "text": "Um mercador encapuzado conta na taverna sobre a bigorna de um ferreiro lendario nas Ruinas de Asterion.",
+          "public": true,
+          "reveals": {
+            "p": "legacy-hint",
+            "s": "ruinas"
+          }
+        }
+      ]
     }
   ],
   "director": {
-    "every": 10,
+    "every": 8,
     "allowNone": true
   },
   "regionKinds": [

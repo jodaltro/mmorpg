@@ -206,8 +206,17 @@ void UWorldSimSubsystem::OnView(FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
 			Q.State = Str(O, TEXT("state"));
 			Q.Giver = Str(O, TEXT("giver"));
 			Q.GiverName = Names.FindRef(Q.Giver);
+			Q.Rank = Str(O, TEXT("rank"));
+			Q.Objective = Str(O, TEXT("objective"));
+			Q.Reward = Str(O, TEXT("reward"));
+			Q.Penalty = Str(O, TEXT("penalty"));
+			Q.Stage = Str(O, TEXT("stage"));
+			double Deadline = 0;
+			O->TryGetNumberField(TEXT("deadline"), Deadline);
+			Q.Deadline = (int64)Deadline;
 			const FWorldSimQuest* Old = Quests.Find(Q.Key);
-			const bool bChanged = !Old || Old->State != Q.State;
+			const bool bStageChanged = Old && Old->State == Q.State && Old->Stage != Q.Stage;
+			const bool bChanged = !Old || Old->State != Q.State || bStageChanged;
 			Quests.Add(Q.Key, Q);
 			if (!bChanged)
 			{
@@ -215,10 +224,22 @@ void UWorldSimSubsystem::OnView(FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
 			}
 			if (Q.State == TEXT("offered"))
 			{
-				const FString Who = Q.GiverName.IsEmpty() ? TEXT("O mundo") : Q.GiverName;
-				UE_LOG(LogWorldSim, Log, TEXT("WorldSim: OFFER from %s: %s [%s]"), *Who, *Q.Title, *Q.Key);
-				Say(1001, FColor::Yellow, FString::Printf(TEXT("%s te chama: \"%s\" - %s  (ws.accept / ws.decline)"), *Who, *Q.Title, *Q.Desc), 20.f);
+				const FString Who = Q.GiverName.IsEmpty() ? TEXT("Sistema") : Q.GiverName;
+				UE_LOG(LogWorldSim, Log, TEXT("WorldSim: OFFER from %s: [%s] %s [%s]"), *Who, *Q.Rank, *Q.Title, *Q.Key);
+				// A system window, Overgeared style: who, rank, text, objective, reward, penalty.
+				FString Win = FString::Printf(TEXT("[%s] %s  (Rank %s)\n%s\nObjetivo: %s\nRecompensa: %s"),
+					*Who, *Q.Title, Q.Rank.IsEmpty() ? TEXT("-") : *Q.Rank, *Q.Desc, *Q.Objective, *Q.Reward);
+				if (!Q.Penalty.IsEmpty()) { Win += FString::Printf(TEXT("\nPenalidade: %s"), *Q.Penalty); }
+				Win += TEXT("\n(ws.accept / ws.decline)");
+				Say(1001, FColor::Yellow, Win, 25.f);
 				OnQuestOffered.Broadcast(Q);
+			}
+			else if (bStageChanged)
+			{
+				const FString From = Old->Rank != Q.Rank ? FString::Printf(TEXT(" (Rank %s -> %s)"), *Old->Rank, *Q.Rank) : FString();
+				UE_LOG(LogWorldSim, Log, TEXT("WorldSim: QUEST UPDATED %s stage %s%s"), *Q.Title, *Q.Stage, *From);
+				Say(1003, FColor::Orange, FString::Printf(TEXT("Missao atualizada: %s%s\nObjetivo: %s"), *Q.Title, *From, *Q.Objective), 12.f);
+				OnQuestChanged.Broadcast(Q);
 			}
 			else if (Old)
 			{

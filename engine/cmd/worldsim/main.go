@@ -173,8 +173,30 @@ func simulate(args []string) error {
 	return nil
 }
 
-// report summarizes who decided what: the advisor or the deadline default.
+// report summarizes who decided what and how varied the world was.
 func report(s core.State) {
+	defs := map[string]bool{}
+	perPlayer := map[core.ID]map[string]bool{}
+	states := map[string]int{}
+	for _, q := range s.Quests {
+		defs[q.Def] = true
+		if perPlayer[q.Holder] == nil {
+			perPlayer[q.Holder] = map[string]bool{}
+		}
+		perPlayer[q.Holder][q.Def] = true
+		states[q.State]++
+	}
+	counts := map[string]int{}
+	for _, e := range s.Events {
+		counts[e.Kind]++
+	}
+	fmt.Printf("\nvariety: %d distinct quests offered; per player:", len(defs))
+	for _, id := range sortedKeysID(perPlayer) {
+		fmt.Printf(" %s=%d", id, len(perPlayer[id]))
+	}
+	fmt.Printf("\nquest states: %v\n", states)
+	fmt.Printf("updates (stages)=%d failed=%d unique-lost=%d story=%d happenings=%d\n",
+		counts["quest-updated"], counts["quest-failed"], counts["beat-lost"], counts["story"], countHappenings(s))
 	type agg struct {
 		n, lat       int64
 		conf, cost   float64
@@ -214,6 +236,36 @@ func report(s core.State) {
 		}
 		fmt.Printf("  %-22s %4d  %5dms  %.2f  $%.6f\n", k, a.n, a.lat/a.n, conf, a.cost)
 	}
+}
+
+func sortedKeysID[V any](m map[core.ID]V) []core.ID {
+	out := []core.ID{}
+	for k := range m {
+		out = append(out, k)
+	}
+	for i := range out {
+		for j := i + 1; j < len(out); j++ {
+			if out[j] < out[i] {
+				out[i], out[j] = out[j], out[i]
+			}
+		}
+	}
+	return out
+}
+
+func countHappenings(s core.State) int {
+	n := 0
+	by := map[string]int{}
+	for _, e := range s.Events {
+		if e.Kind == "decision" && e.Data["kind"] == "world" {
+			by[e.Data["choice"]]++
+			if e.Data["choice"] != "none" {
+				n++
+			}
+		}
+	}
+	fmt.Printf("director choices: %v\n", by)
+	return n
 }
 
 func pickAdvisor(mode, envFile string, timeout time.Duration) (advisor.Advisor, error) {

@@ -19,6 +19,15 @@ struct FWorldSimQuest
 	/** NPC who calls the player. The client decides how they reach them. */
 	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Giver;
 	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString GiverName;
+	/** System window fields: rank (F..SSS), objective, reward, penalty. */
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Rank;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Objective;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Reward;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Penalty;
+	/** Current stage: the quest changes as the world changes. */
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Stage;
+	/** World tick when a timed quest fails (0 = no limit). */
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") int64 Deadline = 0;
 };
 
 /** An event visible to this player (public world event or private). */

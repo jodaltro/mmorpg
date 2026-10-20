@@ -39,6 +39,8 @@ Respostas: 200 `{version, revision, tick, duplicate, events}` com os eventos vis
  "data": {"quest": "investigar-poco|p1", "giver": "mira", "region": "floresta"}}
 ```
 
+A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`, `stage` e `deadline`. Mudanças chegam como `quest-updated` (`data.stage`, `data.rank`, `data.rankFrom`), `quest-failed`, `quest-done`, `quest-obsolete`, `quest-withdrawn`.
+
 `actor`/`giver` é o NPC que chama; `region` é onde o jogador está naquele momento. A distância não importa: o cliente decide como o NPC alcança o jogador. Os detalhes completos ficam em `GET /v1/views/{id}` → `quests`.
 
 ## Integração por engine

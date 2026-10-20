@@ -83,12 +83,19 @@ type Quest struct {
 	Def    string `json:"def"`
 	Holder ID     `json:"holder"`
 	Bind   Bind   `json:"bind,omitempty"`
-	State  string `json:"state"` // offered active done declined expired withdrawn obsolete superseded abandoned
+	State  string `json:"state"` // offered active done failed declined expired withdrawn obsolete superseded abandoned
 	Giver  ID     `json:"giver,omitempty"`
 	Region ID     `json:"region,omitempty"`
 	At     Tick   `json:"at"`
 	Title  string `json:"title"`
 	Desc   string `json:"desc,omitempty"`
+
+	Rank      string `json:"rank,omitempty"`
+	Objective string `json:"objective,omitempty"`
+	Reward    string `json:"reward,omitempty"`
+	Penalty   string `json:"penalty,omitempty"`
+	Stage     string `json:"stage,omitempty"`
+	Deadline  Tick   `json:"deadline,omitempty"`
 }
 
 type Option struct {
