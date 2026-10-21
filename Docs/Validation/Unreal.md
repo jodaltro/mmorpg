@@ -161,3 +161,7 @@ Verificado no editor via MCP (PIE + `SlateInspector` + `CaptureEditorImage`), se
 6. `play-test.ps1` (unattended) continuou entrando sozinho como `ana`, andando e reportando a estrada.
 
 Servidor: o mundo salvo em `data/` tinha sido criado com uma versão anterior do universo e o `serve` recusava (`log_belongs_to_another_universe`). Nova opção `-on-universe-change new-world`: arquiva (`valdoria-20261021-231555.jsonl`, 921 KB, intacto) e começa um mundo novo; sem a opção continua recusando, agora com mensagem explicando o que fazer.
+
+### Animações de combate (CC0)
+
+Universal Animation Library 2 [Standard] (Quaternius, CC0, itch.io, 18.735.003 bytes, em `D:\UnrealDownloads`). Importada headless (Interchange, glTF): `UAL2_Standard.glb` e `UAL2_Standard_RM.glb`, **43 animações cada**, 0 falhas: combos de espada A/B/C com recuperações, combo pesado, dash de espada, bloqueio, escudo (dash, golpe, quebra), gancho, arremesso, knockback, baú, colheita, plantio, rega, corte de árvore, consumir, carregar, escalar 1 m, deslizar, pulo ninja, gestos. Esqueleto da Quaternius: ainda falta o retarget para o personagem do Game Animation Sample.

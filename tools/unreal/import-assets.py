@@ -3,7 +3,7 @@
 import json, os, time
 import unreal
 
-D = r"C:\UnrealProjects\WorldSimDemo\Downloads"
+D = r"D:\UnrealDownloads\WorldSimDemo"  # downloads live on D: (C: is short on space); never in the repo
 Q = os.path.join
 JOBS = [
     (Q(D, r"quaternius-medieval-village-megakit\x\Medieval Village MegaKit[Standard]\glTF"), "/Game/Valdoria/Village", (".gltf",)),
@@ -16,6 +16,8 @@ JOBS = [
     (Q(D, r"quaternius-modular-character-outfits-fantasy\x\Modular Character Outfits - Fantasy[Standard]\Exports\glTF (Godot-Unreal)\Modular Parts"), "/Game/Valdoria/Characters/Parts", (".gltf",)),
     (Q(D, r"quaternius-universal-animation-library\x\Universal Animation Library[Standard]\Unreal-Godot"), "/Game/Valdoria/Animations", (".glb",)),
     (Q(D, r"polyhaven-sky"), "/Game/Valdoria/Sky", (".hdr",)),
+    # Universal Animation Library 2 (CC0): sword combos, shield, knockback, farming. Quaternius skeleton (retarget to the player).
+    (Q(D, r"quaternius-universal-animation-library-2\x\Universal Animation Library 2[Standard]\Unreal-Godot"), "/Game/Valdoria/Animations/UAL2", (".glb",)),
 ]
 
 report = {"jobs": [], "started": time.time()}
