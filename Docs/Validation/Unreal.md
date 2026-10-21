@@ -83,3 +83,14 @@ Defeito encontrado e corrigido: o `WorldSimRegionVolume` não reportava a regiã
 
 1. `ws.sequence 4 ws.move floresta`: `move accepted` + evento `moved: Floresta Cinzenta`.
 2. Nova sessão, nascendo na vila, sem comando de movimento: `move accepted` 1 s após nascer; depois `ws.act examinar-poco` → `act accepted` (só vale na vila) e `SKILL Olho de Curandeira (incomum)`; `ws.status` → tick 4905, 6 quests; saída limpa.
+
+### Game Animation Sample (motion matching) como jogador
+
+- Projeto `C:\UnrealProjects\GameAnimationSample` (Fab, `EngineAssociation` 5.8, só Blueprint, 6,95 GB) criado pelo usuário no Launcher.
+- `tools/unreal/migrate-gasp.py`, rodado headless **no projeto do sample**: dependências fortes e fracas de `GM_Sandbox`, `PC_Sandbox` e `SandboxCharacter_CMC` → **2.861 pacotes** migrados para o WorldSimDemo, sem erro (`/Game/Characters` 2051, `/Game/MetaHumans` 365, `/Game/Audio` 278, `/Game/Blueprints` 126, `/Game/Levels` 21, `/Game/Input` 19, `/Game/Misc` 1). O C: foi de 14,1 para 9,8 GB livres.
+- Configuração copiada à mão no projeto (backups `*.bak-gasp`): canais `Traversable`, `Mouse` e `Obstacle` + perfil `Ragdoll` no `DefaultEngine.ini`; os 20 plugins do sample no `.uproject` (PoseSearch, Chooser, MotionWarping, Mover etc.); `DefaultGameplayTags.ini` e `DefaultNetworkPrediction.ini`.
+- `tools/unreal/use-gasp.py`: `Lvl_Valdoria` passa a usar `GM_Sandbox` (pawn `SandboxCharacter_Mover`, controller `PC_Sandbox`); salvo. 0 erros de Blueprint.
+- Play test headless: a primeira rodada levou ~57 s no quadro 0 (carga dos assets novos) e todos os passos dispararam juntos antes da sincronização (`tick 0`); a segunda, com cache quente (79 s no total): volume → `move accepted` ao nascer, `ws.move floresta` / `ws.move vila` aceitos, `ws.act examinar-poco` aceito, **OFFER [S] Cenario Unico: A Origem da Maldicao**; tick 6136 → 6151; 0 erros de Blueprint/script.
+- Play no editor via MCP (`StartPIE`, `CaptureEditorImage`, `StopPIE`): o manequim do sample aparece na estrada da vila, com câmera de gameplay do sample.
+- Aviso não bloqueante: `GameFeatureData` não está em `PrimaryAssetTypesToScan` (vem do plugin GameplayInteractions).
+- Pendente: andar com o personagem por entrada real (o teste headless não move o pawn), checar travessia (`Traversable`) nas casas da vila e montar os NPCs da Quaternius com esqueleto compartilhado.
