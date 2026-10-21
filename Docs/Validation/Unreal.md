@@ -125,3 +125,24 @@ Decisões gravadas no log durante a sessão (lidas de `data/valdoria.jsonl` a pa
 | offer (Ana) | 4 | 534 ms | 575 ms | US$ 0,000266 |
 
 Confiança das ofertas: 0,91–0,99. Diretor: 0,07 (`feira-magos`) a 0,73 (`crianca-perdida`). Nenhuma decisão de história (`story`) ocorreu nesse intervalo.
+
+### Várias jornadas pela Unreal com o Jev (seis personas)
+
+`tools/unreal/scenarios.ps1` joga seis jogadores, um por execução headless (`ws.join`), cada um com um estilo: **ana** (arco principal), **bruno** (combate), **clara** (curandeira, fica na vila), **davi** (recusa tudo), **elisa** (exploradora) e **fabio** (artesão). Movimento no nível por input injetado; outras regiões por `ws.move`; confirmações do servidor de jogo por `ws.occur`. `tools/unreal/journeys.ps1` compara as visões (`/v1/views/{id}`) e as decisões no log.
+
+**Rodada 1, mundo existente (Ana já com o Cenário Único ativo).** 108 decisões, todas do Jev (83 world, 24 offer, 1 story), média ~530 ms, máxima 679 ms, US$ 0,005. Ana concluiu **A Origem da Maldição** seguindo o rastro; o Jev escolheu o capítulo seguinte (`story:maldicao:origem -> restaurar`, conf 0,68); **Restaurar o Selo** foi oferecido a bruno, davi e elisa (bruno e elisa aceitaram e disputam o capítulo); fabio entrou no arco do ferreiro (**A Bigorna Esquecida**); clara concluiu a quest do poço; davi recusou 7 quests e ganhou **Teimosia Lendária (absurda)**; elisa ganhou **Chá Morno (absurda)**. Estilos medidos: ana mistério/exploração, bruno combate, clara social/mistério, elisa exploração, fabio artesanato, davi nenhum.
+
+**Defeito encontrado:** os seis ganharam **Ouvido de Taverna (rara)** só por ouvir 12 boatos (boatos chegam a todos; o Brom conta 5 na entrada). Correção no universo: 20 boatos **e** `descansar` 2 vezes (só à noite, na vila). Teste `TestTavernEarNeedsNightsInTheVillage` (600 ticks parado não ensina; duas noites de descanso ensinam). `worldsim validate` ok; `simulate -ticks 600 -players 6`: 3 de 6 bots aprenderam (eles descansam à noite).
+
+**Rodada 2, mundo novo** (`-data %TEMP%\worldsim-fresh`, universo corrigido, Jev). 123 decisões, todas do Jev (88 world, 34 offer, 1 story), média ~530 ms, máxima 669 ms, US$ 0,0058.
+
+| Jogador | Estilo medido | Jornada |
+|---|---|---|
+| ana | mystery 4, explore 1 | conquistou **origem** no tick 94 (chegou ao selo antes da oferta; a crônica pública credita "Ana"); aceitou **Restaurar o Selo**; concluiu a quest do poço |
+| bruno | combat 4 | aceitou **Restaurar o Selo** (disputa com Ana) |
+| clara | mystery 3, social 2 | concluiu **Os aldeões estão adoecendo**; ervas ativas |
+| davi | nenhum | 16 ofertas, recusou 6 e deixou expirar o resto; **Teimosia Lendária (absurda)** |
+| elisa | mystery 3, explore 3 | concluiu a quest do poço; **Restaurar o Selo** oferecido |
+| fabio | craft 6 | concluiu **A primeira peça: minério corrompido** (arco do ferreiro); **Achar Botões (absurda)** |
+
+Story: `maldicao:origem -> restaurar` (conf 0,88). Ninguém aprendeu Ouvido de Taverna nessa rodada. Rejeições do motor por requisitos (ações fora de lugar, hora ou habilidade) aconteceram em todas as personas e são esperadas (ex.: `descansar` de dia, `diagnosticar` sem a habilidade).

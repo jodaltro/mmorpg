@@ -7416,13 +7416,24 @@
       "id": "ouvido-de-taverna",
       "name": "Ouvido de Taverna",
       "rarity": "rara",
-      "desc": "Nenhum boato passa sem que voce escute.",
+      "desc": "Nenhum boato passa sem que voce escute. Vem de muitas noites de conversa fiada na vila.",
       "learn": {
-        "deeds": {
-          "action": "rumor",
-          "op": ">=",
-          "v": 12
-        }
+        "all": [
+          {
+            "deeds": {
+              "action": "rumor",
+              "op": ">=",
+              "v": 20
+            }
+          },
+          {
+            "deeds": {
+              "action": "descansar",
+              "op": ">=",
+              "v": 2
+            }
+          }
+        ]
       }
     },
     {

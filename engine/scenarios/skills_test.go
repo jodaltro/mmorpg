@@ -168,3 +168,25 @@ func TestLebrinosTeachTheirOwnTechniques(t *testing.T) {
 		t.Fatalf("Jev sees the skills: %s", ctx)
 	}
 }
+
+// A rare skill must come from a habit, not from waiting: gossip reaches every
+// player, so Ouvido de Taverna also needs nights spent resting in the village.
+func TestTavernEarNeedsNightsInTheVillage(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.tick(600)
+	if n := h.s.Deeds["p1"]["rumor"]; n < 20 {
+		t.Fatalf("gossip should reach an idle player: %d rumors", n)
+	}
+	if h.has("p1", "ouvido-de-taverna") {
+		t.Fatal("hearing rumors alone must not teach a rare skill")
+	}
+	for i := 0; i < 2; i++ {
+		h.atHour(20, 4)
+		h.mustAct("player", "p1", "descansar", nil)
+		h.tick(30)
+	}
+	if !h.has("p1", "ouvido-de-taverna") {
+		t.Fatal("rumors plus two nights resting in the village teach Ouvido de Taverna")
+	}
+}
