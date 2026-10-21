@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CoreMinimal.h"
 #include "Engine/DeveloperSettings.h"
@@ -11,9 +11,12 @@ class WORLDSIM_API UWorldSimSettings : public UDeveloperSettings
 	GENERATED_BODY()
 
 public:
-	/** World Simulation Engine HTTP endpoint (worldsim serve). */
+	/** World Simulation Engine host and port (worldsim serve). The URL is built in code: the ini parser treats // as a comment. */
 	UPROPERTY(Config, EditAnywhere, Category = "Connection")
-	FString ServerUrl = TEXT("http://127.0.0.1:8095");
+	FString ServerHost = TEXT("127.0.0.1");
+
+	UPROPERTY(Config, EditAnywhere, Category = "Connection")
+	int32 ServerPort = 8095;
 
 	/** Character id in the simulated world. */
 	UPROPERTY(Config, EditAnywhere, Category = "Player")
@@ -34,3 +37,4 @@ public:
 	UPROPERTY(Config, EditAnywhere, Category = "Presentation")
 	bool bOnScreenMessages = true;
 };
+

@@ -1,0 +1,85 @@
+# Validação — cliente Unreal
+
+Só o que realmente rodou. Máquina: Windows 10 19045, AMD Radeon RX 5700 XT (driver 32.0.21045.16010), Unreal 5.8.3 (CL 58902052) em `C:\Program Files\Epic Games\UE_5.8`, VS 2022 MSVC 14.44, projeto `C:\UnrealProjects\WorldSimDemo` (template Third Person BP, fora do repositório).
+
+## 21/10/2026
+
+### Compilação do plugin `WorldSim`
+
+- `tools/unreal/build.ps1` (sync do plugin + `Build.bat UnrealEditor Win64 Development`): **Succeeded**, 0 erros, 0 avisos (237 s na primeira compilação em C:).
+- Com o editor aberto a compilação falha: `Unable to build while Live Coding is active` (exit 6). É preciso fechar o editor ou desligar o Live Coding (Ctrl+Alt+F11).
+- `ServerUrl=http://...` no `DefaultGame.ini` virava `http:`: o parser de ini da Unreal trata `//` como comentário. Trocado por `ServerHost` + `ServerPort`; a URL é montada no código. Log confirmado: `WorldSim: client for http://127.0.0.1:8095 as ana`.
+
+### Play test headless contra o motor
+
+Motor: `worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic -listen 127.0.0.1:8095`.
+
+Jogo: `UnrealEditor-Cmd.exe WorldSimDemo.uproject /Game/ThirdPerson/Lvl_ThirdPerson -game -nullrhi -unattended -nosplash -nosound "-ExecCmds=ws.sequence 4 ws.status | ws.act examinar-poco | ws.move floresta | ws.status | ws.act descansar | ws.status | quit"`.
+
+| Passo | Resultado |
+|---|---|
+| conexão | `client for http://127.0.0.1:8095 as ana` |
+| join (1ª rodada) | `join accepted` |
+| join (2ª rodada) | `409 rejected: actor exists` (Ana já existia; o cliente segue) |
+| ofertas recebidas | `[E] Minerio para a forja` (Brom), `[E] Os aldeoes estao adoecendo` e `[E] Ervas para a curandeira` (Mira); estados `expired` e `withdrawn` chegaram ao cliente |
+| habilidade | `SKILL Ouvido de Taverna (rara)` + evento público `fame` |
+| `ws.status` | `tick 467` → `479` → `487`, 3 quests |
+| `ws.act examinar-poco` | `act accepted` |
+| `ws.move floresta` | `move accepted` |
+| `ws.act descansar` na floresta | `409 rejected: requirements` (autoridade do motor recusou, correto) |
+| `quit` | o jogo saiu sozinho, exit 0 |
+
+Defeito encontrado e corrigido: no PowerShell 5.1, `Start-Process -ArgumentList @(...)` não põe aspas nos itens, e `-ExecCmds=ws.sequence 4 ...` chegava partido (a Unreal recebia só `ws.sequence`). O `play-test.ps1` passa a montar uma linha única com aspas.
+
+### Unreal MCP
+
+- Editor aberto com `tools/unreal/editor.ps1` (`-ModelContextProtocolStartServer -ModelContextProtocolPort=8000`): `initialize` em `http://127.0.0.1:8000/mcp` respondeu 200 em 30 s.
+- Com a sessão reconectada (`/mcp`), `list_toolsets` listou 40+ toolsets (cena, assets, Blueprint, material, PCG, Sequencer, automação, logs, Slate) e `SceneTools.get_current_level` retornou `/Game/ThirdPerson/Lvl_ThirdPerson`.
+- O editor caiu às 17:23 sem ação nossa: `DXGI_ERROR_DEVICE_REMOVED`, com 2,6 de 7,3 GB de VRAM em uso (não é falta de memória). Provável reset do driver da RX 5700 XT.
+
+### Assets CC0
+
+Baixados em `C:\UnrealProjects\WorldSimDemo\Downloads` (fora do repositório; não versionar):
+
+| Pacote | Origem | Bytes |
+|---|---|---|
+| Medieval Village MegaKit [Standard] | quaternius.itch.io | 161.003.471 |
+| Stylized Nature MegaKit [Standard] | quaternius.itch.io | 104.088.529 |
+| Fantasy Props MegaKit [Standard] | quaternius.itch.io | 150.213.360 |
+| Universal Base Characters [Standard] | quaternius.itch.io | 128.968.391 |
+| Modular Character Outfits - Fantasy [Standard] | quaternius.itch.io | 294.347.394 |
+| Universal Animation Library [Standard] | quaternius.itch.io | 15.904.933 |
+| Fantasy Town Kit 2.0 | kenney.nl | 3.854.691 |
+| kloofendal_48d_partly_cloudy_puresky 2k HDR | polyhaven.com | 5.451.493 (md5 confere) |
+
+Importação headless (`UnrealEditor-Cmd -run=pythonscript -nullrhi`, Interchange glTF/GLB/HDR, ~16 min), **0 falhas**:
+
+| Destino | Arquivos | Objetos | s |
+|---|---|---|---|
+| /Game/Valdoria/Village | 176 | 1330 | 360 |
+| /Game/Valdoria/Nature | 68 | 264 | 159 |
+| /Game/Valdoria/Props | 94 | 706 | 256 |
+| /Game/Valdoria/Kenney | 167 | 528 | 43 |
+| /Game/Valdoria/Characters/Base | 2 | 31 | 5 |
+| /Game/Valdoria/Characters/Hair | 8 | 48 | 8 |
+| /Game/Valdoria/Characters/Outfits | 4 | 84 | 26 |
+| /Game/Valdoria/Characters/Parts | 20 | 163 | 103 |
+| /Game/Valdoria/Animations | 2 | 96 | 10 |
+| /Game/Valdoria/Sky | 1 | 1 | 0 |
+
+Escala medida: Quaternius em tamanho real (parede 2 × 3,12 m, árvores ~7 m); Kenney em 1 m (usado com escala 2,5–3). As roupas modulares vieram com um esqueleto por peça: montar NPCs exige esqueleto compartilhado (pendente).
+
+### Nível `Lvl_Valdoria`
+
+Montado por script headless (`spawn_actor_from_object` não gera atores em commandlet; `spawn_actor_from_class(StaticMeshActor)` + `set_static_mesh` funciona; `save_current_level` falha em nível novo, `EditorLoadingAndSavingUtils.save_map` funciona): 892 meshes, 902 atores, 0 assets faltando. Praça com fonte e Poço Antigo, Forja do Brom, Casa da Mira, Taverna, 2 casas, feira, cerca, estrada até a Floresta Cinzenta (140 árvores + 220 detalhes, semente fixa), céu (SkyAtmosphere, nuvens, neblina, sol), `BP_ThirdPersonGameMode` e volumes `WorldSimRegionVolume` para `vila`, `estrada` e `floresta`.
+
+Via MCP com o editor aberto: `load_level`, `CaptureViewport` (imagem conferida), `ProgrammaticToolset.execute_tool_script` reescalou 401 plantas, e o nível foi salvo clicando em "Salvar nível atual" pelo `SlateInspectorToolset` (Ctrl+S por `PressKey` não salvou: o foco estava na janela "Log de Mensagens").
+
+Template incompleto: o projeto não tinha os pacotes compartilhados do `TP_ThirdPersonBP` (`TemplateDefs.ini`: `Characters`, `Input`, `LevelPrototyping`), daí os erros de `IA_Jump`/`IA_Move`/`SKM_Quinn_Simple`. Copiados de `Templates\TemplateResources\High\*\Content`: erros de Blueprint no jogo caíram de dezenas para **0**.
+
+Play test headless em `Lvl_Valdoria` (`ws.sequence 5 ws.status | ws.move vila | ws.act examinar-poco | ws.status | quit`): `move accepted`, `act accepted`, e em seguida **OFFER from Velho Tomas: [S] Cenario Unico: A Origem da Maldicao** com a quest da Mira retirada; jogo saiu com exit 0.
+
+Defeito encontrado e corrigido: o `WorldSimRegionVolume` não reportava a região quando o jogador **nasce** dentro dele (o overlap acontece antes de o pawn ser possuído e era descartado). Agora o `BeginPlay` agenda uma checagem de 1 s com `IsOverlappingActor(GetPlayerPawn(0))`. Build: Succeeded (61 s). Verificação com `play-test.ps1` (mapa padrão `Lvl_Valdoria`):
+
+1. `ws.sequence 4 ws.move floresta`: `move accepted` + evento `moved: Floresta Cinzenta`.
+2. Nova sessão, nascendo na vila, sem comando de movimento: `move accepted` 1 s após nascer; depois `ws.act examinar-poco` → `act accepted` (só vale na vila) e `SKILL Olho de Curandeira (incomum)`; `ws.status` → tick 4905, 6 quests; saída limpa.

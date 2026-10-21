@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 static UWorldSimSubsystem* SimOf(const UObject* Ctx)
 {
@@ -26,6 +27,14 @@ void AWorldSimRegionVolume::BeginPlay()
 {
 	Super::BeginPlay();
 	OnActorBeginOverlap.AddDynamic(this, &AWorldSimRegionVolume::OnEnter);
+	// A pawn that spawns inside the box overlaps before it is possessed, so
+	// that overlap is dropped; check again once the player pawn exists.
+	FTimerHandle Handle;
+	GetWorldTimerManager().SetTimer(Handle, FTimerDelegate::CreateWeakLambda(this, [this]()
+	{
+		APawn* P = UGameplayStatics::GetPlayerPawn(this, 0);
+		if (P && IsOverlappingActor(P)) { OnEnter(this, P); }
+	}), 1.0f, false);
 }
 
 void AWorldSimRegionVolume::OnEnter(AActor*, AActor* Other)

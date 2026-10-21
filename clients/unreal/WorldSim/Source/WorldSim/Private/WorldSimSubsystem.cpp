@@ -1,4 +1,4 @@
-#include "WorldSimSubsystem.h"
+﻿#include "WorldSimSubsystem.h"
 #include "WorldSimSettings.h"
 #include "Engine/Engine.h"
 #include "Engine/GameInstance.h"
@@ -17,7 +17,7 @@ void UWorldSimSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 	const UWorldSimSettings* S = GetDefault<UWorldSimSettings>();
-	ServerUrl = S->ServerUrl;
+	ServerUrl = FString::Printf(TEXT("http://%s:%d"), *S->ServerHost, S->ServerPort);
 	PlayerId = S->PlayerId;
 	PlayerName = S->PlayerName;
 	PollInterval = FMath::Max(0.1f, S->PollInterval);
@@ -422,3 +422,4 @@ static FAutoConsoleCommandWithWorldAndArgs GSequenceCmd(TEXT("ws.sequence"), TEX
 			}), Gap * (i + 1));
 		}
 	}));
+
