@@ -106,3 +106,22 @@ Caminhada vila → floresta (`ws.sequence 3 ws.face -90 | ws.track 2 20 | ws.inp
 1. Primeira rodada: entrou na estrada (`moved: Estrada do Leste`) e parou em y ≈ -2492 com velocidade pedida de 500. Um script headless listou o que cruzava o caminho: duas árvores da coroa em volta da vila em cima da estrada e capim/trevo com colisão `BlockAll`.
 2. Correções no `build-valdoria.py`: vegetação baixa sem colisão (`NoCollision`), nenhuma árvore no corredor da estrada, carroça fora do caminho, escala das plantas reduzida e `GM_Sandbox` como game mode quando o sample foi migrado. Nível recriado: 890 meshes, 0 faltando.
 3. Segunda rodada: `TRACK` de 2 em 2 s de y -1300 até -6856 a 500 cm/s; os volumes reportaram sozinhos `Vila Cinzenta` → `Estrada do Leste` → `Floresta Cinzenta`; ofertas do mundo continuaram chegando no caminho (`[C] As Ruinas de Asterion`, `[S] Cenario Unico: A Origem da Maldicao`). Parou contra uma árvore na entrada da floresta.
+
+### Sessão pela Unreal com o Jev decidindo no servidor
+
+Servidor: `worldsim serve -advisor jev -env-file .env -tick 1s` (modelo `typesafe/jev-1.13-20260917`, prazo de 5 s por chamada), mesmo mundo em `data/` (tick 7667 no início).
+
+Roteiro (`play-test.ps1`, sem janela, personagem do Game Animation Sample): `ws.accept`, `ws.face -90`, `ws.input IA_Move 0 1 seconds=11` até a floresta, `ws.occur colher-ervas-campo` ×3, `ws.occur cacar-javali`, volta com `ws.face 90` e `ws.input`, `ws.act examinar-poco`.
+
+- O Jev escolheu a oferta do **Velho Tomás, [S] Cenário Único: A Origem da Maldição** (a da Mira foi retirada); `ws.accept` → `QUEST -> active`.
+- Regiões reportadas pelos volumes: vila → estrada → floresta; ervas ×3 e javali confirmados (`herbs`, `boar`); habilidade **Andarilho (comum)**.
+- Na volta a Ana parou numa tocha na beira da estrada (x = 260) e `examinar-poco` foi recusado com `requirements` (ainda na estrada, correto). Tochas movidas para x = 420 no `build-valdoria.py`; nova ida e volta: vila → estrada → floresta → estrada → vila e `examinar-poco` → `act accepted`.
+
+Decisões gravadas no log durante a sessão (lidas de `data/valdoria.jsonl` a partir do offset do início): **26, todas `provider: jev`, nenhuma pelo padrão determinístico**.
+
+| Tipo | n | latência média | máxima | custo |
+|---|---|---|---|---|
+| world (diretor) | 22 | 566 ms | 1.390 ms | US$ 0,000909 |
+| offer (Ana) | 4 | 534 ms | 575 ms | US$ 0,000266 |
+
+Confiança das ofertas: 0,91–0,99. Diretor: 0,07 (`feira-magos`) a 0,73 (`crianca-perdida`). Nenhuma decisão de história (`story`) ocorreu nesse intervalo.

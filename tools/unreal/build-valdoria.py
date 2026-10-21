@@ -168,7 +168,7 @@ for k in range(30):
     x = 120 * math.sin(k / 4.0)
     put("Nature", rng.choice(["RockPath_Round_Wide", "RockPath_Square_Wide"]), x, y, 1, rng.uniform(0, 360), folder="Estrada")
 for k in range(0, 30, 5):
-    put("Props", "Torch_Metal", 260, -1400 - k * 160, 0, 0, folder="Estrada")
+    put("Props", "Torch_Metal", 420, -1400 - k * 160, 0, 0, folder="Estrada")  # clear of the walkable road
 put("Kenney", "cart", -750, -2600, 0, 30, 3.0, folder="Estrada", label="Carroca_Lia")  # off the road: it blocks the player
 
 # Forest (Floresta Cinzenta): seeded scatter south of the road end.
