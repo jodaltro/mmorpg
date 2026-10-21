@@ -54,6 +54,21 @@ Ambiente: Windows 10, Go **1.27.2** oficial (SHA-256 do zip conferido com `go.de
 | scenarios | `TestLebrinosTeachTheirOwnTechniques` | Pipo ensina Passo Leve; Sora ensina Corte Lunar (épica, aumenta o respeito); só um vira Guardião (lendária), o outro ganha Amigo dos Lebrinos |
 | scenarios | `TestLiveJevDecidesRealWorldDecisions` | Opt-in, com chamada real (ver abaixo) |
 
+### 21/10/2026 — jornadas diferentes por estilo de jogo
+
+`gofmt -l .` vazio, `go vet ./...` sem avisos, `go test -count=1 -v ./...`: **44 aprovados, 1 pulado** (Jev ao vivo), 0 falhas. `worldsim validate` em Valdoria: `ok`. `worldsim simulate -advisor deterministic -players 6 -ticks 300`: 17 missões diferentes oferecidas, 16 concluídas, 8 passos de história, 36 acontecimentos; a história não travou.
+
+| Pacote | Teste | Prova |
+|---|---|---|
+| scenarios | `TestPlayStylesMakeDifferentJourneys` | Cinco personas (combate, curandeira, quem recusa tudo, exploradora, artesão), cada uma num mundo próprio, 300 ticks, conselheiro determinístico. Estilo dominante = papel (combat, help, explore, craft); Jaccard das missões vistas entre pares ≤ 0,43 (limite 0,6); nenhuma habilidade rara ou acima aprendida por todas; só quem recusa tudo recebe Teimosia Lendária |
+
+O teste revelou dois defeitos de conteúdo, corrigidos no universo (não no motor):
+
+- **Veteranos sem missão do próprio estilo.** As missões introdutórias (`javali`, `minerio-brom`, `primeira-forja`, `martelo-incansavel`) têm objetivo absoluto, e o motor não oferece missão cujo objetivo já vale. Quem caça ou forja antes da oferta as perdia e só recebia missões de outros estilos: o caçador e o artesão viam quase o mesmo conjunto que quem recusa tudo (Jaccard 0,64 e 0,69). Novas missões repetíveis `trilha-dos-javalis` (Kael, combat) e `encomendas-brom` (Brom, craft), com contadores `hunts`/`orders` zerados no primeiro estágio, para contar só o que se faz depois de aceitar. Agora o caçador concluiu 25 missões e recusou 1 (antes 18 recusas).
+- **Teimosia Lendária para quem só é exigente.** Bastavam 6 recusas, e o artesão, que recusava missões de combate, a recebia. Agora exige 6 recusas **e nenhuma missão concluída**.
+
+Limite do modelo: as personas repetem uma rotina fixa e não perseguem o objetivo da missão aceita; como Valdoria não permite abandonar, uma missão aceita fora da rotina prende a persona até o fim.
+
 ## Execuções manuais
 
 - `worldsim simulate` com 4 jogadores roteirizados por 240 ticks, nos dois universos. Em Valdoria, o arco *A Maldição do Selo* foi concluído: origem e restauração pelo Jogador 2, capítulo coletivo por três jogadores, continuações de rival para os outros. Em Kepler-9, Primeiro Contato pelo Jogador 1 e Aliança para todos.

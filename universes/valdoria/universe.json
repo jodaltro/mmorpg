@@ -80,7 +80,9 @@
       "ore": 0,
       "forge": 0,
       "herbs": 0,
-      "trophies": 0
+      "trophies": 0,
+      "hunts": 0,
+      "orders": 0
     },
     "region": "vila"
   },
@@ -1703,6 +1705,13 @@
           "d": 1
         },
         {
+          "op": "adjust",
+          "e": "$self",
+          "k": "orders",
+          "d": 1,
+          "max": 99
+        },
+        {
           "op": "emit",
           "event": "forged",
           "text": "{self} forja uma peca com Brom."
@@ -2376,6 +2385,13 @@
           "k": "trophies",
           "d": 1,
           "max": 9
+        },
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "hunts",
+          "d": 1,
+          "max": 99
         },
         {
           "op": "adjust",
@@ -5195,6 +5211,94 @@
       ]
     },
     {
+      "id": "encomendas-brom",
+      "giver": "brom",
+      "rank": "D",
+      "title": "Encomendas da forja",
+      "desc": "A vila precisa de ferraduras, pregos e enxadas. Brom confia as encomendas a quem ja sabe forjar.",
+      "objective": "Forje tres pecas para as encomendas de Brom.",
+      "reward": "Reputacao +1",
+      "penalty": "Brom entrega as encomendas a outro.",
+      "repeat": true,
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "forge",
+              "op": ">=",
+              "v": 3
+            }
+          },
+          {
+            "rel": {
+              "a": "brom",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "orders",
+          "op": ">=",
+          "v": 1000
+        }
+      },
+      "stages": [
+        {
+          "id": "encomendas",
+          "when": {
+            "num": {
+              "e": "$self",
+              "k": "orders",
+              "op": ">=",
+              "v": 0
+            }
+          },
+          "effects": [
+            {
+              "op": "adjust",
+              "e": "$self",
+              "k": "orders",
+              "d": -1000,
+              "min": 0
+            }
+          ],
+          "goal": {
+            "num": {
+              "e": "$self",
+              "k": "orders",
+              "op": ">=",
+              "v": 3
+            }
+          }
+        }
+      ],
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        },
+        {
+          "op": "relate",
+          "e": "brom",
+          "to": "$self",
+          "d": 1,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "craft"
+      ]
+    },
+    {
       "id": "resgate-mina",
       "giver": "garrick",
       "rank": "C",
@@ -5707,6 +5811,101 @@
           "e": "kael",
           "to": "$self",
           "d": -1,
+          "min": -10,
+          "max": 10
+        }
+      ],
+      "tags": [
+        "combat"
+      ]
+    },
+    {
+      "id": "trilha-dos-javalis",
+      "giver": "kael",
+      "rank": "D",
+      "title": "A trilha dos javalis",
+      "desc": "Kael viu que voce caca de verdade e pede ajuda para conter os javalis que reviram as rocas.",
+      "objective": "Abata tres javalis na floresta.",
+      "reward": "Reputacao +1 e o respeito de Kael",
+      "penalty": "Kael caca sozinho.",
+      "repeat": true,
+      "eligible": {
+        "all": [
+          {
+            "num": {
+              "e": "$self",
+              "k": "trophies",
+              "op": ">=",
+              "v": 1
+            }
+          },
+          {
+            "rel": {
+              "a": "kael",
+              "b": "$self",
+              "op": ">",
+              "v": -3
+            }
+          }
+        ]
+      },
+      "goal": {
+        "num": {
+          "e": "$self",
+          "k": "hunts",
+          "op": ">=",
+          "v": 1000
+        }
+      },
+      "stages": [
+        {
+          "id": "na-trilha",
+          "when": {
+            "num": {
+              "e": "$self",
+              "k": "hunts",
+              "op": ">=",
+              "v": 0
+            }
+          },
+          "effects": [
+            {
+              "op": "adjust",
+              "e": "$self",
+              "k": "hunts",
+              "d": -1000,
+              "min": 0
+            }
+          ],
+          "goal": {
+            "num": {
+              "e": "$self",
+              "k": "hunts",
+              "op": ">=",
+              "v": 3
+            }
+          }
+        }
+      ],
+      "rewards": [
+        {
+          "op": "adjust",
+          "e": "$self",
+          "k": "reputation",
+          "d": 1
+        },
+        {
+          "op": "adjust",
+          "e": "kael",
+          "k": "respect",
+          "d": 1,
+          "max": 20
+        },
+        {
+          "op": "relate",
+          "e": "kael",
+          "to": "$self",
+          "d": 1,
           "min": -10,
           "max": 10
         }
@@ -7442,11 +7641,22 @@
       "rarity": "absurda",
       "desc": "Voce recusou tanto que o mundo desistiu de insistir. Nao serve para nada. Ou serve?",
       "learn": {
-        "deeds": {
-          "action": "decline",
-          "op": ">=",
-          "v": 6
-        }
+        "all": [
+          {
+            "deeds": {
+              "action": "decline",
+              "op": ">=",
+              "v": 6
+            }
+          },
+          {
+            "deeds": {
+              "action": "quest",
+              "op": "<",
+              "v": 1
+            }
+          }
+        ]
       }
     },
     {
