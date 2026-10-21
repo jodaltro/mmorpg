@@ -1,4 +1,4 @@
-﻿#include "WorldSimSubsystem.h"
+#include "WorldSimSubsystem.h"
 #include "WorldSimSettings.h"
 #include "Engine/Engine.h"
 #include "Engine/GameInstance.h"
@@ -393,33 +393,5 @@ static FAutoConsoleCommandWithWorldAndArgs GStatusCmd(TEXT("ws.status"), TEXT("w
 		if (UWorldSimSubsystem* S = Sim(W)) { UE_LOG(LogWorldSim, Log, TEXT("%s"), *S->Describe()); }
 	}));
 
-// ws.sequence <seconds> <cmd> | <cmd> | ...: runs console commands spaced in
-// time, so a headless test (-ExecCmds) can play a whole scenario.
-static FAutoConsoleCommandWithWorldAndArgs GSequenceCmd(TEXT("ws.sequence"), TEXT("ws.sequence <seconds> <cmd> | <cmd> ...: run commands spaced in time"),
-	FConsoleCommandWithWorldAndArgsDelegate::CreateLambda([](const TArray<FString>& A, UWorld* W)
-	{
-		if (A.Num() < 2 || !W)
-		{
-			return;
-		}
-		const float Gap = FMath::Max(0.1f, FCString::Atof(*A[0]));
-		TArray<FString> Rest;
-		for (int32 i = 1; i < A.Num(); ++i) { Rest.Add(A[i]); }
-		TArray<FString> Steps;
-		FString::Join(Rest, TEXT(" ")).ParseIntoArray(Steps, TEXT("|"), true);
-		TWeakObjectPtr<UWorld> Weak(W);
-		for (int32 i = 0; i < Steps.Num(); ++i)
-		{
-			const FString Step = Steps[i].TrimStartAndEnd();
-			FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateLambda([Weak, Step](float)
-			{
-				if (UWorld* World = Weak.Get(); World && GEngine)
-				{
-					UE_LOG(LogWorldSim, Log, TEXT("WorldSim: STEP %s"), *Step);
-					GEngine->Exec(World, *Step);
-				}
-				return false; // run once
-			}), Gap * (i + 1));
-		}
-	}));
-
+// Test-only commands (ws.input, ws.face, ws.pos, ws.track, ws.sequence) live
+// in WorldSimTestCommands.cpp.

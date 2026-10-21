@@ -1,6 +1,6 @@
 # Builds /Game/Valdoria/Maps/Lvl_Valdoria from the imported CC0 packs.
 # Run: UnrealEditor-Cmd.exe <uproject> -run=pythonscript -script=<this> -nullrhi -unattended
-import json, math, random
+import json, math, random, re
 import unreal
 
 MAP = "/Game/Valdoria/Maps/Lvl_Valdoria"
@@ -9,6 +9,7 @@ eas = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
 les = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
 report = {"actors": 0, "missing": []}
 _cache = {}
+SOFT = re.compile(r"^(Grass|Flower|Clover|Fern|Bush|Plant|Mushroom|Petal)")
 
 
 def mesh(pack, name):
@@ -38,6 +39,8 @@ def put(pack, name, x, y, z=0.0, yaw=0.0, scale=1.0, folder="Vila", label=None):
     if scale != 1.0:
         a.set_actor_scale3d(unreal.Vector(scale, scale, scale))
     a.set_actor_label(label or name)
+    if SOFT.match(name):  # walk-through vegetation: BlockAll would make invisible walls
+        a.static_mesh_component.set_collision_profile_name("NoCollision")
     a.set_folder_path(folder)
     report["actors"] += 1
     return a
@@ -166,7 +169,7 @@ for k in range(30):
     put("Nature", rng.choice(["RockPath_Round_Wide", "RockPath_Square_Wide"]), x, y, 1, rng.uniform(0, 360), folder="Estrada")
 for k in range(0, 30, 5):
     put("Props", "Torch_Metal", 260, -1400 - k * 160, 0, 0, folder="Estrada")
-put("Kenney", "cart", -300, -2600, 0, 30, 3.0, folder="Estrada", label="Carroca_Lia")
+put("Kenney", "cart", -750, -2600, 0, 30, 3.0, folder="Estrada", label="Carroca_Lia")  # off the road: it blocks the player
 
 # Forest (Floresta Cinzenta): seeded scatter south of the road end.
 trees = ["Pine_1", "Pine_2", "Pine_3", "Pine_4", "Pine_5", "CommonTree_1", "CommonTree_2", "CommonTree_3",
@@ -182,10 +185,12 @@ while placed < 140:
     placed += 1
 for _ in range(220):
     x, y = rng.uniform(-6000, 6000), rng.uniform(-14000, -5800)
-    put("Nature", rng.choice(small), x, y, 0, rng.uniform(0, 360), rng.uniform(0.8, 1.6), folder="Floresta")
+    put("Nature", rng.choice(small), x, y, 0, rng.uniform(0, 360), rng.uniform(0.5, 1.0), folder="Floresta")
 # Trees and grass around the village for life.
 for _ in range(40):
     a, d = rng.uniform(0, 2 * math.pi), rng.uniform(2800, 5000)
+    if abs(d * math.cos(a)) < 700 and 400 + d * math.sin(a) < -1000:
+        continue  # keep the road to the forest clear
     put("Nature", rng.choice(["CommonTree_1", "CommonTree_2", "CommonTree_4", "CommonTree_5"]), d * math.cos(a), 400 + d * math.sin(a), 0,
         rng.uniform(0, 360), rng.uniform(0.9, 1.3), folder="Arredores")
 for _ in range(260):
@@ -193,7 +198,7 @@ for _ in range(260):
     if abs(x) < 650 and -700 < y < 650:
         continue
     put("Nature", rng.choice(["Grass_Common_Short", "Grass_Common_Tall", "Flower_3_Group", "Flower_4_Group", "Clover_1"]),
-        x, y, 0, rng.uniform(0, 360), rng.uniform(0.8, 1.5), folder="Arredores")
+        x, y, 0, rng.uniform(0, 360), rng.uniform(0.5, 0.9), folder="Arredores")
 
 # WorldSim regions: entering a box reports the region to the world engine.
 regions = []
@@ -210,11 +215,13 @@ report["regions"] = regions
 ps = eas.spawn_actor_from_class(unreal.PlayerStart, unreal.Vector(0, -1300, 120), unreal.Rotator(0, 0, 90))
 ps.set_actor_label("Inicio")
 
-gm = unreal.EditorAssetLibrary.load_blueprint_class("/Game/ThirdPerson/Blueprints/BP_ThirdPersonGameMode")
+# Game Animation Sample player when migrated (tools/unreal/migrate-gasp.py), else the template.
+gm = (unreal.EditorAssetLibrary.load_blueprint_class("/Game/Blueprints/GM_Sandbox")
+      or unreal.EditorAssetLibrary.load_blueprint_class("/Game/ThirdPerson/Blueprints/BP_ThirdPersonGameMode"))
 world = unreal.EditorLevelLibrary.get_editor_world()
 if gm:
     world.get_world_settings().set_editor_property("default_game_mode", gm)
-report["gamemode"] = bool(gm)
+report["gamemode"] = gm.get_name() if gm else None
 
 report["saved"] = bool(unreal.EditorLoadingAndSavingUtils.save_map(world, MAP))
 report["total_level_actors"] = len(eas.get_all_level_actors())

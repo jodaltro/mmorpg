@@ -94,3 +94,15 @@ Defeito encontrado e corrigido: o `WorldSimRegionVolume` não reportava a regiã
 - Play no editor via MCP (`StartPIE`, `CaptureEditorImage`, `StopPIE`): o manequim do sample aparece na estrada da vila, com câmera de gameplay do sample.
 - Aviso não bloqueante: `GameFeatureData` não está em `PrimaryAssetTypesToScan` (vem do plugin GameplayInteractions).
 - Pendente: andar com o personagem por entrada real (o teste headless não move o pawn), checar travessia (`Traversable`) nas casas da vila e montar os NPCs da Quaternius com esqueleto compartilhado.
+
+### Testes de movimento sem teclado (input injetado)
+
+Pesquisa: a Unreal tem CLI (`UnrealEditor-Cmd` para commandlets e jogo headless, `RunUAT` para BuildCookRun e Gauntlet, `Build.bat`), mas nada que mova o personagem. O caminho escolhido foi a API do Enhanced Input, `StartContinuousInputInjectionForAction`, que injeta valor numa Input Action a cada tick passando pelos mesmos modifiers e triggers do teclado. Alternativas vistas: Gauntlet controllers (C++, para builds empacotadas e multi-processo), Functional Tests, Automation Driver (UI) e ferramentas comerciais (GameDriver, modl:test).
+
+Plugin: novo `WorldSimTestCommands.cpp` com `ws.input <ação> x [y] [z] [seconds=N]`, `ws.inputstop`, `ws.face <yaw>`, `ws.pos` e `ws.track <intervalo> <n>`. O `ws.sequence` passou a esperar o pawn existir e a encadear os passos (antes, um primeiro quadro de ~57 s fazia todos dispararem juntos). Dependência `EnhancedInput`. Build: Succeeded.
+
+Caminhada vila → floresta (`ws.sequence 3 ws.face -90 | ws.track 2 20 | ws.input IA_Move 0 1 seconds=36 | ...`, sem janela):
+
+1. Primeira rodada: entrou na estrada (`moved: Estrada do Leste`) e parou em y ≈ -2492 com velocidade pedida de 500. Um script headless listou o que cruzava o caminho: duas árvores da coroa em volta da vila em cima da estrada e capim/trevo com colisão `BlockAll`.
+2. Correções no `build-valdoria.py`: vegetação baixa sem colisão (`NoCollision`), nenhuma árvore no corredor da estrada, carroça fora do caminho, escala das plantas reduzida e `GM_Sandbox` como game mode quando o sample foi migrado. Nível recriado: 890 meshes, 0 faltando.
+3. Segunda rodada: `TRACK` de 2 em 2 s de y -1300 até -6856 a 500 cm/s; os volumes reportaram sozinhos `Vila Cinzenta` → `Estrada do Leste` → `Floresta Cinzenta`; ofertas do mundo continuaram chegando no caminho (`[C] As Ruinas de Asterion`, `[S] Cenario Unico: A Origem da Maldicao`). Parou contra uma árvore na entrada da floresta.

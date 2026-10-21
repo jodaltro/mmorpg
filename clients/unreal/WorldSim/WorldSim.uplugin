@@ -8,5 +8,8 @@
   "CanContainContent": false,
   "Modules": [
     { "Name": "WorldSim", "Type": "Runtime", "LoadingPhase": "Default" }
+  ],
+  "Plugins": [
+    { "Name": "EnhancedInput", "Enabled": true }
   ]
 }

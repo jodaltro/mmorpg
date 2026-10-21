@@ -1,4 +1,4 @@
-﻿---
+---
 name: unreal
 description: Drive Unreal Engine 5.8 on this PC - build the WorldSimDemo project, launch the editor with the Unreal MCP server, run headless game tests against the World Simulation Engine, read logs. Use for any Unreal task in this repo.
 ---
@@ -32,7 +32,7 @@ Helper scripts live in `tools/unreal/` (PowerShell). Prefer them over ad-hoc com
    - If the MCP tools are not loaded in the session, the server can still be called with JSON-RPC over HTTP (`initialize`, then `tools/call`) using curl. Start the editor before the Claude session, or reconnect `unreal-mcp` with `/mcp`.
    - Useful tools: `SceneTools.load_level`, `EditorAppToolset.CaptureViewport` (returns a base64 PNG), `ProgrammaticToolset.execute_tool_script` (batch many calls), `SlateInspectorToolset` (click "Salvar nível atual" to save; the level cannot be saved through `save_actor`).
    - The RX 5700 XT driver has reset the editor once (`DXGI_ERROR_DEVICE_REMOVED`); prefer headless commandlets for heavy work.
-3. **Console commands of our plugin** (in PIE, `-game` or via MCP): `ws.join [id] [name]`, `ws.move <region>`, `ws.act <action> [k=v]`, `ws.occur <action> [k=v]`, `ws.accept`, `ws.decline`, `ws.status`.
+3. **Console commands of our plugin** (in PIE, `-game` or via MCP): `ws.join [id] [name]`, `ws.move <region>`, `ws.act <action> [k=v]`, `ws.occur <action> [k=v]`, `ws.accept`, `ws.decline`, `ws.status`. Test commands (drive the player without a keyboard): `ws.input <action> x [y] [seconds=N]` (Enhanced Input injection, e.g. `ws.input IA_Move 0 1 seconds=20` runs forward; `IA_Sprint`, `IA_Jump`, `IA_Traverse` exist in `/Game/Input`), `ws.inputstop <action>`, `ws.face <yaw>` (-90 = south, toward the forest), `ws.pos`, `ws.track <interval> <count>`, and `ws.sequence <gap> <cmd> | <cmd> ...` (starts once the pawn exists; `play-test.ps1` appends `quit`).
 
 ## Rules
 
