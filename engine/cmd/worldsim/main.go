@@ -354,6 +354,7 @@ func serve(args []string) error {
 	mode := fs.String("advisor", "none", "none | deterministic | jev")
 	envFile := fs.String("env-file", ".env", "local file with OPENROUTER_API_KEY (jev only)")
 	jevTimeout := fs.Duration("jev-timeout", 5*time.Second, "per-call Jev timeout")
+	onChange := fs.String("on-universe-change", "refuse", "refuse | new-world: what to do when the saved world was made with another version of the universe (new-world archives it, nothing is deleted)")
 	fs.Parse(args)
 	host, _, err := net.SplitHostPort(*listen)
 	if err != nil || !net.ParseIP(host).IsLoopback() {
@@ -370,8 +371,22 @@ func serve(args []string) error {
 	if err := os.MkdirAll(*data, 0o700); err != nil {
 		return err
 	}
-	l, err := store.OpenFile(filepath.Join(*data, w.U.ID+".jsonl"), w.U.ID, w.Fingerprint())
+	file := filepath.Join(*data, w.U.ID+".jsonl")
+	l, err := store.OpenFile(file, w.U.ID, w.Fingerprint())
+	if errors.Is(err, store.ErrMismatch) && *onChange == "new-world" {
+		// Replaying old commands under new rules would build another world, so
+		// the old one is kept aside and a new one starts from this universe.
+		archived, aerr := store.Archive(file)
+		if aerr != nil {
+			return aerr
+		}
+		fmt.Printf("the universe changed: previous world archived as %s, starting a new world\n", filepath.Base(archived))
+		l, err = store.OpenFile(file, w.U.ID, w.Fingerprint())
+	}
 	if err != nil {
+		if errors.Is(err, store.ErrMismatch) {
+			return fmt.Errorf("%w: the saved world was made with another version of the universe (use -on-universe-change new-world to archive it and start a new one)", err)
+		}
 		return err
 	}
 	r, err := sim.Open(w, l, sim.Options{Advisor: adv, AdvisorTimeout: *jevTimeout + time.Second})

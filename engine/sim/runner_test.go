@@ -208,3 +208,54 @@ func TestAdvisorAnswerAppliedOrRejected(t *testing.T) {
 	}
 	bad.Close()
 }
+
+// A new world keeps the old one on disk, starts empty, survives a restart,
+// and plays exactly like a world that never had a predecessor.
+func TestNewWorldArchivesTheOldOne(t *testing.T) {
+	w := world(t)
+	dir := t.TempDir()
+	path := filepath.Join(dir, "world.jsonl")
+	open := func(p string) *Runner {
+		l, err := store.OpenFile(p, w.U.ID, w.Fingerprint())
+		if err != nil {
+			t.Fatal(err)
+		}
+		r, err := Open(w, l, Options{})
+		if err != nil {
+			t.Fatal(err)
+		}
+		return r
+	}
+	a := open(path)
+	script(t, a, 0, 30)
+	old := a.Snapshot().Digest()
+	archived, err := a.Reset()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if s := a.Snapshot(); s.Tick != 0 || len(s.Entities["p1"].Name) != 0 {
+		t.Fatalf("the new world must start empty: tick %d", s.Tick)
+	}
+	script(t, a, 0, 10)
+	a.Close()
+
+	b := open(path)
+	if b.Snapshot().Tick != 10 {
+		t.Fatalf("the new world must persist: tick %d", b.Snapshot().Tick)
+	}
+	got := b.Snapshot().Digest()
+	b.Close()
+	c, _ := Open(w, &store.Memory{}, Options{})
+	script(t, c, 0, 10)
+	if got != c.Snapshot().Digest() {
+		t.Fatal("a new world must be identical to one that never had a predecessor")
+	}
+	if filepath.Dir(archived) != dir {
+		t.Fatalf("archive must stay next to the log: %s", archived)
+	}
+	prev := open(archived)
+	if prev.Snapshot().Tick != 30 || prev.Snapshot().Digest() != old {
+		t.Fatal("the archived world must be intact")
+	}
+	prev.Close()
+}

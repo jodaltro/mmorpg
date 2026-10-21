@@ -121,3 +121,10 @@ Problemas encontrados nessas corridas e corrigidos: missão ativa impossível pr
 
 - `-race`: indisponível sem cgo/gcc nesta máquina.
 - Nenhum cliente de engine (Unity/Unreal/Godot) foi conectado ainda.
+
+## 21/10/2026 — novo mundo e lista de personagens
+
+- `store.Log.Reset` / `store.Archive`: o log atual é renomeado para `<universo>-AAAAMMDD-HHMMSS.jsonl` (sufixo `-2`, `-3` se já existir) e um novo começa; nada é apagado.
+- `sim.Runner.Reset`: estado novo a partir do universo e uma geração nova; respostas do advisor de um mundo anterior são descartadas (ids de decisão repetem entre mundos).
+- API v1 (aditiva): `GET /v1/players` e `POST /v1/world/reset` (exige `"confirm":"new-world"`). `serve -on-universe-change new-world` arquiva um mundo salvo com outra versão do universo.
+- Testes: `TestPlayersListAndNewWorld` (lista com nome e região; reset sem confirmação → 400 e o mundo fica; reset → 0 personagens no tick 0; o mesmo id entra de novo) e `TestNewWorldArchivesTheOldOne` (o novo mundo persiste após reiniciar, tem o mesmo digest de um mundo sem antecessor, e o arquivado reabre intacto com o mesmo digest). `gofmt -l` vazio, `go vet` ok, `go test ./...` ok.

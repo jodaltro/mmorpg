@@ -4,6 +4,7 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "HAL/IConsoleManager.h"
+#include "Misc/App.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Dom/JsonObject.h"
@@ -23,6 +24,16 @@ void UWorldSimSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	PollInterval = FMath::Max(0.1f, S->PollInterval);
 	bOnScreen = S->bOnScreenMessages;
 	TickHandle = FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateUObject(this, &UWorldSimSubsystem::Poll), PollInterval);
+	bStartMenu = S->bShowStartMenu && !FApp::IsUnattended() && !IsRunningCommandlet();
+	if (bStartMenu)
+	{
+		// The start screen picks the character; nothing is joined until then.
+		PlayerId.Reset();
+		PlayerName.Reset();
+		UE_LOG(LogWorldSim, Log, TEXT("WorldSim: client for %s, waiting for the start screen"), *ServerUrl);
+		RequestPlayers();
+		return;
+	}
 	UE_LOG(LogWorldSim, Log, TEXT("WorldSim: client for %s as %s"), *ServerUrl, *PlayerId);
 	if (S->bAutoJoin)
 	{
@@ -41,6 +52,10 @@ void UWorldSimSubsystem::SetPlayer(const FString& Id, const FString& Name)
 	PlayerId = Id;
 	PlayerName = Name.IsEmpty() ? Id : Name;
 	Quests.Empty();
+	Skills.Reset();
+	Recent.Reset();
+	Region.Reset();
+	bConnected = false;
 	LastSeq = 0;
 }
 
@@ -73,10 +88,17 @@ void UWorldSimSubsystem::Send(const FString& Origin, const FString& Kind, TFunct
 			if (Code == 409 && What != TEXT("join"))
 			{
 				Say(-1, FColor::Orange, FString::Printf(TEXT("O mundo recusou: %s"), *What), 4.f);
+				Notify(What == TEXT("act") ? TEXT("Nada acontece... (nao e possivel fazer isso agora)") : TEXT("O mundo recusou."), FLinearColor(1.f, 0.6f, 0.2f));
+			}
+			else if (Code == 0)
+			{
+				Notify(TEXT("Sem conexao com o servidor do mundo."), FLinearColor(1.f, 0.3f, 0.3f));
 			}
 			return;
 		}
 		UE_LOG(LogWorldSim, Log, TEXT("WorldSim: %s accepted"), *What);
+		if (What == TEXT("accept")) { Notify(TEXT("Missao aceita."), FLinearColor(0.4f, 1.f, 0.5f)); }
+		else if (What == TEXT("decline")) { Notify(TEXT("Proposta recusada."), FLinearColor(0.8f, 0.8f, 0.8f)); }
 	});
 	Req->ProcessRequest();
 }
@@ -86,9 +108,79 @@ void UWorldSimSubsystem::Join()
 	Send(TEXT("adapter"), TEXT("join"), [this](TSharedRef<FJsonObject> B) { B->SetStringField(TEXT("name"), PlayerName); });
 }
 
-void UWorldSimSubsystem::Move(const FString& Region)
+void UWorldSimSubsystem::Move(const FString& RegionId)
 {
-	Send(TEXT("adapter"), TEXT("move"), [&Region](TSharedRef<FJsonObject> B) { B->SetStringField(TEXT("region"), Region); });
+	Send(TEXT("adapter"), TEXT("move"), [&RegionId](TSharedRef<FJsonObject> B) { B->SetStringField(TEXT("region"), RegionId); });
+}
+
+void UWorldSimSubsystem::RequestPlayers()
+{
+	ServerStatus.Reset();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Req = FHttpModule::Get().CreateRequest();
+	Req->SetURL(ServerUrl + TEXT("/v1/players"));
+	Req->SetVerb(TEXT("GET"));
+	Req->OnProcessRequestComplete().BindWeakLambda(this, [this](FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
+	{
+		if (!bOk || !Res.IsValid() || Res->GetResponseCode() != 200)
+		{
+			ServerStatus = FString::Printf(TEXT("Servidor do mundo fora do ar (%s). Rode worldsim serve e tente de novo."), *ServerUrl);
+			return;
+		}
+		TSharedPtr<FJsonObject> Root;
+		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Res->GetContentAsString());
+		const TArray<TSharedPtr<FJsonValue>>* Arr = nullptr;
+		KnownPlayers.Reset();
+		if (FJsonSerializer::Deserialize(Reader, Root) && Root.IsValid() && Root->TryGetArrayField(TEXT("players"), Arr))
+		{
+			for (const TSharedPtr<FJsonValue>& V : *Arr)
+			{
+				const TSharedPtr<FJsonObject> O = V->AsObject();
+				FWorldSimPlayer P;
+				O->TryGetStringField(TEXT("id"), P.Id);
+				O->TryGetStringField(TEXT("name"), P.Name);
+				O->TryGetStringField(TEXT("regionName"), P.RegionName);
+				KnownPlayers.Add(P);
+			}
+		}
+		ServerStatus = TEXT("ok");
+	});
+	Req->ProcessRequest();
+}
+
+void UWorldSimSubsystem::NewWorld()
+{
+	ServerStatus.Reset();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Req = FHttpModule::Get().CreateRequest();
+	Req->SetURL(ServerUrl + TEXT("/v1/world/reset"));
+	Req->SetVerb(TEXT("POST"));
+	Req->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+	Req->SetContentAsString(TEXT("{\"version\":1,\"confirm\":\"new-world\"}"));
+	Req->OnProcessRequestComplete().BindWeakLambda(this, [this](FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
+	{
+		const bool bDone = bOk && Res.IsValid() && Res->GetResponseCode() == 200;
+		UE_LOG(LogWorldSim, Log, TEXT("WorldSim: new world -> %s"), Res.IsValid() ? *Res->GetContentAsString() : TEXT("no response"));
+		Notify(bDone ? TEXT("Um novo mundo comecou. O anterior foi arquivado.") : TEXT("Nao foi possivel criar um novo mundo."),
+			bDone ? FLinearColor(0.4f, 1.f, 0.5f) : FLinearColor(1.f, 0.3f, 0.3f));
+		RequestPlayers();
+	});
+	Req->ProcessRequest();
+}
+
+void UWorldSimSubsystem::Play(const FString& Id, const FString& Name)
+{
+	SetPlayer(Id, Name);
+	UE_LOG(LogWorldSim, Log, TEXT("WorldSim: playing as %s (%s)"), *PlayerId, *PlayerName);
+	Join(); // a character that already exists answers 409, which is fine
+}
+
+void UWorldSimSubsystem::Notify(const FString& Text, const FLinearColor& Color)
+{
+	FWorldSimNotice N;
+	N.Text = Text;
+	N.Color = Color;
+	N.At = FPlatformTime::Seconds();
+	Notices.Add(N);
+	if (Notices.Num() > 8) { Notices.RemoveAt(0); }
 }
 
 static void FillAct(TSharedRef<FJsonObject> B, const FString& Action, const TMap<FString, FString>& Args)
@@ -182,6 +274,27 @@ void UWorldSimSubsystem::OnView(FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
 		return;
 	}
 	WorldTick = (int64)Root->GetNumberField(TEXT("tick"));
+	bConnected = true;
+	const TSharedPtr<FJsonObject>* SelfObj = nullptr;
+	if (Root->TryGetObjectField(TEXT("self"), SelfObj) && SelfObj)
+	{
+		Region = Str(*SelfObj, TEXT("region"));
+	}
+	const TArray<TSharedPtr<FJsonValue>>* SArr = nullptr;
+	if (Root->TryGetArrayField(TEXT("skills"), SArr))
+	{
+		Skills.Reset();
+		for (const TSharedPtr<FJsonValue>& V : *SArr)
+		{
+			const TSharedPtr<FJsonObject> O = V->AsObject();
+			FWorldSimSkill K;
+			K.Id = Str(O, TEXT("id"));
+			K.Name = Str(O, TEXT("name"));
+			K.Rarity = Str(O, TEXT("rarity"));
+			K.Desc = Str(O, TEXT("desc"));
+			Skills.Add(K);
+		}
+	}
 
 	const TArray<TSharedPtr<FJsonValue>>* Others = nullptr;
 	if (Root->TryGetArrayField(TEXT("others"), Others))
@@ -290,6 +403,11 @@ void UWorldSimSubsystem::OnView(FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
 				UE_LOG(LogWorldSim, Log, TEXT("WorldSim: EVENT [%lld] %s: %s"), E.Tick, *E.Kind, *E.Text);
 				Say(-1, E.bPublic ? FColor::White : FColor(180, 220, 255), E.Text, 6.f);
 			}
+			if (!E.Text.IsEmpty() && !E.Kind.StartsWith(TEXT("quest-")))
+			{
+				Recent.Add(E);
+				if (Recent.Num() > 30) { Recent.RemoveAt(0); }
+			}
 			OnWorldEvent.Broadcast(E);
 		}
 	}
@@ -303,7 +421,7 @@ void UWorldSimSubsystem::OnView(FHttpRequestPtr, FHttpResponsePtr Res, bool bOk)
 
 void UWorldSimSubsystem::Say(int32 Key, const FColor& Color, const FString& Text, float Seconds) const
 {
-	if (bOnScreen && GEngine)
+	if (bOnScreen && !bHudActive && GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(Key, Seconds, Color, Text);
 	}

@@ -136,3 +136,46 @@ func TestStreamPushesOnlyVisibleEvents(t *testing.T) {
 		t.Fatal("public world events must be pushed to every observer")
 	}
 }
+
+func TestPlayersListAndNewWorld(t *testing.T) {
+	r, s := setup(t)
+	post(t, s.URL, `{"version":1,"requestId":"j1","origin":"adapter","kind":"join","actor":"p1","name":"Ana"}`)
+	post(t, s.URL, `{"version":1,"requestId":"j2","origin":"adapter","kind":"join","actor":"p2","name":"Bia"}`)
+	r.Tick()
+	players := func() PlayersResponse {
+		res, err := http.Get(s.URL + "/v1/players")
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer res.Body.Close()
+		var p PlayersResponse
+		json.NewDecoder(res.Body).Decode(&p)
+		return p
+	}
+	if p := players(); len(p.Players) != 2 || p.Players[0].Name != "Ana" || p.Players[0].RegionName == "" {
+		t.Fatalf("start screen needs every character with name and region: %+v", p)
+	}
+	reset := func(body string) int {
+		res, err := http.Post(s.URL+"/v1/world/reset", "application/json", strings.NewReader(body))
+		if err != nil {
+			t.Fatal(err)
+		}
+		res.Body.Close()
+		return res.StatusCode
+	}
+	if code := reset(`{"version":1}`); code != 400 {
+		t.Fatalf("a new world needs explicit confirmation, got %d", code)
+	}
+	if len(players().Players) != 2 {
+		t.Fatal("a refused reset must keep the world")
+	}
+	if code := reset(`{"version":1,"confirm":"new-world"}`); code != 200 {
+		t.Fatalf("reset: %d", code)
+	}
+	if p := players(); len(p.Players) != 0 || p.Tick != 0 {
+		t.Fatalf("the new world starts empty at tick 0: %+v", p)
+	}
+	if code, out := post(t, s.URL, `{"version":1,"requestId":"j1b","origin":"adapter","kind":"join","actor":"p1","name":"Ana"}`); code != 200 {
+		t.Fatalf("the same character can start again in the new world: %d %v", code, out)
+	}
+}

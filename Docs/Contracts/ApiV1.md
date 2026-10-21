@@ -9,6 +9,8 @@ Todos os corpos são JSON com `"version": 1`. Campos desconhecidos são recusado
 | `GET /v1/views/{id}?limit=N` | O que `{id}` pode ver: a própria entidade, outras entidades (nome/tipo), fatos privados, crenças, missões, eventos visíveis e a história (incluindo o capítulo que ele persegue) |
 | `GET /v1/stream/{id}` | SSE: primeiro `event: view` (visão completa), depois `event: delta` a cada mudança, só com eventos visíveis a `{id}` |
 | `POST /v1/commands` | Envia um comando (abaixo) |
+| `GET /v1/players` | Personagens que existem no mundo: `{version, tick, players:[{id, name, region, regionName}]}`. Para a tela inicial (`Continuar como...`); só dados públicos |
+| `POST /v1/world/reset` | **Desenvolvimento:** começa um mundo novo a partir do universo. Corpo `{"version":1,"confirm":"new-world"}` (sem a confirmação: 400 `confirm_required`). O log anterior é **arquivado** ao lado (`<universo>-AAAAMMDD-HHMMSS.jsonl`), nunca apagado; respostas do Jev pendentes do mundo antigo são descartadas. Resposta `{version, archived, tick, revision}` |
 
 ## Comando
 

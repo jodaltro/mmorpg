@@ -146,3 +146,18 @@ Confiança das ofertas: 0,91–0,99. Diretor: 0,07 (`feira-magos`) a 0,73 (`cria
 | fabio | craft 6 | concluiu **A primeira peça: minério corrompido** (arco do ferreiro); **Achar Botões (absurda)** |
 
 Story: `maldicao:origem -> restaurar` (conf 0,88). Ninguém aprendeu Ouvido de Taverna nessa rodada. Rejeições do motor por requisitos (ações fora de lugar, hora ou habilidade) aconteceram em todas as personas e são esperadas (ex.: `descansar` de dia, `diagnosticar` sem a habilidade).
+
+### Interface de jogo (sem console) e tela inicial
+
+Plugin: `WorldSimHUD` (Slate, sem assets) e `WorldSimInteractable`. Tela inicial: **Continuar** (lista `GET /v1/players`), **Novo personagem** (nome digitado → id, nunca reaproveita o de outro) e **Novo mundo** com confirmação (`POST /v1/world/reset`, o mundo anterior é arquivado). HUD: personagem/região/dia, missão ativa, janela de sistema da oferta com **[Y] Aceitar / [N] Recusar**, feed do mundo, avisos (inclusive recusas do motor), banner de região, toast de habilidade por raridade, prompt **[E]** e diário **[J]**. Execuções `-unattended` continuam com auto-join (scripts de teste intactos). `build-valdoria.py` coloca 15 interativos: NPCs com corpo (Brom, Mira, Elena, Orin, Tomás, Lia, Kael — manequim com `ABP_Unarmed`), Poço, Bigorna, Banco, Tenda dos Magos, Telhado, e na floresta Rastro, Ervas e Javali (confirmados pelo jogo). `Jogar Valdoria.bat` → `tools/unreal/play.ps1`: sobe o servidor (Jev, `-on-universe-change new-world`) e abre o jogo em janela própria.
+
+Verificado no editor via MCP (PIE + `SlateInspector` + `CaptureEditorImage`), servidor com Jev em mundo novo:
+
+1. Tela inicial sem servidor novo: mensagem "Servidor do mundo fora do ar" (o binário antigo não tinha `/v1/players`). Com o servidor novo: "Nenhum personagem neste mundo ainda".
+2. Nome "Jodaltro" digitado + "Criar e jogar" → `GET /v1/players` = `jodaltro`, Vila Cinzenta.
+3. HUD: nome, região e dia; janela de sistema "Mira, a curandeira chama voce — Ervas para a curandeira, Rank E, objetivo, recompensa, [Y]/[N]"; feed com boatos; nomes flutuantes no cenário.
+4. Tecla **Y** (enviada ao jogo) → a missão ficou `active` no servidor e o painel de missão mostrou o objetivo.
+5. Perto da tenda apareceu "[E] Trocar magias na Tenda dos Magos". A tecla E em si não foi enviada nesse teste (o foco estava no console do editor).
+6. `play-test.ps1` (unattended) continuou entrando sozinho como `ana`, andando e reportando a estrada.
+
+Servidor: o mundo salvo em `data/` tinha sido criado com uma versão anterior do universo e o `serve` recusava (`log_belongs_to_another_universe`). Nova opção `-on-universe-change new-world`: arquiva (`valdoria-20261021-231555.jsonl`, 921 KB, intacto) e começa um mundo novo; sem a opção continua recusando, agora com mensagem explicando o que fazer.

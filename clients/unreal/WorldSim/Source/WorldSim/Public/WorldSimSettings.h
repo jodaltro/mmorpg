@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CoreMinimal.h"
 #include "Engine/DeveloperSettings.h"
@@ -25,9 +25,17 @@ public:
 	UPROPERTY(Config, EditAnywhere, Category = "Player")
 	FString PlayerName = TEXT("Ana");
 
-	/** Join automatically when the game starts. */
+	/** Join automatically when the game starts (headless tests, no start screen). */
 	UPROPERTY(Config, EditAnywhere, Category = "Player")
 	bool bAutoJoin = true;
+
+	/**
+	 * Show the start screen (continue a character, new character, new world)
+	 * instead of joining automatically. Unattended runs (-unattended) always
+	 * auto-join, so scripted tests keep working.
+	 */
+	UPROPERTY(Config, EditAnywhere, Category = "Presentation")
+	bool bShowStartMenu = true;
 
 	/** Seconds between view refreshes. */
 	UPROPERTY(Config, EditAnywhere, Category = "Connection", meta = (ClampMin = "0.1"))

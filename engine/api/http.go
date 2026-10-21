@@ -11,6 +11,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"path/filepath"
+	"sort"
 	"strconv"
 	"time"
 
@@ -51,6 +53,35 @@ type StreamMessage struct {
 	Events   []core.Event `json:"events"`
 }
 
+// PlayerSummary lists a character that exists in the world, for a start
+// screen ("continue as..."). Only public facts: name and region.
+type PlayerSummary struct {
+	ID         core.ID `json:"id"`
+	Name       string  `json:"name"`
+	Region     core.ID `json:"region,omitempty"`
+	RegionName string  `json:"regionName,omitempty"`
+}
+
+type PlayersResponse struct {
+	Version int             `json:"version"`
+	Tick    core.Tick       `json:"tick"`
+	Players []PlayerSummary `json:"players"`
+}
+
+// ResetRequest starts a new world. Confirm must be "new-world" so a stray
+// call cannot wipe progress; the old world stays archived on disk.
+type ResetRequest struct {
+	Version int    `json:"version"`
+	Confirm string `json:"confirm"`
+}
+
+type ResetResponse struct {
+	Version  int       `json:"version"`
+	Archived string    `json:"archived,omitempty"`
+	Tick     core.Tick `json:"tick"`
+	Revision int64     `json:"revision"`
+}
+
 type errorBody struct {
 	Version int    `json:"version"`
 	Error   string `json:"error"`
@@ -78,6 +109,42 @@ func Handler(r *sim.Runner) http.Handler {
 			return
 		}
 		reply(rw, 200, v)
+	})
+	mux.HandleFunc("GET /v1/players", func(rw http.ResponseWriter, _ *http.Request) {
+		s := r.Snapshot()
+		out := PlayersResponse{Version: Version, Tick: s.Tick, Players: []PlayerSummary{}}
+		for id, e := range s.Entities {
+			if e.Kind != w.U.PlayerKind {
+				continue
+			}
+			p := PlayerSummary{ID: id, Name: e.Name, Region: e.Region}
+			if reg, ok := s.Entities[e.Region]; ok {
+				p.RegionName = reg.Name
+			}
+			out.Players = append(out.Players, p)
+		}
+		sort.Slice(out.Players, func(i, j int) bool { return out.Players[i].ID < out.Players[j].ID })
+		reply(rw, 200, out)
+	})
+	mux.HandleFunc("POST /v1/world/reset", func(rw http.ResponseWriter, q *http.Request) {
+		var in ResetRequest
+		if !decode(rw, q, &in) {
+			return
+		}
+		if in.Version != Version || in.Confirm != "new-world" {
+			reply(rw, 400, errorBody{Version, "confirm_required"})
+			return
+		}
+		archived, err := r.Reset()
+		if err != nil {
+			reply(rw, 503, errorBody{Version, "world_unavailable"})
+			return
+		}
+		s := r.Snapshot()
+		if archived != "" {
+			archived = filepath.Base(archived) // never expose server paths
+		}
+		reply(rw, 200, ResetResponse{Version: Version, Archived: archived, Tick: s.Tick, Revision: s.Revision})
 	})
 	mux.HandleFunc("POST /v1/commands", func(rw http.ResponseWriter, q *http.Request) {
 		var in CommandRequest

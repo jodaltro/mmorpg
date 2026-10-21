@@ -36,6 +36,7 @@ type Runner struct {
 	subs     map[int]chan core.Delta
 	nextSub  int
 	closed   bool
+	gen      int // bumped by Reset; advisor answers of an older world are dropped
 }
 
 // Open rebuilds the world by replaying the log, then dispatches decisions
@@ -76,11 +77,20 @@ func (r *Runner) Snapshot() core.State {
 
 // Submit applies a command: validate, persist, publish. Nothing is
 // published unless it was durably appended to the log first.
-func (r *Runner) Submit(c core.Command) (core.Delta, error) {
+func (r *Runner) Submit(c core.Command) (core.Delta, error) { return r.submit(c, -1) }
+
+var errStale = errors.New("stale_world")
+
+// submit applies c; gen >= 0 means "only if the world was not reset since".
+func (r *Runner) submit(c core.Command, gen int) (core.Delta, error) {
 	r.mu.Lock()
 	if r.closed {
 		r.mu.Unlock()
 		return core.Delta{}, errors.New("runner_closed")
+	}
+	if gen >= 0 && gen != r.gen {
+		r.mu.Unlock()
+		return core.Delta{}, errStale
 	}
 	next, d, err := r.w.Step(r.s, c)
 	if err == nil && !d.Duplicate {
@@ -136,6 +146,7 @@ func (r *Runner) dispatch(ds []core.Decision) {
 		}
 		r.inflight[d.ID] = true
 		r.wg.Add(1)
+		gen := r.gen
 		r.mu.Unlock()
 		go func(d core.Decision) {
 			defer r.wg.Done()
@@ -143,15 +154,17 @@ func (r *Runner) dispatch(ds []core.Decision) {
 			a, err := r.opt.Advisor.Decide(ctx, r.w.U.ID, d)
 			cancel()
 			r.mu.Lock()
-			delete(r.inflight, d.ID)
+			if gen == r.gen {
+				delete(r.inflight, d.ID)
+			}
 			r.mu.Unlock()
 			if err != nil {
 				return // the deterministic default applies at the deadline
 			}
 			// A late or stale answer is rejected by the engine; that is fine.
-			_, _ = r.Submit(core.Command{Version: 1, RequestID: "resolve:" + d.ID, Origin: "advisor", Kind: "resolve",
+			_, _ = r.submit(core.Command{Version: 1, RequestID: "resolve:" + d.ID, Origin: "advisor", Kind: "resolve",
 				Decision: d.ID, Choice: a.Choice, Provider: a.Provider, Model: a.Model, Call: a.Call,
-				Confidence: a.Confidence, LatencyMS: a.LatencyMS, Cost: a.Cost})
+				Confidence: a.Confidence, LatencyMS: a.LatencyMS, Cost: a.Cost}, gen)
 		}(d)
 	}
 }
@@ -184,6 +197,29 @@ func (r *Runner) publish(d core.Delta) {
 		default:
 		}
 	}
+}
+
+// Reset starts a new world from the universe: the log keeps the old one
+// aside (see store.Log.Reset) and pending advisor answers are dropped.
+// Decision ids repeat across worlds (they carry the tick), hence the generation.
+func (r *Runner) Reset() (string, error) {
+	r.mu.Lock()
+	if r.closed {
+		r.mu.Unlock()
+		return "", errors.New("runner_closed")
+	}
+	archived, err := r.log.Reset()
+	if err != nil {
+		r.mu.Unlock()
+		return "", err
+	}
+	r.s = core.NewState(r.w)
+	r.gen++
+	r.inflight = map[string]bool{}
+	s := r.s
+	r.mu.Unlock()
+	r.publish(core.Delta{Revision: s.Revision, Tick: s.Tick})
+	return archived, nil
 }
 
 // Drain waits for in-flight advisor calls (tests, shutdown).

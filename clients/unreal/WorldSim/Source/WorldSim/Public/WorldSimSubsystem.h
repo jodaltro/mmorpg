@@ -46,6 +46,37 @@ struct FWorldSimEvent
 	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") TMap<FString, FString> Data;
 };
 
+/** A skill this player discovered. */
+USTRUCT(BlueprintType)
+struct FWorldSimSkill
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Id;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Name;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Rarity;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Desc;
+};
+
+/** A character that exists in the world (start screen). */
+USTRUCT(BlueprintType)
+struct FWorldSimPlayer
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Id;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString Name;
+	UPROPERTY(BlueprintReadOnly, Category = "WorldSim") FString RegionName;
+};
+
+/** A short message for the player (refusals, confirmations). */
+struct FWorldSimNotice
+{
+	FString Text;
+	FLinearColor Color = FLinearColor::White;
+	double At = 0;
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWorldSimEventSignature, const FWorldSimEvent&, Event);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWorldSimQuestSignature, const FWorldSimQuest&, Quest);
 
@@ -69,7 +100,7 @@ public:
 
 	/** The game (as authority of positions) reports the region the player entered. */
 	UFUNCTION(BlueprintCallable, Category = "WorldSim")
-	void Move(const FString& Region);
+	void Move(const FString& RegionId);
 
 	/** A player intention (talk, inform, examine...). */
 	UFUNCTION(BlueprintCallable, Category = "WorldSim")
@@ -97,6 +128,44 @@ public:
 	UFUNCTION(BlueprintPure, Category = "WorldSim")
 	FString GetPlayerId() const { return PlayerId; }
 
+	UFUNCTION(BlueprintPure, Category = "WorldSim")
+	FString GetPlayerName() const { return PlayerName; }
+
+	/** Region id the engine has for this player, and its display name. */
+	UFUNCTION(BlueprintPure, Category = "WorldSim")
+	FString GetRegion() const { return Region; }
+
+	UFUNCTION(BlueprintPure, Category = "WorldSim")
+	FString NameOf(const FString& Id) const { const FString* N = Names.Find(Id); return N ? *N : Id; }
+
+	/** True once the engine answered at least one view (server reachable, player joined). */
+	UFUNCTION(BlueprintPure, Category = "WorldSim")
+	bool IsConnected() const { return bConnected; }
+
+	/** Start screen: ask the server which characters exist. */
+	void RequestPlayers();
+	/** Start screen: archive the current world and start a new one. */
+	void NewWorld();
+	/** Start screen: play as this character (joins if new). */
+	void Play(const FString& Id, const FString& Name);
+	/** True once a character was chosen (or auto-joined). */
+	bool IsPlaying() const { return !PlayerId.IsEmpty(); }
+	/** Whether this run waits for the start screen. */
+	bool WantsStartMenu() const { return bStartMenu; }
+	const TArray<FWorldSimPlayer>& GetKnownPlayers() const { return KnownPlayers; }
+	/** "" while loading, "ok", or an error text for the start screen. */
+	const FString& GetServerStatus() const { return ServerStatus; }
+
+	const TMap<FString, FWorldSimQuest>& GetQuests() const { return Quests; }
+	const TArray<FWorldSimSkill>& GetSkills() const { return Skills; }
+	/** Last visible events with text, newest last. */
+	const TArray<FWorldSimEvent>& GetRecentEvents() const { return Recent; }
+	const TArray<FWorldSimNotice>& GetNotices() const { return Notices; }
+	void Notify(const FString& Text, const FLinearColor& Color);
+
+	/** A HUD that draws the world state turns the debug text off. */
+	void SetHudActive(bool bActive) { bHudActive = bActive; }
+
 	/** Fired once per new visible event. */
 	UPROPERTY(BlueprintAssignable, Category = "WorldSim")
 	FWorldSimEventSignature OnWorldEvent;
@@ -121,13 +190,22 @@ private:
 	FString ServerUrl;
 	FString PlayerId;
 	FString PlayerName;
+	FString Region;
 	float PollInterval = 0.5f;
 	bool bOnScreen = true;
+	bool bHudActive = false;
+	bool bStartMenu = false;
+	TArray<FWorldSimPlayer> KnownPlayers;
+	FString ServerStatus;
+	bool bConnected = false;
 	bool bPollInFlight = false;
 	int64 LastSeq = 0;
 	int64 WorldTick = 0;
 	int32 Counter = 0;
 	TMap<FString, FWorldSimQuest> Quests;
 	TMap<FString, FString> Names;
+	TArray<FWorldSimSkill> Skills;
+	TArray<FWorldSimEvent> Recent;
+	TArray<FWorldSimNotice> Notices;
 	FTSTicker::FDelegateHandle TickHandle;
 };

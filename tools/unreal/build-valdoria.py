@@ -200,6 +200,52 @@ for _ in range(260):
     put("Nature", rng.choice(["Grass_Common_Short", "Grass_Common_Tall", "Flower_3_Group", "Flower_4_Group", "Clover_1"]),
         x, y, 0, rng.uniform(0, 360), rng.uniform(0.5, 0.9), folder="Arredores")
 
+# Things the player uses with [E] (AWorldSimInteractable): NPCs with a body,
+# landmarks and spots. A player intention or, when the game itself is the
+# judge (the trail was reached, the boar was killed), a confirmed occurrence.
+MANNY = unreal.load_asset("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple")
+QUINN = unreal.load_asset("/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple")
+IDLE = unreal.EditorAssetLibrary.load_blueprint_class("/Game/Characters/Mannequins/Anims/Unarmed/ABP_Unarmed")
+
+
+def spot(name, verb, x, y, yaw=0.0, action="", game=False, npc="", body=None, radius=300.0, folder="WorldSim/Interativos"):
+    a = eas.spawn_actor_from_class(unreal.WorldSimInteractable, unreal.Vector(x, y, 0), unreal.Rotator(0, 0, yaw))
+    if not a:
+        report["missing"].append("interactable " + name)
+        return None
+    for k, v in [("display_name", name), ("verb", verb), ("action_id", action), ("confirmed_by_game", game), ("npc_id", npc), ("radius", radius)]:
+        a.set_editor_property(k, v)
+    a.get_editor_property("label").set_text(name)
+    b = a.get_editor_property("body")
+    if body:
+        b.set_skeletal_mesh_asset(body)
+        b.set_relative_rotation(unreal.Rotator(0, 0, -90), False, False)  # mannequin faces +Y
+        if IDLE:
+            b.set_editor_property("animation_mode", unreal.AnimationMode.ANIMATION_BLUEPRINT)
+            b.set_anim_instance_class(IDLE)
+    else:
+        a.get_editor_property("label").set_relative_location(unreal.Vector(0, 0, 120), False, False)
+    a.set_actor_label("Interativo_" + (npc or action or name))
+    a.set_folder_path(folder)
+    report.setdefault("interactables", []).append(name)
+    return a
+
+
+spot("Poco Antigo", "Examinar", 330, 0, action="examinar-poco")
+spot("Brom, o ferreiro", "Falar com", 760, 300, 180, npc="brom", body=MANNY)
+spot("Bigorna", "Forjar na", 900, 150, action="forjar", radius=220)
+spot("Mira, a curandeira", "Falar com", -760, 300, 0, npc="mira", body=QUINN)
+spot("Irma Elena", "Falar com", 250, 1150, -90, npc="elena", body=QUINN)
+spot("Orin, o guarda", "Falar com", -250, 1150, -90, npc="orin", body=MANNY)
+spot("Banco da taverna", "Descansar no", -900, -300, action="descansar", radius=220)
+spot("Tenda dos Magos", "Trocar magias na", 0, -900, action="trocar-magia", radius=260)
+spot("Telhado quebrado", "Consertar o", 1050, 1250, action="consertar-telhado", radius=260)
+spot("Velho Tomas", "Falar com", 260, -2000, 180, npc="tomas", body=MANNY)
+spot("Lia, a comerciante", "Falar com", -560, -2350, 0, npc="lia", body=QUINN)
+spot("Rastro estranho", "Seguir o", 0, -6400, action="seguir-rastro", game=True, radius=350)
+spot("Ervas medicinais", "Colher", 380, -6700, action="colher-ervas-campo", game=True, radius=250)
+spot("Javali", "Cacar o", -420, -7000, action="cacar-javali", game=True, radius=300)
+spot("Kael, o cacador", "Falar com", 200, -6250, 180, npc="kael", body=MANNY)
 # WorldSim regions: entering a box reports the region to the world engine.
 regions = []
 for rid, x, y, ex, ey in [("vila", 0, 400, 2300, 2100), ("estrada", 0, -3900, 1200, 2000), ("floresta", 0, -10100, 6200, 4100)]:
