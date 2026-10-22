@@ -8425,17 +8425,28 @@
     {
       "id": "portao",
       "region": "vila",
-      "name": "Portao leste"
+      "name": "Portao leste",
+      "near": [
+        "guarita"
+      ]
     },
     {
       "id": "praca",
       "region": "vila",
-      "name": "Praca do poco"
+      "name": "Praca do poco",
+      "near": [
+        "poco",
+        "mercado"
+      ]
     },
     {
       "id": "poco",
       "region": "vila",
-      "name": "Poco antigo"
+      "name": "Poco antigo",
+      "near": [
+        "praca",
+        "mercado"
+      ]
     },
     {
       "id": "taverna",
@@ -8445,12 +8456,18 @@
     {
       "id": "horta",
       "region": "vila",
-      "name": "Horta de Mira"
+      "name": "Horta de Mira",
+      "near": [
+        "casa-mira"
+      ]
     },
     {
       "id": "casa-mira",
       "region": "vila",
-      "name": "Casa de Mira"
+      "name": "Casa de Mira",
+      "near": [
+        "horta"
+      ]
     },
     {
       "id": "forja",
@@ -8475,7 +8492,10 @@
     {
       "id": "guarita",
       "region": "vila",
-      "name": "Guarita"
+      "name": "Guarita",
+      "near": [
+        "portao"
+      ]
     },
     {
       "id": "casa-nino",
@@ -8530,7 +8550,11 @@
     {
       "id": "mercado",
       "region": "vila",
-      "name": "Mercado"
+      "name": "Mercado",
+      "near": [
+        "praca",
+        "poco"
+      ]
     }
   ],
   "routines": [
@@ -10202,6 +10226,9 @@
       "seal-broken": "{from} jura que o {s} foi rompido.",
       "legacy-hint": "{from} fala de uma bigorna lendaria nas {s}.",
       "caravan-here": "{from} conta que chegou uma caravana na {s}."
+    },
+    "slow": {
+      "met": 350
     }
   },
   "dayLength": 48,

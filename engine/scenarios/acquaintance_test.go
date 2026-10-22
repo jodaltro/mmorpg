@@ -27,12 +27,21 @@ func TestWitnessedDeedMakesPlayerKnown(t *testing.T) {
 	if h.knowsOf("tomas", "p1") || h.knowsOf("kael", "p1") {
 		t.Fatal("people elsewhere did not see anything")
 	}
-	h.tick(3) // gossip: p2, also in the village, hears about p1
+	// Who has met whom travels slowly: not at once, but within a while p2 hears of p1.
+	h.tick(3)
+	if h.knowsOf("p2", "p1") && h.knowsOf("tomas", "p1") {
+		t.Fatal("news of a stranger should not reach everyone within one round")
+	}
+	for i := 0; i < 120 && !h.knowsOf("p2", "p1"); i++ {
+		h.tick(1)
+	}
 	if !h.knowsOf("p2", "p1") {
-		t.Fatal("p2 should hear of p1 in the village")
+		t.Fatal("p2 should hear of p1 in the village in the end")
 	}
 	h.move("p2", "estrada")
-	h.tick(3)
+	for i := 0; i < 200 && !h.knowsOf("tomas", "p1"); i++ {
+		h.tick(1)
+	}
 	if !h.knowsOf("tomas", "p1") {
 		t.Fatal("p2 should carry the news of p1 to Tomas on the road")
 	}

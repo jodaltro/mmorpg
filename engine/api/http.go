@@ -32,6 +32,7 @@ type CommandRequest struct {
 	Actor            core.ID            `json:"actor"`
 	Name             string             `json:"name,omitempty"`
 	Region           core.ID            `json:"region,omitempty"`
+	Spot             string             `json:"spot,omitempty"`
 	Action           string             `json:"action,omitempty"`
 	Args             map[string]core.ID `json:"args,omitempty"`
 	Quest            string             `json:"quest,omitempty"`
@@ -167,7 +168,7 @@ func Handler(r *sim.Runner) http.Handler {
 			return
 		}
 		d, err := r.Submit(core.Command{Version: 1, RequestID: in.RequestID, Origin: in.Origin, Kind: in.Kind, Actor: in.Actor,
-			Name: in.Name, Region: in.Region, Action: in.Action, Args: in.Args, Quest: in.Quest, ExpectedRevision: in.ExpectedRevision})
+			Name: in.Name, Region: in.Region, Spot: in.Spot, Action: in.Action, Args: in.Args, Quest: in.Quest, ExpectedRevision: in.ExpectedRevision})
 		if errors.Is(err, core.ErrRejected) {
 			reply(rw, 409, errorBody{Version, err.Error()})
 			return

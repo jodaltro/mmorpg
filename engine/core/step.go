@@ -18,6 +18,7 @@ type Command struct {
 	Actor            ID            `json:"actor,omitempty"`
 	Name             string        `json:"name,omitempty"`
 	Region           ID            `json:"region,omitempty"` // join: where the newcomer arrives; move: the region the game server saw the actor enter
+	Spot             string        `json:"spot,omitempty"`   // move: the named spot the actor is at now (within the region), or empty
 	Action           string        `json:"action,omitempty"`
 	Args             map[string]ID `json:"args,omitempty"`
 	Quest            string        `json:"quest,omitempty"`
@@ -97,7 +98,7 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 		if err = w.act(&s, c.Origin, c.Actor, c.Action, c.Args, cause); err == nil {
 			w.completeFor(&s, c.Actor, cause)
 			if s.Entities[c.Actor].Kind == w.U.PlayerKind {
-				w.witness(&s, c.Actor)
+				w.witness(&s, c.Actor, addressedBy(w, c.Args)...)
 				// A deed can reveal a quest at once, like a system window
 				// popping up right after the player did something.
 				w.refreshOffers(&s, c.Actor, cause)
@@ -195,10 +196,18 @@ func (w *World) move(s *State, c Command, cause string) error {
 	if !ok || !isPlace || !w.regions[place.Kind] {
 		return reject("move")
 	}
+	if c.Spot != "" && c.Spot != OpenGround && w.spotRegion(c.Spot) != c.Region {
+		return reject("spot") // a spot only exists inside its own region
+	}
 	if ent.Region == c.Region {
+		if ent.Tag["spot"] != c.Spot {
+			setSpot(&ent, c.Spot)
+			s.Entities[c.Actor] = ent
+		}
 		return nil
 	}
 	ent.Region = c.Region
+	setSpot(&ent, c.Spot)
 	s.Entities[c.Actor] = ent
 	w.count(s, c.Actor, "move")
 	w.findPlace(s, c.Actor, ID(c.Region))
@@ -260,3 +269,35 @@ func (w *World) findPlace(s *State, who, place ID) {
 		s.Facts[k] = Fact{Holder: who, P: w.U.Discovered, S: who, O: place, At: s.Tick, Cause: "visit"}
 	}
 }
+
+func setSpot(e *Entity, spot string) {
+	if spot == "" {
+		delete(e.Tag, "spot")
+		return
+	}
+	e.Tag["spot"] = spot
+}
+
+func (w *World) spotRegion(id string) ID {
+	for _, sp := range w.U.Spots {
+		if sp.ID == id {
+			return sp.Region
+		}
+	}
+	return ""
+}
+
+// addressedBy lists the people an action is directed at (its npc/person arguments):
+// they always know who is speaking to them.
+func addressedBy(w *World, args map[string]ID) []ID {
+	var out []ID
+	for _, id := range args {
+		out = append(out, id)
+	}
+	slices.Sort(out)
+	return out
+}
+
+// OpenGround is the spot a game server reports when the actor is in a region but at no named spot:
+// nobody is close enough to notice what they do (unlike an empty spot, which means "not reported").
+const OpenGround = "-"

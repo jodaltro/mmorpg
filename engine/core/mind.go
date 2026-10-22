@@ -123,7 +123,7 @@ func (w *World) best(s *State, p ID, cands []candidate, seed string) candidate {
 // witness: everyone who perceives and shares a region with the actor sees
 // the deed, so they now know the actor. The acquaintance is a world fact and
 // each witness's own observation; gossip may spread it to others later.
-func (w *World) witness(s *State, actor ID) {
+func (w *World) witness(s *State, actor ID, addressed ...ID) {
 	acq := w.U.Acquaintance
 	region := s.Entities[actor].Region
 	if acq == "" || region == "" {
@@ -132,6 +132,9 @@ func (w *World) witness(s *State, actor ID) {
 	for _, id := range sortedIDs(s.Entities) {
 		e := s.Entities[id]
 		if id == actor || e.Region != region || e.Kind == w.U.PlayerKind || !slices.Contains(w.U.Perceivers, e.Kind) {
+			continue
+		}
+		if !slices.Contains(addressed, id) && !w.sees(s, e, s.Entities[actor]) {
 			continue
 		}
 		k := factKey("", acq, id, actor)
@@ -169,28 +172,30 @@ func (w *World) gossip(s *State, cause string) {
 	}
 	for _, region := range sortedIDs(groups) {
 		members := groups[region]
-		if len(members) < 2 {
-			continue
-		}
-		newest := map[string]Belief{}
-		teller := map[string]ID{}
 		for _, m := range members {
-			for k, b := range s.Beliefs[m] {
-				if !slices.Contains(g.Predicates, b.P) {
+			// What m hears this round: for each piece of news, the newest version held by
+			// someone m actually meets here (same spot or a neighbouring one).
+			newest := map[string]Belief{}
+			teller := map[string]ID{}
+			for _, t := range members {
+				if t == m || !w.meet(s.Entities[m], s.Entities[t]) {
 					continue
 				}
-				if cur, ok := newest[k]; !ok || b.At > cur.At || b.At == cur.At && m < teller[k] {
-					newest[k], teller[k] = b, m
+				for k, b := range s.Beliefs[t] {
+					if !slices.Contains(g.Predicates, b.P) {
+						continue
+					}
+					if cur, ok := newest[k]; !ok || b.At > cur.At {
+						newest[k], teller[k] = b, t
+					}
 				}
 			}
-		}
-		for _, k := range sortedKeys(newest) {
-			b := newest[k]
-			for _, m := range members {
-				if m == teller[k] {
+			for _, k := range sortedKeys(newest) {
+				b := newest[k]
+				if old, ok := s.Beliefs[m][k]; ok && old.At >= b.At {
 					continue
 				}
-				if old, ok := s.Beliefs[m][k]; ok && old.At >= b.At {
+				if p, slow := g.Slow[b.P]; slow && int64(pick(k+"|"+string(m)+"|"+strconv.FormatInt(int64(s.Tick), 10), 1000)) >= p {
 					continue
 				}
 				heard := Belief{P: b.P, S: b.S, O: b.O, Holds: b.Holds, Source: "rumor", From: teller[k], At: b.At}
@@ -203,6 +208,28 @@ func (w *World) gossip(s *State, cause string) {
 			}
 		}
 	}
+}
+
+// meet reports whether two people are close enough to talk: same region, and
+// the same spot or neighbouring ones. Someone without a known spot meets
+// everyone in the region (the old behaviour, for game servers that report none).
+func (w *World) meet(a, b Entity) bool {
+	if a.Region != b.Region {
+		return false
+	}
+	sa, sb := a.Tag["spot"], b.Tag["spot"]
+	if sa == OpenGround || sb == OpenGround {
+		return false
+	}
+	if sa == "" || sb == "" || sa == sb {
+		return true
+	}
+	for _, sp := range w.U.Spots {
+		if sp.ID == sa && slices.Contains(sp.Near, sb) || sp.ID == sb && slices.Contains(sp.Near, sa) {
+			return true
+		}
+	}
+	return false
 }
 
 // --- Pacing (after the Left 4 Dead AI Director and RimWorld storytellers) --
@@ -230,4 +257,29 @@ func (w *World) phase(s *State) string {
 		return "build-up"
 	}
 	return "sustain"
+}
+
+// sees reports whether a person notices what the actor does: they are awake
+// and, when the game server says where the actor stands, close to that spot.
+// Without a known spot everyone awake in the region notices (the old rule).
+func (w *World) sees(s *State, watcher Entity, actor Entity) bool {
+	if watcher.Tag["doing"] == "dormindo" {
+		return false
+	}
+	spot := actor.Tag["spot"]
+	if spot == OpenGround {
+		return false
+	}
+	if spot == "" || watcher.Tag["spot"] == "" {
+		return true
+	}
+	if watcher.Tag["spot"] == spot {
+		return true
+	}
+	for _, sp := range w.U.Spots {
+		if sp.ID == spot {
+			return slices.Contains(sp.Near, watcher.Tag["spot"])
+		}
+	}
+	return false
 }

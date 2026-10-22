@@ -93,8 +93,11 @@ func join() -> void:
 	joined = res.status == 200 or res.status == 409  # 409: character already exists
 
 
-func move_region(region: String) -> Dictionary:
-	return await _command("adapter", "move", {"region": region})
+func move_region(region: String, spot := "") -> Dictionary:
+	var extra := {"region": region}
+	if spot != "":
+		extra["spot"] = spot  # where in the region the character stands: it decides who notices what they do
+	return await _command("adapter", "move", extra)
 
 
 ## A player intention: the engine validates it against the truth of the world.

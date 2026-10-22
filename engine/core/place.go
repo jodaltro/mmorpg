@@ -8,6 +8,9 @@ type SpotDef struct {
 	ID     string `json:"id"`
 	Region ID     `json:"region"`
 	Name   string `json:"name"`
+	// Near lists spots close enough that whoever is there sees what happens here
+	// (the plaza and the well). A spot always sees itself.
+	Near []string `json:"near,omitempty"`
 }
 
 // Routine says where an NPC is through the day. The first Override whose
@@ -59,6 +62,13 @@ func (v *validator) places() error {
 			return invalid("spot %q", sp.ID)
 		}
 		spots[sp.ID] = sp.Region
+	}
+	for _, sp := range u.Spots {
+		for _, n := range sp.Near {
+			if spots[n] != sp.Region || n == sp.ID {
+				return invalid("spot %s: near %q", sp.ID, n)
+			}
+		}
 	}
 	slot := func(sl RoutineSlot, who string, override bool) error {
 		if spots[sl.Spot] != sl.Region || sl.From < 0 || sl.From > 23 || sl.To < 0 || sl.To > 24 {

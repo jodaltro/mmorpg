@@ -48,6 +48,13 @@ const LOOKOUT := Vector3(0, 0, -21)  # where the village lookout is
 const INSIDE := {
 	"casa-mira": Vector3(-16, 0, -14.4), "casa-nino": Vector3(-9, 0, -22.4), "forja": Vector3(-17, 0, 16.0),
 }
+# Which region each spot belongs to (the engine refuses a spot outside its region).
+const SPOT_REGION := {
+	"portao": "vila", "guarita": "vila", "praca": "vila", "poco": "vila", "taverna": "vila", "horta": "vila", "casa-mira": "vila",
+	"forja": "vila", "capela": "vila", "celeiro": "vila", "mirante": "vila", "casa-nino": "vila", "mercado": "vila",
+	"banco-estrada": "estrada", "veio-mina": "mina", "galeria": "mina", "clareira": "floresta", "selo-pedras": "floresta",
+	"sarca": "floresta", "torre": "ruinas", "entrada-ruinas": "ruinas", "salao-ruinas": "ruinas",
+}
 const MAP_BOUNDS := Rect2(-70, -105, 205, 145)  # what the minimap shows
 
 

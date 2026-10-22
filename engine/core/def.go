@@ -119,6 +119,9 @@ type Gossip struct {
 	Kinds      []string          `json:"kinds"`
 	Predicates []string          `json:"predicates"`
 	Texts      map[string]string `json:"texts,omitempty"` // what a player hears, by predicate: {from}, {s}
+	// Slow gives, per predicate, the chance in permille that a listener picks the
+	// news up on one round (default: always). Acquaintance travels slowly.
+	Slow map[string]int64 `json:"slow,omitempty"`
 }
 
 type EntitySeed struct {

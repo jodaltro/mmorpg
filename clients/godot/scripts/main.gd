@@ -83,6 +83,8 @@ var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
 var sfx: Sfx
+var _spot_sent := ""
+var _spot_sent_ms := 0
 var reset_seen := false
 var _step_seg := -1
 const STEP_PHASE_OFFSET := 0.12  # where in the cycle the foot lands (tuned by ear: change here)
@@ -779,6 +781,7 @@ func _process(delta: float) -> void:
 		return
 	var now_ms := Time.get_ticks_msec()
 	_footsteps()
+	_report_spot(now_ms)
 	if player.get_real_velocity().length() > 1.5 or _lmb_held:
 		_last_input_ms = now_ms
 	if _idle_open and now_ms - _last_input_ms < 1000:
@@ -1684,6 +1687,30 @@ func _footsteps() -> void:
 		sfx.steps_played += 1
 		sfx.play("step", -17.0, 0.88 if seg == 0 else 1.08)  # alternate feet
 	_step_seg = seg
+
+
+## Tell the engine which named spot the character stands at (within 5 m): only people near it notice what the
+## character does, so a village does not get to know a stranger all at once.
+func _report_spot(now_ms: int) -> void:
+	if not client.joined or now_ms - _spot_sent_ms < 900 or player_down:
+		return
+	var best := ""
+	var best_d := 5.0
+	for id in Layout.SPOTS:
+		if Layout.SPOT_REGION.get(id, "") != region:
+			continue
+		var p: Vector3 = Layout.SPOTS[id]
+		var d: float = Vector2(p.x - player.global_position.x, p.z - player.global_position.z).length()
+		if d < best_d:
+			best_d = d
+			best = id
+	if best == "":
+		best = "-"  # in the open: no named spot is close enough for anyone to notice
+	if best == _spot_sent:
+		return
+	_spot_sent = best
+	_spot_sent_ms = now_ms
+	client.move_region(region, best)
 
 
 func _lap(step: String) -> void:

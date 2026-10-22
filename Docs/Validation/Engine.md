@@ -183,3 +183,11 @@ Novo no motor: `visibleMarks` (universo) e `others[].marks` (visão). Valdoria: 
 - `TestTwoPlayersSeeDifferentBeliefsAndTheSameMarksAndMonument`: dois jogadores na mesma vila têm indícios diferentes, veem a mesma marca, e o capítulo reivindicado por um (crônica) e o título dele são públicos para o outro.
 - `TestPublicTitlesChangeHowPeopleGreetYou`: o guarda cumprimenta o Descobridor do Selo pelo título.
 `worldsim validate` ok. Valdoria: 5 glifos, 3 marcas por viajante com vida de 200 ticks (+60 por confirmação), falas por título (Descobridor do Selo, Guardião do Selo, Herdeiro do Ferreiro Lendário) e 3 conversas sobre o que os jogadores fizeram.
+
+## 22/10/2026 — conhecer devagar (pedido do usuário)
+
+O usuário notou que a vila inteira o conhecia rápido demais, e pediu que os NPCs só falem dos jogadores quando se encontram, já que cada um tem a sua vida. Antes, qualquer ato era testemunhado por todos os acordados da região e o boato de quem conhecia quem passava entre todos a cada 3 ticks. Agora:
+- O cliente reporta o `spot` do personagem em `move` (ou `"-"` em campo aberto); só notam o que ele faz as pessoas acordadas no mesmo lugar ou num vizinho, mais quem ele endereça.
+- O boato passa só entre quem se encontra, e o de "conhece" (`met`) pega com 35% de chance por rodada.
+`go test -count=1 ./...`, `go vet`, `gofmt` passam. Novo em `engine/scenarios/nearness_test.go`: só quem está perto nota o ato; dorminhocos não notam e quem recebe a fala sempre sabe quem fala; sem `spot` vale a regra antiga; um `spot` pertence à sua região; a notícia de um estranho só viaja quando duas pessoas se encontram (Brom viu no forjo, Tomas soube na taverna à noite, e Mira, Orin, Elena e Nino não souberam); em campo aberto ninguém nota. Testes antigos de boato foram ajustados ao ritmo novo. `worldsim simulate` (240 ticks, 3 jogadores) continua sem travar a história (12 missões distintas).
+No cliente (`--autotest=arrival`, Jev ligado, tick de 1,2 s): **antes, 5 NPCs conheciam o personagem ao fim do teste; agora 3** (Brom, Orin e Tomas, que estavam perto ou foram endereçados). A primeira oferta do Sistema continua vindo depois do primeiro feito.

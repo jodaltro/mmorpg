@@ -85,3 +85,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 
 - **`glyphs`** (`{id, title}`) e **`travelerMarks`** (`perAuthor`, `life`, `agreeBonus`): o vocabulário e as regras das marcas de viajante. `marcar` e `concordar` são ids reservados do motor.
 - **Fama:** a ação `conversar` pode ramificar pelo título do jogador (`tag {e: "$self", k: "title", v: "..."}`) e as conversas ouvidas pelos fatos públicos que as reivindicações deixam (`seal-revealed`, `seal-restored`).
+
+## Quem nota e como as notícias andam
+
+- **`spots[].near`**: lugares vizinhos (a praça, o poço e o mercado; o portão e a guarita; a horta e a casa de Mira). Quem está num lugar nota o que acontece nele e nos vizinhos.
+- **Testemunhas:** só notam o que o jogador faz as pessoas acordadas (`doing` diferente de `dormindo`) perto do `spot` dele, mais quem ele endereça. Sem `spot` reportado, todos os acordados da região (regra antiga).
+- **Boatos (`gossip`)** passam **só entre quem se encontra** (mesmo `spot` ou vizinho; quem não tem `spot` encontra todos da região). `gossip.slow` dá, por predicado, a chance em milésimos de a notícia pegar numa rodada (`met`: 350). Como cada NPC tem a sua rotina, quem conhece o jogador depende de quem cruzou com quem.
