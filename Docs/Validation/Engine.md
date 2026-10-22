@@ -158,3 +158,9 @@ Também de 22/10 (F0): `TestPlacesAreDiscoveredByGoingThere`, `TestOnJoinEffects
 ## 22/10/2026 — F4: lá fora
 
 `gofmt`, `go vet`, `go test -count=1 ./...` passaram. Novos em `engine/scenarios/signs_test.go`: `TestFarSignsAreLandmarksOnly` (de outra região o vestígio é só um marco: não se examina nem aparece como ação; o brilho do selo à noite só existe com o selo rompido e some de dia), `TestTorchBurnsThenGoesOutAndRevealsTheDraught` (a tocha é um fato confirmado pelo servidor de jogo, dura 40 ticks, só uma por vez; só com ela se sente a corrente de ar na galeria, e o exame torna a passagem conhecida), `TestRunesAreReadBitByBit` (a frase do salão só é notada depois da entrada; o que o jogador já carrega — a marca da bigorna, a lápide sem nome — decide se os símbolos têm sentido e geram o indício "legacy-link"). Novo no universo: `signs[].farFrom`, ação `acender-tocha` (origem `adapter`), 7 vestígios (torre, duas fumaças, brilho do selo, corrente de ar, duas inscrições), 5 spots; `worldsim validate` ok.
+
+## 22/10/2026 — Jev medido com o universo atual (Valdoria com sinais, rotinas e conversas)
+
+`worldsim simulate -advisor jev -ticks 150 -players 4 -pace 700ms` (ao vivo, OpenRouter): 38 decisões, **todas resolvidas pelo Jev** (nenhuma pelo padrão): 18 `world` (latência média 414 ms, custo US$ 0,000813), 2 `story` (371 ms, US$ 0,000096) e 18 `offer` (402 ms, US$ 0,001103). Custo total ≈ US$ 0,0020; confiança média 0,36–0,49. O prazo de 4 ticks de 0,7 s (2,8 s) fica bem acima da latência observada. 12 missões distintas oferecidas (p1=7, p2=7, p3=4, p4=4), 16 acontecimentos do diretor. Esta medição é de simulação com jogadores roteirizados, não de jogo com pessoas.
+
+Também de 22/10: `TestTorchBurnsTheBrambleAndUncoversTheSlab` e `TestLegacyLinkOpensTheForgottenAnvil` (o cenário da bigorna também é oferecido a quem juntou os indícios, sem forjar nem explorar; sem o `legacy-link` não é oferecido). `go test -count=1 ./...` passa.

@@ -62,6 +62,7 @@ static var smoke_mat: StandardMaterial3D
 
 
 static func build(m) -> void:
+	_bramble(m)
 	_gallery(m)
 	_tower(m)
 	_smoke(m)
@@ -292,3 +293,30 @@ static func _smoke(m) -> void:
 	p.mesh = sm
 	p.position = Layout.ORIGIN.mina + Vector3(8, 3.5, 8)
 	m.add_child(p)
+
+
+## A thicket of brambles in the forest that hides an old slab. Only fire opens it (the torch, `E`).
+static func _bramble(m) -> void:
+	var n := Node3D.new()
+	n.position = Vector3(-24, 0, -84)
+	m.add_child(n)
+	for i in 6:
+		var bush: Node3D = m._spawn("nature/Bush_Common", Vector3(-3.6 + i * 1.45, 0, 0.3 * (i % 2)), i * 40.0, 1.9, n)
+	var body := StaticBody3D.new()
+	body.collision_layer = 1
+	var cs := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(8.0, 2.0, 1.8)
+	cs.shape = box
+	body.add_child(cs)
+	body.position = Vector3(0, 1.0, 0)
+	body.add_to_group("nav_source")
+	n.add_child(body)
+	var slab := MeshInstance3D.new()  # the mossy slab behind the thorns
+	var sm := BoxMesh.new()
+	sm.size = Vector3(2.4, 0.5, 1.6)
+	slab.mesh = sm
+	slab.material_override = _stone(Color(0.32, 0.42, 0.3))
+	slab.position = Layout.spot("sarca") - n.position + Vector3(0, 0.25, 0)
+	n.add_child(slab)
+	m.bramble = n

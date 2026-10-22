@@ -388,3 +388,73 @@ func TestRunesAreReadBitByBit(t *testing.T) {
 		t.Fatal("with the anvil mark, the entrance symbols are the same as Brom's")
 	}
 }
+
+// The torch is also a tool: burning the bramble in the forest uncovers an old
+// slab, which repeats the symbols of Asterion and, for someone who carries
+// Brom's anvil mark, ties the trail together.
+func TestTorchBurnsTheBrambleAndUncoversTheSlab(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.move("p1", "floresta")
+	if err := h.act("adapter", "p1", "queimar-sarca", nil); err == nil {
+		t.Fatal("it takes a lit torch to burn the bramble")
+	}
+	h.mustAct("adapter", "p1", "acender-tocha", nil)
+	if _, there := h.signs("p1")["laje-do-musgo"]; there {
+		t.Fatal("the slab is hidden behind the thorns")
+	}
+	h.mustAct("adapter", "p1", "queimar-sarca", nil)
+	if err := h.act("adapter", "p1", "queimar-sarca", nil); err == nil {
+		t.Fatal("the bramble burns once")
+	}
+	if _, there := h.signs("p1")["laje-do-musgo"]; !there {
+		t.Fatal("the slab shows among the ashes")
+	}
+	h.s.Facts["p1|anvil-mark|p1|ruinas"] = core.Fact{Holder: "p1", P: "anvil-mark", S: "p1", O: "ruinas"}
+	h.mustAct("player", "p1", "examinar", map[string]core.ID{"sign": "laje-do-musgo"})
+	for _, f := range []string{"p1|rune-forge|p1|ruinas", "p1|legacy-link|p1|ruinas"} {
+		if _, ok := h.s.Facts[f]; !ok {
+			t.Fatalf("missing clue %s", f)
+		}
+	}
+}
+
+// Putting the clues together is a way into the Forgotten Anvil, besides
+// forging or exploring the ruins.
+func TestLegacyLinkOpensTheForgottenAnvil(t *testing.T) {
+	offered := func(link bool) bool {
+		h := load(t, "valdoria")
+		h.join("p1")
+		h.introduce("p1")
+		if h.s.Beliefs["p1"] == nil {
+			h.s.Beliefs["p1"] = map[string]core.Belief{}
+		}
+		h.s.Beliefs["p1"]["|legacy-hint|ruinas|"] = core.Belief{P: "legacy-hint", S: "ruinas", Holds: true, Source: "communication", From: "brom"}
+		if link {
+			h.s.Facts["p1|legacy-link|p1|ruinas"] = core.Fact{Holder: "p1", P: "legacy-link", S: "p1", O: "ruinas"}
+		}
+		h.s.Facts["|legacy-hint|ruinas|"] = core.Fact{P: "legacy-hint", S: "ruinas"}
+		for i := 0; i < 40; i++ {
+			for _, q := range h.s.Quests {
+				if q.Holder == "p1" && q.Def == "cenario-bigorna" {
+					return true
+				}
+			}
+			if d, ok := h.offerDecision("p1"); ok {
+				for _, o := range d.Options {
+					if strings.HasPrefix(o.ID, "cenario-bigorna|") {
+						h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: o.ID, Provider: "test"})
+					}
+				}
+			}
+			h.tick(1)
+		}
+		return false
+	}
+	if offered(false) {
+		t.Fatal("without the link or forging, the anvil is not offered")
+	}
+	if !offered(true) {
+		t.Fatal("with the link the anvil scenario is offered")
+	}
+}

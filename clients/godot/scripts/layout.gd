@@ -38,7 +38,7 @@ const SPOTS := {
 	"mirante": Vector3(0, 0, -20.5), "casa-nino": Vector3(-9, 0, -16.4), "banco-estrada": Vector3(44, 0, 3.4),
 	"veio-mina": Vector3(81, 0, -54), "clareira": Vector3(-8, 0, -78),
 	"torre": Vector3(116, 0, -2), "entrada-ruinas": Vector3(114, 0, 13), "salao-ruinas": Vector3(116, 0, 4),
-	"galeria": Vector3(88, 0, -72), "selo-pedras": Vector3(22, 0, -88),
+	"galeria": Vector3(88, 0, -72), "selo-pedras": Vector3(22, 0, -88), "sarca": Vector3(-24, 0, -88),
 }
 const GALLERY := Rect2(84, -84, 8, 18)  # the dark gallery behind the mine mouth (x, z, width, depth)
 const PASSAGE_GALLERY := Vector3(88, 0, -80)
@@ -79,5 +79,7 @@ static func tree_free(p: Vector3) -> bool:
 	if Vector2(p.x - ORIGIN.toca.x, p.z - (ORIGIN.toca.z + 3)).length() < 10.0:
 		return true
 	if Vector2(p.x - (ORIGIN.floresta.x + 16), p.z - (ORIGIN.floresta.z - 16)).length() < 6.0:
+		return true
+	if Vector2(p.x + 24.0, p.z + 85.0).length() < 9.0:  # the bramble and the slab behind it
 		return true
 	return false

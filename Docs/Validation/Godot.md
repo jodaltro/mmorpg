@@ -266,3 +266,12 @@ Jev ligado (porta 8095, tick de 15 s; e 8097 com tick de 700 ms para o teste de 
 - **Torre quebrada** (marco de 13 m) e **fumaça** da mina (tingida de roxo quando o minério está amaldiçoado) como cenário.
 - **Regressão:** `--autotest=places` (forja, mina, ruínas, toca e Pipo, agora com o minério liberado) e `--autotest=board` passaram.
 **Não feito da F4:** o acontecimento "sarça queimada" (a tocha ainda não abre caminho em nada); o rastrear (`Shift` parado) só amplia o alcance dos rótulos e aponta os vestígios próximos, sem verificação em captura; a legacy-link ainda não alimenta missões (o cenário da bigorna segue pelos requisitos antigos); inscrições só para a entrada e o salão; sem playtest e sem medição do Jev.
+
+### 22/10/2026 — fecho dos pontos da F4
+
+`--autotest=fecho` (Jev ligado, porta 8095):
+- **Sarça queimada:** há uma sarça na mata (a oeste do selo) escondendo uma laje antiga. Sem tocha, `E` avisa que "os espinhos só cedem ao fogo"; com a tocha acesa, `E` envia `queimar-sarca` (acontecimento confirmado), a sarça pega fogo e some, o mapa de navegação é refeito, e aparece a laje: "Examinar a laje coberta de musgo" (os mesmos três símbolos das ruínas, bem mais antigos). O exame dá o indício `rune-forge` e, para quem tem a marca da bigorna, o `legacy-link`. O Caderno registrou o indício. Captura conferida.
+- **`legacy-link` agora vale para missões:** o cenário único da bigorna também é oferecido a quem juntou os indícios (teste do motor).
+- **Rastrear (`Shift` parado):** ligado só com o personagem parado; o alcance dos rótulos passa de 8 para 30 m e setas na borda apontam os vestígios próximos ("rastro: Examinar as cenouras roídas", "rastro: Examinar a bigorna", "rastro: Ler a lápide sem nome"); desliga ao soltar. Captura conferida.
+- **Jev medido** (ver `Docs/Validation/Engine.md`): 38 decisões, todas pelo Jev, ~400 ms, ≈ US$ 0,002.
+**Continua fora da F4:** playtest com pessoas; o efeito de fogo da sarça é um brilho de partículas (a moita só some, não queima de verdade); só duas inscrições nas ruínas mais a laje.

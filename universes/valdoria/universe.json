@@ -78,7 +78,8 @@
     "tunnel-known",
     "rune-forge",
     "rune-wait",
-    "legacy-link"
+    "legacy-link",
+    "bramble-burnt"
   ],
   "playerKind": "player",
   "player": {
@@ -4630,6 +4631,56 @@
           "text": "A tocha crepita e afasta o escuro."
         }
       ]
+    },
+    {
+      "id": "queimar-sarca",
+      "title": "Queimar a sarca com a tocha",
+      "by": [
+        "adapter"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "floresta"
+            }
+          },
+          {
+            "fact": {
+              "p": "torch-lit",
+              "s": "$self",
+              "private": true
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "bramble-burnt",
+                "s": "$self",
+                "private": true,
+                "o": "floresta"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "bramble-burnt",
+            "s": "$self",
+            "private": true,
+            "o": "floresta"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "bramble",
+          "text": "A sarca se consome em chamas. Entre as cinzas aparece algo de pedra, coberto de musgo."
+        }
+      ]
     }
   ],
   "agents": [
@@ -6982,6 +7033,14 @@
                   "o": "ruinas",
                   "private": true
                 }
+              },
+              {
+                "fact": {
+                  "p": "legacy-link",
+                  "s": "$self",
+                  "private": true,
+                  "o": "ruinas"
+                }
               }
             ]
           }
@@ -7963,6 +8022,11 @@
       "id": "selo-pedras",
       "region": "floresta",
       "name": "Circulo de pedras do selo"
+    },
+    {
+      "id": "sarca",
+      "region": "floresta",
+      "name": "Sarca da mata"
     }
   ],
   "routines": [
@@ -10386,6 +10450,63 @@
                 "private": true,
                 "o": "vila"
               }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "laje-do-musgo",
+      "region": "floresta",
+      "spot": "sarca",
+      "title": "Examinar a laje coberta de musgo",
+      "look": "Uma laje antiga surge entre as cinzas dos espinhos.",
+      "text": "A laje traz tres simbolos gravados: um circulo, uma bigorna e uma chama. Sao os mesmos da entrada das ruinas, so que muito mais antigos.",
+      "perceive": {
+        "fact": {
+          "p": "bramble-burnt",
+          "s": "$self",
+          "private": true,
+          "o": "floresta"
+        }
+      },
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "rune-forge",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "rune",
+          "text": "A bigorna da laje e igual a marca da bigorna de Brom. O ferreiro lendario passou por esta mata.",
+          "if": {
+            "fact": {
+              "p": "anvil-mark",
+              "s": "$self",
+              "private": true,
+              "o": "ruinas"
+            }
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "legacy-link",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          },
+          "if": {
+            "fact": {
+              "p": "anvil-mark",
+              "s": "$self",
+              "private": true,
+              "o": "ruinas"
             }
           }
         }

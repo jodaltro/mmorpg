@@ -9,7 +9,7 @@ const CHATTER_RANGE := 15.0  # how close you must be to hear people talk
 const LABEL_RANGE := 7.0  # world labels show only when you are close enough to notice
 const REGION_ORIGIN := Layout.ORIGIN
 # Combat outcomes are reported by fights, never offered as menu options.
-const COMBAT_REPORTED := ["acender-tocha", "enfrentar-bandidos", "cacar-lobos", "cacar-javali", "cacar-javali-branco", "defender-vila"]
+const COMBAT_REPORTED := ["acender-tocha", "queimar-sarca", "enfrentar-bandidos", "cacar-lobos", "cacar-javali", "cacar-javali-branco", "defender-vila"]
 # Threats appear and end through public world events (the engine decides when).
 # Defeating a camp is reported back as a confirmed occurrence; the engine validates it.
 const THREATS := {
@@ -85,6 +85,7 @@ var telemetry := Telemetry.new()
 var _seen := {"seq": 0, "opening": false, "ceremony": false, "people": {}}  # what this character already lived through (user://)
 var _seen_saved_ms := 0
 var _all_names := {}  # entity id -> name, from the latest view
+var bramble: Node3D  # the thicket in the forest (null once burnt)
 var far_marks := {}  # sign id -> {pos, look, color, region}: landmarks seen from another region
 var torch_on := false
 var torch_light: OmniLight3D
@@ -174,6 +175,8 @@ func _ready() -> void:
 				_autotest_cancao()
 			"fora":
 				_autotest_fora()
+			"fecho":
+				_autotest_fecho()
 			_:
 				_autotest()
 
@@ -830,6 +833,11 @@ func _nearest_interactable() -> Dictionary:
 		if d < best_d:
 			best_d = d
 			best = {"sign": {"id": id, "title": n.get_meta("title")}}
+	if is_instance_valid(bramble) and region == "floresta":
+		var bd: float = Vector2(bramble.global_position.x - player.global_position.x, bramble.global_position.z - player.global_position.z).length()
+		if bd < 5.0 and bd < best_d + 2.0:
+			best = {"bramble": true}
+			best_d = bd
 	for ps in passages:
 		var d: float = Vector2(ps.pos.x - player.global_position.x, ps.pos.z - player.global_position.z).length()
 		if d < best_d:
@@ -844,6 +852,8 @@ func use_nearest() -> void:
 		await open_npc_menu(it.npc)
 	elif it.has("poi"):
 		await open_poi_menu(it.poi)
+	elif it.has("bramble"):
+		await _burn_bramble()
 	elif it.has("passage"):
 		await _use_passage(it.passage)
 	elif it.has("sign"):
@@ -1638,9 +1648,13 @@ func _sync_signs(v: Dictionary) -> void:
 func _sync_torch(v: Dictionary) -> void:
 	var lit := false
 	var tunnel := false
+	var burnt := false
 	for f in v.get("facts", []):
 		lit = lit or f.p == "torch-lit"
 		tunnel = tunnel or f.p == "tunnel-known"
+		burnt = burnt or f.p == "bramble-burnt"
+	if burnt and is_instance_valid(bramble):
+		_remove_bramble()  # already burnt in an earlier visit
 	if lit != torch_on:
 		torch_on = lit
 		hud.toast("A tocha crepita." if lit else "A tocha se apagou.", Color(1.0, 0.8, 0.5))
@@ -1648,6 +1662,35 @@ func _sync_torch(v: Dictionary) -> void:
 	if tunnel and passages.is_empty():
 		_make_passage(Layout.PASSAGE_GALLERY, Layout.PASSAGE_RUINS + Vector3(-2, 0, -1), "ruinas", "Passagem antiga: subir para as ruinas")
 		_make_passage(Layout.PASSAGE_RUINS, Layout.PASSAGE_GALLERY + Vector3(0, 0, 3), "mina", "Passagem antiga: descer para a mina")
+
+
+func _burn_bramble() -> void:
+	if not torch_on:
+		hud.toast("Os espinhos so cedem ao fogo: acenda uma tocha (T).", Color(1.0, 0.85, 0.6))
+		return
+	var res := await client.occur("queimar-sarca")
+	telemetry.verb("queimar-sarca", res.status == 200)
+	if res.status == 200:
+		for ev in res.body.get("events", []):
+			if ev.get("text", "") != "":
+				_log("[color=#ffb070]%s[/color]" % ev.text)
+		_remove_bramble()
+	client.refresh()
+
+
+## Flames, then the thicket is gone and the ground can be walked again.
+func _remove_bramble() -> void:
+	if not is_instance_valid(bramble):
+		return
+	var at := bramble.global_position
+	for i in 3:
+		_burst(at + Vector3(-3 + i * 3.0, 1.2, 0), Color(1.0, 0.5, 0.15), 40)
+	var gone := bramble
+	bramble = null
+	await get_tree().create_timer(1.4).timeout
+	gone.queue_free()
+	await get_tree().process_frame
+	nav_region.bake_navigation_mesh(true)  # the path through the old thorns is now walkable
 
 
 func _light_torch() -> void:
@@ -1973,6 +2016,8 @@ func _update_hud_world() -> void:
 			text = "[E] %s" % it.sign.title
 		elif it.has("passage"):
 			text = "[E] %s" % it.passage.label
+		elif it.has("bramble"):
+			text = "[E] Queimar a sarca" + ("" if torch_on else " (precisa de tocha: T)")
 	if text != _prompt:
 		_prompt = text
 		hud.set_prompt(text)
@@ -2295,6 +2340,56 @@ func _autotest_fora() -> void:
 	await get_tree().create_timer(0.6).timeout
 	ok["clues"] = hud._nb_data.get("pistas", []).map(func(c): return c.text).filter(func(t): return t.contains("ruinas") or t.contains("passagem") or t.contains("Aquele"))
 	await _shot("f4_5_caderno")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F4 closing: track nearby traces while standing still, then burn the bramble with a torch.
+func _autotest_fecho() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {}
+	# tracking: stand still near traces and hold Shift
+	await _go(Layout.spot("horta") + Vector3(1.6, 0, 1.4), 60.0)
+	await get_tree().create_timer(1.2).timeout
+	var shift := _key(KEY_SHIFT)
+	Input.parse_input_event(shift)
+	await get_tree().create_timer(0.8).timeout
+	ok["tracking_on"] = _tracking
+	var arrows: Array = hud.landmarks.items.map(func(i): return i.label)
+	ok["tracking_labels"] = arrows.filter(func(l): return String(l).begins_with("rastro"))
+	ok["label_range_wide"] = sign_nodes.has("cenouras-roidas") and (sign_nodes["cenouras-roidas"].get_node("Look") as Label3D).visible
+	await _shot("f4b_1_rastro")
+	var up := _key(KEY_SHIFT)
+	up.pressed = false
+	Input.parse_input_event(up)
+	await get_tree().create_timer(0.5).timeout
+	ok["tracking_off"] = not _tracking
+	# the bramble: no torch, then with one
+	var b := Vector3(-24, 0, -81)
+	await _go(b, 120.0)
+	await get_tree().create_timer(1.0).timeout
+	ok["bramble_there"] = is_instance_valid(bramble)
+	await use_nearest()
+	ok["no_torch_burn_blocked"] = is_instance_valid(bramble)
+	await _light_torch()
+	await get_tree().create_timer(1.2).timeout
+	await _shot("f4b_2_antes")
+	await use_nearest()
+	await get_tree().create_timer(0.8).timeout
+	await _shot("f4b_3_fogo")
+	await get_tree().create_timer(3.0).timeout
+	ok["bramble_gone"] = not is_instance_valid(bramble)
+	ok["slab_seen"] = await _wait_sign("laje-do-musgo", 6.0)
+	if sign_nodes.has("laje-do-musgo"):
+		await _go(Layout.spot("sarca") + Vector3(1.5, 0, 1.5), 30.0)
+		ok["slab"] = await _examine_nearest("laje-do-musgo")
+	hud.toggle_notebook()
+	await get_tree().create_timer(0.6).timeout
+	ok["clues"] = hud._nb_data.get("pistas", []).map(func(c): return c.text).filter(func(t): return t.contains("sarca") or t.contains("simbolos"))
+	await _shot("f4b_4_caderno")
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 
