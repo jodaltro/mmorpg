@@ -146,3 +146,7 @@ Mudança pedida pelo usuário: o mundo oferecia missões de NPC a quem acabara d
 - `TestRoutinesPutNpcsWhereTheirDayIs`: Mira na horta às 8h e no poço às 13h; Brom na forja e depois na taverna às 18h; Tomas entra na taverna da vila às 18h; Nino em casa às 2h; a visão mostra `spot` e `doing`.
 - `TestChatterFollowsWhoIsThereAndWhatTheyKnow`: de manhã se ouvem a horta e o portão; falas que dependem de crenças que ninguém tem (poço envenenado, lobos) não acontecem; as falas são públicas e trazem a região.
 Também de 22/10 (F0): `TestPlacesAreDiscoveredByGoingThere`, `TestOnJoinEffectsRunForTheNewcomer`. `worldsim validate` ok. Valdoria ganhou 13 spots, 6 rotinas (Mira, Brom, Orin, Elena, Nino, Tomas) e 9 conversas. A cobertura dos efeitos de `hear` (crença por `communication`) só foi exercida pela validação do universo, não por um teste de cenário.
+
+## 22/10/2026 — F2: chegada
+
+`gofmt`, `go vet`, `go test -count=1 ./...` passaram. Testes novos em `engine/scenarios/arrival_test.go`: `TestJoinAtTheArrivalRegion` (o servidor de jogo escolhe a região de chegada; um marco não vale; só o lugar de chegada fica no mapa), `TestNewcomerGetsNoOfferBeforeTheFirstDeed` (com a regra: nenhuma oferta antes do primeiro feito e oferta depois; sem a regra, a mesma linha do tempo oferece missão a quem não fez nada), `TestGreetingsDependOnAcquaintance` (o guarda pergunta o nome a um estranho e não a um rosto conhecido). `TestObsoleteQuestFreesTheSlot` passou a apresentar o jogador antes (`introduce`), já que a primeira oferta agora espera um feito. `worldsim validate` ok.

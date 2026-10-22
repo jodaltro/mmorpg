@@ -26,6 +26,10 @@ Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome
 
 `scripts/layout.gd` guarda todas as coordenadas (origens das regiões, caixas de região, estradas, spots). A vila é murada e tem 13 spots que o motor nomeia nas rotinas; os NPCs andam até o spot do momento, e as falas ouvidas viram balões. O mapa em centro e raios: vila no centro, estrada leste até o cruzamento, mina a nordeste, ruínas a leste, floresta ao norte, toca a oeste (pela brecha da paliçada). Autotestes: `--autotest=layout` (capturas aéreas), `--autotest=tour` (percorre as regiões), `--autotest=f1` (um dia na praça; precisa de servidor com `-tick 500ms`).
 
+## Chegada
+
+O personagem novo chega pela estrada (o cliente pede `join` com `region: estrada`), com título "Ninguém sabe o seu nome", mapa só com o lugar de chegada e sem missões até fazer algo. A primeira janela do Sistema vem com uma cerimônia curta. Ao voltar, um resumo "Enquanto você esteve fora" lista o que aconteceu desde a última visita (estado em `user://seen-<jogador>.json`). `--autotest=arrival` percorre isso (flags `--opening`, `--ceremony`, `--recap` mostram as telas que os autotestes normalmente omitem; `--arrival=vila` muda o lugar de chegada).
+
 ## Combate e o motor
 
 O combate (vida, dano, IA) é papel do servidor de jogo; neste spike o cliente faz esse papel. O motor só ouve resultados confirmados: os bandidos aparecem na região `estrada` quando o mundo emite o evento público `bandits` (somem em `bandits-left`) e as criaturas corrompidas na vila com `wolves`/`wolves-left`. Ao cair o último inimigo do grupo, o cliente reporta `enfrentar-bandidos` ou `cacar-lobos` como `adapter`, e o motor aceita ou recusa conforme a verdade do mundo.

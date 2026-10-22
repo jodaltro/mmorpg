@@ -231,7 +231,8 @@ func say(text: String, secs := 6.0) -> void:
 	b.width = 520.0
 	b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	b.modulate = Color(1.0, 0.97, 0.85)
-	b.position = Vector3(0, label.position.y + 0.75, 0)
+	b.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM  # grows upward, clear of the name
+	b.position = Vector3(0, label.position.y + 0.45, 0)
 	add_child(b)
 	var tw := b.create_tween()
 	tw.tween_interval(secs)

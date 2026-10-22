@@ -56,3 +56,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`routines`**: onde cada NPC está a cada hora (`slots` com `from`/`to`, que podem cruzar a meia-noite, mais `region`, `spot` e `doing`). `overrides` com `when` vencem os slots (a curandeira não sai do poço com a vila muito doente; Nino se esconde em casa se sabe de lobos). A cada tick o motor põe o NPC no lugar do dia. A visão mostra `spot` e `doing` de cada pessoa, nunca o porquê.
 - **`chatter`** (+ `chatterEvery`, padrão 3): conversas que se ouvem. Só acontecem com todos os falantes no spot e `when` valendo (`$self` é o primeiro falante), então **o que se diz segue o que eles acreditam**. Uma por spot a cada rodada, em rodízio determinístico. `hear` roda para cada jogador na região (`$self` = ouvinte, `$speaker` = primeiro falante); o efeito `observe` aceita `source: "communication"` e `to` (quem disse) para o jogador formar crenças pelo que ouviu.
 - **`discovered`** (predicado privado do jogador, afirmado ao entrar numa região) e **`onJoin`** (efeitos ao criar o personagem).
+
+## Chegada (F2)
+
+- **`limits.firstOfferAfterDeed`**: nenhuma oferta antes de o jogador fazer algo (qualquer ação do universo; mover, boato e o ciclo de missões não contam). O recém-chegado também é um estranho para o Sistema.
+- **`join` com `region`**: o servidor de jogo diz onde o recém-chegado aparece (Valdoria: a estrada, na carroça de Lia).
+- **Falas por conhecimento:** a ação `conversar` ramifica pela etiqueta `voice` do NPC (`tag: {"voice": "orin"}`) e por `knows {who: $npc, p: met, s: $npc, o: $self}`: uma fala para estranhos e outra para quem já foi visto.

@@ -26,7 +26,7 @@ Todos os corpos são JSON com `"version": 1`. Campos desconhecidos são recusado
 | `kind` | `join`, `move`, `act`, `accept`, `decline`, `abandon` |
 | `actor` | Personagem que age (ou que entra, em `join`) |
 | `name` | Nome exibido (`join`) |
-| `region` | Lugar em que o servidor de jogo viu o personagem entrar (`move`, origem `adapter`) |
+| `region` | Lugar em que o servidor de jogo viu o personagem entrar (`move`) ou em que o recém-chegado aparece (`join`, opcional; padrão: o lugar inicial do universo). Origem `adapter` |
 | `action`, `args` | Ação do universo e seus parâmetros (`act`) |
 | `quest` | Chave da missão (`accept`/`decline`/`abandon`) |
 | `expectedRevision` | Opcional: recusa (409) se o mundo mudou |

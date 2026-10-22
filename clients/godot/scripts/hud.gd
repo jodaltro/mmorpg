@@ -54,6 +54,9 @@ var _postponed := ""
 var _known := {}
 var _known_skills := {}
 var _first := true
+signal ceremony_done
+var ceremony_pending := false  # the first system window gets a little ceremony
+var _offer_hold := 0
 
 
 class Minimap extends Control:
@@ -532,6 +535,56 @@ func toast(text: String, color := Color.WHITE) -> void:
 	tw.tween_callback(p.queue_free)
 
 
+## A full-screen title card: fades in, holds, fades out. dim is how dark the screen gets (1 = black).
+func card(lines: Array, hold := 2.4, dim := 1.0, size := 30) -> void:
+	var shade := ColorRect.new()
+	shade.color = Color(0, 0, 0, dim)
+	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(shade)
+	var box := VBoxContainer.new()
+	box.set_anchors_preset(Control.PRESET_FULL_RECT)
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	shade.add_child(box)
+	for i in lines.size():
+		var l := _label(lines[i], size if i == 0 else int(size * 0.62), GOLD if i == 0 else Color(0.9, 0.88, 0.8))
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		l.modulate.a = 0.0
+		box.add_child(l)
+		var lt := l.create_tween()
+		lt.tween_interval(0.5 + i * 0.9)
+		lt.tween_property(l, "modulate:a", 1.0, 0.7)
+	var tw := shade.create_tween()
+	tw.tween_interval(hold + lines.size() * 0.9)
+	tw.tween_property(shade, "modulate:a", 0.0, 1.2)
+	tw.tween_callback(shade.queue_free)
+
+
+## "While you were away": what happened in the world since the last visit.
+func recap(lines: Array) -> void:
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(center)
+	var p := PanelContainer.new()
+	p.custom_minimum_size = Vector2(520, 0)
+	center.add_child(p)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 8)
+	p.add_child(box)
+	box.add_child(_label("Enquanto voce esteve fora", 20, GOLD))
+	for t in lines:
+		var l := _label("- " + t, 14, Color(0.88, 0.88, 0.92))
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size.x = 480
+		box.add_child(l)
+	var b := Button.new()
+	b.text = "Continuar"
+	b.pressed.connect(center.queue_free)
+	box.add_child(b)
+
+
 func set_known(list: Array) -> void:
 	minimap.known = list
 	minimap.queue_redraw()
@@ -585,6 +638,12 @@ func set_quests(list: Array, tick_now: int, who: Dictionary, regions: Dictionary
 func _quest_toast(q: Dictionary, before: String) -> void:
 	match q.state:
 		"offered":
+			if ceremony_pending:
+				ceremony_pending = false
+				_offer_hold = Time.get_ticks_msec() + 2800
+				card(["O Sistema percebeu voce."], 2.0, 0.45, 34)
+				get_tree().create_timer(2.9).timeout.connect(_rebuild_offer)
+				ceremony_done.emit()
 			toast("Nova missao: %s" % q.title, GOLD)
 		"active":
 			toast("Missao aceita: %s" % q.title, Color(0.6, 0.85, 1.0))
@@ -667,7 +726,7 @@ func _rebuild_offer() -> void:
 		return
 	offered_key = shown.key
 	offer_text.text = _quest_head(shown) + "\n" + _quest_body(shown, false)
-	offer_panel.visible = not journal_panel.visible
+	offer_panel.visible = not journal_panel.visible and Time.get_ticks_msec() >= _offer_hold
 
 
 func postpone_offer() -> void:

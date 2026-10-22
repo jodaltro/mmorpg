@@ -82,6 +82,9 @@ var nav_region: NavigationRegion3D
 var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
+var _seen := {"seq": 0, "opening": false, "ceremony": false}  # what this character already lived through (user://)
+var _seen_saved_ms := 0
+var _found_seeded := false  # the places already known when the client starts are not announced
 var found_places: Dictionary = {}  # regions this character has discovered (engine fact "found")
 var pois: Array = []  # Places.pois() with their label nodes
 var _menu: Array = []  # affordances shown in the action menu
@@ -119,6 +122,13 @@ func _ready() -> void:
 	client.player_name = _args.get("name", "Viajante")
 	add_child(client)
 	client.view_changed.connect(_on_view)
+	client.arrival_region = String(_args.get("arrival", "estrada"))
+	client.view_limit = 60  # the first view carries the recap of what happened while away
+	_load_seen()
+	hud.ceremony_pending = not _seen.ceremony and (not _args.has("autotest") or _args.has("ceremony"))
+	hud.ceremony_done.connect(func() -> void:
+		_seen.ceremony = true
+		_save_seen())
 	telemetry.open(String(_args.get("telemetry", "user://telemetry-%s.jsonl" % client.player_id)), client.player_id)
 	client.start()
 	if _args.has("autotest"):
@@ -143,6 +153,8 @@ func _ready() -> void:
 				_autotest_tour()
 			"board":
 				_autotest_board()
+			"arrival":
+				_autotest_arrival()
 			_:
 				_autotest()
 
@@ -271,6 +283,10 @@ func _build_world() -> void:
 	_spawn("village/Prop_Crate", camp + Vector3(-1.8, 0, -6.8), 30.0)
 	_solid(camp + Vector3(-2.4, 0, -6.6), Vector3(2.2, 1.1, 1.2))
 	_spawn("props/Bench", Layout.spot("banco-estrada") + Vector3(0, 0, 0.6), 0.0)
+	_spawn("village/Prop_Wagon", camp + Vector3(-5, 0, 5.5), 80.0)  # Lia's caravan: where newcomers arrive
+	_solid(camp + Vector3(-5, 0, 5.5), Vector3(2.0, 1.5, 4.0), 80.0)
+	_spawn("props/Barrel", camp + Vector3(-5.2, 0, 8.0))
+	_spawn("village/Prop_Crate", camp + Vector3(-2.6, 0, 6.6), 15.0)
 
 	Places.build(self)
 	for poi in Places.pois():
@@ -846,6 +862,8 @@ func _perform(a: Dictionary) -> void:
 		for ev in res.body.get("events", []):
 			if ev.get("text", "") != "":
 				lines.append(ev.text)
+		if a.action == "conversar" and npc_nodes.has(target) and lines.size() > 0:
+			npc_nodes[target].say(lines[0], 8.0)  # what they say to you, above their head
 		_log("[color=#9fdc7a]%s[/color]: %s" % [a.title, " / ".join(lines) if lines.size() > 0 else "feito"])
 	else:
 		var why: String = res.body.get("error", "")
@@ -1371,10 +1389,44 @@ func _report(who: String, what: String, res: Dictionary) -> void:
 
 # --- view from the engine ---------------------------------------------------
 
+func _seen_path() -> String:
+	return "user://seen-%s.json" % client.player_id
+
+
+func _load_seen() -> void:
+	if FileAccess.file_exists(_seen_path()):
+		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(_seen_path()))
+		if d is Dictionary:
+			_seen.merge(d, true)
+
+
+func _save_seen() -> void:
+	var f := FileAccess.open(_seen_path(), FileAccess.WRITE)
+	if f:
+		f.store_string(JSON.stringify(_seen))
+
+
+## Events worth telling someone back from a trip (talk, board and movement stay out).
+func _recap_lines(v: Dictionary) -> Array:
+	var skip := ["chatter", "join", "moved", "talked", "board", "bell", "rest", "dream"]
+	var out: Array = []
+	for e in v.get("events", []):
+		if int(e.seq) > int(_seen.seq) and e.get("text", "") != "" and not skip.has(e.kind):
+			out.append(e.text)
+	return out.slice(maxi(0, out.size() - 6))
+
+
 func _on_view(v: Dictionary) -> void:
 	var me: Dictionary = v.get("self", {})
 	if not _synced:  # start where the engine says the character is
 		_synced = true
+		client.view_limit = 12
+		var away := _recap_lines(v)
+		if int(_seen.seq) > 0 and not away.is_empty() and (not _args.has("autotest") or _args.has("recap")):
+			hud.recap(away)
+		if not _seen.opening and (not _args.has("autotest") or _args.has("opening")):
+			_seen.opening = true
+			hud.card(["Valdoria", "Ninguem sabe o seu nome."], 1.4, 1.0, 44)
 		region = me.get("region", "vila")
 		player.global_position = REGION_ORIGIN.get(region, Vector3.ZERO) + Vector3(0, 0, 3)
 		cam_rig.global_position = player.global_position
@@ -1392,7 +1444,9 @@ func _on_view(v: Dictionary) -> void:
 	_sync_npcs(v)
 	_sun(int(v.get("hour", -1)))
 	var said := 0
+	var newest := int(_seen.seq)
 	for e in v.get("events", []):
+		newest = maxi(newest, int(e.seq))
 		if int(e.seq) > last_seq:
 			last_seq = int(e.seq)
 			if e.kind == "chatter":
@@ -1407,6 +1461,10 @@ func _on_view(v: Dictionary) -> void:
 					threat_on[r] = false
 			if e.get("text", "") != "":
 				_log("[color=#c9b3ff]%s[/color]" % e.text)
+	if newest != int(_seen.seq) and Time.get_ticks_msec() - _seen_saved_ms > 4000:
+		_seen.seq = newest
+		_seen_saved_ms = Time.get_ticks_msec()
+		_save_seen()
 	_conditional_threats(v)
 	_sync_enemies()
 	for id in npc_nodes:
@@ -1419,8 +1477,9 @@ func _sync_discovered(v: Dictionary) -> void:
 		if f.p == DISCOVERED and f.s == client.player_id and not found_places.has(f.o):
 			found_places[f.o] = true
 			telemetry.note("discovered", {"place": f.o})
-			if found_places.size() > 1:
+			if _found_seeded:
 				hud.toast("Lugar descoberto: %s" % REGION_NAMES.get(f.o, f.o), Color(0.7, 0.9, 1.0))
+	_found_seeded = true
 	hud.set_known(found_places.keys())
 
 
@@ -1755,6 +1814,53 @@ func _autotest_wolves() -> void:
 	ok["deaths"] = deaths
 	ok["player_hp"] = int(player_hp)
 	ok["report"] = last_report
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## A newcomer's first minutes: arrival at the caravan, silence from the system, greetings by acquaintance.
+func _autotest_arrival() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(2.5).timeout
+	var ok := {"arrived_in": client.view.get("self", {}).get("region", "?"), "map": found_places.keys()}
+	await _shot("a1_opening")
+	await get_tree().create_timer(float(_args.get("idle", 20))).timeout
+	ok["offers_while_idle"] = client.view.get("quests", []).filter(func(q): return q.state == "offered").size()
+	ok["lia_here"] = npc_nodes.has("lia")
+	if npc_nodes.has("lia"):
+		await _go(npc_nodes["lia"].global_position + Vector3(0, 0, 1.6), 20.0)
+		await _perform({"action": "conversar", "origin": "player", "args": {"npc": "lia"}, "with": "lia", "title": "Conversar com Lia"})
+		await get_tree().create_timer(0.6).timeout
+		await _shot("a2_lia")
+		ok["lia_first"] = last_report
+	await _go(Vector3(31, 0, 3), 40.0)  # the east gate
+	await get_tree().create_timer(2.5).timeout
+	ok["at_gate"] = {"region": client.view.get("self", {}).get("region", "?"), "npcs": npc_nodes.keys()}
+	if npc_nodes.has("orin"):
+		await _go(npc_nodes["orin"].global_position + Vector3(0, 0, 1.6), 20.0)
+		await _perform({"action": "conversar", "origin": "player", "args": {"npc": "orin"}, "with": "orin", "title": "Conversar com Orin"})
+		await get_tree().create_timer(0.8).timeout
+		await _shot("a3_orin")
+		var ev := ""
+		for e in client.view.get("events", []):
+			if e.kind == "talked":
+				ev = e.text
+		ok["orin_first"] = ev
+	if client.view.get("quests", []).filter(func(q): return q.state == "offered").is_empty():
+		var board := _poi("quadro")  # one more deed, so the system has something to answer
+		await _go(board.at + Vector3(0, 0, 1.6), 40.0)
+		await _perform({"action": "ler-quadro", "origin": "player", "title": "Ler o quadro de avisos"})
+	var w := 0.0
+	while w < 40.0 and client.view.get("quests", []).filter(func(q): return q.state == "offered").is_empty():
+		await get_tree().create_timer(1.0).timeout
+		w += 1.0
+	ok["offer_after_deed_s"] = w
+	ok["offers_after_deed"] = client.view.get("quests", []).filter(func(q): return q.state == "offered").size()
+	await get_tree().create_timer(3.4).timeout
+	await _shot("a4_ceremony")
+	ok["telemetry"] = telemetry.summary()
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 

@@ -11,6 +11,8 @@ signal command_done(label: String, ok: bool, body: Dictionary)
 @export var player_id := "godot-1"
 @export var player_name := "Viajante"
 @export var poll_seconds := 1.0
+var arrival_region := ""  # where the game server lets the newcomer arrive (first join only)
+var view_limit := 12  # events asked with each view
 
 var view: Dictionary = {}
 var affordances: Array = []  # what the engine says this player could try now
@@ -83,7 +85,10 @@ func _command(origin: String, kind: String, extra: Dictionary = {}) -> Dictionar
 
 ## Entering the world and changing region are facts the game server confirms.
 func join() -> void:
-	var res := await _command("adapter", "join", {"name": player_name})
+	var extra := {"name": player_name}
+	if arrival_region != "":
+		extra["region"] = arrival_region
+	var res := await _command("adapter", "join", extra)
 	joined = res.status == 200 or res.status == 409  # 409: character already exists
 
 
@@ -126,7 +131,7 @@ func refresh() -> void:
 	if not joined or _refreshing:
 		return
 	_refreshing = true
-	var res := await request(HTTPClient.METHOD_GET, "/v1/views/%s?limit=12" % player_id)
+	var res := await request(HTTPClient.METHOD_GET, "/v1/views/%s?limit=%d" % [player_id, view_limit])
 	_refreshing = false
 	if res.status == 200:
 		view = res.body

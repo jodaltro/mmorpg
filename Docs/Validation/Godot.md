@@ -214,3 +214,12 @@ Motor: `worldsim serve ... -advisor jev` (porta 8095, tick de 15 s) e uma segund
 - **Testes do motor:** `go test -count=1 ./...` passa, com `TestBoardAndBell` novo. O teste do chá (`TestUselessSpellsFuseAndBecomeFamous`) dependia de o Velho Tomas estar na estrada; passou a seguir a rotina dele.
 - **Regressão de combate no mapa novo** (`--autotest --threat=estrada`, Jev ligado): bandidos e javalis apareceram e foram enfrentados (6 abates, 3 javalis); a confirmação de bandidos foi recusada pelo motor por requisitos (esperado: o acontecimento "bandidos" não existia no mundo, o teste forçou o grupo), 261 fps na floresta, pior quadro 6,6 ms.
 - **Continua fora:** POIs lidos do universo e tabela de apresentação (a ligação ação→lugar é apresentação do cliente, não regra; fica em `places.gd`).
+
+## 22/10/2026 — F2: chegada
+
+Motor com o Jev (porta 8095, tick de 15 s), mundo novo. `--autotest=arrival` com personagem novo:
+- Chega em `estrada` (carroça de Lia ao lado), mapa só com a Estrada do Leste, **0 ofertas em 20 s parado**. Cartão de abertura ("Valdoria / Ninguém sabe o seu nome") conferido em captura.
+- Fala de Lia ao conversar (balão e registro): "Chegamos! A vila fica logo depois do portão…"; fala de Orin a um estranho: "Nome? De onde vem?…". Com o personagem na vila, ler o quadro (um feito) trouxe a primeira oferta; a cerimônia "O Sistema percebeu você." apareceu antes do cartão da missão (captura conferida).
+- **Voltando:** repetir com o mesmo personagem mostrou "Enquanto você esteve fora" com os acontecimentos desde a última visita (uivos de lobos, luzes no selo), centralizado; os lugares já conhecidos não são mais anunciados ao carregar.
+- Regressão: `--autotest=board` e `--autotest=places` passaram, mas no `places` o `forjar` foi recusado por requisitos: naquele mundo o minério estava amaldiçoado (acontecimento do diretor), regra correta do motor e não defeito do mapa.
+- **Não feito da F2:** mostrar ao jogador "quem me conhece" (fica para o Caderno, F3); o resumo pega só eventos públicos ou privados do próprio jogador que o motor ainda guarda (até `maxEvents`).
