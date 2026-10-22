@@ -161,6 +161,10 @@ func _ready() -> void:
 				_autotest_arrival()
 			"saber":
 				_autotest_saber()
+			"vestigios":
+				_autotest_vestigios()
+			"cancao":
+				_autotest_cancao()
 			_:
 				_autotest()
 
@@ -1606,6 +1610,8 @@ func _notebook_data(v: Dictionary) -> Dictionary:
 	var clues: Array = []
 	var held := {}
 	for b in v.get("beliefs", []):
+		if b.get("p", "") == "met":
+			continue  # who knows whom is shown under People
 		var src: String = Places.text.get("source_text", {}).get(b.get("source", ""), b.get("source", "")).replace("{from}", names.get(b.get("from", ""), b.get("from", "?")))
 		var label := Places.belief_label(b, names)
 		clues.append({"text": ("Acredito que NAO: " if not b.get("holds", true) else "") + label, "source": src})
@@ -2045,6 +2051,116 @@ func _autotest_arrival() -> void:
 		await _shot("a5_hello")
 	ok["know_me_at_end"] = npc_nodes.keys().filter(func(k): return npc_nodes[k].get_meta("knows", false) and not npc_nodes[k].has_meta("player"))
 	ok["telemetry"] = telemetry.summary()
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+func _wait_sign(id: String, secs: float) -> bool:
+	var w := 0.0
+	while w < secs and not sign_nodes.has(id):
+		await get_tree().create_timer(0.5).timeout
+		w += 0.5
+	return sign_nodes.has(id)
+
+
+func _examine_nearest(only := "") -> String:
+	var best := ""
+	var best_d := 6.0
+	for id in sign_nodes:
+		if only != "" and id != only:
+			continue
+		var d: float = sign_nodes[id].global_position.distance_to(player.global_position)
+		if d < best_d:
+			best_d = d
+			best = id
+	if best == "":
+		return "sem vestigio perto"
+	await _perform({"action": "examinar", "origin": "player", "args": {"sign": best}, "title": sign_nodes[best].get_meta("title")})
+	await get_tree().create_timer(0.5).timeout
+	return last_report
+
+
+func _autotest_cancao() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await _go(Layout.spot("capela") + Vector3(-1.5, 0, 1.0), 120.0)
+	var ok := {"heard": await _wait_sign("cancao-alvorada", 120.0)}
+	ok["hour"] = int(client.view.get("hour", -1))
+	if sign_nodes.has("cancao-alvorada"):
+		ok["examined"] = await _examine_nearest("cancao-alvorada")
+		await _shot("v3_cancao")
+	await get_tree().create_timer(1.0).timeout
+	hud.toggle_notebook()
+	await get_tree().create_timer(0.6).timeout
+	ok["clues"] = hud._nb_data.get("pistas", []).map(func(c): return c.text).filter(func(t): return t.contains("capela"))
+	await _shot("v4_caderno_cancao")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F3 closing: the sketch from Tomas, the glint and the coin in the mine, the white boar's track at night, the dawn song.
+## Needs a server with a short tick (a whole day passes in about a minute).
+func _autotest_vestigios() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	# 1. the sketch, through Tomas's menu
+	for attempt in 3:  # he keeps his own day: find where he is now
+		var tomas_region := ""
+		for o in client.view.get("others", []):
+			if o.id == "tomas":
+				tomas_region = o.region
+		ok["tomas_region"] = tomas_region
+		if tomas_region == "estrada":
+			await _go(Layout.spot("banco-estrada") + Vector3(1.4, 0, 1.4), 60.0)
+		else:
+			await _go(Layout.spot("taverna") + Vector3(0, 0, 1.0), 60.0)
+		await get_tree().create_timer(1.5).timeout
+		if npc_nodes.has("tomas"):
+			break
+	if npc_nodes.has("tomas"):
+		await open_npc_menu(npc_nodes["tomas"])
+		var i := _menu_index("pedir-esboco")
+		ok["sketch_offered"] = i >= 0
+		if i >= 0:
+			_on_action_chosen(i)
+			await get_tree().create_timer(1.8).timeout
+			ok["sketch"] = last_report
+			ok["map_after_sketch"] = found_places.keys()
+	# 2. the mine: work a vein, notice the glint, search until the coin turns up
+	await _go(Layout.ORIGIN.mina + Vector3(-3, 0, -4), 90.0)
+	await client.occur("minerar")
+	ok["glint_seen"] = await _wait_sign("brilho-na-pedra", 12.0)
+	await _shot("v1_brilho")
+	var tries := 0
+	while sign_nodes.has("brilho-na-pedra") and tries < 25:
+		ok["last_search"] = await _examine_nearest("brilho-na-pedra")
+		tries += 1
+	ok["coin_after_tries"] = tries
+	ok["glint_gone"] = not sign_nodes.has("brilho-na-pedra")
+	# 3. the forest at night: only someone who has hunted sees the track
+	await _go(Layout.spot("clareira") + Vector3(1.0, 0, 1.0), 120.0)
+	await client.occur("cacar-javali")
+	ok["track_seen_at_night"] = await _wait_sign("pegada-branca", 60.0)
+	ok["hour_then"] = int(client.view.get("hour", -1))
+	if sign_nodes.has("pegada-branca"):
+		await get_tree().create_timer(1.0).timeout
+		await _shot("v2_pegada")
+		ok["track_examined"] = await _examine_nearest("pegada-branca")
+	# 4. the chapel at dawn
+	await _go(Layout.spot("capela") + Vector3(-1.5, 0, 1.0), 120.0)
+	ok["song_heard"] = await _wait_sign("cancao-alvorada", 70.0)
+	if sign_nodes.has("cancao-alvorada"):
+		ok["song_examined"] = await _examine_nearest("cancao-alvorada")  # the window is short on a fast server: act first
+		await _shot("v3_cancao")
+	hud.toggle_notebook()
+	await get_tree().create_timer(0.6).timeout
+	ok["notebook_clues"] = hud._nb_data.get("pistas", []).map(func(c): return c.text)
+	ok["questions"] = hud._nb_data.get("perguntas", [])
+	await _shot("v4_caderno")
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 

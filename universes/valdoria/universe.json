@@ -72,7 +72,8 @@
     "bell-rung",
     "den-trail",
     "anvil-mark",
-    "nameless-grave"
+    "nameless-grave",
+    "dawn-song"
   ],
   "playerKind": "player",
   "player": {
@@ -9946,6 +9947,102 @@
           "fact": {
             "p": "child-lost",
             "s": "floresta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cancao-alvorada",
+      "region": "vila",
+      "spot": "capela",
+      "title": "Escutar o canto da capela",
+      "look": "Um canto suave vem da capela.",
+      "text": "Irma Elena canta uma melodia antiga, de quem agradece a quem ajuda sem pedir nada em troca.",
+      "when": {
+        "time": {
+          "from": 5,
+          "to": 7
+        }
+      },
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "dawn-song",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "brilho-na-pedra",
+      "region": "mina",
+      "spot": "veio-mina",
+      "title": "Revirar o brilho entre as pedras",
+      "look": "Algo metalico brilha entre as pedras do veio.",
+      "text": "Voce revira as pedras do veio com cuidado, procurando de onde vem o brilho.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "old-coin",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          }
+        }
+      },
+      "perceive": {
+        "num": {
+          "e": "$self",
+          "k": "ore",
+          "op": ">=",
+          "v": 1
+        }
+      },
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "old-coin",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          },
+          "if": {
+            "chance": {
+              "seed": "brilho-moeda",
+              "permille": 250
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "coin",
+          "text": "Entre as pedras, voce encontra uma moeda antiga com o brasao de Asterion!",
+          "if": {
+            "fact": {
+              "p": "old-coin",
+              "s": "$self",
+              "o": "mina",
+              "private": true
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "coin-miss",
+          "text": "Era so um reflexo de mica. Talvez, olhando de novo...",
+          "if": {
+            "not": {
+              "fact": {
+                "p": "old-coin",
+                "s": "$self",
+                "o": "mina",
+                "private": true
+              }
+            }
           }
         }
       ]

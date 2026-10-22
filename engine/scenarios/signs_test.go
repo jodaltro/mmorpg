@@ -229,3 +229,60 @@ func TestDiscoveryBotSolvesTheVillageRiddles(t *testing.T) {
 		t.Fatalf("the bot should have examined the murky water and told someone: %v", h.s.Deeds["p1"])
 	}
 }
+
+// The dawn song is heard at the chapel only at dawn, and examining it leaves
+// a private clue.
+func TestDawnSongSignOnlyAtDawn(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.tickToHour(12)
+	if _, there := h.signs("p1")["cancao-alvorada"]; there {
+		t.Fatal("no singing at noon")
+	}
+	h.tickToHour(6)
+	if _, there := h.signs("p1")["cancao-alvorada"]; !there {
+		t.Fatal("the chapel sings at dawn")
+	}
+	h.mustAct("player", "p1", "examinar", map[string]core.ID{"sign": "cancao-alvorada"})
+	if _, ok := h.s.Facts["p1|dawn-song|p1|vila"]; !ok {
+		t.Fatal("examining leaves a private clue")
+	}
+}
+
+// The glint in the mine is only seen by someone who has already worked the
+// veins; searching may find the coin (and then the glint is gone), and a miss
+// says so.
+func TestCoinGlintAppearsAfterMiningAndFindsTheCoin(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.move("p1", "mina")
+	if _, there := h.signs("p1")["brilho-na-pedra"]; there {
+		t.Fatal("nobody notices a glint before working the veins")
+	}
+	h.mustAct("adapter", "p1", "minerar", nil)
+	if _, there := h.signs("p1")["brilho-na-pedra"]; !there {
+		t.Fatal("after mining the glint is noticed")
+	}
+	misses := 0
+	for i := 0; i < 80; i++ {
+		if _, ok := h.s.Facts["p1|old-coin|p1|mina"]; ok {
+			break
+		}
+		d := h.do(core.Command{Kind: "act", Origin: "player", Actor: "p1", Action: "examinar", Args: map[string]core.ID{"sign": "brilho-na-pedra"}})
+		for _, e := range d.Events {
+			if e.Kind == "coin-miss" {
+				misses++
+			}
+		}
+		h.tick(1)
+	}
+	if _, ok := h.s.Facts["p1|old-coin|p1|mina"]; !ok {
+		t.Fatalf("the coin is found eventually (%d misses)", misses)
+	}
+	if misses == 0 {
+		t.Fatal("a 25% chance should have missed at least once")
+	}
+	if _, there := h.signs("p1")["brilho-na-pedra"]; there {
+		t.Fatal("the glint is gone once the coin is found")
+	}
+}
