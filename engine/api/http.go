@@ -110,6 +110,16 @@ func Handler(r *sim.Runner) http.Handler {
 		}
 		reply(rw, 200, v)
 	})
+	// What the observer could try now, from what they can tell (no hidden facts).
+	mux.HandleFunc("GET /v1/affordances/{id}", func(rw http.ResponseWriter, q *http.Request) {
+		s := r.Snapshot()
+		id := core.ID(q.PathValue("id"))
+		if _, ok := s.Entities[id]; !ok {
+			reply(rw, 404, errorBody{Version, "unknown_observer"})
+			return
+		}
+		reply(rw, 200, map[string]any{"version": Version, "tick": s.Tick, "affordances": w.Affordances(&s, id)})
+	})
 	mux.HandleFunc("GET /v1/players", func(rw http.ResponseWriter, _ *http.Request) {
 		s := r.Snapshot()
 		out := PlayersResponse{Version: Version, Tick: s.Tick, Players: []PlayerSummary{}}

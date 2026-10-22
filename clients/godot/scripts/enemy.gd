@@ -29,6 +29,11 @@ const KINDS := {
 		"idle": "AnimalArmature|AnimalArmature|AnimalArmature|Idle", "move": "AnimalArmature|AnimalArmature|AnimalArmature|Run", "attack": "AnimalArmature|AnimalArmature|AnimalArmature|Headbutt", "hit": "", "death": "AnimalArmature|AnimalArmature|AnimalArmature|Death", "hit_at": 0.35,
 		"loops": ["AnimalArmature|AnimalArmature|AnimalArmature|Idle", "AnimalArmature|AnimalArmature|AnimalArmature|Idle_Eating", "AnimalArmature|AnimalArmature|AnimalArmature|Walk", "AnimalArmature|AnimalArmature|AnimalArmature|Run"], "tint": Color(0.42, 0.48, 0.46), "bar_y": 1.1,
 		"tusks": {"bone": "Head_end", "length": 0.22, "spread": 0.09, "rot": Vector3(0, 0, 0)}},
+	"javali_branco": {"name": "Javali Branco", "hp": 160.0, "dmg": 16.0, "aggro": 10.0, "range": 2.1, "speed": 6.0, "creature": true,
+		"model": "res://assets/creatures/pig_animated.glb", "scale": 0.8, "ground": 0.0, "label_y": 1.7,
+		"idle": "AnimalArmature|AnimalArmature|AnimalArmature|Idle", "move": "AnimalArmature|AnimalArmature|AnimalArmature|Run", "attack": "AnimalArmature|AnimalArmature|AnimalArmature|Headbutt", "hit": "", "death": "AnimalArmature|AnimalArmature|AnimalArmature|Death", "hit_at": 0.35,
+		"loops": ["AnimalArmature|AnimalArmature|AnimalArmature|Idle", "AnimalArmature|AnimalArmature|AnimalArmature|Idle_Eating", "AnimalArmature|AnimalArmature|AnimalArmature|Walk", "AnimalArmature|AnimalArmature|AnimalArmature|Run"], "tint": Color(1.0, 1.35, 1.3), "bar_y": 1.45,
+		"tusks": {"bone": "Head_end", "length": 0.34, "spread": 0.12, "rot": Vector3(0, 0, 0)}},
 }
 
 var kind := "bandido"

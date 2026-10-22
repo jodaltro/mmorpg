@@ -24,6 +24,7 @@ cd engine && go run ./cmd/worldsim validate ../universes/valdoria/universe.json
 | `happenings`, `director` | Acontecimentos opcionais (`when`, `effects`, `cooldown`) e o ritmo do diretor (`every`, `allowNone`). O Jev escolhe qual ocorre |
 | `limits` | `maxActiveQuests`, `decisionTimeout`, `declineCooldown`, `offerExpiry`, `maxEvents`, `allowAbandon`, `questGap` |
 | `acquaintance` | predicado "S conhece O" (ex.: `met`). Com ele, missão com `giver` só é oferecida a quem o giver acredita conhecer. O motor cria essa crença quando um jogador age numa região (todos os perceptores ali testemunham); incluí-lo em `gossip.predicates` faz a fama correr por boato. Missões sem `giver` não são afetadas |
+| ação `title` | rótulo curto da ação para menus (aceita `{param}`); sem ele, o id vira o rótulo |
 | `tickSeconds` | duração de um tick para a qual o universo foi calibrado; o `serve` usa como padrão (o `-tick` explícito vence). O núcleo só conta ticks |
 
 Campos de missão para a janela do sistema e missões vivas: `rank`, `objective`, `reward`, `penalty` (texto renderizado), `stages` (`id`, `when`, `title`, `desc`, `objective`, `rank`, `goal`, `effects`; só avançam, o primeiro que valer entra), `fail`, `failEffects`, `timeLimit` (ticks após aceitar), `onDecline`. Em capítulos: `contender` define quem, mesmo sem a missão, vira rival.

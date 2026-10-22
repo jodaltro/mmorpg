@@ -147,3 +147,23 @@ Taxa de resolução pelo Jev no prazo: 37 de 38 (97%). Custo total: US$ 0,0018 e
 ### Não validado
 
 Aceitar/Recusar pelo diário (sem oferta pendente na rodada), avisos de falha/expiração vindos do motor real (só com dados sintéticos), posição real entre jogadores.
+
+## 22/10/2026 — todas as regiões e todas as interações do motor
+
+Pedido do usuário: "não achei a mina" e "implementar a possibilidade para todas as missões e interações que tem no motor". Antes, o cliente só tinha vila, estrada e floresta, e só conseguia caçar e lutar; ações como minerar, explorar ruínas, colher ervas, forjar com Brom, entregar ervas etc. não tinham como acontecer.
+
+- Motor: `GET /v1/affordances/{id}` (aditivo, v1) e `title` opcional nas ações; testes `TestAffordancesFollowThePlayer`, `TestAffordancesDoNotRevealHiddenFacts` (procurar Nino aparece na floresta mesmo sem Nino perdido, e o motor recusa) e `TestAffordancesEndpoint`. `gofmt`, `go vet`, `go test ./...` ok; `worldsim validate` ok.
+- Cliente: mina (encosta ao norte da estrada, entrada, veios, escombros), ruínas (muros caídos, salão, escada), toca (raiz gigante, cogumelos), poço e selo; menus de NPC, de ponto de interação (`E`) e da região (`F`) montados a partir das affordances; Javali Branco (noturno, para quem achou o rastro, `cacar-javali-branco`) e onda de corrompidos quando o jogador sabe que o selo se despedaçou (`defender-vila`). Assim, as 38 ações de jogador e de servidor de jogo do Valdoria ficam ao alcance (as de combate são reportadas pelas lutas).
+- `--autotest=places` contra `serve -advisor jev` (15 s por tick): conversar com Orin → ir à mina, abrir o menu do veio e **clicar** em "Minerar um veio" → aceito ("Teste extrai minerio da Mina de Kharum."); ruínas → "Explorar o salao das ruinas" aceito ("Teste encontra uma bigorna antiga coberta de runas..."); toca → Pipo e Sora presentes, conversar com Pipo aceito; vila → o menu de Brom passou a ter "Forjar com Brom" (havia minério) e a forja foi aceita.
+- Regressão (`--autotest --threat=estrada --respawn=4`): bandidos, javalis (3 abates, respawn 3), caminho, oclusão (0,82), cliques em Aceitar/Abandonar; 0 quedas; 285–370 fps.
+
+### Defeitos encontrados e corrigidos
+
+- A encosta da mina foi posta atravessando a estrada e bloqueava as ruínas: mina movida para o norte da estrada.
+- `play_once` esperava `animation_finished`, que nunca chega em clipes que vêm em loop no arquivo (`TreeChopping`): o personagem ficava "ocupado" para sempre após minerar. Agora espera a duração do clipe.
+- Javalis colados à estrada atacavam todo viajante (chegou a 25/100 de vida no caminho): bando movido para dentro da mata.
+- O teste desistia de andar quando um golpe interrompia a caminhada; agora retoma, como um jogador clicaria de novo.
+
+### Não validado
+
+Javali Branco e onda de corrompidos em jogo (dependem de rastro à noite e do selo despedaçado; não ocorreram nas rodadas), ações de habilidade (diagnosticar, Florescer, chá...) que só aparecem com a habilidade, resgate de mineiro (precisa do desabamento), escolta e recuperação de mercadorias pelos menus.

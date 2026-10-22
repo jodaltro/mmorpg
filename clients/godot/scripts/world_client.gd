@@ -13,6 +13,7 @@ signal command_done(label: String, ok: bool, body: Dictionary)
 @export var poll_seconds := 1.0
 
 var view: Dictionary = {}
+var affordances: Array = []  # what the engine says this player could try now
 var joined := false
 var _counter := 0
 var _refreshing := false
@@ -105,6 +106,12 @@ func accept(quest: String) -> Dictionary:
 
 func decline(quest: String) -> Dictionary:
 	return await _command("player", "decline", {"quest": quest})
+
+
+func refresh_affordances() -> void:
+	var res := await request(HTTPClient.METHOD_GET, "/v1/affordances/%s" % player_id)
+	if res.status == 200:
+		affordances = res.body.get("affordances", [])
 
 
 func refresh() -> void:

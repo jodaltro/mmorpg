@@ -886,6 +886,7 @@
   "actions": [
     {
       "id": "examinar-poco",
+      "title": "Examinar a agua do poco",
       "by": [
         "player",
         "agent",
@@ -933,6 +934,7 @@
     },
     {
       "id": "contar-veneno",
+      "title": "Contar a {npc} sobre o veneno",
       "by": [
         "player",
         "agent"
@@ -1031,6 +1033,7 @@
     },
     {
       "id": "purificar-poco",
+      "title": "Purificar o poco",
       "by": [
         "agent",
         "player"
@@ -1091,6 +1094,7 @@
     },
     {
       "id": "seguir-rastro",
+      "title": "Seguir o rastro ate o selo",
       "by": [
         "adapter"
       ],
@@ -1141,6 +1145,7 @@
     },
     {
       "id": "consultar-anciao",
+      "title": "Consultar o Velho Tomas",
       "by": [
         "player"
       ],
@@ -1185,6 +1190,7 @@
     },
     {
       "id": "recuperar-reliquia",
+      "title": "Recuperar a reliquia",
       "by": [
         "adapter"
       ],
@@ -1233,6 +1239,7 @@
     },
     {
       "id": "aceitar-pacto",
+      "title": "Aceitar o pacto do selo",
       "by": [
         "player"
       ],
@@ -1287,6 +1294,7 @@
     },
     {
       "id": "plantar-mudas",
+      "title": "Plantar mudas no selo",
       "by": [
         "player"
       ],
@@ -1351,6 +1359,7 @@
     },
     {
       "id": "defender-vila",
+      "title": "Defender a vila",
       "by": [
         "adapter"
       ],
@@ -1402,6 +1411,7 @@
     },
     {
       "id": "escoltar-caravana",
+      "title": "Escoltar a caravana",
       "by": [
         "adapter"
       ],
@@ -1462,6 +1472,7 @@
     },
     {
       "id": "cacar-lobos",
+      "title": "Afugentar os lobos",
       "by": [
         "adapter"
       ],
@@ -1522,6 +1533,7 @@
     },
     {
       "id": "minerar",
+      "title": "Minerar um veio",
       "by": [
         "adapter"
       ],
@@ -1662,6 +1674,7 @@
     },
     {
       "id": "forjar",
+      "title": "Forjar com Brom",
       "by": [
         "player"
       ],
@@ -1735,6 +1748,7 @@
     },
     {
       "id": "resgatar-mineiro",
+      "title": "Resgatar um mineiro",
       "by": [
         "adapter"
       ],
@@ -1796,6 +1810,7 @@
     },
     {
       "id": "enfrentar-bandidos",
+      "title": "Enfrentar os bandidos",
       "by": [
         "adapter"
       ],
@@ -1856,6 +1871,7 @@
     },
     {
       "id": "recuperar-mercadorias",
+      "title": "Recuperar as mercadorias de Lia",
       "by": [
         "adapter"
       ],
@@ -1927,6 +1943,7 @@
     },
     {
       "id": "achar-crianca",
+      "title": "Procurar Nino",
       "by": [
         "adapter"
       ],
@@ -1982,6 +1999,7 @@
     },
     {
       "id": "consertar-telhado",
+      "title": "Consertar um telhado",
       "by": [
         "player"
       ],
@@ -2062,6 +2080,7 @@
     },
     {
       "id": "receber-bencao",
+      "title": "Receber a bencao",
       "by": [
         "player"
       ],
@@ -2134,6 +2153,7 @@
     },
     {
       "id": "colher-ervas-campo",
+      "title": "Colher ervas",
       "by": [
         "adapter"
       ],
@@ -2312,6 +2332,7 @@
     },
     {
       "id": "entregar-ervas",
+      "title": "Entregar ervas a Mira",
       "by": [
         "player"
       ],
@@ -2369,6 +2390,7 @@
     },
     {
       "id": "cacar-javali",
+      "title": "Cacar um javali",
       "by": [
         "adapter"
       ],
@@ -2579,6 +2601,7 @@
     },
     {
       "id": "explorar-ruinas",
+      "title": "Explorar o salao das ruinas",
       "by": [
         "adapter"
       ],
@@ -2668,6 +2691,7 @@
     },
     {
       "id": "purificar-minerio",
+      "title": "Purificar o minerio",
       "by": [
         "player"
       ],
@@ -2727,6 +2751,7 @@
     },
     {
       "id": "contribuir-obra",
+      "title": "Contribuir com a obra-prima",
       "by": [
         "player"
       ],
@@ -2801,6 +2826,7 @@
     },
     {
       "id": "forjar-lamina-proibida",
+      "title": "Forjar a lamina proibida",
       "by": [
         "player"
       ],
@@ -2853,6 +2879,7 @@
     },
     {
       "id": "ouvir-segredo",
+      "title": "Ouvir o segredo de Mira",
       "by": [
         "player"
       ],
@@ -2897,6 +2924,7 @@
     },
     {
       "id": "cacar-javali-branco",
+      "title": "Cacar o Javali Branco",
       "by": [
         "adapter"
       ],
@@ -2965,6 +2993,7 @@
     },
     {
       "id": "mostrar-moeda",
+      "title": "Mostrar a moeda antiga a Lia",
       "by": [
         "player"
       ],
@@ -3018,6 +3047,7 @@
     },
     {
       "id": "agradecer-elena",
+      "title": "Agradecer a Irma Elena",
       "by": [
         "player"
       ],
@@ -3064,6 +3094,7 @@
     },
     {
       "id": "descansar",
+      "title": "Descansar ate o amanhecer",
       "by": [
         "player"
       ],
@@ -3096,6 +3127,7 @@
     },
     {
       "id": "diagnosticar",
+      "title": "Diagnosticar os doentes",
       "by": [
         "player"
       ],
@@ -3149,6 +3181,7 @@
     },
     {
       "id": "usar-florescer",
+      "title": "Usar Florescer no jardim de Mira",
       "by": [
         "player"
       ],
@@ -3207,6 +3240,7 @@
     },
     {
       "id": "servir-cha",
+      "title": "Servir cha ao Velho Tomas",
       "by": [
         "player"
       ],
@@ -3261,6 +3295,7 @@
     },
     {
       "id": "procurar-botoes",
+      "title": "Procurar botoes perdidos",
       "by": [
         "player"
       ],
@@ -3323,6 +3358,7 @@
     },
     {
       "id": "acalmar-doentes",
+      "title": "Acalmar os doentes",
       "by": [
         "player"
       ],
@@ -3375,6 +3411,7 @@
     },
     {
       "id": "presentear-pipo",
+      "title": "Presentear Pipo",
       "by": [
         "player"
       ],
@@ -3451,6 +3488,7 @@
     },
     {
       "id": "treinar-sora",
+      "title": "Treinar com Sora",
       "by": [
         "player"
       ],
@@ -3489,6 +3527,7 @@
     },
     {
       "id": "sonhar",
+      "title": "Dormir e sonhar",
       "by": [
         "player"
       ],
@@ -3567,6 +3606,7 @@
     },
     {
       "id": "trocar-magia",
+      "title": "Trocar magias na feira",
       "by": [
         "player"
       ],
@@ -3724,6 +3764,7 @@
     },
     {
       "id": "conversar",
+      "title": "Conversar com {npc}",
       "by": [
         "player"
       ],

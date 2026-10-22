@@ -179,3 +179,29 @@ func TestPlayersListAndNewWorld(t *testing.T) {
 		t.Fatalf("the same character can start again in the new world: %d %v", code, out)
 	}
 }
+
+func TestAffordancesEndpoint(t *testing.T) {
+	_, s := setup(t)
+	if code, out := post(t, s.URL, `{"version":1,"requestId":"j1","origin":"adapter","kind":"join","actor":"p1","name":"Ana"}`); code != 200 {
+		t.Fatalf("%d %v", code, out)
+	}
+	res, err := http.Get(s.URL + "/v1/affordances/p1")
+	if err != nil || res.StatusCode != 200 {
+		t.Fatalf("affordances: %v %v", err, res)
+	}
+	var out struct {
+		Affordances []core.Affordance `json:"affordances"`
+	}
+	json.NewDecoder(res.Body).Decode(&out)
+	res.Body.Close()
+	talk := false
+	for _, a := range out.Affordances {
+		talk = talk || a.Action == "conversar" && a.Args["npc"] == "mira" && a.Origin == "player"
+	}
+	if !talk {
+		t.Fatalf("p1 in the village can talk to Mira: %+v", out.Affordances)
+	}
+	if res, _ := http.Get(s.URL + "/v1/affordances/nobody"); res.StatusCode != 404 {
+		t.Fatalf("unknown observer: %d", res.StatusCode)
+	}
+}

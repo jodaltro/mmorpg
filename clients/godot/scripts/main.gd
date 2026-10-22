@@ -6,17 +6,26 @@ const REGION_NAMES := {"vila": "Vila Cinzenta", "floresta": "Floresta Cinzenta",
 	"mina": "Mina de Kharum", "ruinas": "Ruinas de Asterion", "toca": "Toca dos Lebrinos"}
 # Where each NPC stands in their region. Talking to one is the "conversar"
 # intent: whoever is around sees it, and from then on they know the player.
-const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), "floresta": Vector3(64, 0, 0)}
+const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), "floresta": Vector3(64, 0, 0),
+	"mina": Vector3(106, 0, 0), "ruinas": Vector3(136, 0, 0), "toca": Vector3(66, 0, 41)}
+# Combat outcomes are reported by fights, never offered as menu options.
+const COMBAT_REPORTED := ["enfrentar-bandidos", "cacar-lobos", "cacar-javali", "cacar-javali-branco", "defender-vila"]
 # Threats appear and end through public world events (the engine decides when).
 # Defeating a camp is reported back as a confirmed occurrence; the engine validates it.
 const THREATS := {
-	"estrada": {"event": "bandits", "end": "bandits-left", "kind": "bandido", "action": "enfrentar-bandidos",
+	"estrada": {"region": "estrada", "event": "bandits", "end": "bandits-left", "kind": "bandido", "action": "enfrentar-bandidos",
 		"at": [Vector2(-3, -5), Vector2(2, 5), Vector2(7, -4)]},
-	"vila": {"event": "wolves", "end": "wolves-left", "kind": "lobo", "action": "cacar-lobos",
+	"vila": {"region": "vila", "event": "wolves", "end": "wolves-left", "kind": "lobo", "action": "cacar-lobos",
 		"at": [Vector2(-9, -9), Vector2(9, 9), Vector2(-9, 9)]},
 	# Boars roam the forest all the time; each one is its own confirmed hunt and they return later.
-	"floresta": {"always": true, "per_kill": true, "kind": "javali", "action": "cacar-javali", "respawn": 25.0,
-		"at": [Vector2(-8, -10), Vector2(6, 8), Vector2(-2, 14)]},
+	"floresta": {"region": "floresta", "always": true, "per_kill": true, "kind": "javali", "action": "cacar-javali", "respawn": 25.0,
+		"at": [Vector2(-8, -20), Vector2(8, 20), Vector2(16, -24)]},  # in the woods, off the road
+	# When the seal shatters, corrupted creatures come to the village (the player has to know it).
+	"corrupcao": {"region": "vila", "belief": "seal-shattered", "kind": "corrompido", "action": "defender-vila",
+		"at": [Vector2(-10, 9), Vector2(10, -9), Vector2(-10, -9)]},
+	# The White Boar: only at night, only for who found its tracks, only until it falls.
+	"branco": {"region": "floresta", "night_fact": "white-boar-sign", "slain_fact": "white-boar-slain", "kind": "javali_branco",
+		"action": "cacar-javali-branco", "at": [Vector2(16, -16)]},
 }
 const COMBO := [
 	{"clip": "Sword_Regular_A", "hit": 0.30, "dmg": 22.0, "speed": 1.3},
@@ -35,7 +44,9 @@ const NPCS := {
 	"kael": {"at": Vector2(-9, 1)},
 	"elena": {"at": Vector2(-7, 6), "female": true},
 	"nino": {"at": Vector2(0, -6)},
-	"sora": {"at": Vector2(8, -6), "female": true},
+	"sora": {"at": Vector2(3, -1), "female": true},
+	"pipo": {"at": Vector2(-3, -1)},
+	"garrick": {"at": Vector2(2, -4)},
 }
 
 var client: WorldClient
@@ -63,6 +74,8 @@ var hud: Hud
 var nav_region: NavigationRegion3D
 var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
+var pois: Array = []  # Places.POIS with their label nodes
+var _menu: Array = []  # affordances shown in the action menu
 var npc_nodes := {}  # entity id -> Actor, driven by view.others
 var region := "vila"
 var last_seq := 0
@@ -103,6 +116,8 @@ func _ready() -> void:
 				_autotest_zoo()
 			"hud":
 				_autotest_hud()
+			"places":
+				_autotest_places()
 			_:
 				_autotest()
 
@@ -159,9 +174,9 @@ func _build_environment() -> void:
 func _build_world() -> void:
 	var ground := MeshInstance3D.new()
 	var plane := PlaneMesh.new()
-	plane.size = Vector2(170, 130)
+	plane.size = Vector2(260, 140)
 	ground.mesh = plane
-	ground.position = Vector3(25, 0, 0)
+	ground.position = Vector3(55, 0, 5)
 	var gm := StandardMaterial3D.new()
 	gm.albedo_color = Color(0.36, 0.55, 0.26)
 	gm.roughness = 1.0
@@ -171,10 +186,10 @@ func _build_world() -> void:
 	floor_body.collision_layer = 1
 	var fcs := CollisionShape3D.new()
 	var fbox := BoxShape3D.new()
-	fbox.size = Vector3(170, 1, 130)
+	fbox.size = Vector3(260, 1, 140)
 	fcs.shape = fbox
 	floor_body.add_child(fcs)
-	floor_body.position = Vector3(25, -0.5, 0)
+	floor_body.position = Vector3(55, -0.5, 5)
 	floor_body.add_to_group("nav_source")
 	add_child(floor_body)
 
@@ -189,6 +204,13 @@ func _build_world() -> void:
 	rmat.roughness = 1.0
 	road.material_override = rmat
 	add_child(road)
+	var road2 := MeshInstance3D.new()  # on through the forest to the mine and the ruins
+	var rm2 := BoxMesh.new()
+	rm2.size = Vector3(96, 0.03, 3.0)
+	road2.mesh = rm2
+	road2.position = Vector3(89, 0.015, 0)
+	road2.material_override = rmat
+	add_child(road2)
 
 	# Plaza paving: 6x6 tiles of 2m.
 	for x in 6:
@@ -224,12 +246,12 @@ func _build_world() -> void:
 		var r := _rng.randf_range(34, 52)
 		_tree(Vector3(cos(a) * r * 1.2 - 12, 0, sin(a) * r * 0.9))
 	for i in 90:
-		var p := Vector3(_rng.randf_range(34, 100), 0, _rng.randf_range(-38, 38))
+		var p := Vector3(_rng.randf_range(34, 92), 0, _rng.randf_range(-38, 38))
 		if abs(p.z) < 3.4 and p.x < 56:
 			continue
 		_tree(p)
 	for i in 160:  # grass tufts
-		var gp := Vector3(_rng.randf_range(-40, 90), 0, _rng.randf_range(-35, 35))
+		var gp := Vector3(_rng.randf_range(-40, 150), 0, _rng.randf_range(-35, 48))
 		if abs(gp.x) < 8 and abs(gp.z) < 8:
 			continue
 		_spawn("nature/Grass_Common_Short" if _rng.randf() < 0.6 else "nature/Grass_Common_Tall", gp, _rng.randf() * 360.0)
@@ -241,19 +263,41 @@ func _build_world() -> void:
 	_spawn("village/Prop_Crate", Vector3(22.2, 0, -6.8), 30.0)
 	_solid(Vector3(21.6, 0, -6.6), Vector3(2.2, 1.1, 1.2))
 
+	Places.build(self)
+	for poi in Places.POIS:
+		var l := Label3D.new()
+		l.text = poi.label
+		l.position = poi.at + Vector3(0, 1.9, 0)
+		l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		l.no_depth_test = true
+		l.pixel_size = 0.006
+		l.font_size = 34
+		l.outline_size = 8
+		l.modulate = Color(1.0, 0.92, 0.7, 0.85)
+		add_child(l)
+		var entry: Dictionary = poi.duplicate()
+		entry["node"] = l
+		pois.append(entry)
+
 	_build_nav()
 	_region_zone("vila", Vector3(-6, 0, 0), Vector3(40, 6, 70))
 	_region_zone("estrada", Vector3(24, 0, 0), Vector3(20, 6, 70))
 	_region_zone("floresta", Vector3(64, 0, 0), Vector3(60, 6, 70))
+	_region_zone("mina", Vector3(109, 0, 0), Vector3(30, 6, 70))
+	_region_zone("ruinas", Vector3(139, 0, 0), Vector3(30, 6, 70))
+	_region_zone("toca", Vector3(66, 0, 43), Vector3(22, 6, 14))
 
 
-func _tree(p: Vector3) -> void:
+func _tree(p: Vector3, kind := "") -> void:
 	if p.length() < 24 and abs(p.z) < 22:
 		return
-	if absf(p.z) < 10.0 and p.x > 8.0 and p.x < 62.0:
-		return  # keep the road and the bandit camp visible from the fixed camera
-	var kinds: Array[String] = ["nature/CommonTree_1", "nature/CommonTree_2", "nature/CommonTree_3", "nature/DeadTree_1"]
-	var kind: String = kinds[_rng.randi() % 4]
+	if absf(p.z) < 10.0 and p.x > 8.0 and p.x < 160.0:
+		return  # keep the road, the camp, the mine and the ruins visible from the fixed camera
+	if Vector2(p.x - 66, p.z - 44).length() < 10.0 or Vector2(p.x - 80, p.z + 16).length() < 6.0:
+		return  # the den and the seal stay open
+	if kind == "":
+		var kinds: Array[String] = ["nature/CommonTree_1", "nature/CommonTree_2", "nature/CommonTree_3", "nature/DeadTree_1"]
+		kind = kinds[_rng.randi() % 4]
 	var s := _rng.randf_range(0.8, 1.3)
 	var tree := _spawn(kind, p, _rng.randf() * 360.0, s)
 	_occluder(tree, p + Vector3(0, 3.2 * s, 0), 3.4 * s)
@@ -382,7 +426,7 @@ func _build_player() -> void:
 	add_child(player)
 	player.setup(_args.get("player", "godot-1"), _args.get("name", "Viajante"), false, true, "Ranger")
 	player.idle_clip = "Sword_Idle"
-	player.position = Vector3(0, 0, 0)
+	player.position = Vector3(0, 0, 3)
 
 
 func _build_camera() -> void:
@@ -438,7 +482,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_SPACE, KEY_Q:
 				attack()
 			KEY_E:
-				talk_nearest()
+				use_nearest()
+			KEY_F:
+				open_place_menu()
+			KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6, KEY_7, KEY_8, KEY_9:
+				if hud.actions_open():
+					_on_action_chosen(event.keycode - KEY_1)
 			KEY_R:
 				roll()
 			KEY_Y:
@@ -448,11 +497,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_J:
 				hud.toggle_journal()
 			KEY_ESCAPE:
-				if hud.journal_panel.visible:
+				if hud.actions_open():
+					hud.hide_actions()
+				elif hud.journal_panel.visible:
 					hud.toggle_journal()
 
 
 func click(screen: Vector2) -> void:
+	hud.hide_actions()
 	var from := cam.project_ray_origin(screen)
 	var dir := cam.project_ray_normal(screen)
 	var q := PhysicsRayQueryParameters3D.create(from, from + dir * 300.0, 4)
@@ -475,26 +527,110 @@ func click(screen: Vector2) -> void:
 func interact(npc: Actor) -> void:
 	player.walk_to(npc.global_position + (player.global_position - npc.global_position).normalized() * 1.6)
 	await player.arrived
-	if player.global_position.distance_to(npc.global_position) > 2.6:
+	if player.global_position.distance_to(npc.global_position) > 2.8:
 		return
-	player.face(npc.global_position - player.global_position)
 	player.model.rotation.y = atan2(npc.global_position.x - player.global_position.x, npc.global_position.z - player.global_position.z)
 	npc.model.rotation.y = atan2(player.global_position.x - npc.global_position.x, player.global_position.z - npc.global_position.z)
-	player.play_once("Interact")
-	var res := await client.act("conversar", {"npc": npc.entity_id})
-	_report(npc.label.text, "conversar", res)
-	await get_tree().create_timer(0.1).timeout
+	await open_npc_menu(npc)
 
 
-func talk_nearest() -> void:
-	var best: Actor = null
+## The closest NPC or point of interest within reach, if any.
+func _nearest_interactable() -> Dictionary:
+	var best := {}
+	var best_d := 3.2
 	for n in npc_nodes.values():
 		if n.has_meta("player"):
 			continue
-		if best == null or n.global_position.distance_to(player.global_position) < best.global_position.distance_to(player.global_position):
-			best = n
-	if best:
-		interact(best)
+		var d: float = n.global_position.distance_to(player.global_position)
+		if d < best_d:
+			best_d = d
+			best = {"npc": n}
+	for poi in pois:
+		if poi.region != region:
+			continue
+		var d: float = Vector2(poi.at.x - player.global_position.x, poi.at.z - player.global_position.z).length()
+		if d < best_d:
+			best_d = d
+			best = {"poi": poi}
+	return best
+
+
+func use_nearest() -> void:
+	var it := _nearest_interactable()
+	if it.has("npc"):
+		await open_npc_menu(it.npc)
+	elif it.has("poi"):
+		await open_poi_menu(it.poi)
+	else:
+		await open_place_menu()
+
+
+func open_npc_menu(npc: Actor) -> void:
+	await client.refresh_affordances()
+	_show_menu(npc.label.text, client.affordances.filter(func(a): return a.get("with", "") == npc.entity_id))
+
+
+func open_poi_menu(poi: Dictionary) -> void:
+	await client.refresh_affordances()
+	var target: String = poi.get("with", "")
+	var acts: Array = poi.get("actions", [])
+	_show_menu(poi.label, client.affordances.filter(func(a):
+		return target != "" and a.get("with", "") == target or a.get("with", "") == "" and acts.has(a.action)))
+
+
+## Everything that can be tried in this region that is not about a person or a landmark.
+func open_place_menu() -> void:
+	await client.refresh_affordances()
+	_show_menu("Acoes aqui: %s" % REGION_NAMES.get(region, region), client.affordances.filter(func(a):
+		return a.get("with", "") == "" and not COMBAT_REPORTED.has(a.action)))
+
+
+func _show_menu(title: String, list: Array) -> void:
+	_menu = list
+	if list.is_empty():
+		hud.hide_actions()
+		_log("[color=#aaaaaa]%s: nada para fazer agora.[/color]" % title)
+		return
+	hud.show_actions(title, list.map(func(a): return a.title))
+
+
+func _on_action_chosen(i: int) -> void:
+	if i < 0 or i >= _menu.size():
+		return
+	hud.hide_actions()
+	await _perform(_menu[i])
+
+
+## An affordance becomes an intent (player) or, for what a game server would
+## confirm, an occurrence (adapter). The engine accepts or refuses it.
+func _perform(a: Dictionary) -> void:
+	var target: String = a.get("with", "")
+	if npc_nodes.has(target):
+		var n: Actor = npc_nodes[target]
+		player.model.rotation.y = atan2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z)
+	player.play_once(Places.ANIM.get(a.action, "Interact"))
+	var args: Dictionary = a.get("args", {})
+	var res: Dictionary
+	if a.origin == "adapter":
+		res = await client.occur(a.action, args)
+	else:
+		res = await client.act(a.action, args)
+	last_report = "%s:%s" % [a.action, "ok" if res.status == 200 else res.body.get("error", "sem resposta")]
+	if res.status == 200:
+		var lines: Array = []
+		for ev in res.body.get("events", []):
+			if ev.get("text", "") != "":
+				lines.append(ev.text)
+		_log("[color=#9fdc7a]%s[/color]: %s" % [a.title, " / ".join(lines) if lines.size() > 0 else "feito"])
+	else:
+		var why: String = res.body.get("error", "")
+		_log("[color=#e8806a]%s[/color]: %s" % [a.title, "agora nao da (o mundo nao permite)" if why.contains("requirements") else why])
+	client.refresh()
+
+
+## Talk to an NPC directly (tests and the first meeting).
+func _talk(npc: Actor) -> void:
+	await _perform({"action": "conversar", "origin": "player", "args": {"npc": npc.entity_id}, "with": npc.entity_id, "title": "Conversar com %s" % npc.label.text})
 
 
 func attack() -> void:
@@ -581,19 +717,23 @@ func engage(e: Enemy) -> void:
 func _sync_enemies() -> void:
 	enemies.assign(enemies.filter(func(x): return is_instance_valid(x)))
 	for e in enemies.duplicate():
-		if e.camp != region:
-			e.queue_free()
+		var t: Dictionary = THREATS.get(e.camp, {})
+		if t.get("region", "") != region or not threat_on.get(e.camp, false) and e.state != Enemy.State.DEAD:
+			e.queue_free()  # left the region, or the threat is over (they go away)
 			enemies.erase(e)
-	var t: Dictionary = THREATS.get(region, {})
-	if t.is_empty() or not threat_on.get(region, false) or camp_done.get(region, false):
-		return
-	for e in enemies:
-		if is_instance_valid(e) and e.camp == region:
-			return  # camp already standing
-	var origin: Vector3 = REGION_ORIGIN[region]
-	for off in t.at:
-		_spawn_enemy(t.kind, region, origin + Vector3(off.x, 0, off.y))
-	_log("[color=#ffb070]%s: %d inimigos a vista.[/color]" % [REGION_NAMES.get(region, region), t.at.size()])
+	for camp in THREATS:
+		var t: Dictionary = THREATS[camp]
+		if t.region != region or not threat_on.get(camp, false) or camp_done.get(camp, false):
+			continue
+		var standing := false
+		for e in enemies:
+			standing = standing or e.camp == camp
+		if standing:
+			continue
+		var origin: Vector3 = REGION_ORIGIN[region]
+		for off in t.at:
+			_spawn_enemy(t.kind, camp, origin + Vector3(off.x, 0, off.y))
+		_log("[color=#ffb070]%s: %d inimigos a vista.[/color]" % [REGION_NAMES.get(region, region), t.at.size()])
 
 
 func _spawn_enemy(kind: String, camp: String, at: Vector3) -> Enemy:
@@ -612,7 +752,7 @@ func _spawn_enemy(kind: String, camp: String, at: Vector3) -> Enemy:
 func _respawn_later(camp: String) -> void:
 	var t: Dictionary = THREATS[camp]
 	await get_tree().create_timer(float(_args.get("respawn", t.get("respawn", 25.0)))).timeout
-	if region != camp or player_down or not threat_on.get(camp, false):
+	if region != t.region or player_down or not threat_on.get(camp, false):
 		return  # leaving the region already cleared the camp; it refills on return
 	var standing := 0
 	for e in enemies:
@@ -620,7 +760,7 @@ func _respawn_later(camp: String) -> void:
 			standing += 1
 	if standing < t.at.size():
 		var off: Vector2 = t.at[_rng.randi() % t.at.size()]
-		_spawn_enemy(t.kind, camp, REGION_ORIGIN[camp] + Vector3(off.x, 0, off.y))
+		_spawn_enemy(t.kind, camp, REGION_ORIGIN[t.region] + Vector3(off.x, 0, off.y))
 
 
 func _on_enemy_damaged(e: Enemy, amount: float) -> void:
@@ -782,7 +922,7 @@ func _on_view(v: Dictionary) -> void:
 	if not _synced:  # start where the engine says the character is
 		_synced = true
 		region = me.get("region", "vila")
-		player.global_position = REGION_ORIGIN.get(region, Vector3.ZERO)
+		player.global_position = REGION_ORIGIN.get(region, Vector3.ZERO) + Vector3(0, 0, 3)
 		cam_rig.global_position = player.global_position
 	var names := NPC_NAMES.duplicate()
 	for o in v.get("others", []):
@@ -807,9 +947,27 @@ func _on_view(v: Dictionary) -> void:
 					threat_on[r] = false
 			if e.get("text", "") != "":
 				_log("[color=#c9b3ff]%s[/color]" % e.text)
+	_conditional_threats(v)
 	_sync_enemies()
 	for id in npc_nodes:
 		npc_nodes[id].set_marker("!" if givers.has(id) else "")
+
+
+func _conditional_threats(v: Dictionary) -> void:
+	var hr := int(v.get("hour", -1))
+	var night := hr >= 20 or hr >= 0 and hr < 4
+	for camp in THREATS:
+		var t: Dictionary = THREATS[camp]
+		if threat_forced.has(camp):
+			continue
+		if t.has("belief"):
+			threat_on[camp] = v.get("beliefs", []).any(func(b): return b.p == t.belief and b.holds)
+		elif t.has("night_fact"):
+			threat_on[camp] = night and _has_fact(v, t.night_fact) and not _has_fact(v, t.slain_fact)
+
+
+func _has_fact(v: Dictionary, p: String) -> bool:
+	return v.get("facts", []).any(func(f): return f.p == p)
 
 
 func _sync_npcs(v: Dictionary) -> void:
@@ -865,6 +1023,7 @@ func _build_hud() -> void:
 	hud.accept_pressed.connect(func(k: String) -> void: _answer_quest_key(k, true))
 	hud.decline_pressed.connect(func(k: String) -> void: _answer_quest_key(k, false))
 	hud.abandon_pressed.connect(_abandon_quest)
+	hud.action_chosen.connect(_on_action_chosen)
 	hud.set_hp(player_hp, player_max)
 
 
@@ -883,8 +1042,12 @@ func _update_hud_world() -> void:
 			foes.append(e.global_position)
 	hud.set_minimap(player.global_position, player.model.rotation.y, npcs, foes, region)
 	var text := ""
-	if best and best.global_position.distance_to(player.global_position) < 3.2 and not hud.journal_panel.visible:
-		text = "[E] Falar com %s" % best.label.text
+	if not hud.journal_panel.visible and not hud.actions_open():
+		var it := _nearest_interactable()
+		if it.has("npc"):
+			text = "[E] Falar com %s" % it.npc.label.text
+		elif it.has("poi"):
+			text = "[E] %s" % it.poi.label
 	if text != _prompt:
 		_prompt = text
 		hud.set_prompt(text)
@@ -1072,6 +1235,100 @@ func _autotest_wolves() -> void:
 	get_tree().quit()
 
 
+func _menu_index(action: String) -> int:
+	for i in _menu.size():
+		if _menu[i].action == action:
+			return i
+	return -1
+
+
+## Walk there like a player would: a hit stops the walk, so click again.
+func _go(target: Vector3, timeout := 40.0) -> void:
+	var t := Time.get_ticks_msec()
+	while Time.get_ticks_msec() - t < timeout * 1000.0:
+		var flat := Vector2(target.x - player.global_position.x, target.z - player.global_position.z)
+		if flat.length() < 1.5:
+			break
+		if not player.has_goal and not player.busy and not player_down:
+			player.walk_to(target)
+		await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(1.2).timeout  # region move reaches the engine
+
+
+func _poi(id: String) -> Dictionary:
+	for p in pois:
+		if p.id == id:
+			return p
+	return {}
+
+
+## Walk to every place, open the menus the player would and do one thing each.
+func _autotest_places() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {"view": not client.view.is_empty()}
+	if npc_nodes.has("orin"):  # the village gets to know the player
+		var orin: Actor = npc_nodes["orin"]
+		await _go(orin.global_position + Vector3(1.4, 0, 0))
+		await _talk(orin)
+	# Mine: open the vein's menu and click the option.
+	var vein := _poi("veio1")
+	await _go(vein.at + Vector3(-1.5, 0, 0))
+	ok["region_mina"] = client.view.get("self", {}).get("region", "")
+	await open_place_menu()
+	ok["mina_actions"] = _menu.map(func(a): return a.action)
+	await open_poi_menu(vein)
+	await _shot("p1_mina_menu")
+	var i := _menu_index("minerar")
+	ok["minerar_offered"] = i >= 0
+	if i >= 0:
+		await _click(hud.action_buttons[i])
+		await get_tree().create_timer(1.5).timeout
+		ok["minerar"] = last_report
+	await _shot("p2_mina")
+	# Ruins: the stairs down to the inner hall.
+	var hall := _poi("salao")
+	await _go(hall.at + Vector3(-2.0, 0, 0))
+	ok["region_ruinas"] = client.view.get("self", {}).get("region", "")
+	await open_poi_menu(hall)
+	i = _menu_index("explorar-ruinas")
+	if i >= 0:
+		_on_action_chosen(i)
+		await get_tree().create_timer(1.5).timeout
+		ok["explorar"] = last_report
+	await _shot("p3_ruinas")
+	# The den: talk to Pipo through his menu.
+	await _go(REGION_ORIGIN["toca"] + Vector3(0, 0, -1))
+	ok["region_toca"] = client.view.get("self", {}).get("region", "")
+	await get_tree().create_timer(1.5).timeout
+	ok["toca_npcs"] = npc_nodes.keys()
+	if npc_nodes.has("pipo"):
+		await _go(npc_nodes["pipo"].global_position + Vector3(0, 0, -1.4), 15.0)
+		await open_npc_menu(npc_nodes["pipo"])
+		ok["pipo_actions"] = _menu.map(func(a): return a.action)
+		i = _menu_index("conversar")
+		if i >= 0:
+			_on_action_chosen(i)
+			await get_tree().create_timer(1.5).timeout
+			ok["pipo"] = last_report
+	await _shot("p4_toca")
+	# Back to the village: with ore, Brom's menu has the forge.
+	await _go(REGION_ORIGIN["vila"] + Vector3(7.5, 0, 2.5), 60.0)
+	if npc_nodes.has("brom"):
+		await open_npc_menu(npc_nodes["brom"])
+		ok["brom_actions"] = _menu.map(func(a): return a.action)
+		await _shot("p5_brom_menu")
+		i = _menu_index("forjar")
+		if i >= 0:
+			_on_action_chosen(i)
+			await get_tree().create_timer(1.5).timeout
+			ok["forjar"] = last_report
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
 func _autotest() -> void:
 	var t0 := Time.get_ticks_msec()
 	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
@@ -1082,8 +1339,10 @@ func _autotest() -> void:
 	ok["perf_plaza"] = await _perf()
 	await _shot("01_plaza")
 	if npc_nodes.has("orin"):
-		interact(npc_nodes["orin"])
-		await player.arrived
+		var orin: Actor = npc_nodes["orin"]
+		player.walk_to(orin.global_position + Vector3(1.4, 0, 0))
+		await _arrive(15.0)
+		await _talk(orin)
 		await get_tree().create_timer(1.2).timeout
 	ok["markers"] = npc_nodes.values().filter(func(n): return n.marker != null).size()
 	await _shot("02_offer")

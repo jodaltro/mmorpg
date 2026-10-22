@@ -176,7 +176,9 @@ func play_once(clip: String, speed := 1.0) -> void:
 	_once += 1
 	var mine := _once
 	anim.play(clip, 0.1, speed)
-	await anim.animation_finished
+	# Wait for the clip's length, not animation_finished: some clips loop in
+	# their files and never "finish".
+	await get_tree().create_timer(anim.get_animation(clip).length / maxf(speed, 0.01)).timeout
 	if mine != _once:  # walking cancelled this clip meanwhile
 		return
 	busy = false

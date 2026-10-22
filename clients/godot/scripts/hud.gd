@@ -6,12 +6,17 @@ extends CanvasLayer
 signal accept_pressed(key: String)
 signal decline_pressed(key: String)
 signal abandon_pressed(key: String)
+signal action_chosen(index: int)
 
 const GOLD := Color(0.86, 0.7, 0.36)
 const RANK_COLORS := {"F": "9a9a9a", "E": "9a9a9a", "D": "7bc96f", "C": "5aa9e6", "B": "a97be0", "A": "f0a040", "S": "e8574a", "SS": "ffd060"}
 const STATE_PT := {"done": "concluida", "failed": "falhou", "expired": "expirou", "declined": "recusada", "withdrawn": "retirada",
 	"obsolete": "obsoleta", "superseded": "substituida", "abandoned": "abandonada"}
-const REGION_BANDS := [["vila", -26.0, 14.0, Color(0.28, 0.45, 0.25)], ["estrada", 14.0, 34.0, Color(0.5, 0.38, 0.25)], ["floresta", 34.0, 94.0, Color(0.16, 0.3, 0.17)]]
+# id, x0, x1, z0, z1, color: where each region sits in the client's world.
+const REGION_RECTS := [["vila", -26.0, 14.0, -35.0, 35.0, Color(0.28, 0.45, 0.25)], ["estrada", 14.0, 34.0, -35.0, 35.0, Color(0.5, 0.38, 0.25)],
+	["floresta", 34.0, 94.0, -35.0, 35.0, Color(0.16, 0.3, 0.17)], ["mina", 94.0, 124.0, -35.0, 35.0, Color(0.38, 0.36, 0.36)],
+	["ruinas", 124.0, 154.0, -35.0, 35.0, Color(0.45, 0.42, 0.33)], ["toca", 55.0, 77.0, 36.0, 50.0, Color(0.3, 0.42, 0.2)]]
+const SHORT := {"vila": "Vila", "estrada": "Estr.", "floresta": "Floresta", "mina": "Mina", "ruinas": "Ruinas", "toca": "Toca"}
 
 var root: Control
 var region_label: Label
@@ -30,6 +35,10 @@ var offer_panel: PanelContainer
 var offer_text: RichTextLabel
 var offer_buttons := {}  # accept / decline / later
 var journal_panel: PanelContainer
+var action_panel: PanelContainer
+var action_title: Label
+var action_box: VBoxContainer
+var action_buttons: Array = []
 var journal_box: VBoxContainer
 var quests: Array = []
 var skills: Array = []
@@ -45,9 +54,9 @@ var _first := true
 
 class Minimap extends Control:
 	const X0 := -30.0
-	const X1 := 100.0
+	const X1 := 158.0
 	const Z0 := -36.0
-	const Z1 := 36.0
+	const Z1 := 52.0
 	var player_pos := Vector3.ZERO
 	var player_yaw := 0.0
 	var npcs: Array = []
@@ -62,16 +71,16 @@ class Minimap extends Control:
 	func _draw() -> void:
 		draw_rect(Rect2(Vector2.ZERO, size), Color(0.04, 0.04, 0.06, 0.95))
 		var font := ThemeDB.fallback_font
-		for b in REGION_BANDS:
-			var a := _p(b[1], Z0)
-			var c := _p(b[2], Z1)
+		for b in REGION_RECTS:
+			var a := _p(b[1], b[3])
+			var c := _p(b[2], b[4])
 			var r := Rect2(a, c - a)
-			draw_rect(r, b[3])
+			draw_rect(r, b[5])
 			if quest_regions.has(b[0]):
 				draw_rect(r.grow(-1.5), GOLD, false, 2.0)
 			if current_region == b[0]:
 				draw_rect(r, Color(1, 1, 1, 0.12))
-			draw_string(font, a + Vector2(4, 13), {"vila": "Vila", "estrada": "Estr.", "floresta": "Floresta"}.get(b[0], b[0]), HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(1, 1, 1, 0.8))
+			draw_string(font, a + Vector2(3, 11), SHORT.get(b[0], b[0]), HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(1, 1, 1, 0.8))
 		for n in npcs:
 			draw_circle(_p(n.x, n.z), 2.5, Color(1.0, 0.9, 0.4))
 		for e in enemies:
@@ -95,8 +104,9 @@ func _ready() -> void:
 	_build_toasts()
 	_build_offer()
 	_build_journal()
+	_build_actions()
 	var slot := _slot(Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END, 10)
-	var help := _label("[J] Diario   [E] Falar   [Espaco] Golpe   [R] Rolar", 12, Color(1, 1, 1, 0.55))
+	var help := _label("[E] Usar/Falar   [F] Acoes aqui   [J] Diario   [Espaco] Golpe   [R] Rolar", 12, Color(1, 1, 1, 0.55))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	help.size_flags_horizontal = Control.SIZE_SHRINK_END
 	help.size_flags_vertical = Control.SIZE_SHRINK_END
@@ -289,6 +299,44 @@ func _build_journal() -> void:
 	journal_box.add_theme_constant_override("separation", 10)
 	scroll.add_child(journal_box)
 	journal_panel.visible = false
+
+
+func _build_actions() -> void:
+	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END, 12, 12, 80)
+	action_panel = _panel(slot, 0.95)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 4)
+	action_panel.add_child(v)
+	action_title = _label("", 14, GOLD)
+	v.add_child(action_title)
+	action_box = VBoxContainer.new()
+	action_box.custom_minimum_size.x = 360
+	action_box.add_theme_constant_override("separation", 3)
+	v.add_child(action_box)
+	v.add_child(_label("[1-9] escolher   [Esc] fechar", 11, Color(1, 1, 1, 0.5)))
+	action_panel.visible = false
+
+
+## Options from the engine's affordances; the engine still decides.
+func show_actions(title: String, labels: Array) -> void:
+	for b in action_buttons:
+		b.queue_free()
+	action_buttons.clear()
+	action_title.text = title
+	for i in labels.size():
+		var b := _button("%d. %s" % [i + 1, labels[i]], func(): action_chosen.emit(i), 13)
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		action_box.add_child(b)
+		action_buttons.append(b)
+	action_panel.visible = true
+
+
+func hide_actions() -> void:
+	action_panel.visible = false
+
+
+func actions_open() -> bool:
+	return action_panel.visible
 
 
 func _button(text: String, cb: Callable, size := 14) -> Button:

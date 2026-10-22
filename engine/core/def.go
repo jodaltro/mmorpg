@@ -279,6 +279,7 @@ type Param struct {
 // server confirming an occurrence such as a defeated creature).
 type ActionDef struct {
 	ID       string   `json:"id"`
+	Title    string   `json:"title,omitempty"` // short label for menus; {param} placeholders allowed
 	By       []string `json:"by"`
 	Tags     []string `json:"tags,omitempty"` // play style the deed expresses: combat, explore, social, craft, help...
 	Params   []Param  `json:"params,omitempty"`

@@ -26,11 +26,15 @@ MODELS = [
         "Wall_UnevenBrick_Straight", "Wall_UnevenBrick_Door_Round", "Corner_Exterior_Wood",
         "Floor_Brick", "Floor_UnevenBrick", "Floor_WoodDark", "Roof_RoundTiles_6x6", "Roof_RoundTiles_6x8",
         "Roof_RoundTiles_4x4", "Door_1_Round", "Prop_Crate", "Prop_Wagon", "Prop_WoodenFence_Single",
-        "Prop_Chimney", "Stairs_Exterior_Straight"]),
+        "Prop_Chimney", "Stairs_Exterior_Straight", "Wall_Arch", "HoleCover_90Stairs", "Prop_Vine1", "Prop_Vine4",
+        "Prop_Brick1", "Prop_Brick2", "Prop_Support"]),
     (NATURE + "/glTF", "nature", [
-        "CommonTree_1", "CommonTree_2", "CommonTree_3", "DeadTree_1", "Grass_Common_Short", "Grass_Common_Tall"]),
+        "CommonTree_1", "CommonTree_2", "CommonTree_3", "DeadTree_1", "DeadTree_3", "Grass_Common_Short", "Grass_Common_Tall",
+        "Rock_Medium_1", "Rock_Medium_2", "Rock_Medium_3", "Bush_Common", "Bush_Common_Flowers", "Mushroom_Common",
+        "Mushroom_Laetiporus", "Flower_3_Group", "Flower_4_Group", "Pebble_Round_1", "Pebble_Round_3", "Fern_1"]),
     (PROPS + "/Exports/glTF", "props", [
-        "Barrel", "Chest_Wood", "Table_Large", "Sword_Bronze", "Shield_Wooden"]),
+        "Barrel", "Chest_Wood", "Table_Large", "Sword_Bronze", "Shield_Wooden", "Bucket_Wooden_1", "Bench", "Anvil",
+        "Pickaxe_Bronze", "Torch_Metal", "Crate_Wooden", "Vase_Rubble_Medium", "Lantern_Wall", "Workbench"]),
     (CHARS, "characters", ["Superhero_Male_FullBody", "Superhero_Female_FullBody"]),
     (OUTFITS, "outfits", ["Male_Peasant", "Male_Ranger", "Female_Peasant", "Female_Ranger"]),
 ]

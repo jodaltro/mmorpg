@@ -4,7 +4,8 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 
 | Peça | Uso |
 |---|---|
-| `scripts/world_client.gd` | Contrato HTTP v1: `join`, `move`, `act`, `accept`, `decline`, consulta periódica de `GET /v1/views/{id}` |
+| `scripts/world_client.gd` | Contrato HTTP v1: `join`, `move`, `act`, `accept`, `decline`, consulta de `GET /v1/views/{id}` e `GET /v1/affordances/{id}` |
+| `scripts/places.gd` | Mina, ruínas, toca, poço e selo; pontos de interação (veio, escombros, ervas, salão...) e a animação de cada ação |
 | `scripts/actor.gd` | Personagem Quaternius (corpo + outfit) com as animações da Universal Animation Library: mesmo esqueleto de 65 ossos, sem retargeting |
 | `scripts/hud.gd` | Interface: estado e vida, minimapa, rastreador de missões, cartão de oferta (aceitar/recusar/depois), diário (`J`), avisos de missão e habilidade, log que se apaga sozinho, dica de interação |
 | `scripts/enemy.gd` | Inimigos (bandido, corrompido, lobo, javali) como dados + IA simples: parado, perseguir, atacar, recuar; reação a golpe, morte, barra de vida |
@@ -19,7 +20,7 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 2. Subir o motor: `cd engine && go run ./cmd/worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic`.
 3. `Godot --path clients/godot` (a primeira abertura importa os assets; antes disso rode `Godot --headless --path clients/godot --import` uma vez para registrar os `class_name`).
 
-Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar (falar é a intenção `conversar`: quem está por perto passa a conhecer o personagem, e só então NPCs aparecem nas missões dele), clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento e `--respawn=S` encurta a volta dos javalis (só desenvolvimento).
+Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover; clique num NPC ou `E` perto dele abre o menu do que dá para fazer com ele (vem do motor); `E` num ponto de interação (veio, escombros, ervas, salão das ruínas, poço, selo...) abre as ações daquele lugar; `F` lista tudo o que dá para tentar na região. Conversar faz quem está por perto conhecer o personagem, e só então NPCs aparecem nas missões dele. clique no inimigo atacar, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento e `--respawn=S` encurta a volta dos javalis (só desenvolvimento).
 
 ## Combate e o motor
 
@@ -39,7 +40,7 @@ O lobo usa o modelo animado do Quaternius (`Attack`, `Gallop`, reações a golpe
 Godot --path clients/godot --resolution 1280x720 -- --autotest --player=gd-1 --server=http://127.0.0.1:8095 --out=clients/godot/.shots
 ```
 
-Entra no mundo, fala com Orin, clica em Aceitar no cartão de oferta, contorna uma casa (pathfinding), luta contra os bandidos, mede FPS, testa a transparência de uma árvore, caça 3 javalis, espera o respawn e usa os botões do diário (aceitar, recusar, abandonar), gravando capturas em `--out`. Outros cenários: `--autotest=wolves` (com `--threat=vila`), `--autotest=zoo` (cada criatura parada, para conferir escala e orientação) e `--autotest=hud` (estados de missão sintéticos, sem o motor, para ver todos os avisos). A saída `AUTOTEST {...}` resume o resultado. Precisa de janela (não funciona com `--headless`, que não renderiza).
+Entra no mundo, fala com Orin, clica em Aceitar no cartão de oferta, contorna uma casa (pathfinding), luta contra os bandidos, mede FPS, testa a transparência de uma árvore, caça 3 javalis, espera o respawn e usa os botões do diário (aceitar, recusar, abandonar), gravando capturas em `--out`. Outros cenários: `--autotest=places` (anda até mina, ruínas e toca e usa os menus de verdade: minerar, explorar, conversar com Pipo, forjar com Brom), `--autotest=wolves` (com `--threat=vila`), `--autotest=zoo` (cada criatura parada, para conferir escala e orientação) e `--autotest=hud` (estados de missão sintéticos, sem o motor, para ver todos os avisos). A saída `AUTOTEST {...}` resume o resultado. Precisa de janela (não funciona com `--headless`, que não renderiza).
 
 ## Limites conhecidos
 
