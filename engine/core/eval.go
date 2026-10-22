@@ -253,7 +253,11 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 			if self == "" {
 				continue
 			}
-			if p, ok := w.belief(s, e.Fact, b, "observation", ""); ok {
+			source, from := "observation", ID("")
+			if e.Source != "" {
+				source, from = e.Source, resolve(e.To, b)
+			}
+			if p, ok := w.belief(s, e.Fact, b, source, from); ok {
 				s.believe(self, p)
 			}
 		case "inform":

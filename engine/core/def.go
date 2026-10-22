@@ -60,7 +60,13 @@ type Universe struct {
 	Director   *Director    `json:"director,omitempty"`
 	Gossip     *Gossip      `json:"gossip,omitempty"`
 	Skills     []SkillDef   `json:"skills,omitempty"`
-	Limits     Limits       `json:"limits"`
+	Spots      []SpotDef    `json:"spots,omitempty"`
+	Routines   []Routine    `json:"routines,omitempty"`
+	Chatter    []Chatter    `json:"chatter,omitempty"`
+	// ChatterEvery is how many ticks pass between overheard conversations
+	// (default 3). One conversation per place is chosen each time.
+	ChatterEvery Tick   `json:"chatterEvery,omitempty"`
+	Limits       Limits `json:"limits"`
 }
 
 // Happening is an optional world event. The director periodically gathers
@@ -272,7 +278,10 @@ type Effect struct {
 	Text    string   `json:"text,omitempty"`
 	Public  bool     `json:"public,omitempty"`
 	Reveals *Pattern `json:"reveals,omitempty"`
-	If      *Cond    `json:"if,omitempty"` // apply only when this holds
+	// Source (observe only) says how the belief was formed, e.g.
+	// "communication" for something overheard; To then names who said it.
+	Source string `json:"source,omitempty"`
+	If     *Cond  `json:"if,omitempty"` // apply only when this holds
 }
 
 type Param struct {

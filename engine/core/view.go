@@ -25,6 +25,8 @@ type Seen struct {
 	Kind   string `json:"kind"`
 	Name   string `json:"name"`
 	Region ID     `json:"region,omitempty"`
+	Spot   string `json:"spot,omitempty"`  // where in the region (a universe spot)
+	Doing  string `json:"doing,omitempty"` // what they are up to, from their routine
 }
 
 // StoryView shows the public chronicle of an arc: which chapters were
@@ -55,7 +57,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]
-			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region})
+			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"]})
 		}
 	}
 	for _, k := range sortedKeys(s.Facts) {

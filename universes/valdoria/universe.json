@@ -7025,6 +7025,542 @@
       }
     }
   ],
+  "spots": [
+    {
+      "id": "portao",
+      "region": "vila",
+      "name": "Portao leste"
+    },
+    {
+      "id": "praca",
+      "region": "vila",
+      "name": "Praca do poco"
+    },
+    {
+      "id": "poco",
+      "region": "vila",
+      "name": "Poco antigo"
+    },
+    {
+      "id": "taverna",
+      "region": "vila",
+      "name": "Taverna do Javali"
+    },
+    {
+      "id": "horta",
+      "region": "vila",
+      "name": "Horta de Mira"
+    },
+    {
+      "id": "casa-mira",
+      "region": "vila",
+      "name": "Casa de Mira"
+    },
+    {
+      "id": "forja",
+      "region": "vila",
+      "name": "Forja de Brom"
+    },
+    {
+      "id": "capela",
+      "region": "vila",
+      "name": "Capela"
+    },
+    {
+      "id": "celeiro",
+      "region": "vila",
+      "name": "Celeiro"
+    },
+    {
+      "id": "mirante",
+      "region": "vila",
+      "name": "Mirante"
+    },
+    {
+      "id": "guarita",
+      "region": "vila",
+      "name": "Guarita"
+    },
+    {
+      "id": "casa-nino",
+      "region": "vila",
+      "name": "Casa de Nino"
+    },
+    {
+      "id": "banco-estrada",
+      "region": "estrada",
+      "name": "Banco da estrada"
+    }
+  ],
+  "routines": [
+    {
+      "npc": "mira",
+      "slots": [
+        {
+          "from": 22,
+          "to": 6,
+          "region": "vila",
+          "spot": "casa-mira",
+          "doing": "dormindo"
+        },
+        {
+          "from": 6,
+          "to": 12,
+          "region": "vila",
+          "spot": "horta",
+          "doing": "cuidando da horta"
+        },
+        {
+          "from": 12,
+          "to": 18,
+          "region": "vila",
+          "spot": "poco",
+          "doing": "buscando agua e conversando"
+        },
+        {
+          "from": 18,
+          "to": 22,
+          "region": "vila",
+          "spot": "casa-mira",
+          "doing": "preparando remedios"
+        }
+      ],
+      "overrides": [
+        {
+          "from": 0,
+          "to": 0,
+          "region": "vila",
+          "spot": "poco",
+          "doing": "atendendo os doentes sem parar",
+          "when": {
+            "num": {
+              "e": "vila",
+              "k": "health",
+              "op": "<",
+              "v": 40
+            }
+          }
+        }
+      ]
+    },
+    {
+      "npc": "brom",
+      "slots": [
+        {
+          "from": 22,
+          "to": 6,
+          "region": "vila",
+          "spot": "forja",
+          "doing": "dormindo junto a brasa"
+        },
+        {
+          "from": 6,
+          "to": 18,
+          "region": "vila",
+          "spot": "forja",
+          "doing": "martelando"
+        },
+        {
+          "from": 18,
+          "to": 22,
+          "region": "vila",
+          "spot": "taverna",
+          "doing": "bebendo uma cerveja"
+        }
+      ]
+    },
+    {
+      "npc": "orin",
+      "slots": [
+        {
+          "from": 20,
+          "to": 6,
+          "region": "vila",
+          "spot": "guarita",
+          "doing": "de vigia"
+        },
+        {
+          "from": 6,
+          "to": 12,
+          "region": "vila",
+          "spot": "portao",
+          "doing": "guardando o portao"
+        },
+        {
+          "from": 12,
+          "to": 16,
+          "region": "vila",
+          "spot": "praca",
+          "doing": "fazendo a ronda"
+        },
+        {
+          "from": 16,
+          "to": 20,
+          "region": "vila",
+          "spot": "portao",
+          "doing": "guardando o portao"
+        }
+      ]
+    },
+    {
+      "npc": "elena",
+      "slots": [
+        {
+          "from": 4,
+          "to": 9,
+          "region": "vila",
+          "spot": "capela",
+          "doing": "cantando ao amanhecer"
+        },
+        {
+          "from": 9,
+          "to": 12,
+          "region": "vila",
+          "spot": "praca",
+          "doing": "rezando na praca"
+        },
+        {
+          "from": 12,
+          "to": 17,
+          "region": "vila",
+          "spot": "poco",
+          "doing": "levando agua aos doentes"
+        },
+        {
+          "from": 17,
+          "to": 4,
+          "region": "vila",
+          "spot": "capela",
+          "doing": "em vigilia"
+        }
+      ]
+    },
+    {
+      "npc": "nino",
+      "slots": [
+        {
+          "from": 22,
+          "to": 6,
+          "region": "vila",
+          "spot": "casa-nino",
+          "doing": "dormindo"
+        },
+        {
+          "from": 6,
+          "to": 14,
+          "region": "vila",
+          "spot": "praca",
+          "doing": "brincando"
+        },
+        {
+          "from": 14,
+          "to": 19,
+          "region": "vila",
+          "spot": "celeiro",
+          "doing": "brincando no celeiro"
+        },
+        {
+          "from": 19,
+          "to": 22,
+          "region": "vila",
+          "spot": "mirante",
+          "doing": "olhando o ceu"
+        }
+      ],
+      "overrides": [
+        {
+          "from": 0,
+          "to": 0,
+          "region": "vila",
+          "spot": "casa-nino",
+          "doing": "escondido em casa",
+          "when": {
+            "knows": {
+              "who": "nino",
+              "p": "wolves",
+              "s": "vila"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "npc": "tomas",
+      "slots": [
+        {
+          "from": 23,
+          "to": 6,
+          "region": "estrada",
+          "spot": "banco-estrada",
+          "doing": "dormindo"
+        },
+        {
+          "from": 6,
+          "to": 17,
+          "region": "estrada",
+          "spot": "banco-estrada",
+          "doing": "contando historias a quem passa"
+        },
+        {
+          "from": 17,
+          "to": 23,
+          "region": "vila",
+          "spot": "taverna",
+          "doing": "contando historias"
+        }
+      ]
+    }
+  ],
+  "chatter": [
+    {
+      "id": "poco-doentes",
+      "spot": "poco",
+      "speakers": [
+        "mira",
+        "elena"
+      ],
+      "when": {
+        "all": [
+          {
+            "knows": {
+              "who": "mira",
+              "p": "outbreak",
+              "s": "vila"
+            }
+          },
+          {
+            "not": {
+              "knows": {
+                "who": "mira",
+                "p": "poisoned",
+                "s": "poco"
+              }
+            }
+          }
+        ]
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "text": "Mais um com febre esta manha, Mira. A vila inteira tosse."
+        },
+        {
+          "who": "mira",
+          "text": "Nao sei o que e. Quanto mais eu trato, menos eu entendo."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "outbreak",
+            "s": "vila"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "poco-veneno",
+      "spot": "poco",
+      "speakers": [
+        "mira",
+        "elena"
+      ],
+      "when": {
+        "knows": {
+          "who": "mira",
+          "p": "poisoned",
+          "s": "poco"
+        }
+      },
+      "lines": [
+        {
+          "who": "mira",
+          "text": "Era a agua. Ninguem bebe do poco ate eu purificar."
+        },
+        {
+          "who": "elena",
+          "text": "Eu aviso os fieis na capela."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "horta-cenouras",
+      "spot": "horta",
+      "speakers": [
+        "mira"
+      ],
+      "lines": [
+        {
+          "who": "mira",
+          "text": "De novo as cenouras roidas... e essas pegadas pequenas, de patas, vao para o lado da mata."
+        },
+        {
+          "who": "mira",
+          "text": "Nao parecem de lobo. Parecem de gente miuda."
+        }
+      ]
+    },
+    {
+      "id": "forja-marca",
+      "spot": "forja",
+      "speakers": [
+        "brom"
+      ],
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Esta bigorna e velha demais para um ferreiro so."
+        },
+        {
+          "who": "brom",
+          "text": "Ja trazia esta marca quando cheguei. Nunca vi igual em ferro nenhum."
+        }
+      ]
+    },
+    {
+      "id": "portao-bandidos",
+      "spot": "portao",
+      "speakers": [
+        "orin"
+      ],
+      "when": {
+        "knows": {
+          "who": "orin",
+          "p": "bandits",
+          "s": "estrada"
+        }
+      },
+      "lines": [
+        {
+          "who": "orin",
+          "text": "Bandidos na estrada leste. Ninguem passa sozinho por la."
+        },
+        {
+          "who": "orin",
+          "text": "Quem sair, que me diga para onde vai."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "bandits",
+            "s": "estrada"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "portao-rotina",
+      "spot": "portao",
+      "speakers": [
+        "orin"
+      ],
+      "lines": [
+        {
+          "who": "orin",
+          "text": "Eu anoto quem passa pelo portao. Nome, hora, e para onde vai."
+        },
+        {
+          "who": "orin",
+          "text": "Nesta terra, quem some deixa pelo menos um rastro no meu caderno."
+        }
+      ]
+    },
+    {
+      "id": "praca-toca",
+      "spot": "praca",
+      "speakers": [
+        "nino",
+        "elena"
+      ],
+      "lines": [
+        {
+          "who": "nino",
+          "text": "Irma Elena, o Velho Tomas disse que na mata tem uma toca debaixo de uma raiz!"
+        },
+        {
+          "who": "elena",
+          "text": "Tomas conta muita historia, Nino. Fique longe da floresta."
+        }
+      ]
+    },
+    {
+      "id": "taverna-lobos",
+      "spot": "taverna",
+      "speakers": [
+        "brom",
+        "tomas"
+      ],
+      "when": {
+        "knows": {
+          "who": "brom",
+          "p": "wolves",
+          "s": "vila"
+        }
+      },
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Lobos rondando a vila, Tomas. De novo."
+        },
+        {
+          "who": "tomas",
+          "text": "Eu vi as pegadas. Com a idade, o medo vira habito."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "wolves",
+            "s": "vila"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "taverna-javali",
+      "spot": "taverna",
+      "speakers": [
+        "tomas",
+        "brom"
+      ],
+      "lines": [
+        {
+          "who": "tomas",
+          "text": "Dizem que um javali branco anda pela mata. So de noite."
+        },
+        {
+          "who": "brom",
+          "text": "Historia de cacador, Tomas."
+        },
+        {
+          "who": "tomas",
+          "text": "So o ve quem ja provou seu valor."
+        }
+      ]
+    }
+  ],
+  "chatterEvery": 3,
   "limits": {
     "maxActiveQuests": 1,
     "decisionTimeout": 4,

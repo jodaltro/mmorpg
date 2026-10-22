@@ -162,6 +162,9 @@ func Compile(u Universe) (*World, error) {
 			return nil, e
 		}
 	}
+	if err := v.places(); err != nil {
+		return nil, err
+	}
 	// Scheduled rules inherit the bindings of whoever scheduled them, so the
 	// variable set of a rule is every name that can reach it.
 	ruleVars := map[string]map[string]bool{}
@@ -679,6 +682,16 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 			}
 			if e.Op == "observe" && e.Fact.Private {
 				return invalid("%s: observe applies to world facts", where)
+			}
+			if e.Source != "" {
+				if e.Op != "observe" || !slices.Contains([]string{"observation", "communication"}, e.Source) {
+					return invalid("%s: source %q", where, e.Source)
+				}
+				if e.To != "" {
+					if err := v.ref(e.To, vars, where); err != nil {
+						return err
+					}
+				}
 			}
 		case "inform":
 			if e.Fact == nil || e.Fact.Private {

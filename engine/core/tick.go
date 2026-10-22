@@ -40,6 +40,8 @@ func (w *World) tick(s *State, cause string) {
 			}
 		}
 	}
+	w.routines(s)
+	w.chatter(s)
 	w.decayTension(s)
 	w.gossip(s, cause)
 	w.stories(s, cause)
