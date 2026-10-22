@@ -38,12 +38,11 @@ func TestWitnessedDeedMakesPlayerKnown(t *testing.T) {
 	if !h.knowsOf("p2", "p1") {
 		t.Fatal("p2 should hear of p1 in the village in the end")
 	}
+	// A traveller who hears of p1 does not carry it on: who has met whom is the villagers' own talk.
 	h.move("p2", "estrada")
-	for i := 0; i < 200 && !h.knowsOf("tomas", "p1"); i++ {
-		h.tick(1)
-	}
-	if !h.knowsOf("tomas", "p1") {
-		t.Fatal("p2 should carry the news of p1 to Tomas on the road")
+	h.tick(60)
+	if b, ok := h.s.Beliefs["tomas"]["|met|tomas|p1"]; ok && b.From == "p2" {
+		t.Fatal("travellers do not spread who knows whom (Tomas may hear it from the villagers, never from p2)")
 	}
 	// Now Mira, who saw p1, may call them; the quest names her as giver.
 	if q := h.steer("p1", "ervas-mira"); q.Giver != "mira" {

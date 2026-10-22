@@ -185,6 +185,9 @@ func (w *World) gossip(s *State, cause string) {
 					if !slices.Contains(g.Predicates, b.P) {
 						continue
 					}
+					if b.P == w.U.Acquaintance && s.Entities[t].Kind == w.U.PlayerKind {
+						continue // who has met whom is the villagers' own talk: a traveller hears it, but does not carry it
+					}
 					if cur, ok := newest[k]; !ok || b.At > cur.At {
 						newest[k], teller[k] = b, t
 					}
@@ -216,6 +219,9 @@ func (w *World) gossip(s *State, cause string) {
 func (w *World) meet(a, b Entity) bool {
 	if a.Region != b.Region {
 		return false
+	}
+	if a.Kind == w.U.PlayerKind || b.Kind == w.U.PlayerKind {
+		return true // a player listens to the whole place; only the villagers keep to their own corners
 	}
 	sa, sb := a.Tag["spot"], b.Tag["spot"]
 	if sa == OpenGround || sb == OpenGround {

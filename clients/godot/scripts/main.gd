@@ -138,6 +138,8 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		var kv := a.lstrip("-").split("=", true, 1)
 		_args[kv[0]] = kv[1] if kv.size() > 1 else "1"
+	if _args.has("nomsaa"):
+		get_viewport().msaa_3d = Viewport.MSAA_DISABLED
 	_build_environment()
 	sfx = Sfx.new()
 	add_child(sfx)
@@ -159,6 +161,7 @@ func _ready() -> void:
 	client.player_name = _args.get("name", "Viajante")
 	add_child(client)
 	client.view_changed.connect(_on_view)
+	client.spot_provider = _current_spot
 	client.world_reset.connect(_on_world_reset)
 	hud.reset_world_requested.connect(_reset_world)
 	client.arrival_region = String(_args.get("arrival", "estrada"))
@@ -215,6 +218,12 @@ func _ready() -> void:
 				_autotest_outros()
 			"sensacao":
 				_autotest_sensacao()
+			"custo":
+				_autotest_custo()
+			"aparecer":
+				_autotest_aparecer()
+			"glifos":
+				_autotest_glifos()
 			"reiniciar":
 				_autotest_reiniciar()
 			"monumento":
@@ -229,28 +238,67 @@ func _ready() -> void:
 
 ## Builds every kind of person and creature once, out of sight, so the first time one appears in play
 ## the models and animations are already loaded (the first of each used to cost ~130 ms).
-func _warm_up() -> void:
+## Rasterizes every character at every label style the game uses, in front of the camera, so a new name or
+## sentence does not stall the frame the first time it is drawn.
+func _warm_glyphs() -> void:
+	var chars := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,;:!?()[]-'\"+/%*<>=_ áàâãéêíóôõúç"
 	var held: Array = []
+	var y := 0.0
+	for style in [[40, 10], [34, 12], [34, 8], [30, 8], [72, 14], [110, 16], [120, 16]]:
+		var l := Label3D.new()
+		l.text = chars
+		l.font_size = style[0]
+		l.outline_size = style[1]
+		l.pixel_size = 0.004
+		l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		l.no_depth_test = true
+		add_child(l)
+		l.global_position = player.global_position + Vector3(0, 2.0 + y, 0)
+		y += 0.6
+		held.append(l)
+	for f in 3:
+		await get_tree().process_frame
+	for l in held:
+		l.queue_free()
+
+
+func _warm_up() -> void:
+	if _args.has("autotest") and not _args.has("prewarm"):
+		return
+	var cover := ColorRect.new()
+	cover.color = Color.BLACK
+	cover.set_anchors_preset(Control.PRESET_FULL_RECT)
+	cover.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var layer := CanvasLayer.new()
+	layer.layer = 100
+	layer.add_child(cover)
+	add_child(layer)
+	var held: Array = []
+	var at := player.global_position
+	var i := 0
+	# Everything is put in front of the camera for a few frames, for real: the renderer builds what it needs for each
+	# kind of mesh the first time it is DRAWN (a hidden copy does not count), and that was the stall on arrival.
 	for female in [false, true]:
 		for outfit in ["Peasant", "Ranger"]:
 			var a := Actor.new()
 			add_child(a)
-			a.visible = false
 			a.setup("warm", "warm", female, outfit == "Ranger", outfit)
+			a.global_position = at + Vector3(-7.0 + i * 1.7, 0, 2.0)
 			held.append(a)
-	for kind in ["lobo", "javali", "bandido", "corrompido"]:
+			i += 1
+	for kind in ["lobo", "javali", "bandido", "corrompido", "javali_branco"]:
 		var e := Enemy.new()
 		add_child(e)
-		e.visible = false
-		e.configure(kind, "warm", Vector3(0, -50, 0), player)
+		e.configure(kind, "warm", at + Vector3(-7.0 + i * 1.7, 0, -1.5), player)
+		e.process_mode = Node.PROCESS_MODE_DISABLED  # shown, but it does nothing
 		held.append(e)
-	for id in ["caravana-no-mercado", "festival-de-lanternas", "feira-dos-magos", "peregrinos-na-capela", "poeira-da-mina", "tempestade-sobre-a-vila"]:
-		var sc := Scenes.build(self, id)
-		sc.visible = false
-		held.append(sc)
-	await get_tree().process_frame
+		i += 1
+	for f in 5:
+		await get_tree().process_frame
 	for h in held:
 		h.queue_free()
+	await get_tree().process_frame
+	layer.queue_free()
 
 
 func _scene(path: String) -> PackedScene:
@@ -295,7 +343,7 @@ func _build_environment() -> void:
 	add_child(we)
 	sun = DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-50, -35, 0)
-	sun.shadow_enabled = true
+	sun.shadow_enabled = not _args.has("noshadow")
 	sun.directional_shadow_max_distance = 70
 	add_child(sun)
 
@@ -781,7 +829,6 @@ func _process(delta: float) -> void:
 		return
 	var now_ms := Time.get_ticks_msec()
 	_footsteps()
-	_report_spot(now_ms)
 	if player.get_real_velocity().length() > 1.5 or _lmb_held:
 		_last_input_ms = now_ms
 	if _idle_open and now_ms - _last_input_ms < 1000:
@@ -807,7 +854,10 @@ func _process(delta: float) -> void:
 		var script_ms := Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0
 		var physics_ms := Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0
 		var fresh := Time.get_ticks_msec() - _ctx_ms < 400
-		telemetry.hitch(delta * 1000.0, "%s script=%.0fms physics=%.0fms" % [_ctx if fresh else "?", script_ms, physics_ms])
+		var vram := Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0
+		var nodes := int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
+		var calls := int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+		telemetry.hitch(delta * 1000.0, "%s script=%.0fms physics=%.0fms vram=%.0fMB nodes=%d calls=%d" % [_ctx if fresh else "?", script_ms, physics_ms, vram, nodes, calls])
 		_ctx = ""
 	cam_rig.global_position = cam_rig.global_position.lerp((cam_focus if cam_focus else player).global_position, clampf(delta * 6.0, 0.0, 1.0))
 	_update_occlusion(delta)
@@ -1689,11 +1739,9 @@ func _footsteps() -> void:
 	_step_seg = seg
 
 
-## Tell the engine which named spot the character stands at (within 5 m): only people near it notice what the
-## character does, so a village does not get to know a stranger all at once.
-func _report_spot(now_ms: int) -> void:
-	if not client.joined or now_ms - _spot_sent_ms < 900 or player_down:
-		return
+## The named spot the character stands at (within 5 m), sent along with each action: only people near it notice
+## what the character does, so a village does not get to know a stranger all at once. No extra commands.
+func _current_spot() -> String:
 	var best := ""
 	var best_d := 5.0
 	for id in Layout.SPOTS:
@@ -1704,13 +1752,7 @@ func _report_spot(now_ms: int) -> void:
 		if d < best_d:
 			best_d = d
 			best = id
-	if best == "":
-		best = "-"  # in the open: no named spot is close enough for anyone to notice
-	if best == _spot_sent:
-		return
-	_spot_sent = best
-	_spot_sent_ms = now_ms
-	client.move_region(region, best)
+	return best if best != "" else "-"  # in the open: no named spot is close enough for anyone to notice
 
 
 func _lap(step: String) -> void:
@@ -1732,6 +1774,9 @@ func _exit_tree() -> void:
 
 
 func _on_view(v: Dictionary) -> void:
+	var _view_t0 := Time.get_ticks_usec()
+	if _args.has("profile"):
+		telemetry.note("view_in", {"events": v.get("events", []).size(), "others": v.get("others", []).size(), "bytes": JSON.stringify(v).length()})
 	if _args.has("fake_signs"):  # tests only: pretend these signs exist here, to check how their scenes look
 		var present := {}
 		for sg in v.get("signs", []):
@@ -1829,6 +1874,8 @@ func _on_view(v: Dictionary) -> void:
 	_lap("_sync_enemies")
 	for id in npc_nodes:
 		npc_nodes[id].set_marker("!" if givers.has(id) else "")
+	if _args.has("profile"):
+		telemetry.note("view_cost", {"ms": snappedf((Time.get_ticks_usec() - _view_t0) / 1000.0, 0.1)})
 
 
 ## The map starts blank: only places the engine says this character found.
@@ -2457,11 +2504,14 @@ func _sync_npcs(v: Dictionary) -> void:
 				n.walk_to(target, false)  # the day moves people: they walk to the next place
 			continue
 		i += 1
+		if _args.has("profile"):
+			telemetry.note("npc_queued", {"who": id})
 		_npc_queue[id] = {"o": o, "target": target}  # one new person per frame: a whole village arriving at once would stall
 
 
 ## Builds one person from the engine's description of them.
 func _spawn_npc(id: String, o: Dictionary, target: Vector3) -> void:
+	var t_spawn := Time.get_ticks_usec()
 	var is_player: bool = o.kind == "player"
 	var spec: Dictionary = NPCS.get(id, {})
 	var npc := Actor.new()
@@ -2482,6 +2532,8 @@ func _spawn_npc(id: String, o: Dictionary, target: Vector3) -> void:
 	npc.position = target
 	npc.model.rotation.y = atan2(-target.x, -target.z)
 	npc_nodes[id] = npc
+	if _args.has("profile"):
+		telemetry.note("npc_spawned", {"who": id, "ms": snappedf((Time.get_ticks_usec() - t_spawn) / 1000.0, 0.1)})
 
 
 ## Where an NPC or another player stands: its spot if the engine names one, else a fixed place in the region.
@@ -2952,6 +3004,105 @@ func _autotest_cenas() -> void:
 
 
 var _marks_of := ""  # tests: only the marks left by this author count
+
+
+## How long after crossing into the village do its people show up? (the player's complaint: they take long to appear)
+func _autotest_aparecer() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(2.0).timeout
+	var trials: Array = []
+	var view_times: Array = []
+	var diag: Array = []
+	client.view_changed.connect(func(_v: Dictionary) -> void:
+		view_times.append(Time.get_ticks_msec())
+		diag.append({"delta_to_view_ms": Time.get_ticks_msec() - client.last_delta_ms, "fetch_ms": snappedf(client.last_view_fetch_ms, 0.1)}))
+	for round in 3:
+		await _go(Vector3(44, 0, 3), 60.0)  # out on the road
+		await get_tree().create_timer(1.5).timeout
+		var before := Time.get_ticks_msec()
+		player.walk_to(Vector3(26, 0, 2))  # in through the gate
+		while region != "vila" and Time.get_ticks_msec() - before < 20000:
+			await get_tree().process_frame
+		var crossed := Time.get_ticks_msec()
+		view_times.clear()
+		diag.clear()
+		var first := -1
+		var all := -1
+		while Time.get_ticks_msec() - crossed < 10000:
+			await get_tree().process_frame
+			var villagers := 0
+			for vid in ["brom", "mira", "orin", "elena", "nino"]:
+				villagers += 1 if npc_nodes.has(vid) else 0
+			if first < 0 and villagers >= 1:
+				first = Time.get_ticks_msec() - crossed
+			if villagers >= 3:
+				all = Time.get_ticks_msec() - crossed
+				break
+		trials.append({"first_npc_ms": first, "four_npcs_ms": all, "npcs": npc_nodes.size(), "views_after_ms": view_times.map(func(t): return t - crossed), "diag": diag.duplicate(), "streaming": client.streaming})
+	print("AUTOTEST ", JSON.stringify({"trials": trials, "ack": telemetry.summary()}))
+	get_tree().quit()
+
+
+## Does the first drawing of a new name stall the frame? (the glyphs of each size/outline are rasterized on first use)
+func _autotest_glifos() -> void:
+	await get_tree().create_timer(2.0).timeout
+	var ok := {}
+	var names := ["Zeferino Quincas", "Wolfgang Xavier", "Jacqueline Vaz", "Bjorn Kvist", "Fabricio Hyde"]
+	for round in 2:
+		if round == 1:
+			await _warm_glyphs()
+			names = ["Quirino Zacarias", "Xenia Wuthering", "Kiara Jovem", "Hugo Bravo", "Yuri Fjord"]
+		var worst := 0.0
+		for n in names:
+			var l := Label3D.new()
+			l.text = n
+			l.font_size = 40
+			l.outline_size = 10
+			l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+			l.no_depth_test = true
+			l.pixel_size = 0.0075
+			add_child(l)
+			l.global_position = player.global_position + Vector3(0, 2.5, 0)
+			var t := Time.get_ticks_usec()
+			await get_tree().process_frame
+			await get_tree().process_frame
+			worst = maxf(worst, (Time.get_ticks_usec() - t) / 2000.0)
+			l.queue_free()
+		ok["worst_ms_per_frame_" + ("after_warm" if round == 1 else "cold")] = snappedf(worst, 0.1)
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## How long it takes to create people and creatures once everything is loaded (the cause of stutter on arrival).
+func _autotest_custo() -> void:
+	await get_tree().create_timer(3.0).timeout
+	var ok := {}
+	for variant in [["peasant_m", false, false, "Peasant"], ["peasant_f", true, false, "Peasant"], ["ranger_sword", false, true, "Ranger"]]:
+		var times: Array = []
+		for i in 8:
+			var t := Time.get_ticks_usec()
+			var a := Actor.new()
+			add_child(a)
+			a.setup("c", "c", variant[1], variant[2], variant[3])
+			times.append((Time.get_ticks_usec() - t) / 1000.0)
+			a.queue_free()
+			await get_tree().process_frame
+		ok[variant[0]] = {"first_ms": snappedf(times[0], 0.1), "avg_after_ms": snappedf((times.slice(1).reduce(func(x, y): return x + y, 0.0)) / 7.0, 0.1)}
+	for kind in ["lobo", "javali", "bandido", "corrompido"]:
+		var times2: Array = []
+		for i in 6:
+			var t2 := Time.get_ticks_usec()
+			var e := Enemy.new()
+			add_child(e)
+			e.configure(kind, "custo", Vector3(0, -40, 0), player)
+			times2.append((Time.get_ticks_usec() - t2) / 1000.0)
+			e.queue_free()
+			await get_tree().process_frame
+		ok[kind] = {"first_ms": snappedf(times2[0], 0.1), "avg_after_ms": snappedf((times2.slice(1).reduce(func(x, y): return x + y, 0.0)) / 5.0, 0.1)}
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
 
 
 ## The reset button, end to end: do something, press the button, come back to a fresh world.

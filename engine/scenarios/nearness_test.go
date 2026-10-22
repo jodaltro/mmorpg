@@ -130,3 +130,16 @@ func TestNobodyNoticesYouOnOpenGround(t *testing.T) {
 		}
 	}
 }
+
+// The spot can travel with the action itself (no extra command): it counts for that deed.
+func TestTheSpotCanComeWithTheAction(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.tickToHour(8)
+	h.do(core.Command{Kind: "act", Origin: "player", Actor: "p1", Action: "examinar", Spot: "forja", Args: map[string]core.ID{"sign": "marca-bigorna"}})
+	if !h.knowsOf("brom", "p1") || h.knowsOf("mira", "p1") || h.knowsOf("orin", "p1") {
+		t.Fatal("only Brom, at the forge, noticed")
+	}
+	// A spot from another region never makes the action fail.
+	h.do(core.Command{Kind: "act", Origin: "player", Actor: "p1", Action: "ler-quadro", Spot: "banco-estrada"})
+}

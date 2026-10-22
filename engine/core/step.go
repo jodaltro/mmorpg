@@ -95,6 +95,7 @@ func (w *World) Step(prev State, c Command) (State, Delta, error) {
 	case "move":
 		err = w.move(&s, c, cause)
 	case "act":
+		w.noteSpot(&s, c) // where the actor stood when it did this: decides who notices
 		if err = w.act(&s, c.Origin, c.Actor, c.Action, c.Args, cause); err == nil {
 			w.completeFor(&s, c.Actor, cause)
 			if s.Entities[c.Actor].Kind == w.U.PlayerKind {
@@ -301,3 +302,19 @@ func addressedBy(w *World, args map[string]ID) []ID {
 // OpenGround is the spot a game server reports when the actor is in a region but at no named spot:
 // nobody is close enough to notice what they do (unlike an empty spot, which means "not reported").
 const OpenGround = "-"
+
+// noteSpot records the spot a game server reports along with an action. A report that does not fit
+// (a spot of another region) is ignored: it must never make the action itself fail.
+func (w *World) noteSpot(s *State, c Command) {
+	ent, ok := s.Entities[c.Actor]
+	if !ok || c.Spot == "" || ent.Kind != w.U.PlayerKind {
+		return
+	}
+	if c.Spot != OpenGround && w.spotRegion(c.Spot) != ent.Region {
+		return
+	}
+	if ent.Tag["spot"] != c.Spot {
+		setSpot(&ent, c.Spot)
+		s.Entities[c.Actor] = ent
+	}
+}
