@@ -109,3 +109,41 @@ func test_online_the_engine_owns_the_genome_and_the_offer() -> void:
 	assert_true(not world.panel.is_offer_visible(), "offer closed")
 	world.sync._on_status(false)
 	assert_true(not world.engine_evolution, "offline again: the local loop takes over")
+
+
+func test_the_engine_look_morphs_the_body_gradually_in_the_background() -> void:
+	var body: BioCellBody = null
+	for child in world.player.get_children():
+		if child is BioCellBody:
+			body = child
+	var tail := world.player.get_node("Flagellum") as BioFlagellum
+	var base_segments := tail.segments
+	var look := {"variant": "cacador", "name": "Caçador", "axes": {"ferocidade": 90, "agilidade": 80, "robustez": 10, "metabolismo": 20, "sociabilidade": 20, "misterio": 20}}
+	world.sync.apply_view(_view({"look": look}))
+	assert_eq(world.look_name, "Caçador", "the advisor's variant is remembered")
+	assert_true(body.look_target.get("ferocidade") == 90, "target set")
+	assert_true(float(body.look_now["ferocidade"]) < 5.0, "nothing snaps: the body starts neutral")
+	assert_true(body.spikes == 0, "no spikes yet")
+	body._ease_look(2.0)
+	var partial := float(body.look_now["ferocidade"])
+	assert_true(partial > 0.0 and partial < 90.0, "a couple of seconds only moves part of the way (%s)" % partial)
+	body._ease_look(60.0)
+	assert_near(float(body.look_now["ferocidade"]), 90.0, 0.01, "and it arrives in the end")
+	assert_true(body.spikes >= 5, "a ferocious body grows spikes")
+	assert_true(tail.segments > base_segments, "an agile body grows a longer tail")
+	var other := {"variant": "erudito", "name": "Erudito", "axes": {"ferocidade": 5, "agilidade": 10, "robustez": 10, "metabolismo": 10, "sociabilidade": 20, "misterio": 95}}
+	world.sync.apply_view(_view({"look": other}))
+	body._ease_look(60.0)
+	assert_true(body.core.b > body.core.r, "a mysterious body turns violet-blue")
+
+
+func test_behaviour_is_reported_in_batches_without_blocking() -> void:
+	var sync := world.sync
+	sync.link.online = true
+	sync._used[BioAttackCatalog.FLAGELLUM_LASH] = true
+	sync._used[BioAttackCatalog.MEMBRANE_DASH] = true
+	sync._report_in = 0.0
+	sync._track_behaviour(0.016)  # offline URL: the commands fail quietly, the frame is not held
+	assert_true(sync._used.is_empty(), "the interval's usage was handed off")
+	assert_near(sync._report_in, BioHostSync.REPORT_SECONDS, 0.001, "and the next report is scheduled")
+	sync.link.online = false

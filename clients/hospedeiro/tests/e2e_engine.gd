@@ -80,6 +80,17 @@ func _run() -> void:
 	if not await _until(func() -> bool: return world.genome.has_gene(StringName(featured.replace("-", "_"))), 10.0):
 		return _fail("choosing expresses the gene")
 	_step("expressed %s" % featured)
+
+	# Behaviour reported in the background shapes the body; the advisor decides it.
+	for i in 25:
+		world.sync._used[BioAttackCatalog.FLAGELLUM_LASH] = true
+		world.sync._report_in = 0.0
+		world.sync._track_behaviour(0.016)
+		await create_timer(0.15).timeout
+	if not await _until(func() -> bool: return world.look_name != "", 40.0):
+		return _fail("the advisor decides a body from the reported behaviour")
+	_step("body decided by the advisor: %s" % world.look_name)
+	await _shot("e2e_06_body")
 	print("E2E OK")
 	quit(0)
 

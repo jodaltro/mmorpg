@@ -22,7 +22,8 @@ type View struct {
 	Story     []StoryView      `json:"story"`
 	Signs     []SignView       `json:"signs"` // traces of hidden things the observer can make out here
 	Marks     []MarkView       `json:"marks"`
-	Evolution *EvolutionView   `json:"evolution,omitempty"` // the observer's own genome and mutation offer // symbols travellers left in this place
+	Evolution *EvolutionView   `json:"evolution,omitempty"` // the observer's own genome and mutation offer
+	Look      *LookView        `json:"look,omitempty"`      // the observer's own procedural body
 }
 
 type Seen struct {
@@ -40,6 +41,8 @@ type Seen struct {
 	Title string `json:"title,omitempty"`
 	// Marks are visible signs of what this person carries (see Universe.VisibleMarks).
 	Marks []string `json:"marks,omitempty"`
+	// Look is the person's procedural body (players only), so everyone sees who they are.
+	Look *LookView `json:"look,omitempty"`
 }
 
 // StoryView shows the public chronicle of an arc: which chapters were
@@ -66,12 +69,12 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 		return View{}, false
 	}
 	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
-		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer)}
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer)}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]
 			marks := w.marksOf(s, id, e.Kind)
-			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"], KnowsYou: w.U.Acquaintance != "" && e.Kind != w.U.PlayerKind && w.knowsOf(s, id, observer), Marks: marks, Title: titleOf(w, e)})
+			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"], KnowsYou: w.U.Acquaintance != "" && e.Kind != w.U.PlayerKind && w.knowsOf(s, id, observer), Marks: marks, Title: titleOf(w, e), Look: w.lookOf(s, id)})
 		}
 	}
 	for _, k := range sortedKeys(s.Facts) {

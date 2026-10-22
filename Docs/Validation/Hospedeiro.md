@@ -67,3 +67,16 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 **Cliente:** com o motor ligado, genoma, pressão e oferta vêm do motor; o gene escolhido pelo Jev aparece com "◆ o corpo pende para cá"; escolher e recusar viram os verbos do motor; esquivas são confirmadas (`esquivar`). Offline, o laço local continua. 38 testes headless, 0 falhas.
 
 **Ponta a ponta com o Jev** (`e2e_engine.gd`, servidor de teste em tick de 0,5 s): os 7 passos do H1 e mais 2: três vírions confirmados estouram a pressão; a oferta chega com o destaque **escolhido pelo Jev** (no log do mundo, `resolve` de `evolution` com `provider: jev`: Flagelo Calejado, com Cauda Longa e Vesícula Tóxica, todas do caminho de combate); escolhido, o gene é expresso no corpo.
+
+## Missões com recompensas de jogo e corpo procedural pelo Jev (22/10/2026)
+
+**Missões:** 12 no universo (6 novas): "O primeiro gene", "Caça no capilar", "Banquete no sangue", "Dançar com o perigo", "Caçador veterano" e "Linhagem definida", com metas em feitos de jogo (abates, nutrientes, esquivas confirmadas, genes expressos). As recompensas agora são sentidas: **pressão evolutiva** (as de 10 garantem uma mutação), reparo da célula (evento `bonus-reparo`), chuva de nutrientes (`bonus-nutrientes`) e títulos; o cenário único também paga em evolução. `evoluir` virou feito nativo do motor, para missões poderem pedir genes.
+
+**Aparência:** decisão nova `appearance` (`core/appearance.go`): eixos calculados do comportamento (ataques usados, esquivas, exploração, relações com quem fala, genes), variantes candidatas e o Jev escolhe; todos veem o corpo de todos. A mudança é lenta e em segundo plano: reavaliação a cada 45 ticks com pelo menos 20 feitos novos; no cliente o corpo escorre até os valores novos em cerca de 30 s e o comportamento é relatado em lotes de 3 s, sem esperar a rede.
+
+- `go vet ./...` ok; `go test ./...` passa, exceto a falha antiga de `presentation.json`.
+- Novos testes: 3 de aparência (o corpo segue como cada um joga e outros jogadores o veem; a escolha do Jev é revalidada; sem feitos novos não muda) e 3 de missões (caça paga evolução e reparo; missões de evolução; esquiva confirmada).
+- `simulate -advisor jev -ticks 100 -players 3`: 30 decisões `appearance` resolvidas pelo Jev (~406 ms, confiança 0,65), antes de espaçar as reavaliações.
+- Godot: 41 testes, 0 falhas (inclui: genes mudam o corpo; o corpo do motor aparece gradualmente, não estala; comportamento relatado em lote sem bloquear o quadro).
+- Ponta a ponta com o Jev ligado (`e2e_engine.gd`): os 9 passos anteriores e mais o novo: o cliente relata ataques em segundo plano e o **Jev decide o corpo "Caçador"** (log do mundo: `resolve` de `appearance` com `provider: jev`).
+- Capturas conferidas: quatro corpos distintos (caçador de espinhos, andarilho de cílios e cauda longa, erudito com halo e partículas violeta, banqueteiro grande com grânulos) e as marcas de cada gene (cílios, vesículas de toxina, mitocôndrias, grânulos, anel do núcleo, parede dupla, cauda blindada e longa).

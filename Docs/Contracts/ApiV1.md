@@ -74,3 +74,8 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 - `GET /v1/views/{id}` traz `evolution`: `{genes, offer, featured, pressure, threshold, slots}` (genes `{id, name, desc, rarity, tags}`; `featured` é para onde o corpo pende, escolhido pelo Jev ou pelo padrão).
 - Verbos do motor (`origin: player`): `act` com `action: "evoluir"`, `args: {gene}` (um gene da oferta pendente) e `action: "recusar-evolucao"`.
 - Eventos: `evolution-offered` (`data.featured`, `data.offer`), `mutated` (`data.gene`, `data.replaced`), `evolution-declined`; a resolução aparece como `decision` com `kind: evolution`.
+
+## Aparência (universos com `appearance`)
+
+- `GET /v1/views/{id}` traz `look: {variant, name, axes}` (o corpo do observador) e `others[].look` (o corpo de cada jogador visível). Os eixos vão de `min` a `max` do universo; o cliente desenha o corpo a partir deles e deve **transicionar aos poucos**, sem estalo.
+- Evento `appearance` (`data.variant`) quando o corpo é redecidido; a resolução aparece como `decision` com `kind: appearance`.

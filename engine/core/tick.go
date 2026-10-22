@@ -55,6 +55,7 @@ func (w *World) tick(s *State, cause string) {
 	w.think(s)
 	w.questTick(s, cause)
 	w.mutationTick(s, cause)
+	w.appearanceTick(s, cause)
 }
 
 func (w *World) stories(s *State, cause string) {

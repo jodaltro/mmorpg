@@ -62,6 +62,44 @@ func _run() -> void:
 		BioFactory.spawn_virus(world, p * BioArt.UNIT, world.player)
 	await create_timer(0.6).timeout
 	_shot(out_dir, "08_with_viruses")
+	# One shot per build, to read the genes on the body.
+	world.virus_count = 0
+	for v in world.viruses():
+		v.queue_free()
+	await create_timer(0.3).timeout
+	world.camera.zoom = Vector2.ONE * 3.0
+	var builds := {
+		"11_body_bare": [],
+		"12_body_combat": [&"flagelo_calejado", &"cauda_longa", &"vesicula_toxica"],
+		"13_body_swift": [&"cilios_ageis", &"nucleo_reativo", &"membrana_espessa"],
+		"14_body_metabolic": [&"mitocondria_avida", &"enzima_voraz", &"cilios_ageis"],
+	}
+	for key in builds:
+		var g := BioGenome.new()
+		for id in builds[key]:
+			g.equip(id)
+		world.player.combatant.set_genome(g)
+		world.player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+		await create_timer(0.7).timeout
+		_shot(out_dir, key)
+	# Three players, three bodies: the look comes from the engine, so only axes differ here.
+	var looks := {
+		"15_look_cacador": {"ferocidade": 90, "agilidade": 30, "robustez": 30, "metabolismo": 10, "sociabilidade": 5, "misterio": 5},
+		"16_look_andarilho": {"ferocidade": 10, "agilidade": 95, "robustez": 10, "metabolismo": 20, "sociabilidade": 10, "misterio": 30},
+		"17_look_erudito": {"ferocidade": 5, "agilidade": 25, "robustez": 20, "metabolismo": 10, "sociabilidade": 30, "misterio": 95},
+		"18_look_banqueteiro": {"ferocidade": 15, "agilidade": 15, "robustez": 70, "metabolismo": 95, "sociabilidade": 20, "misterio": 5},
+	}
+	for key in looks:
+		world.player.combatant.set_genome(BioGenome.new())
+		world.sync.apply_view({"look": {"variant": key, "name": key, "axes": looks[key]}})
+		for child in world.player.get_children():
+			if child is BioCellBody:
+				(child as BioCellBody).look_now = looks[key].duplicate()
+				(child as BioCellBody)._ease_look(0.0)
+		await create_timer(0.8).timeout
+		_shot(out_dir, key)
+	world.camera.zoom = Vector2.ONE * 1.35
+	world.player.combatant.set_genome(BioGenome.new())
 	world.add_pressure(BioMutationTracker.THRESHOLD)
 	await create_timer(0.2).timeout
 	_shot(out_dir, "09_mutation_offer")

@@ -102,3 +102,86 @@ func TestHospedeiroFirstMemoryIsUnique(t *testing.T) {
 		t.Fatalf("only the first claims the scenario, p2 got %q", got)
 	}
 }
+
+func (h *harness) eventKinds(holder core.ID) map[string]int {
+	out := map[string]int{}
+	for _, e := range h.s.Events {
+		if e.Holder == holder {
+			out[e.Kind]++
+		}
+	}
+	return out
+}
+
+// A hunt quest follows what the player does in combat, and pays in things the
+// player feels: evolutionary pressure and a repair of the cell.
+func TestHospedeiroHuntQuestPaysInEvolutionAndRepair(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+	h.move("p1", "sangue")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil) // seen acting in the blood: Neva now knows this cell
+	h.tick(8) // the outbreak starts at tick 5
+	q := h.steer("p1", "caca-no-capilar")
+	if q.Giver != "neva" {
+		t.Fatalf("Neva should call the hunt, got %q", q.Giver)
+	}
+	h.accept("p1", q)
+	before := h.s.Entities["p1"].Num["pressao"]
+	h.fight("p1", 5)
+	h.tick(2)
+	if got, _ := h.quest("p1", "caca-no-capilar"); got.State != "done" {
+		t.Fatalf("five kills should complete the hunt, state %q", got.State)
+	}
+	if h.s.Entities["p1"].Num["pressao"] < before+5 {
+		t.Fatalf("the hunt pays evolutionary pressure: %d -> %d", before, h.s.Entities["p1"].Num["pressao"])
+	}
+	if h.eventKinds("p1")["bonus-reparo"] < 1 {
+		t.Fatal("the hunt should also repair the cell (the client turns this event into healing)")
+	}
+}
+
+// Evolving is itself something to be asked about, and the veteran reward is a
+// guaranteed mutation (enough pressure to overflow the threshold).
+func TestHospedeiroEvolutionQuestsFollowTheGenome(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+	q := h.steer("p1", "primeiro-mergulho")
+	h.accept("p1", q)
+	h.move("p1", "sangue")
+	h.tick(2)
+	g := h.steer("p1", "primeiro-gene")
+	h.accept("p1", g)
+	h.fight("p1", 4)
+	offer := h.waitOffer("p1")
+	h.mustAct("player", "p1", "evoluir", map[string]core.ID{"gene": core.ID(offer.Featured)})
+	h.tick(2)
+	if got, _ := h.quest("p1", "primeiro-gene"); got.State != "done" {
+		t.Fatalf("expressing a gene completes the quest, state %q", got.State)
+	}
+	if h.s.Entities["p1"].Num["pressao"] < 3 {
+		t.Fatalf("the quest pays pressure, got %d", h.s.Entities["p1"].Num["pressao"])
+	}
+}
+
+// Dodging is counted by the engine when the game server confirms it, and a
+// quest can ask for it.
+func TestHospedeiroDodgeQuestCountsConfirmedDodges(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+	h.move("p1", "sangue")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+	h.tick(8)
+	h.fight("p1", 3)
+	q := h.steer("p1", "dancar-com-o-perigo")
+	h.accept("p1", q)
+	for i := 0; i < 3; i++ {
+		h.mustAct("adapter", "p1", "esquivar", nil)
+	}
+	h.tick(2)
+	if got, _ := h.quest("p1", "dancar-com-o-perigo"); got.State != "done" {
+		t.Fatalf("three confirmed dodges complete it, state %q", got.State)
+	}
+}

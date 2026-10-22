@@ -5,6 +5,7 @@ extends Node
 signal hit(who: BioCombatant, result: BioHitResult)
 signal died(who: BioCombatant)
 signal nutrient_consumed(kind: int)
+signal genome_changed(genome: BioGenome)
 
 var actor: BioActor
 var genome := BioGenome.new()
@@ -34,6 +35,7 @@ func set_genome(new_genome: BioGenome) -> void:
 	genome = new_genome
 	actor.genome = genome
 	_rescale()
+	genome_changed.emit(genome)
 
 
 func team() -> int:

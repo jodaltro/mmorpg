@@ -29,6 +29,15 @@ var _signs := {}  # sign id -> BioSignMarker
 var _names := {}  # entity id -> display name
 var _last_seq := -1
 
+## Behaviour the engine reads to shape the body. It is reported in batches, in the background:
+## one confirmation per kind per interval, so combat never waits on the network.
+const REPORT_SECONDS := 3.0
+const EXPLORE_UNITS := 15.0
+var _used := {}  # attack id -> used since the last report
+var _report_in := REPORT_SECONDS
+var _travelled := 0.0
+var _last_pos := Vector2.ZERO
+
 
 func configure(world: BioWorld) -> void:
 	_world = world
@@ -58,13 +67,18 @@ func _ready() -> void:
 		if link.online:
 			link.occur("esquivar"))
 	system.set_region(_world.region)
+	_last_pos = _world.player.global_position
+	for child in _world.player.get_children():
+		if child is BioAttackExecutor:
+			(child as BioAttackExecutor).performed.connect(func(id: StringName, _dir: Vector2) -> void: _used[id] = true)
 
 
 func wants_numbers() -> bool:
 	return system.menu_open
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_track_behaviour(delta)
 	if Input.is_action_just_pressed("bio_accept") and not system.offer_key.is_empty():
 		_answer_offer(true)
 	elif Input.is_action_just_pressed("bio_refuse") and not system.offer_key.is_empty():
@@ -78,6 +92,32 @@ func _process(_delta: float) -> void:
 		for i in BioSystemPanel.MENU_SIZE:
 			if Input.is_action_just_pressed("bio_num_%d" % (i + 1)):
 				choose(i)
+
+
+func _track_behaviour(delta: float) -> void:
+	if not link.online:
+		_used.clear()
+		_travelled = 0.0
+		return
+	var pos := _world.player.global_position
+	_travelled += pos.distance_to(_last_pos) / BioArt.UNIT
+	_last_pos = pos
+	_report_in -= delta
+	if _report_in > 0.0:
+		return
+	_report_in = REPORT_SECONDS
+	var kinds := {
+		BioAttackCatalog.FLAGELLUM_LASH: "estilo-chicote",
+		BioAttackCatalog.TOXIN_SPIT: "estilo-toxina",
+		BioAttackCatalog.MEMBRANE_DASH: "estilo-impulso",
+	}
+	for id in kinds:
+		if _used.has(id):
+			link.occur(kinds[id])
+	_used.clear()
+	if _travelled >= EXPLORE_UNITS:
+		_travelled = 0.0
+		link.occur("estilo-explorar")
 
 
 func open_menu() -> void:
@@ -134,6 +174,8 @@ func apply_view(view: Dictionary) -> void:
 	_apply_events(view.get("events", []))
 	if view.has("evolution") and view["evolution"] is Dictionary:
 		_world.apply_engine_evolution(view["evolution"])
+	if view.has("look") and view["look"] is Dictionary:
+		_world.apply_engine_look(view["look"])
 
 
 func _apply_quests(quests: Array) -> void:

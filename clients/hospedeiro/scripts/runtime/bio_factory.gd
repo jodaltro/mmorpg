@@ -22,6 +22,9 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	tail.body_radius_px = 0.55 * BioArt.UNIT
 	body.tail = tail
 	actor.add_child(tail)
+	actor.combatant.genome_changed.connect(func(g: BioGenome) -> void:
+		body.apply_genome(g)
+		tail.apply_genome(g))
 
 	var executor := BioAttackExecutor.new()
 	executor.configure(actor.combatant, actor)

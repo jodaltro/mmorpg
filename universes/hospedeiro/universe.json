@@ -38,7 +38,12 @@
    "abates": 0,
    "nutrientes": 0,
    "mergulhos": 0,
-   "pressao": 0
+   "pressao": 0,
+   "esquivas": 0,
+   "uso-chicote": 0,
+   "uso-toxina": 0,
+   "uso-impulso": 0,
+   "explorar": 0
   },
   "region": "medula"
  },
@@ -610,6 +615,12 @@
      "d": 2
     },
     {
+     "op": "adjust",
+     "e": "$self",
+     "k": "esquivas",
+     "d": 1
+    },
+    {
      "op": "emit",
      "event": "esquiva",
      "text": "{self} escapa de um golpe no último instante."
@@ -844,6 +855,82 @@
      "k": "reserva",
      "d": 2,
      "max": 100
+    }
+   ]
+  },
+  {
+   "id": "estilo-chicote",
+   "title": "Usar o chicote de cauda",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "combat"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "uso-chicote",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "estilo-toxina",
+   "title": "Cuspir toxina",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "combat"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "uso-toxina",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "estilo-impulso",
+   "title": "Usar o impulso de membrana",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "endure"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "uso-impulso",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "estilo-explorar",
+   "title": "Percorrer o corpo",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "explore"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "explorar",
+     "d": 1
     }
    ]
   }
@@ -1095,6 +1182,12 @@
         "p": "reescrita-revelada",
         "s": "medula"
        }
+      },
+      {
+       "op": "adjust",
+       "e": "$self",
+       "k": "pressao",
+       "d": 10
       }
      ],
      "rival": [
@@ -1117,6 +1210,12 @@
        "op": "emit",
        "event": "rival",
        "text": "{claimant} decifrou o código antes de você, mas você viu o mesmo fragmento."
+      },
+      {
+       "op": "adjust",
+       "e": "$self",
+       "k": "pressao",
+       "d": 5
       }
      ],
      "next": [
@@ -1161,7 +1260,7 @@
    "title": "O primeiro mergulho",
    "desc": "Osteia acha que você está pronta para deixar o nicho.",
    "objective": "Atravesse a sinusoide e entre na corrente sanguínea.",
-   "reward": "Reputação +1",
+   "reward": "Pressão evolutiva +4 e uma chuva de nutrientes",
    "eligible": {
     "all": [
      {
@@ -1190,14 +1289,81 @@
     {
      "op": "adjust",
      "e": "$self",
-     "k": "reputacao",
-     "d": 1
+     "k": "pressao",
+     "d": 4
+    },
+    {
+     "op": "emit",
+     "event": "bonus-nutrientes",
+     "text": "Recompensa: uma chuva de nutrientes cai ao seu redor."
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "mergulhos",
      "d": 1
+    }
+   ],
+   "tags": [
+    "explore"
+   ]
+  },
+  {
+   "id": "primeiro-gene",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "O primeiro gene",
+   "desc": "Osteia sente que seu corpo está pronto para mudar.",
+   "objective": "Expresse seu primeiro gene: escolha uma mutação quando a pressão evolutiva estourar (derrote vírions e absorva nutrientes).",
+   "reward": "Pressão evolutiva +3 e reparo da célula",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "$self",
+       "k": "mergulhos",
+       "op": ">=",
+       "v": 1
+      }
+     },
+     {
+      "deeds": {
+       "action": "evoluir",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "evoluir",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 3
+    },
+    {
+     "op": "emit",
+     "event": "bonus-reparo",
+     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
     },
     {
      "op": "relate",
@@ -1207,9 +1373,6 @@
      "min": -10,
      "max": 10
     }
-   ],
-   "tags": [
-    "explore"
    ]
   },
   {
@@ -1219,7 +1382,7 @@
    "title": "Calor no capilar",
    "desc": "Neva sente o sangue esquentando e quer saber por que.",
    "objective": "Examine o capilar inflamado e descubra o que acontece.",
-   "reward": "Reputação +1",
+   "reward": "Pressão evolutiva +3 e reparo da célula",
    "eligible": {
     "all": [
      {
@@ -1250,8 +1413,13 @@
     {
      "op": "adjust",
      "e": "$self",
-     "k": "reputacao",
-     "d": 1
+     "k": "pressao",
+     "d": 3
+    },
+    {
+     "op": "emit",
+     "event": "bonus-reparo",
+     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
     },
     {
      "op": "relate",
@@ -1267,13 +1435,133 @@
    ]
   },
   {
+   "id": "caca-no-capilar",
+   "giver": "neva",
+   "rank": "E",
+   "title": "Caça no capilar",
+   "desc": "Neva precisa de mais células que saibam lutar.",
+   "objective": "Destrua 5 vírions no sangue.",
+   "reward": "Pressão evolutiva +5 e reparo da célula",
+   "tags": [
+    "combat"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "$self",
+       "k": "abates",
+       "op": "<",
+       "v": 5
+      }
+     },
+     {
+      "fact": {
+       "p": "foco",
+       "s": "sangue"
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "abates",
+     "op": ">=",
+     "v": 5
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "emit",
+     "event": "bonus-reparo",
+     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
+    },
+    {
+     "op": "relate",
+     "e": "neva",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "banquete",
+   "giver": "rubra",
+   "rank": "E",
+   "title": "Banquete no sangue",
+   "desc": "Rubra carrega glicose o dia todo e quer ver alguém aproveitá-la.",
+   "objective": "Absorva 12 nutrientes.",
+   "reward": "Pressão evolutiva +4 e uma chuva de nutrientes",
+   "tags": [
+    "metabolism"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "$self",
+       "k": "nutrientes",
+       "op": "<",
+       "v": 12
+      }
+     },
+     {
+      "num": {
+       "e": "$self",
+       "k": "mergulhos",
+       "op": ">=",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "nutrientes",
+     "op": ">=",
+     "v": 12
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 4
+    },
+    {
+     "op": "emit",
+     "event": "bonus-nutrientes",
+     "text": "Recompensa: uma chuva de nutrientes cai ao seu redor."
+    },
+    {
+     "op": "relate",
+     "e": "rubra",
+     "to": "$self",
+     "d": 2,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
    "id": "conter-infeccao",
    "giver": "neva",
    "rank": "D",
    "title": "Conter a infecção",
    "desc": "O foco está crescendo. Neva precisa de quem lute.",
    "objective": "Destrua vírions no sangue até a carga viral cair abaixo de 10.",
-   "reward": "Reputação +2",
+   "reward": "Pressão evolutiva +6 e reparo da célula",
    "eligible": {
     "all": [
      {
@@ -1304,8 +1592,13 @@
     {
      "op": "adjust",
      "e": "$self",
-     "k": "reputacao",
-     "d": 2
+     "k": "pressao",
+     "d": 6
+    },
+    {
+     "op": "emit",
+     "event": "bonus-reparo",
+     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
     },
     {
      "op": "relate",
@@ -1327,7 +1620,7 @@
    "title": "O rosto do inimigo",
    "desc": "Dendra pode ensinar as defesas a reconhecer o vírion, se alguem contar a ela como ele e.",
    "objective": "Conte a Dendra o que você aprendeu sobre o Vírion Espinhoso.",
-   "reward": "Reputação +2",
+   "reward": "Pressão evolutiva +6: o corpo aprende o rosto do inimigo",
    "eligible": {
     "all": [
      {
@@ -1358,12 +1651,202 @@
     {
      "op": "adjust",
      "e": "$self",
-     "k": "reputacao",
-     "d": 2
+     "k": "pressao",
+     "d": 6
+    },
+    {
+     "op": "relate",
+     "e": "dendra",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
     }
    ],
    "tags": [
     "knowledge"
+   ]
+  },
+  {
+   "id": "dancar-com-o-perigo",
+   "giver": "neva",
+   "rank": "D",
+   "title": "Dançar com o perigo",
+   "desc": "Quem aprende a esquivar dos virions sobrevive às infecções longas.",
+   "objective": "Esquive de 3 golpes no último instante (use o impulso quando o vírion brilhar).",
+   "reward": "Pressão evolutiva +6",
+   "tags": [
+    "endure"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "$self",
+       "k": "abates",
+       "op": ">=",
+       "v": 3
+      }
+     },
+     {
+      "num": {
+       "e": "$self",
+       "k": "esquivas",
+       "op": "<",
+       "v": 3
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "esquivas",
+     "op": ">=",
+     "v": 3
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 6
+    },
+    {
+     "op": "relate",
+     "e": "neva",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "cacador-veterano",
+   "giver": "neva",
+   "rank": "C",
+   "title": "Caçador veterano",
+   "desc": "Neva acha que você já provou seu valor e quer ver até onde vai.",
+   "objective": "Destrua 20 vírions no total.",
+   "reward": "Uma mutação garantida (pressão +10) e o título Caçador de Vírions",
+   "tags": [
+    "combat"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "$self",
+       "k": "abates",
+       "op": ">=",
+       "v": 8
+      }
+     },
+     {
+      "num": {
+       "e": "$self",
+       "k": "abates",
+       "op": "<",
+       "v": 20
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "abates",
+     "op": ">=",
+     "v": 20
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 10
+    },
+    {
+     "op": "set",
+     "e": "$self",
+     "k": "title",
+     "v": "Caçador de Vírions"
+    },
+    {
+     "op": "emit",
+     "event": "bonus-reparo",
+     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
+    },
+    {
+     "op": "relate",
+     "e": "neva",
+     "to": "$self",
+     "d": 2,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "linhagem-definida",
+   "giver": "dendra",
+   "rank": "C",
+   "title": "Linhagem definida",
+   "desc": "Dendra estuda como cada célula escolhe o seu caminho.",
+   "objective": "Expresse 3 genes: o corpo só se define depois de várias escolhas.",
+   "reward": "Uma mutação garantida (pressão +10) e o título Linhagem Definida",
+   "tags": [
+    "knowledge"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "deeds": {
+       "action": "evoluir",
+       "op": ">=",
+       "v": 1
+      }
+     },
+     {
+      "deeds": {
+       "action": "evoluir",
+       "op": "<",
+       "v": 3
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "evoluir",
+     "op": ">=",
+     "v": 3
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 10
+    },
+    {
+     "op": "set",
+     "e": "$self",
+     "k": "title",
+     "v": "Linhagem Definida"
+    },
+    {
+     "op": "relate",
+     "e": "dendra",
+     "to": "$self",
+     "d": 2,
+     "min": -10,
+     "max": 10
+    }
    ]
   },
   {
@@ -1374,7 +1857,7 @@
    "title": "Cenário Único: A Primeira Lembrança",
    "desc": "Decifre o fragmento de código no nicho antes de qualquer outra célula.",
    "objective": "Examine o brilho no nicho da medula e decifre o fragmento. Para ler a língua dele, você precisa conhecer o vírion.",
-   "reward": "Título: Primeira Lembrança",
+   "reward": "Título Primeira Lembrança e uma mutação garantida (quem chegar depois ganha pressão +5)",
    "eligible": {},
    "goal": {
     "fact": {
@@ -1394,7 +1877,7 @@
    "title": "Vigília no Sangue",
    "desc": "Agora que se sabe da Reescrita, cada vírion pode carregar um pedaco do código.",
    "objective": "Destrua um vírion no sangue.",
-   "reward": "Reputação +1",
+   "reward": "Pressão evolutiva +5",
    "eligible": {},
    "goal": {
     "fact": {
@@ -1408,8 +1891,8 @@
     {
      "op": "adjust",
      "e": "$self",
-     "k": "reputacao",
-     "d": 1
+     "k": "pressao",
+     "d": 5
     }
    ]
   }
@@ -1687,5 +2170,138 @@
    ],
    "desc": "+50% de ganho de nutrientes, -2 de ATP por segundo."
   }
- ]
+ ],
+ "appearance": {
+  "every": 45,
+  "minDeeds": 20,
+  "axes": [
+   {
+    "id": "ferocidade",
+    "min": 0,
+    "max": 100,
+    "base": 20,
+    "scale": 40,
+    "signals": {
+     "uso-chicote": 2,
+     "uso-toxina": 1,
+     "abates": 3
+    }
+   },
+   {
+    "id": "agilidade",
+    "min": 0,
+    "max": 100,
+    "base": 20,
+    "scale": 40,
+    "signals": {
+     "uso-impulso": 3,
+     "esquivas": 4,
+     "explorar": 2
+    }
+   },
+   {
+    "id": "robustez",
+    "min": 0,
+    "max": 100,
+    "base": 20,
+    "scale": 40,
+    "signals": {
+     "nutrientes": 1,
+     "gene:membrana-espessa": 30
+    }
+   },
+   {
+    "id": "metabolismo",
+    "min": 0,
+    "max": 100,
+    "base": 20,
+    "scale": 50,
+    "signals": {
+     "nutrientes": 2,
+     "gene:mitocondria-avida": 20,
+     "gene:enzima-voraz": 20
+    }
+   },
+   {
+    "id": "sociabilidade",
+    "min": 0,
+    "max": 100,
+    "base": 20,
+    "scale": 20,
+    "signals": {
+     "rel:estroma": 8,
+     "rel:neva": 8,
+     "rel:rubra": 8,
+     "rel:dendra": 8
+    }
+   },
+   {
+    "id": "misterio",
+    "min": 0,
+    "max": 100,
+    "base": 20,
+    "scale": 20,
+    "signals": {
+     "style:knowledge": 4,
+     "deed:evoluir": 6
+    }
+   }
+  ],
+  "variants": [
+   {
+    "id": "cacador",
+    "name": "Caçador",
+    "desc": "Corpo de predador: espinhos, brilho agressivo, cauda de combate.",
+    "bias": {
+     "ferocidade": 25,
+     "agilidade": 5
+    }
+   },
+   {
+    "id": "andarilho",
+    "name": "Andarilho",
+    "desc": "Corpo esguio e veloz de quem percorre o corpo todo: cílios, cauda longa.",
+    "bias": {
+     "agilidade": 25,
+     "misterio": 5
+    }
+   },
+   {
+    "id": "banqueteiro",
+    "name": "Banqueteiro",
+    "desc": "Corpo cheio de grânulos e energia: o metabolismo domina.",
+    "bias": {
+     "metabolismo": 25,
+     "robustez": 10
+    }
+   },
+   {
+    "id": "sentinela",
+    "name": "Sentinela",
+    "desc": "Corpo grande e resistente, de quem sobrevive aguentando.",
+    "bias": {
+     "robustez": 25,
+     "ferocidade": -5
+    }
+   },
+   {
+    "id": "erudito",
+    "name": "Erudito",
+    "desc": "Corpo enigmático, de aura violeta, de quem estuda e decifra.",
+    "bias": {
+     "misterio": 25,
+     "sociabilidade": 5
+    }
+   },
+   {
+    "id": "diplomata",
+    "name": "Diplomata",
+    "desc": "Corpo luminoso e aberto, de quem conversa e faz amigos.",
+    "bias": {
+     "sociabilidade": 25,
+     "misterio": 5
+    }
+   }
+  ]
+ }
 }

@@ -108,7 +108,7 @@ type Option struct {
 // The world never waits for it: at Due the Default applies.
 type Decision struct {
 	ID      string   `json:"id"`
-	Kind    string   `json:"kind"` // offer | story | world | evolution
+	Kind    string   `json:"kind"` // offer | story | world | evolution | appearance
 	Subject string   `json:"subject"`
 	Options []Option `json:"options"`
 	Default string   `json:"default"`
@@ -139,6 +139,7 @@ type State struct {
 	Skills    map[ID]map[string]Tick   `json:"skills"`            // learned skills and when
 	Deeds     map[ID]map[string]int64  `json:"deeds"`             // how often each player did each thing
 	Marks     []Mark                   `json:"marks"`             // symbols travellers left in places
+	Looks     map[ID]Look              `json:"looks,omitempty"` // each player's procedural body
 	Genomes   map[ID]Genome            `json:"genomes,omitempty"` // expressed genes and pending mutation offers
 }
 
@@ -208,6 +209,11 @@ func (s *State) Clone() State {
 	c.Skills = make(map[ID]map[string]Tick, len(s.Skills))
 	for k, v := range s.Skills {
 		c.Skills[k] = maps.Clone(v)
+	}
+	c.Looks = make(map[ID]Look, len(s.Looks))
+	for k, l := range s.Looks {
+		l.Axes = maps.Clone(l.Axes)
+		c.Looks[k] = l
 	}
 	c.Genomes = make(map[ID]Genome, len(s.Genomes))
 	for k, g := range s.Genomes {

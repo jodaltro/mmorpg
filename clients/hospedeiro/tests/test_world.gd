@@ -163,3 +163,27 @@ func test_genome_persists_between_sessions() -> void:
 	var loaded := BioGenomeStore.load_state(path, tracker)
 	assert_true(loaded.has_gene(picked), "saved gene reloads")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+
+
+func test_genes_change_the_body() -> void:
+	var body: BioCellBody = null
+	for child in world.player.get_children():
+		if child is BioCellBody:
+			body = child
+	var tail := world.player.get_node("Flagellum") as BioFlagellum
+	assert_true(body.genes.is_empty(), "a newborn has no marks")
+	var base_segments := tail.segments
+	var g := BioGenome.new()
+	g.equip(&"membrana_espessa")
+	g.equip(&"cauda_longa")
+	g.equip(&"flagelo_calejado")
+	world.player.combatant.set_genome(g)
+	assert_eq(body.genes.size(), 3, "genes reach the body")
+	assert_true(body._size_mul > 1.0, "thick membrane grows the wall")
+	assert_true(tail.long_tail and tail.segments > base_segments, "Cauda Longa lengthens the tail")
+	assert_true(tail.armored and tail.width_px > 17.0, "Flagelo Calejado armours and thickens it")
+	await tree.process_frame
+	await tree.process_frame
+	world.player.combatant.set_genome(BioGenome.new())
+	assert_eq(tail.segments, base_segments, "losing the genes restores the tail")
+	assert_true(not tail.armored and body.genes.is_empty(), "and the body")

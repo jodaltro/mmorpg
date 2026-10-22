@@ -33,6 +33,7 @@ var sleeping := false
 var engine_evolution := false
 var engine_offer: Array[String] = []  # engine gene ids of the pending offer
 var engine_featured := ""
+var look_name := ""  # the variant the advisor chose for this body (Caçador, Andarilho...)
 var _engine_fraction := 0.0
 
 var _rng := RandomNumberGenerator.new()
@@ -173,6 +174,18 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 			panel.show_offer(local, StringName(featured.replace("-", "_")))
 	var threshold := maxf(1.0, float(ev.get("threshold", 1)))
 	_engine_fraction = 1.0 if not offer.is_empty() else clampf(float(ev.get("pressure", 0)) / threshold, 0.0, 1.0)
+
+
+## The engine's procedural body for this player, decided from how they play. It arrives in the
+## background whenever the engine decides, and the body morphs towards it slowly.
+func apply_engine_look(look: Dictionary) -> void:
+	var axes: Dictionary = look.get("axes", {})
+	if axes.is_empty():
+		return
+	for child in player.get_children():
+		if child is BioCellBody:
+			(child as BioCellBody).set_look(axes)
+	look_name = str(look.get("name", ""))
 
 
 ## Back to the local loop (engine gone): the local tracker drives evolution again.

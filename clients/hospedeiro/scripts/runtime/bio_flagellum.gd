@@ -14,6 +14,14 @@ var width_px := 17.0
 var color := BioArt.CYAN
 var root_color := BioArt.DEEP_BLUE  # matches the membrane edge so the tail reads as part of the body
 var body_radius_px := 26.0
+var armored := false  # Flagelo Calejado: amber plates across a thicker tail
+var long_tail := false  # Cauda Longa: a much longer tail
+
+var _base_color := BioArt.CYAN
+var _base_width := 17.0
+var _base_segments := 26
+var _look_length := 1.0  # procedural body (engine look): agility lengthens the tail
+var _look_width := 1.0  # and ferocity thickens it
 
 var _points := PackedVector2Array()  # resting chain (follow-the-leader physics)
 var _rendered := PackedVector2Array()
@@ -38,7 +46,37 @@ func configure(anchor_radius: float, segment_length: float, width: float, tint: 
 	segment_length_units = segment_length
 	width_px = width
 	color = tint
+	_base_color = tint
+	_base_width = width
 	z_index = z
+
+
+## The genome shapes the tail: Flagelo Calejado armours it, Cauda Longa stretches it.
+func apply_genome(genome: BioGenome) -> void:
+	armored = genome.has_gene(&"flagelo_calejado")
+	long_tail = genome.has_gene(&"cauda_longa")
+	_refresh_shape()
+
+
+## The procedural body (axes from the engine) shapes the tail on top of the genes.
+func set_look(length_mul: float, width_mul: float) -> void:
+	_look_length = snappedf(length_mul, 0.1)  # quantised so the chain is rebuilt only a few times
+	_look_width = width_mul
+	_refresh_shape()
+
+
+func _refresh_shape() -> void:
+	color = _base_color.lerp(BioArt.AMBER, 0.55) if armored else _base_color
+	width_px = _base_width * (1.3 if armored else 1.0) * _look_width
+	var wanted := int(_base_segments * (1.6 if long_tail else 1.0) * _look_length)
+	if wanted != segments:
+		segments = wanted
+		_points.resize(segments)
+		_rendered.resize(segments)
+		_left.resize(segments)
+		_right.resize(segments)
+		_initialised = false
+		_trail.clear()
 
 
 func whip(strength: float) -> void:
@@ -210,3 +248,7 @@ func _draw() -> void:
 		draw_primitive(PackedVector2Array([_left[i], _left[i + 1], _right[i + 1]]), colors_a, PackedVector2Array())
 		draw_primitive(PackedVector2Array([_left[i], _right[i + 1], _right[i]]), colors_b, PackedVector2Array())
 	draw_polyline_colors(_rendered, spine, 2.0, true)
+	if armored:  # keratin plates across the tail
+		for i in range(3, segments - 3, 2):
+			var k := i / float(segments - 1)
+			draw_line(_left[i], _right[i], BioArt.with_alpha(BioArt.AMBER.lerp(Color.WHITE, 0.3), 0.9 * (1.0 - k * 0.7)), 2.5, true)
