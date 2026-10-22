@@ -25,6 +25,10 @@ type SignDef struct {
 	When     *Cond    `json:"when,omitempty"` // $self is the observer; empty = always there
 	Perceive *Cond    `json:"perceive,omitempty"`
 	Examine  []Effect `json:"examine,omitempty"`
+	// FarFrom lists other regions from which the sign can still be made out
+	// (a tower, a column of smoke, a glow at night). From there it is only a
+	// landmark: examining needs being where it is.
+	FarFrom []ID `json:"farFrom,omitempty"`
 }
 
 // SignView is what the observer is shown of a sign.
@@ -34,6 +38,7 @@ type SignView struct {
 	Spot   string `json:"spot,omitempty"`
 	Title  string `json:"title"`
 	Look   string `json:"look"`
+	Far    bool   `json:"far,omitempty"` // seen from another region: a landmark, not yet examinable
 }
 
 // Reaction is how people answer when told what the teller believes. Tell
@@ -74,8 +79,9 @@ func (w *World) Signs(s *State, observer ID) []SignView {
 		return out
 	}
 	for _, sg := range w.U.Signs {
-		if sg.Region == ent.Region && w.visibleSign(s, sg, observer) {
-			out = append(out, SignView{ID: sg.ID, Region: sg.Region, Spot: sg.Spot, Title: sg.Title, Look: sg.Look})
+		near := sg.Region == ent.Region
+		if (near || slices.Contains(sg.FarFrom, ent.Region)) && w.visibleSign(s, sg, observer) {
+			out = append(out, SignView{ID: sg.ID, Region: sg.Region, Spot: sg.Spot, Title: sg.Title, Look: sg.Look, Far: !near})
 		}
 	}
 	return out
@@ -208,6 +214,11 @@ func (v *validator) signs() error {
 		seen[sg.ID] = true
 		if sg.Spot != "" && spots[sg.Spot] != sg.Region {
 			return invalid("sign %s: spot %q is not in %s", sg.ID, sg.Spot, sg.Region)
+		}
+		for _, far := range sg.FarFrom {
+			if !w.regions[v.ents[far]] || far == sg.Region {
+				return invalid("sign %s: farFrom %q", sg.ID, far)
+			}
 		}
 		vars := map[string]bool{"self": true}
 		for _, c := range []*Cond{sg.When, sg.Perceive} {

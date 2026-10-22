@@ -73,7 +73,12 @@
     "den-trail",
     "anvil-mark",
     "nameless-grave",
-    "dawn-song"
+    "dawn-song",
+    "torch-lit",
+    "tunnel-known",
+    "rune-forge",
+    "rune-wait",
+    "legacy-link"
   ],
   "playerKind": "player",
   "player": {
@@ -935,6 +940,20 @@
           "fact": {
             "p": "bell-rung",
             "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tocha-apaga",
+      "when": {},
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "torch-lit",
+            "s": "$self",
+            "private": true
           }
         }
       ]
@@ -4575,6 +4594,42 @@
           "text": "Tomas rabisca na terra com um graveto: a floresta ao norte da vila e a mina nas colinas a nordeste. \"O resto, voce descobre andando.\""
         }
       ]
+    },
+    {
+      "id": "acender-tocha",
+      "title": "Acender uma tocha",
+      "by": [
+        "adapter"
+      ],
+      "requires": {
+        "not": {
+          "fact": {
+            "p": "torch-lit",
+            "s": "$self",
+            "private": true
+          }
+        }
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "torch-lit",
+            "s": "$self",
+            "private": true
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "tocha-apaga",
+          "after": 40
+        },
+        {
+          "op": "emit",
+          "event": "torch",
+          "text": "A tocha crepita e afasta o escuro."
+        }
+      ]
     }
   ],
   "agents": [
@@ -7883,6 +7938,31 @@
       "id": "clareira",
       "region": "floresta",
       "name": "Clareira da mata"
+    },
+    {
+      "id": "torre",
+      "region": "ruinas",
+      "name": "Torre quebrada"
+    },
+    {
+      "id": "entrada-ruinas",
+      "region": "ruinas",
+      "name": "Entrada das ruinas"
+    },
+    {
+      "id": "salao-ruinas",
+      "region": "ruinas",
+      "name": "Salao das ruinas"
+    },
+    {
+      "id": "galeria",
+      "region": "mina",
+      "name": "Galeria escura"
+    },
+    {
+      "id": "selo-pedras",
+      "region": "floresta",
+      "name": "Circulo de pedras do selo"
     }
   ],
   "routines": [
@@ -10041,6 +10121,270 @@
                 "s": "$self",
                 "o": "mina",
                 "private": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "torre-asterion",
+      "region": "ruinas",
+      "spot": "torre",
+      "title": "Examinar a torre quebrada",
+      "look": "Uma torre quebrada se ergue ao leste.",
+      "text": "A torre de pedra esta meio caida. Na base ha simbolos gravados, gastos pelo vento.",
+      "farFrom": [
+        "vila",
+        "estrada",
+        "floresta",
+        "mina",
+        "toca"
+      ]
+    },
+    {
+      "id": "fumaca-kharum",
+      "region": "mina",
+      "spot": "veio-mina",
+      "title": "Observar a fumaca das fornalhas",
+      "look": "Fumaca sobe das colinas ao nordeste.",
+      "text": "Fumaca cinza das fornalhas de Kharum, como sempre.",
+      "when": {
+        "not": {
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        }
+      },
+      "farFrom": [
+        "vila",
+        "estrada",
+        "floresta",
+        "ruinas"
+      ]
+    },
+    {
+      "id": "fumaca-roxa",
+      "region": "mina",
+      "spot": "veio-mina",
+      "title": "Observar a fumaca roxa",
+      "look": "Uma fumaca roxa sobe das colinas ao nordeste.",
+      "text": "A fumaca das fornalhas ficou roxa e tem cheiro de metal queimado.",
+      "when": {
+        "fact": {
+          "p": "ore-cursed",
+          "s": "mina"
+        }
+      },
+      "farFrom": [
+        "vila",
+        "estrada",
+        "floresta",
+        "ruinas"
+      ],
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "selo-brilha",
+      "region": "floresta",
+      "spot": "selo-pedras",
+      "title": "Seguir a luz roxa ate as pedras",
+      "look": "Uma luz roxa pulsa no norte, alem das arvores.",
+      "text": "Ha um circulo de pedras no coracao da mata, e a luz roxa vem do meio dele.",
+      "when": {
+        "fact": {
+          "p": "seal-broken",
+          "s": "selo"
+        }
+      },
+      "perceive": {
+        "time": {
+          "from": 20,
+          "to": 5
+        }
+      },
+      "farFrom": [
+        "vila",
+        "estrada",
+        "mina",
+        "ruinas",
+        "toca"
+      ],
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "corrente-de-ar",
+      "region": "mina",
+      "spot": "galeria",
+      "title": "Sentir a corrente de ar na parede",
+      "look": "A chama da tocha se inclina para a parede.",
+      "text": "Atras da pedra solta ha uma passagem antiga, tao fria que a chama quase morre. Ela desce em direcao ao leste.",
+      "perceive": {
+        "fact": {
+          "p": "torch-lit",
+          "s": "$self",
+          "private": true
+        }
+      },
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "tunnel-known",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "inscricao-entrada",
+      "region": "ruinas",
+      "spot": "entrada-ruinas",
+      "title": "Ler os simbolos da entrada",
+      "look": "Simbolos gravados na pedra da entrada.",
+      "text": "Tres simbolos gravados na pedra: um circulo, uma bigorna e uma chama.",
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "rune-forge",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "rune",
+          "text": "A bigorna gravada aqui e igual a marca da bigorna de Brom! Alguem forjou aqui, muito tempo atras.",
+          "if": {
+            "fact": {
+              "p": "anvil-mark",
+              "s": "$self",
+              "private": true,
+              "o": "ruinas"
+            }
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "legacy-link",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          },
+          "if": {
+            "fact": {
+              "p": "anvil-mark",
+              "s": "$self",
+              "private": true,
+              "o": "ruinas"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "rune",
+          "text": "Voce copia os simbolos no caderno, sem entender a ligacao com nada que ja tenha visto.",
+          "if": {
+            "not": {
+              "fact": {
+                "p": "anvil-mark",
+                "s": "$self",
+                "private": true,
+                "o": "ruinas"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "inscricao-salao",
+      "region": "ruinas",
+      "spot": "salao-ruinas",
+      "title": "Ler a frase gravada no salao",
+      "look": "Uma frase gravada corre pela parede do salao.",
+      "text": "Uma frase antiga corre pela parede: 'Aquele que esperou'.",
+      "perceive": {
+        "fact": {
+          "p": "rune-forge",
+          "s": "$self",
+          "private": true,
+          "o": "ruinas"
+        }
+      },
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "rune-wait",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "rune",
+          "text": "'Aquele que esperou': a mesma frase da lapide sem nome da capela. O ferreiro lendario esta ligado a esta vila.",
+          "if": {
+            "fact": {
+              "p": "nameless-grave",
+              "s": "$self",
+              "private": true,
+              "o": "vila"
+            }
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "legacy-link",
+            "s": "$self",
+            "private": true,
+            "o": "ruinas"
+          },
+          "if": {
+            "fact": {
+              "p": "nameless-grave",
+              "s": "$self",
+              "private": true,
+              "o": "vila"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "rune",
+          "text": "Parece um epitafio. Quem sabe onde mais essa frase aparece?",
+          "if": {
+            "not": {
+              "fact": {
+                "p": "nameless-grave",
+                "s": "$self",
+                "private": true,
+                "o": "vila"
               }
             }
           }

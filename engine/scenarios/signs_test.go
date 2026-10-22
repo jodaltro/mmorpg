@@ -286,3 +286,105 @@ func TestCoinGlintAppearsAfterMiningAndFindsTheCoin(t *testing.T) {
 		t.Fatal("the glint is gone once the coin is found")
 	}
 }
+
+// Landmarks: from another region a sign is only seen, never examined, and a
+// sign that depends on a hidden truth (the seal's glow, at night) gives that
+// truth away to anyone looking at the horizon, which is the point.
+func TestFarSignsAreLandmarksOnly(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	sg, ok := h.signs("p1")["torre-asterion"]
+	if !ok || !sg.Far {
+		t.Fatalf("the tower is seen from the village as a landmark: %+v", sg)
+	}
+	if err := h.act("player", "p1", "examinar", map[string]core.ID{"sign": "torre-asterion"}); err == nil {
+		t.Fatal("a landmark cannot be examined from afar")
+	}
+	for _, a := range h.w.Affordances(&h.s, "p1") {
+		if a.Action == "examinar" && a.Args["sign"] == "torre-asterion" {
+			t.Fatal("no affordance to examine what is far away")
+		}
+	}
+	h.tickUntilFact("seal-broken", "selo")
+	h.tickToHour(23)
+	if g, there := h.signs("p1")["selo-brilha"]; !there || !g.Far {
+		t.Fatal("once the seal breaks, its glow is a landmark at night")
+	}
+	h.tickToHour(12)
+	if _, there := h.signs("p1")["selo-brilha"]; there {
+		t.Fatal("by day the glow is not seen")
+	}
+	h.move("p1", "ruinas")
+	if g := h.signs("p1")["torre-asterion"]; g.Far {
+		t.Fatal("at the ruins the tower is right here")
+	}
+	h.mustAct("player", "p1", "examinar", map[string]core.ID{"sign": "torre-asterion"})
+}
+
+// A torch is a fact the game server confirms; it burns for a while. Only a lit
+// torch shows the draught in the dark gallery.
+func TestTorchBurnsThenGoesOutAndRevealsTheDraught(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.move("p1", "mina")
+	if _, there := h.signs("p1")["corrente-de-ar"]; there {
+		t.Fatal("no draught is felt in the dark")
+	}
+	h.mustAct("adapter", "p1", "acender-tocha", nil)
+	if err := h.act("adapter", "p1", "acender-tocha", nil); err == nil {
+		t.Fatal("one torch at a time")
+	}
+	if _, there := h.signs("p1")["corrente-de-ar"]; !there {
+		t.Fatal("the flame leans toward the wall")
+	}
+	h.mustAct("player", "p1", "examinar", map[string]core.ID{"sign": "corrente-de-ar"})
+	if _, ok := h.s.Facts["p1|tunnel-known|p1|ruinas"]; !ok {
+		t.Fatal("the passage becomes known")
+	}
+	h.tick(41)
+	if _, ok := h.s.Facts["p1|torch-lit|p1|"]; ok {
+		t.Fatal("the torch burned out")
+	}
+	if _, there := h.signs("p1")["corrente-de-ar"]; there {
+		t.Fatal("without the flame, no draught")
+	}
+	h.mustAct("adapter", "p1", "acender-tocha", nil)
+}
+
+// Asterion's writing is read bit by bit, and what you already carry decides
+// what the words mean.
+func TestRunesAreReadBitByBit(t *testing.T) {
+	read := func(h *harness, sign string) {
+		h.t.Helper()
+		h.mustAct("player", "p1", "examinar", map[string]core.ID{"sign": core.ID(sign)})
+	}
+	linked := func(h *harness) bool { _, ok := h.s.Facts["p1|legacy-link|p1|ruinas"]; return ok }
+
+	h := load(t, "valdoria")
+	h.join("p1")
+	h.move("p1", "ruinas")
+	if _, there := h.signs("p1")["inscricao-salao"]; there {
+		t.Fatal("the hall's phrase is only noticed after the entrance")
+	}
+	read(h, "inscricao-entrada")
+	if linked(h) {
+		t.Fatal("without Brom's anvil mark, the symbols mean nothing yet")
+	}
+	if _, there := h.signs("p1")["inscricao-salao"]; !there {
+		t.Fatal("the entrance opens the next inscription")
+	}
+	read(h, "inscricao-salao")
+	if linked(h) {
+		t.Fatal("without the nameless grave, the phrase is only an epitaph")
+	}
+
+	h2 := load(t, "valdoria")
+	h2.join("p1")
+	h2.s.Facts["p1|anvil-mark|p1|ruinas"] = core.Fact{Holder: "p1", P: "anvil-mark", S: "p1", O: "ruinas"}
+	h2.s.Facts["p1|nameless-grave|p1|vila"] = core.Fact{Holder: "p1", P: "nameless-grave", S: "p1", O: "vila"}
+	h2.move("p1", "ruinas")
+	read(h2, "inscricao-entrada")
+	if !linked(h2) {
+		t.Fatal("with the anvil mark, the entrance symbols are the same as Brom's")
+	}
+}
