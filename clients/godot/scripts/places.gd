@@ -5,42 +5,37 @@ extends RefCounted
 ## coordinates. What is actually possible comes from the engine's affordances;
 ## a point only says "these actions happen here" (or "about this landmark").
 
-# id, region, position, label, landmark it stands for (affordance "with") and
-# region-level actions it anchors.
 static var _pois: Array = []
+static var _anim: Dictionary = {}
+static var _loaded := false
 
 
-## Points of interest, placed relative to their region's origin.
+static func _load() -> void:
+	if _loaded:
+		return
+	_loaded = true
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/presentation.json"))
+	if not d is Dictionary:
+		push_error("data/presentation.json is missing or invalid")
+		return
+	_anim = d.get("anim", {})
+	for p in d.get("pois", []):
+		var rel: Array = p.rel
+		var e: Dictionary = p.duplicate()
+		e["at"] = Layout.ORIGIN[p.region] + Vector3(rel[0], rel[1], rel[2])
+		_pois.append(e)
+
+
+## Points of interest (data/presentation.json), placed relative to their region's origin.
 static func pois() -> Array:
-	if _pois.is_empty():
-		var o: Dictionary = Layout.ORIGIN
-		_pois = [
-			{"id": "poco", "region": "vila", "at": Vector3(0, 0, 0), "label": "Poco Antigo", "with": "poco"},
-			{"id": "carroca", "region": "vila", "at": Vector3(-9, 0, -4), "label": "Carroca da caravana", "actions": ["escoltar-caravana"]},
-			{"id": "telhado", "region": "vila", "at": Vector3(-16, 0, -8.3), "label": "Casa de telhado velho", "actions": ["consertar-telhado"]},
-			{"id": "banco", "region": "vila", "at": Vector3(-3, 0, 9.5), "label": "Banco da praca", "actions": ["descansar", "sonhar", "diagnosticar", "procurar-botoes", "acalmar-doentes", "trocar-magia"]},
-			{"id": "quadro", "region": "vila", "at": Layout.spot("taverna") + Vector3(3.4, 0, -0.2), "label": "Quadro de avisos", "actions": ["ler-quadro"]},
-			{"id": "sino", "region": "vila", "at": Vector3(-7, 0, 0), "label": "Sino da praca", "actions": ["tocar-sino"]},
-			{"id": "carga", "region": "estrada", "at": o.estrada + Vector3(-2.4, 0, -5.2), "label": "Carga revirada", "actions": ["recuperar-mercadorias"]},
-			{"id": "selo", "region": "floresta", "at": o.floresta + Vector3(16, 0, -16), "label": "Selo da Floresta", "with": "selo", "actions": ["seguir-rastro", "recuperar-reliquia", "plantar-mudas"]},
-			{"id": "ervas1", "region": "floresta", "at": o.floresta + Vector3(-8, 0, 9), "label": "Ervas", "actions": ["colher-ervas-campo"]},
-			{"id": "ervas2", "region": "floresta", "at": o.floresta + Vector3(8, 0, -5), "label": "Ervas", "actions": ["colher-ervas-campo"]},
-			{"id": "arbusto", "region": "floresta", "at": o.floresta + Vector3(22, 0, 14), "label": "Arbusto que se mexe", "actions": ["achar-crianca"]},
-			{"id": "veio1", "region": "mina", "at": o.mina + Vector3(-3, 0, -6), "label": "Veio de minerio", "actions": ["minerar"]},
-			{"id": "veio2", "region": "mina", "at": o.mina + Vector3(0, 0, 7), "label": "Veio de minerio", "actions": ["minerar"]},
-			{"id": "escombros", "region": "mina", "at": o.mina + Vector3(7, 0, -7), "label": "Escombros", "actions": ["resgatar-mineiro"]},
-			{"id": "salao", "region": "ruinas", "at": o.ruinas + Vector3(4, 0, 0), "label": "Escada para o salao", "actions": ["explorar-ruinas"]},
-		]
+	_load()
 	return _pois
 
 
-# Animation each kind of deed plays (Universal Animation Library clips).
-const ANIM := {"minerar": "TreeChopping", "forjar": "TreeChopping", "consertar-telhado": "TreeChopping",
-	"contribuir-obra": "TreeChopping", "forjar-lamina-proibida": "TreeChopping", "colher-ervas-campo": "Farm_Harvest",
-	"plantar-mudas": "Farm_PlantSeed", "resgatar-mineiro": "PickUp_Table", "recuperar-mercadorias": "Chest_Open",
-	"recuperar-reliquia": "Sword_Regular_C", "descansar": "Sitting_Enter", "sonhar": "Sitting_Enter",
-	"purificar-poco": "Spell_Simple_Shoot", "acalmar-doentes": "Spell_Simple_Shoot", "usar-florescer": "Spell_Simple_Shoot",
-	"trocar-magia": "Spell_Simple_Shoot", "ler-quadro": "Interact", "tocar-sino": "Interact", "receber-bencao": "Yes", "agradecer-elena": "Yes", "presentear-pipo": "Interact"}
+## The animation clip (Universal Animation Library) a deed plays.
+static func anim(action: String) -> String:
+	_load()
+	return _anim.get(action, "Interact")
 
 
 static func build(m) -> void:

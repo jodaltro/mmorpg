@@ -848,7 +848,7 @@ func _perform(a: Dictionary) -> void:
 	if npc_nodes.has(target):
 		var n: Actor = npc_nodes[target]
 		player.model.rotation.y = atan2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z)
-	player.play_once(Places.ANIM.get(a.action, "Interact"))
+	player.play_once(Places.anim(a.action))
 	var args: Dictionary = a.get("args", {})
 	var res: Dictionary
 	if a.origin == "adapter":
