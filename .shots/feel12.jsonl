@@ -1,0 +1,64 @@
+{"gap":0.0,"kind":"session","player":"ft-6964","t":0.0}
+{"ctx":"? script=0ms physics=0ms","gap":1.88,"kind":"hitch","ms":144.8,"t":1.88}
+{"ctx":"? script=64ms physics=29ms","gap":0.07,"kind":"hitch","ms":95.4,"t":1.95}
+{"ctx":"? script=64ms physics=29ms","gap":3.87,"kind":"hitch","ms":141.4,"t":5.82}
+{"gap":0.29,"kind":"discovered","place":"vila","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"tosse-na-praca","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"cenouras-roidas","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"luz-roxa","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"marca-bigorna","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"lapide-sem-nome","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"pegadas-nino","t":6.11}
+{"gap":0.0,"kind":"sign_seen","sign":"caravana-no-mercado","t":6.11}
+{"gap":0.01,"kind":"scene","sign":"caravana-no-mercado","t":6.12}
+{"gap":0.0,"kind":"scene","sign":"poeira-da-mina","t":6.12}
+{"ctx":"? script=3593ms physics=1ms","gap":1.49,"kind":"hitch","ms":146.2,"t":7.61}
+{"ctx":"? script=1021ms physics=0ms","gap":0.01,"kind":"hitch","ms":120.5,"t":7.62}
+{"chatter":"capela-canto","gap":5.88,"kind":"heard","t":13.5,"who":"elena"}
+{"chatter":"capela-canto","gap":0.0,"kind":"heard","t":13.5,"who":"elena"}
+{"chatter":"guarita-noite","gap":0.0,"kind":"heard","t":13.5,"who":"orin"}
+{"chatter":"guarita-noite","gap":0.0,"kind":"heard","t":13.5,"who":"orin"}
+{"gap":2.11,"kind":"region","place":"estrada","t":15.61}
+{"gap":2.89,"kind":"discovered","place":"estrada","t":18.5}
+{"ctx":"? script=17ms physics=0ms","gap":1.52,"kind":"hitch","ms":137.3,"t":20.02}
+{"gap":15.03,"kind":"region","place":"floresta","t":35.05}
+{"gap":4.78,"kind":"discovered","place":"floresta","t":39.83}
+{"gap":0.0,"kind":"sign_seen","sign":"selo-brilha","t":39.83}
+{"gap":23.82,"kind":"region","place":"mina","t":63.65}
+{"gap":1.19,"kind":"discovered","place":"mina","t":64.83}
+{"gap":0.0,"kind":"sign_seen","sign":"fumaca-kharum","t":64.83}
+{"gap":0.0,"kind":"sign_seen","sign":"poeira-da-mina","t":64.83}
+{"ctx":"? script=17ms physics=2ms","gap":1.03,"kind":"hitch","ms":146.6,"t":65.86}
+{"gap":12.3,"kind":"region","place":"ruinas","t":78.16}
+{"gap":2.54,"kind":"discovered","place":"ruinas","t":80.7}
+{"gap":0.0,"kind":"sign_seen","sign":"torre-asterion","t":80.7}
+{"gap":0.0,"kind":"sign_seen","sign":"inscricao-entrada","t":80.7}
+{"gap":12.56,"kind":"region","place":"estrada","t":93.26}
+{"gap":2.44,"kind":"scene","sign":"caravana-no-mercado","t":95.7}
+{"ctx":"? script=17ms physics=0ms","gap":1.5,"kind":"hitch","ms":133.6,"t":97.19}
+{"gap":7.84,"kind":"region","place":"vila","t":105.04}
+{"gap":1.99,"kind":"sign_seen","sign":"agua-turva","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"tosse-na-praca","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"cenouras-roidas","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"marca-bigorna","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"lapide-sem-nome","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"pegadas-nino","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"cancao-alvorada","t":107.03}
+{"gap":0.0,"kind":"sign_seen","sign":"caravana-no-mercado","t":107.03}
+{"ctx":"? script=17ms physics=0ms","gap":1.49,"kind":"hitch","ms":135.7,"t":108.51}
+{"ctx":"? script=1014ms physics=0ms","gap":0.02,"kind":"hitch","ms":119.8,"t":108.53}
+{"gap":13.24,"kind":"region","place":"toca","t":121.77}
+{"gap":1.47,"kind":"discovered","place":"toca","t":123.24}
+{"ctx":"? script=17ms physics=3ms","gap":1.75,"kind":"hitch","ms":150.0,"t":125.0}
+{"ctx":"? script=1014ms physics=0ms","gap":0.01,"kind":"hitch","ms":117.9,"t":125.0}
+{"gap":6.89,"kind":"region","place":"vila","t":131.9}
+{"gap":2.79,"kind":"sign_seen","sign":"tosse-na-praca","t":134.69}
+{"gap":0.0,"kind":"sign_seen","sign":"cenouras-roidas","t":134.69}
+{"gap":0.0,"kind":"sign_seen","sign":"marca-bigorna","t":134.69}
+{"gap":0.0,"kind":"sign_seen","sign":"lapide-sem-nome","t":134.69}
+{"gap":0.0,"kind":"sign_seen","sign":"pegadas-nino","t":134.69}
+{"gap":0.0,"kind":"sign_seen","sign":"caravana-no-mercado","t":134.69}
+{"gap":0.0,"kind":"scene","sign":"caravana-no-mercado","t":134.69}
+{"gap":0.0,"kind":"scene","sign":"poeira-da-mina","t":134.69}
+{"ctx":"? script=19ms physics=0ms","gap":1.5,"kind":"hitch","ms":147.4,"t":136.19}
+{"ctx":"? script=1017ms physics=0ms","gap":0.02,"kind":"hitch","ms":118.8,"t":136.2}

@@ -1,0 +1,38 @@
+{"gap":0.0,"kind":"session","player":"se-14911","t":0.0}
+{"ctx":"","gap":1.87,"kind":"hitch","ms":150.0,"t":1.87}
+{"ctx":"","gap":0.06,"kind":"hitch","ms":100.0,"t":1.94}
+{"gap":0.66,"kind":"discovered","place":"vila","t":2.59}
+{"gap":0.0,"kind":"sign_seen","sign":"tosse-na-praca","t":2.59}
+{"gap":0.0,"kind":"sign_seen","sign":"cenouras-roidas","t":2.59}
+{"gap":0.0,"kind":"sign_seen","sign":"marca-bigorna","t":2.59}
+{"gap":0.0,"kind":"sign_seen","sign":"lapide-sem-nome","t":2.59}
+{"gap":0.0,"kind":"scene","sign":"poeira-da-mina","t":2.6}
+{"gap":0.05,"kind":"slow_step","ms":42.2,"step":"_sync_enemies","t":2.65}
+{"ctx":"view","gap":1.02,"kind":"hitch","ms":72.2,"t":3.67}
+{"gap":0.01,"kind":"hint","t":3.68,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"ctx":"","gap":0.46,"kind":"hitch","ms":133.3,"t":4.14}
+{"ctx":"","gap":0.02,"kind":"hitch","ms":124.9,"t":4.15}
+{"gap":2.61,"kind":"hint","t":6.76,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"action":"ler-quadro","gap":0.24,"kind":"ack","ms":250.1,"t":7.0}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.0}
+{"action":"ler-quadro","gap":0.28,"kind":"ack","ms":183.2,"t":7.28}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.28}
+{"action":"ler-quadro","gap":0.27,"kind":"ack","ms":167.3,"t":7.55}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.55}
+{"action":"ler-quadro","gap":0.35,"kind":"ack","ms":250.4,"t":7.9}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.9}
+{"action":"ler-quadro","gap":0.27,"kind":"ack","ms":167.0,"t":8.16}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.16}
+{"action":"ler-quadro","gap":0.3,"kind":"ack","ms":200.9,"t":8.47}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.47}
+{"action":"ler-quadro","gap":0.33,"kind":"ack","ms":233.5,"t":8.8}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.8}
+{"action":"ler-quadro","gap":0.27,"kind":"ack","ms":167.3,"t":9.07}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":9.07}
+{"action":"ler-quadro","gap":0.27,"kind":"ack","ms":166.9,"t":9.33}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":9.33}
+{"action":"ler-quadro","gap":0.33,"kind":"ack","ms":233.6,"t":9.67}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":9.67}
+{"gap":0.33,"kind":"hint","t":10.0,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"gap":3.0,"kind":"hint","t":13.0,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"gap":3.0,"kind":"hint","t":16.0,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}

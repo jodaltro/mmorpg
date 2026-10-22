@@ -82,6 +82,16 @@ var nav_region: NavigationRegion3D
 var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
+var sfx: Sfx
+var _idle_open := false
+var _idle_started_ms := 0
+var _last_hint_ms := 0
+var _enemy_queue: Array = []
+var _camp_pending := {}
+var _npc_queue := {}  # people waiting to be built, one per frame
+var _ctx_ms := 0
+var _ctx := ""  # what the client just did, for the next hitch report
+var _last_input_ms := 0
 var _seen := {"seq": 0, "opening": false, "ceremony": false, "people": {}}  # what this character already lived through (user://)
 var _seen_saved_ms := 0
 var _all_names := {}  # entity id -> name, from the latest view
@@ -124,6 +134,10 @@ func _ready() -> void:
 		var kv := a.lstrip("-").split("=", true, 1)
 		_args[kv[0]] = kv[1] if kv.size() > 1 else "1"
 	_build_environment()
+	sfx = Sfx.new()
+	add_child(sfx)
+	if _args.has("autotest") and not _args.has("sound"):
+		AudioServer.set_bus_mute(0, true)  # tests run silently unless asked (--sound)
 	_build_world()
 	_build_player()
 	_build_camera()
@@ -149,6 +163,7 @@ func _ready() -> void:
 		_save_seen())
 	telemetry.open(String(_args.get("telemetry", "user://telemetry-%s.jsonl" % client.player_id)), client.player_id)
 	client.start()
+	_warm_up()
 	if _args.has("autotest"):
 		match String(_args.autotest):
 			"wolves":
@@ -191,6 +206,8 @@ func _ready() -> void:
 				_autotest_observador()
 			"outros":
 				_autotest_outros()
+			"sensacao":
+				_autotest_sensacao()
 			"monumento":
 				_autotest_monumento()
 			"marca":
@@ -200,6 +217,32 @@ func _ready() -> void:
 
 
 # --- world -----------------------------------------------------------------
+
+## Builds every kind of person and creature once, out of sight, so the first time one appears in play
+## the models and animations are already loaded (the first of each used to cost ~130 ms).
+func _warm_up() -> void:
+	var held: Array = []
+	for female in [false, true]:
+		for outfit in ["Peasant", "Ranger"]:
+			var a := Actor.new()
+			add_child(a)
+			a.visible = false
+			a.setup("warm", "warm", female, outfit == "Ranger", outfit)
+			held.append(a)
+	for kind in ["lobo", "javali", "bandido", "corrompido"]:
+		var e := Enemy.new()
+		add_child(e)
+		e.visible = false
+		e.configure(kind, "warm", Vector3(0, -50, 0), player)
+		held.append(e)
+	for id in ["caravana-no-mercado", "festival-de-lanternas", "feira-dos-magos", "peregrinos-na-capela", "poeira-da-mina", "tempestade-sobre-a-vila"]:
+		var sc := Scenes.build(self, id)
+		sc.visible = false
+		held.append(sc)
+	await get_tree().process_frame
+	for h in held:
+		h.queue_free()
+
 
 func _scene(path: String) -> PackedScene:
 	if not _scenes.has(path):
@@ -625,6 +668,8 @@ func _region_zone(id: String, pos: Vector3, size: Vector3) -> void:
 		if b == player and region != id:
 			region = id
 			telemetry.note("region", {"place": id})
+			_ctx = "region:" + id
+			_ctx_ms = Time.get_ticks_msec()
 			client.move_region(id)
 			_sync_enemies())
 
@@ -725,6 +770,40 @@ func _build_camera() -> void:
 func _process(delta: float) -> void:
 	if player == null:
 		return
+	var speed2 := player.velocity.length()
+	var now_ms := Time.get_ticks_msec()
+	if speed2 > 1.5 or _lmb_held:
+		_last_input_ms = now_ms
+	if _idle_open and now_ms - _last_input_ms < 1000:
+		_idle_open = false
+		telemetry.note("idle_end", {"idle_s": snappedf((now_ms - _idle_started_ms) / 1000.0, 0.1)})
+	elif not _idle_open and now_ms - _last_input_ms > 20000:
+		_idle_open = true
+		_idle_started_ms = _last_input_ms
+		telemetry.note("idle_start", {})
+	_maybe_hint(now_ms)
+	if speed2 > 1.5 and not player.busy:
+		sfx.step_clock += delta * clampf(speed2 / 5.0, 0.8, 1.6)
+		if sfx.step_clock > 0.34:
+			sfx.step_clock = 0.0
+			sfx.play("step", -17.0, randf_range(0.85, 1.15))
+	if not _enemy_queue.is_empty():
+		var q: Dictionary = _enemy_queue.pop_front()
+		_camp_pending[q.camp] = maxi(0, int(_camp_pending.get(q.camp, 1)) - 1)
+		var t: Dictionary = THREATS.get(q.camp, {})
+		if t.get("region", "") == region and threat_on.get(q.camp, false):  # still relevant when its turn comes
+			_spawn_enemy(q.kind, q.camp, q.at)
+	if not _npc_queue.is_empty():
+		var qid: String = _npc_queue.keys()[0]
+		var q: Dictionary = _npc_queue[qid]
+		_npc_queue.erase(qid)
+		_spawn_npc(qid, q.o, q.target)
+	if delta > 0.05:  # a hitch: remember what was going on, and whether it was our script or the engine/GPU
+		var script_ms := Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0
+		var physics_ms := Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0
+		var fresh := Time.get_ticks_msec() - _ctx_ms < 400
+		telemetry.hitch(delta * 1000.0, "%s script=%.0fms physics=%.0fms" % [_ctx if fresh else "?", script_ms, physics_ms])
+		_ctx = ""
 	cam_rig.global_position = cam_rig.global_position.lerp((cam_focus if cam_focus else player).global_position, clampf(delta * 6.0, 0.0, 1.0))
 	_update_occlusion(delta)
 	_update_hud_world()
@@ -777,6 +856,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				hud.toggle_skills()
 			KEY_C:
 				hud.toggle_notebook()
+				sfx.play("open", -12.0)
 			KEY_T:
 				_light_torch()
 			KEY_M:
@@ -931,6 +1011,7 @@ func _menu_label(a: Dictionary) -> String:
 
 
 func _on_action_chosen(i: int) -> void:
+	sfx.play("click", -10.0)
 	if i < 0 or i >= _menu.size():
 		return
 	hud.hide_actions()
@@ -947,10 +1028,12 @@ func _perform(a: Dictionary) -> void:
 	player.play_once(Places.anim(a.action))
 	var args: Dictionary = a.get("args", {})
 	var res: Dictionary
+	var asked := Time.get_ticks_usec()
 	if a.origin == "adapter":
 		res = await client.occur(a.action, args)
 	else:
 		res = await client.act(a.action, args)
+	telemetry.ack((Time.get_ticks_usec() - asked) / 1000.0, a.action)
 	last_report = "%s:%s" % [a.action, "ok" if res.status == 200 else res.body.get("error", "sem resposta")]
 	telemetry.verb(a.action, res.status == 200)
 	if res.status == 200:
@@ -958,8 +1041,13 @@ func _perform(a: Dictionary) -> void:
 		for ev in res.body.get("events", []):
 			if ev.get("text", "") != "":
 				lines.append(ev.text)
+		if a.action == "examinar":
+			telemetry.note("examined", {"sign": a.get("args", {}).get("sign", "")})
 		if a.action == "examinar" and lines.size() > 0:
 			player.say(lines[0], 7.0)
+			sfx.play("chime", -9.0)
+		if a.action == "marcar" or a.action == "concordar":
+			sfx.play("mark", -8.0)
 		if a.action == "conversar" and npc_nodes.has(target) and lines.size() > 0:
 			npc_nodes[target].say(lines[0], 8.0)  # what they say to you, above their head
 		_log("[color=#9fdc7a]%s[/color]: %s" % [a.title, " / ".join(lines) if lines.size() > 0 else "feito"])
@@ -1229,6 +1317,7 @@ func attack(aimed := false) -> void:
 		combo = 0
 	var step: Dictionary = COMBO[combo % COMBO.size()]
 	combo += 1
+	sfx.play("swing", -9.0, 0.9 + 0.1 * (combo % 3))
 	last_attack_ms = now
 	var near := _nearest_enemy(3.5)
 	if near:  # aim assist: toward the closest enemy, unless the mouse points clearly elsewhere
@@ -1321,11 +1410,12 @@ func _sync_enemies() -> void:
 		var standing := false
 		for e in enemies:
 			standing = standing or e.camp == camp
-		if standing:
+		if standing or _camp_pending.get(camp, 0) > 0:
 			continue
 		var origin: Vector3 = REGION_ORIGIN[region]
-		for off in t.at:
-			_spawn_enemy(t.kind, camp, origin + Vector3(off.x, 0, off.y))
+		for off in t.at:  # one creature per frame: a whole camp at once is a visible stall
+			_enemy_queue.append({"kind": t.kind, "camp": camp, "at": origin + Vector3(off.x, 0, off.y)})
+		_camp_pending[camp] = t.at.size()
 		_log("[color=#ffb070]%s: %d inimigos a vista.[/color]" % [REGION_NAMES.get(region, region), t.at.size()])
 
 
@@ -1359,6 +1449,7 @@ func _respawn_later(camp: String) -> void:
 
 
 func _on_enemy_damaged(e: Enemy, amount: float) -> void:
+	sfx.play("hit", -6.0, randf_range(0.9, 1.1))
 	_float_text(e.global_position + Vector3(0, 2.3, 0), str(int(amount)), Color(1, 0.9, 0.35))
 
 
@@ -1501,9 +1592,14 @@ func _load_seen() -> void:
 
 
 func _save_seen() -> void:
+	var t_io := Time.get_ticks_usec()
 	var f := FileAccess.open(_seen_path(), FileAccess.WRITE)
 	if f:
 		f.store_string(JSON.stringify(_seen))
+		f = null  # close now
+	var io_ms := (Time.get_ticks_usec() - t_io) / 1000.0
+	if io_ms > 10.0 and _args.has("profile"):
+		telemetry.note("slow_io", {"what": "seen", "ms": snappedf(io_ms, 0.1)})
 
 
 ## Events worth telling someone back from a trip (talk, board and movement stay out).
@@ -1514,6 +1610,48 @@ func _recap_lines(v: Dictionary) -> Array:
 		if int(e.seq) > int(_seen.seq) and e.get("text", "") != "" and not skip.has(e.kind):
 			out.append(e.text)
 	return out.slice(maxi(0, out.size() - 6))
+
+
+## Someone who has found nothing new for a while gets a gentle nudge: an open question, or what to try.
+func _maybe_hint(now_ms: int) -> void:
+	if _args.has("autotest") and not _args.has("hints"):
+		return
+	if now_ms - maxi(telemetry.last_new_ms, _last_hint_ms) < int(float(_args.get("hint_after", 150)) * 1000.0) or hud.actions_open() or hud.notebook_panel.visible:
+		return
+	_last_hint_ms = now_ms
+	var data := _notebook_data(client.view)
+	var qs: Array = data.get("perguntas", [])
+	var text := ""
+	if not qs.is_empty():
+		text = "Uma pergunta em aberto: " + String(qs[qs.size() - 1 - (telemetry.hints % qs.size())])
+	elif not sign_nodes.is_empty():
+		text = "Algo chama a atencao por perto: chegue perto e aperte E."
+	else:
+		text = "Converse (E) com alguem, olhe o mapa nas bordas da tela ou abra o Caderno (C)."
+	telemetry.hints += 1
+	telemetry.note("hint", {"text": text})
+	hud.toast(text, Color(0.8, 0.92, 1.0))
+
+
+var _lap_t := 0
+
+
+## With --profile: report any step of handling a view that takes long.
+func _lap(step: String) -> void:
+	var now := Time.get_ticks_usec()
+	var ms := (now - _lap_t) / 1000.0
+	_lap_t = now
+	if _args.has("profile") and ms > 5.0:
+		telemetry.note("slow_step", {"step": step, "ms": snappedf(ms, 0.1)})
+
+
+## The end of a session, for the playtest report: what the person had found and was still wondering about.
+func _exit_tree() -> void:
+	if client == null or client.view.is_empty():
+		return
+	var data := _notebook_data(client.view)
+	telemetry.note("session_end", {"places": found_places.keys(), "clues": data.pistas.size(), "open_questions": data.perguntas.size(),
+		"people_known": data.pessoas.size(), "summary": telemetry.summary()})
 
 
 func _on_view(v: Dictionary) -> void:
@@ -1527,6 +1665,7 @@ func _on_view(v: Dictionary) -> void:
 				list.append({"id": id, "region": "vila", "spot": "praca", "title": id, "look": id, "far": false})
 		v["signs"] = list
 	var me: Dictionary = v.get("self", {})
+	_lap_t = Time.get_ticks_usec()
 	if not _synced:  # start where the engine says the character is
 		_synced = true
 		client.view_limit = 12
@@ -1543,27 +1682,44 @@ func _on_view(v: Dictionary) -> void:
 	for o in v.get("others", []):
 		names[o.id] = o.name
 	_sync_discovered(v)
+	_lap("_sync_discovered")
 	_all_names = {}
 	for o in v.get("others", []):
 		_all_names[o.id] = o.name
 	_sync_signs(v)
+	_lap("_sync_signs")
 	_remember_people(v)
+	_lap("_remember_people")
 	_sync_torch(v)
+	_lap("_sync_torch")
 	_sync_marks(v)
+	_lap("_sync_marks")
+	_ctx = "view"
+	_ctx_ms = Time.get_ticks_msec()
 	_sync_scenes(v)
+	_lap("_sync_scenes")
 	_sync_monuments(v)
+	_lap("_sync_monuments")
 	_sync_stigma(v)
+	_lap("_sync_stigma")
 	hud.set_notebook(_notebook_data(v))
+	_lap("hud.set_notebook")
 	hud.set_status(REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), int(v.get("hour", -1)), int(v.get("tick", 0)))
+	_lap("hud.set_status")
 	hud.set_quests(v.get("quests", []), int(v.get("tick", 0)), names, REGION_NAMES)
+	_lap("hud.set_quests")
 	hud.set_skills(v.get("skills", []))
+	_lap("hud.set_skills")
 	var givers := {}
 	for q in v.get("quests", []):
 		if q.state == "offered" and q.get("giver", "") != "":
 			givers[q.giver] = true
 	_sync_npcs(v)
+	_lap("_sync_npcs")
 	_sun(int(v.get("hour", -1)))
+	_lap("_sun")
 	var said := 0
+	var texts: Array = []
 	var newest := int(_seen.seq)
 	for e in v.get("events", []):
 		newest = maxi(newest, int(e.seq))
@@ -1573,6 +1729,8 @@ func _on_view(v: Dictionary) -> void:
 				_hear(e, said * 3.0)
 				said += 1
 				continue
+			if e.kind == "bell":
+				sfx.play("bell", -6.0)
 			for r in THREATS:
 				if e.kind == THREATS[r].get("event", "!"):
 					threat_on[r] = true
@@ -1580,13 +1738,18 @@ func _on_view(v: Dictionary) -> void:
 				elif e.kind == THREATS[r].get("end", "!") and not threat_forced.has(r):
 					threat_on[r] = false
 			if e.get("text", "") != "":
-				_log("[color=#c9b3ff]%s[/color]" % e.text)
+				texts.append(e.text)
+	for t in texts.slice(maxi(0, texts.size() - 4)):  # a burst (first view, a long absence) is not read line by line
+		_log("[color=#c9b3ff]%s[/color]" % t)
 	if newest != int(_seen.seq) and Time.get_ticks_msec() - _seen_saved_ms > 4000:
 		_seen.seq = newest
 		_seen_saved_ms = Time.get_ticks_msec()
 		_save_seen()
+	_lap("events")
 	_conditional_threats(v)
+	_lap("_conditional_threats")
 	_sync_enemies()
+	_lap("_sync_enemies")
 	for id in npc_nodes:
 		npc_nodes[id].set_marker("!" if givers.has(id) else "")
 
@@ -1701,6 +1864,8 @@ func _sync_torch(v: Dictionary) -> void:
 	if lit != torch_on:
 		torch_on = lit
 		hud.toast("A tocha crepita." if lit else "A tocha se apagou.", Color(1.0, 0.8, 0.5))
+		if lit:
+			sfx.play("torch", -8.0)
 		telemetry.note("torch", {"lit": lit})
 	if tunnel and passages.is_empty():
 		_make_passage(Layout.PASSAGE_GALLERY, Layout.PASSAGE_RUINS + Vector3(-2, 0, -1), "ruinas", "Passagem antiga: subir para as ruinas")
@@ -1851,6 +2016,7 @@ func _sync_scenes(v: Dictionary) -> void:
 			scene_nodes.erase(id)
 			if id == "tempestade-sobre-a-vila":
 				storm_on = false
+				sfx.stop_loop("rain")
 				_sun(int(client.view.get("hour", 12)))
 	for id in now:
 		if scene_nodes.has(id):
@@ -1864,11 +2030,13 @@ func _sync_scenes(v: Dictionary) -> void:
 		telemetry.note("scene", {"sign": id})
 		if id == "tempestade-sobre-a-vila":
 			storm_on = true
+			sfx.loop("rain", -24.0)
 			_sun(int(client.view.get("hour", 12)))
 
 
 ## A streak across the sky, once.
 func _shooting_star() -> void:
+	sfx.play("star", -10.0)
 	hud.toast("Uma estrela cadente risca o ceu.", Color(0.85, 0.92, 1.0))
 	var star := MeshInstance3D.new()
 	var sm := SphereMesh.new()
@@ -1982,6 +2150,7 @@ func _update_monument_plaques() -> void:
 		if _flash_left <= 0.0:
 			_flash_left = randf_range(5.0, 11.0)
 			env.ambient_light_energy = 2.4
+			get_tree().create_timer(randf_range(0.3, 1.0)).timeout.connect(func() -> void: sfx.play("thunder", -4.0))
 			get_tree().create_timer(0.12).timeout.connect(func() -> void: _sun(int(client.view.get("hour", 12))))
 
 
@@ -2191,6 +2360,9 @@ func _sync_npcs(v: Dictionary) -> void:
 		if not here.has(id):
 			npc_nodes[id].queue_free()
 			npc_nodes.erase(id)
+	for id in _npc_queue.keys():
+		if not here.has(id):
+			_npc_queue.erase(id)
 	for id in here:
 		var o: Dictionary = here[id]
 		var target := _npc_target(o, i)
@@ -2206,26 +2378,31 @@ func _sync_npcs(v: Dictionary) -> void:
 				n.walk_to(target, false)  # the day moves people: they walk to the next place
 			continue
 		i += 1
-		var is_player: bool = o.kind == "player"
-		var spec: Dictionary = NPCS.get(id, {})
-		var npc := Actor.new()
-		add_child(npc)
-		npc.setup(id, o.name.split(",")[0], spec.get("female", false), id == "orin" or id == "sora", "Ranger" if id == "orin" or id == "sora" or id == "kael" else "Peasant")
-		npc.idle_clip = "Idle_Talking" if id == "tomas" else "Idle"
-		npc.set_meta("base_name", o.name.split(",")[0])
-		npc.set_meta("spot", o.get("spot", ""))
-		npc.set_meta("target", target)
-		npc.set_meta("doing", o.get("doing", ""))
-		npc.set_meta("knows", bool(o.get("knowsYou", false)))
-		npc.set_meta("title", o.get("title", ""))
-		if is_player:
-			npc.set_meta("player", true)
-			npc.label.modulate = Color(0.6, 0.82, 1.0)
-		npc.idle_clip = "Sitting_Idle" if o.get("doing", "") == "dormindo" else npc.idle_clip
-		npc.play(npc.idle_clip)
-		npc.position = target
-		npc.model.rotation.y = atan2(-target.x, -target.z)
-		npc_nodes[id] = npc
+		_npc_queue[id] = {"o": o, "target": target}  # one new person per frame: a whole village arriving at once would stall
+
+
+## Builds one person from the engine's description of them.
+func _spawn_npc(id: String, o: Dictionary, target: Vector3) -> void:
+	var is_player: bool = o.kind == "player"
+	var spec: Dictionary = NPCS.get(id, {})
+	var npc := Actor.new()
+	add_child(npc)
+	npc.setup(id, o.name.split(",")[0], spec.get("female", false), id == "orin" or id == "sora", "Ranger" if id == "orin" or id == "sora" or id == "kael" else "Peasant")
+	npc.idle_clip = "Idle_Talking" if id == "tomas" else "Idle"
+	npc.set_meta("base_name", o.name.split(",")[0])
+	npc.set_meta("spot", o.get("spot", ""))
+	npc.set_meta("target", target)
+	npc.set_meta("doing", o.get("doing", ""))
+	npc.set_meta("knows", bool(o.get("knowsYou", false)))
+	npc.set_meta("title", o.get("title", ""))
+	if is_player:
+		npc.set_meta("player", true)
+		npc.label.modulate = Color(0.6, 0.82, 1.0)
+	npc.idle_clip = "Sitting_Idle" if o.get("doing", "") == "dormindo" else npc.idle_clip
+	npc.play(npc.idle_clip)
+	npc.position = target
+	npc.model.rotation.y = atan2(-target.x, -target.z)
+	npc_nodes[id] = npc
 
 
 ## Where an NPC or another player stands: its spot if the engine names one, else a fixed place in the region.
@@ -2326,7 +2503,8 @@ func _update_hud_world() -> void:
 
 func _log(bb: String) -> void:
 	hud.add_log(bb)
-	print("LOG ", bb)
+	if _args.has("verbose"):
+		print("LOG ", bb)  # console output is slow on Windows: only when asked
 
 
 # --- automated check ---------------------------------------------------------
@@ -2695,6 +2873,56 @@ func _autotest_cenas() -> void:
 
 
 var _marks_of := ""  # tests: only the marks left by this author count
+
+
+## F7 feel checks: sounds exist, menus never stop movement, the engine answers fast, nothing stalls, a stuck player gets a hint.
+func _autotest_sensacao() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	ok["cues"] = sfx.cue_count()
+	for cue in ["click", "step", "swing", "hit", "chime", "bell", "thunder", "torch", "mark", "open", "rain", "star"]:
+		ok["cue_" + cue] = sfx.has_cue(cue)
+	# menus are not modal: with the action menu open, WASD still walks
+	await open_place_menu()
+	var open_before := hud.actions_open()
+	var p0 := player.global_position
+	Input.parse_input_event(_key(KEY_W))
+	await get_tree().create_timer(0.8).timeout
+	var up := _key(KEY_W)
+	up.pressed = false
+	Input.parse_input_event(up)
+	ok["menu_open_while_walking"] = open_before and hud.actions_open()
+	ok["moved_m_with_menu_open"] = snappedf(player.global_position.distance_to(p0), 0.1)
+	hud.hide_actions()
+	hud.toggle_notebook()
+	var p1 := player.global_position
+	Input.parse_input_event(_key(KEY_S))
+	await get_tree().create_timer(0.8).timeout
+	var up2 := _key(KEY_S)
+	up2.pressed = false
+	Input.parse_input_event(up2)
+	ok["moved_m_with_notebook_open"] = snappedf(player.global_position.distance_to(p1), 0.1)
+	hud.toggle_notebook()
+	# the engine answers quickly: ten confirmed actions
+	for i in 10:
+		await _perform({"action": "ler-quadro", "origin": "player", "title": "Ler o quadro"})
+		await get_tree().create_timer(0.1).timeout
+	var s1 := telemetry.summary()
+	ok["ack_p50_ms"] = s1.ack_p50_ms
+	ok["ack_p95_ms"] = s1.ack_p95_ms
+	ok["acks"] = s1.acks
+	# a stuck player: nothing new for hint_after seconds
+	var hints0 := telemetry.hints
+	await get_tree().create_timer(float(_args.get("hint_after", 150)) + 4.0).timeout
+	ok["hint_given"] = telemetry.hints > hints0
+	var s2 := telemetry.summary()
+	ok["hitches"] = s2.hitches
+	ok["worst_frame_ms"] = s2.worst_frame_ms
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
 
 
 func _my_marks() -> Array:
@@ -3134,6 +3362,8 @@ func _autotest_tour() -> void:
 		ok[st[0]] = {"s": snappedf((Time.get_ticks_msec() - t) / 1000.0, 0.1), "near": player.global_position.distance_to(st[1]) < 3.0,
 			"region": client.view.get("self", {}).get("region", "?")}
 	ok["found"] = found_places.keys()
+	ok["path_queries"] = {"n": Actor.plan_count, "avg_ms": snappedf(Actor.plan_ms_total / maxf(Actor.plan_count, 1), 0.1), "max_ms": snappedf(Actor.plan_ms_max, 0.1)}
+	ok["telemetry"] = telemetry.summary()
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 

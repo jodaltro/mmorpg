@@ -1,0 +1,58 @@
+{"gap":0.0,"kind":"session","player":"se-18743","t":0.0}
+{"ctx":"","gap":1.87,"kind":"hitch","ms":147.1,"t":1.87}
+{"ctx":"","gap":0.06,"kind":"hitch","ms":93.6,"t":1.94}
+{"gap":0.62,"kind":"discovered","place":"vila","t":2.55}
+{"gap":0.0,"kind":"sign_seen","sign":"tosse-na-praca","t":2.56}
+{"gap":0.0,"kind":"sign_seen","sign":"cenouras-roidas","t":2.56}
+{"gap":0.0,"kind":"sign_seen","sign":"marca-bigorna","t":2.56}
+{"gap":0.0,"kind":"sign_seen","sign":"lapide-sem-nome","t":2.56}
+{"gap":0.09,"kind":"slow_step","ms":82.9,"step":"_conditional_threats","t":2.64}
+{"gap":0.05,"kind":"slow_step","ms":47.2,"step":"_sync_enemies","t":2.69}
+{"ctx":"view","gap":1.03,"kind":"hitch","ms":135.0,"t":3.72}
+{"gap":0.01,"kind":"hint","t":3.73,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"ctx":"","gap":0.46,"kind":"hitch","ms":131.6,"t":4.19}
+{"ctx":"","gap":0.02,"kind":"hitch","ms":118.4,"t":4.2}
+{"gap":2.54,"kind":"hint","t":6.74,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"action":"ler-quadro","gap":0.07,"kind":"ack","ms":266.6,"t":6.81}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":6.81}
+{"gap":0.19,"kind":"slow_step","ms":58.4,"step":"_conditional_threats","t":7.0}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":68.1,"t":7.01}
+{"action":"ler-quadro","gap":0.01,"kind":"ack","ms":126.5,"t":7.02}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.02}
+{"gap":0.19,"kind":"slow_step","ms":60.2,"step":"_conditional_threats","t":7.2}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":64.0,"t":7.21}
+{"action":"ler-quadro","gap":0.15,"kind":"ack","ms":250.5,"t":7.36}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.36}
+{"action":"ler-quadro","gap":0.22,"kind":"ack","ms":116.7,"t":7.58}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.58}
+{"gap":0.12,"kind":"slow_step","ms":76.8,"step":"_conditional_threats","t":7.69}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":80.7,"t":7.7}
+{"action":"ler-quadro","gap":0.14,"kind":"ack","ms":140.3,"t":7.84}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":7.84}
+{"gap":0.26,"kind":"slow_step","ms":121.0,"step":"_conditional_threats","t":8.1}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":139.6,"t":8.11}
+{"action":"ler-quadro","gap":0.01,"kind":"ack","ms":188.3,"t":8.12}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.12}
+{"gap":0.19,"kind":"slow_step","ms":56.0,"step":"_conditional_threats","t":8.3}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":61.0,"t":8.31}
+{"action":"ler-quadro","gap":0.05,"kind":"ack","ms":150.4,"t":8.36}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.36}
+{"gap":0.19,"kind":"slow_step","ms":54.8,"step":"_conditional_threats","t":8.55}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":56.1,"t":8.56}
+{"action":"ler-quadro","gap":0.07,"kind":"ack","ms":184.1,"t":8.63}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.63}
+{"gap":0.19,"kind":"slow_step","ms":52.5,"step":"_conditional_threats","t":8.81}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":54.3,"t":8.82}
+{"action":"ler-quadro","gap":0.07,"kind":"ack","ms":183.8,"t":8.89}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":8.89}
+{"gap":0.19,"kind":"slow_step","ms":54.1,"step":"_conditional_threats","t":9.08}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":55.9,"t":9.09}
+{"action":"ler-quadro","gap":0.07,"kind":"ack","ms":183.3,"t":9.16}
+{"action":"ler-quadro","gap":0.0,"kind":"verb","ok":true,"t":9.16}
+{"gap":0.19,"kind":"slow_step","ms":54.4,"step":"_conditional_threats","t":9.35}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":55.9,"t":9.36}
+{"gap":0.45,"kind":"hint","t":9.81,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"gap":3.0,"kind":"hint","t":12.81,"text":"Algo chama a atencao por perto: chegue perto e aperte E."}
+{"gap":2.21,"kind":"slow_step","ms":74.6,"step":"_conditional_threats","t":15.03}
+{"ctx":"view","gap":0.01,"kind":"hitch","ms":76.1,"t":15.03}
+{"gap":0.78,"kind":"hint","t":15.82,"text":"Uma pergunta em aberto: Alguem ou algo envenenou o poco. Quem?"}

@@ -34,6 +34,10 @@ Vestígios que o motor diz que o personagem pode perceber aparecem no mundo (`E`
 
 O personagem novo chega pela estrada (o cliente pede `join` com `region: estrada`), com título "Ninguém sabe o seu nome", mapa só com o lugar de chegada e sem missões até fazer algo. A primeira janela do Sistema vem com uma cerimônia curta. Ao voltar, um resumo "Enquanto você esteve fora" lista o que aconteceu desde a última visita (estado em `user://seen-<jogador>.json`). `--autotest=arrival` percorre isso (flags `--opening`, `--ceremony`, `--recap` mostram as telas que os autotestes normalmente omitem; `--arrival=vila` muda o lugar de chegada).
 
+## Playtest e sensação
+
+`Docs/Playtest.md` e `tools/playtest_report.py` (lê o registro `--telemetry=...`). Flags úteis: `--profile` (passos lentos), `--verbose` (log no console), `--hints --hint_after=N` (dicas), `--sound` (liga o som nos autotestes). `--autotest=sensacao` confere sons, menus que não travam o movimento, tempo de resposta e dicas.
+
 ## Combate e o motor
 
 O combate (vida, dano, IA) é papel do servidor de jogo; neste spike o cliente faz esse papel. O motor só ouve resultados confirmados: os bandidos aparecem na região `estrada` quando o mundo emite o evento público `bandits` (somem em `bandits-left`) e as criaturas corrompidas na vila com `wolves`/`wolves-left`. Ao cair o último inimigo do grupo, o cliente reporta `enfrentar-bandidos` ou `cacar-lobos` como `adapter`, e o motor aceita ou recusa conforme a verdade do mundo.

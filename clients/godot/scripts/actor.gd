@@ -10,6 +10,9 @@ const LOOPS := ["Idle", "Walk", "Jog_Fwd", "Sprint", "Sword_Idle", "Idle_Talking
 	"Crouch_Idle", "Sitting_Idle", "Idle_Shield", "Idle_Lantern", "Zombie_Idle", "Zombie_Walk_Fwd"]
 
 static var _library: AnimationLibrary
+static var plan_count := 0  # path queries and how long they took (for the feel report)
+static var plan_ms_total := 0.0
+static var plan_ms_max := 0.0
 static var nav_map: RID  # set once the navigation mesh is baked
 
 var entity_id := ""
@@ -212,9 +215,14 @@ func _plan() -> void:
 	path = PackedVector3Array()
 	path_i = 0
 	if nav_map.is_valid() and NavigationServer3D.map_get_iteration_id(nav_map) > 0:
+		var t_plan := Time.get_ticks_usec()
 		var g := NavigationServer3D.map_get_closest_point(nav_map, goal)
 		goal = Vector3(g.x, global_position.y, g.z)
 		path = NavigationServer3D.map_get_path(nav_map, global_position, goal, true)
+		var took := (Time.get_ticks_usec() - t_plan) / 1000.0
+		plan_count += 1
+		plan_ms_total += took
+		plan_ms_max = maxf(plan_ms_max, took)
 		if path.size() > 1 and Vector2(path[0].x - global_position.x, path[0].z - global_position.z).length() < 0.4:
 			path_i = 1
 
