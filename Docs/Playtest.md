@@ -17,7 +17,7 @@ Roteiro para rodar sessões com pessoas de verdade e medir os critérios de [Mvp
    Para sessões em dupla, abra as duas janelas no mesmo computador: o motor só aceita conexões do próprio computador (a origem ainda vem no corpo da requisição; ver `AGENTS.md`), então jogar em máquinas diferentes exige antes a autenticação, que ficou para depois.
 3. **Relatório** (depois que as pessoas fecharem o jogo; o fim da sessão só é gravado ao fechar):
    ```
-   powershell -File tools\playtesteport.ps1
+   powershell -File tools\playtest\report.ps1
    ```
    `join.ps1 -Name X -Smoke` só confere que o cliente liga ao motor e grava o registro (use antes de chamar alguém).
 
