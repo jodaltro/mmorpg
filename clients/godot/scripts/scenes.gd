@@ -127,10 +127,10 @@ static func _fair(m, root: Node3D) -> void:
 
 ## Candles in rows in front of the chapel.
 static func _pilgrims(m, root: Node3D) -> void:
-	var c: Vector3 = Layout.spot("capela") + Vector3(0, 0, 2.5)
+	var c: Vector3 = Layout.spot("capela") + Vector3(0, 0, -0.6)  # in front of the door (the chapel faces north)
 	for row in 3:
 		for i in 9:
-			var p := c + Vector3(-4.8 + i * 1.2, 0, row * 1.2)
+			var p := c + Vector3(-4.8 + i * 1.2, 0, -row * 1.2)
 			var candle := MeshInstance3D.new()
 			var cm := CylinderMesh.new()
 			cm.top_radius = 0.05
@@ -148,7 +148,7 @@ static func _pilgrims(m, root: Node3D) -> void:
 			flame.material_override = _mat(Color(1.0, 0.75, 0.3), 3.0)
 			flame.position = p + Vector3(0, 0.34, 0)
 			root.add_child(flame)
-	_glow(root, c + Vector3(0, 0.8, 1.2), Color(1.0, 0.75, 0.4), 0.0, 1.6, 9.0)
+	_glow(root, c + Vector3(0, 0.8, -1.2), Color(1.0, 0.75, 0.4), 0.0, 1.6, 9.0)
 
 
 ## Dust over the collapsed gallery, and rubble.

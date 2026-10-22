@@ -184,6 +184,12 @@ func _ready() -> void:
 				_autotest_fecho()
 			"surpresas":
 				_autotest_surpresas()
+			"cenas":
+				_autotest_cenas()
+			"observador":
+				_autotest_observador()
+			"monumento":
+				_autotest_monumento()
 			"marca":
 				_autotest_marca()
 			_:
@@ -1498,6 +1504,15 @@ func _recap_lines(v: Dictionary) -> Array:
 
 
 func _on_view(v: Dictionary) -> void:
+	if _args.has("fake_signs"):  # tests only: pretend these signs exist here, to check how their scenes look
+		var present := {}
+		for sg in v.get("signs", []):
+			present[sg.id] = true
+		var list: Array = v.get("signs", []).duplicate()
+		for id in String(_args.fake_signs).split(",", false):
+			if not present.has(id):
+				list.append({"id": id, "region": "vila", "spot": "praca", "title": id, "look": id, "far": false})
+		v["signs"] = list
 	var me: Dictionary = v.get("self", {})
 	if not _synced:  # start where the engine says the character is
 		_synced = true
@@ -2535,6 +2550,86 @@ func _autotest_surpresas() -> void:
 		await _go(Vector3(0, 0, -8.0), 40.0)
 		await get_tree().create_timer(1.0).timeout
 		await _shot("f5_monumentos")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F5 closing: how the festival, the pilgrims and a shooting star look (the signs are injected with --fake_signs).
+func _autotest_cenas() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(0.9).timeout
+	await _shot("f5c_1_estrela")
+	await get_tree().create_timer(2.0).timeout
+	var ok := {"scenes": scene_nodes.keys()}
+	await _go(Layout.spot("praca") + Vector3(0, 0, -1.0), 60.0)
+	await get_tree().create_timer(1.0).timeout
+	cam.size = 22.0
+	await _shot("f5c_2_festival")
+	await _go(Layout.spot("capela") + Vector3(0, 0, 4.5), 60.0)
+	await get_tree().create_timer(1.0).timeout
+	await _shot("f5c_3_peregrinos")
+	cam.size = 14.0
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F5 closing: a second client watches the first one carry the seal's mark.
+func _autotest_observador() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await _go(Layout.spot("praca") + Vector3(0, 0, 2.0), 60.0)
+	var ok := {"saw_other_player": false, "mark_seen": false}
+	var w := 0.0
+	var limit := float(_args.get("seconds", 330))
+	while w < limit and not ok["mark_seen"]:
+		await get_tree().create_timer(1.0).timeout
+		w += 1.0
+		for id in npc_nodes:
+			var n: Actor = npc_nodes[id]
+			if n.has_meta("player"):
+				ok["saw_other_player"] = true
+				if n.get_node_or_null("SealMark") != null:
+					ok["mark_seen"] = true
+					ok["who"] = id
+					await get_tree().create_timer(0.6).timeout
+					cam_focus = Node3D.new()
+					add_child(cam_focus)
+					cam_focus.global_position = n.global_position
+					cam.size = 7.0
+					await get_tree().create_timer(1.0).timeout
+					await _shot("f5o_marca_no_outro")
+	ok["waited_s"] = w
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F5 closing: really claim the first unique chapter ("seguir o rastro" at the seal) and see its monument.
+func _autotest_monumento() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	await _go(Layout.spot("selo-pedras") + Vector3(1.8, 0, 1.8), 150.0)
+	var res := await client.occur("seguir-rastro")
+	ok["follow_trail"] = res.status
+	var waited := 0.0
+	while waited < 40.0 and monuments.is_empty():  # the chapter is claimed on the next tick
+		await get_tree().create_timer(1.0).timeout
+		waited += 1.0
+	ok["claim_seen_after_s"] = waited
+	ok["monuments"] = monuments.keys()
+	var claimed := []
+	for st in client.view.get("story", []):
+		for ch in st.get("chronicle", []):
+			claimed.append("%s|%s by %s" % [st.arc, ch.beat, ch.get("by", [])])
+	ok["chronicle"] = claimed
+	await _go(Vector3(0, 0, -8.0), 150.0)
+	await get_tree().create_timer(1.0).timeout
+	await _shot("f5mo_monumento")
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 

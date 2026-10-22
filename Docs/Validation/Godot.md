@@ -284,3 +284,10 @@ Jev ligado; servidor com tick de 500 ms a 1,2 s para ver dias passarem.
 - **Monumentos** (`--fake_monuments`, só para teste): duas estátuas de bronze com placa ("A Bigorna Esquecida / por Brom, o ferreiro") aparecem numa fileira ao norte da praça, a partir da crônica pública de capítulos reivindicados. Captura conferida.
 - Regressão: `--autotest=board` e `--autotest=saber` passaram.
 **Não verificado no cliente:** festival de lanternas e peregrinos (as cenas existem e carregaram sem erro, mas não apareceram nas 200 s do teste); a estrela cadente (só o motor); monumento de um capítulo realmente reivindicado (o teste usou crônica simulada); a marca vista em outro jogador na tela (só o motor). Sem playtest e sem medição do Jev nesta fase. Os três critérios "em 3 sessões…" foram verificados no motor, não com pessoas.
+
+### 22/10/2026 — fecho dos itens da F5
+
+- **Festival, peregrinos e estrela cadente na tela** (`--autotest=cenas`, com `--fake_signs=` injetando os vestígios só no cliente, porque o diretor não os propõe de forma previsível; que o motor os mostra de verdade já é coberto pelos testes do motor): fitas e lanternas cruzando a praça, velas diante da capela (a primeira versão pôs as velas dentro da capela; corrigido para a frente da porta), e o aviso com a estrela riscando o céu. Capturas conferidas.
+- **Marca vista em outro jogador:** dois clientes ao mesmo tempo (Jev ligado, tick de 1,2 s): o jogador "Marcado" tocou as pedras do selo e o jogador "Observador", parado na praça, viu o outro com o orbe roxo brilhando na mão (`--autotest=observador`, `mark_seen: true`, captura conferida). O mesmo teste do marcado passou de novo: marca, Orin, Elena, lobo sem ataque, purificação.
+- **Monumento de um capítulo realmente reivindicado** (`--autotest=monumento`): `seguir-rastro` no selo fez o primeiro jogador reivindicar "A Origem da Maldição" (crônica pública: `maldicao|origem` por "Heroi"); um segundo jogador, entrando depois, viu a estátua de bronze na fileira ao norte da praça. Captura conferida.
+- **Ainda não verificado:** playtest com pessoas; a estrela cadente real (a espontânea, vinda do motor) na tela, só a injetada.
