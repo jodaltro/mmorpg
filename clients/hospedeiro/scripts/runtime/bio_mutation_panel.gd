@@ -19,11 +19,13 @@ func offer_text(index: int) -> String:
 	return _cards[index].text
 
 
-func show_offer(ids: Array) -> void:
+## `featured` is where the body leans (chosen by the engine's advisor from how the player lives).
+func show_offer(ids: Array, featured: StringName = &"") -> void:
 	for i in _cards.size():
 		if i < ids.size():
 			var gene := BioGeneCatalog.get_gene(ids[i])
-			_cards[i].text = "[%d]  %s\n\n%s" % [i + 1, gene.display_name, gene.summary().replace(" · ", "\n")]
+			var lean := "\n\n◆ o corpo pende para cá" if ids[i] == featured else ""
+			_cards[i].text = "[%d]  %s\n\n%s%s" % [i + 1, gene.display_name, gene.summary().replace(" · ", "\n"), lean]
 			_cards[i].get_parent().visible = true
 		else:
 			_cards[i].get_parent().visible = false
@@ -35,6 +37,11 @@ func hide_offer() -> void:
 
 
 func refresh(genome: BioGenome, tracker: BioMutationTracker) -> void:
+	var fraction := 1.0 if tracker.has_offer() else float(tracker.pressure) / BioMutationTracker.THRESHOLD
+	refresh_values(genome, fraction)
+
+
+func refresh_values(genome: BioGenome, fraction: float) -> void:
 	var lines: Array[String] = ["GENES  (%d/%d)" % [genome.equipped.size(), BioGenome.SLOTS]]
 	for id in genome.equipped:
 		var gene := BioGeneCatalog.get_gene(id)
@@ -42,7 +49,6 @@ func refresh(genome: BioGenome, tracker: BioMutationTracker) -> void:
 	if genome.equipped.is_empty():
 		lines.append("nenhum — coma e derrote vírus")
 	_genes_label.text = "\n".join(lines)
-	var fraction := 1.0 if tracker.has_offer() else float(tracker.pressure) / BioMutationTracker.THRESHOLD
 	_pressure_fill.size.x = _pressure_width * clampf(fraction, 0.0, 1.0)
 
 
@@ -97,7 +103,7 @@ func _ready() -> void:
 	_offer_root.add_child(title)
 	for i in 3:
 		var card := ColorRect.new()
-		card.color = Color(0.05, 0.08, 0.16, 0.92)
+		card.color = Color(0.06, 0.09, 0.18, 1.0)
 		card.size = CARD_SIZE
 		card.position = Vector2((i - 1.5) * (CARD_SIZE.x + 20) + 10, -CARD_SIZE.y * 0.5)
 		card.mouse_filter = Control.MOUSE_FILTER_IGNORE

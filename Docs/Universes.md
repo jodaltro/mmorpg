@@ -91,3 +91,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`spots[].near`**: lugares vizinhos (a praça, o poço e o mercado; o portão e a guarita; a horta e a casa de Mira). Quem está num lugar nota o que acontece nele e nos vizinhos.
 - **Testemunhas:** só notam o que o jogador faz as pessoas acordadas (`doing` diferente de `dormindo`) perto do `spot` dele, mais quem ele endereça. Sem `spot` reportado, todos os acordados da região (regra antiga).
 - **Boatos (`gossip`)** passam **só entre quem se encontra** (mesmo `spot` ou vizinho; quem não tem `spot` encontra todos da região). `gossip.slow` dá, por predicado, a chance em milésimos de a notícia pegar numa rodada (`met`: 350). Como cada NPC tem a sua rotina, quem conhece o jogador depende de quem cruzou com quem.
+
+## Evolução (Hospedeiro)
+
+- **`evolution`** (`pressure`, `threshold`, `offer` padrão 3, `slots` padrão 3) e **`mutations`** (`{id, name, desc, rarity, tags, eligible}`, com `$self` = jogador). As ações do universo somam a pressão, um número do jogador (ex.: `{"op":"adjust","e":"$self","k":"pressao","d":3}`), e suas `tags` ensinam o caminho (estilo) do jogador.
+- Quando a pressão chega ao `threshold`, o motor reúne as mutações válidas que o jogador não expressa. Se houver mais do que cabem na oferta, cria uma decisão **`evolution`**: o Jev escolhe para onde o corpo pende, lendo o perfil (estilo aprendido pelos feitos, genes, missões, crenças); o padrão no prazo é a mutação mais alinhada ao estilo (`fit` = soma do estilo nas `tags`). A oferta é a escolhida (destaque) mais as que melhor combinam; a pressão gasta o `threshold`.
+- O jogador escolhe com o verbo **`evoluir`** (`args: {gene}`) ou recusa com **`recusar-evolucao`**. Escolher reforça as `tags` da mutação; com os espaços cheios, o gene mais antigo é reabsorvido; uma oferta recusada não volta logo. Os dois ids são reservados.

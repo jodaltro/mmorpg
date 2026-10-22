@@ -108,7 +108,7 @@ type Option struct {
 // The world never waits for it: at Due the Default applies.
 type Decision struct {
 	ID      string   `json:"id"`
-	Kind    string   `json:"kind"` // offer | story
+	Kind    string   `json:"kind"` // offer | story | world | evolution
 	Subject string   `json:"subject"`
 	Options []Option `json:"options"`
 	Default string   `json:"default"`
@@ -133,12 +133,13 @@ type State struct {
 	Decisions map[string]Decision      `json:"decisions"`
 	Cooldowns map[string]Tick          `json:"cooldowns"`
 	Receipts  map[string]int64         `json:"receipts"`
-	Relations map[string]int64         `json:"relations"` // "a|b": what a feels about b
-	Styles    map[ID]map[string]int64  `json:"styles"`    // play style learned per player
-	Tension   int64                    `json:"tension"`   // world tension for pacing
-	Skills    map[ID]map[string]Tick   `json:"skills"`    // learned skills and when
-	Deeds     map[ID]map[string]int64  `json:"deeds"`     // how often each player did each thing
-	Marks     []Mark                   `json:"marks"`     // symbols travellers left in places
+	Relations map[string]int64         `json:"relations"`         // "a|b": what a feels about b
+	Styles    map[ID]map[string]int64  `json:"styles"`            // play style learned per player
+	Tension   int64                    `json:"tension"`           // world tension for pacing
+	Skills    map[ID]map[string]Tick   `json:"skills"`            // learned skills and when
+	Deeds     map[ID]map[string]int64  `json:"deeds"`             // how often each player did each thing
+	Marks     []Mark                   `json:"marks"`             // symbols travellers left in places
+	Genomes   map[ID]Genome            `json:"genomes,omitempty"` // expressed genes and pending mutation offers
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -208,6 +209,11 @@ func (s *State) Clone() State {
 	for k, v := range s.Skills {
 		c.Skills[k] = maps.Clone(v)
 	}
+	c.Genomes = make(map[ID]Genome, len(s.Genomes))
+	for k, g := range s.Genomes {
+		g.Genes, g.Offer, g.Declined = slices.Clone(g.Genes), slices.Clone(g.Offer), slices.Clone(g.Declined)
+		c.Genomes[k] = g
+	}
 	c.Marks = slices.Clone(s.Marks)
 	for i := range c.Marks {
 		c.Marks[i].Agree = slices.Clone(c.Marks[i].Agree)
@@ -225,7 +231,7 @@ func NewState(w *World) State {
 	s := State{Universe: u.ID, Entities: map[ID]Entity{}, Facts: map[string]Fact{}, Beliefs: map[ID]map[string]Belief{},
 		Arcs: map[string]ArcState{}, Quests: map[string]Quest{}, Declined: map[string]Tick{}, Decisions: map[string]Decision{},
 		Cooldowns: map[string]Tick{}, Receipts: map[string]int64{}, Events: []Event{}, Schedules: []Scheduled{},
-		Relations: map[string]int64{}, Styles: map[ID]map[string]int64{}, Skills: map[ID]map[string]Tick{}, Deeds: map[ID]map[string]int64{}, Marks: []Mark{}}
+		Relations: map[string]int64{}, Styles: map[ID]map[string]int64{}, Skills: map[ID]map[string]Tick{}, Deeds: map[ID]map[string]int64{}, Marks: []Mark{}, Genomes: map[ID]Genome{}}
 	for _, e := range u.Entities {
 		s.Entities[e.ID] = newEntity(e)
 	}

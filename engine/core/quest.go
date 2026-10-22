@@ -517,6 +517,10 @@ func (w *World) decide(s *State, d Decision, choice string, meta map[string]stri
 			return err
 		}
 		delete(s.Decisions, d.ID)
+	case "evolution":
+		if err := w.decideMutation(s, d, choice, cause); err != nil {
+			return err
+		}
 	}
 	data := map[string]string{"decision": d.ID, "kind": d.Kind, "subject": d.Subject, "choice": choice, "default": d.Default}
 	for k, v := range meta {
@@ -537,8 +541,8 @@ func (w *World) decideDefault(s *State, d Decision, cause string) {
 		w.setBeat(s, d.Subject, d.Options[0].ID)
 		return
 	}
-	if d.Kind == "world" {
-		return // nothing still valid: the director tries again next time
+	if d.Kind == "world" || d.Kind == "evolution" {
+		return // nothing still valid: tried again on a later tick
 	}
 	// The world moved on while the decision was pending: offer the first
 	// option that is still valid, else any current candidate, so a fast

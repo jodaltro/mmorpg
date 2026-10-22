@@ -39,7 +39,7 @@ go run ./cmd/worldsim serve -universe ../universes/hospedeiro/universe.json -dat
 - O motor decide missões e história. Células como Osteia (estroma), Neva (neutrófila) e Dendra (dendrítica) só chamam quem já viram agir. Nada é oferecido antes do seu primeiro feito.
 - O corpo vive sozinho: surtos virais, febre (vírions lentos), refeições (glicose no sangue), sono (tudo escurece). O Jev escolhe os acontecimentos.
 - Conhecimento muda o mundo: destruir um vírion ensina o "rosto" dele. Contar à Dendra arma as defesas do sangue. Conhecer o vírion também permite decifrar o fragmento de código que aparece no nicho (cenário único: só a primeira célula recebe o título).
-- Genes descobertos por hábito (Cílios Ágeis, Enzima Voraz, Flagelo Calejado) são expressos no corpo se houver espaço no genoma.
+- **Evoluir é o objetivo de todo jogador.** Cada feito confirmado (vírion destruído, nutriente, esquiva, código decifrado) soma pressão evolutiva e ensina o seu caminho (combate, metabolismo, resistência, exploração, conhecimento). Quando a pressão estoura, o motor oferece 3 mutações; o Jev escolhe para onde o seu corpo pende (marcada com ◆) lendo como você vive. Você escolhe com 1, 2, 3 ou recusa com X. Escolher aprofunda o caminho; o genoma tem 3 espaços e o gene mais antigo é reabsorvido.
 
 ## Arquivos
 

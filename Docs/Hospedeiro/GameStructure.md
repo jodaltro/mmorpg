@@ -270,7 +270,7 @@ O Jev **nunca** decide números de combate, nunca bloqueia o combate e nunca inv
 | **H1** | Universo `hospedeiro` mínimo: Medula + Sangue, 10 células NPC, 6 missões, 4 acontecimentos, o arco A Reescrita (capítulo 1); o cliente Godot conectado |
 | **H2** | Diferenciação mieloide × linfoide (2 linhagens jogáveis cada) e epigenética nos nichos |
 | **H3** | Primeira masmorra: granuloma, com geração por pedaços e semente do motor |
-| **H4** | Decisões `evolution` e `dungeon` no motor e no Jev, medidas ao vivo |
+| **H4** | **Parte feita**: decisão `evolution` no motor e no Jev, medida ao vivo (o Jev lê como o jogador vive e escolhe para onde o corpo pende). Falta `dungeon` |
 | **H5** | Cooperativo: servidor de jogo Godot headless para 4 jogadores |
 | **H6** | Cérebro: neurônios, telepatia, barreira hematoencefálica como cenário único |
 | **H7** | Partição por órgãos e temporadas |

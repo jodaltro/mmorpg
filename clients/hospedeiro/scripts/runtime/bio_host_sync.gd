@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "join", "moved", "quest-offered", "quest-active", "quest-expired"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -27,7 +27,6 @@ var _world: BioWorld
 var _residents := {}  # entity id -> BioResident
 var _signs := {}  # sign id -> BioSignMarker
 var _names := {}  # entity id -> display name
-var _known_skills := {}
 var _last_seq := -1
 
 
@@ -55,6 +54,9 @@ func _ready() -> void:
 	_world.nutrient_absorbed.connect(func() -> void:
 		if link.online:
 			link.occur("absorver-nutriente"))
+	_world.evaded.connect(func() -> void:
+		if link.online:
+			link.occur("esquivar"))
 	system.set_region(_world.region)
 
 
@@ -130,7 +132,8 @@ func apply_view(view: Dictionary) -> void:
 	_apply_signs(view.get("signs", []))
 	_apply_beliefs(view.get("beliefs", []))
 	_apply_events(view.get("events", []))
-	_apply_skills(view.get("skills", []))
+	if view.has("evolution") and view["evolution"] is Dictionary:
+		_world.apply_engine_evolution(view["evolution"])
 
 
 func _apply_quests(quests: Array) -> void:
@@ -226,23 +229,14 @@ func _apply_events(events: Array) -> void:
 				_world.spawn_meal(10)
 			"surto":
 				_world.spawn_outbreak(3)
-
-
-func _apply_skills(skills: Array) -> void:
-	for sk in skills:
-		var id := str(sk.get("id", ""))
-		if id.is_empty() or _known_skills.has(id):
-			continue
-		_known_skills[id] = true
-		var gene := StringName(id.replace("-", "_"))
-		if _world.discover_gene(gene):
-			system.push_feed("Gene descoberto e expresso: %s" % sk.get("name", id))
-		elif not _world.genome.has_gene(gene):
-			system.push_feed("Gene descoberto: %s (sem espaço livre no genoma)" % sk.get("name", id))
+			"mutated":
+				system.push_feed("Seu corpo expressa um novo gene: %s" % e.get("text", ""))
 
 
 func _on_status(online: bool) -> void:
 	system.set_status(online, 0)
+	if not online:
+		_world.release_engine_evolution()
 	system.push_feed("Conectado ao Hospedeiro." if online else "Conexão perdida: o corpo segue offline.")
 
 

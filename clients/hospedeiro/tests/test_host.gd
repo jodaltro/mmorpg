@@ -88,7 +88,24 @@ func test_only_new_events_change_the_world() -> void:
 	assert_eq(world.nutrient_count(), before + 10, "a new meal floods the blood with glucose")
 
 
-func test_a_discovered_skill_expresses_its_gene() -> void:
-	world.sync.apply_view(_view({"skills": [{"id": "cilios-ageis", "name": "Cilios Ageis", "rarity": "incomum"}]}))
-	assert_true(world.genome.has_gene(&"cilios_ageis"), "gene expressed")
+func test_online_the_engine_owns_the_genome_and_the_offer() -> void:
+	var ev := {
+		"genes": [{"id": "cilios-ageis", "name": "Cílios Ágeis"}],
+		"offer": [{"id": "membrana-espessa"}, {"id": "flagelo-calejado"}, {"id": "cauda-longa"}],
+		"featured": "membrana-espessa", "pressure": 2, "threshold": 10, "slots": 3}
+	world.sync.apply_view(_view({"evolution": ev}))
+	assert_true(world.engine_evolution, "engine drives evolution")
+	assert_eq(world.genome.equipped, [&"cilios_ageis"] as Array[StringName], "genome from the engine")
 	assert_near(world.player.combatant.actor.stat(BioGene.SPEED), 1.18, 0.001, "and it reshapes the cell")
+	assert_true(world.panel.is_offer_visible(), "the engine's offer is shown")
+	assert_true(world.panel.offer_text(0).contains("pende"), "the featured gene is marked")
+	assert_true(not world.panel.offer_text(1).contains("pende"), "only the featured one")
+	world.add_pressure(BioMutationTracker.THRESHOLD)
+	assert_eq(world.tracker.pressure, 0, "the local tracker stays quiet online")
+	world.pick_mutation(1)
+	assert_eq(world.genome.equipped, [&"cilios_ageis"] as Array[StringName], "picking asks the engine; the genome changes only when the engine says so")
+	world.sync.apply_view(_view({"evolution": {"genes": [{"id": "cilios-ageis"}, {"id": "flagelo-calejado"}], "offer": [], "pressure": 0, "threshold": 10}}))
+	assert_true(world.genome.has_gene(&"flagelo_calejado"), "the engine confirmed the choice")
+	assert_true(not world.panel.is_offer_visible(), "offer closed")
+	world.sync._on_status(false)
+	assert_true(not world.engine_evolution, "offline again: the local loop takes over")

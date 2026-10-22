@@ -7,21 +7,22 @@ import "slices"
 // quests and the events visible to them. Two players in the same world see
 // different worlds because they know different things.
 type View struct {
-	Universe string           `json:"universe"`
-	Tick     Tick             `json:"tick"`
-	Hour     int64            `json:"hour"` // in-game hour, -1 without days
-	Revision int64            `json:"revision"`
-	Self     Entity           `json:"self"`
-	Style    map[string]int64 `json:"style,omitempty"` // what the world learned about this player
-	Skills   []SkillView      `json:"skills"`
-	Others   []Seen           `json:"others"`
-	Facts    []Fact           `json:"facts"`
-	Beliefs  []Belief         `json:"beliefs"`
-	Quests   []Quest          `json:"quests"`
-	Events   []Event          `json:"events"`
-	Story    []StoryView      `json:"story"`
-	Signs    []SignView       `json:"signs"` // traces of hidden things the observer can make out here
-	Marks    []MarkView       `json:"marks"` // symbols travellers left in this place
+	Universe  string           `json:"universe"`
+	Tick      Tick             `json:"tick"`
+	Hour      int64            `json:"hour"` // in-game hour, -1 without days
+	Revision  int64            `json:"revision"`
+	Self      Entity           `json:"self"`
+	Style     map[string]int64 `json:"style,omitempty"` // what the world learned about this player
+	Skills    []SkillView      `json:"skills"`
+	Others    []Seen           `json:"others"`
+	Facts     []Fact           `json:"facts"`
+	Beliefs   []Belief         `json:"beliefs"`
+	Quests    []Quest          `json:"quests"`
+	Events    []Event          `json:"events"`
+	Story     []StoryView      `json:"story"`
+	Signs     []SignView       `json:"signs"` // traces of hidden things the observer can make out here
+	Marks     []MarkView       `json:"marks"`
+	Evolution *EvolutionView   `json:"evolution,omitempty"` // the observer's own genome and mutation offer // symbols travellers left in this place
 }
 
 type Seen struct {
@@ -65,7 +66,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 		return View{}, false
 	}
 	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
-		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer)}
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer)}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]

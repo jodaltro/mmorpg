@@ -37,7 +37,8 @@
    "reputacao": 0,
    "abates": 0,
    "nutrientes": 0,
-   "mergulhos": 0
+   "mergulhos": 0,
+   "pressao": 0
   },
   "region": "medula"
  },
@@ -452,6 +453,12 @@
     {
      "op": "adjust",
      "e": "$self",
+     "k": "pressao",
+     "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
      "k": "nutrientes",
      "d": 1
     },
@@ -473,6 +480,9 @@
      "event": "nutriente",
      "text": "{self} absorve um nutriente."
     }
+   ],
+   "tags": [
+    "metabolism"
    ]
   },
   {
@@ -483,6 +493,12 @@
    ],
    "requires": {},
    "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 3
+    },
     {
      "op": "adjust",
      "e": "$self",
@@ -571,6 +587,33 @@
      "event": "abate",
      "text": "{self} destroi um vírion espinhoso."
     }
+   ],
+   "tags": [
+    "combat"
+   ]
+  },
+  {
+   "id": "esquivar",
+   "title": "Esquivar de um golpe",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "endure"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "emit",
+     "event": "esquiva",
+     "text": "{self} escapa de um golpe no último instante."
+    }
    ]
   },
   {
@@ -609,6 +652,9 @@
      "event": "faro",
      "text": "{self} sente o fluido ao redor em busca de sinais químicos."
     }
+   ],
+   "tags": [
+    "explore"
    ]
   },
   {
@@ -651,6 +697,12 @@
    },
    "effects": [
     {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
      "op": "assert",
      "fact": {
       "p": "leu-codigo",
@@ -664,6 +716,9 @@
      "event": "decifrou",
      "text": "{self} reconhece a língua dos vírions no fragmento e o decifra."
     }
+   ],
+   "tags": [
+    "knowledge"
    ]
   },
   {
@@ -986,47 +1041,6 @@
    "met": "{from} comenta sobre uma célula-tronco nova."
   }
  },
- "skills": [
-  {
-   "id": "cilios-ageis",
-   "name": "Cílios Ágeis",
-   "rarity": "incomum",
-   "desc": "De tanto atravessar a sinusoide, seus cílios aprenderam a correnteza.",
-   "learn": {
-    "deeds": {
-     "action": "move",
-     "op": ">=",
-     "v": 6
-    }
-   }
-  },
-  {
-   "id": "enzima-voraz",
-   "name": "Enzima Voraz",
-   "rarity": "incomum",
-   "desc": "Voce digeriu tanto que suas enzimas ficaram famintas.",
-   "learn": {
-    "deeds": {
-     "action": "absorver-nutriente",
-     "op": ">=",
-     "v": 20
-    }
-   }
-  },
-  {
-   "id": "flagelo-calejado",
-   "name": "Flagelo Calejado",
-   "rarity": "rara",
-   "desc": "Cada vírion destruido deixou uma cicatriz dura na sua cauda.",
-   "learn": {
-    "deeds": {
-     "action": "derrotar-virus",
-     "op": ">=",
-     "v": 12
-    }
-   }
-  }
- ],
  "arcs": [
   {
    "id": "reescrita",
@@ -1249,7 +1263,7 @@
     }
    ],
    "tags": [
-    "mystery"
+    "knowledge"
    ]
   },
   {
@@ -1349,7 +1363,7 @@
     }
    ],
    "tags": [
-    "social"
+    "knowledge"
    ]
   },
   {
@@ -1590,5 +1604,88 @@
   "allowAbandon": true,
   "questGap": 3,
   "firstOfferAfterDeed": true
- }
+ },
+ "evolution": {
+  "pressure": "pressao",
+  "threshold": 10,
+  "offer": 3,
+  "slots": 3
+ },
+ "mutations": [
+  {
+   "id": "flagelo-calejado",
+   "name": "Flagelo Calejado",
+   "rarity": "incomum",
+   "tags": [
+    "combat"
+   ],
+   "desc": "+25% de dano do chicote de cauda, -8% de velocidade."
+  },
+  {
+   "id": "cauda-longa",
+   "name": "Cauda Longa",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "desc": "+30% de alcance do chicote, -10% de dano do chicote."
+  },
+  {
+   "id": "vesicula-toxica",
+   "name": "Vesícula Tóxica",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "desc": "+40% de dano da toxina, +30% de custo da toxina."
+  },
+  {
+   "id": "cilios-ageis",
+   "name": "Cílios Ágeis",
+   "rarity": "comum",
+   "tags": [
+    "explore"
+   ],
+   "desc": "+18% de velocidade, -10% de membrana máxima."
+  },
+  {
+   "id": "nucleo-reativo",
+   "name": "Núcleo Reativo",
+   "rarity": "incomum",
+   "tags": [
+    "endure",
+    "explore"
+   ],
+   "desc": "-35% de recarga do impulso, -8% de membrana máxima."
+  },
+  {
+   "id": "membrana-espessa",
+   "name": "Membrana Espessa",
+   "rarity": "comum",
+   "tags": [
+    "endure"
+   ],
+   "desc": "+30% de membrana máxima, -10% de velocidade."
+  },
+  {
+   "id": "mitocondria-avida",
+   "name": "Mitocôndria Ávida",
+   "rarity": "incomum",
+   "tags": [
+    "metabolism"
+   ],
+   "desc": "+4 de ATP por segundo, -20% de ATP máximo."
+  },
+  {
+   "id": "enzima-voraz",
+   "name": "Enzima Voraz",
+   "rarity": "comum",
+   "tags": [
+    "metabolism"
+   ],
+   "desc": "+50% de ganho de nutrientes, -2 de ATP por segundo."
+  }
+ ]
 }

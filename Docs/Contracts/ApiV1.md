@@ -68,3 +68,9 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 ## Onde o personagem está dentro da região (spot)
 
 `move` aceita `spot`: o lugar nomeado do universo em que o personagem está agora (dentro da região), ou `"-"` para "em campo aberto, longe de qualquer lugar nomeado". O servidor de jogo deve reportá-lo quando muda. Sem `spot` (vazio) o motor não sabe onde o personagem está e vale a regra antiga (todos os acordados da região notam). Com `spot`, só notam o que o personagem faz as pessoas acordadas **no mesmo lugar ou num vizinho** (`spots[].near`), mais quem ele endereça (a pessoa com quem fala); em campo aberto ninguém nota.
+
+## Evolução (universos com `evolution`)
+
+- `GET /v1/views/{id}` traz `evolution`: `{genes, offer, featured, pressure, threshold, slots}` (genes `{id, name, desc, rarity, tags}`; `featured` é para onde o corpo pende, escolhido pelo Jev ou pelo padrão).
+- Verbos do motor (`origin: player`): `act` com `action: "evoluir"`, `args: {gene}` (um gene da oferta pendente) e `action: "recusar-evolucao"`.
+- Eventos: `evolution-offered` (`data.featured`, `data.offer`), `mutated` (`data.gene`, `data.replaced`), `evolution-declined`; a resolução aparece como `decision` com `kind: evolution`.

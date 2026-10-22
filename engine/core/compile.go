@@ -211,6 +211,9 @@ func Compile(u Universe) (*World, error) {
 	if e := w.compileDirector(v); e != nil {
 		return nil, e
 	}
+	if e := w.compileEvolution(v); e != nil {
+		return nil, e
+	}
 	for _, k := range u.Skills {
 		if k.Learn != nil {
 			if e := v.cond(*k.Learn, map[string]bool{"self": true}, "skill "+k.ID); e != nil {

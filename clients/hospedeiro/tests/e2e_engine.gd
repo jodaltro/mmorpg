@@ -67,6 +67,19 @@ func _run() -> void:
 		return _fail("Dendra arms the defense")
 	_step("Dendra armed the defense")
 	await _shot("e2e_04_defense")
+
+	# Evolution: confirmed kills build pressure in the engine; the advisor picks where the body leans.
+	for i in 3:
+		world.virus_destroyed.emit()
+	if not await _until(func() -> bool: return not world.engine_offer.is_empty(), 20.0):
+		return _fail("the engine offers a mutation once the pressure overflows")
+	_step("mutation offer from the engine, the body leans to %s (offer %s)" % [world.engine_featured, str(world.engine_offer)])
+	await _shot("e2e_05_evolution")
+	var featured := world.engine_featured
+	world.pick_mutation(0)
+	if not await _until(func() -> bool: return world.genome.has_gene(StringName(featured.replace("-", "_"))), 10.0):
+		return _fail("choosing expresses the gene")
+	_step("expressed %s" % featured)
 	print("E2E OK")
 	quit(0)
 

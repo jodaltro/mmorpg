@@ -6,6 +6,7 @@ extends Node2D
 signal region_changed(region: StringName)
 signal virus_destroyed
 signal nutrient_absorbed
+signal evaded
 
 const BLOOD_FLOW_UNITS := 2.2
 const VIRUS_SPEED := 3.6
@@ -28,6 +29,11 @@ var sync: BioHostSync
 var region: StringName = BioBodyMap.MEDULA
 var fever := false
 var sleeping := false
+## Online, the engine owns the genome, the pressure and the offer (the advisor reads how the player lives).
+var engine_evolution := false
+var engine_offer: Array[String] = []  # engine gene ids of the pending offer
+var engine_featured := ""
+var _engine_fraction := 0.0
 
 var _rng := RandomNumberGenerator.new()
 var _built := false
@@ -82,7 +88,8 @@ func build() -> void:
 		nutrient_absorbed.emit())
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
 		if result.outcome == BioActor.HitOutcome.EVADED:
-			add_pressure(BioMutationTracker.EVADE_POINTS))
+			add_pressure(BioMutationTracker.EVADE_POINTS)
+			evaded.emit())
 
 	hud = BioHud.new()
 	hud.name = "Hud"
@@ -106,12 +113,19 @@ func build() -> void:
 
 ## Confirmed events (food, kills, evasions) build evolutionary pressure; at the threshold a mutation is offered.
 func add_pressure(points: int) -> void:
+	if engine_evolution:
+		return  # the engine counts the confirmed deed itself
 	if tracker.add_pressure(points, genome):
 		panel.show_offer(tracker.offer)
 	BioGenomeStore.save(save_path, genome, tracker)
 
 
 func pick_mutation(index: int) -> void:
+	if engine_evolution:
+		if index >= 0 and index < engine_offer.size():
+			sync.link.act("evoluir", {"gene": engine_offer[index]})
+			panel.hide_offer()
+		return
 	if not tracker.has_offer():
 		return
 	tracker.choose(index, genome)
@@ -121,6 +135,11 @@ func pick_mutation(index: int) -> void:
 
 
 func decline_mutation() -> void:
+	if engine_evolution:
+		if not engine_offer.is_empty():
+			sync.link.act("recusar-evolucao")
+			panel.hide_offer()
+		return
 	if not tracker.has_offer():
 		return
 	tracker.decline()
@@ -128,14 +147,40 @@ func decline_mutation() -> void:
 	BioGenomeStore.save(save_path, genome, tracker)
 
 
-## A gene the engine says this cell discovered by living (a skill). Expressed if there is a free slot.
-func discover_gene(id: StringName) -> bool:
-	if genome.has_gene(id) or not BioGeneCatalog.all_ids().has(id) or genome.equipped.size() >= BioGenome.SLOTS:
-		return false
-	genome.equip(id)
-	player.combatant.set_genome(genome)
-	BioGenomeStore.save(save_path, genome, tracker)
-	return true
+## The engine's view of this cell's evolution: expressed genes, the pending offer and the pressure.
+## Engine ids use hyphens (cilios-ageis); the local catalogue uses underscores (cilios_ageis).
+func apply_engine_evolution(ev: Dictionary) -> void:
+	engine_evolution = true
+	var expressed: Array[StringName] = []
+	for g in ev.get("genes", []):
+		var id := StringName(str(g.get("id", "")).replace("-", "_"))
+		if BioGeneCatalog.all_ids().has(id):
+			expressed.append(id)
+	if expressed != genome.equipped:
+		genome.equipped = expressed
+		player.combatant.set_genome(genome)
+	var offer: Array[String] = []
+	for g in ev.get("offer", []):
+		offer.append(str(g.get("id", "")))
+	var featured := str(ev.get("featured", ""))
+	if offer != engine_offer or featured != engine_featured:
+		engine_offer = offer
+		engine_featured = featured
+		if offer.is_empty():
+			panel.hide_offer()
+		else:
+			var local: Array = offer.map(func(id: String) -> StringName: return StringName(id.replace("-", "_")))
+			panel.show_offer(local, StringName(featured.replace("-", "_")))
+	var threshold := maxf(1.0, float(ev.get("threshold", 1)))
+	_engine_fraction = 1.0 if not offer.is_empty() else clampf(float(ev.get("pressure", 0)) / threshold, 0.0, 1.0)
+
+
+## Back to the local loop (engine gone): the local tracker drives evolution again.
+func release_engine_evolution() -> void:
+	engine_evolution = false
+	engine_offer = []
+	engine_featured = ""
+	panel.hide_offer()
 
 
 func respawn_player() -> void:
@@ -212,7 +257,10 @@ func _process(delta: float) -> void:
 				pick_mutation(i)
 	if Input.is_action_just_pressed("bio_decline"):
 		decline_mutation()
-	panel.refresh(genome, tracker)
+	if engine_evolution:
+		panel.refresh_values(genome, _engine_fraction)
+	else:
+		panel.refresh(genome, tracker)
 	_upkeep_timer -= delta
 	if _upkeep_timer > 0.0:
 		return

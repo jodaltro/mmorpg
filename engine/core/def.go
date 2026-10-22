@@ -60,6 +60,9 @@ type Universe struct {
 	Director   *Director    `json:"director,omitempty"`
 	Gossip     *Gossip      `json:"gossip,omitempty"`
 	Skills     []SkillDef   `json:"skills,omitempty"`
+	// Evolution and Mutations: every player evolves; see evolution.go.
+	Evolution *EvolutionDef `json:"evolution,omitempty"`
+	Mutations []MutationDef `json:"mutations,omitempty"`
 	// VisibleMarks lists predicates that show on the person who carries them
 	// (a stigma, a blessing): any observer who can see that person sees the
 	// mark in `others[].marks`, even though the fact itself is private.
