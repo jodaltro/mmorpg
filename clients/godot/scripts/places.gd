@@ -7,6 +7,7 @@ extends RefCounted
 
 static var _pois: Array = []
 static var _anim: Dictionary = {}
+static var _greet: Dictionary = {}
 static var _loaded := false
 
 
@@ -19,6 +20,7 @@ static func _load() -> void:
 		push_error("data/presentation.json is missing or invalid")
 		return
 	_anim = d.get("anim", {})
+	_greet = d.get("greet", {})
 	for p in d.get("pois", []):
 		var rel: Array = p.rel
 		var e: Dictionary = p.duplicate()
@@ -30,6 +32,13 @@ static func _load() -> void:
 static func pois() -> Array:
 	_load()
 	return _pois
+
+
+## A short hello from someone who knows you (empty if they have none).
+static func greeting(npc: String, salt: int) -> String:
+	_load()
+	var lines: Array = _greet.get(npc, [])
+	return "" if lines.is_empty() else lines[salt % lines.size()]
 
 
 ## The animation clip (Universal Animation Library) a deed plays.

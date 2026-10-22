@@ -232,3 +232,7 @@ Os pontos de interesse (id, região, deslocamento a partir da origem da região,
 
 Conferido item por item. Faltava "todos sabem dizer quem os conhece": a visão ganhou `knowsYou` em cada pessoa (verdadeiro quando ela acredita conhecer o observador; é público para quem a vê, pois se nota pela saudação) e o cliente pinta o nome de dourado e mostra "[te conhece]" de perto. `TestViewShowsWhoKnowsYou` (motor) e `--autotest=arrival` (Jev ligado): ninguém conhece o recém-chegado ao chegar; depois da conversa com Orin e do quadro, Brom, Elena, Mira, Nino e Orin passam a conhecê-lo; captura conferida.
 **Continua sem fazer na F2:** saudações faladas espontâneas ao se aproximar de quem já conhece (hoje só ao conversar); playtest com pessoas de verdade e com 2 jogadores ao mesmo tempo (previsto para F6/F7); latência e custo do Jev não foram medidos nesta fase (o Jev rodou nos testes, sem registro de números).
+
+### 22/10/2026 — saudação espontânea (fecha a lacuna da F2)
+
+Quem conhece o jogador (`knowsYou`) diz uma frase curta ao ele chegar a menos de 4 m, e de novo depois de ele se afastar a mais de 7 m (falas por NPC em `data/presentation.json`, conferidas por `TestClientPresentationMatchesTheUniverse`). `--autotest=arrival` (Jev ligado): afastar-se de Orin e voltar gerou 1 saudação (o intervalo mínimo de 2,5 s entre saudações limita a uma por vez).

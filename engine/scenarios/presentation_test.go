@@ -27,7 +27,8 @@ func TestClientPresentationMatchesTheUniverse(t *testing.T) {
 			With    string    `json:"with"`
 			Actions []string  `json:"actions"`
 		} `json:"pois"`
-		Anim map[string]string `json:"anim"`
+		Anim  map[string]string   `json:"anim"`
+		Greet map[string][]string `json:"greet"`
 	}
 	if err := json.Unmarshal(raw, &p); err != nil {
 		t.Fatal(err)
@@ -63,6 +64,11 @@ func TestClientPresentationMatchesTheUniverse(t *testing.T) {
 	for a := range p.Anim {
 		if !actions[a] {
 			t.Fatalf("animation for unknown action %q", a)
+		}
+	}
+	for id, lines := range p.Greet {
+		if h.s.Entities[core.ID(id)].Kind != "npc" || len(lines) == 0 {
+			t.Fatalf("greetings for %q", id)
 		}
 	}
 }

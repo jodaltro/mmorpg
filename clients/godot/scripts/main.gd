@@ -84,6 +84,8 @@ var _prompt := ""
 var telemetry := Telemetry.new()
 var _seen := {"seq": 0, "opening": false, "ceremony": false}  # what this character already lived through (user://)
 var _seen_saved_ms := 0
+var _last_greet_ms := 0
+var greet_count := 0
 var _found_seeded := false  # the places already known when the client starts are not announced
 var found_places: Dictionary = {}  # regions this character has discovered (engine fact "found")
 var pois: Array = []  # Places.pois() with their label nodes
@@ -1483,7 +1485,28 @@ func _sync_discovered(v: Dictionary) -> void:
 	hud.set_known(found_places.keys())
 
 
+## Someone who knows you says hello when you walk up to them (once per approach).
+func _greet_nearby() -> void:
+	var now := Time.get_ticks_msec()
+	for n in npc_nodes.values():
+		if n.has_meta("player") or not n.get_meta("knows", false) or not n.visible:
+			continue
+		var d: float = n.global_position.distance_to(player.global_position)
+		if d > 7.0:
+			n.set_meta("greeted_ms", 0)  # walked away: they will greet you again next time
+		elif d < 4.0 and int(n.get_meta("greeted_ms", 0)) == 0 and now - _last_greet_ms > 2500:
+			var line := Places.greeting(n.entity_id, int(now / 1000) + hash(n.entity_id))
+			n.set_meta("greeted_ms", now)
+			if line != "":
+				_last_greet_ms = now
+				greet_count += 1
+				n.say(line, 4.5)
+				n.model.rotation.y = atan2(player.global_position.x - n.global_position.x, player.global_position.z - n.global_position.z)
+				telemetry.note("greeted", {"who": n.entity_id})
+
+
 func _update_poi_labels() -> void:
+	_greet_nearby()
 	for n in npc_nodes.values():
 		if n.has_meta("base_name"):
 			var doing: String = n.get_meta("doing", "")
@@ -1870,6 +1893,14 @@ func _autotest_arrival() -> void:
 	ok["offers_after_deed"] = client.view.get("quests", []).filter(func(q): return q.state == "offered").size()
 	await get_tree().create_timer(3.4).timeout
 	await _shot("a4_ceremony")
+	if npc_nodes.has("orin"):  # walk away, come back: someone who knows you says hello
+		var before := greet_count
+		await _go(Vector3(14, 0, 4), 30.0)
+		await get_tree().create_timer(1.0).timeout
+		await _go(npc_nodes["orin"].global_position + Vector3(0, 0, 3.0), 30.0)
+		await get_tree().create_timer(1.0).timeout
+		ok["greetings_on_return"] = greet_count - before
+		await _shot("a5_hello")
 	ok["know_me_at_end"] = npc_nodes.keys().filter(func(k): return npc_nodes[k].get_meta("knows", false) and not npc_nodes[k].has_meta("player"))
 	ok["telemetry"] = telemetry.summary()
 	print("AUTOTEST ", JSON.stringify(ok))
