@@ -76,3 +76,33 @@ func TestGreetingsDependOnAcquaintance(t *testing.T) {
 		t.Fatalf("a stranger is asked their name and a known face is not:\n1: %s\n2: %s", first, second)
 	}
 }
+
+// The view says who knows the observer, and only for them: the villagers who
+// saw a deed, not the ones elsewhere, and never for other players' secrets.
+func TestViewShowsWhoKnowsYou(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1", "p2")
+	knows := func(observer, who core.ID) bool {
+		v, _ := h.w.View(&h.s, observer, 5)
+		for _, o := range v.Others {
+			if o.ID == who {
+				return o.KnowsYou
+			}
+		}
+		t.Fatalf("%s not in the view", who)
+		return false
+	}
+	if knows("p1", "mira") {
+		t.Fatal("a newcomer is a stranger to everyone")
+	}
+	h.mustAct("player", "p1", "examinar-poco", nil)
+	if !knows("p1", "mira") || !knows("p1", "brom") {
+		t.Fatal("those who saw the deed know p1 now")
+	}
+	if knows("p1", "tomas") {
+		t.Fatal("Tomas was elsewhere")
+	}
+	if knows("p2", "mira") {
+		t.Fatal("what Mira knows about p1 says nothing about p2")
+	}
+}

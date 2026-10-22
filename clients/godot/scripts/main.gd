@@ -1487,7 +1487,14 @@ func _update_poi_labels() -> void:
 	for n in npc_nodes.values():
 		if n.has_meta("base_name"):
 			var doing: String = n.get_meta("doing", "")
-			n.label.text = n.get_meta("base_name") + ("\n(%s)" % doing if doing != "" and n.global_position.distance_to(player.global_position) < 9.0 else "")
+			var close: bool = n.global_position.distance_to(player.global_position) < 9.0
+			var knows: bool = n.get_meta("knows", false)
+			var text: String = n.get_meta("base_name") + ("\n(%s)" % doing if doing != "" and close else "")
+			if knows and close:
+				text += "\n[te conhece]"
+			n.label.text = text
+			if not n.has_meta("player"):
+				n.label.modulate = Color(1.0, 0.9, 0.55) if knows else Color(1, 1, 1)  # gold: someone who knows you
 	for poi in pois:
 		var near: bool = found_places.has(poi.region) and Vector2(poi.at.x - player.global_position.x, poi.at.z - player.global_position.z).length() < LABEL_RANGE
 		poi.node.visible = near
@@ -1527,6 +1534,7 @@ func _sync_npcs(v: Dictionary) -> void:
 		if npc_nodes.has(id):
 			var n: Actor = npc_nodes[id]
 			n.set_meta("doing", o.get("doing", ""))
+			n.set_meta("knows", bool(o.get("knowsYou", false)))
 			if o.kind == "npc" and target.distance_to(n.get_meta("target", target)) > 0.6:
 				n.set_meta("target", target)
 				n.set_meta("spot", o.get("spot", ""))
@@ -1544,6 +1552,7 @@ func _sync_npcs(v: Dictionary) -> void:
 		npc.set_meta("spot", o.get("spot", ""))
 		npc.set_meta("target", target)
 		npc.set_meta("doing", o.get("doing", ""))
+		npc.set_meta("knows", bool(o.get("knowsYou", false)))
 		if is_player:
 			npc.set_meta("player", true)
 			npc.label.modulate = Color(0.6, 0.82, 1.0)
@@ -1829,6 +1838,7 @@ func _autotest_arrival() -> void:
 	await get_tree().create_timer(float(_args.get("idle", 20))).timeout
 	ok["offers_while_idle"] = client.view.get("quests", []).filter(func(q): return q.state == "offered").size()
 	ok["lia_here"] = npc_nodes.has("lia")
+	ok["know_me_at_start"] = npc_nodes.keys().filter(func(k): return npc_nodes[k].get_meta("knows", false))
 	if npc_nodes.has("lia"):
 		await _go(npc_nodes["lia"].global_position + Vector3(0, 0, 1.6), 20.0)
 		await _perform({"action": "conversar", "origin": "player", "args": {"npc": "lia"}, "with": "lia", "title": "Conversar com Lia"})
@@ -1860,6 +1870,7 @@ func _autotest_arrival() -> void:
 	ok["offers_after_deed"] = client.view.get("quests", []).filter(func(q): return q.state == "offered").size()
 	await get_tree().create_timer(3.4).timeout
 	await _shot("a4_ceremony")
+	ok["know_me_at_end"] = npc_nodes.keys().filter(func(k): return npc_nodes[k].get_meta("knows", false) and not npc_nodes[k].has_meta("player"))
 	ok["telemetry"] = telemetry.summary()
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()

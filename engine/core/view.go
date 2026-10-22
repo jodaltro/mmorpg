@@ -27,6 +27,10 @@ type Seen struct {
 	Region ID     `json:"region,omitempty"`
 	Spot   string `json:"spot,omitempty"`  // where in the region (a universe spot)
 	Doing  string `json:"doing,omitempty"` // what they are up to, from their routine
+	// KnowsYou is true when this person believes it knows the observer: they
+	// saw them act nearby or heard of them. The observer can tell from how
+	// they are greeted, so it is not a secret.
+	KnowsYou bool `json:"knowsYou,omitempty"`
 }
 
 // StoryView shows the public chronicle of an arc: which chapters were
@@ -57,7 +61,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]
-			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"]})
+			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"], KnowsYou: w.U.Acquaintance != "" && e.Kind != w.U.PlayerKind && w.knowsOf(s, id, observer)})
 		}
 	}
 	for _, k := range sortedKeys(s.Facts) {
