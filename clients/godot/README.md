@@ -19,7 +19,7 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 2. Subir o motor: `cd engine && go run ./cmd/worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic`.
 3. `Godot --path clients/godot` (a primeira abertura importa os assets; antes disso rode `Godot --headless --path clients/godot --import` uma vez para registrar os `class_name`).
 
-Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar, clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento (só desenvolvimento).
+Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar, clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento e `--respawn=S` encurta a volta dos javalis (só desenvolvimento).
 
 ## Combate e o motor
 
@@ -31,7 +31,7 @@ O combate (vida, dano, IA) é papel do servidor de jogo; neste spike o cliente f
 | Lobo corrompido | `vila`, evento `wolves` (some com `wolves-left`) | `cacar-lobos` ao cair o grupo |
 | Javali | `floresta`, sempre; volta 25 s depois de cada abate | `cacar-javali` a cada abate (cada um é uma caça confirmada) |
 
-O lobo usa o modelo animado do Quaternius (`Attack`, `Gallop`, reações a golpe, `Death`). O javali é um modelo **estático** (sem esqueleto): a marcha, a investida, o recuo ao ser atingido e a queda são procedurais (`actor.gd`, `_proc_once`/`_proc_update`).
+O lobo usa o modelo animado do Quaternius (`Attack`, `Gallop`, reações a golpe, `Death`). O javali é o porco animado do Quaternius (CC0) escurecido, maior e com presas presas ao osso do focinho: corre, dá cabeçada e morre com animação de verdade.
 
 ## Teste automático
 
@@ -39,19 +39,20 @@ O lobo usa o modelo animado do Quaternius (`Attack`, `Gallop`, reações a golpe
 Godot --path clients/godot --resolution 1280x720 -- --autotest --player=gd-1 --server=http://127.0.0.1:8095 --out=clients/godot/.shots
 ```
 
-Entra no mundo, fala com Orin, aceita a missão oferecida, vai à estrada, luta contra o grupo de bandidos e grava capturas em `--out`. A saída `AUTOTEST {...}` resume o resultado. Precisa de janela (não funciona com `--headless`, que não renderiza).
+Entra no mundo, fala com Orin, clica em Aceitar no cartão de oferta, contorna uma casa (pathfinding), luta contra os bandidos, mede FPS, testa a transparência de uma árvore, caça 3 javalis, espera o respawn e usa os botões do diário (aceitar, recusar, abandonar), gravando capturas em `--out`. Outros cenários: `--autotest=wolves` (com `--threat=vila`), `--autotest=zoo` (cada criatura parada, para conferir escala e orientação) e `--autotest=hud` (estados de missão sintéticos, sem o motor, para ver todos os avisos). A saída `AUTOTEST {...}` resume o resultado. Precisa de janela (não funciona com `--headless`, que não renderiza).
 
 ## Limites conhecidos
 
 - **Navegador:** o Godot exporta para web, mas o `guard` do servidor recusa qualquer requisição com `Origin` (403). Exige proxy ou ajuste do `guard`, o que depende da autenticação (adiada). Os export templates (1,28 GB) não foram baixados.
 - A atualização é por consulta (1 s); o `HTTPRequest` não lê SSE. Trocar por `HTTPClient` quando precisar de stream.
 - Casas são blocos sólidos (não dá para entrar).
-- Pathfinding: NavMesh gerada em tempo de execução a partir dos colisores (grupo `nav_source`, ~1 s em segundo plano); até ficar pronta o movimento é em linha reta. Cercas não são sólidas.
+- Pathfinding: NavMesh gerada em tempo de execução a partir dos colisores (grupo `nav_source`, ~1 s em segundo plano); até ficar pronta o movimento é em linha reta. As cercas da estrada são sólidas.
 - Oclusão: árvores e casas entre a câmera e o jogador ficam transparentes (a sombra continua opaca).
-- O javali não tem animação de verdade (modelo estático com marcha procedural). Os "corrompidos" humanoides (zumbi) continuam definidos como dados em `enemy.gd`, mas nenhum evento os usa agora.
+- O javali não tem reação própria a golpe (o porco não tem esse clipe; ele só recua). Os "corrompidos" humanoides (zumbi) continuam definidos como dados em `enemy.gd`, mas nenhum evento os usa agora.
 - O combate é local, sem sincronização entre jogadores.
+- Outros jogadores da mesma região aparecem (nome em azul), mas em posições fixas derivadas do id: o motor conhece regiões, não coordenadas. Posição real entre jogadores é papel de um servidor de jogo.
+- Valdoria não permite abandonar missão aceita: o botão Abandonar envia a intenção e o motor recusa ("this world requires finishing the accepted quest").
 
 ## Créditos dos modelos de criaturas
 
-- Lobos e porcos: Quaternius (CC0), via poly.pizza.
-- Javali ("Boar"): Poly by Google, licença CC-BY; "Hog": Aya Kawa, CC-BY. Os arquivos ficam fora do repositório; ao redistribuir, dar os créditos (a lista está no `SOURCES.txt` ao lado dos downloads).
+Lobos e porco (javali): Quaternius, CC0, via poly.pizza. Sem obrigação de atribuição.

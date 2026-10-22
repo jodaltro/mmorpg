@@ -101,6 +101,8 @@ func _ready() -> void:
 				_autotest_wolves()
 			"zoo":
 				_autotest_zoo()
+			"hud":
+				_autotest_hud()
 			_:
 				_autotest()
 
@@ -213,6 +215,8 @@ func _build_world() -> void:
 	for i in 8:  # fence along the road
 		_spawn("village/Prop_WoodenFence_Single", Vector3(14 + i * 2.0, 0, 3.0))
 		_spawn("village/Prop_WoodenFence_Single", Vector3(14 + i * 2.0, 0, -3.0))
+	_solid(Vector3(21.0, 0, 3.0), Vector3(16.4, 1.0, 0.25))
+	_solid(Vector3(21.0, 0, -3.0), Vector3(16.4, 1.0, 0.25))
 
 	# Trees: sparse around the village, dense in the forest.
 	for i in 40:
@@ -487,6 +491,8 @@ func interact(npc: Actor) -> void:
 func talk_nearest() -> void:
 	var best: Actor = null
 	for n in npc_nodes.values():
+		if n.has_meta("player"):
+			continue
 		if best == null or n.global_position.distance_to(player.global_position) < best.global_position.distance_to(player.global_position):
 			best = n
 	if best:
@@ -607,7 +613,7 @@ func _spawn_enemy(kind: String, camp: String, at: Vector3) -> Enemy:
 
 func _respawn_later(camp: String) -> void:
 	var t: Dictionary = THREATS[camp]
-	await get_tree().create_timer(float(t.get("respawn", 25.0))).timeout
+	await get_tree().create_timer(float(_args.get("respawn", t.get("respawn", 25.0)))).timeout
 	if region != camp or player_down or not threat_on.get(camp, false):
 		return  # leaving the region already cleared the camp; it refills on return
 	var standing := 0
@@ -812,7 +818,7 @@ func _sync_npcs(v: Dictionary) -> void:
 	var here := {}
 	var i := 0
 	for o in v.get("others", []):
-		if o.kind != "npc" or o.get("region", "") != v.self.get("region", ""):
+		if o.kind != "npc" and o.kind != "player" or o.id == client.player_id or o.get("region", "") != v.self.get("region", ""):
 			continue
 		here[o.id] = o
 	for id in npc_nodes.keys():
@@ -822,13 +828,20 @@ func _sync_npcs(v: Dictionary) -> void:
 	for id in here:
 		if npc_nodes.has(id):
 			continue
+		var is_player: bool = here[id].kind == "player"
 		var spec: Dictionary = NPCS.get(id, {})
 		var at: Vector2 = spec.get("at", Vector2(-12 + (i % 5) * 6, 11))
+		if is_player:  # the engine knows regions, not coordinates: a stable spot from the id
+			var ang := float(hash(id) % 360) * PI / 180.0
+			at = Vector2(cos(ang), sin(ang)) * 11.0
 		i += 1
 		var npc := Actor.new()
 		add_child(npc)
 		npc.setup(id, here[id].name.split(",")[0], spec.get("female", false), id == "orin" or id == "sora", "Ranger" if id == "orin" or id == "sora" or id == "kael" else "Peasant")
 		npc.idle_clip = "Idle_Talking" if id == "tomas" else "Idle"
+		if is_player:
+			npc.set_meta("player", true)
+			npc.label.modulate = Color(0.6, 0.82, 1.0)
 		npc.play(npc.idle_clip)
 		npc.position = REGION_ORIGIN.get(region, Vector3.ZERO) + Vector3(at.x, 0, at.y)
 		npc.model.rotation.y = atan2(-at.x, -at.y)
@@ -862,6 +875,8 @@ func _update_hud_world() -> void:
 	var best: Actor = null
 	for n in npc_nodes.values():
 		npcs.append(n.global_position)
+		if n.has_meta("player"):
+			continue
 		if best == null or n.global_position.distance_to(player.global_position) < best.global_position.distance_to(player.global_position):
 			best = n
 	var foes: Array = []
@@ -898,12 +913,13 @@ func _arrive(timeout := 20.0) -> void:
 		await get_tree().create_timer(0.1).timeout
 
 
-func _fight_all(max_ms: int, shot_name := "") -> void:
+func _fight_all(max_ms: int, shot_name := "", max_kills := 0) -> void:
 	var t_fight := Time.get_ticks_msec()
+	var start_kills := kills
 	var shot_done := shot_name == ""
 	while Time.get_ticks_msec() - t_fight < max_ms:
 		var alive := enemies.filter(func(e): return is_instance_valid(e) and e.state != Enemy.State.DEAD)
-		if alive.is_empty():
+		if alive.is_empty() or (max_kills > 0 and kills - start_kills >= max_kills):
 			break
 		if player_down:
 			await get_tree().create_timer(0.5).timeout
@@ -918,6 +934,93 @@ func _fight_all(max_ms: int, shot_name := "") -> void:
 		if not shot_done and Time.get_ticks_msec() - t_fight > 5000:
 			shot_done = true
 			await _shot(shot_name)
+
+
+## A real click through the input pipeline (motion, press, release) on a control.
+func _click(c: Control) -> void:
+	var p := c.get_global_rect().get_center()
+	var mm := InputEventMouseMotion.new()
+	mm.position = p
+	mm.global_position = p
+	Input.parse_input_event(mm)
+	await get_tree().process_frame
+	var down := InputEventMouseButton.new()
+	down.button_index = MOUSE_BUTTON_LEFT
+	down.pressed = true
+	down.position = p
+	down.global_position = p
+	Input.parse_input_event(down)
+	await get_tree().process_frame
+	var up := down.duplicate() as InputEventMouseButton
+	up.pressed = false
+	Input.parse_input_event(up)
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+
+func _quest_state(key: String) -> String:
+	for q in client.view.get("quests", []):
+		if q.key == key:
+			return q.state
+	return ""
+
+
+func _wait_state(key: String, want: String, timeout := 6.0) -> bool:
+	var t := Time.get_ticks_msec()
+	while Time.get_ticks_msec() - t < timeout * 1000.0:
+		if _quest_state(key) == want:
+			return true
+		await get_tree().create_timer(0.2).timeout
+	return false
+
+
+## Frames per second and draw calls over a few seconds (vsync off while sampling).
+func _perf(seconds := 3.0) -> Dictionary:
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	await get_tree().create_timer(0.5).timeout
+	var frames := 0
+	var t := Time.get_ticks_usec()
+	var worst := 0.0
+	var last := t
+	while Time.get_ticks_usec() - t < seconds * 1000000.0:
+		await get_tree().process_frame
+		var now := Time.get_ticks_usec()
+		worst = maxf(worst, (now - last) / 1000.0)
+		last = now
+		frames += 1
+	var fps := frames / ((Time.get_ticks_usec() - t) / 1000000.0)
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	return {"fps": snappedf(fps, 0.1), "worst_ms": snappedf(worst, 0.1),
+		"draw_calls": RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME),
+		"objects": RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_OBJECTS_IN_FRAME)}
+
+
+## Synthetic quest states (no engine involved) to see every toast and journal group.
+func _autotest_hud() -> void:
+	await get_tree().create_timer(3.0).timeout
+	client._timer.stop()  # the real view must not overwrite the synthetic one
+	var names := {"mira": "Mira, a curandeira"}
+	var q1 := {"key": "s1", "def": "ervas-mira", "state": "offered", "title": "Ervas para a curandeira", "rank": "E", "giver": "mira", "objective": "Colha ervas.", "reward": "Reputacao +1", "region": "floresta", "deadline": 120}
+	var q2 := {"key": "s2", "def": "cenario-origem", "state": "active", "title": "Cenario Unico: A Origem", "rank": "S", "objective": "Siga o rastro.", "reward": "Titulo unico", "penalty": "Outro aventureiro chega primeiro", "region": "floresta", "deadline": 40}
+	hud.set_quests([q1, q2], 10, names, REGION_NAMES)
+	await get_tree().create_timer(0.3).timeout
+	var a := q1.duplicate()
+	a.state = "active"
+	hud.set_quests([a, q2], 20, names, REGION_NAMES)
+	await get_tree().create_timer(0.3).timeout
+	var f := q2.duplicate()
+	f.state = "failed"
+	var x := a.duplicate()
+	x.state = "expired"
+	hud.set_quests([x, f], 130, names, REGION_NAMES)
+	hud.set_skills([{"id": "andarilho", "name": "Andarilho", "rarity": "comum", "desc": "Seus pes conhecem cada atalho."}])
+	await get_tree().create_timer(0.4).timeout
+	await _shot("h1_toasts")
+	hud.toggle_journal()
+	await get_tree().create_timer(0.4).timeout
+	await _shot("h2_journal")
+	print("AUTOTEST ", JSON.stringify({"hud": true, "toasts": hud.toast_box.get_child_count()}))
+	get_tree().quit()
 
 
 ## Every creature in a row, no AI: checks scale, facing and the idle pose.
@@ -949,7 +1052,7 @@ func _autotest_zoo() -> void:
 			cam_focus = e
 			await get_tree().create_timer(0.8).timeout
 			await _shot("z3_%s" % e.kind)
-	print("AUTOTEST ", JSON.stringify({"zoo": row.size()}))
+	print("AUTOTEST ", JSON.stringify({"zoo": row.size(), "other_players": npc_nodes.values().filter(func(n): return n.has_meta("player")).size()}))
 	get_tree().quit()
 
 
@@ -978,6 +1081,7 @@ func _autotest() -> void:
 	await get_tree().create_timer(1.5).timeout
 	var ok := {"view": not client.view.is_empty(), "npcs": npc_nodes.size()}
 	ok["nav"] = Actor.nav_map.is_valid()
+	ok["perf_plaza"] = await _perf()
 	await _shot("01_plaza")
 	if npc_nodes.has("orin"):
 		interact(npc_nodes["orin"])
@@ -990,9 +1094,16 @@ func _autotest() -> void:
 		offered = offered or q.state == "offered"
 	ok["quest_offered"] = offered
 	if offered:
-		await _answer_quest(true)
-		await get_tree().create_timer(1.6).timeout
+		var key := hud.offered_key
+		await _click(hud.offer_buttons.accept)
+		ok["click_accept"] = await _wait_state(key, "active")
 		ok["quest_active"] = client.view.get("quests", []).any(func(q): return q.state == "active")
+		# a second offer, if the world has one, is declined with its button
+		await get_tree().create_timer(1.5).timeout
+		if hud.offered_key != "" and hud.offer_panel.visible:
+			var k2 := hud.offered_key
+			await _click(hud.offer_buttons.decline)
+			ok["click_decline"] = await _wait_state(k2, "declined")
 		await _shot("03_tracker")
 	# Pathfinding: the straight line to the target crosses a house.
 	player.walk_to(Vector3(-8, 0, -12))
@@ -1027,16 +1138,50 @@ func _autotest() -> void:
 	await _arrive(30.0)
 	await get_tree().create_timer(1.5).timeout
 	await _shot("07_forest")
+	ok["perf_forest"] = await _perf()
+	var flat := -cam.global_transform.basis.z
+	flat.y = 0
+	flat = flat.normalized()
+	for o in occluders:
+		if o.radius < 5.0 and Vector2(o.center.x - player.global_position.x, o.center.z - player.global_position.z).length() < 20.0:
+			player.has_goal = false
+			player.global_position = Vector3(o.center.x, 0, o.center.z) + flat * 4.0  # behind the tree, seen from the camera
+			cam_rig.global_position = player.global_position
+			await get_tree().create_timer(1.0).timeout
+			ok["tree_fade"] = snappedf(o.applied, 0.01)
+			await _shot("07c_tree_occlusion")
+			break
 	var kills_before := kills
 	ok["boars_spawned"] = enemies.filter(func(e): return is_instance_valid(e) and e.kind == "javali").size()
-	await _fight_all(45000, "07b_boar")
+	await _fight_all(45000, "07b_boar", 3)
 	await get_tree().create_timer(2.0).timeout
 	ok["boar_kills"] = kills - kills_before
 	ok["boar_report"] = last_report
+	if _args.has("respawn"):
+		await get_tree().create_timer(float(_args.respawn) + 2.0).timeout
+		ok["boar_respawned"] = enemies.filter(func(x): return is_instance_valid(x) and x.kind == "javali" and x.state != Enemy.State.DEAD).size()
 	ok["occluders_faded"] = occluders.filter(func(o): return o.applied > 0.5).size()
 	hud.toggle_journal()
 	await get_tree().create_timer(0.4).timeout
 	await _shot("08_journal")
+	# Journal buttons, clicked for real: accept an offer, decline another, abandon an active quest.
+	var acc := get_tree().get_nodes_in_group("journal_accept_btn")
+	if acc.size() > 0:
+		var k_acc: String = acc[0].get_meta("quest")
+		await _click(acc[0])
+		ok["click_journal_accept"] = await _wait_state(k_acc, "active")
+		await get_tree().create_timer(1.2).timeout  # the journal rebuilds from the new view
+	var dec := get_tree().get_nodes_in_group("journal_decline_btn")
+	if dec.size() > 0:
+		var k_dec: String = dec[0].get_meta("quest")
+		await _click(dec[0])
+		ok["click_journal_decline"] = await _wait_state(k_dec, "declined")
+		await get_tree().create_timer(1.2).timeout
+	var ab := get_tree().get_nodes_in_group("abandon_btn")
+	if ab.size() > 0:
+		var k_ab: String = ab[0].get_meta("quest")
+		await _click(ab[0])
+		ok["click_abandon"] = await _wait_state(k_ab, "abandoned")
 	hud.toggle_journal()
 	ok["kills"] = kills
 	ok["deaths"] = deaths

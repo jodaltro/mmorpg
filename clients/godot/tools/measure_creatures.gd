@@ -1,13 +1,11 @@
 extends SceneTree
 func _init() -> void:
-	var inst := (load("res://assets/creatures/boar_polygoogle.glb") as PackedScene).instantiate()
-	for m in inst.find_children("*", "MeshInstance3D", true, false):
-		var mi := m as MeshInstance3D
-		for i in mi.mesh.get_surface_count():
-			var mat := mi.mesh.surface_get_material(i)
-			if mat is BaseMaterial3D:
-				var b := mat as BaseMaterial3D
-				print("boar surf ", i, " albedo=", b.albedo_color, " tex=", b.albedo_texture, " vcolor=", b.vertex_color_use_as_albedo, " metallic=", b.metallic, " rough=", b.roughness)
-		var arr := mi.mesh.surface_get_arrays(0)
-		print("has COLOR: ", arr[Mesh.ARRAY_COLOR] != null, " verts=", (arr[Mesh.ARRAY_VERTEX] as PackedVector3Array).size())
+	var root := Node3D.new()
+	get_root().add_child(root)
+	var inst: Node3D = (load("res://assets/creatures/pig_animated.glb") as PackedScene).instantiate()
+	root.add_child(inst)
+	var sk := inst.find_child("Skeleton3D", true, false) as Skeleton3D
+	for i in sk.get_bone_count():
+		var p: Vector3 = inst.global_transform.affine_inverse() * (sk.global_transform * sk.get_bone_global_rest(i).origin)
+		print("bone ", i, " ", sk.get_bone_name(i), " world=", p.snapped(Vector3.ONE * 0.01))
 	quit()

@@ -23,10 +23,12 @@ const KINDS := {
 		"model": "res://assets/creatures/wolf_a.glb", "scale": 0.32, "ground": 0.0, "label_y": 1.7,
 		"idle": "Idle", "move": "Gallop", "attack": "Attack", "hit": "Idle_HitReact_Left", "death": "Death", "hit_at": 0.3,
 		"loops": ["Idle", "Idle_2", "Walk", "Gallop"], "tint": Color(0.85, 0.76, 1.0), "bar_y": 1.45},
+	# The boar is the animated Quaternius pig (CC0) made darker and bigger, with tusks.
 	"javali": {"name": "Javali", "hp": 60.0, "dmg": 10.0, "aggro": 8.0, "range": 1.9, "speed": 5.2, "creature": true,
-		"model": "res://assets/creatures/boar_polygoogle.glb", "scale": 0.0085, "ground": 0.4, "label_y": 1.7,
-		"idle": "Idle", "move": "Run", "attack": "Attack", "hit": "Hit", "death": "Death", "hit_at": 0.26,
-		"loops": [], "tint": Color.WHITE, "bar_y": 1.5},
+		"model": "res://assets/creatures/pig_animated.glb", "scale": 0.55, "ground": 0.0, "label_y": 1.35,
+		"idle": "AnimalArmature|AnimalArmature|AnimalArmature|Idle", "move": "AnimalArmature|AnimalArmature|AnimalArmature|Run", "attack": "AnimalArmature|AnimalArmature|AnimalArmature|Headbutt", "hit": "", "death": "AnimalArmature|AnimalArmature|AnimalArmature|Death", "hit_at": 0.35,
+		"loops": ["AnimalArmature|AnimalArmature|AnimalArmature|Idle", "AnimalArmature|AnimalArmature|AnimalArmature|Idle_Eating", "AnimalArmature|AnimalArmature|AnimalArmature|Walk", "AnimalArmature|AnimalArmature|AnimalArmature|Run"], "tint": Color(0.42, 0.48, 0.46), "bar_y": 1.1,
+		"tusks": {"bone": "Head_end", "length": 0.22, "spread": 0.09, "rot": Vector3(0, 0, 0)}},
 }
 
 var kind := "bandido"
@@ -72,10 +74,41 @@ func configure(k: String, camp_id: String, at: Vector3, who: Actor) -> void:
 		death_clip = d.death
 	if d.tint != Color.WHITE:
 		tint(d.tint)
+	if d.has("tusks"):
+		_add_tusks(d.tusks, float(d.scale))
 	speed_run = d.speed
 	play(idle_clip)
 	global_position = at
 	_build_bar(d.get("bar_y", 2.05))
+
+
+## Two ivory cones on the snout bone. The attachment inherits the armature scale,
+## so a holder undoes it and the sizes below are in meters.
+func _add_tusks(t: Dictionary, model_scale: float) -> void:
+	if skeleton == null or skeleton.find_bone(t.bone) < 0:
+		return
+	var att := BoneAttachment3D.new()
+	att.bone_name = t.bone
+	skeleton.add_child(att)
+	var holder := Node3D.new()
+	holder.scale = Vector3.ONE / skeleton.global_transform.basis.get_scale().x  # global scale already includes the model scale
+	holder.rotation_degrees = t.rot
+	att.add_child(holder)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.95, 0.9, 0.78)
+	mat.roughness = 0.6
+	for side in [-1.0, 1.0]:
+		var cone := MeshInstance3D.new()
+		var cm := CylinderMesh.new()
+		cm.top_radius = 0.0
+		cm.bottom_radius = 0.035
+		cm.height = t.length
+		cm.radial_segments = 6
+		cone.mesh = cm
+		cone.material_override = mat
+		cone.position = Vector3(side * t.spread, t.length * 0.5, 0)
+		cone.rotation_degrees = Vector3(0, 0, -side * 18.0)
+		holder.add_child(cone)
 
 
 func _build_bar(y: float) -> void:

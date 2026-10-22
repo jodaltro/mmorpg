@@ -115,3 +115,35 @@ Resumo da rodada completa: `AUTOTEST {"boar_kills":3,"boar_report":"cacar-javali
 ### Não validado
 
 Respawn do javali 25 s depois do abate (o código existe; o teste não esperou esse tempo), animação `Idle_HitReact_Right` (só se usa a esquerda), lobos em perseguição entre regiões, javalis em mais de uma região, desempenho com muitas criaturas.
+
+## 22/10/2026 — pendências: javali animado, respawn, botões, avisos, cercas, oclusão, desempenho, vários jogadores, Jev
+
+Servidor com `-advisor jev`, `127.0.0.1:8095`. Teste principal: `--autotest --threat=estrada --respawn=4`.
+
+| Pendência | O que mudou | Resultado |
+|---|---|---|
+| Javali sem animação | trocado pelo porco animado do Quaternius (CC0) escurecido, escala 0,55, presas no osso `Head_end`; o código procedural e o modelo CC-BY saíram | close-up confere tamanho, presas e tom; corre, dá cabeçada e morre com animação |
+| Respawn não testado | `--respawn=S` encurta o tempo para teste | `boar_respawned: 3` (os 3 voltaram 4 s depois); `boar_kills: 3`, cada `cacar-javali` aceito |
+| Cliques nos botões | clique real pelo pipeline de entrada (`Input.parse_input_event`) | Aceitar no cartão: `click_accept: true`. Abandonar no diário: o clique chega, e o motor **recusa por regra do universo** ("this world requires finishing the accepted quest"). Aceitar/Recusar do diário: não havia oferta pendente nessa rodada, **não exercitados** |
+| Avisos de falha/expiração | `--autotest=hud` com estados **sintéticos** (sem o motor) | avisos de nova, aceita, encerrada (expirou), falhou e habilidade aprendida aparecem; diário agrupa "expirou"/"falhou". Limitado a 4 avisos visíveis |
+| Cercas | colisores ao longo das duas cercas da estrada | pathfinding segue `path_reached: true`; bandidos atrás da cerca chegam pela ponta |
+| Oclusão das árvores | teste determinístico: jogador posto atrás de uma árvore, vista da câmera | `tree_fade: 0.82` |
+| Desempenho | amostra de 3 s com vsync desligado (RX 5700 XT, 1280×720) | praça: 327 fps, pior quadro 7,6 ms, 305 draw calls; floresta: 338 fps, 6,6 ms, 269 draw calls |
+| Vários jogadores | `others` já trazia jogadores; o cliente passou a mostrá-los | com 2 jogadores via contrato (`mp-ana` na vila, `mp-bruno` na floresta), cada um vê o outro com a região certa; o cliente de `mp-ana` mostrou 5 jogadores da vila e não o da floresta (`other_players: 5`). Posições são fixas por id (o motor não tem coordenadas) |
+
+### Jev (medido)
+
+`worldsim simulate -universe ../universes/valdoria/universe.json -advisor jev -env-file .env -pace 800ms -ticks 150 -players 3`:
+
+| Tipo | Decisões | Latência média | Confiança média | Custo |
+|---|---|---|---|---|
+| offer/jev | 19 | 551 ms | 0,51 | US$ 0,001009 |
+| story/jev | 2 | 529 ms | 0,54 | US$ 0,000080 |
+| world/jev | 16 | 512 ms | 0,47 | US$ 0,000698 |
+| world/default (prazo vencido) | 1 | — | — | — |
+
+Taxa de resolução pelo Jev no prazo: 37 de 38 (97%). Custo total: US$ 0,0018 em 150 ticks. A história avançou (10 missões concluídas, cenários únicos disputados, digest `81d173de…`).
+
+### Não validado
+
+Aceitar/Recusar pelo diário (sem oferta pendente na rodada), avisos de falha/expiração vindos do motor real (só com dados sintéticos), posição real entre jogadores.

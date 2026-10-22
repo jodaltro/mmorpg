@@ -35,7 +35,7 @@ MODELS = [
     (OUTFITS, "outfits", ["Male_Peasant", "Male_Ranger", "Female_Peasant", "Female_Ranger"]),
 ]
 FILES = [(UAL1 + "/UAL1_Standard.glb", "animations"), (UAL2 + "/UAL2_Standard.glb", "animations")]
-CREATURES = ["quaternius-polypizza-animals", "polypizza-boars-ccby"]  # the boars are CC-BY: keep SOURCES.txt
+CREATURES = ["quaternius-polypizza-animals"]  # Quaternius CC0 animals from poly.pizza
 TEXTURE_DIRS = [VILLAGE + "/Textures", NATURE + "/Textures", PROPS + "/Textures"]
 
 

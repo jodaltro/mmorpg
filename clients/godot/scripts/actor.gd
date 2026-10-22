@@ -41,9 +41,6 @@ var _bob := 0.0
 var _replanned := false
 var hit_clip := "Hit_Chest"
 var death_clip := "Death01"
-var _proc_clip := "Idle"  # clip name used by creatures without animations (procedural gait)
-var _ptween: Tween
-var _t := 0.0
 
 
 static func library() -> AnimationLibrary:
@@ -119,8 +116,7 @@ func _hitbox(shown_name: String, radius: float, height: float, label_y: float, p
 	add_child(pick)
 
 
-## A four-legged creature from its own GLB. With clips it plays them; a static
-## model (no AnimationPlayer) moves with a procedural gait instead.
+## A four-legged creature from its own animated GLB (Quaternius animals).
 func setup_creature(id: String, shown_name: String, spec: Dictionary) -> void:
 	entity_id = id
 	_hitbox(shown_name, 0.5, 1.0, spec.get("label_y", 1.6), 0.9, 1.2)
@@ -168,20 +164,12 @@ func equip(path: String) -> void:
 
 
 func play(clip: String, speed := 1.0, blend := 0.15) -> void:
-	if anim == null:
-		_proc_clip = clip
-		return
-	if anim.has_animation(clip) and (anim.current_animation != clip or not anim.is_playing()):
+	if anim and anim.has_animation(clip) and (anim.current_animation != clip or not anim.is_playing()):
 		anim.play(clip, blend, speed)
 
 
 func play_once(clip: String, speed := 1.0) -> void:
-	if busy:
-		return
-	if anim == null:
-		await _proc_once(clip)
-		return
-	if not anim.has_animation(clip):
+	if busy or anim == null or not anim.has_animation(clip):
 		return
 	busy = true
 	has_goal = false
@@ -198,64 +186,6 @@ func play_once(clip: String, speed := 1.0) -> void:
 func play_death() -> void:
 	if anim:
 		anim.play(death_clip, 0.1, 1.2)
-		return
-	_proc_clip = "Death"
-	_kill_ptween()
-	_ptween = create_tween().set_parallel(true)
-	_ptween.tween_property(model, "rotation:z", 1.5, 0.35)
-	_ptween.tween_property(model, "position:y", 0.2, 0.35)
-
-
-## One-shot moves for creatures without clips: rear back, lunge, recover.
-func _proc_once(clip: String) -> void:
-	busy = true
-	has_goal = false
-	_once += 1
-	var mine := _once
-	var yaw := model.rotation.y
-	var fwd := Vector3(sin(yaw), 0, cos(yaw))
-	_kill_ptween()
-	_ptween = create_tween()
-	if clip == "Attack":
-		_ptween.tween_property(model, "position", -fwd * 0.35, 0.12)
-		_ptween.parallel().tween_property(model, "rotation:x", -0.25, 0.12)
-		_ptween.tween_property(model, "position", fwd * 0.9, 0.10)
-		_ptween.parallel().tween_property(model, "rotation:x", 0.3, 0.10)
-		_ptween.tween_property(model, "position", Vector3.ZERO, 0.3)
-		_ptween.parallel().tween_property(model, "rotation:x", 0.0, 0.3)
-	elif clip == "Hit":
-		_ptween.tween_property(model, "position", -fwd * 0.3, 0.08)
-		_ptween.parallel().tween_property(model, "rotation:z", 0.18, 0.08)
-		_ptween.tween_property(model, "position", Vector3.ZERO, 0.25)
-		_ptween.parallel().tween_property(model, "rotation:z", 0.0, 0.25)
-	else:
-		_ptween.tween_interval(0.3)
-	await _ptween.finished
-	if mine != _once:
-		return
-	busy = false
-	play(idle_clip)
-
-
-func _kill_ptween() -> void:
-	if _ptween and _ptween.is_valid():
-		_ptween.kill()
-
-
-func _proc_update(delta: float) -> void:
-	if busy or _proc_clip == "Death":
-		return
-	_t += delta
-	var bob := 0.0
-	var pitch := sin(_t * 1.8) * 0.015
-	var roll := 0.0
-	if _proc_clip == clip_run or _proc_clip == clip_walk:
-		bob = absf(sin(_t * 13.0)) * 0.12
-		pitch = sin(_t * 13.0) * 0.07
-		roll = sin(_t * 6.5) * 0.05
-	model.position = Vector3(0, bob, 0)
-	model.rotation.x = pitch
-	model.rotation.z = roll
 
 
 func walk_to(p: Vector3, running := true) -> void:
@@ -304,8 +234,6 @@ func set_marker(text: String, color := Color(1.0, 0.85, 0.3)) -> void:
 
 
 func _process(delta: float) -> void:
-	if anim == null and model:
-		_proc_update(delta)
 	if marker:
 		_bob += delta
 		marker.position.y = 2.85 + sin(_bob * 3.0) * 0.1
@@ -328,11 +256,7 @@ func tint(c: Color) -> void:
 func interrupt() -> void:
 	busy = false
 	_once += 1
-	if anim == null and model:  # drop a half-finished procedural move
-		_kill_ptween()
-		model.position = Vector3.ZERO
-		model.rotation.x = 0.0
-		model.rotation.z = 0.0
+
 
 
 func dash(dir: Vector3, seconds: float) -> void:

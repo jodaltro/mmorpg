@@ -28,6 +28,7 @@ var prompt_label: Label
 var toast_box: VBoxContainer
 var offer_panel: PanelContainer
 var offer_text: RichTextLabel
+var offer_buttons := {}  # accept / decline / later
 var journal_panel: PanelContainer
 var journal_box: VBoxContainer
 var quests: Array = []
@@ -260,9 +261,11 @@ func _build_offer() -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 4)
 	v.add_child(row)
-	row.add_child(_button("Aceitar [Y]", func(): accept_pressed.emit(offered_key), 12))
-	row.add_child(_button("Recusar [N]", func(): decline_pressed.emit(offered_key), 12))
-	row.add_child(_button("Depois", postpone_offer, 12))
+	offer_buttons.accept = _button("Aceitar [Y]", func(): accept_pressed.emit(offered_key), 12)
+	offer_buttons.decline = _button("Recusar [N]", func(): decline_pressed.emit(offered_key), 12)
+	offer_buttons.later = _button("Depois", postpone_offer, 12)
+	for b in [offer_buttons.accept, offer_buttons.decline, offer_buttons.later]:
+		row.add_child(b)
 	offer_panel.visible = false
 
 
@@ -336,6 +339,10 @@ func add_log(bb: String) -> void:
 
 
 func toast(text: String, color := Color.WHITE) -> void:
+	while toast_box.get_child_count() >= 4:  # bursts of world events stay readable
+		var old := toast_box.get_child(0)
+		toast_box.remove_child(old)
+		old.queue_free()
 	var p := _panel(toast_box, 0.9)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	p.add_child(_label(text, 16, color))
@@ -510,12 +517,21 @@ func _rebuild_journal() -> void:
 			row.add_child(r)
 			var key: String = q.key
 			if q.state == "active":
-				row.add_child(_button("Abandonar", func(): abandon_pressed.emit(key)))
+				var ab := _button("Abandonar", func(): abandon_pressed.emit(key))
+				ab.add_to_group("abandon_btn")
+				ab.set_meta("quest", key)
+				row.add_child(ab)
 			elif q.state == "offered":
 				var btns := HBoxContainer.new()
 				btns.add_theme_constant_override("separation", 6)
-				btns.add_child(_button("Aceitar", func(): accept_pressed.emit(key)))
-				btns.add_child(_button("Recusar", func(): decline_pressed.emit(key)))
+				var ja := _button("Aceitar", func(): accept_pressed.emit(key))
+				ja.add_to_group("journal_accept_btn")
+				ja.set_meta("quest", key)
+				var jd := _button("Recusar", func(): decline_pressed.emit(key))
+				jd.add_to_group("journal_decline_btn")
+				jd.set_meta("quest", key)
+				btns.add_child(ja)
+				btns.add_child(jd)
 				row.add_child(btns)
 			journal_box.add_child(row)
 	journal_box.add_child(_label("Habilidades (%d)" % skills.size(), 15, GOLD))
