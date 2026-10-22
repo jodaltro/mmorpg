@@ -6,6 +6,7 @@ extends Node
 
 signal view_changed(view: Dictionary)
 signal command_done(label: String, ok: bool, body: Dictionary)
+signal world_reset  # the world was started over (by anyone): this character no longer exists
 
 @export var base_url := "http://127.0.0.1:8095"
 @export var player_id := "godot-1"
@@ -127,12 +128,21 @@ func refresh_affordances() -> void:
 		affordances = res.body.get("affordances", [])
 
 
+## Starts the world over. The engine archives the old log (nothing is deleted) and every character is gone.
+func reset_world() -> Dictionary:
+	return await request(HTTPClient.METHOD_POST, "/v1/world/reset", {"version": 1, "confirm": "new-world"})
+
+
 func refresh() -> void:
 	if not joined or _refreshing:
 		return
 	_refreshing = true
 	var res := await request(HTTPClient.METHOD_GET, "/v1/views/%s?limit=%d" % [player_id, view_limit])
 	_refreshing = false
+	if res.status == 404 and res.body.get("error", "") == "unknown_observer":  # someone reset the world
+		joined = false
+		world_reset.emit()
+		return
 	if res.status == 200:
 		view = res.body
 		view_changed.emit(view)

@@ -8,6 +8,8 @@ signal decline_pressed(key: String)
 signal abandon_pressed(key: String)
 signal action_chosen(index: int)
 signal ability_pressed(index: int)
+signal reset_world_requested
+var reset_panel: PanelContainer
 
 const GOLD := Color(0.86, 0.7, 0.36)
 const RANK_COLORS := {"F": "9a9a9a", "E": "9a9a9a", "D": "7bc96f", "C": "5aa9e6", "B": "a97be0", "A": "f0a040", "S": "e8574a", "SS": "ffd060"}
@@ -207,6 +209,7 @@ func _ready() -> void:
 	_build_offer()
 	_build_journal()
 	_build_notebook()
+	_build_world_button()
 	landmarks = Landmarks.new()
 	landmarks.set_anchors_preset(Control.PRESET_FULL_RECT)
 	landmarks.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -315,6 +318,33 @@ func _build_status() -> void:
 	hp_text = _label("", 12, Color(1, 1, 1, 0.9))
 	hp_bar.add_child(hp_text)
 	_ignore(p)
+
+
+## A small button under the status that starts the world over (the old world is archived, never deleted).
+func _build_world_button() -> void:
+	var slot := _slot(Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_BEGIN, 12, 118)
+	var b := _button("Reiniciar mundo", func() -> void: reset_panel.visible = true, 12)
+	b.modulate = Color(1, 1, 1, 0.75)
+	_pin(slot, b)
+	slot.add_child(b)
+	var cslot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_CENTER)
+	reset_panel = _panel(cslot, 0.97)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 10)
+	reset_panel.add_child(v)
+	v.add_child(_label("Reiniciar o mundo?", 20, GOLD))
+	var t := _label("O mundo atual e arquivado (nada e apagado) e todos os personagens recomecam do zero, numa Valdoria nova.", 14)
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	t.custom_minimum_size.x = 420
+	v.add_child(t)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 12)
+	v.add_child(row)
+	row.add_child(_button("Sim, reiniciar", func() -> void:
+		reset_panel.visible = false
+		reset_world_requested.emit()))
+	row.add_child(_button("Cancelar", func() -> void: reset_panel.visible = false))
+	reset_panel.visible = false
 
 
 func _build_right_column() -> void:

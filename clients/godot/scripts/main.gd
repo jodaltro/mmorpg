@@ -83,6 +83,7 @@ var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
 var sfx: Sfx
+var reset_seen := false
 var _step_seg := -1
 const STEP_PHASE_OFFSET := 0.12  # where in the cycle the foot lands (tuned by ear: change here)
 var _idle_open := false
@@ -156,6 +157,8 @@ func _ready() -> void:
 	client.player_name = _args.get("name", "Viajante")
 	add_child(client)
 	client.view_changed.connect(_on_view)
+	client.world_reset.connect(_on_world_reset)
+	hud.reset_world_requested.connect(_reset_world)
 	client.arrival_region = String(_args.get("arrival", "estrada"))
 	client.view_limit = 60  # the first view carries the recap of what happened while away
 	_load_seen()
@@ -210,6 +213,8 @@ func _ready() -> void:
 				_autotest_outros()
 			"sensacao":
 				_autotest_sensacao()
+			"reiniciar":
+				_autotest_reiniciar()
 			"monumento":
 				_autotest_monumento()
 			"marca":
@@ -1577,6 +1582,37 @@ func _report(who: String, what: String, res: Dictionary) -> void:
 
 # --- view from the engine ---------------------------------------------------
 
+## The reset button: ask the engine to start over; every window then notices and begins again.
+func _reset_world() -> void:
+	var res := await client.reset_world()
+	telemetry.note("world_reset", {"status": res.status})
+	if res.status != 200:
+		hud.toast("Nao foi possivel reiniciar o mundo agora.", Color(1.0, 0.6, 0.5))
+		return
+	hud.toast("Mundo reiniciado. Chegando de novo a Valdoria...", Color(0.8, 0.92, 1.0))
+	_on_world_reset()
+
+
+## The character is gone (this window or another one reset the world): forget what was lived and start again.
+var _resetting := false
+
+
+func _on_world_reset() -> void:
+	if _resetting:
+		return
+	_resetting = true
+	_seen = {"seq": 0, "opening": false, "ceremony": false, "people": {}}
+	_save_seen()
+	if _args.has("autotest"):  # tests keep running: just come back into the new world
+		await client.join()
+		await client.refresh()
+		_resetting = false
+		reset_seen = true
+		return
+	await get_tree().create_timer(0.6).timeout
+	get_tree().reload_current_scene()
+
+
 func _seen_path() -> String:
 	return "user://seen-%s.json" % client.player_id
 
@@ -2889,6 +2925,35 @@ func _autotest_cenas() -> void:
 
 
 var _marks_of := ""  # tests: only the marks left by this author count
+
+
+## The reset button, end to end: do something, press the button, come back to a fresh world.
+func _autotest_reiniciar() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	await _perform({"action": "ler-quadro", "origin": "player", "title": "Ler o quadro"})
+	await get_tree().create_timer(1.0).timeout
+	var tick_before := int(client.view.get("tick", 0))
+	ok["tick_before"] = tick_before
+	ok["button_exists"] = hud.reset_panel != null
+	hud.reset_panel.visible = true
+	await _shot("reset_confirm")
+	hud.reset_panel.visible = false
+	await _reset_world()
+	var w := 0.0
+	while w < 20.0 and (not reset_seen or client.view.is_empty() or int(client.view.get("tick", 99999)) >= tick_before):
+		await get_tree().create_timer(0.5).timeout
+		w += 0.5
+	ok["came_back_after_s"] = w
+	ok["tick_after"] = int(client.view.get("tick", -1))
+	ok["quests_after"] = client.view.get("quests", []).size()
+	ok["region_after"] = client.view.get("self", {}).get("region", "?")
+	ok["deeds_forgotten"] = telemetry.verbs.size() >= 0 and int(client.view.get("revision", 0)) < 40
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
 
 
 ## F7 feel checks: sounds exist, menus never stop movement, the engine answers fast, nothing stalls, a stuck player gets a hint.
