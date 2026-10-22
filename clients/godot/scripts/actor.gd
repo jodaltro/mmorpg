@@ -219,6 +219,26 @@ func _plan() -> void:
 			path_i = 1
 
 
+## A speech balloon above the head that fades after a few seconds.
+func say(text: String, secs := 6.0) -> void:
+	var b := Label3D.new()
+	b.text = text
+	b.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	b.no_depth_test = true
+	b.font_size = 34
+	b.pixel_size = 0.0065
+	b.outline_size = 12
+	b.width = 520.0
+	b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	b.modulate = Color(1.0, 0.97, 0.85)
+	b.position = Vector3(0, label.position.y + 0.75, 0)
+	add_child(b)
+	var tw := b.create_tween()
+	tw.tween_interval(secs)
+	tw.tween_property(b, "modulate:a", 0.0, 0.8)
+	tw.tween_callback(b.queue_free)
+
+
 func set_marker(text: String, color := Color(1.0, 0.85, 0.3)) -> void:
 	if text == "":
 		if marker:

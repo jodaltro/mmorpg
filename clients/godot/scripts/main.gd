@@ -4,12 +4,10 @@ extends Node3D
 
 const REGION_NAMES := {"vila": "Vila Cinzenta", "floresta": "Floresta Cinzenta", "estrada": "Estrada do Leste",
 	"mina": "Mina de Kharum", "ruinas": "Ruinas de Asterion", "toca": "Toca dos Lebrinos"}
-# Where each NPC stands in their region. Talking to one is the "conversar"
-# intent: whoever is around sees it, and from then on they know the player.
 const DISCOVERED := "found"  # the universe's discovered-place predicate
+const CHATTER_RANGE := 15.0  # how close you must be to hear people talk
 const LABEL_RANGE := 7.0  # world labels show only when you are close enough to notice
-const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), "floresta": Vector3(64, 0, 0),
-	"mina": Vector3(106, 0, 0), "ruinas": Vector3(136, 0, 0), "toca": Vector3(66, 0, 41)}
+const REGION_ORIGIN := Layout.ORIGIN
 # Combat outcomes are reported by fights, never offered as menu options.
 const COMBAT_REPORTED := ["enfrentar-bandidos", "cacar-lobos", "cacar-javali", "cacar-javali-branco", "defender-vila"]
 # Threats appear and end through public world events (the engine decides when).
@@ -21,13 +19,13 @@ const THREATS := {
 		"at": [Vector2(-9, -9), Vector2(9, 9), Vector2(-9, 9)]},
 	# Boars roam the forest all the time; each one is its own confirmed hunt and they return later.
 	"floresta": {"region": "floresta", "always": true, "per_kill": true, "kind": "javali", "action": "cacar-javali", "respawn": 25.0,
-		"at": [Vector2(-8, -20), Vector2(8, 20), Vector2(16, -24)]},  # in the woods, off the road
+		"at": [Vector2(-20, -8), Vector2(22, 10), Vector2(-14, 16)]},  # in the woods, off the trail
 	# When the seal shatters, corrupted creatures come to the village (the player has to know it).
 	"corrupcao": {"region": "vila", "belief": "seal-shattered", "kind": "corrompido", "action": "defender-vila",
 		"at": [Vector2(-10, 9), Vector2(10, -9), Vector2(-10, -9)]},
 	# The White Boar: only at night, only for who found its tracks, only until it falls.
 	"branco": {"region": "floresta", "night_fact": "white-boar-sign", "slain_fact": "white-boar-slain", "kind": "javali_branco",
-		"action": "cacar-javali-branco", "at": [Vector2(16, -16)]},
+		"action": "cacar-javali-branco", "at": [Vector2(-18, -12)]},
 }
 # Combat abilities (the game server's rules; the engine never sees them).
 const ABILITIES := [
@@ -50,18 +48,12 @@ const COMBO := [
 const NPC_NAMES := {"mira": "Mira, a curandeira", "orin": "Orin, o guarda", "tomas": "Velho Tomas", "brom": "Brom, o ferreiro",
 	"lia": "Lia, a comerciante", "kael": "Kael, o cacador", "elena": "Irma Elena", "nino": "Nino", "garrick": "Garrick, chefe da mina",
 	"pipo": "Pipo, o lebrino anciao", "sora": "Sora, mestra de laminas"}
-const NPCS := {
-	"mira": {"at": Vector2(-5, -3), "female": true},
-	"orin": {"at": Vector2(5, -3)},
-	"tomas": {"at": Vector2(-3, 4)},
-	"brom": {"at": Vector2(9, 2)},
-	"lia": {"at": Vector2(3, 6), "female": true},
-	"kael": {"at": Vector2(-9, 1)},
-	"elena": {"at": Vector2(-7, 6), "female": true},
-	"nino": {"at": Vector2(0, -6)},
-	"sora": {"at": Vector2(3, -1), "female": true},
-	"pipo": {"at": Vector2(-3, -1)},
-	"garrick": {"at": Vector2(2, -4)},
+const NPCS := {  # who is female; positions come from the engine's spots
+	"mira": {"female": true}, "elena": {"female": true}, "lia": {"female": true}, "sora": {"female": true},
+}
+# Where NPCs without a routine stand in their region (offsets from the region's origin).
+const NPC_FALLBACK := {
+	"lia": Vector2(3, 6), "kael": Vector2(-9, 1), "sora": Vector2(3, -1), "pipo": Vector2(-3, -1), "garrick": Vector2(2, -4),
 }
 
 var client: WorldClient
@@ -91,7 +83,7 @@ var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
 var found_places: Dictionary = {}  # regions this character has discovered (engine fact "found")
-var pois: Array = []  # Places.POIS with their label nodes
+var pois: Array = []  # Places.pois() with their label nodes
 var _menu: Array = []  # affordances shown in the action menu
 var ready_at := {}  # ability id -> msec when it can be used again
 var _lmb_held := false
@@ -143,6 +135,12 @@ func _ready() -> void:
 				_autotest_skills()
 			"f0":
 				_autotest_f0()
+			"f1":
+				_autotest_f1()
+			"layout":
+				_autotest_layout()
+			"tour":
+				_autotest_tour()
 			_:
 				_autotest()
 
@@ -199,9 +197,9 @@ func _build_environment() -> void:
 func _build_world() -> void:
 	var ground := MeshInstance3D.new()
 	var plane := PlaneMesh.new()
-	plane.size = Vector2(260, 140)
+	plane.size = Vector2(240, 160)
 	ground.mesh = plane
-	ground.position = Vector3(55, 0, 5)
+	ground.position = Vector3(35, 0, -30)
 	var gm := StandardMaterial3D.new()
 	gm.albedo_color = Color(0.36, 0.55, 0.26)
 	gm.roughness = 1.0
@@ -211,41 +209,33 @@ func _build_world() -> void:
 	floor_body.collision_layer = 1
 	var fcs := CollisionShape3D.new()
 	var fbox := BoxShape3D.new()
-	fbox.size = Vector3(260, 1, 140)
+	fbox.size = Vector3(240, 1, 160)
 	fcs.shape = fbox
 	floor_body.add_child(fcs)
-	floor_body.position = Vector3(55, -0.5, 5)
+	floor_body.position = Vector3(35, -0.5, -30)
 	floor_body.add_to_group("nav_source")
 	add_child(floor_body)
 
-	# Dirt road from the plaza to the forest.
-	var road := MeshInstance3D.new()
-	var rm := BoxMesh.new()
-	rm.size = Vector3(30, 0.03, 3.2)
-	road.mesh = rm
-	road.position = Vector3(26, 0.015, 0)
 	var rmat := StandardMaterial3D.new()
 	rmat.albedo_color = Color(0.55, 0.42, 0.28)
 	rmat.roughness = 1.0
-	road.material_override = rmat
-	add_child(road)
-	var road2 := MeshInstance3D.new()  # on through the forest to the mine and the ruins
-	var rm2 := BoxMesh.new()
-	rm2.size = Vector3(96, 0.03, 3.0)
-	road2.mesh = rm2
-	road2.position = Vector3(89, 0.015, 0)
-	road2.material_override = rmat
-	add_child(road2)
+	for r in Layout.ROADS:
+		_road(r[0], r[1], r[2], rmat)
 
 	# Plaza paving: 6x6 tiles of 2m.
 	for x in 6:
 		for z in 6:
 			_spawn("village/Floor_UnevenBrick", Vector3(-5 + x * 2, 0.0, -5 + z * 2))
 
-	_house(Vector3(-16, 0, -12), 3, 3, 0.0, false)
-	_house(Vector3(15, 0, -14), 3, 4, 0.0, true)
-	_house(Vector3(-17, 0, 14), 3, 3, 180.0, true)
-	_house(Vector3(16, 0, 15), 3, 3, 180.0, false)
+	_palisade()
+	_house(Vector3(-16, 0, -12), 3, 3, 0.0, false)  # Mira's house
+	_house(Vector3(15, 0, -14), 3, 4, 0.0, true)  # the tavern
+	_house(Vector3(-17, 0, 14), 3, 3, 180.0, true)  # Brom's forge
+	_house(Vector3(16, 0, 15), 3, 3, 180.0, false)  # the chapel
+	_house(Vector3(2, 0, 22), 3, 3, 180.0, false)  # the barn
+	_house(Vector3(-9, 0, -21), 2, 2, 0.0, false)  # Nino's home
+	_house(Vector3(28, 0, -9), 2, 2, 0.0, true)  # the gate house
+	_village_details()
 
 	# Market and clutter.
 	_spawn("props/Table_Large", Vector3(3, 0, 8.5), 0.0)
@@ -259,37 +249,29 @@ func _build_world() -> void:
 	_spawn("village/Prop_Crate", Vector3(11.7, 0, 4.7), 25.0)
 	_spawn("village/Prop_Crate", Vector3(11.0, 1.05, 4.6), 45.0)
 	_solid(Vector3(11, 0, 4.6), Vector3(2.2, 1.1, 1.2))
-	for i in 8:  # fence along the road
-		_spawn("village/Prop_WoodenFence_Single", Vector3(14 + i * 2.0, 0, 3.0))
-		_spawn("village/Prop_WoodenFence_Single", Vector3(14 + i * 2.0, 0, -3.0))
-	_solid(Vector3(21.0, 0, 3.0), Vector3(16.4, 1.0, 0.25))
-	_solid(Vector3(21.0, 0, -3.0), Vector3(16.4, 1.0, 0.25))
 
-	# Trees: sparse around the village, dense in the forest.
-	for i in 40:
-		var a := _rng.randf() * TAU
-		var r := _rng.randf_range(34, 52)
-		_tree(Vector3(cos(a) * r * 1.2 - 12, 0, sin(a) * r * 0.9))
+	# Trees: sparse outside the walls, dense in the northern forest.
 	for i in 90:
-		var p := Vector3(_rng.randf_range(34, 92), 0, _rng.randf_range(-38, 38))
-		if abs(p.z) < 3.4 and p.x < 56:
-			continue
-		_tree(p)
-	for i in 160:  # grass tufts
-		var gp := Vector3(_rng.randf_range(-40, 150), 0, _rng.randf_range(-35, 48))
-		if abs(gp.x) < 8 and abs(gp.z) < 8:
+		_tree(Vector3(_rng.randf_range(-75, 150), 0, _rng.randf_range(-105, 45)))
+	for i in 170:
+		_tree(Vector3(_rng.randf_range(-38, 50), 0, _rng.randf_range(-105, -38)))
+	for i in 240:  # grass tufts
+		var gp := Vector3(_rng.randf_range(-70, 140), 0, _rng.randf_range(-100, 40))
+		if absf(gp.x) < 8 and absf(gp.z) < 8:
 			continue
 		_spawn("nature/Grass_Common_Short" if _rng.randf() < 0.6 else "nature/Grass_Common_Tall", gp, _rng.randf() * 360.0)
 
-	# Bandit camp props on the road.
-	_spawn("village/Prop_Wagon", Vector3(30, 0, 7), 25.0)
-	_solid(Vector3(30, 0, 7), Vector3(4.0, 1.5, 2.0), 25.0)
-	_spawn("village/Prop_Crate", Vector3(21, 0, -6.5))
-	_spawn("village/Prop_Crate", Vector3(22.2, 0, -6.8), 30.0)
-	_solid(Vector3(21.6, 0, -6.6), Vector3(2.2, 1.1, 1.2))
+	# Bandit camp props at the crossroads road.
+	var camp: Vector3 = Layout.ORIGIN.estrada
+	_spawn("village/Prop_Wagon", camp + Vector3(6, 0, 7), 25.0)
+	_solid(camp + Vector3(6, 0, 7), Vector3(4.0, 1.5, 2.0), 25.0)
+	_spawn("village/Prop_Crate", camp + Vector3(-3, 0, -6.5))
+	_spawn("village/Prop_Crate", camp + Vector3(-1.8, 0, -6.8), 30.0)
+	_solid(camp + Vector3(-2.4, 0, -6.6), Vector3(2.2, 1.1, 1.2))
+	_spawn("props/Bench", Layout.spot("banco-estrada") + Vector3(0, 0, 0.6), 0.0)
 
 	Places.build(self)
-	for poi in Places.POIS:
+	for poi in Places.pois():
 		var l := Label3D.new()
 		l.text = poi.label
 		l.position = poi.at + Vector3(0, 1.9, 0)
@@ -305,21 +287,96 @@ func _build_world() -> void:
 		pois.append(entry)
 
 	_build_nav()
-	_region_zone("vila", Vector3(-6, 0, 0), Vector3(40, 6, 70))
-	_region_zone("estrada", Vector3(24, 0, 0), Vector3(20, 6, 70))
-	_region_zone("floresta", Vector3(64, 0, 0), Vector3(60, 6, 70))
-	_region_zone("mina", Vector3(109, 0, 0), Vector3(30, 6, 70))
-	_region_zone("ruinas", Vector3(139, 0, 0), Vector3(30, 6, 70))
-	_region_zone("toca", Vector3(66, 0, 43), Vector3(22, 6, 14))
+	for id in Layout.ZONES:
+		_region_zone(id, Layout.ZONES[id][0], Layout.ZONES[id][1])
+
+
+## A straight strip of dirt road from a to b.
+func _road(a: Vector3, b: Vector3, width: float, mat: Material) -> void:
+	var road := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = Vector3(width, 0.03, a.distance_to(b))
+	road.mesh = bm
+	road.material_override = mat
+	road.position = (a + b) / 2.0 + Vector3(0, 0.015, 0)
+	road.rotation.y = atan2(b.x - a.x, b.z - a.z)
+	add_child(road)
+
+
+## Palisade around the village: gates east and north, and a gap on the west side hidden by a bush.
+func _palisade() -> void:
+	var r := Layout.VILLAGE
+	var x0 := r.position.x
+	var x1 := r.end.x
+	var z0 := r.position.y
+	var z1 := r.end.y
+	# side, fixed coordinate, from, to, gaps as [from, to]
+	var sides := [
+		["h", z0, x0, x1, [[-3.0, 3.0]]],  # north, with the forest gate
+		["h", z1, x0, x1, []],
+		["v", x1, z0, z1, [[-3.0, 3.0]]],  # east, with the main gate
+		["v", x0, z0, z1, [[-15.0, -13.0]]],  # west, with the hidden gap
+	]
+	for sd in sides:
+		var cuts: Array = [sd[2]]
+		for g in sd[4]:
+			cuts.append(g[0])
+			cuts.append(g[1])
+		cuts.append(sd[3])
+		for i in range(0, cuts.size(), 2):
+			var from: float = cuts[i]
+			var to: float = cuts[i + 1]
+			var t := from + 1.0
+			while t < to:
+				var pos := Vector3(t, 0, sd[1]) if sd[0] == "h" else Vector3(sd[1], 0, t)
+				_spawn("village/Prop_WoodenFence_Single", pos, 0.0 if sd[0] == "h" else 90.0)
+				t += 2.0
+			var len := to - from
+			if len > 0.5:
+				var mid := (from + to) / 2.0
+				if sd[0] == "h":
+					_solid(Vector3(mid, 0, sd[1]), Vector3(len, 1.4, 0.3))
+				else:
+					_solid(Vector3(sd[1], 0, mid), Vector3(0.3, 1.4, len))
+	_spawn("nature/Bush_Common", Vector3(x0 + 0.3, 0, -14.0), 0.0, 1.5)  # covers the gap from outside
+
+
+## Props that make each spot read as what it is, plus the lanterns that come on at night.
+func _village_details() -> void:
+	_spawn("props/Anvil", Layout.spot("forja") + Vector3(2.6, 0, 0.4), 90.0)
+	_spawn("props/Workbench", Layout.spot("forja") + Vector3(-3.2, 0, 0.2), 0.0)
+	_spawn("props/Barrel", Layout.spot("taverna") + Vector3(-3.6, 0, 0.4))
+	_spawn("props/Bench", Layout.spot("taverna") + Vector3(2.6, 0, 0.6), 0.0)
+	_spawn("props/Table_Large", Layout.spot("taverna") + Vector3(5.2, 0, 1.4), 90.0)
+	for i in 5:  # the garden: fenced rows
+		_spawn("nature/Fern_1", Layout.spot("horta") + Vector3(-2 + i * 1.0, 0, -1.2), i * 30.0, 0.9)
+		_spawn("nature/Flower_3_Group", Layout.spot("horta") + Vector3(-2 + i * 1.0, 0, 1.2), i * 50.0, 1.0)
+	var pad := MeshInstance3D.new()  # the lookout: a low stone platform with a bench
+	var bx := BoxMesh.new()
+	bx.size = Vector3(5, 0.7, 4)
+	pad.mesh = bx
+	var stone := StandardMaterial3D.new()
+	stone.albedo_color = Color(0.5, 0.5, 0.52)
+	pad.material_override = stone
+	pad.position = Vector3(0, 0.35, -23.5)
+	add_child(pad)
+	_solid(Vector3(0, 0, -23.5), Vector3(5, 0.7, 4))
+	_spawn("props/Bench", Vector3(0, 0, -21.4), 0.0)
+	for lp in [Layout.spot("taverna") + Vector3(-1.8, 0, 0), Layout.spot("forja") + Vector3(-1.8, 0, 0), Layout.spot("capela") + Vector3(-1.8, 0, 0),
+			Layout.spot("portao") + Vector3(0, 0, 3), Layout.spot("poco") + Vector3(-2.4, 0, 2.6)]:
+		_spawn("props/Torch_Metal", lp, 0.0)
+		var light := OmniLight3D.new()
+		light.light_color = Color(1.0, 0.72, 0.4)
+		light.omni_range = 7.0
+		light.light_energy = 0.0
+		light.position = lp + Vector3(0, 2.0, 0)
+		light.add_to_group("lantern")
+		add_child(light)
 
 
 func _tree(p: Vector3, kind := "") -> void:
-	if p.length() < 24 and abs(p.z) < 22:
+	if Layout.tree_free(p):
 		return
-	if absf(p.z) < 10.0 and p.x > 8.0 and p.x < 160.0:
-		return  # keep the road, the camp, the mine and the ruins visible from the fixed camera
-	if Vector2(p.x - 66, p.z - 44).length() < 10.0 or Vector2(p.x - 80, p.z + 16).length() < 6.0:
-		return  # the den and the seal stay open
 	if kind == "":
 		var kinds: Array[String] = ["nature/CommonTree_1", "nature/CommonTree_2", "nature/CommonTree_3", "nature/DeadTree_1"]
 		kind = kinds[_rng.randi() % 4]
@@ -589,7 +646,7 @@ func _nearest_interactable() -> Dictionary:
 	var best := {}
 	var best_d := 3.2
 	for n in npc_nodes.values():
-		if n.has_meta("player"):
+		if n.has_meta("player") or not n.visible:
 			continue
 		var d: float = n.global_position.distance_to(player.global_position)
 		if d < best_d:
@@ -617,7 +674,7 @@ func use_nearest() -> void:
 
 func open_npc_menu(npc: Actor) -> void:
 	await client.refresh_affordances()
-	_show_menu(npc.label.text, client.affordances.filter(func(a): return a.get("with", "") == npc.entity_id))
+	_show_menu(npc.get_meta("base_name", npc.label.text), client.affordances.filter(func(a): return a.get("with", "") == npc.entity_id))
 
 
 func open_poi_menu(poi: Dictionary) -> void:
@@ -681,7 +738,7 @@ func _perform(a: Dictionary) -> void:
 
 ## Talk to an NPC directly (tests and the first meeting).
 func _talk(npc: Actor) -> void:
-	await _perform({"action": "conversar", "origin": "player", "args": {"npc": npc.entity_id}, "with": npc.entity_id, "title": "Conversar com %s" % npc.label.text})
+	await _perform({"action": "conversar", "origin": "player", "args": {"npc": npc.entity_id}, "with": npc.entity_id, "title": "Conversar com %s" % npc.get_meta("base_name", npc.label.text)})
 
 
 # --- movement, aiming and abilities -------------------------------------------
@@ -1217,9 +1274,14 @@ func _on_view(v: Dictionary) -> void:
 			givers[q.giver] = true
 	_sync_npcs(v)
 	_sun(int(v.get("hour", -1)))
+	var said := 0
 	for e in v.get("events", []):
 		if int(e.seq) > last_seq:
 			last_seq = int(e.seq)
+			if e.kind == "chatter":
+				_hear(e, said * 3.0)
+				said += 1
+				continue
 			for r in THREATS:
 				if e.kind == THREATS[r].get("event", "!"):
 					threat_on[r] = true
@@ -1246,6 +1308,10 @@ func _sync_discovered(v: Dictionary) -> void:
 
 
 func _update_poi_labels() -> void:
+	for n in npc_nodes.values():
+		if n.has_meta("base_name"):
+			var doing: String = n.get_meta("doing", "")
+			n.label.text = n.get_meta("base_name") + ("\n(%s)" % doing if doing != "" and n.global_position.distance_to(player.global_position) < 9.0 else "")
 	for poi in pois:
 		var near: bool = found_places.has(poi.region) and Vector2(poi.at.x - player.global_position.x, poi.at.z - player.global_position.z).length() < LABEL_RANGE
 		poi.node.visible = near
@@ -1280,26 +1346,60 @@ func _sync_npcs(v: Dictionary) -> void:
 			npc_nodes[id].queue_free()
 			npc_nodes.erase(id)
 	for id in here:
+		var o: Dictionary = here[id]
+		var target := _npc_target(o, i)
 		if npc_nodes.has(id):
+			var n: Actor = npc_nodes[id]
+			n.set_meta("doing", o.get("doing", ""))
+			n.visible = o.get("doing", "") != "dormindo"
+			if o.get("spot", "") != n.get_meta("spot", "") and o.kind == "npc":
+				n.set_meta("spot", o.get("spot", ""))
+				n.walk_to(target, false)  # the day moves people: they walk to the next place
 			continue
-		var is_player: bool = here[id].kind == "player"
-		var spec: Dictionary = NPCS.get(id, {})
-		var at: Vector2 = spec.get("at", Vector2(-12 + (i % 5) * 6, 11))
-		if is_player:  # the engine knows regions, not coordinates: a stable spot from the id
-			var ang := float(hash(id) % 360) * PI / 180.0
-			at = Vector2(cos(ang), sin(ang)) * 11.0
 		i += 1
+		var is_player: bool = o.kind == "player"
+		var spec: Dictionary = NPCS.get(id, {})
 		var npc := Actor.new()
 		add_child(npc)
-		npc.setup(id, here[id].name.split(",")[0], spec.get("female", false), id == "orin" or id == "sora", "Ranger" if id == "orin" or id == "sora" or id == "kael" else "Peasant")
+		npc.setup(id, o.name.split(",")[0], spec.get("female", false), id == "orin" or id == "sora", "Ranger" if id == "orin" or id == "sora" or id == "kael" else "Peasant")
 		npc.idle_clip = "Idle_Talking" if id == "tomas" else "Idle"
+		npc.set_meta("base_name", o.name.split(",")[0])
+		npc.set_meta("spot", o.get("spot", ""))
+		npc.set_meta("doing", o.get("doing", ""))
 		if is_player:
 			npc.set_meta("player", true)
 			npc.label.modulate = Color(0.6, 0.82, 1.0)
 		npc.play(npc.idle_clip)
-		npc.position = REGION_ORIGIN.get(region, Vector3.ZERO) + Vector3(at.x, 0, at.y)
-		npc.model.rotation.y = atan2(-at.x, -at.y)
+		npc.position = target
+		npc.model.rotation.y = atan2(-target.x, -target.z)
+		npc.visible = o.get("doing", "") != "dormindo"
 		npc_nodes[id] = npc
+
+
+## Where an NPC or another player stands: its spot if the engine names one, else a fixed place in the region.
+func _npc_target(o: Dictionary, i: int) -> Vector3:
+	var id: String = o.id
+	var ang := float(hash(id) % 360) * PI / 180.0
+	var spot: String = o.get("spot", "")
+	if o.kind == "player":  # the engine knows regions, not coordinates: a stable spot from the id
+		return Layout.ORIGIN.get(region, Vector3.ZERO) + Vector3(cos(ang), 0, sin(ang)) * 11.0
+	if spot != "" and Layout.SPOTS.has(spot):
+		return Layout.spot(spot) + Vector3(cos(ang), 0, sin(ang)) * 1.1
+	var at: Vector2 = NPC_FALLBACK.get(id, Vector2(-12 + (i % 5) * 6, 11))
+	return Layout.ORIGIN.get(region, Vector3.ZERO) + Vector3(at.x, 0, at.y)
+
+
+## Overheard talk: balloons above the speakers, when you are near enough to hear.
+func _hear(e: Dictionary, delay: float) -> void:
+	if e.get("data", {}).get("region", "") != region or not npc_nodes.has(e.actor):
+		return
+	var speaker: Actor = npc_nodes[e.actor]
+	if speaker.global_position.distance_to(player.global_position) > CHATTER_RANGE:
+		return
+	telemetry.note("heard", {"chatter": e.data.get("chatter", ""), "who": e.actor})
+	await get_tree().create_timer(delay).timeout
+	if is_instance_valid(speaker):
+		speaker.say(e.text, 6.0)
 
 
 func _sun(hour: int) -> void:
@@ -1310,6 +1410,8 @@ func _sun(hour: int) -> void:
 	env.background_color = Color(0.12, 0.15, 0.28).lerp(Color(0.55, 0.72, 0.9), day)
 	env.ambient_light_energy = lerpf(0.3, 0.65, day)
 	env.ambient_light_color = Color(0.45, 0.55, 0.9).lerp(Color(0.75, 0.8, 0.95), day)
+	for l in get_tree().get_nodes_in_group("lantern"):
+		(l as OmniLight3D).light_energy = lerpf(1.6, 0.0, clampf(day * 3.0, 0.0, 1.0))
 
 
 # --- HUD ---------------------------------------------------------------------
@@ -1346,7 +1448,7 @@ func _update_hud_world() -> void:
 	if not hud.journal_panel.visible and not hud.actions_open():
 		var it := _nearest_interactable()
 		if it.has("npc"):
-			text = "[E] Falar com %s" % it.npc.label.text
+			text = "[E] Falar com %s" % it.npc.get_meta("base_name", it.npc.label.text)
 		elif it.has("poi"):
 			text = "[E] %s" % it.poi.label
 	if text != _prompt:
@@ -1536,6 +1638,84 @@ func _autotest_wolves() -> void:
 	get_tree().quit()
 
 
+## Walks the map hub by hub and checks the engine agrees on the region each time.
+func _autotest_tour() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	var stops := [["crossroads", Layout.CROSSROADS], ["floresta", Layout.ORIGIN.floresta + Vector3(6, 0, 4)], ["selo", Layout.ORIGIN.floresta + Vector3(14, 0, -13)],
+		["mina", Layout.ORIGIN.mina + Vector3(0, 0, 6)], ["ruinas", Layout.ORIGIN.ruinas + Vector3(0, 0, 4)], ["toca", Layout.ORIGIN.toca + Vector3(0, 0, 1)],
+		["vila", Vector3(0, 0, 4)]]
+	for st in stops:
+		var t := Time.get_ticks_msec()
+		await _go(st[1], 120.0)
+		await get_tree().create_timer(1.2).timeout
+		ok[st[0]] = {"s": snappedf((Time.get_ticks_msec() - t) / 1000.0, 0.1), "near": player.global_position.distance_to(st[1]) < 3.0,
+			"region": client.view.get("self", {}).get("region", "?")}
+	ok["found"] = found_places.keys()
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## Aerial shots of the whole map, for judging the layout.
+func _autotest_layout() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	cam_focus = Node3D.new()
+	add_child(cam_focus)
+	var views := [["vila", Vector3(0, 0, 0), 62.0], ["map", Vector3(40, 0, -35), 190.0], ["cruzamento", Vector3(70, 0, -15), 70.0],
+		["floresta", Vector3(10, 0, -70), 70.0], ["toca", Vector3(-45, 0, -22), 40.0], ["ruinas", Vector3(112, 0, 6), 45.0]]
+	for v in views:
+		cam_focus.global_position = v[1]
+		cam.size = v[2]
+		await get_tree().create_timer(1.2).timeout
+		await _shot("layout_" + v[0])
+	print("AUTOTEST ", JSON.stringify({"shots": views.size()}))
+	get_tree().quit()
+
+
+## F1: stand in the plaza and watch the village day go by (needs a fast server tick).
+func _autotest_f1() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	var seen := {}  # npc -> spots it was seen at
+	var hours := {}
+	var shots := 0
+	var heard0 := 0
+	var elapsed := 0.0
+	while elapsed < float(_args.get("seconds", 70)):
+		await get_tree().create_timer(1.0).timeout
+		elapsed += 1.0
+		var h := int(client.view.get("hour", -1))
+		hours[h] = true
+		for id in npc_nodes:
+			var n: Actor = npc_nodes[id]
+			if n.has_meta("base_name") and n.visible:
+				seen[id] = seen.get(id, {})
+				seen[id][n.get_meta("spot", "")] = true
+		if int(elapsed) % 17 == 8 and shots < 4:
+			shots += 1
+			await _shot("f1_%d_h%02d" % [shots, h])
+	var ok := {"hours_seen": hours.size(), "npcs_seen": seen.keys()}
+	var moved := 0
+	var table := {}
+	for id in seen:
+		table[id] = seen[id].keys()
+		if seen[id].size() > 1:
+			moved += 1
+	ok["npcs_that_changed_spot"] = moved
+	ok["spots"] = table
+	ok["telemetry"] = telemetry.summary()
+	ok["minimap_known"] = hud.minimap.known
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
 ## F0: blank map, labels only up close, push stream, telemetry.
 func _autotest_f0() -> void:
 	var t0 := Time.get_ticks_msec()
@@ -1630,7 +1810,7 @@ func _autotest_places() -> void:
 		ok["explorar"] = last_report
 	await _shot("p3_ruinas")
 	# The den: talk to Pipo through his menu.
-	await _go(REGION_ORIGIN["toca"] + Vector3(0, 0, -1))
+	await _go(REGION_ORIGIN["toca"] + Vector3(0, 0, -1), 120.0)
 	ok["region_toca"] = client.view.get("self", {}).get("region", "")
 	await get_tree().create_timer(1.5).timeout
 	ok["toca_npcs"] = npc_nodes.keys()
@@ -1830,7 +2010,7 @@ func _autotest() -> void:
 	await _shot("06_closeup")
 	cam.size = 14.0
 	player.walk_to(REGION_ORIGIN["floresta"] + Vector3(6, 0, 0))
-	await _arrive(30.0)
+	await _arrive(60.0)
 	await get_tree().create_timer(1.5).timeout
 	await _shot("07_forest")
 	ok["perf_forest"] = await _perf()

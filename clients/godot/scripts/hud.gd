@@ -13,10 +13,9 @@ const GOLD := Color(0.86, 0.7, 0.36)
 const RANK_COLORS := {"F": "9a9a9a", "E": "9a9a9a", "D": "7bc96f", "C": "5aa9e6", "B": "a97be0", "A": "f0a040", "S": "e8574a", "SS": "ffd060"}
 const STATE_PT := {"done": "concluida", "failed": "falhou", "expired": "expirou", "declined": "recusada", "withdrawn": "retirada",
 	"obsolete": "obsoleta", "superseded": "substituida", "abandoned": "abandonada"}
-# id, x0, x1, z0, z1, color: where each region sits in the client's world.
-const REGION_RECTS := [["vila", -26.0, 14.0, -35.0, 35.0, Color(0.28, 0.45, 0.25)], ["estrada", 14.0, 34.0, -35.0, 35.0, Color(0.5, 0.38, 0.25)],
-	["floresta", 34.0, 94.0, -35.0, 35.0, Color(0.16, 0.3, 0.17)], ["mina", 94.0, 124.0, -35.0, 35.0, Color(0.38, 0.36, 0.36)],
-	["ruinas", 124.0, 154.0, -35.0, 35.0, Color(0.45, 0.42, 0.33)], ["toca", 55.0, 77.0, 36.0, 50.0, Color(0.3, 0.42, 0.2)]]
+# Region colours on the minimap; the boxes themselves come from Layout.ZONES.
+const REGION_COLORS := {"vila": Color(0.28, 0.45, 0.25), "estrada": Color(0.5, 0.38, 0.25), "floresta": Color(0.16, 0.3, 0.17),
+	"mina": Color(0.38, 0.36, 0.36), "ruinas": Color(0.45, 0.42, 0.33), "toca": Color(0.3, 0.42, 0.2)}
 const SHORT := {"vila": "Vila", "estrada": "Estr.", "floresta": "Floresta", "mina": "Mina", "ruinas": "Ruinas", "toca": "Toca"}
 
 var root: Control
@@ -58,10 +57,10 @@ var _first := true
 
 
 class Minimap extends Control:
-	const X0 := -30.0
-	const X1 := 158.0
-	const Z0 := -36.0
-	const Z1 := 52.0
+	var X0 := Layout.MAP_BOUNDS.position.x
+	var X1 := Layout.MAP_BOUNDS.end.x
+	var Z0 := Layout.MAP_BOUNDS.position.y
+	var Z1 := Layout.MAP_BOUNDS.end.y
 	var player_pos := Vector3.ZERO
 	var player_yaw := 0.0
 	var npcs: Array = []
@@ -77,18 +76,19 @@ class Minimap extends Control:
 	func _draw() -> void:
 		draw_rect(Rect2(Vector2.ZERO, size), Color(0.04, 0.04, 0.06, 0.95))
 		var font := ThemeDB.fallback_font
-		for b in REGION_RECTS:
-			if not known.has(b[0]):
+		for id in Layout.ZONES:
+			if not known.has(id):
 				continue
-			var a := _p(b[1], b[3])
-			var c := _p(b[2], b[4])
+			var z: Array = Layout.ZONES[id]
+			var a := _p(z[0].x - z[1].x / 2.0, z[0].z - z[1].z / 2.0)
+			var c := _p(z[0].x + z[1].x / 2.0, z[0].z + z[1].z / 2.0)
 			var r := Rect2(a, c - a)
-			draw_rect(r, b[5])
-			if quest_regions.has(b[0]):
+			draw_rect(r, REGION_COLORS.get(id, Color(0.3, 0.3, 0.3)))
+			if quest_regions.has(id):
 				draw_rect(r.grow(-1.5), GOLD, false, 2.0)
-			if current_region == b[0]:
+			if current_region == id:
 				draw_rect(r, Color(1, 1, 1, 0.12))
-			draw_string(font, a + Vector2(3, 11), SHORT.get(b[0], b[0]), HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(1, 1, 1, 0.8))
+			draw_string(font, a + Vector2(3, 11), SHORT.get(id, id), HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(1, 1, 1, 0.8))
 		for n in npcs:
 			draw_circle(_p(n.x, n.z), 2.5, Color(1.0, 0.9, 0.4))
 		for e in enemies:
@@ -273,7 +273,7 @@ func _build_right_column() -> void:
 	slot.add_child(col)
 	var mp := _panel(col)
 	minimap = Minimap.new()
-	minimap.custom_minimum_size = Vector2(226, 100)
+	minimap.custom_minimum_size = Vector2(226, 160)
 	mp.add_child(minimap)
 	var tp := _panel(col)
 	tracker_box = VBoxContainer.new()

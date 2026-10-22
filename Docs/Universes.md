@@ -49,3 +49,10 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **Acontecimentos devem criar algo a fazer** (uma missão, um estado temporário com regra de fim agendada), senão o Jev escolhe entre opções sem consequência.
 - **Coerência, não distância:** não limite ofertas por proximidade. Escreva a `eligible` a partir da situação e do conhecimento, e escolha um `giver` que faça sentido (quem pediria aquilo). Use lugar nas **ações** (seguir o rastro exige estar na floresta), não nas ofertas.
 - Objetivos de NPC devem usar `knows`. Assim o NPC age pelo que sabe e o mundo fica coerente com a informação de cada um.
+
+## Lugares, rotinas e conversas ouvidas
+
+- **`spots`**: lugares nomeados dentro de uma região (`{id, region, name}`: o poço, a forja). O motor nunca posiciona nada; o cliente mapeia cada spot a coordenadas.
+- **`routines`**: onde cada NPC está a cada hora (`slots` com `from`/`to`, que podem cruzar a meia-noite, mais `region`, `spot` e `doing`). `overrides` com `when` vencem os slots (a curandeira não sai do poço com a vila muito doente; Nino se esconde em casa se sabe de lobos). A cada tick o motor põe o NPC no lugar do dia. A visão mostra `spot` e `doing` de cada pessoa, nunca o porquê.
+- **`chatter`** (+ `chatterEvery`, padrão 3): conversas que se ouvem. Só acontecem com todos os falantes no spot e `when` valendo (`$self` é o primeiro falante), então **o que se diz segue o que eles acreditam**. Uma por spot a cada rodada, em rodízio determinístico. `hear` roda para cada jogador na região (`$self` = ouvinte, `$speaker` = primeiro falante); o efeito `observe` aceita `source: "communication"` e `to` (quem disse) para o jogador formar crenças pelo que ouviu.
+- **`discovered`** (predicado privado do jogador, afirmado ao entrar numa região) e **`onJoin`** (efeitos ao criar o personagem).

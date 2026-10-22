@@ -22,6 +22,10 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 
 Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: **WASD** move (relativo à câmera: W sobe na tela); **botão esquerdo** golpeia na direção do cursor (segurar mantém o combo de 3; uma leve assistência de mira puxa para o inimigo próximo nessa direção); **botão direito** anda até o ponto ou abre o menu do NPC clicado; **1–4** habilidades (Golpe Giratório, Investida, Lâmina de Energia, Fôlego) e **R** esquiva, com recarga na barra inferior (passe o mouse para ver a descrição); **K** painel de habilidades (as de combate e as aprendidas no mundo, vindas do motor); `E` usa o NPC ou ponto mais próximo; `F` lista tudo o que dá para tentar na região; `Y`/`N` aceitar/recusar a missão oferecida; `J` diário. Conversar faz quem está por perto conhecer o personagem, e só então NPCs aparecem nas missões dele.
 
+## O mapa e a vila
+
+`scripts/layout.gd` guarda todas as coordenadas (origens das regiões, caixas de região, estradas, spots). A vila é murada e tem 13 spots que o motor nomeia nas rotinas; os NPCs andam até o spot do momento, e as falas ouvidas viram balões. O mapa em centro e raios: vila no centro, estrada leste até o cruzamento, mina a nordeste, ruínas a leste, floresta ao norte, toca a oeste (pela brecha da paliçada). Autotestes: `--autotest=layout` (capturas aéreas), `--autotest=tour` (percorre as regiões), `--autotest=f1` (um dia na praça; precisa de servidor com `-tick 500ms`).
+
 ## Combate e o motor
 
 O combate (vida, dano, IA) é papel do servidor de jogo; neste spike o cliente faz esse papel. O motor só ouve resultados confirmados: os bandidos aparecem na região `estrada` quando o mundo emite o evento público `bandits` (somem em `bandits-left`) e as criaturas corrompidas na vila com `wolves`/`wolves-left`. Ao cair o último inimigo do grupo, o cliente reporta `enfrentar-bandidos` ou `cacar-lobos` como `adapter`, e o motor aceita ou recusa conforme a verdade do mundo.

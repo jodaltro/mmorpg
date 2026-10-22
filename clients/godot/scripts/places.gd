@@ -7,21 +7,30 @@ extends RefCounted
 
 # id, region, position, label, landmark it stands for (affordance "with") and
 # region-level actions it anchors.
-const POIS := [
-	{"id": "poco", "region": "vila", "at": Vector3(0, 0, 0), "label": "Poco Antigo", "with": "poco"},
-	{"id": "carroca", "region": "vila", "at": Vector3(-9, 0, -4), "label": "Carroca da caravana", "actions": ["escoltar-caravana"]},
-	{"id": "telhado", "region": "vila", "at": Vector3(-16, 0, -8.3), "label": "Casa de telhado velho", "actions": ["consertar-telhado"]},
-	{"id": "banco", "region": "vila", "at": Vector3(-3, 0, 9.5), "label": "Banco da praca", "actions": ["descansar", "sonhar", "diagnosticar", "procurar-botoes", "acalmar-doentes", "trocar-magia"]},
-	{"id": "carga", "region": "estrada", "at": Vector3(21.6, 0, -5.2), "label": "Carga revirada", "actions": ["recuperar-mercadorias"]},
-	{"id": "selo", "region": "floresta", "at": Vector3(80, 0, -16), "label": "Selo da Floresta", "with": "selo", "actions": ["seguir-rastro", "recuperar-reliquia", "plantar-mudas"]},
-	{"id": "ervas1", "region": "floresta", "at": Vector3(56, 0, 9), "label": "Ervas", "actions": ["colher-ervas-campo"]},
-	{"id": "ervas2", "region": "floresta", "at": Vector3(72, 0, -5), "label": "Ervas", "actions": ["colher-ervas-campo"]},
-	{"id": "arbusto", "region": "floresta", "at": Vector3(86, 0, 14), "label": "Arbusto que se mexe", "actions": ["achar-crianca"]},
-	{"id": "veio1", "region": "mina", "at": Vector3(103, 0, -6), "label": "Veio de minerio", "actions": ["minerar"]},
-	{"id": "veio2", "region": "mina", "at": Vector3(106, 0, 7), "label": "Veio de minerio", "actions": ["minerar"]},
-	{"id": "escombros", "region": "mina", "at": Vector3(113, 0, -7), "label": "Escombros", "actions": ["resgatar-mineiro"]},
-	{"id": "salao", "region": "ruinas", "at": Vector3(140, 0, 0), "label": "Escada para o salao", "actions": ["explorar-ruinas"]},
-]
+static var _pois: Array = []
+
+
+## Points of interest, placed relative to their region's origin.
+static func pois() -> Array:
+	if _pois.is_empty():
+		var o: Dictionary = Layout.ORIGIN
+		_pois = [
+			{"id": "poco", "region": "vila", "at": Vector3(0, 0, 0), "label": "Poco Antigo", "with": "poco"},
+			{"id": "carroca", "region": "vila", "at": Vector3(-9, 0, -4), "label": "Carroca da caravana", "actions": ["escoltar-caravana"]},
+			{"id": "telhado", "region": "vila", "at": Vector3(-16, 0, -8.3), "label": "Casa de telhado velho", "actions": ["consertar-telhado"]},
+			{"id": "banco", "region": "vila", "at": Vector3(-3, 0, 9.5), "label": "Banco da praca", "actions": ["descansar", "sonhar", "diagnosticar", "procurar-botoes", "acalmar-doentes", "trocar-magia"]},
+			{"id": "carga", "region": "estrada", "at": o.estrada + Vector3(-2.4, 0, -5.2), "label": "Carga revirada", "actions": ["recuperar-mercadorias"]},
+			{"id": "selo", "region": "floresta", "at": o.floresta + Vector3(16, 0, -16), "label": "Selo da Floresta", "with": "selo", "actions": ["seguir-rastro", "recuperar-reliquia", "plantar-mudas"]},
+			{"id": "ervas1", "region": "floresta", "at": o.floresta + Vector3(-8, 0, 9), "label": "Ervas", "actions": ["colher-ervas-campo"]},
+			{"id": "ervas2", "region": "floresta", "at": o.floresta + Vector3(8, 0, -5), "label": "Ervas", "actions": ["colher-ervas-campo"]},
+			{"id": "arbusto", "region": "floresta", "at": o.floresta + Vector3(22, 0, 14), "label": "Arbusto que se mexe", "actions": ["achar-crianca"]},
+			{"id": "veio1", "region": "mina", "at": o.mina + Vector3(-3, 0, -6), "label": "Veio de minerio", "actions": ["minerar"]},
+			{"id": "veio2", "region": "mina", "at": o.mina + Vector3(0, 0, 7), "label": "Veio de minerio", "actions": ["minerar"]},
+			{"id": "escombros", "region": "mina", "at": o.mina + Vector3(7, 0, -7), "label": "Escombros", "actions": ["resgatar-mineiro"]},
+			{"id": "salao", "region": "ruinas", "at": o.ruinas + Vector3(4, 0, 0), "label": "Escada para o salao", "actions": ["explorar-ruinas"]},
+		]
+	return _pois
+
 
 # Animation each kind of deed plays (Universal Animation Library clips).
 const ANIM := {"minerar": "TreeChopping", "forjar": "TreeChopping", "consertar-telhado": "TreeChopping",
@@ -73,7 +82,7 @@ static func _well(m) -> void:
 
 
 static func _seal(m) -> void:
-	var c := Vector3(80, 0, -16)
+	var c: Vector3 = Layout.ORIGIN.floresta + Vector3(16, 0, -16)
 	for i in 7:
 		var a := TAU * i / 7.0
 		var r: Node3D = m._spawn("nature/Rock_Medium_%d" % (1 + i % 3), c + Vector3(cos(a), 0, sin(a)) * 3.4, i * 47.0, 0.9)
@@ -102,37 +111,39 @@ static func _seal(m) -> void:
 
 
 static func _forest_spots(m) -> void:
-	for p in [Vector3(56, 0, 9), Vector3(72, 0, -5)]:
+	var f: Vector3 = Layout.ORIGIN.floresta
+	for p in [f + Vector3(-8, 0, 9), f + Vector3(8, 0, -5)]:
 		m._spawn("nature/Flower_3_Group", p, 0.0, 1.3)
 		m._spawn("nature/Flower_4_Group", p + Vector3(0.8, 0, 0.5), 40.0, 1.3)
 		m._spawn("nature/Fern_1", p + Vector3(-0.7, 0, -0.4), 10.0)
-	m._spawn("nature/Bush_Common", Vector3(86, 0, 14), 0.0, 1.6)
-	m._spawn("nature/Bush_Common_Flowers", Vector3(87.4, 0, 15), 50.0, 1.2)
+	m._spawn("nature/Bush_Common", f + Vector3(22, 0, 14), 0.0, 1.6)
+	m._spawn("nature/Bush_Common_Flowers", f + Vector3(23.4, 0, 15), 50.0, 1.2)
 
 
 ## Mina de Kharum: a rocky slope north of the road with a braced entrance,
 ## ore veins and rubble. The road runs on to the ruins.
 static func _mine(m) -> void:
+	var o: Vector3 = Layout.ORIGIN.mina - Vector3(106, 0, 0)  # laid out around x=106 and shifted
 	for i in 8:
 		if i == 3:
 			continue  # the entrance
-		var p := Vector3(99.8 + i * 3.4, 0, -18.5 + (i % 2) * 1.2)
+		var p := o + Vector3(99.8 + i * 3.4, 0, -18.5 + (i % 2) * 1.2)
 		var r: Node3D = m._spawn("nature/Rock_Medium_%d" % (1 + i % 3), p, i * 33.0, 3.6)
 		m._occluder(r, r.position + Vector3(0, 2.5, 0), 4.0)
 		m._solid(p, Vector3(3.4, 5.0, 3.4))
-	var arch: Node3D = m._spawn("village/Wall_Arch", Vector3(110, 0, -15.6), 0.0, 1.2)
+	var arch: Node3D = m._spawn("village/Wall_Arch", o + Vector3(110, 0, -15.6), 0.0, 1.2)
 	m._occluder(arch, arch.position + Vector3(0, 2, 0), 3.0)
-	m._spawn("village/Prop_Support", Vector3(108.4, 0, -15.0), 0.0)
-	m._spawn("village/Prop_Support", Vector3(111.6, 0, -15.0), 0.0)
+	m._spawn("village/Prop_Support", o + Vector3(108.4, 0, -15.0), 0.0)
+	m._spawn("village/Prop_Support", o + Vector3(111.6, 0, -15.0), 0.0)
 	var dark := MeshInstance3D.new()  # the black mouth of the mine
 	var dm := BoxMesh.new()
 	dm.size = Vector3(2.6, 3.0, 0.2)
 	dark.mesh = dm
 	dark.material_override = _stone(Color(0.02, 0.02, 0.03))
-	dark.position = Vector3(110, 1.5, -16.4)
+	dark.position = o + Vector3(110, 1.5, -16.4)
 	m.add_child(dark)
-	m._solid(Vector3(110, 0, -17), Vector3(2.8, 3.0, 1.0))
-	for p in [Vector3(103, 0, -6), Vector3(106, 0, 7)]:  # ore veins
+	m._solid(o + Vector3(110, 0, -17), Vector3(2.8, 3.0, 1.0))
+	for p in [o + Vector3(103, 0, -6), o + Vector3(106, 0, 7)]:  # ore veins
 		var v: Node3D = m._spawn("nature/Rock_Medium_2", p, 20.0, 1.3)
 		var t := MeshInstance3D.new()
 		var sm := SphereMesh.new()
@@ -149,21 +160,21 @@ static func _mine(m) -> void:
 		m.add_child(t)
 		m._solid(p, Vector3(1.6, 1.4, 1.6))
 	for i in 5:  # rubble
-		m._spawn("nature/Pebble_Round_%d" % (1 + 2 * (i % 2)), Vector3(113 + i * 0.5, 0, -7 + (i % 3) * 0.6), i * 70.0, 2.2)
-	m._spawn("props/Crate_Wooden", Vector3(108, 0, 4), 15.0)
-	m._spawn("props/Pickaxe_Bronze", Vector3(108.8, 0.05, 2.8), 0.0)
-	m._spawn("village/Prop_Wagon", Vector3(116, 0, -10), 20.0)
-	m._solid(Vector3(116, 0, -10), Vector3(4.0, 1.5, 2.0), 20.0)
+		m._spawn("nature/Pebble_Round_%d" % (1 + 2 * (i % 2)), o + Vector3(113 + i * 0.5, 0, -7 + (i % 3) * 0.6), i * 70.0, 2.2)
+	m._spawn("props/Crate_Wooden", o + Vector3(108, 0, 4), 15.0)
+	m._spawn("props/Pickaxe_Bronze", o + Vector3(108.8, 0.05, 2.8), 0.0)
+	m._spawn("village/Prop_Wagon", o + Vector3(116, 0, -10), 20.0)
+	m._solid(o + Vector3(116, 0, -10), Vector3(4.0, 1.5, 2.0), 20.0)
 	var lamp := OmniLight3D.new()
 	lamp.light_color = Color(1.0, 0.7, 0.4)
 	lamp.omni_range = 6.0
-	lamp.position = Vector3(110, 2.4, -13.5)
+	lamp.position = o + Vector3(110, 2.4, -13.5)
 	m.add_child(lamp)
 
 
 ## Ruinas de Asterion: broken walls, a paved hall and the stairs down.
 static func _ruins(m) -> void:
-	var c := Vector3(140, 0, 0)
+	var c: Vector3 = Layout.ORIGIN.ruinas + Vector3(4, 0, 0)
 	for x in 4:
 		for z in 4:
 			if (x + z) % 3 != 0:
@@ -188,7 +199,7 @@ static func _ruins(m) -> void:
 
 ## Toca dos Lebrinos: an enormous root at the forest's southern edge.
 static func _den(m) -> void:
-	var c := Vector3(66, 0, 44)
+	var c: Vector3 = Layout.ORIGIN.toca + Vector3(0, 0, 3)
 	var root: Node3D = m._spawn("nature/DeadTree_3", c + Vector3(0, 0, 4), 0.0, 3.0)
 	m._occluder(root, root.position + Vector3(0, 5, 0), 7.0)
 	m._solid(c + Vector3(0, 0, 4), Vector3(3.0, 4.0, 3.0))
