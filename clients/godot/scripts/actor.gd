@@ -32,6 +32,9 @@ var clip_run := "Jog_Fwd"
 var clip_walk := "Walk"
 var dash_t := 0.0
 var dash_dir := Vector3.ZERO
+var dash_speed := 7.5
+var input_dir := Vector3.ZERO  # WASD: moves directly, no path
+var _was_input := false
 var path := PackedVector3Array()
 var path_i := 0
 var marker: Label3D
@@ -261,9 +264,10 @@ func interrupt() -> void:
 
 
 
-func dash(dir: Vector3, seconds: float) -> void:
+func dash(dir: Vector3, seconds: float, speed := 7.5) -> void:
 	dash_dir = dir.normalized()
 	dash_t = seconds
+	dash_speed = speed
 
 
 func face(dir: Vector3) -> void:
@@ -275,10 +279,23 @@ func face(dir: Vector3) -> void:
 func _physics_process(delta: float) -> void:
 	if dash_t > 0.0:
 		dash_t -= delta
-		velocity = dash_dir * 7.5
+		velocity = dash_dir * dash_speed
 		move_and_slide()
 		global_position.y = 0.0
 		return
+	if input_dir != Vector3.ZERO and not busy:
+		has_goal = false
+		velocity = input_dir * speed_run
+		move_and_slide()
+		global_position.y = 0.0
+		face(input_dir)
+		play(clip_run)
+		_was_input = true
+		return
+	if _was_input:
+		_was_input = false
+		if not busy and not has_goal:
+			play(idle_clip)
 	if not has_goal or busy:
 		return
 	_plan_age += delta

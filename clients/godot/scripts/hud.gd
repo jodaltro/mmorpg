@@ -7,6 +7,7 @@ signal accept_pressed(key: String)
 signal decline_pressed(key: String)
 signal abandon_pressed(key: String)
 signal action_chosen(index: int)
+signal ability_pressed(index: int)
 
 const GOLD := Color(0.86, 0.7, 0.36)
 const RANK_COLORS := {"F": "9a9a9a", "E": "9a9a9a", "D": "7bc96f", "C": "5aa9e6", "B": "a97be0", "A": "f0a040", "S": "e8574a", "SS": "ffd060"}
@@ -39,6 +40,10 @@ var action_panel: PanelContainer
 var action_title: Label
 var action_box: VBoxContainer
 var action_buttons: Array = []
+var slots: Array = []  # hotbar slots, one per ability
+var skills_panel: PanelContainer
+var skills_box: VBoxContainer
+var abilities: Array = []
 var journal_box: VBoxContainer
 var quests: Array = []
 var skills: Array = []
@@ -91,6 +96,50 @@ class Minimap extends Control:
 		draw_rect(Rect2(Vector2.ZERO, size), Color(0.75, 0.6, 0.3, 0.9), false, 1.0)
 
 
+class Slot extends Control:
+	var kind := ""
+	var key := ""
+	var color := Color.WHITE
+	var left := 0.0
+	var total := 1.0
+
+	func _draw() -> void:
+		var r := Rect2(Vector2.ZERO, size)
+		draw_rect(r, Color(0.08, 0.07, 0.1, 0.92))
+		var c := size / 2.0
+		var k := color if left <= 0.0 else color.darkened(0.55)
+		match kind:
+			"giro":
+				draw_arc(c, 15, 0.3, TAU - 0.3, 24, k, 4.0)
+				draw_arc(c, 8, 1.5, TAU + 1.0, 18, k, 3.0)
+			"investida":
+				draw_line(c + Vector2(-15, 8), c + Vector2(12, -8), k, 5.0)
+				draw_colored_polygon(PackedVector2Array([c + Vector2(17, -11), c + Vector2(5, -12), c + Vector2(13, 0)]), k)
+			"lamina":
+				draw_colored_polygon(PackedVector2Array([c + Vector2(0, -17), c + Vector2(7, 0), c + Vector2(0, 17), c + Vector2(-7, 0)]), k)
+			"cura":
+				draw_rect(Rect2(c - Vector2(4, 14), Vector2(8, 28)), k)
+				draw_rect(Rect2(c - Vector2(14, 4), Vector2(28, 8)), k)
+			"esquiva":
+				draw_arc(c + Vector2(0, 4), 13, PI, TAU, 18, k, 4.0)
+				draw_circle(c + Vector2(13, 4), 4, k)
+		if left > 0.0:  # cooldown: a dark sweep and the seconds left
+			var frac := clampf(left / total, 0.0, 1.0)
+			var pts := PackedVector2Array([c])
+			for i in 25:
+				var ang := -PI / 2.0 + TAU * frac * i / 24.0
+				pts.append(c + Vector2(cos(ang), sin(ang)) * size.x)
+			draw_colored_polygon(pts, Color(0, 0, 0, 0.55))
+			draw_string(ThemeDB.fallback_font, Vector2(0, c.y + 6), "%.0f" % ceilf(left), HORIZONTAL_ALIGNMENT_CENTER, size.x, 16, Color.WHITE)
+		draw_rect(r, Color(0.75, 0.6, 0.3, 0.9) if left <= 0.0 else Color(0.4, 0.35, 0.25), false, 1.5)
+		draw_string(ThemeDB.fallback_font, Vector2(4, 13), key, HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(1, 1, 1, 0.85))
+
+	func _gui_input(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			get_meta("hud").ability_pressed.emit(get_meta("index"))
+			accept_event()
+
+
 func _ready() -> void:
 	layer = 10
 	root = Control.new()
@@ -105,8 +154,9 @@ func _ready() -> void:
 	_build_offer()
 	_build_journal()
 	_build_actions()
+	_build_skills_panel()
 	var slot := _slot(Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END, 10)
-	var help := _label("[E] Usar/Falar   [F] Acoes aqui   [J] Diario   [Espaco] Golpe   [R] Rolar", 12, Color(1, 1, 1, 0.55))
+	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario", 12, Color(1, 1, 1, 0.55))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	help.size_flags_horizontal = Control.SIZE_SHRINK_END
 	help.size_flags_vertical = Control.SIZE_SHRINK_END
@@ -234,7 +284,7 @@ func _build_log() -> void:
 	var slot := _slot(Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_END)
 	log_panel = _panel(slot, 0.7)
 	log_box = VBoxContainer.new()
-	log_box.custom_minimum_size.x = 520
+	log_box.custom_minimum_size.x = 420
 	log_box.add_theme_constant_override("separation", 2)
 	log_panel.add_child(log_box)
 	log_panel.visible = false
@@ -242,7 +292,7 @@ func _build_log() -> void:
 
 
 func _build_prompt() -> void:
-	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END, 12, 12, 30)
+	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END, 12, 12, 92)
 	prompt_panel = _panel(slot, 0.85)
 	prompt_label = _label("", 16, Color.WHITE)
 	prompt_panel.add_child(prompt_label)
@@ -302,7 +352,7 @@ func _build_journal() -> void:
 
 
 func _build_actions() -> void:
-	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END, 12, 12, 80)
+	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END, 12, 12, 140)
 	action_panel = _panel(slot, 0.95)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 4)
@@ -318,6 +368,84 @@ func _build_actions() -> void:
 
 
 ## Options from the engine's affordances; the engine still decides.
+## Hotbar: one slot per combat ability (1-4, R), with tooltip and cooldown.
+func build_hotbar(list: Array) -> void:
+	abilities = list
+	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END, 12, 12, 26)
+	var p := _panel(slot, 0.8)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	p.add_child(row)
+	for i in list.size():
+		var ab: Dictionary = list[i]
+		var s := Slot.new()
+		s.custom_minimum_size = Vector2(54, 54)
+		s.clip_contents = true  # the cooldown sweep stays inside the icon
+		s.kind = ab.id
+		s.key = ab.key
+		s.color = ab.color
+		s.total = ab.cd
+		s.tooltip_text = "%s [%s]\n%s\nRecarga: %.1f s" % [ab.name, ab.key, ab.desc, ab.cd]
+		s.set_meta("hud", self)
+		s.set_meta("index", i)
+		row.add_child(s)
+		slots.append(s)
+
+
+func set_cooldowns(left: Array) -> void:
+	for i in slots.size():
+		var v: float = left[i]
+		if absf(v - slots[i].left) > 0.02 or (v <= 0.0) != (slots[i].left <= 0.0):
+			slots[i].left = v
+			slots[i].queue_redraw()
+
+
+func _build_skills_panel() -> void:
+	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_CENTER)
+	skills_panel = _panel(slot, 0.96)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 8)
+	skills_panel.add_child(v)
+	var head := HBoxContainer.new()
+	v.add_child(head)
+	var title := _label("Habilidades", 22, GOLD)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title)
+	head.add_child(_button("Fechar [K]", toggle_skills))
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(640, 420)
+	v.add_child(scroll)
+	skills_box = VBoxContainer.new()
+	skills_box.custom_minimum_size.x = 620
+	skills_box.add_theme_constant_override("separation", 8)
+	scroll.add_child(skills_box)
+	skills_panel.visible = false
+
+
+func toggle_skills() -> void:
+	skills_panel.visible = not skills_panel.visible
+	if skills_panel.visible:
+		_rebuild_skills()
+
+
+func _rebuild_skills() -> void:
+	for c in skills_box.get_children():
+		skills_box.remove_child(c)
+		c.queue_free()
+	skills_box.add_child(_label("Combate", 15, GOLD))
+	for ab in abilities:
+		var r := _rich(600, 13)
+		r.text = "[color=#%s][b]%s[/b][/color]  [color=#999999][%s] recarga %.1f s[/color]\n%s" % [ab.color.to_html(false), ab.name, ab.key, ab.cd, ab.desc]
+		skills_box.add_child(r)
+	skills_box.add_child(_label("Aprendidas no mundo (%d)" % skills.size(), 15, GOLD))
+	if skills.is_empty():
+		skills_box.add_child(_label("Nenhuma ainda. O mundo aprende o que voce faz: habitos, sorte e lugares escondidos ensinam.", 13, Color(1, 1, 1, 0.55)))
+	for s in skills:
+		var r := _rich(600, 13)
+		r.text = "[b]%s[/b] [color=#999999](%s)[/color]\n%s" % [s.name, s.rarity, s.get("desc", "")]
+		skills_box.add_child(r)
+
+
 func show_actions(title: String, labels: Array) -> void:
 	for b in action_buttons:
 		b.queue_free()
@@ -372,7 +500,7 @@ func set_prompt(text: String) -> void:
 
 
 func add_log(bb: String) -> void:
-	var r := _rich(520, 13)
+	var r := _rich(420, 13)
 	r.text = bb
 	log_box.add_child(r)
 	log_panel.visible = true
@@ -420,6 +548,8 @@ func set_skills(list: Array) -> void:
 				toast("Habilidade aprendida: %s (%s)" % [s.name, s.rarity], Color(1.0, 0.85, 0.4))
 	if journal_panel.visible:
 		_rebuild_journal()
+	if skills_panel.visible:
+		_rebuild_skills()
 
 
 func set_quests(list: Array, tick_now: int, who: Dictionary, regions: Dictionary) -> void:

@@ -167,3 +167,20 @@ Pedido do usuário: "não achei a mina" e "implementar a possibilidade para toda
 ### Não validado
 
 Javali Branco e onda de corrompidos em jogo (dependem de rastro à noite e do selo despedaçado; não ocorreram nas rodadas), ações de habilidade (diagnosticar, Florescer, chá...) que só aparecem com a habilidade, resgate de mineiro (precisa do desabamento), escolta e recuperação de mercadorias pelos menus.
+
+## 22/10/2026 — WASD, ataque com o mouse, barra e efeitos de habilidade
+
+- Controles: WASD relativo à câmera; botão esquerdo golpeia na direção do cursor (segurar mantém o combo); botão direito anda/usa; 1–4 e R na barra; K abre o painel de habilidades (combate + aprendidas no mundo).
+- Habilidades de combate (regra do servidor de jogo, fora do motor): Golpe Giratório (anel dourado, 30 a quem estiver perto), Investida (rastro azul, 25 a quem estiver no caminho), Lâmina de Energia (projétil lilás com luz e rastro, 35), Fôlego (anel e partículas verdes, +30), Esquiva (na direção do movimento). Recarga desenhada no ícone.
+- `--autotest=skills` (contra `serve -advisor jev`), duas rodadas iguais: `giro_damage: 60` (dois alvos), `investida_damage: 45`, `lamina_damage: 35`, `hp_after_heal: 80` (de 50), recarga bloqueia o reuso, painel K abre; W enviado pela fila de entrada move na direção "para cima da tela" (`w_goes_up_screen: true`); clique esquerdo pela fila de entrada golpeia e vira para a mira (`lmb_attacked`, `lmb_faces_aim`). Regressão `--autotest`: 0 quedas, caminho chegou, javalis e bandidos, 300–410 fps.
+
+### Defeitos encontrados e corrigidos
+
+- **O pós-processamento cobria tudo o que é transparente** desde que entrou: nomes sobre os personagens, barras de vida, números de dano, marcadores "!", anéis de efeito. Ele era desenhado por último; passou a ser o primeiro entre os transparentes (`render_priority = -128`), e o resto é desenhado por cima. Conferido com e sem `--nopost`.
+- A recarga vazava como um círculo escuro fora do ícone (`clip_contents`).
+- A cura era bloqueada durante outra animação; agora ela e a esquiva interrompem o golpe.
+- `_on_enemy_died` quebrava com inimigo fora de acampamento conhecido.
+
+### Não validado
+
+Sensação das habilidades em jogo manual (força, tempo de recarga, alcance), Investida contra paredes, clique direito em NPC distante, uso com teclado ABNT diferente de QWERTY para WASD (usa a tecla física).

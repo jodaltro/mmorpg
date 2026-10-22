@@ -27,6 +27,19 @@ const THREATS := {
 	"branco": {"region": "floresta", "night_fact": "white-boar-sign", "slain_fact": "white-boar-slain", "kind": "javali_branco",
 		"action": "cacar-javali-branco", "at": [Vector2(16, -16)]},
 }
+# Combat abilities (the game server's rules; the engine never sees them).
+const ABILITIES := [
+	{"id": "giro", "name": "Golpe Giratorio", "key": "1", "cd": 6.0, "color": Color(1.0, 0.78, 0.3),
+		"desc": "Gira a lamina e atinge todos ao redor (30 de dano)."},
+	{"id": "investida", "name": "Investida", "key": "2", "cd": 5.0, "color": Color(0.5, 0.8, 1.0),
+		"desc": "Avanca na direcao do cursor ferindo quem estiver no caminho (25)."},
+	{"id": "lamina", "name": "Lamina de Energia", "key": "3", "cd": 4.0, "color": Color(0.78, 0.52, 1.0),
+		"desc": "Dispara uma lamina de luz na direcao do cursor (35)."},
+	{"id": "cura", "name": "Folego", "key": "4", "cd": 15.0, "color": Color(0.45, 1.0, 0.55),
+		"desc": "Recupera 30 de vida."},
+	{"id": "esquiva", "name": "Esquiva", "key": "R", "cd": 1.2, "color": Color(0.88, 0.88, 0.88),
+		"desc": "Rola na direcao em que voce anda, invulneravel por um instante."},
+]
 const COMBO := [
 	{"clip": "Sword_Regular_A", "hit": 0.30, "dmg": 22.0, "speed": 1.3},
 	{"clip": "Sword_Regular_B", "hit": 0.30, "dmg": 28.0, "speed": 1.3},
@@ -76,6 +89,9 @@ var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var pois: Array = []  # Places.POIS with their label nodes
 var _menu: Array = []  # affordances shown in the action menu
+var ready_at := {}  # ability id -> msec when it can be used again
+var _lmb_held := false
+var _move_dir := Vector3.ZERO
 var npc_nodes := {}  # entity id -> Actor, driven by view.others
 var region := "vila"
 var last_seq := 0
@@ -118,6 +134,8 @@ func _ready() -> void:
 				_autotest_hud()
 			"places":
 				_autotest_places()
+			"skills":
+				_autotest_skills()
 			_:
 				_autotest()
 
@@ -450,7 +468,9 @@ func _build_camera() -> void:
 		mat.shader = load("res://shaders/toon_post.gdshader")
 		mat.set_shader_parameter("cam_near", cam.near)
 		mat.set_shader_parameter("cam_far", cam.far)
-		mat.render_priority = 100
+		# First among transparent things: it reads the opaque scene and repaints it, and
+		# labels, health bars, numbers and effects are drawn on top, untouched.
+		mat.render_priority = -128
 		quad.material_override = mat
 		quad.extra_cull_margin = 16384.0
 		quad.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -463,6 +483,14 @@ func _process(delta: float) -> void:
 	cam_rig.global_position = cam_rig.global_position.lerp((cam_focus if cam_focus else player).global_position, clampf(delta * 6.0, 0.0, 1.0))
 	_update_occlusion(delta)
 	_update_hud_world()
+	_read_move_keys()
+	if _lmb_held and not hud.actions_open():
+		_attack_at_mouse()  # holding the button keeps the combo going
+	var left: Array = []
+	var now := Time.get_ticks_msec()
+	for ab in ABILITIES:
+		left.append(maxf((ready_at.get(ab.id, 0) - now) / 1000.0, 0.0))
+	hud.set_cooldowns(left)
 	if _shake > 0.0:
 		_shake = maxf(_shake - delta * 2.5, 0.0)
 		cam.h_offset = randf_range(-1, 1) * _shake * 0.4
@@ -474,8 +502,16 @@ func _process(delta: float) -> void:
 
 # --- input -------------------------------------------------------------------
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_lmb_held = false  # released anywhere, even over the interface
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_lmb_held = true
+		_attack_at_mouse()
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		click(event.position)
 	elif event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
@@ -488,8 +524,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6, KEY_7, KEY_8, KEY_9:
 				if hud.actions_open():
 					_on_action_chosen(event.keycode - KEY_1)
+				elif event.keycode <= KEY_4:
+					use_ability(event.keycode - KEY_1)
 			KEY_R:
-				roll()
+				use_ability(4)
+			KEY_K:
+				hud.toggle_skills()
 			KEY_Y:
 				_answer_quest(true)
 			KEY_N:
@@ -499,6 +539,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_ESCAPE:
 				if hud.actions_open():
 					hud.hide_actions()
+				elif hud.skills_panel.visible:
+					hud.toggle_skills()
 				elif hud.journal_panel.visible:
 					hud.toggle_journal()
 
@@ -633,7 +675,254 @@ func _talk(npc: Actor) -> void:
 	await _perform({"action": "conversar", "origin": "player", "args": {"npc": npc.entity_id}, "with": npc.entity_id, "title": "Conversar com %s" % npc.label.text})
 
 
-func attack() -> void:
+# --- movement, aiming and abilities -------------------------------------------
+
+## WASD relative to the fixed camera: W goes up the screen.
+func _read_move_keys() -> void:
+	var v := Vector2.ZERO
+	if not hud.journal_panel.visible and not hud.skills_panel.visible:
+		v.y = float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W))
+		v.x = float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A))
+	var b := cam_rig.global_transform.basis
+	var right := Vector3(b.x.x, 0, b.x.z).normalized()
+	var down := Vector3(b.z.x, 0, b.z.z).normalized()
+	_move_dir = (right * v.x + down * v.y).normalized() if v != Vector2.ZERO else Vector3.ZERO
+	if _move_dir != Vector3.ZERO and hud.actions_open():
+		hud.hide_actions()
+	player.input_dir = Vector3.ZERO if player_down else _move_dir
+
+
+## The point on the ground under the mouse.
+func _mouse_ground() -> Vector3:
+	var mp := get_viewport().get_mouse_position()
+	var from := cam.project_ray_origin(mp)
+	var dir := cam.project_ray_normal(mp)
+	if absf(dir.y) < 0.001:
+		return player.global_position
+	return from + dir * (-from.y / dir.y)
+
+
+func _aim_dir() -> Vector3:
+	var to := _mouse_ground() - player.global_position
+	to.y = 0
+	return to.normalized() if to.length() > 0.1 else Vector3(sin(player.model.rotation.y), 0, cos(player.model.rotation.y))
+
+
+func _attack_at_mouse() -> void:
+	if player.busy or player_down:
+		return
+	var d := _aim_dir()
+	player.model.rotation.y = atan2(d.x, d.z)
+	attack(true)
+
+
+func use_ability(i: int) -> void:
+	if i < 0 or i >= ABILITIES.size() or player_down:
+		return
+	var ab: Dictionary = ABILITIES[i]
+	var now := Time.get_ticks_msec()
+	if now < ready_at.get(ab.id, 0):
+		return
+	if player.busy and not ab.id in ["esquiva", "cura"]:  # dodging and healing cut through a swing
+		return
+	ready_at[ab.id] = now + int(ab.cd * 1000.0)
+	match ab.id:
+		"giro":
+			_ability_spin()
+		"investida":
+			_ability_dash()
+		"lamina":
+			_ability_blade()
+		"cura":
+			_ability_heal()
+		"esquiva":
+			roll()
+
+
+func _hit_around(center: Vector3, radius: float, dmg: float, color: Color) -> bool:
+	var any := false
+	for e in enemies:
+		if is_instance_valid(e) and e.state != Enemy.State.DEAD and Vector2(e.global_position.x - center.x, e.global_position.z - center.z).length() < radius:
+			e.take_hit(dmg, center)
+			_burst(e.global_position + Vector3(0, 1.1, 0), color)
+			any = true
+	return any
+
+
+func _ability_spin() -> void:
+	player.interrupt()
+	player.play_once("Sword_Regular_C", 1.5)
+	var tw := create_tween()
+	tw.tween_property(player.model, "rotation:y", player.model.rotation.y + TAU, 0.45)
+	await get_tree().create_timer(0.22).timeout
+	_vfx_ring(player.global_position, Color(1.0, 0.78, 0.3), 3.6, 0.45)
+	_burst(player.global_position + Vector3(0, 1.0, 0), Color(1.0, 0.8, 0.35), 40)
+	if _hit_around(player.global_position, 3.3, 30.0, Color(1.0, 0.8, 0.35)):
+		_hitstop(0.08)
+	_shake = 0.9
+
+
+func _ability_dash() -> void:
+	var d := _aim_dir()
+	player.interrupt()
+	player.model.rotation.y = atan2(d.x, d.z)
+	player.play_once("Sword_Dash", 1.2)
+	player.dash(d, 0.32, 20.0)
+	invuln_until = Time.get_ticks_msec() + 350
+	var trail := _vfx_trail(Color(0.5, 0.8, 1.0))
+	var hit := {}
+	var t := Time.get_ticks_msec()
+	while Time.get_ticks_msec() - t < 380:
+		for e in enemies:
+			if is_instance_valid(e) and e.state != Enemy.State.DEAD and not hit.has(e) and e.global_position.distance_to(player.global_position) < 1.8:
+				hit[e] = true
+				e.take_hit(25.0, player.global_position)
+				_burst(e.global_position + Vector3(0, 1.1, 0), Color(0.55, 0.85, 1.0))
+		await get_tree().process_frame
+	trail.emitting = false
+	get_tree().create_timer(0.8).timeout.connect(trail.queue_free)
+	if not hit.is_empty():
+		_hitstop()
+		_shake = 0.6
+
+
+func _ability_blade() -> void:
+	var d := _aim_dir()
+	player.interrupt()
+	player.model.rotation.y = atan2(d.x, d.z)
+	player.play_once("Spell_Simple_Shoot", 1.3)
+	await get_tree().create_timer(0.22).timeout
+	var bolt := MeshInstance3D.new()
+	var pm := PrismMesh.new()
+	pm.size = Vector3(0.8, 1.6, 0.18)
+	bolt.mesh = pm
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color(0.85, 0.65, 1.0)
+	mat.emission_enabled = true
+	mat.emission = Color(0.7, 0.4, 1.0)
+	mat.emission_energy_multiplier = 4.0
+	bolt.material_override = mat
+	add_child(bolt)
+	bolt.global_position = player.global_position + Vector3(0, 1.1, 0) + d * 0.8
+	bolt.look_at(bolt.global_position + d, Vector3.UP)
+	bolt.rotate_object_local(Vector3.RIGHT, -PI / 2.0)  # the prism's tip points forward
+	var light := OmniLight3D.new()
+	light.light_color = Color(0.75, 0.5, 1.0)
+	light.omni_range = 4.0
+	bolt.add_child(light)
+	var trail := _vfx_trail(Color(0.75, 0.5, 1.0), bolt)
+	var travelled := 0.0
+	while travelled < 18.0 and is_instance_valid(bolt):
+		var step := 24.0 * get_process_delta_time()
+		bolt.global_position += d * step
+		travelled += step
+		var target: Enemy = null
+		for e in enemies:
+			if is_instance_valid(e) and e.state != Enemy.State.DEAD and Vector2(e.global_position.x - bolt.global_position.x, e.global_position.z - bolt.global_position.z).length() < 1.0:
+				target = e
+				break
+		if target:
+			target.take_hit(35.0, bolt.global_position - d)
+			_burst(bolt.global_position, Color(0.8, 0.55, 1.0), 36)
+			_vfx_ring(bolt.global_position - Vector3(0, 1.0, 0), Color(0.78, 0.52, 1.0), 1.8, 0.3)
+			_hitstop()
+			break
+		await get_tree().process_frame
+	trail.emitting = false
+	trail.reparent(self)
+	get_tree().create_timer(0.8).timeout.connect(trail.queue_free)
+	bolt.queue_free()
+
+
+func _ability_heal() -> void:
+	player.interrupt()
+	player.play_once("Consume", 1.2)
+	var gain := minf(30.0, player_max - player_hp)
+	player_hp += gain
+	_set_hp()
+	_float_text(player.global_position + Vector3(0, 2.3, 0), "+%d" % int(gain), Color(0.5, 1.0, 0.55))
+	_vfx_ring(player.global_position, Color(0.45, 1.0, 0.55), 2.2, 0.6)
+	var p := _particles(player.global_position + Vector3(0, 0.3, 0), Color(0.45, 1.0, 0.55), 40, false)
+	p.direction = Vector3.UP
+	p.spread = 25.0
+	p.gravity = Vector3(0, 2.5, 0)
+	p.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	p.emission_sphere_radius = 0.7
+	p.lifetime = 1.0
+
+
+## A flat ring that widens and fades.
+func _vfx_ring(pos: Vector3, color: Color, radius: float, time: float) -> void:
+	var mi := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = 0.72
+	tm.outer_radius = 1.0
+	mi.mesh = tm
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD  # glows over the ground instead of greying it
+	mat.no_depth_test = true
+	mat.albedo_color = Color(color.r, color.g, color.b, 0.95)
+	mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	mi.position = pos + Vector3(0, 0.2, 0)
+	mi.scale = Vector3(0.3, 0.3, 0.3)
+	add_child(mi)
+	var tw := create_tween().set_parallel(true)
+	tw.tween_property(mi, "scale", Vector3(radius, 0.6, radius), time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(mat, "albedo_color:a", 0.0, time).set_ease(Tween.EASE_IN)
+	tw.chain().tween_callback(mi.queue_free)
+
+
+## Sparks left behind something that moves (the player by default).
+func _vfx_trail(color: Color, follow: Node3D = null) -> CPUParticles3D:
+	var p := _particles(Vector3.ZERO, color, 60, false)
+	p.one_shot = false
+	p.explosiveness = 0.0
+	p.lifetime = 0.5
+	p.local_coords = false
+	p.initial_velocity_min = 0.3
+	p.initial_velocity_max = 1.2
+	p.gravity = Vector3.ZERO
+	p.reparent(follow if follow else player, false)
+	p.position = Vector3(0, 1.0, 0) if follow == null else Vector3.ZERO
+	return p
+
+
+func _particles(pos: Vector3, color: Color, amount: int, burst := true) -> CPUParticles3D:
+	var p := CPUParticles3D.new()
+	p.emitting = true
+	p.one_shot = burst
+	p.explosiveness = 1.0 if burst else 0.0
+	p.amount = amount
+	p.lifetime = 0.45
+	p.direction = Vector3.UP
+	p.spread = 80.0
+	p.initial_velocity_min = 3.0
+	p.initial_velocity_max = 6.5
+	p.gravity = Vector3(0, -12, 0)
+	p.scale_amount_min = 0.5
+	p.scale_amount_max = 1.0
+	var sm := SphereMesh.new()
+	sm.radius = 0.06
+	sm.height = 0.12
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = color
+	mat.emission_enabled = true
+	mat.emission = color
+	mat.emission_energy_multiplier = 3.0
+	sm.material = mat
+	p.mesh = sm
+	p.position = pos
+	add_child(p)
+	if burst:
+		get_tree().create_timer(1.2).timeout.connect(p.queue_free)
+	return p
+
+
+func attack(aimed := false) -> void:
 	if player.busy or player_down:
 		return
 	var now := Time.get_ticks_msec()
@@ -643,9 +932,12 @@ func attack() -> void:
 	combo += 1
 	last_attack_ms = now
 	var near := _nearest_enemy(3.5)
-	if near:  # aim assist: swing toward the closest enemy
+	if near:  # aim assist: toward the closest enemy, unless the mouse points clearly elsewhere
 		var to := near.global_position - player.global_position
-		player.model.rotation.y = atan2(to.x, to.z)
+		to.y = 0
+		var fwd := Vector3(sin(player.model.rotation.y), 0, cos(player.model.rotation.y))
+		if not aimed or fwd.dot(to.normalized()) > 0.5:
+			player.model.rotation.y = atan2(to.x, to.z)
 	player.play_once(step.clip, step.speed)
 	await get_tree().create_timer(step.hit).timeout
 	if player_down or not player.busy:  # fell or walked away: the swing is cancelled
@@ -697,8 +989,10 @@ func roll() -> void:
 		return
 	player.interrupt()
 	var yaw := player.model.rotation.y
+	var d := _move_dir if _move_dir != Vector3.ZERO else Vector3(sin(yaw), 0, cos(yaw))
+	player.model.rotation.y = atan2(d.x, d.z)
 	invuln_until = Time.get_ticks_msec() + 550
-	player.dash(Vector3(sin(yaw), 0, cos(yaw)), 0.45)
+	player.dash(d, 0.45)
 	player.play_once("Roll", 1.3)
 
 
@@ -769,7 +1063,9 @@ func _on_enemy_damaged(e: Enemy, amount: float) -> void:
 
 func _on_enemy_died(e: Enemy) -> void:
 	kills += 1
-	var tk: Dictionary = THREATS[e.camp]
+	var tk: Dictionary = THREATS.get(e.camp, {})
+	if tk.is_empty():
+		return  # not a camp the engine hears about (training, tests)
 	if tk.get("per_kill", false):  # each animal is its own confirmed hunt
 		var hunt := await client.occur(tk.action)
 		_report("Servidor de jogo", tk.action, hunt)
@@ -849,33 +1145,8 @@ func _float_text(pos: Vector3, text: String, color: Color) -> void:
 	tw.chain().tween_callback(l.queue_free)
 
 
-func _burst(pos: Vector3) -> void:
-	var p := CPUParticles3D.new()
-	p.emitting = true
-	p.one_shot = true
-	p.explosiveness = 1.0
-	p.amount = 28
-	p.lifetime = 0.45
-	p.direction = Vector3.UP
-	p.spread = 80.0
-	p.initial_velocity_min = 3.0
-	p.initial_velocity_max = 6.5
-	p.gravity = Vector3(0, -12, 0)
-	p.scale_amount_min = 0.5
-	p.scale_amount_max = 1.0
-	var m := SphereMesh.new()
-	m.radius = 0.06
-	m.height = 0.12
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(1.0, 0.85, 0.4)
-	mat.emission_enabled = true
-	mat.emission = Color(1.0, 0.7, 0.2)
-	mat.emission_energy_multiplier = 3.0
-	m.material = mat
-	p.mesh = m
-	p.position = pos
-	add_child(p)
-	get_tree().create_timer(1.0).timeout.connect(p.queue_free)
+func _burst(pos: Vector3, color := Color(1.0, 0.85, 0.4), amount := 28) -> void:
+	_particles(pos, color, amount)
 
 
 func _answer_quest(accept: bool) -> void:
@@ -1024,6 +1295,8 @@ func _build_hud() -> void:
 	hud.decline_pressed.connect(func(k: String) -> void: _answer_quest_key(k, false))
 	hud.abandon_pressed.connect(_abandon_quest)
 	hud.action_chosen.connect(_on_action_chosen)
+	hud.ability_pressed.connect(use_ability)
+	hud.build_hotbar(ABILITIES)
 	hud.set_hp(player_hp, player_max)
 
 
@@ -1329,6 +1602,115 @@ func _autotest_places() -> void:
 	get_tree().quit()
 
 
+## Uses every ability against a training camp and photographs each effect.
+func _autotest_skills() -> void:
+	await get_tree().create_timer(4.0).timeout
+	client._timer.stop()  # keep the training camp: no view sync during the test
+	var ok := {}
+	# Training dummies: two within the spin, one down the dash line, one far for the blade.
+	var base := player.global_position
+	var spots := [Vector3(1.8, 0, 0.8), Vector3(-1.6, 0, 1.2), Vector3(5.0, 0, -5.0), Vector3(-9.0, 0, -6.0)]
+	var dummies: Array = []
+	for sp in spots:
+		var d: Enemy = _spawn_enemy("bandido", "zoo", base + sp)
+		d.aggro = 0.0
+		d.damage = 0.0  # they hit back after being struck: keep the test about our side
+		dummies.append(d)
+	var total := func() -> float:
+		var t := 0.0
+		for d in dummies:
+			t += maxf(d.hp, 0.0) if is_instance_valid(d) else 0.0
+		return t
+	var hp0: float = total.call()
+	use_ability(0)
+	await get_tree().create_timer(0.36).timeout
+	await _shot("s1_giro")
+	await get_tree().create_timer(0.8).timeout
+	ok["giro_damage"] = hp0 - total.call()
+	var hp1: float = total.call()
+	Input.warp_mouse(cam.unproject_position(dummies[2].global_position))
+	await get_tree().process_frame
+	while player.busy:
+		await get_tree().process_frame
+	use_ability(1)
+	await get_tree().create_timer(0.15).timeout
+	await _shot("s2_investida")
+	await get_tree().create_timer(0.9).timeout
+	ok["investida_damage"] = hp1 - total.call()
+	var hp2: float = total.call()
+	Input.warp_mouse(cam.unproject_position(dummies[3].global_position))
+	await get_tree().process_frame
+	while player.busy:
+		await get_tree().process_frame
+	use_ability(2)
+	await get_tree().create_timer(0.34).timeout
+	await _shot("s3_lamina")
+	await get_tree().create_timer(1.0).timeout
+	ok["lamina_damage"] = hp2 - total.call()
+	player_hp = 50.0
+	use_ability(3)
+	await get_tree().create_timer(0.35).timeout
+	await _shot("s4_cura")
+	ok["hp_after_heal"] = player_hp
+	ok["cooldown_blocks"] = Time.get_ticks_msec() < ready_at.get("giro", 0)
+	Input.parse_input_event(_key(KEY_K))
+	await get_tree().create_timer(0.4).timeout
+	await _shot("s5_painel")
+	ok["skills_panel"] = hud.skills_panel.visible
+	hud.toggle_skills()
+	# WASD through the input pipeline: W must move the player up the screen.
+	var start := player.global_position
+	Input.parse_input_event(_key(KEY_W))
+	await get_tree().create_timer(1.0).timeout
+	var up := _key(KEY_W)
+	up.pressed = false
+	Input.parse_input_event(up)
+	await get_tree().create_timer(0.2).timeout
+	ok["w_moved_m"] = snappedf(start.distance_to(player.global_position), 0.1)
+	var b := cam_rig.global_transform.basis  # the camera follows, so compare in the world
+	var away := Vector3(-b.z.x, 0, -b.z.z).normalized()
+	var moved := player.global_position - start
+	moved.y = 0
+	ok["w_goes_up_screen"] = moved.normalized().dot(away) > 0.9
+	# Left mouse button: a swing toward the cursor.
+	var aim := cam.unproject_position(player.global_position + Vector3(-3, 0, 3))
+	var click_ev := InputEventMouseButton.new()
+	click_ev.button_index = MOUSE_BUTTON_LEFT
+	click_ev.pressed = true
+	click_ev.position = aim
+	click_ev.global_position = aim
+	Input.warp_mouse(aim)
+	var attacks0 := last_attack_ms
+	for attempt in 3:  # a flinch from a wolf can swallow a click, as in play
+		while player.busy:
+			await get_tree().process_frame
+		Input.parse_input_event(click_ev)
+		await get_tree().process_frame
+		var release := click_ev.duplicate() as InputEventMouseButton
+		release.pressed = false
+		Input.parse_input_event(release)
+		await get_tree().create_timer(0.2).timeout
+		if last_attack_ms != attacks0:
+			break
+	ok["lmb_attacked"] = last_attack_ms != attacks0
+	var f := Vector3(sin(player.model.rotation.y), 0, cos(player.model.rotation.y))
+	var assist := _nearest_enemy(3.5)
+	var to_assist := Vector3.ZERO if assist == null else (assist.global_position - player.global_position).normalized()
+	# toward the cursor, or toward an enemy close to that direction (aim assist)
+	ok["lmb_faces_aim"] = f.dot(Vector3(-1, 0, 1).normalized()) > 0.8 or assist != null and f.dot(Vector3(to_assist.x, 0, to_assist.z).normalized()) > 0.95
+	await _shot("s6_mouse")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+func _key(code: int) -> InputEventKey:
+	var k := InputEventKey.new()
+	k.keycode = code
+	k.physical_keycode = code
+	k.pressed = true
+	return k
+
+
 func _autotest() -> void:
 	var t0 := Time.get_ticks_msec()
 	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
@@ -1363,15 +1745,14 @@ func _autotest() -> void:
 			ok["click_decline"] = await _wait_state(k2, "declined")
 		await _shot("03_tracker")
 	# Pathfinding: the straight line to the target crosses a house.
-	player.walk_to(Vector3(-8, 0, -12))
-	await _arrive(25.0)
+	await _go(Vector3(-8, 0, -12), 25.0)
 	var from := player.global_position
 	var target := Vector3(-24, 0, -12)
 	var t_path := Time.get_ticks_msec()
 	player.walk_to(target)
 	await get_tree().create_timer(2.0).timeout
 	await _shot("04_path")
-	await _arrive(30.0)
+	await _go(target, 30.0)  # resumes if a wolf interrupts the walk
 	ok["path_reached"] = player.global_position.distance_to(target) < 2.0
 	ok["path_seconds"] = snappedf((Time.get_ticks_msec() - t_path) / 1000.0, 0.1)
 	ok["path_direct_m"] = snappedf(from.distance_to(target), 0.1)
