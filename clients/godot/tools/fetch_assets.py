@@ -35,7 +35,7 @@ MODELS = [
     (OUTFITS, "outfits", ["Male_Peasant", "Male_Ranger", "Female_Peasant", "Female_Ranger"]),
 ]
 FILES = [(UAL1 + "/UAL1_Standard.glb", "animations"), (UAL2 + "/UAL2_Standard.glb", "animations")]
-CREATURES = "quaternius-polypizza-animals"
+CREATURES = ["quaternius-polypizza-animals", "polypizza-boars-ccby"]  # the boars are CC-BY: keep SOURCES.txt
 TEXTURE_DIRS = [VILLAGE + "/Textures", NATURE + "/Textures", PROPS + "/Textures"]
 
 
@@ -63,11 +63,12 @@ def main():
                 copy(os.path.join(base, f), dst)
     for rel in FILES:
         copy(os.path.join(SRC, rel[0]), os.path.join(DST, rel[1]))
-    cdir = os.path.join(SRC, CREATURES)
-    if os.path.isdir(cdir):
-        for f in os.listdir(cdir):
-            if f.lower().endswith(".glb"):
-                copy(os.path.join(cdir, f), os.path.join(DST, "creatures"))
+    for c in CREATURES:
+        cdir = os.path.join(SRC, c)
+        if os.path.isdir(cdir):
+            for f in os.listdir(cdir):
+                if f.lower().endswith(".glb"):
+                    copy(os.path.join(cdir, f), os.path.join(DST, "creatures"))
     for sub in ("village", "nature", "props"):
         for td in TEXTURE_DIRS:
             t = os.path.join(SRC, td)

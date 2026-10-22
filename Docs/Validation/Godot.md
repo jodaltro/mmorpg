@@ -91,3 +91,27 @@ Servidor: `worldsim serve ... -advisor jev -env-file .env` em `127.0.0.1:8095`, 
 ### Não validado
 
 Clique nos botões Aceitar/Recusar/Abandonar (só se exercitou a tecla `Y` e a geração dos botões), avisos de missão falha/expirada, desempenho do bake em mundos maiores, oclusão nas árvores em jogo manual (só uma árvore transparente foi medida), mais de um jogador.
+
+## 22/10/2026 — lobos e javalis (Jev ligado)
+
+Modelos: `wolf_a.glb` (Quaternius, animado) e `boar_polygoogle.glb` (Poly by Google, CC-BY, estático), baixados do poly.pizza porque a pasta do pacote oficial no Google Drive respondeu "Quota exceeded". Servidor: `-advisor jev`, `127.0.0.1:8095`.
+
+| Item | Resultado |
+|---|---|
+| Escala e orientação | conferidas num cenário de teste (`--autotest=zoo`): lobo escala 0,32, javali 0,0085, ambos olham para +Z (de frente para a câmera quando virados para ela) |
+| Floresta, javalis | `boars_spawned: 3`, `boar_kills: 3`; cada abate reportado como `cacar-javali` e **aceito** pelo motor ("Teste abate um javali na floresta.") |
+| Efeito emergente | um dos abates ao amanhecer gerou "Ao amanhecer, Teste ve orelhas compridas sumindo atras de uma raiz enorme. Uma toca!" |
+| Vila, lobos (`--autotest=wolves --threat=vila`) | `wolves_spawned: 3`, `kills: 3`, `cacar-lobos` **aceito** ("Teste afugenta lobos corrompidos da vila."), vida final 76 |
+| Bandidos na rodada completa | `enfrentar-bandidos` recusado (`rejected: requirements`): os bandidos já tinham partido do mundo |
+| Capturas | lobo golpeado ao lado de NPC na vila; javali com faíscas de golpe e outro caído (queda procedural) |
+
+Resumo da rodada completa: `AUTOTEST {"boar_kills":3,"boar_report":"cacar-javali:ok","boars_spawned":3,"deaths":0,"kills":6,"nav":true,"path_reached":true,"player_hp":17,...}`.
+
+### Defeitos corrigidos
+
+- A fileira de teste ficou fora de quadro por causa da câmera girada 45°; passou a usar os eixos da câmera.
+- Lobo pequeno e escuro demais: escala 0,25 → 0,32 e tinta mais clara.
+
+### Não validado
+
+Respawn do javali 25 s depois do abate (o código existe; o teste não esperou esse tempo), animação `Idle_HitReact_Right` (só se usa a esquerda), lobos em perseguição entre regiões, javalis em mais de uma região, desempenho com muitas criaturas.

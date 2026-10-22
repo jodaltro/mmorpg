@@ -7,7 +7,7 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 | `scripts/world_client.gd` | Contrato HTTP v1: `join`, `move`, `act`, `accept`, `decline`, consulta periódica de `GET /v1/views/{id}` |
 | `scripts/actor.gd` | Personagem Quaternius (corpo + outfit) com as animações da Universal Animation Library: mesmo esqueleto de 65 ossos, sem retargeting |
 | `scripts/hud.gd` | Interface: estado e vida, minimapa, rastreador de missões, cartão de oferta (aceitar/recusar/depois), diário (`J`), avisos de missão e habilidade, log que se apaga sozinho, dica de interação |
-| `scripts/enemy.gd` | Inimigos (bandido, corrompido) como dados + IA simples: parado, perseguir, atacar, recuar; reação a golpe, morte, barra de vida |
+| `scripts/enemy.gd` | Inimigos (bandido, corrompido, lobo, javali) como dados + IA simples: parado, perseguir, atacar, recuar; reação a golpe, morte, barra de vida |
 | `scripts/main.gd` | Vila, estrada, floresta, câmera, clique para mover/falar/atacar, combo, esquiva, HUD, NPCs e ameaças vindos do motor, teste automático |
 | `shaders/toon_post.gdshader` | Pós-processo: faixas de luz suaves e contorno fino só nas silhuetas (profundidade), sem linhas nas normal maps |
 | `tools/fetch_assets.py` | Copia os pacotes CC0 do Quaternius para `assets/` (ignorado pelo git) |
@@ -25,6 +25,14 @@ Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome
 
 O combate (vida, dano, IA) é papel do servidor de jogo; neste spike o cliente faz esse papel. O motor só ouve resultados confirmados: os bandidos aparecem na região `estrada` quando o mundo emite o evento público `bandits` (somem em `bandits-left`) e as criaturas corrompidas na vila com `wolves`/`wolves-left`. Ao cair o último inimigo do grupo, o cliente reporta `enfrentar-bandidos` ou `cacar-lobos` como `adapter`, e o motor aceita ou recusa conforme a verdade do mundo.
 
+| Inimigo | Onde e quando | Reporte ao motor |
+|---|---|---|
+| Bandido | `estrada`, evento `bandits` (some com `bandits-left`) | `enfrentar-bandidos` ao cair o grupo |
+| Lobo corrompido | `vila`, evento `wolves` (some com `wolves-left`) | `cacar-lobos` ao cair o grupo |
+| Javali | `floresta`, sempre; volta 25 s depois de cada abate | `cacar-javali` a cada abate (cada um é uma caça confirmada) |
+
+O lobo usa o modelo animado do Quaternius (`Attack`, `Gallop`, reações a golpe, `Death`). O javali é um modelo **estático** (sem esqueleto): a marcha, a investida, o recuo ao ser atingido e a queda são procedurais (`actor.gd`, `_proc_once`/`_proc_update`).
+
 ## Teste automático
 
 ```bash
@@ -40,5 +48,10 @@ Entra no mundo, fala com Orin, aceita a missão oferecida, vai à estrada, luta 
 - Casas são blocos sólidos (não dá para entrar).
 - Pathfinding: NavMesh gerada em tempo de execução a partir dos colisores (grupo `nav_source`, ~1 s em segundo plano); até ficar pronta o movimento é em linha reta. Cercas não são sólidas.
 - Oclusão: árvores e casas entre a câmera e o jogador ficam transparentes (a sombra continua opaca).
-- Sem modelo de lobo ou javali: as "criaturas corrompidas" da vila usam o corpo humano com animação de zumbi. `cacar-javali` e lobos de verdade pedem outro pacote de criaturas.
+- O javali não tem animação de verdade (modelo estático com marcha procedural). Os "corrompidos" humanoides (zumbi) continuam definidos como dados em `enemy.gd`, mas nenhum evento os usa agora.
 - O combate é local, sem sincronização entre jogadores.
+
+## Créditos dos modelos de criaturas
+
+- Lobos e porcos: Quaternius (CC0), via poly.pizza.
+- Javali ("Boar"): Poly by Google, licença CC-BY; "Hog": Aya Kawa, CC-BY. Os arquivos ficam fora do repositório; ao redistribuir, dar os créditos (a lista está no `SOURCES.txt` ao lado dos downloads).

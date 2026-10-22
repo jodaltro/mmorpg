@@ -12,8 +12,11 @@ const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), 
 const THREATS := {
 	"estrada": {"event": "bandits", "end": "bandits-left", "kind": "bandido", "action": "enfrentar-bandidos",
 		"at": [Vector2(-3, -5), Vector2(2, 5), Vector2(7, -4)]},
-	"vila": {"event": "wolves", "end": "wolves-left", "kind": "corrompido", "action": "cacar-lobos",
+	"vila": {"event": "wolves", "end": "wolves-left", "kind": "lobo", "action": "cacar-lobos",
 		"at": [Vector2(-9, -9), Vector2(9, 9), Vector2(-9, 9)]},
+	# Boars roam the forest all the time; each one is its own confirmed hunt and they return later.
+	"floresta": {"always": true, "per_kill": true, "kind": "javali", "action": "cacar-javali", "respawn": 25.0,
+		"at": [Vector2(-8, -10), Vector2(6, 8), Vector2(-2, 14)]},
 }
 const COMBO := [
 	{"clip": "Sword_Regular_A", "hit": 0.30, "dmg": 22.0, "speed": 1.3},
@@ -42,6 +45,7 @@ var cam: Camera3D
 var sun: DirectionalLight3D
 var env: Environment
 var _synced := false
+var cam_focus: Node3D  # tests: look at something other than the player
 var enemies: Array[Enemy] = []
 var threat_on := {}
 var threat_forced := {}  # dev: --threat=region keeps a camp up whatever the world says
@@ -81,6 +85,9 @@ func _ready() -> void:
 	for r in String(_args.get("threat", "")).split(",", false):  # dev: force a threat on
 		threat_on[r] = true
 		threat_forced[r] = true
+	for r in THREATS:
+		if THREATS[r].get("always", false):
+			threat_on[r] = true
 	client = WorldClient.new()
 	client.base_url = _args.get("server", "http://127.0.0.1:8095")
 	client.player_id = _args.get("player", "godot-1")
@@ -89,7 +96,13 @@ func _ready() -> void:
 	client.view_changed.connect(_on_view)
 	client.start()
 	if _args.has("autotest"):
-		_autotest()
+		match String(_args.autotest):
+			"wolves":
+				_autotest_wolves()
+			"zoo":
+				_autotest_zoo()
+			_:
+				_autotest()
 
 
 # --- world -----------------------------------------------------------------
@@ -399,7 +412,7 @@ func _build_camera() -> void:
 func _process(delta: float) -> void:
 	if player == null:
 		return
-	cam_rig.global_position = cam_rig.global_position.lerp(player.global_position, clampf(delta * 6.0, 0.0, 1.0))
+	cam_rig.global_position = cam_rig.global_position.lerp((cam_focus if cam_focus else player).global_position, clampf(delta * 6.0, 0.0, 1.0))
 	_update_occlusion(delta)
 	_update_hud_world()
 	if _shake > 0.0:
@@ -575,14 +588,35 @@ func _sync_enemies() -> void:
 			return  # camp already standing
 	var origin: Vector3 = REGION_ORIGIN[region]
 	for off in t.at:
-		var e := Enemy.new()
-		add_child(e)
-		e.configure(t.kind, region, origin + Vector3(off.x, 0, off.y), player)
-		e.damaged.connect(_on_enemy_damaged)
-		e.hit_player.connect(_on_hit_player)
-		e.died.connect(_on_enemy_died)
-		enemies.append(e)
+		_spawn_enemy(t.kind, region, origin + Vector3(off.x, 0, off.y))
 	_log("[color=#ffb070]%s: %d inimigos a vista.[/color]" % [REGION_NAMES.get(region, region), t.at.size()])
+
+
+func _spawn_enemy(kind: String, camp: String, at: Vector3) -> Enemy:
+	if Actor.nav_map.is_valid():  # never start inside a tree or a wall
+		at = NavigationServer3D.map_get_closest_point(Actor.nav_map, at)
+	var e := Enemy.new()
+	add_child(e)
+	e.configure(kind, camp, at, player)
+	e.damaged.connect(_on_enemy_damaged)
+	e.hit_player.connect(_on_hit_player)
+	e.died.connect(_on_enemy_died)
+	enemies.append(e)
+	return e
+
+
+func _respawn_later(camp: String) -> void:
+	var t: Dictionary = THREATS[camp]
+	await get_tree().create_timer(float(t.get("respawn", 25.0))).timeout
+	if region != camp or player_down or not threat_on.get(camp, false):
+		return  # leaving the region already cleared the camp; it refills on return
+	var standing := 0
+	for e in enemies:
+		if is_instance_valid(e) and e.camp == camp and e.state != Enemy.State.DEAD:
+			standing += 1
+	if standing < t.at.size():
+		var off: Vector2 = t.at[_rng.randi() % t.at.size()]
+		_spawn_enemy(t.kind, camp, REGION_ORIGIN[camp] + Vector3(off.x, 0, off.y))
 
 
 func _on_enemy_damaged(e: Enemy, amount: float) -> void:
@@ -591,6 +625,12 @@ func _on_enemy_damaged(e: Enemy, amount: float) -> void:
 
 func _on_enemy_died(e: Enemy) -> void:
 	kills += 1
+	var tk: Dictionary = THREATS[e.camp]
+	if tk.get("per_kill", false):  # each animal is its own confirmed hunt
+		var hunt := await client.occur(tk.action)
+		_report("Servidor de jogo", tk.action, hunt)
+		_respawn_later(e.camp)
+		return
 	for other in enemies:
 		if is_instance_valid(other) and other.camp == e.camp and other.state != Enemy.State.DEAD:
 			return
@@ -756,10 +796,10 @@ func _on_view(v: Dictionary) -> void:
 		if int(e.seq) > last_seq:
 			last_seq = int(e.seq)
 			for r in THREATS:
-				if e.kind == THREATS[r].event:
+				if e.kind == THREATS[r].get("event", "!"):
 					threat_on[r] = true
 					camp_done[r] = false
-				elif e.kind == THREATS[r].end and not threat_forced.has(r):
+				elif e.kind == THREATS[r].get("end", "!") and not threat_forced.has(r):
 					threat_on[r] = false
 			if e.get("text", "") != "":
 				_log("[color=#c9b3ff]%s[/color]" % e.text)
@@ -858,6 +898,79 @@ func _arrive(timeout := 20.0) -> void:
 		await get_tree().create_timer(0.1).timeout
 
 
+func _fight_all(max_ms: int, shot_name := "") -> void:
+	var t_fight := Time.get_ticks_msec()
+	var shot_done := shot_name == ""
+	while Time.get_ticks_msec() - t_fight < max_ms:
+		var alive := enemies.filter(func(e): return is_instance_valid(e) and e.state != Enemy.State.DEAD)
+		if alive.is_empty():
+			break
+		if player_down:
+			await get_tree().create_timer(0.5).timeout
+			continue
+		alive.sort_custom(func(a, b): return a.global_position.distance_to(player.global_position) < b.global_position.distance_to(player.global_position))
+		var e: Enemy = alive[0]
+		if player.global_position.distance_to(e.global_position) > 2.3:
+			player.walk_to(e.global_position - (e.global_position - player.global_position).normalized() * 1.6)
+		else:
+			attack()
+		await get_tree().create_timer(0.25).timeout
+		if not shot_done and Time.get_ticks_msec() - t_fight > 5000:
+			shot_done = true
+			await _shot(shot_name)
+
+
+## Every creature in a row, no AI: checks scale, facing and the idle pose.
+func _autotest_zoo() -> void:
+	await get_tree().create_timer(3.0).timeout
+	var row := ["bandido", "lobo", "javali", "corrompido"]
+	var right := cam.global_transform.basis.x
+	right.y = 0
+	right = right.normalized()
+	var toward := cam.global_transform.basis.z
+	toward.y = 0
+	toward = toward.normalized()
+	for i in row.size():
+		var z := Enemy.new()
+		add_child(z)
+		z.configure(row[i], "zoo", player.global_position + right * (-4.5 + i * 3.0) + toward * 3.0, null)
+		z.model.rotation.y = atan2(toward.x, toward.z)  # face the camera
+	cam.size = 6.5
+	await get_tree().create_timer(1.0).timeout
+	await _shot("z1_zoo")
+	for e in get_children():
+		if e is Enemy and e.kind == "javali":
+			e.play("Run")
+	await get_tree().create_timer(0.8).timeout
+	await _shot("z2_zoo_run")
+	cam.size = 3.2
+	for e in get_children():
+		if e is Enemy and (e.kind == "lobo" or e.kind == "javali"):
+			cam_focus = e
+			await get_tree().create_timer(0.8).timeout
+			await _shot("z3_%s" % e.kind)
+	print("AUTOTEST ", JSON.stringify({"zoo": row.size()}))
+	get_tree().quit()
+
+
+func _autotest_wolves() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {"view": not client.view.is_empty(), "wolves_spawned": enemies.size()}
+	await _shot("w1_wolves")
+	await _fight_all(60000, "w2_fight")
+	await get_tree().create_timer(2.5).timeout
+	await _shot("w3_clear")
+	ok["kills"] = kills
+	ok["deaths"] = deaths
+	ok["player_hp"] = int(player_hp)
+	ok["report"] = last_report
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
 func _autotest() -> void:
 	var t0 := Time.get_ticks_msec()
 	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
@@ -902,27 +1015,10 @@ func _autotest() -> void:
 	ok["enemies_spawned"] = enemies.size()
 	await _shot("04b_estrada")
 	print("STEP fight start")
-	var t_fight := Time.get_ticks_msec()
-	var shot_fight := false
-	while Time.get_ticks_msec() - t_fight < 60000:
-		var alive := enemies.filter(func(e): return is_instance_valid(e) and e.state != Enemy.State.DEAD)
-		if alive.is_empty():
-			break
-		if player_down:
-			await get_tree().create_timer(0.5).timeout
-			continue
-		alive.sort_custom(func(a, b): return a.global_position.distance_to(player.global_position) < b.global_position.distance_to(player.global_position))
-		var e: Enemy = alive[0]
-		if player.global_position.distance_to(e.global_position) > 2.3:
-			player.walk_to(e.global_position - (e.global_position - player.global_position).normalized() * 1.6)
-		else:
-			attack()
-		await get_tree().create_timer(0.25).timeout
-		if not shot_fight and Time.get_ticks_msec() - t_fight > 6000:
-			shot_fight = true
-			await _shot("05b_fight")
+	await _fight_all(60000, "05b_fight")
 	await get_tree().create_timer(2.5).timeout
 	await _shot("05_clear")
+	ok["bandit_report"] = last_report
 	cam.size = 3.5
 	await get_tree().create_timer(0.6).timeout
 	await _shot("06_closeup")
@@ -931,6 +1027,12 @@ func _autotest() -> void:
 	await _arrive(30.0)
 	await get_tree().create_timer(1.5).timeout
 	await _shot("07_forest")
+	var kills_before := kills
+	ok["boars_spawned"] = enemies.filter(func(e): return is_instance_valid(e) and e.kind == "javali").size()
+	await _fight_all(45000, "07b_boar")
+	await get_tree().create_timer(2.0).timeout
+	ok["boar_kills"] = kills - kills_before
+	ok["boar_report"] = last_report
 	ok["occluders_faded"] = occluders.filter(func(o): return o.applied > 0.5).size()
 	hud.toggle_journal()
 	await get_tree().create_timer(0.4).timeout

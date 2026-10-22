@@ -39,6 +39,11 @@ var _plan_age := 0.0
 var _planned_goal := Vector3.INF
 var _bob := 0.0
 var _replanned := false
+var hit_clip := "Hit_Chest"
+var death_clip := "Death01"
+var _proc_clip := "Idle"  # clip name used by creatures without animations (procedural gait)
+var _ptween: Tween
+var _t := 0.0
 
 
 static func library() -> AnimationLibrary:
@@ -61,15 +66,7 @@ static func library() -> AnimationLibrary:
 
 func setup(id: String, shown_name: String, female := false, with_sword := false, outfit := "Peasant") -> void:
 	entity_id = id
-	collision_layer = 2
-	collision_mask = 1
-	var shape := CollisionShape3D.new()
-	var capsule := CapsuleShape3D.new()
-	capsule.radius = 0.35
-	capsule.height = 1.8
-	shape.shape = capsule
-	shape.position.y = 0.9
-	add_child(shape)
+	_hitbox(shown_name, 0.35, 1.8, 2.25, 0.7, 2.0)
 
 	var scene := load("res://assets/characters/Superhero_%s_FullBody.gltf" % ("Female" if female else "Male")) as PackedScene
 	model = scene.instantiate()
@@ -80,35 +77,69 @@ func setup(id: String, shown_name: String, female := false, with_sword := false,
 	anim.add_animation_library("", library())
 	anim.animation_finished.connect(_on_finished)
 
+	if outfit != "":
+		dress("%s_%s" % ["Female" if female else "Male", outfit])
+	if with_sword:
+		equip("res://assets/props/Sword_Bronze.gltf")
+	idle_clip = "Idle"
+	play(idle_clip)
+
+
+## Collision body, name label and the click target the camera ray hits.
+func _hitbox(shown_name: String, radius: float, height: float, label_y: float, pick_radius: float, pick_height: float) -> void:
+	collision_layer = 2
+	collision_mask = 1
+	var shape := CollisionShape3D.new()
+	var capsule := CapsuleShape3D.new()
+	capsule.radius = radius
+	capsule.height = height
+	shape.shape = capsule
+	shape.position.y = height / 2.0
+	add_child(shape)
 	label = Label3D.new()
 	label.text = shown_name
-	label.position.y = 2.25
+	label.position.y = label_y
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	label.no_depth_test = true
 	label.pixel_size = 0.0075
 	label.outline_size = 10
 	label.font_size = 40
 	add_child(label)
-
-	# Click target for the camera ray (areas on layer 3).
-	pick = Area3D.new()
+	pick = Area3D.new()  # areas on layer 3
 	pick.collision_layer = 4
 	pick.collision_mask = 0
 	pick.set_meta("actor", self)
 	var ps := CollisionShape3D.new()
 	var cyl := CylinderShape3D.new()
-	cyl.radius = 0.7
-	cyl.height = 2.0
+	cyl.radius = pick_radius
+	cyl.height = pick_height
 	ps.shape = cyl
-	ps.position.y = 1.0
+	ps.position.y = pick_height / 2.0
 	pick.add_child(ps)
 	add_child(pick)
 
-	if outfit != "":
-		dress("%s_%s" % ["Female" if female else "Male", outfit])
-	if with_sword:
-		equip("res://assets/props/Sword_Bronze.gltf")
-	idle_clip = "Idle"
+
+## A four-legged creature from its own GLB. With clips it plays them; a static
+## model (no AnimationPlayer) moves with a procedural gait instead.
+func setup_creature(id: String, shown_name: String, spec: Dictionary) -> void:
+	entity_id = id
+	_hitbox(shown_name, 0.5, 1.0, spec.get("label_y", 1.6), 0.9, 1.2)
+	model = Node3D.new()  # wrapper: facing and procedural motion live here
+	add_child(model)
+	var visual: Node3D = (load(spec.model) as PackedScene).instantiate()
+	visual.scale = Vector3.ONE * float(spec.get("scale", 1.0))
+	visual.position.y = float(spec.get("ground", 0.0))
+	model.add_child(visual)
+	skeleton = visual.find_child("Skeleton3D", true, false) as Skeleton3D
+	anim = visual.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	if anim:
+		for n in spec.get("loops", []):
+			if anim.has_animation(n):
+				anim.get_animation(n).loop_mode = Animation.LOOP_LINEAR
+	idle_clip = spec.idle
+	clip_run = spec.move
+	hit_clip = spec.hit
+	death_clip = spec.death
 	play(idle_clip)
 
 
@@ -137,12 +168,20 @@ func equip(path: String) -> void:
 
 
 func play(clip: String, speed := 1.0, blend := 0.15) -> void:
+	if anim == null:
+		_proc_clip = clip
+		return
 	if anim.has_animation(clip) and (anim.current_animation != clip or not anim.is_playing()):
 		anim.play(clip, blend, speed)
 
 
 func play_once(clip: String, speed := 1.0) -> void:
-	if busy or not anim.has_animation(clip):
+	if busy:
+		return
+	if anim == null:
+		await _proc_once(clip)
+		return
+	if not anim.has_animation(clip):
 		return
 	busy = true
 	has_goal = false
@@ -154,6 +193,69 @@ func play_once(clip: String, speed := 1.0) -> void:
 		return
 	busy = false
 	play(idle_clip)
+
+
+func play_death() -> void:
+	if anim:
+		anim.play(death_clip, 0.1, 1.2)
+		return
+	_proc_clip = "Death"
+	_kill_ptween()
+	_ptween = create_tween().set_parallel(true)
+	_ptween.tween_property(model, "rotation:z", 1.5, 0.35)
+	_ptween.tween_property(model, "position:y", 0.2, 0.35)
+
+
+## One-shot moves for creatures without clips: rear back, lunge, recover.
+func _proc_once(clip: String) -> void:
+	busy = true
+	has_goal = false
+	_once += 1
+	var mine := _once
+	var yaw := model.rotation.y
+	var fwd := Vector3(sin(yaw), 0, cos(yaw))
+	_kill_ptween()
+	_ptween = create_tween()
+	if clip == "Attack":
+		_ptween.tween_property(model, "position", -fwd * 0.35, 0.12)
+		_ptween.parallel().tween_property(model, "rotation:x", -0.25, 0.12)
+		_ptween.tween_property(model, "position", fwd * 0.9, 0.10)
+		_ptween.parallel().tween_property(model, "rotation:x", 0.3, 0.10)
+		_ptween.tween_property(model, "position", Vector3.ZERO, 0.3)
+		_ptween.parallel().tween_property(model, "rotation:x", 0.0, 0.3)
+	elif clip == "Hit":
+		_ptween.tween_property(model, "position", -fwd * 0.3, 0.08)
+		_ptween.parallel().tween_property(model, "rotation:z", 0.18, 0.08)
+		_ptween.tween_property(model, "position", Vector3.ZERO, 0.25)
+		_ptween.parallel().tween_property(model, "rotation:z", 0.0, 0.25)
+	else:
+		_ptween.tween_interval(0.3)
+	await _ptween.finished
+	if mine != _once:
+		return
+	busy = false
+	play(idle_clip)
+
+
+func _kill_ptween() -> void:
+	if _ptween and _ptween.is_valid():
+		_ptween.kill()
+
+
+func _proc_update(delta: float) -> void:
+	if busy or _proc_clip == "Death":
+		return
+	_t += delta
+	var bob := 0.0
+	var pitch := sin(_t * 1.8) * 0.015
+	var roll := 0.0
+	if _proc_clip == clip_run or _proc_clip == clip_walk:
+		bob = absf(sin(_t * 13.0)) * 0.12
+		pitch = sin(_t * 13.0) * 0.07
+		roll = sin(_t * 6.5) * 0.05
+	model.position = Vector3(0, bob, 0)
+	model.rotation.x = pitch
+	model.rotation.z = roll
 
 
 func walk_to(p: Vector3, running := true) -> void:
@@ -202,6 +304,8 @@ func set_marker(text: String, color := Color(1.0, 0.85, 0.3)) -> void:
 
 
 func _process(delta: float) -> void:
+	if anim == null and model:
+		_proc_update(delta)
 	if marker:
 		_bob += delta
 		marker.position.y = 2.85 + sin(_bob * 3.0) * 0.1
@@ -224,6 +328,11 @@ func tint(c: Color) -> void:
 func interrupt() -> void:
 	busy = false
 	_once += 1
+	if anim == null and model:  # drop a half-finished procedural move
+		_kill_ptween()
+		model.position = Vector3.ZERO
+		model.rotation.x = 0.0
+		model.rotation.z = 0.0
 
 
 func dash(dir: Vector3, seconds: float) -> void:
