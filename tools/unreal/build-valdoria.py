@@ -159,7 +159,7 @@ for x in (-700, 700):
 # Fence around the village edge.
 for i in range(-10, 11):
     for x, y, yaw in [(i * 200, 2400, 0), (2200, i * 200 + 400, 90), (-2200, i * 200 + 400, 90)]:
-        if abs(x) <= 2200:
+        if abs(x) <= 2200 and not (x == 2200 and 200 <= y <= 800):  # east gate to the ruins
             put("Village", "Prop_WoodenFence_Single", x, y, 0, yaw, folder="Vila/Cerca")
 
 # Road to the forest (Estrada do Leste runs south from the plaza).
@@ -179,18 +179,22 @@ small = ["Bush_Common", "Fern_1", "Rock_Medium_1", "Rock_Medium_2", "Rock_Medium
 placed = 0
 while placed < 140:
     x, y = rng.uniform(-6000, 6000), rng.uniform(-14000, -6200)
-    if abs(x) < 300 and y > -7000:
+    if abs(x) < 1100 and y > -7900:  # a clearing at the end of the road (crowns are wide)
         continue
     put("Nature", rng.choice(trees), x, y, 0, rng.uniform(0, 360), rng.uniform(0.8, 1.4), folder="Floresta")
     placed += 1
 for _ in range(220):
     x, y = rng.uniform(-6000, 6000), rng.uniform(-14000, -5800)
+    if abs(x) < 500 and y > -7600:
+        continue
     put("Nature", rng.choice(small), x, y, 0, rng.uniform(0, 360), rng.uniform(0.5, 1.0), folder="Floresta")
 # Trees and grass around the village for life.
 for _ in range(40):
     a, d = rng.uniform(0, 2 * math.pi), rng.uniform(2800, 5000)
     if abs(d * math.cos(a)) < 700 and 400 + d * math.sin(a) < -1000:
         continue  # keep the road to the forest clear
+    if d * math.cos(a) > 2000 and abs(400 + d * math.sin(a) - 500) < 800:
+        continue  # and the road east to the ruins
     put("Nature", rng.choice(["CommonTree_1", "CommonTree_2", "CommonTree_4", "CommonTree_5"]), d * math.cos(a), 400 + d * math.sin(a), 0,
         rng.uniform(0, 360), rng.uniform(0.9, 1.3), folder="Arredores")
 for _ in range(260):
@@ -208,19 +212,23 @@ QUINN = unreal.load_asset("/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple")
 IDLE = unreal.EditorAssetLibrary.load_blueprint_class("/Game/Characters/Mannequins/Anims/Unarmed/ABP_Unarmed")
 
 
-def spot(name, verb, x, y, yaw=0.0, action="", game=False, npc="", body=None, radius=300.0, folder="WorldSim/Interativos"):
+def spot(name, verb, x, y, yaw=0.0, action="", game=False, npc="", body=None, radius=300.0, folder="WorldSim/Interativos",
+         hp=0, respawn=20.0, body_scale=1.0, idle=True):
     a = eas.spawn_actor_from_class(unreal.WorldSimInteractable, unreal.Vector(x, y, 0), unreal.Rotator(0, 0, yaw))
     if not a:
         report["missing"].append("interactable " + name)
         return None
-    for k, v in [("display_name", name), ("verb", verb), ("action_id", action), ("confirmed_by_game", game), ("npc_id", npc), ("radius", radius)]:
+    for k, v in [("display_name", name), ("verb", verb), ("action_id", action), ("confirmed_by_game", game), ("npc_id", npc),
+                 ("radius", radius), ("hit_points", hp), ("respawn_seconds", respawn)]:
         a.set_editor_property(k, v)
     a.get_editor_property("label").set_text(name)
     b = a.get_editor_property("body")
     if body:
         b.set_skeletal_mesh_asset(body)
         b.set_relative_rotation(unreal.Rotator(0, 0, -90), False, False)  # mannequin faces +Y
-        if IDLE:
+        if body_scale != 1.0:
+            b.set_relative_scale3d(unreal.Vector(body_scale, body_scale, body_scale))
+        if IDLE and idle:
             b.set_editor_property("animation_mode", unreal.AnimationMode.ANIMATION_BLUEPRINT)
             b.set_anim_instance_class(IDLE)
     else:
@@ -244,11 +252,96 @@ spot("Velho Tomas", "Falar com", 260, -2000, 180, npc="tomas", body=MANNY)
 spot("Lia, a comerciante", "Falar com", -560, -2350, 0, npc="lia", body=QUINN)
 spot("Rastro estranho", "Seguir o", 0, -6400, action="seguir-rastro", game=True, radius=350)
 spot("Ervas medicinais", "Colher", 380, -6700, action="colher-ervas-campo", game=True, radius=250)
-spot("Javali", "Cacar o", -420, -7000, action="cacar-javali", game=True, radius=300)
-spot("Kael, o cacador", "Falar com", 200, -6250, 180, npc="kael", body=MANNY)
+spot("Kael, o cacador", "Falar com", 560, -6100, 180, npc="kael", body=MANNY)
+# Combat targets: hit points; going down reports the action (the game is the combat authority).
+DINO = unreal.load_asset("/Game/NiagaraExamples/Gallery/SkeletalMesh/DinoDragon/SK_DinoDragon")
+spot("Javali corrompido", "Cacar o", -150, -6800, 30, action="cacar-javali", game=True, radius=320,
+     body=DINO, hp=3, respawn=25.0, body_scale=0.6, idle=False)
+put("Props", "Dummy", 520, -520, 0, 200, folder="Vila/Treino")
+spot("Boneco de treino", "", 520, -520, hp=5, respawn=3.0, radius=250)
+
+# Ruinas de Asterion: a realistic post-apocalyptic desert east of the village
+# (JustBStudios PostApo pack), reached through the east gate. Styles mix on purpose.
+def desert(name, x, y, yaw=0.0, scale=1.0, folder="Ruinas"):
+    p = "/Game/JustBStudios/PostApo/Meshes/%s" % name
+    m = unreal.load_asset(p)
+    if not m:
+        report["missing"].append(p)
+        return None
+    a = spawn_mesh(m, x, y, 0, yaw)
+    if scale != 1.0:
+        a.set_actor_scale3d(unreal.Vector(scale, scale, scale))
+    a.set_actor_label(name)
+    a.set_folder_path(folder)
+    report["actors"] += 1
+    return a
+
+
+smat = unreal.load_asset("/Game/Valdoria/Maps/M_Sand")
+if not smat:
+    smat = tools.create_asset("M_Sand", "/Game/Valdoria/Maps", unreal.Material, unreal.MaterialFactoryNew())
+    mel = unreal.MaterialEditingLibrary
+    c = mel.create_material_expression(smat, unreal.MaterialExpressionConstant3Vector, -400, 0)
+    c.set_editor_property("constant", unreal.LinearColor(0.42, 0.30, 0.17, 1))
+    mel.connect_material_property(c, "", unreal.MaterialProperty.MP_BASE_COLOR)
+    r = mel.create_material_expression(smat, unreal.MaterialExpressionConstant, -400, 200)
+    r.set_editor_property("r", 0.9)
+    mel.connect_material_property(r, "", unreal.MaterialProperty.MP_ROUGHNESS)
+    mel.recompile_material(smat)
+    unreal.EditorAssetLibrary.save_asset("/Game/Valdoria/Maps/M_Sand")
+sand = spawn_mesh(plane, 9500, 600, 2, 0)
+sand.set_actor_scale3d(unreal.Vector(90, 90, 1))
+sand.static_mesh_component.set_material(0, smat)
+sand.set_actor_label("Areia")
+sand.set_folder_path("Ruinas")
+far = spawn_mesh(plane, 45000, 0, -20, 0)  # desert floor out to the mountains on the horizon
+far.set_actor_scale3d(unreal.Vector(600, 600, 1))
+far.static_mesh_component.set_material(0, smat)
+far.static_mesh_component.set_collision_profile_name("NoCollision")
+far.set_actor_label("Areia_Horizonte")
+far.set_folder_path("Ruinas")
+for k in range(22):  # road from the east gate
+    x = 2350 + k * 160
+    put("Nature", rng.choice(["RockPath_Square_Wide", "RockPath_Round_Wide"]), x, 500 + 80 * math.sin(k / 3.0), 1, rng.uniform(0, 360), folder="Ruinas/Estrada")
+# The pack's mountains are huge (0.7 to 2 km wide): far-away backdrop only, no
+# collision, or they swallow the whole map (the player spawned inside one and fell).
+for k, (x, y, yaw, s) in enumerate([(32000, -9000, 0, 0.3), (40000, 6000, 40, 0.3), (52000, -2000, 80, 0.3),
+                                    (30000, 16000, 120, 0.25), (28000, -20000, 200, 0.25)]):
+    m = desert("SM_Mountain_0%d" % (k % 3 + 1), x, y, yaw, s, folder="Ruinas/Montanhas")
+    if m:
+        m.static_mesh_component.set_collision_profile_name("NoCollision")
+ruins = [("SM_Car", 8200, 300, 25), ("SM_Trailer", 9800, -900, 80), ("SM_WaterTankMerged", 10600, 1600, 0),
+         ("SM_Solar_Panel", 9000, 2100, 200), ("SM_Satellite_01", 11200, -200, 140), ("SM_Electric_Cabinet", 8800, -600, 90),
+         ("SM_Gate_01", 7400, 520, 90), ("SM_Stairs_02", 10200, 400, 0), ("SM_AirConditioner", 9900, -400, 30)]
+for name, x, y, yaw in ruins:
+    desert(name, x, y, yaw)
+for k in range(10):
+    desert("SM_ConcreteBarrier", 7600 + k * 260, -1400 + 40 * (k % 2), 90 + rng.uniform(-8, 8))
+for k in range(8):
+    desert("SM_BarbedWire", 7600 + k * 330, 2300, 0)
+    desert("SM_Electric_Pole_01", 7700 + k * 900, 2700, 0)
+scatter = ["SM_Barrel", "SM_Box_01", "SM_Box_02", "SM_Box_03", "SM_PaletteBoxes_01", "SM_PaletteBoxes_02", "SM_Rubbish_01",
+           "SM_Rubbish_02", "SM_Rubbish_03", "SM_Wheel", "SM_Plank_03", "SM_MetalPlate_04", "SM_Pipe_02", "SM_Rubbish_Bin"]
+for _ in range(45):
+    desert(rng.choice(scatter), rng.uniform(7600, 11800), rng.uniform(-1300, 2200), rng.uniform(0, 360))
+placed = 0
+while placed < 45:  # the pack's rocks are 4 to 36 m: scaled to boulders, kept off the road and the ruins
+    x, y = rng.uniform(6000, 13500), rng.uniform(-3500, 4800)
+    if 7000 < x < 12000 and -1600 < y < 2600:
+        continue
+    desert(rng.choice(["SM_Rock_01", "SM_Rock_02", "SM_Rock_03", "SM_Rock_04", "SM_Rock_05", "SM_Rock_06"]),
+           x, y, rng.uniform(0, 360), rng.uniform(0.12, 0.35), folder="Ruinas/Rochas")
+    placed += 1
+for _ in range(90):
+    a = desert(rng.choice(["SM_Cactus", "SM_DryBush_01_Short", "SM_DryBush_02", "SM_DryGrass_01_1", "SM_WildGrass_S_01", "SM_WildGrass_M_01"]),
+               rng.uniform(6000, 13500), rng.uniform(-3500, 4800), rng.uniform(0, 360), rng.uniform(0.8, 1.4), folder="Ruinas/Plantas")
+    if a and not a.get_actor_label().startswith("SM_Cactus"):
+        a.static_mesh_component.set_collision_profile_name("NoCollision")
+spot("Ruinas antigas", "Explorar as", 9400, 500, action="explorar-ruinas", game=True, radius=500)
 # WorldSim regions: entering a box reports the region to the world engine.
 regions = []
-for rid, x, y, ex, ey in [("vila", 0, 400, 2300, 2100), ("estrada", 0, -3900, 1200, 2000), ("floresta", 0, -10100, 6200, 4100)]:
+for rid, x, y, ex, ey in [("vila", 0, 400, 2300, 2100), ("estrada", 0, -3900, 1200, 2000), ("floresta", 0, -10100, 6200, 4100),
+                          ("ruinas", 9800, 600, 3800, 4400)]:
     v = eas.spawn_actor_from_class(unreal.WorldSimRegionVolume, unreal.Vector(x, y, 300))
     v.set_editor_property("region_id", rid)
     box = v.get_component_by_class(unreal.BoxComponent)

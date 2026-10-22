@@ -169,3 +169,22 @@ Universal Animation Library 2 [Standard] (Quaternius, CC0, itch.io, 18.735.003 b
 ### Projeto movido para o D: (22/10/2026)
 
 O C: chegou a 1,1 GB livre (projeto com 17 GB e cache do Epic Launcher com 13,6 GB). Projeto movido com `robocopy /E /MOVE` para `D:\UnrealProjects\WorldSimDemo`: 9.032 arquivos, 16,9 GB, 0 falhas, 3 min 20 s; C: foi a 18 GB livres. `build.ps1` no D:: Succeeded (100 s). `play-test.ps1`: entrou, andou da vila para a estrada (`moved: Vila Cinzenta` → `Estrada do Leste`). Scripts usam `common.ps1` (`WORLDSIM_UE_PROJECT` sobrescreve) e os relatórios Python usam `Paths.project_saved_dir()`.
+
+### Combate, habilidades e Ruínas de Asterion (Fab: Paragon, Niagara Examples, PostApo)
+
+Itens adicionados pelo usuário via Epic Launcher (cache do Vault movido para `D:\VaultCache`, 13,6 GB; junção `Documentos\Unreal Projects\WorldSimDemo` para o Launcher achar o projeto no D:): **Niagara Examples Pack**, **Paragon: Greystone**, **Paragon: Gideon**, **Modular Post Apocalyptic Desert Environment** (JustBStudios).
+
+- **Retarget** (`tools/unreal/retarget-combat.py`, headless): IK Rig gerado automaticamente para Greystone e Gideon (21 cadeias cada), retargeters para o `IK_UEFN_Mannequin` (esqueleto do personagem do Game Animation Sample), `auto_map_chains(FUZZY)` e `auto_align_all_bones`. Na 5.8 `duplicate_and_retarget` ganhou `target_path` (assinatura lida do `__doc__`). Greystone: 17 animações (combo A/B/C, Q/E/R/Ultimate, Cast, reações, morte, desvio, atordoamento, salto com golpe); Gideon: 22 (combo, Burden, Portal Blast, Cosmic Rift, Black Hole, Torn Space, RMB, reações, mortes). Montagem criada para cada sequência avulsa.
+- **Plugin**: `UWorldSimCombatSubsystem` lê `UWorldSimSettings::Moves` (tecla, montagens em combo, Niagara ao lançar e no acerto, alcance, raio, atraso, recarga, dano, **habilidade do mundo exigida**); `AWorldSimInteractable` ganhou pontos de vida e reaparecimento; quem cai envia `ActionId` como ocorrência confirmada (o jogo é a autoridade do combate; o mundo nunca recebe números de dano). HUD com barra de golpes (tecla, recarga, "bloqueado"). Comando `ws.attack <n>`. Golpes da demo em `tools/unreal/valdoria-moves.ini`, aplicados ao `DefaultGame.ini` por `configure-game.ps1` (chamado por `sync-plugin.ps1`): Golpe de espada (LMB), Bloqueio (RMB), Golpe terrestre (Q), Bola arcana (1), **Corte Lunar** (2, exige `corte-lunar`), **Fenda Cósmica** (3, exige `colecionador-de-magias`), **Salto Lunar** (4, exige `salto-lunar`). Build: Succeeded.
+- **Nível**: Javali corrompido (corpo `SK_DinoDragon`, 3 de vida, `cacar-javali`), Boneco de treino (5 de vida, volta em 3 s), **Ruínas de Asterion** a leste (portão na cerca, estrada, areia, ~150 peças do PostApo, região `ruinas`, "Ruínas antigas" → `explorar-ruinas`).
+
+Defeitos encontrados e corrigidos durante os testes:
+1. O jogador nascia **caindo** (z = -35.458): as montanhas do pacote têm 610 m a 1,27 km e cobriam o mapa inteiro. Agora são fundo distante, sem colisão, escala 0,25–0,3, com areia até o horizonte.
+2. A câmera ficava dentro de pedras: as rochas do pacote têm 4 a 36 m. Agora escala 0,12–0,35 e fora da estrada e do centro das ruínas.
+3. Caminho até o javali bloqueado por copas largas, uma pedra e o corpo do Kael: clareira maior no fim da estrada e Kael movido.
+
+Testes (headless, `play-test.ps1`, servidor com Jev):
+- Boneco: `ws.attack 0` ×6 → combo 0..5, 4× `HIT`, `DEFEATED` no 5º; volta em 3 s; `ws.attack 2` (Golpe terrestre) acerta de novo; `ws.attack 4` (Fenda Cósmica) recusado por falta da habilidade.
+- Javali: vila → estrada → floresta por input, 2× `HIT`, `DEFEATED Javali corrompido -> cacar-javali`, `act accepted`, evento **"Ana abate um javali na floresta."**; em seguida o mundo ofereceu "[D] Lobos na vila" (Orin) e "[C] Bandidos na estrada" (Lia).
+- PIE via MCP: tela inicial listou Ana e Jodaltro; "Continuar como Jodaltro"; `ws.attack 2` → captura com a montagem do Golpe terrestre tocando no personagem do sample, explosão de terra (Niagara) e barra de golpes com recarga e golpes bloqueados.
+- Captura das ruínas: deserto com montanhas, cactos, trailer, caixa d'água, barreiras, paletes, postes.

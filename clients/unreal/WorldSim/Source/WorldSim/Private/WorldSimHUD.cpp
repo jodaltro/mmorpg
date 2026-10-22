@@ -1,4 +1,5 @@
 #include "WorldSimHUD.h"
+#include "WorldSimCombat.h"
 #include "WorldSimInteractable.h"
 #include "WorldSimSubsystem.h"
 #include "Camera/PlayerCameraManager.h"
@@ -511,6 +512,23 @@ TSharedRef<SWidget> UWorldSimHUDSubsystem::BuildHud()
 				})
 			]
 		]
+		// Combat hotbar: key, move, cooldown; locked until the world teaches the skill.
+		+ SOverlay::Slot().HAlign(HAlign_Right).VAlign(VAlign_Bottom).Padding(24.f, 24.f, 24.f, 70.f)
+		[
+			SNew(STextBlock).Font(Font(13, true)).ColorAndOpacity(Ink).ShadowOffset(FVector2D(1, 1)).Justification(ETextJustify::Right)
+			.Text_Lambda([Self]()
+			{
+				const UWorldSimCombatSubsystem* C = Self.IsValid() && Self->GetWorld() ? Self->GetWorld()->GetSubsystem<UWorldSimCombatSubsystem>() : nullptr;
+				if (!C) { return FText(); }
+				FString Out;
+				for (const FWorldSimMoveState& M : C->GetHotbar())
+				{
+					Out += FString::Printf(TEXT("[%s] %s%s\n"), *M.Key, *M.Name,
+						M.bLocked ? TEXT("  (bloqueado)") : M.CooldownLeft > 0.05f ? *FString::Printf(TEXT("  %.1fs"), M.CooldownLeft) : TEXT(""));
+				}
+				return T(Out);
+			})
+		]
 		// Interaction prompt and key hints.
 		+ SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Bottom).Padding(FMargin(0, 0, 0, 28))
 		[
@@ -562,9 +580,9 @@ void UWorldSimHUDSubsystem::Interact()
 {
 	UWorldSimSubsystem* S = Sim();
 	AWorldSimInteractable* I = Nearest.Get();
-	if (!S || !I || !I->Ready())
+	if (!S || !I || !I->Ready() || I->HitPoints > 0)
 	{
-		return;
+		return; // targets are defeated in combat, not with the interact key
 	}
 	if (!I->NpcId.IsEmpty() && I->ActionId.IsEmpty())
 	{

@@ -56,13 +56,32 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "WorldSim")
 	TObjectPtr<USkeletalMeshComponent> Body;
 
+	/**
+	 * Hits it takes before going down (0 = cannot be attacked). Going down
+	 * sends ActionId like Use (e.g. "cacar-javali", confirmed by the game).
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Combat")
+	int32 HitPoints = 0;
+
+	/** Seconds until it stands again after going down (0 = never). */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Combat")
+	float RespawnSeconds = 20.f;
+
 	FString Prompt() const;
 	bool Ready() const;
 	void Use();
 
+	bool IsTarget() const { return HitPoints > 0 && Health > 0; }
+	/** Applies a hit; returns true when this hit took it down. */
+	bool TakeHit(int32 Damage);
+
 protected:
 	virtual void OnConstruction(const FTransform& Transform) override;
+	virtual void BeginPlay() override;
 
 private:
+	void Refresh();
+
 	double LastUse = -1000.0;
+	int32 Health = 0;
 };

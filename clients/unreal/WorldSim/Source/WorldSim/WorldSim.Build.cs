@@ -6,6 +6,6 @@ public class WorldSim : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "DeveloperSettings" });
-		PrivateDependencyModuleNames.AddRange(new string[] { "HTTP", "Json", "JsonUtilities", "EnhancedInput", "InputCore", "Slate", "SlateCore" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "HTTP", "Json", "JsonUtilities", "EnhancedInput", "InputCore", "Slate", "SlateCore", "Niagara" });
 	}
 }

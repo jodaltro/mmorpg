@@ -7,3 +7,4 @@ New-Item -ItemType Directory -Force $dst | Out-Null
 robocopy $src $dst /MIR /XD Binaries Intermediate Saved /NFL /NDL /NJH /NJS /NP | Out-Null
 if ($LASTEXITCODE -ge 8) { throw "plugin sync failed ($LASTEXITCODE)" }
 Write-Output "synced $src -> $dst"
+& "$PSScriptRoot\configure-game.ps1"

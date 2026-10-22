@@ -4,6 +4,7 @@
 #include "Components/TextRenderComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "TimerManager.h"
 
 AWorldSimInteractable::AWorldSimInteractable()
 {
@@ -26,8 +27,57 @@ void AWorldSimInteractable::OnConstruction(const FTransform& Transform)
 	Label->SetText(FText::FromString(DisplayName));
 }
 
+void AWorldSimInteractable::BeginPlay()
+{
+	Super::BeginPlay();
+	Health = HitPoints;
+	Refresh();
+}
+
+void AWorldSimInteractable::Refresh()
+{
+	FString Text = DisplayName;
+	if (HitPoints > 0)
+	{
+		Text += Health > 0 ? FString::Printf(TEXT("  %s"), *FString::ChrN(Health, TEXT('|'))) : TEXT("  (caido)");
+	}
+	Label->SetText(FText::FromString(Text));
+}
+
+bool AWorldSimInteractable::TakeHit(int32 Damage)
+{
+	if (!IsTarget())
+	{
+		return false;
+	}
+	Health = FMath::Max(0, Health - FMath::Max(1, Damage));
+	Refresh();
+	if (Health > 0)
+	{
+		return false;
+	}
+	LastUse = -1000.0; // going down always reports, whatever the cooldown
+	Use();
+	Body->SetVisibility(false, true);
+	if (RespawnSeconds > 0.f)
+	{
+		FTimerHandle Handle;
+		GetWorldTimerManager().SetTimer(Handle, FTimerDelegate::CreateWeakLambda(this, [this]()
+		{
+			Health = HitPoints;
+			Body->SetVisibility(true, true);
+			Refresh();
+		}), RespawnSeconds, false);
+	}
+	return true;
+}
+
 FString AWorldSimInteractable::Prompt() const
 {
+	if (HitPoints > 0)
+	{
+		return IsTarget() ? FString::Printf(TEXT("[Clique] Atacar %s"), *DisplayName) : FString::Printf(TEXT("%s (caido)"), *DisplayName);
+	}
 	return FString::Printf(TEXT("[E] %s %s"), *Verb, *DisplayName);
 }
 
