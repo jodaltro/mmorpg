@@ -17,7 +17,7 @@ type Command struct {
 	Kind             string        `json:"kind"`   // tick | join | move | act | accept | decline | abandon | resolve
 	Actor            ID            `json:"actor,omitempty"`
 	Name             string        `json:"name,omitempty"`
-	Region           ID            `json:"region,omitempty"` // move: the region the game server saw the actor enter
+	Region           ID            `json:"region,omitempty"` // join: where the newcomer arrives; move: the region the game server saw the actor enter
 	Action           string        `json:"action,omitempty"`
 	Args             map[string]ID `json:"args,omitempty"`
 	Quest            string        `json:"quest,omitempty"`
@@ -170,6 +170,12 @@ func (w *World) join(s *State, c Command) error {
 	seed := w.U.Player
 	seed.ID = c.Actor
 	seed.Name = c.Name
+	if c.Region != "" { // the game server says where the newcomer arrives
+		if place, ok := s.Entities[c.Region]; !ok || !w.regions[place.Kind] {
+			return reject("region")
+		}
+		seed.Region = c.Region
+	}
 	if len(seed.Name) > 64 {
 		return reject("name")
 	}

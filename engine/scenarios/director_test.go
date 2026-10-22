@@ -81,6 +81,7 @@ func TestDirectorDefaultsWithoutAdvisor(t *testing.T) {
 func TestObsoleteQuestFreesTheSlot(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	h.happen("caravana")
 	q := h.steer("p1", "escoltar")
 	h.accept("p1", q)

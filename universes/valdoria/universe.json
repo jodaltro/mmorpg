@@ -126,19 +126,28 @@
         "herbs": 0,
         "antidotes": 0
       },
-      "region": "vila"
+      "region": "vila",
+      "tag": {
+        "voice": "mira"
+      }
     },
     {
       "id": "orin",
       "kind": "npc",
       "name": "Orin, o guarda",
-      "region": "vila"
+      "region": "vila",
+      "tag": {
+        "voice": "orin"
+      }
     },
     {
       "id": "tomas",
       "kind": "npc",
       "name": "Velho Tomas",
-      "region": "estrada"
+      "region": "estrada",
+      "tag": {
+        "voice": "tomas"
+      }
     },
     {
       "id": "floresta",
@@ -173,13 +182,19 @@
       "region": "vila",
       "num": {
         "masterwork": 0
+      },
+      "tag": {
+        "voice": "brom"
       }
     },
     {
       "id": "lia",
       "kind": "npc",
       "name": "Lia, a comerciante",
-      "region": "estrada"
+      "region": "estrada",
+      "tag": {
+        "voice": "lia"
+      }
     },
     {
       "id": "kael",
@@ -188,25 +203,37 @@
       "region": "floresta",
       "num": {
         "respect": 0
+      },
+      "tag": {
+        "voice": "kael"
       }
     },
     {
       "id": "elena",
       "kind": "npc",
       "name": "Irma Elena",
-      "region": "vila"
+      "region": "vila",
+      "tag": {
+        "voice": "elena"
+      }
     },
     {
       "id": "nino",
       "kind": "npc",
       "name": "Nino",
-      "region": "vila"
+      "region": "vila",
+      "tag": {
+        "voice": "nino"
+      }
     },
     {
       "id": "garrick",
       "kind": "npc",
       "name": "Garrick, chefe da mina",
-      "region": "mina"
+      "region": "mina",
+      "tag": {
+        "voice": "garrick"
+      }
     },
     {
       "id": "toca",
@@ -217,13 +244,19 @@
       "id": "pipo",
       "kind": "npc",
       "name": "Pipo, o lebrino anciao",
-      "region": "toca"
+      "region": "toca",
+      "tag": {
+        "voice": "pipo"
+      }
     },
     {
       "id": "sora",
       "kind": "npc",
       "name": "Sora, mestra de laminas",
-      "region": "toca"
+      "region": "toca",
+      "tag": {
+        "voice": "sora"
+      }
     }
   ],
   "schedules": [
@@ -3805,7 +3838,552 @@
         {
           "op": "emit",
           "event": "talked",
-          "text": "{self} conversa com {npc}."
+          "text": "Mira olha de cima a baixo: \"Nao te conheco. Se estiver doente, sente-se; senao, nao atrapalhe.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "mira"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Mira sorri, cansada: \"Ah, voce de novo. Esta vila precisa de gente como voce.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "mira"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Orin ergue a mao: \"Nome? De onde vem? E fique longe do poco: tem gente adoecendo.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "orin"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Orin acena: \"Bom ver voce. A estrada anda perigosa, cuidado.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "orin"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Tomas aponta o banco: \"Um rosto novo. Sente, forasteiro. Toda pessoa tem uma historia, e toda vila tem uma pior.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "tomas"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Tomas ri: \"Voltou! Sente-se, ainda tenho uma historia ou duas.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "tomas"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Brom nem tira os olhos do ferro: \"Compra ou nao compra? Nao tenho tempo para forasteiros.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "brom"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Brom resmunga, mas sorri: \"Ah, voce. Se trouxer minerio, a forja e sua.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "brom"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Lia ajeita a carga: \"Chegamos! A vila fica logo depois do portao, a oeste. Fale com o guarda Orin: ele anota todo mundo.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "lia"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Lia abre um sorriso: \"Ola de novo! Os negocios vao bem... quando a estrada deixa.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "lia"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Kael mal se move entre as arvores: \"Hm. Nao faca barulho. Os javalis nos ouvem.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "kael"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Kael faz sinal de silencio: \"Voce de novo. Pelo menos nao assusta a caca.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "kael"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Irma Elena inclina a cabeca: \"Que a luz te guie, viajante. Esta vila precisa de preces.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "elena"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Irma Elena toca seu ombro: \"Que bom te ver de novo. A vila lembra de quem ajuda.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "elena"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Nino se esconde atras do muro: \"Voce e novo? Eu conheco todo mundo aqui.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "nino"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Nino pula de alegria: \"Voce voltou! Eu vi voce na praca!\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "nino"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Garrick franze a testa: \"Forasteiro na mina? Cuidado onde pisa. O teto reclama.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "garrick"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Garrick faz que sim: \"Ah, e voce. Minerio nao falta... falta gente que saiba o que faz.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "garrick"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Pipo observa em silencio: \"Gente grande. Raramente vem aqui. Por que veio?\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "pipo"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Pipo balanca as orelhas: \"Voce de novo, grandalhao. Os lebrinos lembram de quem e gentil.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "pipo"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Sora mede voce com os olhos: \"Postura fraca. Mas ja vi pior.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "sora"
+                }
+              },
+              {
+                "not": {
+                  "knows": {
+                    "who": "$npc",
+                    "p": "met",
+                    "s": "$npc",
+                    "o": "$self"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Sora cruza os bracos: \"Postura melhorou. Ainda longe do ideal.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "sora"
+                }
+              },
+              {
+                "knows": {
+                  "who": "$npc",
+                  "p": "met",
+                  "s": "$npc",
+                  "o": "$self"
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -8238,7 +8816,8 @@
     "offerExpiry": 30,
     "maxEvents": 2000,
     "allowAbandon": false,
-    "questGap": 5
+    "questGap": 5,
+    "firstOfferAfterDeed": true
   },
   "happenings": [
     {

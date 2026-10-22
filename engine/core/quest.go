@@ -372,6 +372,9 @@ func (w *World) offer(s *State, p ID, cause string) {
 	if active >= w.U.Limits.MaxActiveQuests || s.Cooldowns["next-offer|"+string(p)] > s.Tick {
 		return
 	}
+	if w.U.Limits.FirstDeedFirst && !w.hasActed(s, p) {
+		return
+	}
 	for _, d := range s.Decisions {
 		if d.Kind == "offer" && d.Subject == string(p) {
 			return

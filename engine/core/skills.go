@@ -107,3 +107,14 @@ func (w *World) skillsOf(s *State, p ID) []SkillView {
 	}
 	return out
 }
+
+// hasActed reports whether p did anything beyond arriving: moving, rumours and
+// the quest lifecycle itself do not count.
+func (w *World) hasActed(s *State, p ID) bool {
+	for deed, n := range s.Deeds[p] {
+		if n > 0 && !slices.Contains(builtinDeeds, deed) {
+			return true
+		}
+	}
+	return false
+}

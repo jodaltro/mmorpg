@@ -152,6 +152,10 @@ type Limits struct {
 	MaxEvents       int  `json:"maxEvents"`              // chronicle retention
 	AllowAbandon    bool `json:"allowAbandon,omitempty"` // false: an accepted quest must be finished
 	QuestGap        Tick `json:"questGap,omitempty"`     // quiet ticks after a quest ends before the next offer
+	// FirstDeedFirst holds every offer back until the player has done
+	// something (any action of the universe): a newcomer is a stranger to the
+	// system as well, and the first window should answer what they did.
+	FirstDeedFirst bool `json:"firstOfferAfterDeed,omitempty"`
 }
 
 // Pattern addresses a fact. Private facts belong to $self.
