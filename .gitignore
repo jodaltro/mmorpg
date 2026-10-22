@@ -21,3 +21,9 @@ Binaries/
 Intermediate/
 Saved/
 DerivedDataCache/
+
+# Godot client: imported cache and third-party packs (fetch with tools/fetch_assets.py)
+.godot/
+clients/godot/assets/
+*.import
+clients/godot/.shots/
