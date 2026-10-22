@@ -165,3 +165,7 @@ Servidor: o mundo salvo em `data/` tinha sido criado com uma versão anterior do
 ### Animações de combate (CC0)
 
 Universal Animation Library 2 [Standard] (Quaternius, CC0, itch.io, 18.735.003 bytes, em `D:\UnrealDownloads`). Importada headless (Interchange, glTF): `UAL2_Standard.glb` e `UAL2_Standard_RM.glb`, **43 animações cada**, 0 falhas: combos de espada A/B/C com recuperações, combo pesado, dash de espada, bloqueio, escudo (dash, golpe, quebra), gancho, arremesso, knockback, baú, colheita, plantio, rega, corte de árvore, consumir, carregar, escalar 1 m, deslizar, pulo ninja, gestos. Esqueleto da Quaternius: ainda falta o retarget para o personagem do Game Animation Sample.
+
+### Projeto movido para o D: (22/10/2026)
+
+O C: chegou a 1,1 GB livre (projeto com 17 GB e cache do Epic Launcher com 13,6 GB). Projeto movido com `robocopy /E /MOVE` para `D:\UnrealProjects\WorldSimDemo`: 9.032 arquivos, 16,9 GB, 0 falhas, 3 min 20 s; C: foi a 18 GB livres. `build.ps1` no D:: Succeeded (100 s). `play-test.ps1`: entrou, andou da vila para a estrada (`moved: Vila Cinzenta` → `Estrada do Leste`). Scripts usam `common.ps1` (`WORLDSIM_UE_PROJECT` sobrescreve) e os relatórios Python usam `Paths.project_saved_dir()`.

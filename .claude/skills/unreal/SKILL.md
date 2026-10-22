@@ -13,7 +13,7 @@ description: Drive Unreal Engine 5.8 on this PC - build the WorldSimDemo project
 | Build | `C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat` |
 | UAT | `C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\RunUAT.bat` |
 | Visual Studio 2022 | `D:\VS` (Game development with C++, MSVC 14.44) |
-| Demo project | `C:\UnrealProjects\WorldSimDemo\WorldSimDemo.uproject` (outside the repo: Epic template content is not redistributed) |
+| Demo project | `D:\UnrealProjects\WorldSimDemo\WorldSimDemo.uproject` (outside the repo: Epic template content is not redistributed) |
 | Our plugin | `clients/unreal/WorldSim`, copied into `WorldSimDemo\Plugins\WorldSim` by `sync-plugin.ps1` (run by `build.ps1`) |
 | World engine | `engine/` (`worldsim serve` on `127.0.0.1:8095`) |
 | Demo level | `/Game/Valdoria/Maps/Lvl_Valdoria` (village, road, forest, WorldSim region volumes), built by `tools/unreal/build-valdoria.py` from CC0 packs imported by `tools/unreal/import-assets.py` (downloads in `WorldSimDemo\Downloads`, never in the repo) |
@@ -38,7 +38,7 @@ Helper scripts live in `tools/unreal/` (PowerShell). Prefer them over ad-hoc com
 
 - Start `worldsim serve` before Play; the client tolerates the engine being offline (the game keeps running).
 - The game is the authority of positions and combat: it reports regions (`move`) and confirmed occurrences (`adapter`). Never send damage or HP to the world engine.
-- Logs: `C:\UnrealProjects\WorldSimDemo\Saved\Logs\WorldSimDemo.log`. Our lines start with `WorldSim:`.
+- Logs: `D:\UnrealProjects\WorldSimDemo\Saved\Logs\WorldSimDemo.log`. Our lines start with `WorldSim:`.
 - Do not commit Epic template content, `Binaries/`, `Intermediate/`, `Saved/` or `DerivedDataCache/`.
 - Record only tests that actually ran, in `Docs/Validation/Unreal.md`.
 

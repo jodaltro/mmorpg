@@ -271,6 +271,6 @@ report["gamemode"] = gm.get_name() if gm else None
 
 report["saved"] = bool(unreal.EditorLoadingAndSavingUtils.save_map(world, MAP))
 report["total_level_actors"] = len(eas.get_all_level_actors())
-with open(r"C:\UnrealProjects\WorldSimDemo\Saved\village-report.json", "w") as fh:
+with open(unreal.Paths.project_saved_dir() + "village-report.json", "w") as fh:
     json.dump(report, fh, indent=1)
 unreal.log("WSVILLAGE " + json.dumps({k: v for k, v in report.items() if k != "missing"}) + " missing=%d" % len(report["missing"]))

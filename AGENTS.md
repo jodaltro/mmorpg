@@ -40,5 +40,6 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 
 ## Ambiente
 
-- Disco D: com pouco espaço livre; evitar caches grandes. Unreal não está instalada (exige 40–70 GB+).
+- Unreal 5.8 instalada em `C:\Program Files\Epic Games\UE_5.8`; projeto de teste em `D:\UnrealProjects\WorldSimDemo` (fora do repositório). Ver a skill `.claude/skills/unreal`.
+- **C: quase sem espaço**: projetos, downloads de assets (`D:\UnrealDownloads`) e caches grandes ficam no D: (exFAT: sem junctions/symlinks; copiar em vez de linkar).
 - Shell: Git Bash e PowerShell 5.1. Heredocs muito longos podem falhar no Bash; dividir em blocos.

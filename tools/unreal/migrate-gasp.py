@@ -2,10 +2,11 @@
 #   UnrealEditor-Cmd.exe GameAnimationSample.uproject -run=pythonscript -script=<this> -nullrhi -unattended
 # Migrates the sandbox player (CMC version) with all dependencies into WorldSimDemo.
 import json
+import os
 import unreal
 
 ROOTS = ["/Game/Blueprints/GM_Sandbox", "/Game/Blueprints/PC_Sandbox", "/Game/Blueprints/SandboxCharacter_CMC"]
-DEST = "C:/UnrealProjects/WorldSimDemo/Content"
+DEST = os.environ.get("WORLDSIM_UE_PROJECT", "D:/UnrealProjects/WorldSimDemo").replace("\\", "/") + "/Content"
 reg = unreal.AssetRegistryHelpers.get_asset_registry()
 opts = unreal.AssetRegistryDependencyOptions(include_soft_package_references=True, include_hard_package_references=True,
                                              include_searchable_names=False, include_soft_management_references=False,
@@ -32,6 +33,6 @@ for k, v in [("prompt", False), ("ignore_dependencies", True)]:
     except Exception as e:
         report.setdefault("warnings", []).append(str(e))
 unreal.AssetToolsHelpers.get_asset_tools().migrate_packages(pkgs, DEST, mopts)
-with open("C:/UnrealProjects/WorldSimDemo/Saved/migrate-report.json", "w") as fh:
+with open(DEST[: -len("Content")] + "Saved/migrate-report.json", "w") as fh:
     json.dump(report, fh, indent=1)
 unreal.log("WSMIGRATE " + json.dumps(report))

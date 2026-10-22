@@ -43,6 +43,6 @@ for src, dest, exts in JOBS:
     unreal.log("WSIMPORT " + json.dumps(job))
 
 report["seconds"] = round(time.time() - report["started"], 1)
-with open(r"C:\UnrealProjects\WorldSimDemo\Saved\import-report.json", "w") as fh:
+with open(unreal.Paths.project_saved_dir() + "import-report.json", "w") as fh:
     json.dump(report, fh, indent=1)
 unreal.log("WSIMPORT done")
