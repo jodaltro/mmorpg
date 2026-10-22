@@ -254,3 +254,15 @@ Jev ligado (porta 8095, tick de 15 s; e uma segunda instância em 8097 com tick 
 - **Ajuste:** crenças "met" (quem conhece quem) saíam como pistas no Caderno; agora aparecem só na aba Pessoas.
 - **Nota de teste:** a primeira versão do teste examinava "o vestígio mais próximo" e acertava o vizinho (a lápide fica junto do canto da capela); passou a examinar por id. Num servidor com tick de 700 ms a janela do canto dura ~3 s; no ritmo normal (15 s por tick) dura ~1 minuto.
 - **Continua fora da F3:** a lupa com cursor (examina-se com `E`), crenças erradas ditas de propósito por NPCs, traçado de caminhos no mapa, medição do Jev e playtest com pessoas.
+
+## 22/10/2026 — F4: lá fora
+
+Jev ligado (porta 8095, tick de 15 s; e 8097 com tick de 700 ms para o teste de ponta a ponta). `--autotest=fora` (duas rodadas; a primeira revelou que a região mostrada ficava velha depois da passagem, corrigido com um refresh):
+- **Marcos de longe:** da vila, setas nas bordas da tela apontam para o que se vê e ainda não foi visitado: "Uma torre quebrada se ergue ao leste" e "Uma fumaça roxa sobe das colinas ao nordeste" (roxa porque o minério estava amaldiçoado; à noite, com o selo rompido, aparece a luz roxa do norte). Depois de visitar as ruínas e a mina, as setas somem (0). Capturas conferidas.
+- **Mirante:** `Z` perto do mirante afasta a câmera (14 → 46) e nomeia o que se vê; longe do mirante avisa onde subir.
+- **Tocha (`T`):** o cliente pede `acender-tocha` (acontecimento confirmado), a luz do personagem acende e apaga quando o fato some (40 ticks).
+- **Mina escura:** a boca da mina agora é aberta e dá numa galeria de pedra; lá dentro o mundo escurece (só a tocha ilumina) e, **só com a tocha acesa**, aparece "Sentir a corrente de ar na parede"; o exame revela a **passagem antiga**, que aparece como um arco de luz nos dois lados (galeria e ruínas); `E` atravessa com um escurecimento e o motor registra a mudança de região (`ruinas`).
+- **Ruínas com leitura progressiva:** a entrada mostra três símbolos; só depois disso se nota a frase do salão ("Aquele que esperou"); o Caderno registrou os indícios e as perguntas.
+- **Torre quebrada** (marco de 13 m) e **fumaça** da mina (tingida de roxo quando o minério está amaldiçoado) como cenário.
+- **Regressão:** `--autotest=places` (forja, mina, ruínas, toca e Pipo, agora com o minério liberado) e `--autotest=board` passaram.
+**Não feito da F4:** o acontecimento "sarça queimada" (a tocha ainda não abre caminho em nada); o rastrear (`Shift` parado) só amplia o alcance dos rótulos e aponta os vestígios próximos, sem verificação em captura; a legacy-link ainda não alimenta missões (o cenário da bigorna segue pelos requisitos antigos); inscrições só para a entrada e o salão; sem playtest e sem medição do Jev.

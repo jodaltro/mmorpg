@@ -24,6 +24,7 @@ var time_label: Label
 var hp_bar: ProgressBar
 var hp_text: Label
 var minimap: Minimap
+var landmarks: Landmarks
 var tracker_box: VBoxContainer
 var right_col: VBoxContainer
 var log_panel: PanelContainer
@@ -106,6 +107,37 @@ class Minimap extends Control:
 		draw_rect(Rect2(Vector2.ZERO, size), Color(0.75, 0.6, 0.3, 0.9), false, 1.0)
 
 
+## Arrows on the screen border toward landmarks you can make out but have not visited.
+class Landmarks extends Control:
+	var items: Array = []  # {pos: Vector2 (screen, may be off-screen), label, color}
+
+	func _draw() -> void:
+		var font := ThemeDB.fallback_font
+		var inset := 34.0
+		var area := Rect2(Vector2(inset, inset), size - Vector2(inset, inset) * 2.0)
+		var center := size / 2.0
+		for it in items:
+			var p: Vector2 = it.pos
+			if area.has_point(p):
+				continue
+			var d := (p - center).normalized()
+			var t := 1e9
+			if absf(d.x) > 0.001:
+				t = minf(t, (area.size.x / 2.0) / absf(d.x))
+			if absf(d.y) > 0.001:
+				t = minf(t, (area.size.y / 2.0) / absf(d.y))
+			var at := center + d * t
+			var c: Color = it.color
+			var tip := at + d * 12.0
+			draw_colored_polygon(PackedVector2Array([tip, at + d.rotated(2.5) * 9.0, at + d.rotated(-2.5) * 9.0]), c)
+			var label: String = it.label
+			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 12).x
+			var lp := at - d * 20.0 - Vector2(w * (0.5 + d.x * 0.5), -4.0)
+			lp.x = clampf(lp.x, 6.0, size.x - w - 6.0)
+			draw_string(font, lp + Vector2(1, 1), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0, 0, 0, 0.85))
+			draw_string(font, lp, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, c.lightened(0.25))
+
+
 class Slot extends Control:
 	var kind := ""
 	var key := ""
@@ -164,10 +196,14 @@ func _ready() -> void:
 	_build_offer()
 	_build_journal()
 	_build_notebook()
+	landmarks = Landmarks.new()
+	landmarks.set_anchors_preset(Control.PRESET_FULL_RECT)
+	landmarks.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(landmarks)
 	_build_actions()
 	_build_skills_panel()
 	var slot := _slot(Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END, 10)
-	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario   [C] Caderno", 12, Color(1, 1, 1, 0.55))
+	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario   [C] Caderno   [T] Tocha   [Z] Olhar longe   [Shift] Rastrear", 12, Color(1, 1, 1, 0.55))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	help.size_flags_horizontal = Control.SIZE_SHRINK_END
 	help.size_flags_vertical = Control.SIZE_SHRINK_END
@@ -663,6 +699,11 @@ func recap(lines: Array) -> void:
 	b.text = "Continuar"
 	b.pressed.connect(center.queue_free)
 	box.add_child(b)
+
+
+func set_landmarks(list: Array) -> void:
+	landmarks.items = list
+	landmarks.queue_redraw()
 
 
 func set_known(list: Array) -> void:

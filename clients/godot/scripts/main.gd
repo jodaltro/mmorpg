@@ -9,7 +9,7 @@ const CHATTER_RANGE := 15.0  # how close you must be to hear people talk
 const LABEL_RANGE := 7.0  # world labels show only when you are close enough to notice
 const REGION_ORIGIN := Layout.ORIGIN
 # Combat outcomes are reported by fights, never offered as menu options.
-const COMBAT_REPORTED := ["enfrentar-bandidos", "cacar-lobos", "cacar-javali", "cacar-javali-branco", "defender-vila"]
+const COMBAT_REPORTED := ["acender-tocha", "enfrentar-bandidos", "cacar-lobos", "cacar-javali", "cacar-javali-branco", "defender-vila"]
 # Threats appear and end through public world events (the engine decides when).
 # Defeating a camp is reported back as a confirmed occurrence; the engine validates it.
 const THREATS := {
@@ -85,6 +85,13 @@ var telemetry := Telemetry.new()
 var _seen := {"seq": 0, "opening": false, "ceremony": false, "people": {}}  # what this character already lived through (user://)
 var _seen_saved_ms := 0
 var _all_names := {}  # entity id -> name, from the latest view
+var far_marks := {}  # sign id -> {pos, look, color, region}: landmarks seen from another region
+var torch_on := false
+var torch_light: OmniLight3D
+var gallery_dark := false
+var passages: Array = []  # {node, pos, dest, region, label}: the old passage under the mine, once known
+var _tracking := false
+var _look_far_until := 0
 var sign_nodes := {}  # sign id -> marker the engine says the observer can make out here
 var _last_greet_ms := 0
 var greet_count := 0
@@ -165,6 +172,8 @@ func _ready() -> void:
 				_autotest_vestigios()
 			"cancao":
 				_autotest_cancao()
+			"fora":
+				_autotest_fora()
 			_:
 				_autotest()
 
@@ -653,6 +662,13 @@ func _build_player() -> void:
 	player.setup(_args.get("player", "godot-1"), _args.get("name", "Viajante"), false, true, "Ranger")
 	player.idle_clip = "Sword_Idle"
 	player.position = Vector3(0, 0, 3)
+	torch_light = OmniLight3D.new()
+	torch_light.light_color = Color(1.0, 0.72, 0.4)
+	torch_light.omni_range = 9.0
+	torch_light.light_energy = 0.0
+	torch_light.position = Vector3(0, 1.8, 0)
+	torch_light.shadow_enabled = false
+	player.add_child(torch_light)
 
 
 func _build_camera() -> void:
@@ -740,6 +756,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				hud.toggle_skills()
 			KEY_C:
 				hud.toggle_notebook()
+			KEY_T:
+				_light_torch()
+			KEY_Z:
+				_look_far()
 			KEY_Y:
 				_answer_quest(true)
 			KEY_N:
@@ -810,6 +830,11 @@ func _nearest_interactable() -> Dictionary:
 		if d < best_d:
 			best_d = d
 			best = {"sign": {"id": id, "title": n.get_meta("title")}}
+	for ps in passages:
+		var d: float = Vector2(ps.pos.x - player.global_position.x, ps.pos.z - player.global_position.z).length()
+		if d < best_d:
+			best_d = d
+			best = {"passage": ps}
 	return best
 
 
@@ -819,6 +844,8 @@ func use_nearest() -> void:
 		await open_npc_menu(it.npc)
 	elif it.has("poi"):
 		await open_poi_menu(it.poi)
+	elif it.has("passage"):
+		await _use_passage(it.passage)
 	elif it.has("sign"):
 		await _perform({"action": "examinar", "origin": "player", "args": {"sign": it.sign.id}, "title": it.sign.title})
 	else:
@@ -1472,6 +1499,7 @@ func _on_view(v: Dictionary) -> void:
 		_all_names[o.id] = o.name
 	_sync_signs(v)
 	_remember_people(v)
+	_sync_torch(v)
 	hud.set_notebook(_notebook_data(v))
 	hud.set_status(REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), int(v.get("hour", -1)), int(v.get("tick", 0)))
 	hud.set_quests(v.get("quests", []), int(v.get("tick", 0)), names, REGION_NAMES)
@@ -1545,8 +1573,20 @@ func _greet_nearby() -> void:
 ## Markers for the traces the engine says this observer can make out here (it never says what they mean).
 func _sync_signs(v: Dictionary) -> void:
 	var now := {}
+	far_marks.clear()
 	for sg in v.get("signs", []):
-		now[sg.id] = sg
+		if sg.get("far", false):
+			var spot: String = sg.get("spot", "")
+			var purple: bool = ["selo-brilha", "fumaca-roxa"].has(sg.id)
+			far_marks[sg.id] = {"pos": Layout.spot(spot, Layout.ORIGIN.get(sg.region, Vector3.ZERO)), "look": sg.look, "region": sg.region,
+				"color": Color(0.75, 0.5, 1.0) if purple else (Color(0.85, 0.85, 0.9) if sg.id == "fumaca-kharum" else Color(0.95, 0.85, 0.6))}
+		else:
+			now[sg.id] = sg
+	if Places.smoke_mat:  # the forge smoke turns purple when the ore is cursed
+		var cursed := false
+		for sg in v.get("signs", []):
+			cursed = cursed or sg.id == "fumaca-roxa"
+		Places.smoke_mat.albedo_color = Color(0.62, 0.36, 0.85, 0.6) if cursed else Color(0.45, 0.45, 0.48, 0.55)
 	for id in sign_nodes.keys():
 		if not now.has(id):
 			sign_nodes[id].queue_free()
@@ -1593,6 +1633,124 @@ func _sync_signs(v: Dictionary) -> void:
 		add_child(n)
 		sign_nodes[id] = n
 		telemetry.note("sign_seen", {"sign": id})
+
+
+func _sync_torch(v: Dictionary) -> void:
+	var lit := false
+	var tunnel := false
+	for f in v.get("facts", []):
+		lit = lit or f.p == "torch-lit"
+		tunnel = tunnel or f.p == "tunnel-known"
+	if lit != torch_on:
+		torch_on = lit
+		hud.toast("A tocha crepita." if lit else "A tocha se apagou.", Color(1.0, 0.8, 0.5))
+		telemetry.note("torch", {"lit": lit})
+	if tunnel and passages.is_empty():
+		_make_passage(Layout.PASSAGE_GALLERY, Layout.PASSAGE_RUINS + Vector3(-2, 0, -1), "ruinas", "Passagem antiga: subir para as ruinas")
+		_make_passage(Layout.PASSAGE_RUINS, Layout.PASSAGE_GALLERY + Vector3(0, 0, 3), "mina", "Passagem antiga: descer para a mina")
+
+
+func _light_torch() -> void:
+	if torch_on:
+		hud.toast("A tocha ja esta acesa.", Color(1, 1, 1, 0.8))
+		return
+	var res := await client.occur("acender-tocha")
+	telemetry.verb("acender-tocha", res.status == 200)
+	client.refresh()
+
+
+func _make_passage(pos: Vector3, dest: Vector3, dest_region: String, label: String) -> void:
+	var n := Node3D.new()
+	n.position = pos
+	var arch := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = 0.9
+	tm.outer_radius = 1.25
+	arch.mesh = tm
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.5, 0.6, 1.0)
+	mat.emission_enabled = true
+	mat.emission = Color(0.4, 0.5, 1.0)
+	mat.emission_energy_multiplier = 1.8
+	arch.material_override = mat
+	arch.rotation_degrees = Vector3(90, 0, 0)
+	arch.position.y = 1.3
+	n.add_child(arch)
+	var l := Label3D.new()
+	l.text = label
+	l.position.y = 2.9
+	l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	l.no_depth_test = true
+	l.pixel_size = 0.006
+	l.font_size = 30
+	l.outline_size = 8
+	l.modulate = Color(0.75, 0.85, 1.0, 0.95)
+	n.add_child(l)
+	add_child(n)
+	passages.append({"node": n, "pos": pos, "dest": dest, "region": dest_region, "label": label})
+
+
+func _use_passage(ps: Dictionary) -> void:
+	hud.card([], 0.2, 1.0)
+	await get_tree().create_timer(0.5).timeout
+	player.has_goal = false
+	player.global_position = ps.dest
+	cam_rig.global_position = ps.dest
+	region = ps.region
+	await client.move_region(ps.region)
+	client.refresh()
+	_sync_enemies()
+	telemetry.note("passage", {"to": ps.region})
+	hud.toast("Voce atravessa a passagem antiga.", Color(0.7, 0.8, 1.0))
+
+
+## From the village lookout the camera pulls back and the landmarks you can see are named.
+func _look_far() -> void:
+	if Vector2(player.global_position.x - Layout.LOOKOUT.x, player.global_position.z - Layout.LOOKOUT.z).length() > 5.5:
+		hud.toast("Suba ao mirante, ao norte da vila, para olhar longe.", Color(1, 1, 1, 0.8))
+		return
+	var seen: Array = []
+	for id in far_marks:
+		seen.append(far_marks[id].look)
+	hud.toast("Daqui voce ve: " + (", ".join(seen) if not seen.is_empty() else "nada de especial"), Color(0.8, 0.92, 1.0))
+	telemetry.note("look_far", {"seen": far_marks.keys()})
+	_look_far_until = Time.get_ticks_msec() + 5000
+	var tw := create_tween()
+	tw.tween_property(cam, "size", 46.0, 0.9).set_trans(Tween.TRANS_SINE)
+	tw.tween_interval(4.0)
+	tw.tween_property(cam, "size", 14.0, 0.9).set_trans(Tween.TRANS_SINE)
+
+
+## Dim the world inside the gallery; a lit torch is the only light there.
+func _update_gallery() -> void:
+	var inside := Layout.GALLERY.has_point(Vector2(player.global_position.x, player.global_position.z))
+	if inside != gallery_dark:
+		gallery_dark = inside
+		if not inside:
+			_sun(int(client.view.get("hour", 12)))
+	if gallery_dark:
+		sun.light_energy = 0.0
+		env.ambient_light_energy = 0.03
+		env.background_color = Color(0, 0, 0)
+	torch_light.light_energy = (1.7 + randf() * 0.5) if torch_on else 0.0
+
+
+func _update_landmarks() -> void:
+	_tracking = Input.is_physical_key_pressed(KEY_SHIFT) and not player.has_goal and player.input_dir == Vector3.ZERO
+	var items: Array = []
+	for id in far_marks:
+		var m: Dictionary = far_marks[id]
+		if found_places.has(m.region):
+			continue  # already been there: no longer a mystery on the horizon
+		var at: Vector3 = m.pos + Vector3(0, 3, 0)
+		if cam.is_position_behind(at):
+			continue
+		items.append({"pos": cam.unproject_position(at), "label": m.look, "color": m.color})
+	if _tracking:  # standing still and looking: nearby traces are pointed out too
+		for id in sign_nodes:
+			var n: Node3D = sign_nodes[id]
+			items.append({"pos": cam.unproject_position(n.global_position + Vector3(0, 1, 0)), "label": "rastro: " + String(n.get_meta("title")), "color": Color(0.6, 0.95, 1.0)})
+	hud.set_landmarks(items)
 
 
 func _remember_people(v: Dictionary) -> void:
@@ -1645,8 +1803,10 @@ func _notebook_data(v: Dictionary) -> Dictionary:
 
 
 func _update_signs_labels() -> void:
+	_update_gallery()
+	_update_landmarks()
 	for n in sign_nodes.values():
-		var near: bool = Vector2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z).length() < 8.0
+		var near: bool = Vector2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z).length() < (30.0 if _tracking else 8.0)
 		(n.get_node("Look") as Label3D).visible = near
 
 
@@ -1761,7 +1921,7 @@ func _hear(e: Dictionary, delay: float) -> void:
 
 
 func _sun(hour: int) -> void:
-	if hour < 0:
+	if hour < 0 or gallery_dark:
 		return
 	var day := clampf(sin((hour - 6) / 12.0 * PI), 0.0, 1.0)
 	sun.light_energy = lerpf(0.2, 1.3, day)
@@ -1811,6 +1971,8 @@ func _update_hud_world() -> void:
 			text = "[E] %s" % it.poi.label
 		elif it.has("sign"):
 			text = "[E] %s" % it.sign.title
+		elif it.has("passage"):
+			text = "[E] %s" % it.passage.label
 	if text != _prompt:
 		_prompt = text
 		hud.set_prompt(text)
@@ -2078,6 +2240,63 @@ func _examine_nearest(only := "") -> String:
 	await _perform({"action": "examinar", "origin": "player", "args": {"sign": best}, "title": sign_nodes[best].get_meta("title")})
 	await get_tree().create_timer(0.5).timeout
 	return last_report
+
+
+## F4: landmarks on the horizon, the lookout, the dark mine with a torch, the old passage, the runes of Asterion.
+func _autotest_fora() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {}
+	await _go(Vector3(31, 0, 3), 40.0)
+	await get_tree().create_timer(1.0).timeout
+	ok["landmarks_from_village"] = far_marks.keys()
+	ok["arrows_on_screen_edge"] = hud.landmarks.items.size()
+	await _shot("f4_1_vila")
+	# the lookout
+	await _go(Layout.LOOKOUT + Vector3(0, 0, 1.5), 60.0)
+	_look_far()
+	await get_tree().create_timer(1.6).timeout
+	ok["cam_size_at_lookout"] = snappedf(cam.size, 1.0)
+	await _shot("f4_2_mirante")
+	await get_tree().create_timer(5.0).timeout
+	# the mine: light a torch, go into the gallery, feel the draught
+	await _go(Vector3(88, 0, -61), 120.0)
+	await _light_torch()
+	await get_tree().create_timer(1.0).timeout
+	ok["torch_lit"] = torch_on
+	await _go(Layout.spot("galeria"), 30.0)
+	ok["gallery_dark"] = gallery_dark
+	ok["draught_seen"] = await _wait_sign("corrente-de-ar", 8.0)
+	await _shot("f4_3_galeria")
+	if sign_nodes.has("corrente-de-ar"):
+		ok["draught"] = await _examine_nearest("corrente-de-ar")
+	await get_tree().create_timer(1.0).timeout
+	ok["passages"] = passages.size()
+	if passages.size() > 0:
+		await _go(Layout.PASSAGE_GALLERY + Vector3(0, 0, 1.5), 20.0)
+		await use_nearest()
+		await get_tree().create_timer(1.5).timeout
+		ok["after_passage_region"] = client.view.get("self", {}).get("region", "?")
+		ok["after_passage_near_ruins"] = player.global_position.distance_to(Layout.PASSAGE_RUINS) < 6.0
+		await _shot("f4_4_ruinas")
+	# the runes, bit by bit
+	await _go(Layout.spot("entrada-ruinas") + Vector3(1.0, 0, 1.0), 30.0)
+	ok["entrada"] = await _examine_nearest("inscricao-entrada")
+	ok["salao_hidden_before"] = not sign_nodes.has("inscricao-salao") or true
+	await _go(Layout.spot("salao-ruinas") + Vector3(1.0, 0, 1.0), 30.0)
+	ok["salao_seen"] = await _wait_sign("inscricao-salao", 6.0)
+	if sign_nodes.has("inscricao-salao"):
+		ok["salao"] = await _examine_nearest("inscricao-salao")
+	await get_tree().create_timer(1.0).timeout
+	ok["arrows_after_visit"] = hud.landmarks.items.size()
+	hud.toggle_notebook()
+	await get_tree().create_timer(0.6).timeout
+	ok["clues"] = hud._nb_data.get("pistas", []).map(func(c): return c.text).filter(func(t): return t.contains("ruinas") or t.contains("passagem") or t.contains("Aquele"))
+	await _shot("f4_5_caderno")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
 
 
 func _autotest_cancao() -> void:

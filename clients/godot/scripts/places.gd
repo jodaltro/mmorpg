@@ -58,7 +58,13 @@ static func anim(action: String) -> String:
 	return _anim.get(action, "Interact")
 
 
+static var smoke_mat: StandardMaterial3D
+
+
 static func build(m) -> void:
+	_gallery(m)
+	_tower(m)
+	_smoke(m)
 	_well(m)
 	_seal(m)
 	_forest_spots(m)
@@ -152,14 +158,6 @@ static func _mine(m) -> void:
 	m._occluder(arch, arch.position + Vector3(0, 2, 0), 3.0)
 	m._spawn("village/Prop_Support", o + Vector3(108.4, 0, -15.0), 0.0)
 	m._spawn("village/Prop_Support", o + Vector3(111.6, 0, -15.0), 0.0)
-	var dark := MeshInstance3D.new()  # the black mouth of the mine
-	var dm := BoxMesh.new()
-	dm.size = Vector3(2.6, 3.0, 0.2)
-	dark.mesh = dm
-	dark.material_override = _stone(Color(0.02, 0.02, 0.03))
-	dark.position = o + Vector3(110, 1.5, -16.4)
-	m.add_child(dark)
-	m._solid(o + Vector3(110, 0, -17), Vector3(2.8, 3.0, 1.0))
 	for p in [o + Vector3(103, 0, -6), o + Vector3(106, 0, 7)]:  # ore veins
 		var v: Node3D = m._spawn("nature/Rock_Medium_2", p, 20.0, 1.3)
 		var t := MeshInstance3D.new()
@@ -229,3 +227,68 @@ static func _den(m) -> void:
 	lamp.omni_range = 7.0
 	lamp.position = c + Vector3(0, 2.0, 1)
 	m.add_child(lamp)
+
+
+## The dark gallery behind the mine mouth: a rock-walled corridor going north. It is dark
+## without a torch (the client dims the world while you are inside).
+static func _gallery(m) -> void:
+	var g: Rect2 = Layout.GALLERY
+	var cx := g.position.x + g.size.x / 2.0
+	for i in 6:
+		var z := g.position.y + g.size.y - 1.5 - i * 3.0
+		for x in [g.position.x + 0.8, g.end.x - 0.8]:
+			var r: Node3D = m._spawn("nature/Rock_Medium_%d" % (1 + i % 3), Vector3(x, 0, z), i * 61.0, 2.6)
+			m._solid(Vector3(x, 0, z), Vector3(2.4, 4.0, 2.8))
+	for x in [cx - 1.8, cx + 1.8]:
+		m._spawn("nature/Rock_Medium_2", Vector3(x, 0, g.position.y + 0.8), x * 11.0, 2.6)
+	m._solid(Vector3(cx, 0, g.position.y + 0.6), Vector3(g.size.x, 4.0, 1.6))
+	m._spawn("props/Crate_Wooden", Vector3(cx - 1.6, 0, g.position.y + 4.0), 20.0)
+
+
+## The broken tower of Asterion, tall enough to be a landmark: half a ring of stone, jagged at the top.
+static func _tower(m) -> void:
+	var c: Vector3 = Layout.ORIGIN.ruinas + Vector3(4, 0, -8)
+	var tower := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 1.9
+	cm.bottom_radius = 2.5
+	cm.height = 13.0
+	tower.mesh = cm
+	tower.material_override = _stone(Color(0.52, 0.5, 0.46))
+	tower.position = c + Vector3(0, 6.5, 0)
+	m.add_child(tower)
+	var jag := MeshInstance3D.new()  # the broken crown
+	var bm := BoxMesh.new()
+	bm.size = Vector3(2.4, 2.6, 1.4)
+	jag.mesh = bm
+	jag.material_override = _stone(Color(0.5, 0.48, 0.45))
+	jag.position = c + Vector3(0.8, 13.6, 0)
+	jag.rotation_degrees = Vector3(0, 20, 14)
+	m.add_child(jag)
+	m._occluder(tower, c + Vector3(0, 6, 0), 5.0)
+	m._solid(c, Vector3(4.6, 13.0, 4.6))
+
+
+## A column of smoke over the forges of Kharum; the client tints it purple when the ore is cursed.
+static func _smoke(m) -> void:
+	smoke_mat = StandardMaterial3D.new()
+	smoke_mat.albedo_color = Color(0.45, 0.45, 0.48, 0.55)
+	smoke_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	smoke_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	var p := CPUParticles3D.new()
+	p.amount = 26
+	p.lifetime = 5.0
+	p.direction = Vector3.UP
+	p.spread = 9.0
+	p.initial_velocity_min = 1.4
+	p.initial_velocity_max = 2.4
+	p.gravity = Vector3(0.4, 0.5, 0)
+	p.scale_amount_min = 0.7
+	p.scale_amount_max = 1.7
+	var sm := SphereMesh.new()
+	sm.radius = 0.45
+	sm.height = 0.9
+	sm.material = smoke_mat
+	p.mesh = sm
+	p.position = Layout.ORIGIN.mina + Vector3(8, 3.5, 8)
+	m.add_child(p)

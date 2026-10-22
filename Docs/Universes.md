@@ -68,3 +68,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`signs`**: `{id, region, spot, title, look, text, when, perceive, examine}`. Existe enquanto `when` vale (`$self` é o observador); só quem satisfaz `perceive` o vê. `look` é o que se vê de longe, `text` o que o exame revela, `examine` são efeitos (`observe` para formar crença por observação, ou `assert` privado para um indício). Um vestígio **mostra o efeito, nunca a causa**: o validador não deixa dois com o mesmo id, exige região e spot coerentes e valida as condições e efeitos.
 - **`reactions`**: como as pessoas respondem quando o jogador lhes conta uma crença (`p`, `s` opcional, `who` opcional): `told` (novidade: passam a acreditar), `known` (já sabiam), `stale` (já não é verdade: não aceitam) e `effects` (com `$self` = quem contou, `$npc` = quem ouviu). Só crenças com reação aparecem como opção de contar.
 - Os ids `examinar` e `contar` são do motor e não podem ser ações do universo.
+
+## Lá fora (F4)
+
+- **`signs[].farFrom`**: regiões de onde o vestígio ainda se vê como marco (uma torre, uma coluna de fumaça, um brilho noturno). De lá ele aparece na visão com `far: true` e não pode ser examinado.
+- **Tocha:** um fato privado confirmado pelo servidor de jogo (`acender-tocha`, origem `adapter`) com regra agendada para apagar. Vestígios podem exigi-lo em `perceive` (a corrente de ar na galeria escura).
+- **Leitura progressiva:** o `perceive` de um vestígio pode depender de indícios anteriores, e os efeitos `if` do exame mudam o que se entende conforme o que o jogador já carrega.
