@@ -15,7 +15,7 @@ const FEVER_SLOWDOWN := 0.55
 @export var nutrient_target := 45
 @export var seed_value := 1337
 @export var save_path := "user://hospedeiro_genome.json"  # empty disables persistence
-@export var engine_url := "http://127.0.0.1:8095"  # empty keeps the game offline
+@export var engine_url := "http://127.0.0.1:8096"  # empty keeps the game offline
 @export var identity_path := "user://hospedeiro_player.json"
 
 var player: BioCellActor

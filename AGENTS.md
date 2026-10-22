@@ -48,7 +48,8 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 
 Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, compartilhado por todos. Visão em `Docs/Hospedeiro/BiologicalVersion.md`, estrutura em `Docs/Hospedeiro/GameStructure.md`, dados científicos em `Docs/Hospedeiro/HostScience.md`. Ler antes de mudar regras do Hospedeiro.
 
-- Protótipo Godot 4.7 (GDScript) em `clients/hospedeiro/`, com **modo offline**: combate de ação em tempo real e genoma locais, sem motor. Ainda não conversa com o motor (marco H1).
+- Universo `universes/hospedeiro/universe.json` (Medula e Sangue). Cliente Godot 4.7 em `clients/hospedeiro/`: conecta ao motor em `127.0.0.1:8096` (porta própria, para não colidir com Valdoria na 8095) e, sem motor, joga em **modo offline**.
+- O usuário só abre o cliente. **O agente mantém o backend do Hospedeiro rodando** (`serve` na 8096, `-advisor jev`, dados em `D:\unity\hospedeiro-data`) e passa comandos em **PowerShell**.
 - `scripts/domain`: regras puras (`RefCounted`, sem Node). `scripts/runtime`: Nodes, física, input, apresentação. `tests/`: runner headless próprio.
 - Estética bioluminescente procedural, tom sombrio-onírico. Hitbox lógica separada do corpo deformável. Biologia é base, não lei.
 - Sem níveis nem XP: progressão por diferenciação, genes, epigenética, memória e linhagem.

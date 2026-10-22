@@ -30,3 +30,28 @@ Validação visual anterior (mesmo código, no protótipo antes da mudança de p
 
 - Gamepad real e sessão longa de jogo interativo.
 - Conexão com o motor (não existe ainda; marco H1).
+
+## H1 — universo no motor e cliente conectado (22/10/2026)
+
+**Motor (Go 1.27.2):**
+
+- `worldsim validate ../universes/hospedeiro/universe.json`: ok.
+- `worldsim simulate -ticks 240 -players 3 -advisor deterministic`: o corpo alterna surto, resposta imune, cura e novo surto; refeição, sono e febre acontecem; o cenário único foi reivindicado e o capítulo compartilhado concluído; genes descobertos por hábito; boatos correram.
+- `go test ./scenarios -run Hospedeiro`: 4 testes passam (primeiro feito antes da oferta e mergulho; contar à Dendra arma a defesa; autorregulação sem jogadores; cenário único).
+- `go test ./...`: tudo passa, exceto `TestClientPresentationMatchesTheUniverse`, a falha anterior descrita no H0.
+
+**Cliente (Godot 4.7.2):** 38 testes headless, 0 falhas, sem `SCRIPT ERROR`. Os 7 novos (`test_host.gd`) cobrem modo offline, troca de região, chamado e células NPC, febre pelas crenças, eventos que só reagem quando novos e gene descoberto.
+
+**Ponta a ponta com o motor real e o Jev ligado** (`worldsim serve ... -tick 500ms -advisor jev`, cliente com renderer real, `tests/e2e_engine.gd`): 7 passos ok, duas vezes (a segunda depois dos últimos ajustes de menu, feed e acentos):
+
+1. Conecta e entra no mundo.
+2. Um nutriente absorvido no combate é confirmado ao motor.
+3. Osteia chama: oferta "O primeiro mergulho" na janela do Sistema.
+4. Aceita.
+5. Ao entrar no sangue, a missão é concluída.
+6. Destruir um vírion ensina a assinatura dele.
+7. O menu oferece "Contar a Dendra: como é o Vírion Espinhoso"; contado, Dendra arma a defesa (evento público).
+
+Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (Osteia, Neva), estado "O HOSPEDEIRO DORME", oferta do cenário único.
+
+**Não testado:** gamepad real; várias pessoas ao mesmo tempo no mesmo mundo; sessão longa com tick real de 4 s.
