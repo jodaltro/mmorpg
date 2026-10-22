@@ -20,6 +20,9 @@ const COMBO := [
 	{"clip": "Sword_Regular_B", "hit": 0.30, "dmg": 28.0, "speed": 1.3},
 	{"clip": "Sword_Regular_C", "hit": 0.34, "dmg": 38.0, "speed": 1.25},
 ]
+const NPC_NAMES := {"mira": "Mira, a curandeira", "orin": "Orin, o guarda", "tomas": "Velho Tomas", "brom": "Brom, o ferreiro",
+	"lia": "Lia, a comerciante", "kael": "Kael, o cacador", "elena": "Irma Elena", "nino": "Nino", "garrick": "Garrick, chefe da mina",
+	"pipo": "Pipo, o lebrino anciao", "sora": "Sora, mestra de laminas"}
 const NPCS := {
 	"mira": {"at": Vector2(-5, -3), "female": true, "act": "diagnosticar"},
 	"orin": {"at": Vector2(5, -3), "act": "examinar-poco"},
@@ -52,16 +55,15 @@ var last_attack_ms := 0
 var kills := 0
 var deaths := 0
 var last_report := ""
-var hp_fg: ColorRect
+var hud: Hud
+var nav_region: NavigationRegion3D
+var occluders: Array = []  # {nodes, center, radius, fade, applied}
+var _prompt := ""
 var npc_nodes := {}  # entity id -> Actor, driven by view.others
 var region := "vila"
 var last_seq := 0
 var _scenes := {}
 var _rng := RandomNumberGenerator.new()
-var hud_region: Label
-var hud_log: RichTextLabel
-var hud_side: Label
-var hud_hint: Label
 var _shake := 0.0
 var _args := {}
 
@@ -117,6 +119,7 @@ func _solid(pos: Vector3, size: Vector3, yaw := 0.0) -> void:
 	body.add_child(cs)
 	body.position = pos + Vector3(0, size.y / 2, 0)
 	body.rotation_degrees.y = yaw
+	body.add_to_group("nav_source")
 	add_child(body)
 
 
@@ -157,6 +160,7 @@ func _build_world() -> void:
 	fcs.shape = fbox
 	floor_body.add_child(fcs)
 	floor_body.position = Vector3(25, -0.5, 0)
+	floor_body.add_to_group("nav_source")
 	add_child(floor_body)
 
 	# Dirt road from the plaza to the forest.
@@ -220,6 +224,7 @@ func _build_world() -> void:
 	_spawn("village/Prop_Crate", Vector3(22.2, 0, -6.8), 30.0)
 	_solid(Vector3(21.6, 0, -6.6), Vector3(2.2, 1.1, 1.2))
 
+	_build_nav()
 	_region_zone("vila", Vector3(-6, 0, 0), Vector3(40, 6, 70))
 	_region_zone("estrada", Vector3(24, 0, 0), Vector3(20, 6, 70))
 	_region_zone("floresta", Vector3(64, 0, 0), Vector3(60, 6, 70))
@@ -233,7 +238,8 @@ func _tree(p: Vector3) -> void:
 	var kinds: Array[String] = ["nature/CommonTree_1", "nature/CommonTree_2", "nature/CommonTree_3", "nature/DeadTree_1"]
 	var kind: String = kinds[_rng.randi() % 4]
 	var s := _rng.randf_range(0.8, 1.3)
-	_spawn(kind, p, _rng.randf() * 360.0, s)
+	var tree := _spawn(kind, p, _rng.randf() * 360.0, s)
+	_occluder(tree, p + Vector3(0, 3.2 * s, 0), 3.4 * s)
 	var body := StaticBody3D.new()
 	body.collision_layer = 1
 	var cs := CollisionShape3D.new()
@@ -243,6 +249,7 @@ func _tree(p: Vector3) -> void:
 	cs.shape = cyl
 	body.add_child(cs)
 	body.position = p + Vector3(0, 1.5, 0)
+	body.add_to_group("nav_source")
 	add_child(body)
 
 
@@ -281,7 +288,9 @@ func _house(center: Vector3, w: int, d: int, yaw: float, brick: bool) -> void:
 	cs.shape = box
 	body.add_child(cs)
 	body.position = Vector3(0, 1.5, 0)
+	body.add_to_group("nav_source")
 	root.add_child(body)
+	_occluder(root, center + Vector3(0, 3.0, 0), maxf(w, d) * 2.0 + 2.5)
 	_spawn("props/Barrel", Vector3(w - 0.6, 0, d + 1.0), 0.0, 1.0, root)
 
 
@@ -301,6 +310,52 @@ func _region_zone(id: String, pos: Vector3, size: Vector3) -> void:
 			region = id
 			client.move_region(id)
 			_sync_enemies())
+
+
+# --- navigation and occlusion ---------------------------------------------------
+
+func _build_nav() -> void:
+	var nm := NavigationMesh.new()
+	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
+	nm.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	nm.geometry_source_group_name = &"nav_source"
+	nm.cell_size = 0.3
+	nm.cell_height = 0.25
+	nm.agent_height = 1.8
+	nm.agent_radius = 0.5
+	nm.agent_max_climb = 0.3
+	nav_region = NavigationRegion3D.new()
+	nav_region.navigation_mesh = nm
+	add_child(nav_region)
+	nav_region.bake_finished.connect(func() -> void:
+		Actor.nav_map = nav_region.get_navigation_map()
+		print("NAV baked: polygons=", nav_region.navigation_mesh.get_polygon_count()))
+	nav_region.bake_navigation_mesh(true)
+
+
+func _occluder(node: Node3D, center: Vector3, radius: float) -> void:
+	var meshes: Array = []
+	for m in node.find_children("*", "MeshInstance3D", true, false):
+		meshes.append(m)
+	occluders.append({"meshes": meshes, "center": center, "radius": radius, "fade": 0.0, "applied": 0.0})
+
+
+## Things between the fixed camera and the player turn see-through.
+func _update_occlusion(delta: float) -> void:
+	var f := -cam.global_transform.basis.z
+	var pp := player.global_position + Vector3(0, 1.0, 0)
+	for o in occluders:
+		var v: Vector3 = o.center - pp
+		var along := v.dot(f)
+		var perp := (v - f * along).length()
+		var target := 0.0
+		if along < -0.5 and perp < o.radius:
+			target = 0.82
+		o.fade = move_toward(o.fade, target, delta * 4.0)
+		if absf(o.fade - o.applied) > 0.015:
+			o.applied = o.fade
+			for m in o.meshes:
+				(m as GeometryInstance3D).transparency = o.fade
 
 
 # --- player and camera -------------------------------------------------------
@@ -345,6 +400,8 @@ func _process(delta: float) -> void:
 	if player == null:
 		return
 	cam_rig.global_position = cam_rig.global_position.lerp(player.global_position, clampf(delta * 6.0, 0.0, 1.0))
+	_update_occlusion(delta)
+	_update_hud_world()
 	if _shake > 0.0:
 		_shake = maxf(_shake - delta * 2.5, 0.0)
 		cam.h_offset = randf_range(-1, 1) * _shake * 0.4
@@ -371,6 +428,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				_answer_quest(true)
 			KEY_N:
 				_answer_quest(false)
+			KEY_J:
+				hud.toggle_journal()
+			KEY_ESCAPE:
+				if hud.journal_panel.visible:
+					hud.toggle_journal()
 
 
 func click(screen: Vector2) -> void:
@@ -582,7 +644,7 @@ func _player_fell() -> void:
 
 
 func _set_hp() -> void:
-	hp_fg.size.x = 240.0 * player_hp / player_max
+	hud.set_hp(player_hp, player_max)
 
 
 func _float_text(pos: Vector3, text: String, color: Color) -> void:
@@ -633,15 +695,28 @@ func _burst(pos: Vector3) -> void:
 
 
 func _answer_quest(accept: bool) -> void:
+	if hud.offered_key != "":
+		await _answer_quest_key(hud.offered_key, accept)
+
+
+func _answer_quest_key(key: String, accept: bool) -> void:
+	var title := key
 	for q in client.view.get("quests", []):
-		if q.state == "offered":
-			var res: Dictionary
-			if accept:
-				res = await client.accept(q.key)
-			else:
-				res = await client.decline(q.key)
-			_report(q.title, "accept" if accept else "decline", res)
-			return
+		if q.key == key:
+			title = q.title
+	var res: Dictionary
+	if accept:
+		res = await client.accept(key)
+	else:
+		res = await client.decline(key)
+	_report(title, "accept" if accept else "decline", res)
+	client.refresh()
+
+
+func _abandon_quest(key: String) -> void:
+	var res := await client._command("player", "abandon", {"quest": key})
+	_report(key, "abandon", res)
+	client.refresh()
 
 
 func _report(who: String, what: String, res: Dictionary) -> void:
@@ -665,7 +740,16 @@ func _on_view(v: Dictionary) -> void:
 		region = me.get("region", "vila")
 		player.global_position = REGION_ORIGIN.get(region, Vector3.ZERO)
 		cam_rig.global_position = player.global_position
-	hud_region.text = "%s   |   hora %s   |   tick %d" % [REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), str(int(v.get("hour", -1))), int(v.get("tick", 0))]
+	var names := NPC_NAMES.duplicate()
+	for o in v.get("others", []):
+		names[o.id] = o.name
+	hud.set_status(REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), int(v.get("hour", -1)), int(v.get("tick", 0)))
+	hud.set_quests(v.get("quests", []), int(v.get("tick", 0)), names, REGION_NAMES)
+	hud.set_skills(v.get("skills", []))
+	var givers := {}
+	for q in v.get("quests", []):
+		if q.state == "offered" and q.get("giver", "") != "":
+			givers[q.giver] = true
 	_sync_npcs(v)
 	_sun(int(v.get("hour", -1)))
 	for e in v.get("events", []):
@@ -680,19 +764,8 @@ func _on_view(v: Dictionary) -> void:
 			if e.get("text", "") != "":
 				_log("[color=#c9b3ff]%s[/color]" % e.text)
 	_sync_enemies()
-	var side := "Habilidades:\n"
-	for s in v.get("skills", []):
-		side += "  • %s (%s)\n" % [s.name, s.rarity]
-	side += "\nMissoes:\n"
-	for q in v.get("quests", []):
-		if q.state == "offered" or q.state == "active":
-			side += "  • [%s] %s\n" % [q.state, q.title]
-	hud_side.text = side
-	var offered := ""
-	for q in v.get("quests", []):
-		if q.state == "offered":
-			offered = "Oferta: %s   [Y] aceitar  [N] recusar" % q.title
-	hud_hint.text = offered if offered != "" else "Clique: mover/falar | E: falar com o mais proximo | Espaco/Q: golpe (combo) | R: rolar (esquiva) | clique no inimigo: atacar"
+	for id in npc_nodes:
+		npc_nodes[id].set_marker("!" if givers.has(id) else "")
 
 
 func _sync_npcs(v: Dictionary) -> void:
@@ -735,50 +808,37 @@ func _sun(hour: int) -> void:
 # --- HUD ---------------------------------------------------------------------
 
 func _build_hud() -> void:
-	var layer := CanvasLayer.new()
-	add_child(layer)
-	hud_region = _label(layer, Vector2(16, 10), 22)
-	var hp_bg := ColorRect.new()
-	hp_bg.color = Color(0.1, 0.03, 0.03, 0.85)
-	hp_bg.position = Vector2(16, 46)
-	hp_bg.size = Vector2(240, 16)
-	layer.add_child(hp_bg)
-	hp_fg = ColorRect.new()
-	hp_fg.color = Color(0.85, 0.2, 0.22)
-	hp_fg.position = Vector2(16, 46)
-	hp_fg.size = Vector2(240, 16)
-	layer.add_child(hp_fg)
-	hud_side = _label(layer, Vector2(16, 70), 16)
-	hud_hint = _label(layer, Vector2(16, 690), 16)
-	hud_log = RichTextLabel.new()
-	hud_log.bbcode_enabled = true
-	hud_log.scroll_active = false
-	hud_log.fit_content = true
-	hud_log.position = Vector2(760, 12)
-	hud_log.size = Vector2(500, 300)
-	hud_log.add_theme_font_size_override("normal_font_size", 15)
-	hud_log.add_theme_color_override("default_color", Color.WHITE)
-	hud_log.add_theme_color_override("font_outline_color", Color.BLACK)
-	hud_log.add_theme_constant_override("outline_size", 6)
-	layer.add_child(hud_log)
+	hud = Hud.new()
+	hud.region_names = REGION_NAMES
+	add_child(hud)
+	hud.accept_pressed.connect(func(k: String) -> void: _answer_quest_key(k, true))
+	hud.decline_pressed.connect(func(k: String) -> void: _answer_quest_key(k, false))
+	hud.abandon_pressed.connect(_abandon_quest)
+	hud.set_hp(player_hp, player_max)
 
 
-func _label(parent: Node, pos: Vector2, size: int) -> Label:
-	var l := Label.new()
-	l.position = pos
-	l.add_theme_font_size_override("font_size", size)
-	l.add_theme_color_override("font_outline_color", Color.BLACK)
-	l.add_theme_constant_override("outline_size", 8)
-	parent.add_child(l)
-	return l
+func _update_hud_world() -> void:
+	var npcs: Array = []
+	var best: Actor = null
+	for n in npc_nodes.values():
+		npcs.append(n.global_position)
+		if best == null or n.global_position.distance_to(player.global_position) < best.global_position.distance_to(player.global_position):
+			best = n
+	var foes: Array = []
+	for e in enemies:
+		if is_instance_valid(e) and e.state != Enemy.State.DEAD:
+			foes.append(e.global_position)
+	hud.set_minimap(player.global_position, player.model.rotation.y, npcs, foes, region)
+	var text := ""
+	if best and best.global_position.distance_to(player.global_position) < 3.2 and not hud.journal_panel.visible:
+		text = "[E] Falar com %s" % best.label.text
+	if text != _prompt:
+		_prompt = text
+		hud.set_prompt(text)
 
 
-var _log_lines: Array = []
 func _log(bb: String) -> void:
-	_log_lines.append(bb)
-	if _log_lines.size() > 9:
-		_log_lines.pop_front()
-	hud_log.text = "\n".join(_log_lines)
+	hud.add_log(bb)
 	print("LOG ", bb)
 
 
@@ -804,11 +864,14 @@ func _autotest() -> void:
 		await get_tree().create_timer(0.2).timeout
 	await get_tree().create_timer(1.5).timeout
 	var ok := {"view": not client.view.is_empty(), "npcs": npc_nodes.size()}
+	ok["nav"] = Actor.nav_map.is_valid()
 	await _shot("01_plaza")
 	if npc_nodes.has("orin"):
 		interact(npc_nodes["orin"])
 		await player.arrived
 		await get_tree().create_timer(1.2).timeout
+	ok["markers"] = npc_nodes.values().filter(func(n): return n.marker != null).size()
+	await _shot("02_offer")
 	var offered := false
 	for q in client.view.get("quests", []):
 		offered = offered or q.state == "offered"
@@ -817,13 +880,27 @@ func _autotest() -> void:
 		await _answer_quest(true)
 		await get_tree().create_timer(1.6).timeout
 		ok["quest_active"] = client.view.get("quests", []).any(func(q): return q.state == "active")
+		await _shot("03_tracker")
+	# Pathfinding: the straight line to the target crosses a house.
+	player.walk_to(Vector3(-8, 0, -12))
+	await _arrive(25.0)
+	var from := player.global_position
+	var target := Vector3(-24, 0, -12)
+	var t_path := Time.get_ticks_msec()
+	player.walk_to(target)
+	await get_tree().create_timer(2.0).timeout
+	await _shot("04_path")
+	await _arrive(30.0)
+	ok["path_reached"] = player.global_position.distance_to(target) < 2.0
+	ok["path_seconds"] = snappedf((Time.get_ticks_msec() - t_path) / 1000.0, 0.1)
+	ok["path_direct_m"] = snappedf(from.distance_to(target), 0.1)
 	print("STEP walking to estrada")
 	player.walk_to(REGION_ORIGIN["estrada"])
 	await _arrive(25.0)
 	print("STEP arrived estrada, enemies=", enemies.size())
 	await get_tree().create_timer(1.2).timeout
 	ok["enemies_spawned"] = enemies.size()
-	await _shot("02_estrada")
+	await _shot("04b_estrada")
 	print("STEP fight start")
 	var t_fight := Time.get_ticks_msec()
 	var shot_fight := false
@@ -843,13 +920,22 @@ func _autotest() -> void:
 		await get_tree().create_timer(0.25).timeout
 		if not shot_fight and Time.get_ticks_msec() - t_fight > 6000:
 			shot_fight = true
-			await _shot("03_fight")
+			await _shot("05b_fight")
 	await get_tree().create_timer(2.5).timeout
-	await _shot("04_clear")
+	await _shot("05_clear")
 	cam.size = 3.5
 	await get_tree().create_timer(0.6).timeout
-	await _shot("05_closeup")
+	await _shot("06_closeup")
 	cam.size = 14.0
+	player.walk_to(REGION_ORIGIN["floresta"] + Vector3(6, 0, 0))
+	await _arrive(30.0)
+	await get_tree().create_timer(1.5).timeout
+	await _shot("07_forest")
+	ok["occluders_faded"] = occluders.filter(func(o): return o.applied > 0.5).size()
+	hud.toggle_journal()
+	await get_tree().create_timer(0.4).timeout
+	await _shot("08_journal")
+	hud.toggle_journal()
 	ok["kills"] = kills
 	ok["deaths"] = deaths
 	ok["player_hp"] = int(player_hp)

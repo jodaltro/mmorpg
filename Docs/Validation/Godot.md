@@ -67,3 +67,27 @@ Observação: em uma rodada em que o evento `bandits-left` já tinha chegado, o 
 ### Não validado
 
 Queda e renascimento do jogador (`_player_fell`) no cliente completo (ocorreu uma vez numa rodada, sem registro de conferência), esquiva, combo de 3 golpes em jogo manual, corrompidos da vila em combate, export web, SSE, pathfinding.
+
+## 22/10/2026 — oclusão, pathfinding, interface e missões (Jev ligado)
+
+Servidor: `worldsim serve ... -advisor jev -env-file .env` em `127.0.0.1:8095`, mundo novo. Teste: `Godot --path clients/godot --resolution 1280x720 -- --autotest --threat=estrada --player=gd-<timestamp> --name=Teste --out=...`, repetido várias vezes durante o desenvolvimento.
+
+| Item | Resultado |
+|---|---|
+| NavMesh em tempo de execução | `NAV baked: polygons=1052`; `nav: true` |
+| Pathfinding | de (-8,-12) até (-24,-12), com uma casa no meio: `path_reached: true`, 4,2 s para 17,3 m em linha reta (houve desvio); captura mostra o personagem contornando |
+| Oclusão | `occluders_faded: 1` na floresta; na captura da casa o telhado fica transparente com o jogador atrás |
+| Oferta de missão | cartão com rank, quem deu, descrição, objetivo, local e recompensa; `accept` por tecla → `quest_active: true`; aviso "Missao aceita" |
+| Rastreador, diário (`J`), minimapa, log, dica `[E] Falar com Orin`, barra de vida | conferidos em capturas (`02_offer`, `03_tracker`, `08_journal`) |
+| Marcador "!" no NPC que oferece missão | `markers: 1` |
+| Combate + motor (Jev ligado) | 3 abates; `enfrentar-bandidos` aceito em algumas rodadas e recusado (`rejected: requirements`) em outra em que os bandidos já tinham partido do mundo: o motor decide |
+
+### Defeitos corrigidos na validação
+
+- Painéis ancorados com `set_anchors_preset` ficaram com tamanho e posição errados (o log cobriu a tela). Trocado por contêineres de margem.
+- Tween do log capturava linhas já liberadas (`Lambda capture ... was freed`): o tween passou a pertencer à própria linha.
+- O pop-up central de oferta atrapalhava o jogo quando o mundo oferecia missões em sequência: virou um cartão compacto na coluna direita.
+
+### Não validado
+
+Clique nos botões Aceitar/Recusar/Abandonar (só se exercitou a tecla `Y` e a geração dos botões), avisos de missão falha/expirada, desempenho do bake em mundos maiores, oclusão nas árvores em jogo manual (só uma árvore transparente foi medida), mais de um jogador.

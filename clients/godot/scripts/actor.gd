@@ -10,6 +10,7 @@ const LOOPS := ["Idle", "Walk", "Jog_Fwd", "Sprint", "Sword_Idle", "Idle_Talking
 	"Crouch_Idle", "Sitting_Idle", "Idle_Shield", "Idle_Lantern", "Zombie_Idle", "Zombie_Walk_Fwd"]
 
 static var _library: AnimationLibrary
+static var nav_map: RID  # set once the navigation mesh is baked
 
 var entity_id := ""
 var model: Node3D
@@ -31,6 +32,13 @@ var clip_run := "Jog_Fwd"
 var clip_walk := "Walk"
 var dash_t := 0.0
 var dash_dir := Vector3.ZERO
+var path := PackedVector3Array()
+var path_i := 0
+var marker: Label3D
+var _plan_age := 0.0
+var _planned_goal := Vector3.INF
+var _bob := 0.0
+var _replanned := false
 
 
 static func library() -> AnimationLibrary:
@@ -155,7 +163,48 @@ func walk_to(p: Vector3, running := true) -> void:
 	goal = Vector3(p.x, global_position.y, p.z)
 	has_goal = true
 	run = running
+	if path.is_empty() or goal.distance_to(_planned_goal) > 0.8 or _plan_age > 0.6:
+		_plan()
+
+
+## Routes around obstacles with the baked navigation mesh; straight line until it exists.
+func _plan() -> void:
+	_planned_goal = goal
+	_plan_age = 0.0
 	_stuck = 0.0
+	path = PackedVector3Array()
+	path_i = 0
+	if nav_map.is_valid() and NavigationServer3D.map_get_iteration_id(nav_map) > 0:
+		var g := NavigationServer3D.map_get_closest_point(nav_map, goal)
+		goal = Vector3(g.x, global_position.y, g.z)
+		path = NavigationServer3D.map_get_path(nav_map, global_position, goal, true)
+		if path.size() > 1 and Vector2(path[0].x - global_position.x, path[0].z - global_position.z).length() < 0.4:
+			path_i = 1
+
+
+func set_marker(text: String, color := Color(1.0, 0.85, 0.3)) -> void:
+	if text == "":
+		if marker:
+			marker.queue_free()
+			marker = null
+		return
+	if marker == null:
+		marker = Label3D.new()
+		marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		marker.no_depth_test = true
+		marker.font_size = 110
+		marker.pixel_size = 0.008
+		marker.outline_size = 16
+		marker.render_priority = 6
+		add_child(marker)
+	marker.text = text
+	marker.modulate = color
+
+
+func _process(delta: float) -> void:
+	if marker:
+		_bob += delta
+		marker.position.y = 2.85 + sin(_bob * 3.0) * 0.1
 
 
 ## Multiplies the albedo of every surface (a cheap way to make variants).
@@ -197,13 +246,25 @@ func _physics_process(delta: float) -> void:
 		return
 	if not has_goal or busy:
 		return
-	var to := goal - global_position
+	_plan_age += delta
+	var wp := goal
+	var last := true
+	if path_i < path.size():
+		wp = path[path_i]
+		last = path_i >= path.size() - 1
+		if last:
+			wp = goal
+	var to := wp - global_position
 	to.y = 0
-	if to.length() < 0.2:
-		has_goal = false
-		velocity = Vector3.ZERO
-		play(idle_clip)
-		arrived.emit()
+	if to.length() < (0.2 if last else 0.5):
+		if last:
+			has_goal = false
+			velocity = Vector3.ZERO
+			path = PackedVector3Array()
+			play(idle_clip)
+			arrived.emit()
+		else:
+			path_i += 1
 		return
 	var dir := to.normalized()
 	velocity = dir * (speed_run if run else speed_walk)
@@ -212,10 +273,15 @@ func _physics_process(delta: float) -> void:
 	face(dir)
 	play(clip_run if run else clip_walk)
 	_stuck = _stuck + delta if get_real_velocity().length() < 0.3 else 0.0
-	if _stuck > 0.5:  # blocked by a wall: give up instead of pushing forever
-		has_goal = false
-		play(idle_clip)
-		arrived.emit()
+	if _stuck > 0.5:  # blocked: try one fresh route, then give up instead of pushing forever
+		if _planned_goal != Vector3.INF and not _replanned:
+			_replanned = true
+			_plan()
+		else:
+			_replanned = false
+			has_goal = false
+			play(idle_clip)
+			arrived.emit()
 
 
 func _on_finished(_clip: StringName) -> void:

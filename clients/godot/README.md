@@ -6,6 +6,7 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 |---|---|
 | `scripts/world_client.gd` | Contrato HTTP v1: `join`, `move`, `act`, `accept`, `decline`, consulta periódica de `GET /v1/views/{id}` |
 | `scripts/actor.gd` | Personagem Quaternius (corpo + outfit) com as animações da Universal Animation Library: mesmo esqueleto de 65 ossos, sem retargeting |
+| `scripts/hud.gd` | Interface: estado e vida, minimapa, rastreador de missões, cartão de oferta (aceitar/recusar/depois), diário (`J`), avisos de missão e habilidade, log que se apaga sozinho, dica de interação |
 | `scripts/enemy.gd` | Inimigos (bandido, corrompido) como dados + IA simples: parado, perseguir, atacar, recuar; reação a golpe, morte, barra de vida |
 | `scripts/main.gd` | Vila, estrada, floresta, câmera, clique para mover/falar/atacar, combo, esquiva, HUD, NPCs e ameaças vindos do motor, teste automático |
 | `shaders/toon_post.gdshader` | Pós-processo: faixas de luz suaves e contorno fino só nas silhuetas (profundidade), sem linhas nas normal maps |
@@ -18,7 +19,7 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 2. Subir o motor: `cd engine && go run ./cmd/worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic`.
 3. `Godot --path clients/godot` (a primeira abertura importa os assets; antes disso rode `Godot --headless --path clients/godot --import` uma vez para registrar os `class_name`).
 
-Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar, clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida. `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento (só desenvolvimento).
+Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar, clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento (só desenvolvimento).
 
 ## Combate e o motor
 
@@ -36,7 +37,8 @@ Entra no mundo, fala com Orin, aceita a missão oferecida, vai à estrada, luta 
 
 - **Navegador:** o Godot exporta para web, mas o `guard` do servidor recusa qualquer requisição com `Origin` (403). Exige proxy ou ajuste do `guard`, o que depende da autenticação (adiada). Os export templates (1,28 GB) não foram baixados.
 - A atualização é por consulta (1 s); o `HTTPRequest` não lê SSE. Trocar por `HTTPClient` quando precisar de stream.
-- Casas são blocos sólidos (não dá para entrar); sem pathfinding (linha reta, desiste ao bater em parede, inimigos também).
-- Árvores altas podem esconder personagens na câmera fixa; só a estrada e o acampamento têm corredor livre. Falta transparência de oclusores.
+- Casas são blocos sólidos (não dá para entrar).
+- Pathfinding: NavMesh gerada em tempo de execução a partir dos colisores (grupo `nav_source`, ~1 s em segundo plano); até ficar pronta o movimento é em linha reta. Cercas não são sólidas.
+- Oclusão: árvores e casas entre a câmera e o jogador ficam transparentes (a sombra continua opaca).
 - Sem modelo de lobo ou javali: as "criaturas corrompidas" da vila usam o corpo humano com animação de zumbi. `cacar-javali` e lobos de verdade pedem outro pacote de criaturas.
 - O combate é local, sem sincronização entre jogadores.
