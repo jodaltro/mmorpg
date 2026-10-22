@@ -18,6 +18,7 @@ type View struct {
 	Quests   []Quest          `json:"quests"`
 	Events   []Event          `json:"events"`
 	Story    []StoryView      `json:"story"`
+	Signs    []SignView       `json:"signs"` // traces of hidden things the observer can make out here
 }
 
 type Seen struct {
@@ -57,7 +58,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 		return View{}, false
 	}
 	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
-		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}}
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer)}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]

@@ -69,7 +69,10 @@
     "traded-spell",
     "met",
     "found",
-    "bell-rung"
+    "bell-rung",
+    "den-trail",
+    "anvil-mark",
+    "nameless-grave"
   ],
   "playerKind": "player",
   "player": {
@@ -4515,6 +4518,62 @@
           "text": "O sino da praca toca: a vila se reune."
         }
       ]
+    },
+    {
+      "id": "pedir-esboco",
+      "title": "Pedir a Tomas um esboco do mapa",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social",
+        "explore"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "tomas"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "found",
+                "s": "$self",
+                "o": "floresta",
+                "private": true
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "found",
+            "s": "$self",
+            "o": "floresta",
+            "private": true
+          }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "found",
+            "s": "$self",
+            "o": "mina",
+            "private": true
+          }
+        },
+        {
+          "op": "emit",
+          "event": "sketch",
+          "text": "Tomas rabisca na terra com um graveto: a floresta ao norte da vila e a mina nas colinas a nordeste. \"O resto, voce descobre andando.\""
+        }
+      ]
     }
   ],
   "agents": [
@@ -7813,6 +7872,16 @@
       "id": "banco-estrada",
       "region": "estrada",
       "name": "Banco da estrada"
+    },
+    {
+      "id": "veio-mina",
+      "region": "mina",
+      "name": "Veio de minerio"
+    },
+    {
+      "id": "clareira",
+      "region": "floresta",
+      "name": "Clareira da mata"
     }
   ],
   "routines": [
@@ -9654,6 +9723,317 @@
       "name": "Amigo dos Lebrinos",
       "rarity": "rara",
       "desc": "Voce nao virou Guardiao, mas os lebrinos sempre abrirao a porta para voce."
+    }
+  ],
+  "signs": [
+    {
+      "id": "agua-turva",
+      "region": "vila",
+      "spot": "poco",
+      "title": "Examinar a agua do poco com cuidado",
+      "look": "A agua do poco esta turva.",
+      "text": "A agua esta turva e cheira a ferro. Ha peixinhos mortos no balde.",
+      "when": {
+        "fact": {
+          "p": "poisoned",
+          "s": "poco"
+        }
+      },
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "poisoned",
+            "s": "poco"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tosse-na-praca",
+      "region": "vila",
+      "spot": "praca",
+      "title": "Escutar a tosse na praca",
+      "look": "Algumas pessoas tossem pela praca.",
+      "text": "Varias pessoas tossem e carregam agua do poco com cuidado. Uma mulher segura um pano no rosto.",
+      "when": {
+        "fact": {
+          "p": "outbreak",
+          "s": "vila"
+        }
+      },
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "outbreak",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cenouras-roidas",
+      "region": "vila",
+      "spot": "horta",
+      "title": "Examinar as cenouras roidas",
+      "look": "A horta tem cenouras roidas.",
+      "text": "As cenouras foram roidas por bichos pequenos. Ha pegadas de patas, bem pequenas, que seguem para a mata a oeste.",
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "den-trail",
+            "s": "$self",
+            "o": "toca",
+            "private": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "luz-roxa",
+      "region": "vila",
+      "spot": "mirante",
+      "title": "Olhar a luz ao norte",
+      "look": "Uma luz roxa pisca ao longe, no meio da floresta.",
+      "text": "A luz roxa pulsa no coracao da floresta, para onde as arvores secas parecem apontar.",
+      "when": {
+        "fact": {
+          "p": "seal-broken",
+          "s": "selo"
+        }
+      },
+      "perceive": {
+        "time": {
+          "from": 20,
+          "to": 5
+        }
+      },
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "marca-bigorna",
+      "region": "vila",
+      "spot": "forja",
+      "title": "Examinar a bigorna",
+      "look": "A bigorna tem uma marca antiga.",
+      "text": "Na bigorna ha uma marca antiga, gasta pelo tempo. Brom diz que ja estava la quando chegou.",
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "anvil-mark",
+            "s": "$self",
+            "o": "ruinas",
+            "private": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "veios-brilham",
+      "region": "mina",
+      "spot": "veio-mina",
+      "title": "Examinar o minerio roxo",
+      "look": "Veios de minerio brilham em roxo.",
+      "text": "O minerio brilha em roxo e esta quente ao toque. Nada de bom vem disso.",
+      "when": {
+        "fact": {
+          "p": "ore-cursed",
+          "s": "mina"
+        }
+      },
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pegada-branca",
+      "region": "floresta",
+      "spot": "clareira",
+      "title": "Seguir a pegada clara",
+      "look": "Uma pegada clara marca a terra.",
+      "text": "Uma pegada clara, grande demais para um javali comum, marca a lama. Quem a fez so aparece de noite.",
+      "perceive": {
+        "all": [
+          {
+            "time": {
+              "from": 21,
+              "to": 5
+            }
+          },
+          {
+            "any": [
+              {
+                "has": {
+                  "skill": "andarilho"
+                }
+              },
+              {
+                "num": {
+                  "e": "$self",
+                  "k": "hunts",
+                  "op": ">=",
+                  "v": 1
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "white-boar-sign",
+            "s": "$self",
+            "o": "floresta",
+            "private": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "lapide-sem-nome",
+      "region": "vila",
+      "spot": "capela",
+      "title": "Ler a lapide sem nome",
+      "look": "Uma lapide gasta, sem nome.",
+      "text": "A lapide nao tem nome, so um simbolo parecido com o da bigorna de Brom e uma inscricao: 'Aquele que esperou'.",
+      "examine": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "nameless-grave",
+            "s": "$self",
+            "o": "vila",
+            "private": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pegadas-nino",
+      "region": "vila",
+      "spot": "celeiro",
+      "title": "Examinar as pegadas no celeiro",
+      "look": "Pegadas pequenas saem do celeiro.",
+      "text": "Pegadas pequenas saem do celeiro e seguem para a mata. Parece que alguem correu.",
+      "when": {
+        "fact": {
+          "p": "child-lost",
+          "s": "floresta"
+        }
+      },
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "child-lost",
+            "s": "floresta"
+          }
+        }
+      ]
+    }
+  ],
+  "reactions": [
+    {
+      "p": "poisoned",
+      "s": "poco",
+      "told": "Mira empalidece: \"O poco... claro. Vou preparar o antidoto agora mesmo.\"",
+      "known": "Mira assente: \"Eu sei. Ja estou cuidando disso.\"",
+      "stale": "Mira balanca a cabeca: \"Isso ja nao e verdade: o poco foi limpo.\"",
+      "who": [
+        "mira"
+      ],
+      "effects": [
+        {
+          "op": "relate",
+          "e": "mira",
+          "to": "$self",
+          "d": 1,
+          "min": -10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "p": "poisoned",
+      "s": "poco",
+      "told": "{npc} arregala os olhos: \"Envenenado? Vou avisar os outros!\"",
+      "known": "{npc} ja ouviu esse boato.",
+      "stale": "{npc} diz: \"O poco ja esta limpo, forasteiro.\""
+    },
+    {
+      "p": "outbreak",
+      "s": "vila",
+      "told": "{npc} suspira: \"Entao e mesmo uma epidemia...\"",
+      "known": "{npc} diz: \"Todo mundo sabe, forasteiro.\"",
+      "stale": "{npc} diz: \"A vila ja se recuperou, felizmente.\""
+    },
+    {
+      "p": "seal-broken",
+      "s": "selo",
+      "told": "Tomas fica sombrio: \"Entao o selo cedeu, como eu temia. Veja-o com seus olhos e volte a falar comigo.\"",
+      "known": "Tomas diz: \"Eu sei, filho. Eu sinto isso nos ossos.\"",
+      "stale": "Tomas sorri: \"O selo foi restaurado? Que bom.\"",
+      "who": [
+        "tomas"
+      ]
+    },
+    {
+      "p": "seal-broken",
+      "s": "selo",
+      "told": "{npc} se benze: \"Que a luz nos proteja.\"",
+      "known": "{npc} responde: \"Eu sei. Todos sabemos, no fundo.\"",
+      "stale": "{npc} diz: \"O selo ja foi consertado, ouvi dizer.\""
+    },
+    {
+      "p": "ore-cursed",
+      "s": "mina",
+      "told": "{npc} xinga baixinho: \"Entao e isso. Minerio roxo nao entra na minha forja.\"",
+      "known": "{npc} diz: \"Eu vi. Fiquei longe.\"",
+      "stale": "{npc} diz: \"O minerio ja foi purificado.\"",
+      "who": [
+        "brom",
+        "garrick"
+      ]
+    },
+    {
+      "p": "child-lost",
+      "s": "floresta",
+      "told": "{npc} se assusta: \"O Nino? Vou procurar tambem!\"",
+      "known": "{npc} diz: \"Eu sei. Estou aflito.\"",
+      "stale": "{npc} diz: \"O Nino ja foi encontrado.\""
+    },
+    {
+      "p": "wolves",
+      "s": "vila",
+      "told": "{npc} olha para o portao: \"Lobos... tranque as portas.\"",
+      "known": "{npc} diz: \"Eu ouvi os uivos.\"",
+      "stale": "{npc} diz: \"Os lobos ja se foram.\""
+    },
+    {
+      "p": "bandits",
+      "s": "estrada",
+      "told": "{npc} franze a testa: \"Bandidos... entao nao saio da vila.\"",
+      "known": "{npc} diz: \"Eu sei, ja me avisaram.\"",
+      "stale": "{npc} diz: \"Os bandidos foram embora.\""
     }
   ]
 }

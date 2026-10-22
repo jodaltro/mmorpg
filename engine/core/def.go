@@ -61,6 +61,8 @@ type Universe struct {
 	Gossip     *Gossip      `json:"gossip,omitempty"`
 	Skills     []SkillDef   `json:"skills,omitempty"`
 	Spots      []SpotDef    `json:"spots,omitempty"`
+	Signs      []SignDef    `json:"signs,omitempty"`
+	Reactions  []Reaction   `json:"reactions,omitempty"`
 	Routines   []Routine    `json:"routines,omitempty"`
 	Chatter    []Chatter    `json:"chatter,omitempty"`
 	// ChatterEvery is how many ticks pass between overheard conversations

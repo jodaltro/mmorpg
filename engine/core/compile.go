@@ -165,6 +165,9 @@ func Compile(u Universe) (*World, error) {
 	if err := v.places(); err != nil {
 		return nil, err
 	}
+	if err := v.signs(); err != nil {
+		return nil, err
+	}
 	// Scheduled rules inherit the bindings of whoever scheduled them, so the
 	// variable set of a rule is every name that can reach it.
 	ruleVars := map[string]map[string]bool{}
