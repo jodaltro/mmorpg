@@ -79,7 +79,9 @@
     "rune-forge",
     "rune-wait",
     "legacy-link",
-    "bramble-burnt"
+    "bramble-burnt",
+    "seal-touched",
+    "shooting-star"
   ],
   "playerKind": "player",
   "player": {
@@ -955,6 +957,67 @@
             "p": "torch-lit",
             "s": "$self",
             "private": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "estrela-cadente",
+      "every": 9,
+      "when": {
+        "all": [
+          {
+            "time": {
+              "from": 21,
+              "to": 4
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "shooting-star",
+                "s": "vila"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "shooting-star",
+            "s": "vila"
+          },
+          "if": {
+            "chance": {
+              "seed": "estrela",
+              "permille": 350
+            }
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "estrela-some",
+          "after": 2,
+          "if": {
+            "fact": {
+              "p": "shooting-star",
+              "s": "vila"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "estrela-some",
+      "when": {},
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "shooting-star",
+            "s": "vila"
           }
         }
       ]
@@ -3881,6 +3944,16 @@
                     "o": "$self"
                   }
                 }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
+                }
               }
             ]
           }
@@ -3904,6 +3977,16 @@
                   "p": "met",
                   "s": "$npc",
                   "o": "$self"
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
                 }
               }
             ]
@@ -3931,6 +4014,16 @@
                     "o": "$self"
                   }
                 }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
+                }
               }
             ]
           }
@@ -3954,6 +4047,16 @@
                   "p": "met",
                   "s": "$npc",
                   "o": "$self"
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
                 }
               }
             ]
@@ -3981,6 +4084,16 @@
                     "o": "$self"
                   }
                 }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
+                }
               }
             ]
           }
@@ -4004,6 +4117,16 @@
                   "p": "met",
                   "s": "$npc",
                   "o": "$self"
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
                 }
               }
             ]
@@ -4181,6 +4304,16 @@
                     "o": "$self"
                   }
                 }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
+                }
               }
             ]
           }
@@ -4204,6 +4337,16 @@
                   "p": "met",
                   "s": "$npc",
                   "o": "$self"
+                }
+              },
+              {
+                "not": {
+                  "fact": {
+                    "p": "seal-touched",
+                    "s": "$self",
+                    "private": true,
+                    "o": "selo"
+                  }
                 }
               }
             ]
@@ -4404,6 +4547,102 @@
                   "p": "met",
                   "s": "$npc",
                   "o": "$self"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Orin da um passo atras e leva a mao a espada: \"Essa marca na sua mao... e a do selo. Fique longe do portao.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "orin"
+                }
+              },
+              {
+                "fact": {
+                  "p": "seal-touched",
+                  "s": "$self",
+                  "private": true,
+                  "o": "selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Irma Elena segura sua mao e fecha os olhos: \"O selo deixou sua marca em voce. Posso purifica-la, se quiser.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "elena"
+                }
+              },
+              {
+                "fact": {
+                  "p": "seal-touched",
+                  "s": "$self",
+                  "private": true,
+                  "o": "selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Tomas olha a marca sem se espantar: \"O selo escolheu voce, filho. Isso tem um preco... e talvez um uso.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "tomas"
+                }
+              },
+              {
+                "fact": {
+                  "p": "seal-touched",
+                  "s": "$self",
+                  "private": true,
+                  "o": "selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Mira empalidece ao ver a sua mao: \"Isso nao e doenca, mas tambem nao e coisa boa. Cuidado com o que toca.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "mira"
+                }
+              },
+              {
+                "fact": {
+                  "p": "seal-touched",
+                  "s": "$self",
+                  "private": true,
+                  "o": "selo"
                 }
               }
             ]
@@ -4679,6 +4918,59 @@
           "op": "emit",
           "event": "bramble",
           "text": "A sarca se consome em chamas. Entre as cinzas aparece algo de pedra, coberto de musgo."
+        }
+      ]
+    },
+    {
+      "id": "purificar-marca",
+      "title": "Pedir a Irma Elena que purifique a marca",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social",
+        "help"
+      ],
+      "requires": {
+        "all": [
+          {
+            "near": {
+              "a": "$self",
+              "b": "elena"
+            }
+          },
+          {
+            "fact": {
+              "p": "seal-touched",
+              "s": "$self",
+              "private": true,
+              "o": "selo"
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "seal-touched",
+            "s": "$self",
+            "private": true,
+            "o": "selo"
+          }
+        },
+        {
+          "op": "relate",
+          "e": "elena",
+          "to": "$self",
+          "d": 2,
+          "min": -10,
+          "max": 10
+        },
+        {
+          "op": "emit",
+          "event": "purified",
+          "text": "Irma Elena reza com a mao sobre a sua. A marca roxa se apaga, deixando um calor suave."
         }
       ]
     }
@@ -8027,6 +8319,11 @@
       "id": "sarca",
       "region": "floresta",
       "name": "Sarca da mata"
+    },
+    {
+      "id": "mercado",
+      "region": "vila",
+      "name": "Mercado"
     }
   ],
   "routines": [
@@ -9868,6 +10165,12 @@
       "name": "Amigo dos Lebrinos",
       "rarity": "rara",
       "desc": "Voce nao virou Guardiao, mas os lebrinos sempre abrirao a porta para voce."
+    },
+    {
+      "id": "olho-de-estrela",
+      "name": "Olho de Estrela",
+      "rarity": "rara",
+      "desc": "Quem fez um pedido a uma estrela cadente enxerga o que brilha pouco no escuro."
     }
   ],
   "signs": [
@@ -10290,6 +10593,20 @@
             "p": "seal-broken",
             "s": "selo"
           }
+        },
+        {
+          "op": "assert",
+          "fact": {
+            "p": "seal-touched",
+            "s": "$self",
+            "private": true,
+            "o": "selo"
+          }
+        },
+        {
+          "op": "emit",
+          "event": "stigma",
+          "text": "Ao tocar as pedras, um frio sobe pelo seu braco e uma marca roxa se desenha na sua mao."
         }
       ]
     },
@@ -10511,6 +10828,213 @@
           }
         }
       ]
+    },
+    {
+      "id": "sussurros-na-noite",
+      "region": "vila",
+      "spot": "mirante",
+      "title": "Escutar os sussurros",
+      "look": "Sussurros baixos vem do escuro e parecem dizer o seu nome.",
+      "text": "Vozes que nao sao de ninguem sussurram numa lingua antiga: 'volte ao selo, volte ao selo'.",
+      "perceive": {
+        "all": [
+          {
+            "time": {
+              "from": 20,
+              "to": 5
+            }
+          },
+          {
+            "fact": {
+              "p": "seal-touched",
+              "s": "$self",
+              "private": true,
+              "o": "selo"
+            }
+          }
+        ]
+      },
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "seal-broken",
+            "s": "selo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "caravana-no-mercado",
+      "region": "vila",
+      "spot": "mercado",
+      "title": "Olhar as mercadorias da caravana",
+      "look": "Uma caravana armou suas carrocas no mercado.",
+      "text": "Mercadores de varias terras expoem tecidos, ferramentas e especiarias. Lia conhece quase todos.",
+      "when": {
+        "fact": {
+          "p": "caravan-here",
+          "s": "vila"
+        }
+      },
+      "farFrom": [
+        "estrada"
+      ],
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "caravan-here",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tempestade-sobre-a-vila",
+      "region": "vila",
+      "spot": "praca",
+      "title": "Observar a tempestade",
+      "look": "O ceu escureceu e a chuva cai forte sobre a vila.",
+      "text": "A chuva bate nos telhados e o vento derruba o que nao esta preso. Ninguem fica na rua.",
+      "when": {
+        "fact": {
+          "p": "storm",
+          "s": "vila"
+        }
+      },
+      "farFrom": [
+        "estrada",
+        "floresta",
+        "toca"
+      ],
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "storm",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "festival-de-lanternas",
+      "region": "vila",
+      "spot": "praca",
+      "title": "Olhar as fitas e lanternas",
+      "look": "A praca esta enfeitada com fitas e lanternas coloridas.",
+      "text": "Fitas coloridas cruzam a praca e lanternas de papel balancam. E dia de festa.",
+      "when": {
+        "fact": {
+          "p": "festival",
+          "s": "vila"
+        }
+      }
+    },
+    {
+      "id": "feira-dos-magos",
+      "region": "vila",
+      "spot": "praca",
+      "title": "Visitar as tendas dos magos",
+      "look": "Tendas de panos estranhos cintilam na praca.",
+      "text": "Magos errantes oferecem feiticos inuteis em tendas de panos que mudam de cor.",
+      "when": {
+        "fact": {
+          "p": "fair",
+          "s": "vila"
+        }
+      },
+      "farFrom": [
+        "estrada"
+      ]
+    },
+    {
+      "id": "peregrinos-na-capela",
+      "region": "vila",
+      "spot": "capela",
+      "title": "Observar os peregrinos",
+      "look": "Peregrinos acendem velas diante da capela.",
+      "text": "Dezenas de velas brilham diante da capela. Os peregrinos cantam baixinho.",
+      "when": {
+        "fact": {
+          "p": "pilgrims",
+          "s": "vila"
+        }
+      }
+    },
+    {
+      "id": "poeira-da-mina",
+      "region": "mina",
+      "spot": "veio-mina",
+      "title": "Observar os escombros",
+      "look": "Uma nuvem de poeira sobe da mina.",
+      "text": "Parte da galeria desabou. Ouvem-se batidas fracas debaixo das pedras.",
+      "when": {
+        "fact": {
+          "p": "miners-trapped",
+          "s": "mina"
+        }
+      },
+      "farFrom": [
+        "vila",
+        "estrada",
+        "floresta",
+        "ruinas"
+      ],
+      "examine": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "miners-trapped",
+            "s": "mina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "estrela-cadente",
+      "region": "vila",
+      "spot": "mirante",
+      "title": "Fazer um pedido a estrela",
+      "look": "Uma estrela cadente risca o ceu.",
+      "text": "Voce faz um pedido em silencio. Algo, la longe, parece escutar.",
+      "when": {
+        "fact": {
+          "p": "shooting-star",
+          "s": "vila"
+        }
+      },
+      "farFrom": [
+        "estrada",
+        "floresta",
+        "mina",
+        "ruinas",
+        "toca"
+      ],
+      "examine": [
+        {
+          "op": "grant",
+          "v": "olho-de-estrela",
+          "if": {
+            "all": [
+              {
+                "chance": {
+                  "seed": "desejo",
+                  "permille": 200
+                }
+              },
+              {
+                "not": {
+                  "has": {
+                    "skill": "olho-de-estrela"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "reactions": [
@@ -10597,5 +11121,8 @@
       "known": "{npc} diz: \"Eu sei, ja me avisaram.\"",
       "stale": "{npc} diz: \"Os bandidos foram embora.\""
     }
+  ],
+  "visibleMarks": [
+    "seal-touched"
   ]
 }

@@ -1,5 +1,7 @@
 package core
 
+import "slices"
+
 // View is what one observer may see. World truth is never exposed directly:
 // a player sees their own entity, their private facts, their beliefs, their
 // quests and the events visible to them. Two players in the same world see
@@ -32,6 +34,8 @@ type Seen struct {
 	// saw them act nearby or heard of them. The observer can tell from how
 	// they are greeted, so it is not a secret.
 	KnowsYou bool `json:"knowsYou,omitempty"`
+	// Marks are visible signs of what this person carries (see Universe.VisibleMarks).
+	Marks []string `json:"marks,omitempty"`
 }
 
 // StoryView shows the public chronicle of an arc: which chapters were
@@ -62,7 +66,8 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]
-			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"], KnowsYou: w.U.Acquaintance != "" && e.Kind != w.U.PlayerKind && w.knowsOf(s, id, observer)})
+			marks := w.marksOf(s, id, e.Kind)
+			v.Others = append(v.Others, Seen{ID: id, Kind: e.Kind, Name: e.Name, Region: e.Region, Spot: e.Tag["spot"], Doing: e.Tag["doing"], KnowsYou: w.U.Acquaintance != "" && e.Kind != w.U.PlayerKind && w.knowsOf(s, id, observer), Marks: marks})
 		}
 	}
 	for _, k := range sortedKeys(s.Facts) {
@@ -144,3 +149,22 @@ func (w *World) Chronicle(s *State, limit int) Chronicle {
 
 // Universe returns the compiled definition (read-only by convention).
 func (w *World) Universe() Universe { return w.U }
+
+// marksOf lists the visible marks a person carries (private facts about
+// themselves whose predicate the universe says shows).
+func (w *World) marksOf(s *State, id ID, kind string) []string {
+	if len(w.U.VisibleMarks) == 0 || kind != w.U.PlayerKind {
+		return nil
+	}
+	var out []string
+	for _, m := range w.U.VisibleMarks {
+		for _, f := range s.Facts {
+			if f.P == m && f.S == id && f.Holder == id {
+				out = append(out, m)
+				break
+			}
+		}
+	}
+	slices.Sort(out)
+	return out
+}
