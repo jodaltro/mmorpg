@@ -27,3 +27,5 @@ Atualizada em 19/10/2026, quando o projeto foi refeito a partir do motor.
 ## Fora do escopo atual
 
 Combate, física, animação, arte e cenários pertencem ao cliente ou ao servidor de jogo de cada engine, não ao motor. Escala multi-servidor, autenticação de produção e editor visual de universos vêm depois (ver [Arquitetura](Architecture.md#próximos-passos)).
+
+O caminho da spike ao MVP (sinais, Caderno, vila viva, chegada, enigmas) está em [MvpPlan.md](MvpPlan.md).
