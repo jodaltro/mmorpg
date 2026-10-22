@@ -164,3 +164,12 @@ Também de 22/10 (F0): `TestPlacesAreDiscoveredByGoingThere`, `TestOnJoinEffects
 `worldsim simulate -advisor jev -ticks 150 -players 4 -pace 700ms` (ao vivo, OpenRouter): 38 decisões, **todas resolvidas pelo Jev** (nenhuma pelo padrão): 18 `world` (latência média 414 ms, custo US$ 0,000813), 2 `story` (371 ms, US$ 0,000096) e 18 `offer` (402 ms, US$ 0,001103). Custo total ≈ US$ 0,0020; confiança média 0,36–0,49. O prazo de 4 ticks de 0,7 s (2,8 s) fica bem acima da latência observada. 12 missões distintas oferecidas (p1=7, p2=7, p3=4, p4=4), 16 acontecimentos do diretor. Esta medição é de simulação com jogadores roteirizados, não de jogo com pessoas.
 
 Também de 22/10: `TestTorchBurnsTheBrambleAndUncoversTheSlab` e `TestLegacyLinkOpensTheForgottenAnvil` (o cenário da bigorna também é oferecido a quem juntou os indícios, sem forjar nem explorar; sem o `legacy-link` não é oferecido). `go test -count=1 ./...` passa.
+
+## 22/10/2026 — F5: surpresa e permanência
+
+`gofmt`, `go vet`, `go test -count=1 ./...` passaram. Novo em `engine/scenarios/surprise_test.go`:
+- `TestWorldEventsLeaveVisibleTraces`: caravana, tempestade, feira dos magos, peregrinos e desabamento aparecem como vestígios enquanto duram e somem ao fim (o festival foi testado pondo o fato, porque o diretor não o propõe nessa linha do tempo); a poeira do desabamento é marco visto da vila.
+- `TestSealMarkIsSeenReactedToAndCanBePurified`: tocar as pedras à noite deixa a **marca do selo** (um fato privado que o universo declara em `visibleMarks`); outro jogador vê a marca em `others[].marks` e ela não vaza para quem não a tem; só o marcado ouve os sussurros da noite; Orin e Irmã Elena reagem de forma própria; `purificar-marca` apaga a marca e as reações voltam ao normal.
+- `TestShootingStarIsRareAndOnlyAtNight`: em dez dias, ao menos uma estrela cadente, sempre à noite e em menos de um quarto dos ticks noturnos.
+- `TestEachStretchOfPlayBringsSomethingNew`: em três trechos de 100 ticks seguidos, em cada um aparece, sozinho, um vestígio que não existia no início do trecho.
+Novo no motor: `visibleMarks` (universo) e `others[].marks` (visão). Valdoria: 8 vestígios novos, a regra da estrela cadente, a habilidade rara Olho de Estrela (20% ao fazer o pedido), a ação `purificar-marca` e 4 falas para quem tem a marca. `worldsim validate` ok.

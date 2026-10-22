@@ -74,3 +74,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`signs[].farFrom`**: regiões de onde o vestígio ainda se vê como marco (uma torre, uma coluna de fumaça, um brilho noturno). De lá ele aparece na visão com `far: true` e não pode ser examinado.
 - **Tocha:** um fato privado confirmado pelo servidor de jogo (`acender-tocha`, origem `adapter`) com regra agendada para apagar. Vestígios podem exigi-lo em `perceive` (a corrente de ar na galeria escura).
 - **Leitura progressiva:** o `perceive` de um vestígio pode depender de indícios anteriores, e os efeitos `if` do exame mudam o que se entende conforme o que o jogador já carrega.
+
+## Surpresa e permanência (F5)
+
+- **`visibleMarks`**: predicados que se mostram em quem os carrega (marca, bênção). O fato continua privado, mas quem vê a pessoa recebe `others[].marks`.
+- **Acontecimentos visíveis:** um vestígio (`signs`) com `when` ligado ao fato do acontecimento e, se quiser, `farFrom` para ser marco de longe; o cliente monta a cena enquanto ele durar e a remove ao fim.
+- **Raros:** uma regra periódica com `chance` e fato agendado para se apagar (estrela cadente) dá vestígios raros e curtos; o exame pode conceder uma habilidade rara com `grant`.

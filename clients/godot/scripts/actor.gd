@@ -219,6 +219,41 @@ func _plan() -> void:
 			path_i = 1
 
 
+## A glow on the hand for what the person carries (the seal's mark): a violet orb and a faint light.
+func set_mark(on: bool) -> void:
+	var existing := get_node_or_null("SealMark")
+	if not on:
+		if existing:
+			existing.queue_free()
+		return
+	if existing:
+		return
+	var n := Node3D.new()
+	n.name = "SealMark"
+	n.position = Vector3(0.45, 1.05, 0.1)
+	var orb := MeshInstance3D.new()
+	var sm := SphereMesh.new()
+	sm.radius = 0.09
+	sm.height = 0.18
+	orb.mesh = sm
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.7, 0.45, 1.0)
+	mat.emission_enabled = true
+	mat.emission = Color(0.65, 0.35, 1.0)
+	mat.emission_energy_multiplier = 3.0
+	orb.material_override = mat
+	n.add_child(orb)
+	var l := OmniLight3D.new()
+	l.light_color = Color(0.65, 0.4, 1.0)
+	l.omni_range = 3.2
+	l.light_energy = 0.9
+	n.add_child(l)
+	var tw := n.create_tween().set_loops()
+	tw.tween_property(l, "light_energy", 1.6, 0.8).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(l, "light_energy", 0.5, 0.8).set_trans(Tween.TRANS_SINE)
+	add_child(n)
+
+
 ## A speech balloon above the head that fades after a few seconds.
 func say(text: String, secs := 6.0) -> void:
 	var b := Label3D.new()

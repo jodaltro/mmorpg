@@ -116,6 +116,7 @@ class Landmarks extends Control:
 		var inset := 34.0
 		var area := Rect2(Vector2(inset, inset), size - Vector2(inset, inset) * 2.0)
 		var center := size / 2.0
+		var taken: Array = []  # label rectangles already drawn: stack below instead of overlapping
 		for it in items:
 			var p: Vector2 = it.pos
 			if area.has_point(p):
@@ -134,6 +135,16 @@ class Landmarks extends Control:
 			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 12).x
 			var lp := at - d * 20.0 - Vector2(w * (0.5 + d.x * 0.5), -4.0)
 			lp.x = clampf(lp.x, 6.0, size.x - w - 6.0)
+			var rect := Rect2(lp + Vector2(0, -12), Vector2(w, 16))
+			for _i in 4:
+				var clash := false
+				for r in taken:
+					clash = clash or (r as Rect2).intersects(rect)
+				if not clash:
+					break
+				rect.position.y += 17.0
+				lp.y += 17.0
+			taken.append(rect)
 			draw_string(font, lp + Vector2(1, 1), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0, 0, 0, 0.85))
 			draw_string(font, lp, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, c.lightened(0.25))
 

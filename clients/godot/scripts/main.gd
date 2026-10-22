@@ -86,6 +86,11 @@ var _seen := {"seq": 0, "opening": false, "ceremony": false, "people": {}}  # wh
 var _seen_saved_ms := 0
 var _all_names := {}  # entity id -> name, from the latest view
 var bramble: Node3D  # the thicket in the forest (null once burnt)
+var scene_nodes := {}  # sign id -> scene while the engine shows that sign (events with a physical presence)
+var monuments := {}  # "arc|beat" -> monument in the village for a chapter that someone claimed
+var stigma := false  # the seal's mark on this character
+var storm_on := false
+var _flash_left := 0.0
 var far_marks := {}  # sign id -> {pos, look, color, region}: landmarks seen from another region
 var torch_on := false
 var torch_light: OmniLight3D
@@ -177,6 +182,10 @@ func _ready() -> void:
 				_autotest_fora()
 			"fecho":
 				_autotest_fecho()
+			"surpresas":
+				_autotest_surpresas()
+			"marca":
+				_autotest_marca()
 			_:
 				_autotest()
 
@@ -1307,6 +1316,8 @@ func _spawn_enemy(kind: String, camp: String, at: Vector3) -> Enemy:
 	var e := Enemy.new()
 	add_child(e)
 	e.configure(kind, camp, at, player)
+	if stigma and ["lobo", "corrompido"].has(kind):
+		e.aggro = 0.0
 	e.damaged.connect(_on_enemy_damaged)
 	e.hit_player.connect(_on_hit_player)
 	e.died.connect(_on_enemy_died)
@@ -1510,6 +1521,9 @@ func _on_view(v: Dictionary) -> void:
 	_sync_signs(v)
 	_remember_people(v)
 	_sync_torch(v)
+	_sync_scenes(v)
+	_sync_monuments(v)
+	_sync_stigma(v)
 	hud.set_notebook(_notebook_data(v))
 	hud.set_status(REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), int(v.get("hour", -1)), int(v.get("tick", 0)))
 	hud.set_quests(v.get("quests", []), int(v.get("tick", 0)), names, REGION_NAMES)
@@ -1796,6 +1810,152 @@ func _update_landmarks() -> void:
 	hud.set_landmarks(items)
 
 
+## Scenes for the events the engine shows this observer: built while their sign lasts.
+func _sync_scenes(v: Dictionary) -> void:
+	var now := {}
+	for sg in v.get("signs", []):
+		if Scenes.has(sg.id) or sg.id == "estrela-cadente":
+			now[sg.id] = sg
+	for id in scene_nodes.keys():
+		if not now.has(id):
+			scene_nodes[id].queue_free()
+			scene_nodes.erase(id)
+			if id == "tempestade-sobre-a-vila":
+				storm_on = false
+				_sun(int(client.view.get("hour", 12)))
+	for id in now:
+		if scene_nodes.has(id):
+			continue
+		if id == "estrela-cadente":
+			scene_nodes[id] = Node3D.new()  # placeholder so it is shown once per star
+			add_child(scene_nodes[id])
+			_shooting_star()
+			continue
+		scene_nodes[id] = Scenes.build(self, id)
+		telemetry.note("scene", {"sign": id})
+		if id == "tempestade-sobre-a-vila":
+			storm_on = true
+			_sun(int(client.view.get("hour", 12)))
+
+
+## A streak across the sky, once.
+func _shooting_star() -> void:
+	hud.toast("Uma estrela cadente risca o ceu.", Color(0.85, 0.92, 1.0))
+	var star := MeshInstance3D.new()
+	var sm := SphereMesh.new()
+	sm.radius = 0.25
+	sm.height = 0.5
+	star.mesh = sm
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(1, 1, 1)
+	mat.emission_enabled = true
+	mat.emission = Color(0.85, 0.92, 1.0)
+	mat.emission_energy_multiplier = 6.0
+	star.material_override = mat
+	var from := player.global_position + Vector3(-18, 16, -12)
+	star.position = from
+	add_child(star)
+	var tw := create_tween()
+	tw.tween_property(star, "position", from + Vector3(36, -9, 24), 1.6)
+	tw.parallel().tween_property(mat, "emission_energy_multiplier", 0.0, 1.6)
+	tw.tween_callback(star.queue_free)
+
+
+## One monument in the village for each chapter that someone claimed (from the engine's public story).
+func _sync_monuments(v: Dictionary) -> void:
+	var stories: Array = v.get("story", []).duplicate(true)
+	if _args.has("fake_monuments"):  # tests only: pretend two chapters were claimed
+		stories.append({"arc": "teste", "chronicle": [{"beat": "a", "title": "Cenario Unico: A Origem da Maldicao", "by": [client.player_id]},
+			{"beat": "b", "title": "Cenario Unico: A Bigorna Esquecida", "by": ["brom"]}]})
+	for st in stories:
+		for ch in st.get("chronicle", []):
+			var by: Array = ch.get("by", [])
+			var key := "%s|%s" % [st.arc, ch.beat]
+			if by.is_empty() or monuments.has(key):
+				continue
+			var slot := monuments.size()
+			var who: Array = by.map(func(id): return _all_names.get(id, client.player_name if id == client.player_id else String(id)))
+			monuments[key] = _build_monument(slot, String(ch.title).replace("Cenario Unico: ", ""), ", ".join(who))
+
+
+func _build_monument(slot: int, title: String, who: String) -> Node3D:
+	var n := Node3D.new()
+	n.position = Vector3(-9.0 + (slot % 8) * 2.6, 0, -11.0 - (slot / 8) * 3.0)
+	var stone := StandardMaterial3D.new()
+	stone.albedo_color = Color(0.55, 0.55, 0.58)
+	stone.roughness = 0.9
+	var ped := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = Vector3(1.3, 0.7, 1.3)
+	ped.mesh = bm
+	ped.material_override = stone
+	ped.position.y = 0.35
+	n.add_child(ped)
+	var fig := MeshInstance3D.new()
+	var cm := CapsuleMesh.new()
+	cm.radius = 0.28
+	cm.height = 1.7
+	fig.mesh = cm
+	var bronze := StandardMaterial3D.new()
+	bronze.albedo_color = Color(0.62, 0.5, 0.3)
+	bronze.metallic = 0.6
+	bronze.roughness = 0.45
+	fig.material_override = bronze
+	fig.position.y = 1.55
+	n.add_child(fig)
+	var plaque := Label3D.new()
+	plaque.text = "%s\npor %s" % [title, who]
+	plaque.position = Vector3(0, 2.9, 0)
+	plaque.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	plaque.no_depth_test = true
+	plaque.pixel_size = 0.006
+	plaque.font_size = 30
+	plaque.outline_size = 8
+	plaque.modulate = Color(1.0, 0.9, 0.6)
+	plaque.visible = false
+	plaque.name = "Plaque"
+	n.add_child(plaque)
+	add_child(n)
+	_solid(n.position, Vector3(1.3, 1.0, 1.3))
+	return n
+
+
+## The seal's mark on this character: the hand glows, and wolves stay away.
+func _sync_stigma(v: Dictionary) -> void:
+	var now := false
+	for f in v.get("facts", []):
+		now = now or f.p == "seal-touched"
+	if now != stigma:
+		stigma = now
+		player.set_mark(stigma)
+		hud.toast("Uma marca roxa brilha na sua mao: a marca do selo." if stigma else "A marca do selo se apagou.", Color(0.75, 0.55, 1.0))
+		telemetry.note("stigma", {"on": stigma})
+		_apply_stigma_to_enemies()
+	for o in v.get("others", []):  # other players show what they carry
+		if npc_nodes.has(o.id) and npc_nodes[o.id].has_meta("player"):
+			npc_nodes[o.id].set_mark(o.get("marks", []).has("seal-touched"))
+
+
+func _apply_stigma_to_enemies() -> void:
+	for e in enemies:
+		if is_instance_valid(e) and ["lobo", "corrompido"].has(e.kind):
+			e.aggro = 0.0 if stigma else float(Enemy.KINDS[e.kind].aggro)  # the corrupted creatures recognise their own
+
+
+func _update_monument_plaques() -> void:
+	for m in monuments.values():
+		(m.get_node("Plaque") as Label3D).visible = m.global_position.distance_to(player.global_position) < 8.0
+	for n in scene_nodes.values():
+		if n.has_meta("follow_player"):
+			n.global_position = player.global_position
+	if storm_on:  # lightning, now and then
+		_flash_left -= get_process_delta_time()
+		if _flash_left <= 0.0:
+			_flash_left = randf_range(5.0, 11.0)
+			env.ambient_light_energy = 2.4
+			get_tree().create_timer(0.12).timeout.connect(func() -> void: _sun(int(client.view.get("hour", 12))))
+
+
 func _remember_people(v: Dictionary) -> void:
 	var me_region: String = v.get("self", {}).get("region", "")
 	for o in v.get("others", []):
@@ -1846,6 +2006,7 @@ func _notebook_data(v: Dictionary) -> Dictionary:
 
 
 func _update_signs_labels() -> void:
+	_update_monument_plaques()
 	_update_gallery()
 	_update_landmarks()
 	for n in sign_nodes.values():
@@ -1971,8 +2132,14 @@ func _sun(hour: int) -> void:
 	env.background_color = Color(0.12, 0.15, 0.28).lerp(Color(0.55, 0.72, 0.9), day)
 	env.ambient_light_energy = lerpf(0.3, 0.65, day)
 	env.ambient_light_color = Color(0.45, 0.55, 0.9).lerp(Color(0.75, 0.8, 0.95), day)
+	var lantern := lerpf(1.6, 0.0, clampf(day * 3.0, 0.0, 1.0))
+	if storm_on:  # grey and heavy: lanterns light up even by day
+		sun.light_energy *= 0.35
+		env.background_color = env.background_color.lerp(Color(0.25, 0.27, 0.32), 0.8)
+		env.ambient_light_energy *= 0.75
+		lantern = maxf(lantern, 1.2)
 	for l in get_tree().get_nodes_in_group("lantern"):
-		(l as OmniLight3D).light_energy = lerpf(1.6, 0.0, clampf(day * 3.0, 0.0, 1.0))
+		(l as OmniLight3D).light_energy = lantern
 
 
 # --- HUD ---------------------------------------------------------------------
@@ -2340,6 +2507,85 @@ func _autotest_fora() -> void:
 	await get_tree().create_timer(0.6).timeout
 	ok["clues"] = hud._nb_data.get("pistas", []).map(func(c): return c.text).filter(func(t): return t.contains("ruinas") or t.contains("passagem") or t.contains("Aquele"))
 	await _shot("f4_5_caderno")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F5: stand in the plaza and let the world surprise (needs a short-tick server); shoot each new scene.
+func _autotest_surpresas() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {"scenes": []}
+	var shot_ids := {}
+	var elapsed := 0.0
+	var limit := float(_args.get("seconds", 150))
+	while elapsed < limit:
+		await get_tree().create_timer(1.0).timeout
+		elapsed += 1.0
+		for id in scene_nodes:
+			if not shot_ids.has(id):
+				shot_ids[id] = true
+				ok["scenes"].append({"id": id, "at_s": elapsed, "hour": int(client.view.get("hour", -1))})
+				await get_tree().create_timer(0.8).timeout
+				await _shot("f5_%02d_%s" % [shot_ids.size(), id])
+	ok["monuments"] = monuments.keys()
+	if monuments.size() > 0:
+		await _go(Vector3(0, 0, -8.0), 40.0)
+		await get_tree().create_timer(1.0).timeout
+		await _shot("f5_monumentos")
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F5: the seal's mark: touch the stones at night, see the hand glow, be treated differently, wash it off.
+func _autotest_marca() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {}
+	await _go(Layout.spot("selo-pedras") + Vector3(1.8, 0, 1.8), 150.0)
+	ok["stones_seen_at_night"] = await _wait_sign("selo-brilha", 90.0)
+	ok["hour"] = int(client.view.get("hour", -1))
+	if sign_nodes.has("selo-brilha"):
+		ok["touch"] = await _examine_nearest("selo-brilha")
+	await get_tree().create_timer(1.2).timeout
+	ok["stigma"] = stigma
+	var wolf := _spawn_enemy("lobo", "zoo", player.global_position + Vector3(6, 0, 0))
+	await get_tree().create_timer(0.5).timeout
+	ok["wolf_aggro_with_mark"] = wolf.aggro
+	wolf.queue_free()
+	enemies.erase(wolf)
+	await _shot("f5m_1_mao")
+	await _go(Vector3(31, 0, 3), 150.0)
+	await get_tree().create_timer(2.0).timeout
+	for who in ["orin", "elena"]:
+		for attempt in 4:
+			if npc_nodes.has(who):
+				break
+			await _go(Layout.spot("praca"), 40.0)
+			await get_tree().create_timer(3.0).timeout
+		if npc_nodes.has(who):
+			await _go(npc_nodes[who].global_position + Vector3(0, 0, 1.8), 40.0)
+			await _perform({"action": "conversar", "origin": "player", "args": {"npc": who}, "with": who, "title": "Conversar"})
+			await get_tree().create_timer(0.6).timeout
+			var line := ""
+			for e in client.view.get("events", []):
+				if e.kind == "talked":
+					line = e.text
+			ok[who + "_says"] = line
+			await _shot("f5m_2_" + who)
+	if npc_nodes.has("elena"):
+		await open_npc_menu(npc_nodes["elena"])
+		var i := _menu_index("purificar-marca")
+		ok["purify_offered"] = i >= 0
+		if i >= 0:
+			_on_action_chosen(i)
+			await get_tree().create_timer(1.8).timeout
+			ok["purified"] = last_report
+			ok["stigma_after"] = stigma
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 
