@@ -83,6 +83,8 @@ var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
 var sfx: Sfx
+var _step_seg := -1
+const STEP_PHASE_OFFSET := 0.12  # where in the cycle the foot lands (tuned by ear: change here)
 var _idle_open := false
 var _idle_started_ms := 0
 var _last_hint_ms := 0
@@ -770,9 +772,9 @@ func _build_camera() -> void:
 func _process(delta: float) -> void:
 	if player == null:
 		return
-	var speed2 := player.velocity.length()
 	var now_ms := Time.get_ticks_msec()
-	if speed2 > 1.5 or _lmb_held:
+	_footsteps()
+	if player.get_real_velocity().length() > 1.5 or _lmb_held:
 		_last_input_ms = now_ms
 	if _idle_open and now_ms - _last_input_ms < 1000:
 		_idle_open = false
@@ -782,11 +784,6 @@ func _process(delta: float) -> void:
 		_idle_started_ms = _last_input_ms
 		telemetry.note("idle_start", {})
 	_maybe_hint(now_ms)
-	if speed2 > 1.5 and not player.busy:
-		sfx.step_clock += delta * clampf(speed2 / 5.0, 0.8, 1.6)
-		if sfx.step_clock > 0.34:
-			sfx.step_clock = 0.0
-			sfx.play("step", -17.0, randf_range(0.85, 1.15))
 	if not _enemy_queue.is_empty():
 		var q: Dictionary = _enemy_queue.pop_front()
 		_camp_pending[q.camp] = maxi(0, int(_camp_pending.get(q.camp, 1)) - 1)
@@ -1637,6 +1634,22 @@ var _lap_t := 0
 
 
 ## With --profile: report any step of handling a view that takes long.
+## Footsteps follow the walking animation itself: one sound each time a foot lands (twice per cycle),
+## and none when the character is standing, whatever its velocity variable says.
+func _footsteps() -> void:
+	var a: AnimationPlayer = player.anim
+	var moving: bool = a != null and a.is_playing() and (a.current_animation == player.clip_run or a.current_animation == player.clip_walk) 		and not player.busy and player.get_real_velocity().length() > 0.8
+	if not moving:
+		_step_seg = -1
+		return
+	var phase := fposmod(a.current_animation_position / maxf(a.current_animation_length, 0.01), 1.0)
+	var seg := int(floor(phase * 2.0 + STEP_PHASE_OFFSET)) % 2
+	if _step_seg >= 0 and seg != _step_seg:
+		sfx.steps_played += 1
+		sfx.play("step", -17.0, 0.88 if seg == 0 else 1.08)  # alternate feet
+	_step_seg = seg
+
+
 func _lap(step: String) -> void:
 	var now := Time.get_ticks_usec()
 	var ms := (now - _lap_t) / 1000.0
@@ -1647,6 +1660,7 @@ func _lap(step: String) -> void:
 
 ## The end of a session, for the playtest report: what the person had found and was still wondering about.
 func _exit_tree() -> void:
+	sfx.stop_loop("rain")
 	if client == null or client.view.is_empty():
 		return
 	var data := _notebook_data(client.view)
@@ -2008,6 +2022,8 @@ func _update_landmarks() -> void:
 func _sync_scenes(v: Dictionary) -> void:
 	var now := {}
 	for sg in v.get("signs", []):
+		if sg.id == "tempestade-sobre-a-vila" and sg.get("far", false):
+			continue  # seen from afar it is only a dark horizon: no rain and no rain sound here
 		if Scenes.has(sg.id) or sg.id == "estrela-cadente":
 			now[sg.id] = sg
 	for id in scene_nodes.keys():
@@ -2885,6 +2901,26 @@ func _autotest_sensacao() -> void:
 	ok["cues"] = sfx.cue_count()
 	for cue in ["click", "step", "swing", "hit", "chime", "bell", "thunder", "torch", "mark", "open", "rain", "star"]:
 		ok["cue_" + cue] = sfx.has_cue(cue)
+	# footsteps: none while standing, and about two per walking cycle while running
+	var steps0: int = sfx.steps_played
+	await get_tree().create_timer(2.0).timeout
+	ok["steps_while_standing_2s"] = sfx.steps_played - steps0
+	steps0 = sfx.steps_played
+	var run_from := player.global_position
+	Input.parse_input_event(_key(KEY_D))
+	await get_tree().create_timer(3.0).timeout
+	ok["ran_m_in_3s"] = snappedf(player.global_position.distance_to(run_from), 0.1)
+	var cycle: float = player.anim.get_animation(player.clip_run).length
+	ok["steps_while_running_3s"] = sfx.steps_played - steps0
+	ok["steps_expected_3s"] = snappedf(3.0 / cycle * 2.0, 0.1)
+	var upd := _key(KEY_D)
+	upd.pressed = false
+	Input.parse_input_event(upd)
+	await get_tree().create_timer(0.5).timeout
+	steps0 = sfx.steps_played
+	await get_tree().create_timer(2.0).timeout
+	ok["steps_after_stopping_2s"] = sfx.steps_played - steps0
+	ok["loops_running_without_storm"] = sfx.loops_running()
 	# menus are not modal: with the action menu open, WASD still walks
 	await open_place_menu()
 	var open_before := hud.actions_open()

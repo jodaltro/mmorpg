@@ -8,7 +8,8 @@ const RATE := 22050
 var _streams := {}
 var _players: Array[AudioStreamPlayer] = []
 var _loops := {}
-var step_clock := 0.0
+var steps_played := 0  # for tests: how many footsteps were triggered
+var plays := {}  # cue -> times played (tests)
 
 
 func _ready() -> void:
@@ -23,6 +24,7 @@ func _ready() -> void:
 func play(cue: String, db := -8.0, pitch := 1.0) -> void:
 	if not _streams.has(cue):
 		return
+	plays[cue] = int(plays.get(cue, 0)) + 1
 	for p in _players:
 		if not p.playing:
 			p.stream = _streams[cue]
@@ -33,6 +35,10 @@ func play(cue: String, db := -8.0, pitch := 1.0) -> void:
 
 
 ## Starts (or keeps) a looping bed, like rain; stop_loop ends it.
+func loops_running() -> int:
+	return _loops.size()
+
+
 func loop(cue: String, db := -22.0) -> void:
 	if _loops.has(cue) or not _streams.has(cue):
 		return
