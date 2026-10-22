@@ -2,13 +2,26 @@
 
 Roteiro para rodar sessões com pessoas de verdade e medir os critérios de [MvpPlan.md](MvpPlan.md) §13. **Ninguém rodou este playtest ainda**: o que existe é o kit (registro automático, relatório e este roteiro) e as medições feitas por robôs, que não substituem pessoas.
 
-## Antes de começar
+## Antes de começar (3 comandos)
 
-1. Motor com o Jev ligado (`worldsim serve ... -advisor jev -env-file .env`, mundo novo: `-on-universe-change new-world`), no ritmo normal de Valdoria (15 s por tick, um dia de 12 min).
-2. Um computador por pessoa (ou um só, em sessões separadas) com o Godot 4.7 e o projeto `clients/godot`. Cada pessoa joga com um nome e um `--player=<id>` próprios:
-   `Godot --path clients/godot -- --player=ana --name=Ana --telemetry=<pasta>/ana.jsonl`
-3. Combine antes: **nada é gravado fora do computador**; o registro (`telemetry`) guarda ações, lugares e tempos, nunca vídeo nem voz. Quem quiser pode apagar o arquivo.
-4. Para sessões em dupla, os dois entram no mesmo mundo e podem se ver e conversar entre si (marcas de viajante e segredos entre jogadores valem aqui).
+1. **Subir o mundo** (compila o motor, derruba servidores anteriores e cria um **mundo novo** com o Jev ligado, no ritmo normal: 15 s por tick, um dia de 12 min):
+   ```
+   powershell -File tools\playtest\start-session.ps1
+   ```
+   Confira no `server.log` que diz `advisor=jev` (a pasta da sessão fica em `playtest\<data-hora>\`, ignorada pelo git).
+2. **Entrar, uma vez por pessoa** (abre o jogo; o registro vai para `playtest\<sessão>\logs\<id>.jsonl`):
+   ```
+   powershell -File tools\playtest\join.ps1 -Name Ana
+   powershell -File tools\playtest\join.ps1 -Name Beto
+   ```
+   Para sessões em dupla, abra as duas janelas no mesmo computador: o motor só aceita conexões do próprio computador (a origem ainda vem no corpo da requisição; ver `AGENTS.md`), então jogar em máquinas diferentes exige antes a autenticação, que ficou para depois.
+3. **Relatório** (depois que as pessoas fecharem o jogo; o fim da sessão só é gravado ao fechar):
+   ```
+   powershell -File tools\playtesteport.ps1
+   ```
+   `join.ps1 -Name X -Smoke` só confere que o cliente liga ao motor e grava o registro (use antes de chamar alguém).
+
+Combine com a pessoa: **nada é gravado fora do computador**; o registro guarda ações, lugares e tempos, nunca vídeo nem voz, e ela pode apagar o arquivo. O `join.ps1` leva `-Id` se quiser outro identificador e `-Port` se o motor estiver em outra porta.
 
 ## Como conduzir (uma hora)
 
@@ -32,7 +45,7 @@ Roteiro para rodar sessões com pessoas de verdade e medir os critérios de [Mvp
 ## Relatório
 
 ```bash
-python clients/godot/tools/playtest_report.py <pasta>/ana.jsonl <pasta>/beto.jsonl
+python clients/godot/tools/playtest_report.py playtest/<sessão>/logs/ana.jsonl playtest/<sessão>/logs/beto.jsonl   # o report.ps1 faz isso para a sessão atual
 ```
 
 Ele confere o que um registro consegue responder:

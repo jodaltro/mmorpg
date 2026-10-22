@@ -30,3 +30,4 @@ clients/godot/.shots/
 
 # test screenshots and logs written by the Godot autotests
 .shots/
+playtest/
