@@ -19,7 +19,7 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 2. Subir o motor: `cd engine && go run ./cmd/worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic`.
 3. `Godot --path clients/godot` (a primeira abertura importa os assets; antes disso rode `Godot --headless --path clients/godot --import` uma vez para registrar os `class_name`).
 
-Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar, clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento e `--respawn=S` encurta a volta dos javalis (só desenvolvimento).
+Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: clique mover/falar (falar é a intenção `conversar`: quem está por perto passa a conhecer o personagem, e só então NPCs aparecem nas missões dele), clique no inimigo atacar, `E` falar com o mais próximo, `Espaço`/`Q` golpe (combo de 3), `R` rolar (esquiva com invulnerabilidade curta), `Y`/`N` aceitar/recusar a missão oferecida, `J` diário (missões ativas, ofertas, concluídas, encerradas e habilidades; dá para abandonar missão e responder ofertas). `--nopost` desliga o estilo; `--threat=estrada,vila` força um acampamento e `--respawn=S` encurta a volta dos javalis (só desenvolvimento).
 
 ## Combate e o motor
 

@@ -20,6 +20,7 @@ func worldDecision(h *harness) (core.Decision, bool) {
 func TestDirectorProposesHappeningsAndAdvisorPicks(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.meet("p1", "orin")
 	h.tick(10)
 	d, ok := worldDecision(h)
 	if !ok {
@@ -95,11 +96,13 @@ func TestObsoleteQuestFreesTheSlot(t *testing.T) {
 	}
 }
 
-// Offers are not gated by distance: Mira calls the player even while they
-// are in the forest. Coherence comes from the situation, not proximity.
+// Offers are not gated by distance: once Mira knows the player she calls
+// them even while they are in the forest. Coherence comes from the situation
+// and from who knows whom, not from proximity.
 func TestOfferReachesPlayerAnywhereWithGiver(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.meet("p1", "mira")
 	h.move("p1", "floresta")
 	h.tick(6)
 	q := h.steer("p1", "investigar-poco")
@@ -126,6 +129,7 @@ func TestOfferReachesPlayerAnywhereWithGiver(t *testing.T) {
 func TestAcceptedQuestMustBeFinished(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.meet("p1", "mira")
 	h.tick(6)
 	q := h.steer("p1", "investigar-poco")
 	h.accept("p1", q)

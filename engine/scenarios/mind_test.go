@@ -77,6 +77,7 @@ func TestGossipSpreadsBeliefs(t *testing.T) {
 func TestNPCsRememberEachPlayer(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	for i := 0; i < 3; i++ {
 		q := h.steer("p1", "javali")
 		h.do(core.Command{Kind: "decline", Origin: "player", Actor: "p1", Quest: q.Key})
@@ -93,6 +94,7 @@ func TestNPCsRememberEachPlayer(t *testing.T) {
 	}
 	h2 := load(t, "valdoria")
 	h2.join("p2")
+	h2.introduce("p2")
 	h2.s.Relations["mira|p2"] = 4 // helped Mira many times
 	h2.tick(1)
 	if q := h2.steer("p2", "segredo-mira"); q.Rank != "B" {

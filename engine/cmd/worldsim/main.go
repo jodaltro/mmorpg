@@ -350,7 +350,7 @@ func serve(args []string) error {
 	path := fs.String("universe", "", "universe.json")
 	data := fs.String("data", "data", "directory for the command log")
 	listen := fs.String("listen", "127.0.0.1:8095", "loopback address")
-	every := fs.Duration("tick", time.Second, "world tick interval")
+	every := fs.Duration("tick", time.Second, "world tick interval (default: the universe's tickSeconds, else 1s)")
 	mode := fs.String("advisor", "none", "none | deterministic | jev")
 	envFile := fs.String("env-file", ".env", "local file with OPENROUTER_API_KEY (jev only)")
 	jevTimeout := fs.Duration("jev-timeout", 5*time.Second, "per-call Jev timeout")
@@ -363,6 +363,11 @@ func serve(args []string) error {
 	w, err := universe.Load(*path)
 	if err != nil {
 		return err
+	}
+	tickSet := false
+	fs.Visit(func(f *flag.Flag) { tickSet = tickSet || f.Name == "tick" })
+	if !tickSet && w.U.TickSeconds > 0 {
+		*every = time.Duration(w.U.TickSeconds * float64(time.Second))
 	}
 	adv, err := pickAdvisor(*mode, *envFile, *jevTimeout)
 	if err != nil {

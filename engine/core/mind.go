@@ -120,6 +120,41 @@ func (w *World) best(s *State, p ID, cands []candidate, seed string) candidate {
 // Entities sharing a place exchange their newest beliefs on shareable
 // predicates. Stale beliefs travel too, so rumors can be wrong.
 
+// witness: everyone who perceives and shares a region with the actor sees
+// the deed, so they now know the actor. The acquaintance is a world fact and
+// each witness's own observation; gossip may spread it to others later.
+func (w *World) witness(s *State, actor ID) {
+	acq := w.U.Acquaintance
+	region := s.Entities[actor].Region
+	if acq == "" || region == "" {
+		return
+	}
+	for _, id := range sortedIDs(s.Entities) {
+		e := s.Entities[id]
+		if id == actor || e.Region != region || e.Kind == w.U.PlayerKind || !slices.Contains(w.U.Perceivers, e.Kind) {
+			continue
+		}
+		k := factKey("", acq, id, actor)
+		if _, ok := s.Facts[k]; !ok {
+			s.Facts[k] = Fact{P: acq, S: id, O: actor, At: s.Tick, Cause: "witness"}
+		}
+		if old, ok := s.Beliefs[id][k]; ok && old.Source == "observation" {
+			continue
+		}
+		s.believe(id, Belief{P: acq, S: id, O: actor, Holds: true, Source: "observation", At: s.Tick})
+	}
+}
+
+// knowsOf reports whether who believes it knows p: it met p, or heard of p.
+func (w *World) knowsOf(s *State, who, p ID) bool {
+	for _, b := range s.Beliefs[who] {
+		if b.P == w.U.Acquaintance && b.O == p && b.Holds {
+			return true
+		}
+	}
+	return false
+}
+
 func (w *World) gossip(s *State, cause string) {
 	g := w.U.Gossip
 	if g == nil || s.Tick%g.Every != 0 {

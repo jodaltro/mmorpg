@@ -331,6 +331,9 @@ func (w *World) candidates(s *State, p ID) []candidate {
 		}
 		expand(0, Bind{"self": p})
 		for _, b := range bindings {
+			if w.U.Acquaintance != "" && def.Giver != "" && !w.knowsOf(s, resolve(def.Giver, b), p) {
+				continue // nobody reaches out on behalf of a stranger
+			}
 			key := questKey(def.ID, p, def.Params, b)
 			if q, seen := s.Quests[key]; seen {
 				switch q.State {
@@ -445,6 +448,7 @@ func (w *World) questCommand(s *State, c Command, cause string) error {
 		if lim := w.quests[q.Def].TimeLimit; lim > 0 {
 			q.Deadline = s.Tick + lim
 		}
+		w.count(s, q.Holder, "accept")
 	case "decline":
 		if q.State != "offered" {
 			return reject("quest state")

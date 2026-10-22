@@ -39,6 +39,7 @@ func (h *harness) events2(kind string, holder core.ID) []core.Event {
 func TestQuestEvolvesWithTheWorld(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	h.happen("bandidos")
 	q := h.steer("p1", "estrada-segura")
 	if q.Rank != "C" || q.Objective == "" || q.Reward == "" {
@@ -69,6 +70,7 @@ func TestQuestEvolvesWithTheWorld(t *testing.T) {
 func TestQuestFailsWhenSomeoneElseSolvesIt(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1", "p2")
+	h.introduce("p1", "p2")
 	h.happen("crianca-perdida")
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.accept(p, h.steer(p, "nino-perdido"))
@@ -88,6 +90,7 @@ func TestQuestFailsWhenSomeoneElseSolvesIt(t *testing.T) {
 func TestQuestTimeLimit(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	h.happen("desabamento")
 	q := h.steer("p1", "resgate-mina")
 	h.accept("p1", q)
@@ -111,6 +114,7 @@ func TestQuestTimeLimit(t *testing.T) {
 func TestRefusalAndImmediateOffer(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	q := h.steer("p1", "javali")
 	respect := h.s.Entities["kael"].Num["respect"]
 	h.do(core.Command{Kind: "decline", Origin: "player", Actor: "p1", Quest: q.Key})
@@ -121,6 +125,7 @@ func TestRefusalAndImmediateOffer(t *testing.T) {
 	// immediately asks for the first forging.
 	h2 := load(t, "valdoria")
 	h2.join("p1")
+	h2.introduce("p1")
 	h2.move("p1", "mina")
 	h2.tick(int(h2.w.U.Limits.DecisionTimeout) + 1)
 	for _, x := range h2.s.Quests {

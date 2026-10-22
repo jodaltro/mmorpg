@@ -3,6 +3,7 @@ package scenarios
 import (
 	"errors"
 	"fmt"
+	"slices"
 	"strings"
 	"testing"
 
@@ -140,6 +141,50 @@ func (h *harness) believes(who core.ID, p string, s core.ID) (bool, bool) {
 	return b.Holds, ok
 }
 
+// meet introduces p where npc lives: p talks to npc there, so everyone in
+// that region now knows p (they witnessed it).
+func (h *harness) meet(p, npc core.ID) {
+	h.t.Helper()
+	if region := h.s.Entities[npc].Region; h.s.Entities[p].Region != region {
+		h.move(p, region)
+	}
+	h.mustAct("player", p, "conversar", map[string]core.ID{"npc": npc})
+}
+
+// introduce makes ps known wherever NPCs live, as if they had been around:
+// they talk to someone in each such region and come back. Tests about other
+// mechanics use it so givers know the players they call.
+func (h *harness) introduce(ps ...core.ID) {
+	h.t.Helper()
+	regions := map[core.ID]core.ID{} // region -> first NPC there
+	for _, id := range sortedKeys(h.s.Entities) {
+		if e := h.s.Entities[id]; e.Kind == "npc" && e.Region != "" {
+			if _, ok := regions[e.Region]; !ok {
+				regions[e.Region] = id
+			}
+		}
+	}
+	for _, p := range ps {
+		start := h.s.Entities[p].Region
+		for _, r := range sortedKeys(regions) {
+			h.meet(p, regions[r])
+		}
+		if h.s.Entities[p].Region != start {
+			h.move(p, start)
+		}
+	}
+}
+
+// knowsOf: who believes it knows p (met p or heard of p).
+func (h *harness) knowsOf(who, p core.ID) bool {
+	for _, b := range h.s.Beliefs[who] {
+		if b.P == "met" && b.O == p && b.Holds {
+			return true
+		}
+	}
+	return false
+}
+
 func (h *harness) events(kind string) []core.Event {
 	out := []core.Event{}
 	for _, e := range h.s.Events {
@@ -156,4 +201,13 @@ func isRejected(err error) bool { return errors.Is(err, core.ErrRejected) }
 func (h *harness) move(actor, region core.ID) {
 	h.t.Helper()
 	h.do(core.Command{Kind: "move", Origin: "adapter", Actor: actor, Region: region})
+}
+
+func sortedKeys[V any](m map[core.ID]V) []core.ID {
+	out := make([]core.ID, 0, len(m))
+	for k := range m {
+		out = append(out, k)
+	}
+	slices.Sort(out)
+	return out
 }

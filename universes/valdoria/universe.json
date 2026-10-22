@@ -66,7 +66,8 @@
     "lebrinos-awake",
     "dreamed",
     "fair",
-    "traded-spell"
+    "traded-spell",
+    "met"
   ],
   "playerKind": "player",
   "player": {
@@ -3719,6 +3720,35 @@
           "event": "fair-trade",
           "text": "{self} troca uma magia inutil por outra na Feira dos Magos Errantes."
         }
+      ]
+    },
+    {
+      "id": "conversar",
+      "by": [
+        "player"
+      ],
+      "desc": "Puxa conversa com alguem que esta por perto.",
+      "params": [
+        {
+          "name": "npc",
+          "kind": "npc"
+        }
+      ],
+      "requires": {
+        "near": {
+          "a": "$self",
+          "b": "$npc"
+        }
+      },
+      "effects": [
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "{self} conversa com {npc}."
+        }
+      ],
+      "tags": [
+        "social"
       ]
     }
   ],
@@ -7543,7 +7573,8 @@
       "seal-broken",
       "legacy-hint",
       "caravan-here",
-      "pilgrims"
+      "pilgrims",
+      "met"
     ],
     "texts": {
       "poisoned": "{from} cochicha: dizem que a agua do {s} esta envenenada.",
@@ -7558,6 +7589,8 @@
     }
   },
   "dayLength": 48,
+  "tickSeconds": 15,
+  "acquaintance": "met",
   "skills": [
     {
       "id": "andarilho",
@@ -7646,12 +7679,12 @@
             "deeds": {
               "action": "decline",
               "op": ">=",
-              "v": 6
+              "v": 10
             }
           },
           {
             "deeds": {
-              "action": "quest",
+              "action": "accept",
               "op": "<",
               "v": 1
             }

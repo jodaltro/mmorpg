@@ -20,6 +20,7 @@ func scripted(t *testing.T) *harness {
 	h.tick(6)
 	h.mustAct("player", "p1", "examinar-poco", nil)
 	h.move("p1", "estrada")
+	h.meet("p1", "tomas") // Tomas has to know who he is calling
 	h.tick(1)
 	q := h.steer("p1", "cenario-origem")
 	h.accept("p1", q)

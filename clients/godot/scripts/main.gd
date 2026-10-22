@@ -4,8 +4,8 @@ extends Node3D
 
 const REGION_NAMES := {"vila": "Vila Cinzenta", "floresta": "Floresta Cinzenta", "estrada": "Estrada do Leste",
 	"mina": "Mina de Kharum", "ruinas": "Ruinas de Asterion", "toca": "Toca dos Lebrinos"}
-# Where each NPC stands in the plaza and what talking to them tries to do.
-# The action is only an intent: the engine accepts or rejects it.
+# Where each NPC stands in their region. Talking to one is the "conversar"
+# intent: whoever is around sees it, and from then on they know the player.
 const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), "floresta": Vector3(64, 0, 0)}
 # Threats appear and end through public world events (the engine decides when).
 # Defeating a camp is reported back as a confirmed occurrence; the engine validates it.
@@ -27,15 +27,15 @@ const NPC_NAMES := {"mira": "Mira, a curandeira", "orin": "Orin, o guarda", "tom
 	"lia": "Lia, a comerciante", "kael": "Kael, o cacador", "elena": "Irma Elena", "nino": "Nino", "garrick": "Garrick, chefe da mina",
 	"pipo": "Pipo, o lebrino anciao", "sora": "Sora, mestra de laminas"}
 const NPCS := {
-	"mira": {"at": Vector2(-5, -3), "female": true, "act": "diagnosticar"},
-	"orin": {"at": Vector2(5, -3), "act": "examinar-poco"},
-	"tomas": {"at": Vector2(-3, 4), "act": "ouvir-segredo"},
-	"brom": {"at": Vector2(9, 2), "act": "forjar"},
-	"lia": {"at": Vector2(3, 6), "female": true, "act": "entregar-ervas"},
-	"kael": {"at": Vector2(-9, 1), "act": "cacar-lobos"},
-	"elena": {"at": Vector2(-7, 6), "female": true, "act": "agradecer-elena"},
-	"nino": {"at": Vector2(0, -6), "act": "procurar-botoes"},
-	"sora": {"at": Vector2(8, -6), "female": true, "act": "treinar-sora"},
+	"mira": {"at": Vector2(-5, -3), "female": true},
+	"orin": {"at": Vector2(5, -3)},
+	"tomas": {"at": Vector2(-3, 4)},
+	"brom": {"at": Vector2(9, 2)},
+	"lia": {"at": Vector2(3, 6), "female": true},
+	"kael": {"at": Vector2(-9, 1)},
+	"elena": {"at": Vector2(-7, 6), "female": true},
+	"nino": {"at": Vector2(0, -6)},
+	"sora": {"at": Vector2(8, -6), "female": true},
 }
 
 var client: WorldClient
@@ -481,10 +481,8 @@ func interact(npc: Actor) -> void:
 	player.model.rotation.y = atan2(npc.global_position.x - player.global_position.x, npc.global_position.z - player.global_position.z)
 	npc.model.rotation.y = atan2(player.global_position.x - npc.global_position.x, player.global_position.z - npc.global_position.z)
 	player.play_once("Interact")
-	var spec: Dictionary = NPCS.get(npc.entity_id, {})
-	if spec.has("act"):
-		var res := await client.act(spec.act)
-		_report(npc.label.text, spec.act, res)
+	var res := await client.act("conversar", {"npc": npc.entity_id})
+	_report(npc.label.text, "conversar", res)
 	await get_tree().create_timer(0.1).timeout
 
 

@@ -53,6 +53,7 @@ func TestHabitTeachesSkillThatChangesDeeds(t *testing.T) {
 func TestSillySkillLeadsIntoTheMainStory(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	for i := 0; i < 5; i++ {
 		h.atHour(20, 4)
 		h.mustAct("player", "p1", "descansar", nil)
@@ -126,6 +127,7 @@ func TestSkillsOpenAlternativePaths(t *testing.T) {
 func TestLebrinosTeachTheirOwnTechniques(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1", "p2")
+	h.introduce("p1", "p2")
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.s.Facts[string(p)+"|found-den|"+string(p)+"|toca"] = core.Fact{Holder: p, P: "found-den", S: p, O: "toca"}
 		h.s.Entities[p].Num["herbs"] = 1

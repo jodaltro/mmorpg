@@ -1,6 +1,7 @@
 package scenarios
 
 import (
+	"slices"
 	"testing"
 
 	"github.com/jodaltro/mmorpg/engine/core"
@@ -12,6 +13,7 @@ import (
 func TestUniqueScenarioOnlyOneAdvancesTheStory(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1", "p2")
+	h.introduce("p1", "p2")
 	h.tick(6)
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.mustAct("player", p, "examinar-poco", nil)
@@ -80,6 +82,7 @@ func TestUniqueScenarioOnlyOneAdvancesTheStory(t *testing.T) {
 func TestAdvisorChoosesStoryBranchAndIsRevalidated(t *testing.T) {
 	h := load(t, "valdoria")
 	h.join("p1")
+	h.introduce("p1")
 	h.tick(6)
 	h.mustAct("player", "p1", "examinar-poco", nil)
 	h.move("p1", "estrada")
@@ -119,12 +122,12 @@ func TestQuestsDifferPerPlayer(t *testing.T) {
 		h.mustAct("player", p, "examinar-poco", nil)
 	}
 	h.tick(1 + int(h.w.U.Limits.DecisionTimeout))
+	// Count what each one was offered, even offers withdrawn a tick later
+	// because the situation changed (gossip told the NPC already).
 	seen := map[string]bool{}
-	for _, p := range ps {
-		for _, q := range h.s.Quests {
-			if q.Holder == p && q.State == "offered" {
-				seen[q.Title] = true
-			}
+	for _, e := range h.events("quest-offered") {
+		if slices.Contains(ps, e.Holder) {
+			seen[e.Text] = true
 		}
 	}
 	if len(seen) < 2 {

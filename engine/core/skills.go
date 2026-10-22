@@ -5,7 +5,7 @@ import "slices"
 var rarities = []string{"comum", "incomum", "rara", "epica", "lendaria", "absurda"}
 
 // builtinDeeds are counted by the engine itself, besides every action id.
-var builtinDeeds = []string{"move", "rumor", "decline", "quest"}
+var builtinDeeds = []string{"move", "rumor", "accept", "decline", "quest"}
 
 func (w *World) skill(id string) (SkillDef, bool) {
 	i := slices.IndexFunc(w.U.Skills, func(k SkillDef) bool { return k.ID == id })

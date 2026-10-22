@@ -22,31 +22,39 @@ type Bind map[string]ID
 // Universe is the declarative definition of a world. It is plain data so it
 // can be loaded from JSON and validated before anything runs.
 type Universe struct {
-	Version     int          `json:"version"`
-	ID          string       `json:"id"`
-	Name        string       `json:"name"`
-	Description string       `json:"description,omitempty"`
-	Kinds       []string     `json:"kinds"`
-	Predicates  []string     `json:"predicates"`
-	PlayerKind  string       `json:"playerKind"`
-	RegionKinds []string     `json:"regionKinds,omitempty"` // kinds whose entities are places
-	DayLength   Tick         `json:"dayLength,omitempty"`   // ticks per in-game day (enables "time")
-	Player      EntitySeed   `json:"player"`
-	Perceivers  []string     `json:"perceivers"`
-	Entities    []EntitySeed `json:"entities"`
-	Facts       []FactSeed   `json:"facts,omitempty"`
-	Beliefs     []BeliefSeed `json:"beliefs,omitempty"`
-	Schedules   []Schedule   `json:"schedules,omitempty"`
-	Actions     []ActionDef  `json:"actions"`
-	Rules       []RuleDef    `json:"rules,omitempty"`
-	Agents      []AgentDef   `json:"agents,omitempty"`
-	Arcs        []ArcDef     `json:"arcs,omitempty"`
-	Quests      []QuestDef   `json:"quests,omitempty"`
-	Happenings  []Happening  `json:"happenings,omitempty"`
-	Director    *Director    `json:"director,omitempty"`
-	Gossip      *Gossip      `json:"gossip,omitempty"`
-	Skills      []SkillDef   `json:"skills,omitempty"`
-	Limits      Limits       `json:"limits"`
+	Version     int      `json:"version"`
+	ID          string   `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description,omitempty"`
+	Kinds       []string `json:"kinds"`
+	Predicates  []string `json:"predicates"`
+	PlayerKind  string   `json:"playerKind"`
+	RegionKinds []string `json:"regionKinds,omitempty"` // kinds whose entities are places
+	DayLength   Tick     `json:"dayLength,omitempty"`   // ticks per in-game day (enables "time")
+	// TickSeconds is the wall-clock tick the universe was paced for. The core
+	// only counts ticks; a server uses it as its default tick interval.
+	TickSeconds float64 `json:"tickSeconds,omitempty"`
+	// Acquaintance names the predicate "S knows O" (e.g. "met"). When set, a
+	// quest with a giver is only offered to someone the giver believes it
+	// knows: it saw them act nearby, or heard of them through gossip. Quests
+	// without a giver (the system's own) only depend on their conditions.
+	Acquaintance string       `json:"acquaintance,omitempty"`
+	Player       EntitySeed   `json:"player"`
+	Perceivers   []string     `json:"perceivers"`
+	Entities     []EntitySeed `json:"entities"`
+	Facts        []FactSeed   `json:"facts,omitempty"`
+	Beliefs      []BeliefSeed `json:"beliefs,omitempty"`
+	Schedules    []Schedule   `json:"schedules,omitempty"`
+	Actions      []ActionDef  `json:"actions"`
+	Rules        []RuleDef    `json:"rules,omitempty"`
+	Agents       []AgentDef   `json:"agents,omitempty"`
+	Arcs         []ArcDef     `json:"arcs,omitempty"`
+	Quests       []QuestDef   `json:"quests,omitempty"`
+	Happenings   []Happening  `json:"happenings,omitempty"`
+	Director     *Director    `json:"director,omitempty"`
+	Gossip       *Gossip      `json:"gossip,omitempty"`
+	Skills       []SkillDef   `json:"skills,omitempty"`
+	Limits       Limits       `json:"limits"`
 }
 
 // Happening is an optional world event. The director periodically gathers
@@ -169,7 +177,8 @@ type HasCmp struct {
 }
 
 // DeedsCmp counts how many times E (default $self) did Action. Besides
-// action ids, the engine counts "move", "rumor", "decline" and "quest".
+// action ids, the engine counts "move", "rumor", "accept", "decline" and
+// "quest".
 type DeedsCmp struct {
 	E      string `json:"e,omitempty"`
 	Action string `json:"action"`

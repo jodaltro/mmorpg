@@ -142,6 +142,7 @@ func TestPlayStylesMakeDifferentJourneys(t *testing.T) {
 	for _, ps := range personas {
 		h := load(t, "valdoria")
 		h.join(ps.id)
+		h.introduce(ps.id)
 		seen := map[string]bool{}
 		for r := 0; r < rounds; r++ {
 			for _, k := range sortedQuestKeys(h.s.Quests) {

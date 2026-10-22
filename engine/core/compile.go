@@ -55,6 +55,12 @@ func Compile(u Universe) (*World, error) {
 		}
 		w.preds[p] = true
 	}
+	if u.Acquaintance != "" && !w.preds[u.Acquaintance] {
+		return nil, invalid("acquaintance predicate %q is not declared", u.Acquaintance)
+	}
+	if u.TickSeconds < 0 {
+		return nil, invalid("tickSeconds must not be negative")
+	}
 	if !w.kinds[u.PlayerKind] || u.Player.Kind != u.PlayerKind {
 		return nil, invalid("player kind %q", u.PlayerKind)
 	}
