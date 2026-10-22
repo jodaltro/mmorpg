@@ -37,6 +37,10 @@ const SPOTS := {
 	"forja": Vector3(-17, 0, 9.4), "capela": Vector3(16, 0, 10.4), "celeiro": Vector3(2, 0, 17.4),
 	"mirante": Vector3(0, 0, -20.5), "casa-nino": Vector3(-9, 0, -16.4), "banco-estrada": Vector3(44, 0, 3.4),
 }
+# Where people sleep: inside the house that belongs to the spot.
+const INSIDE := {
+	"casa-mira": Vector3(-16, 0, -14.4), "casa-nino": Vector3(-9, 0, -22.4), "forja": Vector3(-17, 0, 16.0),
+}
 const MAP_BOUNDS := Rect2(-70, -105, 205, 145)  # what the minimap shows
 
 

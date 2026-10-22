@@ -87,8 +87,8 @@ func TestUselessSpellsFuseAndBecomeFamous(t *testing.T) {
 	if !h.has("p1", "florescer") {
 		t.Fatal("Florescer is eventually found while gathering herbs")
 	}
-	h.s.Skills["p1"]["cha-morno"] = h.s.Tick // as if found in the ruins
-	h.move("p1", "estrada")
+	h.s.Skills["p1"]["cha-morno"] = h.s.Tick   // as if found in the ruins
+	h.move("p1", h.s.Entities["tomas"].Region) // his routine decides where he is
 	h.mustAct("player", "p1", "servir-cha", nil)
 	if !h.has("p1", "cha-de-flores") {
 		t.Fatal("two useless spells plus serving tea fuse into Cha de Flores")

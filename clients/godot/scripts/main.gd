@@ -141,6 +141,8 @@ func _ready() -> void:
 				_autotest_layout()
 			"tour":
 				_autotest_tour()
+			"board":
+				_autotest_board()
 			_:
 				_autotest()
 
@@ -228,13 +230,13 @@ func _build_world() -> void:
 			_spawn("village/Floor_UnevenBrick", Vector3(-5 + x * 2, 0.0, -5 + z * 2))
 
 	_palisade()
-	_house(Vector3(-16, 0, -12), 3, 3, 0.0, false)  # Mira's house
-	_house(Vector3(15, 0, -14), 3, 4, 0.0, true)  # the tavern
-	_house(Vector3(-17, 0, 14), 3, 3, 180.0, true)  # Brom's forge
-	_house(Vector3(16, 0, 15), 3, 3, 180.0, false)  # the chapel
-	_house(Vector3(2, 0, 22), 3, 3, 180.0, false)  # the barn
-	_house(Vector3(-9, 0, -21), 2, 2, 0.0, false)  # Nino's home
-	_house(Vector3(28, 0, -9), 2, 2, 0.0, true)  # the gate house
+	_house(Vector3(-16, 0, -12), 3, 3, 0.0, false, "home")  # Mira's house
+	_house(Vector3(15, 0, -14), 3, 4, 0.0, true, "tavern")  # the tavern
+	_house(Vector3(-17, 0, 14), 3, 3, 180.0, true, "forge")  # Brom's forge
+	_house(Vector3(16, 0, 15), 3, 3, 180.0, false, "chapel")  # the chapel
+	_house(Vector3(2, 0, 22), 3, 3, 180.0, false, "barn")  # the barn
+	_house(Vector3(-9, 0, -21), 2, 2, 0.0, false, "home")  # Nino's home
+	_house(Vector3(28, 0, -9), 2, 2, 0.0, true, "guard")  # the gate house
 	_village_details()
 
 	# Market and clutter.
@@ -341,6 +343,77 @@ func _palisade() -> void:
 	_spawn("nature/Bush_Common", Vector3(x0 + 0.3, 0, -14.0), 0.0, 1.5)  # covers the gap from outside
 
 
+## The notice board by the tavern door: two posts and a plank with pinned sheets.
+func _notice_board() -> void:
+	var at := Layout.spot("taverna") + Vector3(3.4, 0, -0.2)
+	var wood := StandardMaterial3D.new()
+	wood.albedo_color = Color(0.42, 0.28, 0.16)
+	for dx in [-0.8, 0.8]:
+		var post := MeshInstance3D.new()
+		var pm := BoxMesh.new()
+		pm.size = Vector3(0.14, 2.0, 0.14)
+		post.mesh = pm
+		post.material_override = wood
+		post.position = at + Vector3(dx, 1.0, 0)
+		add_child(post)
+	var plank := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = Vector3(1.9, 1.0, 0.1)
+	plank.mesh = bm
+	plank.material_override = wood
+	plank.position = at + Vector3(0, 1.45, 0)
+	add_child(plank)
+	var paper := StandardMaterial3D.new()
+	paper.albedo_color = Color(0.92, 0.88, 0.72)
+	for i in 3:
+		var sheet := MeshInstance3D.new()
+		var sm := BoxMesh.new()
+		sm.size = Vector3(0.38, 0.5, 0.02)
+		sheet.mesh = sm
+		sheet.material_override = paper
+		sheet.position = at + Vector3(-0.6 + i * 0.6, 1.45, 0.07)
+		sheet.rotation.z = (i - 1) * 0.08
+		add_child(sheet)
+	_solid(at, Vector3(1.9, 1.0, 0.3))
+
+
+## The village bell on a post west of the plaza.
+func _bell() -> void:
+	var at := Vector3(-7, 0, 0)
+	var wood := StandardMaterial3D.new()
+	wood.albedo_color = Color(0.4, 0.27, 0.15)
+	var post := MeshInstance3D.new()
+	var pm := CylinderMesh.new()
+	pm.top_radius = 0.12
+	pm.bottom_radius = 0.16
+	pm.height = 2.8
+	post.mesh = pm
+	post.material_override = wood
+	post.position = at + Vector3(0, 1.4, 0)
+	add_child(post)
+	var arm := MeshInstance3D.new()
+	var am := BoxMesh.new()
+	am.size = Vector3(1.0, 0.12, 0.12)
+	arm.mesh = am
+	arm.material_override = wood
+	arm.position = at + Vector3(0.4, 2.7, 0)
+	add_child(arm)
+	var bell := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.1
+	cm.bottom_radius = 0.38
+	cm.height = 0.5
+	bell.mesh = cm
+	var brass := StandardMaterial3D.new()
+	brass.albedo_color = Color(0.78, 0.6, 0.2)
+	brass.metallic = 0.6
+	brass.roughness = 0.4
+	bell.material_override = brass
+	bell.position = at + Vector3(0.8, 2.35, 0)
+	add_child(bell)
+	_solid(at, Vector3(0.5, 2.8, 0.5))
+
+
 ## Props that make each spot read as what it is, plus the lanterns that come on at night.
 func _village_details() -> void:
 	_spawn("props/Anvil", Layout.spot("forja") + Vector3(2.6, 0, 0.4), 90.0)
@@ -351,6 +424,8 @@ func _village_details() -> void:
 	for i in 5:  # the garden: fenced rows
 		_spawn("nature/Fern_1", Layout.spot("horta") + Vector3(-2 + i * 1.0, 0, -1.2), i * 30.0, 0.9)
 		_spawn("nature/Flower_3_Group", Layout.spot("horta") + Vector3(-2 + i * 1.0, 0, 1.2), i * 50.0, 1.0)
+	_notice_board()
+	_bell()
 	var pad := MeshInstance3D.new()  # the lookout: a low stone platform with a bench
 	var bx := BoxMesh.new()
 	bx.size = Vector3(5, 0.7, 4)
@@ -396,8 +471,8 @@ func _tree(p: Vector3, kind := "") -> void:
 	add_child(body)
 
 
-## A house of w x d modules (2 m each). The walls face outward, the door is in front (+z).
-func _house(center: Vector3, w: int, d: int, yaw: float, brick: bool) -> void:
+## A house of w x d modules (2 m each). The walls face outward, the door is in front (+z) and you can walk in.
+func _house(center: Vector3, w: int, d: int, yaw: float, brick: bool, furnish := "") -> void:
 	var root := Node3D.new()
 	root.position = center
 	root.rotation_degrees.y = yaw
@@ -417,24 +492,66 @@ func _house(center: Vector3, w: int, d: int, yaw: float, brick: bool) -> void:
 		_spawn(window if j % 2 == 1 else wall, Vector3(w, 0, z), 90.0, 1.0, root)
 		_spawn(window if j % 2 == 1 else wall, Vector3(-w, 0, z), -90.0, 1.0, root)
 	var roof := "village/Roof_RoundTiles_6x6"
-	var roof_yaw := 0.0
 	if w == 3 and d == 4:
 		roof = "village/Roof_RoundTiles_6x8"
 	elif w == 2 and d == 2:
 		roof = "village/Roof_RoundTiles_4x4"
-	_spawn(roof, Vector3(0, 3.0, 0), roof_yaw, 1.0, root)
+	_spawn(roof, Vector3(0, 3.0, 0), 0.0, 1.0, root)
+	# Four walls, the front one split around the door (one module wide).
+	var xd := float(-w + 1 + 2 * (w / 2))
+	_wall_box(root, Vector3(0, 1.5, -d), Vector3(w * 2.0, 3.0, 0.4))
+	_wall_box(root, Vector3(-w, 1.5, 0), Vector3(0.4, 3.0, d * 2.0))
+	_wall_box(root, Vector3(w, 1.5, 0), Vector3(0.4, 3.0, d * 2.0))
+	var left := (xd - 1.0) - (-w)
+	if left > 0.1:
+		_wall_box(root, Vector3((-w + xd - 1.0) / 2.0, 1.5, d), Vector3(left, 3.0, 0.4))
+	var right := w - (xd + 1.0)
+	if right > 0.1:
+		_wall_box(root, Vector3((xd + 1.0 + w) / 2.0, 1.5, d), Vector3(right, 3.0, 0.4))
+	_occluder(root, center + Vector3(0, 3.0, 0), maxf(w, d) * 2.0 + 2.5)
+	_spawn("props/Barrel", Vector3(w - 0.6, 0, d + 1.0), 0.0, 1.0, root)
+	_furnish(root, w, d, furnish)
+
+
+func _wall_box(root: Node3D, pos: Vector3, size: Vector3) -> void:
 	var body := StaticBody3D.new()
 	body.collision_layer = 1
 	var cs := CollisionShape3D.new()
 	var box := BoxShape3D.new()
-	box.size = Vector3(w * 2.0, 3.0, d * 2.0)
+	box.size = size
 	cs.shape = box
 	body.add_child(cs)
-	body.position = Vector3(0, 1.5, 0)
+	body.position = pos
 	body.add_to_group("nav_source")
 	root.add_child(body)
-	_occluder(root, center + Vector3(0, 3.0, 0), maxf(w, d) * 2.0 + 2.5)
-	_spawn("props/Barrel", Vector3(w - 0.6, 0, d + 1.0), 0.0, 1.0, root)
+
+
+## What each room holds, in the house's own coordinates (the back wall is -z).
+func _furnish(root: Node3D, w: int, d: int, kind: String) -> void:
+	var back := float(-d + 1)
+	match kind:
+		"home":
+			_spawn("props/Chest_Wood", Vector3(-w + 1.0, 0, back), 90.0, 1.0, root)
+			_spawn("props/Bench", Vector3(w - 1.4, 0, back + 0.2), 0.0, 1.0, root)
+		"tavern":
+			_spawn("props/Table_Large", Vector3(-1.6, 0, 0.5), 0.0, 1.0, root)
+			_spawn("props/Table_Large", Vector3(1.8, 0, -2.0), 90.0, 1.0, root)
+			_spawn("props/Bench", Vector3(-1.6, 0, 2.0), 0.0, 1.0, root)
+			_spawn("props/Barrel", Vector3(-w + 0.9, 0, back + 0.3), 0.0, 1.0, root)
+			_spawn("props/Barrel", Vector3(-w + 0.9, 0, back + 1.4), 0.0, 1.0, root)
+		"forge":
+			_spawn("props/Workbench", Vector3(0, 0, back), 0.0, 1.0, root)
+			_spawn("village/Prop_Crate", Vector3(w - 1.0, 0, back + 0.4), 20.0, 1.0, root)
+			_spawn("village/Prop_Crate", Vector3(-w + 1.0, 0, back + 0.4), 0.0, 1.0, root)
+		"chapel":
+			for i in 3:
+				_spawn("props/Bench", Vector3(0, 0, -d + 2.5 + i * 1.6), 0.0, 1.0, root)
+		"barn":
+			for i in 3:
+				_spawn("village/Prop_Crate", Vector3(-w + 1.0 + i * 1.3, 0, back + 0.3), i * 25.0, 1.0, root)
+			_spawn("props/Barrel", Vector3(w - 0.9, 0, back + 0.5), 0.0, 1.0, root)
+		"guard":
+			_spawn("props/Bench", Vector3(0, 0, back + 0.3), 0.0, 1.0, root)
 
 
 func _region_zone(id: String, pos: Vector3, size: Vector3) -> void:
@@ -1351,9 +1468,10 @@ func _sync_npcs(v: Dictionary) -> void:
 		if npc_nodes.has(id):
 			var n: Actor = npc_nodes[id]
 			n.set_meta("doing", o.get("doing", ""))
-			n.visible = o.get("doing", "") != "dormindo"
-			if o.get("spot", "") != n.get_meta("spot", "") and o.kind == "npc":
+			if o.kind == "npc" and target.distance_to(n.get_meta("target", target)) > 0.6:
+				n.set_meta("target", target)
 				n.set_meta("spot", o.get("spot", ""))
+				n.idle_clip = "Sitting_Idle" if o.get("doing", "") == "dormindo" else ("Idle_Talking" if id == "tomas" else "Idle")
 				n.walk_to(target, false)  # the day moves people: they walk to the next place
 			continue
 		i += 1
@@ -1365,14 +1483,15 @@ func _sync_npcs(v: Dictionary) -> void:
 		npc.idle_clip = "Idle_Talking" if id == "tomas" else "Idle"
 		npc.set_meta("base_name", o.name.split(",")[0])
 		npc.set_meta("spot", o.get("spot", ""))
+		npc.set_meta("target", target)
 		npc.set_meta("doing", o.get("doing", ""))
 		if is_player:
 			npc.set_meta("player", true)
 			npc.label.modulate = Color(0.6, 0.82, 1.0)
+		npc.idle_clip = "Sitting_Idle" if o.get("doing", "") == "dormindo" else npc.idle_clip
 		npc.play(npc.idle_clip)
 		npc.position = target
 		npc.model.rotation.y = atan2(-target.x, -target.z)
-		npc.visible = o.get("doing", "") != "dormindo"
 		npc_nodes[id] = npc
 
 
@@ -1383,6 +1502,8 @@ func _npc_target(o: Dictionary, i: int) -> Vector3:
 	var spot: String = o.get("spot", "")
 	if o.kind == "player":  # the engine knows regions, not coordinates: a stable spot from the id
 		return Layout.ORIGIN.get(region, Vector3.ZERO) + Vector3(cos(ang), 0, sin(ang)) * 11.0
+	if o.get("doing", "") == "dormindo" and Layout.INSIDE.has(spot):
+		return Layout.INSIDE[spot]
 	if spot != "" and Layout.SPOTS.has(spot):
 		return Layout.spot(spot) + Vector3(cos(ang), 0, sin(ang)) * 1.1
 	var at: Vector2 = NPC_FALLBACK.get(id, Vector2(-12 + (i % 5) * 6, 11))
@@ -1634,6 +1755,28 @@ func _autotest_wolves() -> void:
 	ok["deaths"] = deaths
 	ok["player_hp"] = int(player_hp)
 	ok["report"] = last_report
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## The notice board and the bell, through the same menus a player uses.
+func _autotest_board() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	for pair in [["quadro", "ler-quadro"], ["sino", "tocar-sino"]]:
+		var poi := _poi(pair[0])
+		await _go(poi.at + Vector3(0, 0, 1.6), 40.0)
+		await open_poi_menu(poi)
+		var i := _menu_index(pair[1])
+		ok[pair[0] + "_offered"] = i >= 0
+		if i >= 0:
+			_on_action_chosen(i)
+			await get_tree().create_timer(1.5).timeout
+			ok[pair[0]] = last_report
+		await _shot("board_" + pair[0])
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 

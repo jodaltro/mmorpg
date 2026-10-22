@@ -78,3 +78,23 @@ func TestChatterFollowsWhoIsThereAndWhatTheyKnow(t *testing.T) {
 		t.Fatalf("brom talks at the forge in the morning: %v", spots)
 	}
 }
+
+// The board shows what is posted, privately to the reader; the bell is public
+// and cannot be rung again until the village has calmed down.
+func TestBoardAndBell(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1", "p2")
+	d := h.do(core.Command{Kind: "act", Origin: "player", Actor: "p1", Action: "ler-quadro"})
+	if len(d.Events) == 0 || d.Events[0].Kind != "board" || d.Events[0].Public || d.Events[0].Holder != "p1" {
+		t.Fatalf("the board is read privately: %+v", d.Events)
+	}
+	h.mustAct("player", "p1", "tocar-sino", nil)
+	if err := h.act("player", "p2", "tocar-sino", nil); err == nil {
+		t.Fatal("the bell cannot be rung twice at once")
+	}
+	if len(h.events("bell")) != 1 {
+		t.Fatalf("one public bell event, got %d", len(h.events("bell")))
+	}
+	h.tick(9)
+	h.mustAct("player", "p2", "tocar-sino", nil)
+}

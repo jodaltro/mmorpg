@@ -68,7 +68,8 @@
     "fair",
     "traded-spell",
     "met",
-    "found"
+    "found",
+    "bell-rung"
   ],
   "playerKind": "player",
   "player": {
@@ -878,6 +879,24 @@
           "public": true,
           "reveals": {
             "p": "fair",
+            "s": "vila"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sino-cala",
+      "when": {
+        "fact": {
+          "p": "bell-rung",
+          "s": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "retract",
+          "fact": {
+            "p": "bell-rung",
             "s": "vila"
           }
         }
@@ -3791,6 +3810,132 @@
       ],
       "tags": [
         "social"
+      ]
+    },
+    {
+      "id": "ler-quadro",
+      "title": "Ler o quadro de avisos",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "explore"
+      ],
+      "requires": {
+        "in": {
+          "e": "$self",
+          "region": "vila"
+        }
+      },
+      "effects": [
+        {
+          "op": "emit",
+          "event": "board",
+          "text": "Quadro de avisos: ofereco-se maos para consertar telhados e colher ervas. Procurar a Irma Elena ou Mira."
+        },
+        {
+          "op": "emit",
+          "event": "board",
+          "text": "Quadro de avisos: quem tiver febre procure a curandeira Mira.",
+          "if": {
+            "fact": {
+              "p": "outbreak",
+              "s": "vila"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "board",
+          "text": "Quadro de avisos: lobos vistos perto da vila. Nao saiam apos o anoitecer.",
+          "if": {
+            "fact": {
+              "p": "wolves",
+              "s": "vila"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "board",
+          "text": "Quadro de avisos: cuidado na estrada leste, ha assaltantes.",
+          "if": {
+            "fact": {
+              "p": "bandits",
+              "s": "estrada"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "board",
+          "text": "Quadro de avisos: procura-se Nino, visto pela ultima vez perto do celeiro.",
+          "if": {
+            "fact": {
+              "p": "child-lost",
+              "s": "floresta"
+            }
+          }
+        },
+        {
+          "op": "emit",
+          "event": "board",
+          "text": "Quadro de avisos: a caravana de Lia esta no mercado.",
+          "if": {
+            "fact": {
+              "p": "caravan-here",
+              "s": "vila"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tocar-sino",
+      "title": "Tocar o sino da praca",
+      "by": [
+        "player"
+      ],
+      "tags": [
+        "social"
+      ],
+      "requires": {
+        "all": [
+          {
+            "in": {
+              "e": "$self",
+              "region": "vila"
+            }
+          },
+          {
+            "not": {
+              "fact": {
+                "p": "bell-rung",
+                "s": "vila"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "op": "assert",
+          "fact": {
+            "p": "bell-rung",
+            "s": "vila"
+          }
+        },
+        {
+          "op": "schedule",
+          "rule": "sino-cala",
+          "after": 8
+        },
+        {
+          "op": "emit",
+          "event": "bell",
+          "public": true,
+          "text": "O sino da praca toca: a vila se reune."
+        }
       ]
     }
   ],
@@ -7556,6 +7701,531 @@
         {
           "who": "tomas",
           "text": "So o ve quem ja provou seu valor."
+        }
+      ]
+    },
+    {
+      "id": "praca-ronda",
+      "spot": "praca",
+      "speakers": [
+        "orin",
+        "nino"
+      ],
+      "lines": [
+        {
+          "who": "nino",
+          "text": "Seu Orin, o senhor ja prendeu alguem hoje?"
+        },
+        {
+          "who": "orin",
+          "text": "Ainda nao. Mas ja anotei tres pessoas que passaram com pressa."
+        }
+      ]
+    },
+    {
+      "id": "praca-festa",
+      "spot": "praca",
+      "speakers": [
+        "elena",
+        "nino"
+      ],
+      "lines": [
+        {
+          "who": "elena",
+          "text": "Nino, ja ajudou sua mae hoje?"
+        },
+        {
+          "who": "nino",
+          "text": "Ajudei! Mas Mira disse que a horta anda sendo visitada por ladroes de cenoura."
+        }
+      ]
+    },
+    {
+      "id": "poco-agua",
+      "spot": "poco",
+      "speakers": [
+        "mira",
+        "elena"
+      ],
+      "lines": [
+        {
+          "who": "elena",
+          "text": "A agua ficou com gosto de ferro, Mira. Voce notou?"
+        },
+        {
+          "who": "mira",
+          "text": "Notei. Mas e so o poco antigo. O da horta esta bom."
+        }
+      ]
+    },
+    {
+      "id": "poco-capela",
+      "spot": "poco",
+      "speakers": [
+        "elena",
+        "mira"
+      ],
+      "lines": [
+        {
+          "who": "elena",
+          "text": "A capela esta cheia de gente rezando por saude."
+        },
+        {
+          "who": "mira",
+          "text": "Reze o quanto quiser, Elena. Eu preciso de ervas."
+        }
+      ]
+    },
+    {
+      "id": "poco-ervas",
+      "spot": "poco",
+      "speakers": [
+        "mira",
+        "elena"
+      ],
+      "lines": [
+        {
+          "who": "mira",
+          "text": "As ervas do jardim nao bastam. Alguem tem que ir a floresta."
+        },
+        {
+          "who": "elena",
+          "text": "A floresta anda perigosa. Os javalis estao agressivos."
+        }
+      ]
+    },
+    {
+      "id": "horta-lebrinos",
+      "spot": "horta",
+      "speakers": [
+        "mira"
+      ],
+      "lines": [
+        {
+          "who": "mira",
+          "text": "Eu juro que ouvi risadinhas ontem a noite, vindas dos arbustos."
+        },
+        {
+          "who": "mira",
+          "text": "Se forem os ladroes de cenoura, ao menos sao educados: nunca levam tudo."
+        }
+      ]
+    },
+    {
+      "id": "horta-doentes",
+      "spot": "horta",
+      "speakers": [
+        "mira"
+      ],
+      "when": {
+        "knows": {
+          "who": "mira",
+          "p": "outbreak",
+          "s": "vila"
+        }
+      },
+      "lines": [
+        {
+          "who": "mira",
+          "text": "Tanta gente com febre e eu aqui colhendo ervas que nao curam nada."
+        },
+        {
+          "who": "mira",
+          "text": "Tem que haver uma causa. Ninguem adoece assim sem motivo."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "outbreak",
+            "s": "vila"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "casa-mira-noite",
+      "spot": "casa-mira",
+      "speakers": [
+        "mira"
+      ],
+      "lines": [
+        {
+          "who": "mira",
+          "text": "Mais uma noite fervendo raizes. Meu avo dizia que a cura e paciencia."
+        },
+        {
+          "who": "mira",
+          "text": "O mundo anda com pouca paciencia ultimamente."
+        }
+      ]
+    },
+    {
+      "id": "forja-minerio",
+      "spot": "forja",
+      "speakers": [
+        "brom"
+      ],
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Ferro bom ja nao chega do norte como antes."
+        },
+        {
+          "who": "brom",
+          "text": "Se a mina de Kharum fechar, a vila fica sem enxada."
+        }
+      ]
+    },
+    {
+      "id": "forja-minerio-roxo",
+      "spot": "forja",
+      "speakers": [
+        "brom"
+      ],
+      "when": {
+        "knows": {
+          "who": "brom",
+          "p": "ore-cursed",
+          "s": "mina"
+        }
+      },
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Esse minerio roxo me da arrepio. Nao forjo uma peca com ele."
+        },
+        {
+          "who": "brom",
+          "text": "Peco desculpas, mas ferro com maldicao quebra na mao de quem confia."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "ore-cursed",
+            "s": "mina"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "forja-lenda",
+      "spot": "forja",
+      "speakers": [
+        "brom"
+      ],
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Dizem que um ferreiro lendario deixou uma bigorna nas ruinas de Asterion."
+        },
+        {
+          "who": "brom",
+          "text": "Eu nunca fui. Mas a marca desta bigorna aqui... e parecida com o que descrevem."
+        }
+      ]
+    },
+    {
+      "id": "capela-canto",
+      "spot": "capela",
+      "speakers": [
+        "elena"
+      ],
+      "lines": [
+        {
+          "who": "elena",
+          "text": "Cantar ao amanhecer afasta os maus pensamentos."
+        },
+        {
+          "who": "elena",
+          "text": "A cancao e antiga. Meu avo dizia que alguem a cantou aqui antes da vila existir."
+        }
+      ]
+    },
+    {
+      "id": "capela-vigia",
+      "spot": "capela",
+      "speakers": [
+        "elena"
+      ],
+      "lines": [
+        {
+          "who": "elena",
+          "text": "A vela do cemiterio nunca se apaga. Ninguem acende, ninguem apaga."
+        },
+        {
+          "who": "elena",
+          "text": "Ha uma lapide sem nome la. Ninguem sabe de quem e."
+        }
+      ]
+    },
+    {
+      "id": "portao-noite",
+      "spot": "portao",
+      "speakers": [
+        "orin"
+      ],
+      "lines": [
+        {
+          "who": "orin",
+          "text": "A estrada de noite pertence aos lobos e aos bandidos."
+        },
+        {
+          "who": "orin",
+          "text": "Quem sair depois do por do sol, que deixe nome comigo."
+        }
+      ]
+    },
+    {
+      "id": "portao-lobos",
+      "spot": "portao",
+      "speakers": [
+        "orin"
+      ],
+      "when": {
+        "knows": {
+          "who": "orin",
+          "p": "wolves",
+          "s": "vila"
+        }
+      },
+      "lines": [
+        {
+          "who": "orin",
+          "text": "Lobos corrompidos na vila. Fechei o portao norte esta noite."
+        },
+        {
+          "who": "orin",
+          "text": "Nao saiam sozinhos."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "wolves",
+            "s": "vila"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "guarita-noite",
+      "spot": "guarita",
+      "speakers": [
+        "orin"
+      ],
+      "lines": [
+        {
+          "who": "orin",
+          "text": "Faz tres noites que vejo uma luz roxa piscando ao norte, na floresta."
+        },
+        {
+          "who": "orin",
+          "text": "Nao e fogueira. Fogueira nao muda de cor."
+        }
+      ]
+    },
+    {
+      "id": "mirante-nino",
+      "spot": "mirante",
+      "speakers": [
+        "nino"
+      ],
+      "lines": [
+        {
+          "who": "nino",
+          "text": "Daqui eu vejo tudo! A mina, as ruinas, ate uma luz roxa de noite."
+        },
+        {
+          "who": "nino",
+          "text": "Um dia eu vou la ver o que e."
+        }
+      ]
+    },
+    {
+      "id": "celeiro-nino",
+      "spot": "celeiro",
+      "speakers": [
+        "nino"
+      ],
+      "lines": [
+        {
+          "who": "nino",
+          "text": "No celeiro tem um buraco no canto. Acho que e um tunel dos lebrinos."
+        },
+        {
+          "who": "nino",
+          "text": "Mamae diz que lebrinos nao existem. Mas ela tambem nao ve o que eu vejo."
+        }
+      ]
+    },
+    {
+      "id": "praca-nino-lobos",
+      "spot": "praca",
+      "speakers": [
+        "orin",
+        "nino"
+      ],
+      "when": {
+        "knows": {
+          "who": "nino",
+          "p": "wolves",
+          "s": "vila"
+        }
+      },
+      "lines": [
+        {
+          "who": "nino",
+          "text": "Seu Orin, ouvi uivos ontem."
+        },
+        {
+          "who": "orin",
+          "text": "Entra pra casa, Nino. Agora."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "wolves",
+            "s": "vila"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "estrada-tomas",
+      "spot": "banco-estrada",
+      "speakers": [
+        "tomas"
+      ],
+      "lines": [
+        {
+          "who": "tomas",
+          "text": "Quem passa por aqui tem pressa. Ninguem se senta para ouvir uma historia."
+        },
+        {
+          "who": "tomas",
+          "text": "E uma pena: algumas historias valem uma moeda."
+        }
+      ]
+    },
+    {
+      "id": "estrada-selo",
+      "spot": "banco-estrada",
+      "speakers": [
+        "tomas"
+      ],
+      "lines": [
+        {
+          "who": "tomas",
+          "text": "O selo da floresta guarda algo mais velho que Valdoria."
+        },
+        {
+          "who": "tomas",
+          "text": "Ouvi dizer que ele pode ser restaurado... ou quebrado de vez."
+        }
+      ]
+    },
+    {
+      "id": "taverna-moeda",
+      "spot": "taverna",
+      "speakers": [
+        "brom",
+        "tomas"
+      ],
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Tomas, ja viu aquelas moedas antigas que aparecem na mina?"
+        },
+        {
+          "who": "tomas",
+          "text": "Sao de Asterion. Valem mais pelo que contam do que pelo ouro."
+        }
+      ]
+    },
+    {
+      "id": "taverna-selo",
+      "spot": "taverna",
+      "speakers": [
+        "tomas",
+        "brom"
+      ],
+      "lines": [
+        {
+          "who": "tomas",
+          "text": "Uma luz roxa na floresta, Brom. De noite. Ja viu?"
+        },
+        {
+          "who": "brom",
+          "text": "Ja. E nao quero ver de perto."
+        }
+      ]
+    },
+    {
+      "id": "taverna-estrada",
+      "spot": "taverna",
+      "speakers": [
+        "brom",
+        "tomas"
+      ],
+      "when": {
+        "knows": {
+          "who": "brom",
+          "p": "bandits",
+          "s": "estrada"
+        }
+      },
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Disseram que bandidos tomaram a estrada leste."
+        },
+        {
+          "who": "tomas",
+          "text": "Eu passei por la hoje cedo. Estavam la, cantando de felicidade."
+        }
+      ],
+      "hear": [
+        {
+          "op": "observe",
+          "fact": {
+            "p": "bandits",
+            "s": "estrada"
+          },
+          "source": "communication",
+          "to": "$speaker"
+        }
+      ]
+    },
+    {
+      "id": "taverna-cenouras",
+      "spot": "taverna",
+      "speakers": [
+        "tomas",
+        "brom"
+      ],
+      "lines": [
+        {
+          "who": "tomas",
+          "text": "Dizem que os lebrinos sao gentis com quem traz presentes."
+        },
+        {
+          "who": "brom",
+          "text": "Dizem tambem que gigantes dormem nas colinas. Nao acredito em nenhum."
         }
       ]
     }

@@ -19,6 +19,8 @@ static func pois() -> Array:
 			{"id": "carroca", "region": "vila", "at": Vector3(-9, 0, -4), "label": "Carroca da caravana", "actions": ["escoltar-caravana"]},
 			{"id": "telhado", "region": "vila", "at": Vector3(-16, 0, -8.3), "label": "Casa de telhado velho", "actions": ["consertar-telhado"]},
 			{"id": "banco", "region": "vila", "at": Vector3(-3, 0, 9.5), "label": "Banco da praca", "actions": ["descansar", "sonhar", "diagnosticar", "procurar-botoes", "acalmar-doentes", "trocar-magia"]},
+			{"id": "quadro", "region": "vila", "at": Layout.spot("taverna") + Vector3(3.4, 0, -0.2), "label": "Quadro de avisos", "actions": ["ler-quadro"]},
+			{"id": "sino", "region": "vila", "at": Vector3(-7, 0, 0), "label": "Sino da praca", "actions": ["tocar-sino"]},
 			{"id": "carga", "region": "estrada", "at": o.estrada + Vector3(-2.4, 0, -5.2), "label": "Carga revirada", "actions": ["recuperar-mercadorias"]},
 			{"id": "selo", "region": "floresta", "at": o.floresta + Vector3(16, 0, -16), "label": "Selo da Floresta", "with": "selo", "actions": ["seguir-rastro", "recuperar-reliquia", "plantar-mudas"]},
 			{"id": "ervas1", "region": "floresta", "at": o.floresta + Vector3(-8, 0, 9), "label": "Ervas", "actions": ["colher-ervas-campo"]},
@@ -38,7 +40,7 @@ const ANIM := {"minerar": "TreeChopping", "forjar": "TreeChopping", "consertar-t
 	"plantar-mudas": "Farm_PlantSeed", "resgatar-mineiro": "PickUp_Table", "recuperar-mercadorias": "Chest_Open",
 	"recuperar-reliquia": "Sword_Regular_C", "descansar": "Sitting_Enter", "sonhar": "Sitting_Enter",
 	"purificar-poco": "Spell_Simple_Shoot", "acalmar-doentes": "Spell_Simple_Shoot", "usar-florescer": "Spell_Simple_Shoot",
-	"trocar-magia": "Spell_Simple_Shoot", "receber-bencao": "Yes", "agradecer-elena": "Yes", "presentear-pipo": "Interact"}
+	"trocar-magia": "Spell_Simple_Shoot", "ler-quadro": "Interact", "tocar-sino": "Interact", "receber-bencao": "Yes", "agradecer-elena": "Yes", "presentear-pipo": "Interact"}
 
 
 static func build(m) -> void:
