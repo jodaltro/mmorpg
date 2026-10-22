@@ -51,3 +51,9 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 - **Cliente** (Unity, Unreal, Godot, web): envia intenções `player`, lê `views/{id}` e escuta `stream/{id}`. Não guarda regras nem decide consequências.
 - **Servidor de jogo** (autoridade do combate em tempo real): envia `adapter` quando algo é confirmado, por exemplo `{"origin":"adapter","kind":"act","actor":"p1","action":"recuperar-reliquia"}` depois que o guardião morre no servidor.
 - O motor nunca espera o cliente nem o Jev. A latência do Jev não afeta o combate, que nem passa pelo motor.
+
+
+## Aprender sobre o mundo (F3)
+
+- **`signs` na visão:** vestígios que o observador consegue perceber onde está (`{id, region, spot, title, look}`). Mostram o efeito de algo oculto, nunca a causa, e dependem de hora, habilidades e números do observador. `others[].knowsYou` diz quem acredita conhecer o observador.
+- **Verbos do motor** (ids reservados; `origin: player`): `act` com `action: "examinar"`, `args: {sign}` (examinar um vestígio visível: o observador recebe um relato privado e a crença ou o indício correspondente) e `action: "contar"`, `args: {npc, p, s[, o]}` (contar a alguém na mesma região uma crença que o jogador tem; a pessoa responde conforme já saiba, a notícia esteja desatualizada ou seja novidade, e só então passa a acreditar, com fonte `communication`). Ambos aparecem em `/v1/affordances` com `args` prontos.

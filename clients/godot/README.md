@@ -20,11 +20,15 @@ Spike de um cliente **3D com câmera isométrica fixa** (ortogonal, -35,264° / 
 2. Subir o motor: `cd engine && go run ./cmd/worldsim serve -universe ../universes/valdoria/universe.json -data ../data -tick 1s -advisor deterministic`.
 3. `Godot --path clients/godot` (a primeira abertura importa os assets; antes disso rode `Godot --headless --path clients/godot --import` uma vez para registrar os `class_name`).
 
-Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: **WASD** move (relativo à câmera: W sobe na tela); **botão esquerdo** golpeia na direção do cursor (segurar mantém o combo de 3; uma leve assistência de mira puxa para o inimigo próximo nessa direção); **botão direito** anda até o ponto ou abre o menu do NPC clicado; **1–4** habilidades (Golpe Giratório, Investida, Lâmina de Energia, Fôlego) e **R** esquiva, com recarga na barra inferior (passe o mouse para ver a descrição); **K** painel de habilidades (as de combate e as aprendidas no mundo, vindas do motor); `E` usa o NPC ou ponto mais próximo; `F` lista tudo o que dá para tentar na região; `Y`/`N` aceitar/recusar a missão oferecida; `J` diário. Conversar faz quem está por perto conhecer o personagem, e só então NPCs aparecem nas missões dele.
+Argumentos do jogo (depois de `--`): `--server=URL`, `--player=ID`, `--name=Nome`. Controles: **WASD** move (relativo à câmera: W sobe na tela); **botão esquerdo** golpeia na direção do cursor (segurar mantém o combo de 3; uma leve assistência de mira puxa para o inimigo próximo nessa direção); **botão direito** anda até o ponto ou abre o menu do NPC clicado; **1–4** habilidades (Golpe Giratório, Investida, Lâmina de Energia, Fôlego) e **R** esquiva, com recarga na barra inferior (passe o mouse para ver a descrição); **K** painel de habilidades (as de combate e as aprendidas no mundo, vindas do motor); `E` usa o NPC, ponto ou vestígio mais próximo (os vestígios aparecem como uma luz pálida com uma frase curta de perto); **`C` abre o Caderno** (pistas com a fonte, perguntas em aberto, pessoas e lugares); `F` lista tudo o que dá para tentar na região; `Y`/`N` aceitar/recusar a missão oferecida; `J` diário. Conversar faz quem está por perto conhecer o personagem, e só então NPCs aparecem nas missões dele.
 
 ## O mapa e a vila
 
 `scripts/layout.gd` guarda todas as coordenadas (origens das regiões, caixas de região, estradas, spots). A vila é murada e tem 13 spots que o motor nomeia nas rotinas; os NPCs andam até o spot do momento, e as falas ouvidas viram balões. O mapa em centro e raios: vila no centro, estrada leste até o cruzamento, mina a nordeste, ruínas a leste, floresta ao norte, toca a oeste (pela brecha da paliçada). Autotestes: `--autotest=layout` (capturas aéreas), `--autotest=tour` (percorre as regiões), `--autotest=f1` (um dia na praça; precisa de servidor com `-tick 500ms`).
+
+## Saber
+
+Vestígios que o motor diz que o personagem pode perceber aparecem no mundo (`E` para examinar). O exame vira crença ou indício no Caderno (`C`). No menu de um NPC, "Contar a X: ..." passa ao NPC o que o personagem acredita; o NPC reage pela situação (já sabia, está desatualizado, novidade). `--autotest=saber` percorre: vestígio, exame, Caderno, contar pelo menu.
 
 ## Chegada
 

@@ -36,6 +36,7 @@ const SPOTS := {
 	"taverna": Vector3(15, 0, -8.4), "horta": Vector3(-22, 0, -4), "casa-mira": Vector3(-16, 0, -8.4),
 	"forja": Vector3(-17, 0, 9.4), "capela": Vector3(16, 0, 10.4), "celeiro": Vector3(2, 0, 17.4),
 	"mirante": Vector3(0, 0, -20.5), "casa-nino": Vector3(-9, 0, -16.4), "banco-estrada": Vector3(44, 0, 3.4),
+	"veio-mina": Vector3(81, 0, -54), "clareira": Vector3(-8, 0, -78),
 }
 # Where people sleep: inside the house that belongs to the spot.
 const INSIDE := {

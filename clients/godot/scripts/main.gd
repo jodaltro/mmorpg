@@ -82,8 +82,10 @@ var nav_region: NavigationRegion3D
 var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
 var telemetry := Telemetry.new()
-var _seen := {"seq": 0, "opening": false, "ceremony": false}  # what this character already lived through (user://)
+var _seen := {"seq": 0, "opening": false, "ceremony": false, "people": {}}  # what this character already lived through (user://)
 var _seen_saved_ms := 0
+var _all_names := {}  # entity id -> name, from the latest view
+var sign_nodes := {}  # sign id -> marker the engine says the observer can make out here
 var _last_greet_ms := 0
 var greet_count := 0
 var _found_seeded := false  # the places already known when the client starts are not announced
@@ -157,6 +159,8 @@ func _ready() -> void:
 				_autotest_board()
 			"arrival":
 				_autotest_arrival()
+			"saber":
+				_autotest_saber()
 			_:
 				_autotest()
 
@@ -730,6 +734,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				use_ability(4)
 			KEY_K:
 				hud.toggle_skills()
+			KEY_C:
+				hud.toggle_notebook()
 			KEY_Y:
 				_answer_quest(true)
 			KEY_N:
@@ -794,6 +800,12 @@ func _nearest_interactable() -> Dictionary:
 		if d < best_d:
 			best_d = d
 			best = {"poi": poi}
+	for id in sign_nodes:
+		var n: Node3D = sign_nodes[id]
+		var d: float = Vector2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z).length()
+		if d < best_d:
+			best_d = d
+			best = {"sign": {"id": id, "title": n.get_meta("title")}}
 	return best
 
 
@@ -803,6 +815,8 @@ func use_nearest() -> void:
 		await open_npc_menu(it.npc)
 	elif it.has("poi"):
 		await open_poi_menu(it.poi)
+	elif it.has("sign"):
+		await _perform({"action": "examinar", "origin": "player", "args": {"sign": it.sign.id}, "title": it.sign.title})
 	else:
 		await open_place_menu()
 
@@ -833,7 +847,18 @@ func _show_menu(title: String, list: Array) -> void:
 		hud.hide_actions()
 		_log("[color=#aaaaaa]%s: nada para fazer agora.[/color]" % title)
 		return
-	hud.show_actions(title, list.map(func(a): return a.title))
+	hud.show_actions(title, list.map(func(a): return _menu_label(a)))
+
+
+func _menu_label(a: Dictionary) -> String:
+	if a.action == "contar":  # "Contar a Mira: a agua do Poco Antigo esta envenenada"
+		var b: Dictionary = {"p": a.args.get("p", ""), "s": a.args.get("s", ""), "o": a.args.get("o", "")}
+		var text := Places.belief_label(b, _all_names)
+		for mine in client.view.get("beliefs", []):
+			if mine.p == b.p and mine.s == b.s and mine.get("o", "") == b.o and not mine.get("holds", true):
+				text = "NAO e verdade que: " + text.to_lower()  # what you believe is that it does not hold
+		return "%s: %s" % [a.title, text]
+	return a.title
 
 
 func _on_action_chosen(i: int) -> void:
@@ -864,6 +889,8 @@ func _perform(a: Dictionary) -> void:
 		for ev in res.body.get("events", []):
 			if ev.get("text", "") != "":
 				lines.append(ev.text)
+		if a.action == "examinar" and lines.size() > 0:
+			player.say(lines[0], 7.0)
 		if a.action == "conversar" and npc_nodes.has(target) and lines.size() > 0:
 			npc_nodes[target].say(lines[0], 8.0)  # what they say to you, above their head
 		_log("[color=#9fdc7a]%s[/color]: %s" % [a.title, " / ".join(lines) if lines.size() > 0 else "feito"])
@@ -1436,6 +1463,12 @@ func _on_view(v: Dictionary) -> void:
 	for o in v.get("others", []):
 		names[o.id] = o.name
 	_sync_discovered(v)
+	_all_names = {}
+	for o in v.get("others", []):
+		_all_names[o.id] = o.name
+	_sync_signs(v)
+	_remember_people(v)
+	hud.set_notebook(_notebook_data(v))
 	hud.set_status(REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), int(v.get("hour", -1)), int(v.get("tick", 0)))
 	hud.set_quests(v.get("quests", []), int(v.get("tick", 0)), names, REGION_NAMES)
 	hud.set_skills(v.get("skills", []))
@@ -1505,7 +1538,114 @@ func _greet_nearby() -> void:
 				telemetry.note("greeted", {"who": n.entity_id})
 
 
+## Markers for the traces the engine says this observer can make out here (it never says what they mean).
+func _sync_signs(v: Dictionary) -> void:
+	var now := {}
+	for sg in v.get("signs", []):
+		now[sg.id] = sg
+	for id in sign_nodes.keys():
+		if not now.has(id):
+			sign_nodes[id].queue_free()
+			sign_nodes.erase(id)
+	for id in now:
+		if sign_nodes.has(id):
+			continue
+		var sg: Dictionary = now[id]
+		var n := Node3D.new()
+		var spot: String = sg.get("spot", "")
+		var ang := float(hash(id) % 360) * PI / 180.0
+		n.position = Layout.spot(spot, Layout.ORIGIN.get(sg.region, Vector3.ZERO)) + Vector3(cos(ang), 0, sin(ang)) * 1.3
+		n.set_meta("title", sg.title)
+		var orb := MeshInstance3D.new()
+		var sm := SphereMesh.new()
+		sm.radius = 0.18
+		sm.height = 0.36
+		orb.mesh = sm
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = Color(0.7, 0.95, 1.0)
+		mat.emission_enabled = true
+		mat.emission = Color(0.55, 0.9, 1.0)
+		mat.emission_energy_multiplier = 2.0
+		orb.material_override = mat
+		orb.position.y = 0.9
+		n.add_child(orb)
+		var tw := orb.create_tween().set_loops()
+		tw.tween_property(orb, "position:y", 1.15, 0.9).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(orb, "position:y", 0.9, 0.9).set_trans(Tween.TRANS_SINE)
+		var l := Label3D.new()
+		l.text = sg.look
+		l.position.y = 1.7
+		l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		l.no_depth_test = true
+		l.pixel_size = 0.006
+		l.font_size = 30
+		l.outline_size = 8
+		l.width = 420.0
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.modulate = Color(0.75, 0.95, 1.0, 0.9)
+		l.visible = false
+		l.name = "Look"
+		n.add_child(l)
+		add_child(n)
+		sign_nodes[id] = n
+		telemetry.note("sign_seen", {"sign": id})
+
+
+func _remember_people(v: Dictionary) -> void:
+	var me_region: String = v.get("self", {}).get("region", "")
+	for o in v.get("others", []):
+		if o.kind == "npc" and o.get("region", "") == me_region and not _seen.people.has(o.id):
+			_seen.people[o.id] = {"name": o.name}
+			_save_seen()
+
+
+## What the notebook shows, built only from what the engine says this character believes, found or lived.
+func _notebook_data(v: Dictionary) -> Dictionary:
+	var names := _all_names.duplicate()
+	var me: String = v.get("self", {}).get("id", "")
+	var clues: Array = []
+	var held := {}
+	for b in v.get("beliefs", []):
+		var src: String = Places.text.get("source_text", {}).get(b.get("source", ""), b.get("source", "")).replace("{from}", names.get(b.get("from", ""), b.get("from", "?")))
+		var label := Places.belief_label(b, names)
+		clues.append({"text": ("Acredito que NAO: " if not b.get("holds", true) else "") + label, "source": src})
+		held["belief:" + String(b.p)] = true
+	for f in v.get("facts", []):
+		var t: String = Places.text.get("clue_text", {}).get(f.p, "")
+		if t != "" and f.s == me:
+			clues.append({"text": t, "source": "um indicio que so voce reparou"})
+			held["fact:" + String(f.p)] = true
+	var qs: Array = []
+	for q in Places.text.get("questions", []):
+		var ok := true
+		for n in q.needs:
+			ok = ok and held.has(n)
+		if ok:
+			qs.append(q.text)
+	var people: Array = []
+	var here := {}
+	for o in v.get("others", []):
+		here[o.id] = o
+	for id in _seen.people:
+		var o: Dictionary = here.get(id, {})
+		var where := "visto pela ultima vez em %s" % REGION_NAMES.get(o.get("region", ""), "?")
+		if o.get("region", "") == v.get("self", {}).get("region", "") and o.get("doing", "") != "":
+			where = "aqui agora: %s" % o.doing
+		people.append({"name": _seen.people[id].name, "know": o.get("knowsYou", false), "where": where})
+	var places: Array = []
+	for r in found_places:
+		places.append(REGION_NAMES.get(r, r))
+	return {"pistas": clues, "perguntas": qs, "pessoas": people, "lugares": places}
+
+
+func _update_signs_labels() -> void:
+	for n in sign_nodes.values():
+		var near: bool = Vector2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z).length() < 8.0
+		(n.get_node("Look") as Label3D).visible = near
+
+
 func _update_poi_labels() -> void:
+	_update_signs_labels()
 	_greet_nearby()
 	for n in npc_nodes.values():
 		if n.has_meta("base_name"):
@@ -1663,6 +1803,8 @@ func _update_hud_world() -> void:
 			text = "[E] Falar com %s" % it.npc.get_meta("base_name", it.npc.label.text)
 		elif it.has("poi"):
 			text = "[E] %s" % it.poi.label
+		elif it.has("sign"):
+			text = "[E] %s" % it.sign.title
 	if text != _prompt:
 		_prompt = text
 		hud.set_prompt(text)
@@ -1902,6 +2044,64 @@ func _autotest_arrival() -> void:
 		ok["greetings_on_return"] = greet_count - before
 		await _shot("a5_hello")
 	ok["know_me_at_end"] = npc_nodes.keys().filter(func(k): return npc_nodes[k].get_meta("knows", false) and not npc_nodes[k].has_meta("player"))
+	ok["telemetry"] = telemetry.summary()
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F3: see a sign, examine it, put it in the notebook, tell someone, buy a sketch.
+func _autotest_saber() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.0).timeout
+	var ok := {}
+	await _go(Vector3(31, 0, 3), 40.0)  # into the village
+	await get_tree().create_timer(1.5).timeout
+	# wait for a sign the engine offers (the well turns murky once poisoned)
+	var w := 0.0
+	while w < 80.0 and not sign_nodes.has("cenouras-roidas"):
+		await get_tree().create_timer(1.0).timeout
+		w += 1.0
+	ok["signs_here"] = sign_nodes.keys()
+	await _go(Layout.spot("horta") + Vector3(1.6, 0, 1.4), 40.0)
+	await get_tree().create_timer(1.0).timeout
+	var it := _nearest_interactable()
+	ok["nearest_is_sign"] = it.has("sign")
+	await use_nearest()
+	await get_tree().create_timer(1.5).timeout
+	ok["examined"] = last_report
+	await _shot("sb1_examined")
+	hud.toggle_notebook()
+	await get_tree().create_timer(0.6).timeout
+	ok["notebook"] = hud._nb_data.get("pistas", []).map(func(c): return c.text)
+	await _shot("sb2_notebook")
+	hud.toggle_notebook()
+	# Something to tell: wait until a belief someone would react to exists and a listener is here.
+	w = 0.0
+	var tell_with := ""
+	while w < float(_args.get("wait_tell", 60)) and tell_with == "":
+		await client.refresh_affordances()
+		for a in client.affordances:
+			if a.action == "contar":
+				tell_with = a.with
+				break
+		if tell_with == "":
+			await get_tree().create_timer(2.0).timeout
+			w += 2.0
+	ok["tell_listener"] = tell_with
+	if tell_with != "" and npc_nodes.has(tell_with):
+		await _go(npc_nodes[tell_with].global_position + Vector3(0, 0, 1.6), 40.0)
+		await open_npc_menu(npc_nodes[tell_with])
+		ok["menu"] = _menu.map(func(a): return _menu_label(a))
+		await _shot("sb3_tell_menu")
+		for i in _menu.size():
+			if _menu[i].action == "contar":
+				_on_action_chosen(i)
+				break
+		await get_tree().create_timer(1.5).timeout
+		ok["told"] = last_report
+		await _shot("sb4_told")
 	ok["telemetry"] = telemetry.summary()
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()

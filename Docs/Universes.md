@@ -62,3 +62,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`limits.firstOfferAfterDeed`**: nenhuma oferta antes de o jogador fazer algo (qualquer ação do universo; mover, boato e o ciclo de missões não contam). O recém-chegado também é um estranho para o Sistema.
 - **`join` com `region`**: o servidor de jogo diz onde o recém-chegado aparece (Valdoria: a estrada, na carroça de Lia).
 - **Falas por conhecimento:** a ação `conversar` ramifica pela etiqueta `voice` do NPC (`tag: {"voice": "orin"}`) e por `knows {who: $npc, p: met, s: $npc, o: $self}`: uma fala para estranhos e outra para quem já foi visto.
+
+## Saber (F3): sinais e reações
+
+- **`signs`**: `{id, region, spot, title, look, text, when, perceive, examine}`. Existe enquanto `when` vale (`$self` é o observador); só quem satisfaz `perceive` o vê. `look` é o que se vê de longe, `text` o que o exame revela, `examine` são efeitos (`observe` para formar crença por observação, ou `assert` privado para um indício). Um vestígio **mostra o efeito, nunca a causa**: o validador não deixa dois com o mesmo id, exige região e spot coerentes e valida as condições e efeitos.
+- **`reactions`**: como as pessoas respondem quando o jogador lhes conta uma crença (`p`, `s` opcional, `who` opcional): `told` (novidade: passam a acreditar), `known` (já sabiam), `stale` (já não é verdade: não aceitam) e `effects` (com `$self` = quem contou, `$npc` = quem ouviu). Só crenças com reação aparecem como opção de contar.
+- Os ids `examinar` e `contar` são do motor e não podem ser ações do universo.

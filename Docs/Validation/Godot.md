@@ -236,3 +236,13 @@ Conferido item por item. Faltava "todos sabem dizer quem os conhece": a visão g
 ### 22/10/2026 — saudação espontânea (fecha a lacuna da F2)
 
 Quem conhece o jogador (`knowsYou`) diz uma frase curta ao ele chegar a menos de 4 m, e de novo depois de ele se afastar a mais de 7 m (falas por NPC em `data/presentation.json`, conferidas por `TestClientPresentationMatchesTheUniverse`). `--autotest=arrival` (Jev ligado): afastar-se de Orin e voltar gerou 1 saudação (o intervalo mínimo de 2,5 s entre saudações limita a uma por vez).
+
+## 22/10/2026 — F3: saber
+
+Jev ligado (porta 8095, tick de 15 s; e uma segunda instância em 8097 com tick de 700 ms para ver a história andar). `--autotest=saber`:
+- Vestígios da vila aparecem como uma luz pálida com uma frase curta (cenouras roídas, marca na bigorna, lápide; com a doença, a tosse na praça); `E` examina; o relato aparece sobre o personagem e no registro.
+- **Caderno (`C`)**: "Perguntas em aberto" ("Quem deixa pegadas pequenas na horta e some para o oeste?"), "O que você sabe" com a **fonte** de cada crença ("vi com meus olhos", "ouvi de X", "foi anunciado a todos"; crença desatualizada aparece como "Acredito que NÃO…"), abas Pessoas (quem conheci, se me conhece, onde) e Lugares. Capturas conferidas.
+- **Contar pelo menu:** com o mundo avançado, o menu de Brom listou "Contar a Brom: Há bandidos na Estrada do Leste / O Nino sumiu / O minério… / Lobos rondam…" e a escolha foi aceita (`contar:ok`).
+- Regressão: `--autotest=arrival` e `--autotest=board` passaram.
+**Feito do plano:** sinais com hora e habilidade, examinar, contar com reações (novidade, já sabia, desatualizado), crenças com fonte no Caderno, esboço de Tomas (motor), "bot de descoberta".
+**Não feito da F3:** a lupa com cursor (o vestígio é examinado com `E`, sem lupa); vestígios da moeda e da canção da alvorada (7 dos 11 enigmas do plano têm vestígio; os 4 externos ficam para a F4: pegada branca, veios roxos e mina já estão, mas só se testou o conjunto da vila); crenças erradas ditas por NPCs de propósito; o esboço de Tomas não foi exercitado pela interface (só pelo motor); "mapa desenhado andando" é o mapa em branco que se revela por região, sem traçado de caminhos; nenhuma medição de latência/custo do Jev nesta fase; nenhum playtest com pessoas.

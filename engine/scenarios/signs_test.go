@@ -192,3 +192,40 @@ func TestSketchRevealsPlacesOnTheMap(t *testing.T) {
 		t.Fatal("one sketch is enough")
 	}
 }
+
+// The discovery bot knows nothing of the universe: it only does what the
+// engine offers (examine what it can see, tell what it believes). If the
+// village riddles can be solved this way, they have a way in that needs no
+// outside information.
+func TestDiscoveryBotSolvesTheVillageRiddles(t *testing.T) {
+	h := load(t, "valdoria")
+	h.join("p1")
+	done := map[string]bool{}
+	for i := 0; i < 150; i++ {
+		for _, a := range h.w.Affordances(&h.s, "p1") {
+			if a.Action != "examinar" && a.Action != "contar" {
+				continue
+			}
+			key := a.Action + "|" + string(a.With)
+			for _, k := range []string{"npc", "p", "s", "o", "sign"} {
+				key += "|" + string(a.Args[k])
+			}
+			if done[key] {
+				continue
+			}
+			if err := h.act("player", "p1", a.Action, a.Args); err == nil {
+				done[key] = true
+			}
+		}
+		h.tick(1)
+	}
+	for _, f := range []string{"den-trail", "anvil-mark", "nameless-grave"} {
+		if _, ok := h.s.Facts["p1|"+f+"|p1|"+map[string]string{"den-trail": "toca", "anvil-mark": "ruinas", "nameless-grave": "vila"}[f]]; !ok {
+			t.Fatalf("the bot never found %s", f)
+		}
+	}
+	// The story moves on (Mira purifies the well later), so the proof is in the deeds.
+	if h.s.Deeds["p1"]["examinar:agua-turva"] == 0 || h.s.Deeds["p1"]["contar"] == 0 {
+		t.Fatalf("the bot should have examined the murky water and told someone: %v", h.s.Deeds["p1"])
+	}
+}

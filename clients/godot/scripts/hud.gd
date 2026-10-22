@@ -34,6 +34,10 @@ var toast_box: VBoxContainer
 var offer_panel: PanelContainer
 var offer_text: RichTextLabel
 var offer_buttons := {}  # accept / decline / later
+var notebook_panel: PanelContainer
+var notebook_box: VBoxContainer
+var _nb_tab := "pistas"
+var _nb_data := {}
 var journal_panel: PanelContainer
 var action_panel: PanelContainer
 var action_title: Label
@@ -159,10 +163,11 @@ func _ready() -> void:
 	_build_toasts()
 	_build_offer()
 	_build_journal()
+	_build_notebook()
 	_build_actions()
 	_build_skills_panel()
 	var slot := _slot(Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END, 10)
-	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario", 12, Color(1, 1, 1, 0.55))
+	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario   [C] Caderno", 12, Color(1, 1, 1, 0.55))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	help.size_flags_horizontal = Control.SIZE_SHRINK_END
 	help.size_flags_vertical = Control.SIZE_SHRINK_END
@@ -355,6 +360,81 @@ func _build_journal() -> void:
 	journal_box.add_theme_constant_override("separation", 10)
 	scroll.add_child(journal_box)
 	journal_panel.visible = false
+
+
+func _build_notebook() -> void:
+	var slot := _slot(Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_CENTER)
+	notebook_panel = _panel(slot, 0.96)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 8)
+	notebook_panel.add_child(v)
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 6)
+	v.add_child(head)
+	var title := _label("Caderno", 22, GOLD)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title)
+	for t in [["pistas", "Pistas"], ["pessoas", "Pessoas"], ["lugares", "Lugares"]]:
+		head.add_child(_button(t[1], func() -> void:
+			_nb_tab = t[0]
+			_rebuild_notebook()))
+	head.add_child(_button("Fechar [C]", toggle_notebook))
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(700, 430)
+	v.add_child(scroll)
+	notebook_box = VBoxContainer.new()
+	notebook_box.custom_minimum_size.x = 680
+	notebook_box.add_theme_constant_override("separation", 8)
+	scroll.add_child(notebook_box)
+	notebook_panel.visible = false
+
+
+## data: {pistas: [{text, source}], perguntas: [text], pessoas: [{name, know, where}], lugares: [name]}
+func set_notebook(data: Dictionary) -> void:
+	_nb_data = data
+	if notebook_panel.visible:
+		_rebuild_notebook()
+
+
+func toggle_notebook() -> void:
+	notebook_panel.visible = not notebook_panel.visible
+	if notebook_panel.visible:
+		journal_panel.visible = false
+		_rebuild_notebook()
+
+
+func _rebuild_notebook() -> void:
+	for c in notebook_box.get_children():
+		notebook_box.remove_child(c)
+		c.queue_free()
+	match _nb_tab:
+		"pistas":
+			var qs: Array = _nb_data.get("perguntas", [])
+			if not qs.is_empty():
+				notebook_box.add_child(_label("Perguntas em aberto", 16, Color(0.7, 0.85, 1.0)))
+				for q in qs:
+					var l := _rich(660, 14)
+					l.text = "[color=#9ec5ff]?[/color]  %s" % q
+					notebook_box.add_child(l)
+			notebook_box.add_child(_label("O que voce sabe", 16, GOLD))
+			var cl: Array = _nb_data.get("pistas", [])
+			if cl.is_empty():
+				notebook_box.add_child(_label("Ainda nada. Examine o que parecer estranho.", 13, Color(1, 1, 1, 0.55)))
+			for c in cl:
+				var l := _rich(660, 14)
+				l.text = "%s\n[color=#999999]%s[/color]" % [c.text, c.source]
+				notebook_box.add_child(l)
+		"pessoas":
+			var ps: Array = _nb_data.get("pessoas", [])
+			if ps.is_empty():
+				notebook_box.add_child(_label("Voce ainda nao conheceu ninguem.", 13, Color(1, 1, 1, 0.55)))
+			for p in ps:
+				var l := _rich(660, 14)
+				l.text = "[b]%s[/b]  %s\n[color=#999999]%s[/color]" % [p.name, "[color=#ffe08a][te conhece][/color]" if p.know else "[color=#888888][nao te conhece][/color]", p.where]
+				notebook_box.add_child(l)
+		"lugares":
+			for n in _nb_data.get("lugares", []):
+				notebook_box.add_child(_label(n, 15))
 
 
 func _build_actions() -> void:
@@ -735,6 +815,8 @@ func postpone_offer() -> void:
 
 
 func toggle_journal() -> void:
+	if not journal_panel.visible:
+		notebook_panel.visible = false
 	journal_panel.visible = not journal_panel.visible
 	if journal_panel.visible:
 		_rebuild_journal()
