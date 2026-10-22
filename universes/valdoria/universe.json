@@ -4647,6 +4647,213 @@
               }
             ]
           }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Orin bate continencia: \"O Descobridor do Selo! Seu nome ja corre pela vila.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "orin"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Descobridor do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Mira sorri com respeito: \"Dizem que foi voce quem achou a origem do mal. A vila lhe deve muito.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "mira"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Descobridor do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Brom levanta a cabeca do ferro: \"Descobridor do Selo, hein? Quando quiser uma lamina de graca, apareca.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "brom"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Descobridor do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Tomas ri baixinho: \"Quem diria. O Descobridor do Selo sentado no meu banco.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "tomas"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Descobridor do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Orin se perfila: \"Guardiao do Selo. A vila dorme tranquila porque voce existe.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "orin"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Guardiao do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Irma Elena inclina a cabeca: \"Guardiao do Selo, que a luz proteja seus passos.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "elena"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Guardiao do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Nino arregala os olhos: \"Voce e o Guardiao! Posso ver sua espada?\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "nino"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Guardiao do Selo"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Brom tira o chapeu: \"Herdeiro do Ferreiro Lendario. Eu devia me ajoelhar, mas minhas costas nao deixam.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "brom"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Herdeiro do Ferreiro Lendario"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "op": "emit",
+          "event": "talked",
+          "text": "Tomas sussurra: \"Aquele que esperou finalmente chegou.\"",
+          "if": {
+            "all": [
+              {
+                "tag": {
+                  "e": "$npc",
+                  "k": "voice",
+                  "v": "tomas"
+                }
+              },
+              {
+                "tag": {
+                  "e": "$self",
+                  "k": "title",
+                  "v": "Herdeiro do Ferreiro Lendario"
+                }
+              }
+            ]
+          }
         }
       ],
       "tags": [
@@ -9317,6 +9524,77 @@
           "text": "Dizem tambem que gigantes dormem nas colinas. Nao acredito em nenhum."
         }
       ]
+    },
+    {
+      "id": "taverna-descobridor",
+      "spot": "taverna",
+      "speakers": [
+        "brom",
+        "tomas"
+      ],
+      "when": {
+        "fact": {
+          "p": "seal-revealed",
+          "s": "selo"
+        }
+      },
+      "lines": [
+        {
+          "who": "brom",
+          "text": "Ja soube? Alguem descobriu que o selo foi rompido de proposito."
+        },
+        {
+          "who": "tomas",
+          "text": "Um forasteiro, dizem. Os forasteiros sempre acabam sabendo mais que a gente."
+        }
+      ]
+    },
+    {
+      "id": "poco-descobridor",
+      "spot": "poco",
+      "speakers": [
+        "mira",
+        "elena"
+      ],
+      "when": {
+        "fact": {
+          "p": "seal-revealed",
+          "s": "selo"
+        }
+      },
+      "lines": [
+        {
+          "who": "elena",
+          "text": "Dizem que alguem seguiu o rastro ate o selo e voltou vivo."
+        },
+        {
+          "who": "mira",
+          "text": "Entao existe esperanca para esta vila."
+        }
+      ]
+    },
+    {
+      "id": "portao-guardiao",
+      "spot": "portao",
+      "speakers": [
+        "orin"
+      ],
+      "when": {
+        "fact": {
+          "p": "seal-restored",
+          "s": "selo"
+        }
+      },
+      "lines": [
+        {
+          "who": "orin",
+          "text": "O selo foi restaurado. Pela primeira vez em meses, a mata esta calada."
+        },
+        {
+          "who": "orin",
+          "text": "Esse nome ficara na praca para sempre."
+        }
+      ]
     }
   ],
   "chatterEvery": 3,
@@ -11124,5 +11402,32 @@
   ],
   "visibleMarks": [
     "seal-touched"
-  ]
+  ],
+  "glyphs": [
+    {
+      "id": "perigo",
+      "title": "Perigo adiante"
+    },
+    {
+      "id": "atencao",
+      "title": "Olhe com atencao"
+    },
+    {
+      "id": "escondido",
+      "title": "Ha algo escondido aqui"
+    },
+    {
+      "id": "descanso",
+      "title": "Lugar seguro para descansar"
+    },
+    {
+      "id": "desconfie",
+      "title": "Nao confie neste lugar"
+    }
+  ],
+  "travelerMarks": {
+    "perAuthor": 3,
+    "life": 200,
+    "agreeBonus": 60
+  }
 }

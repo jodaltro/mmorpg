@@ -217,6 +217,10 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 		return w.examine(s, origin, actor, args, cause)
 	case actTell:
 		return w.tellBelief(s, origin, actor, args, cause)
+	case actMark:
+		return w.leaveMark(s, origin, actor, args, cause)
+	case actAgree:
+		return w.agreeMark(s, origin, actor, args, cause)
 	}
 	a, ok := w.actions[action]
 	if !ok || !slices.Contains(a.By, origin) {

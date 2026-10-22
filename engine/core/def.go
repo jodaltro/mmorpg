@@ -63,12 +63,14 @@ type Universe struct {
 	// VisibleMarks lists predicates that show on the person who carries them
 	// (a stigma, a blessing): any observer who can see that person sees the
 	// mark in `others[].marks`, even though the fact itself is private.
-	VisibleMarks []string   `json:"visibleMarks,omitempty"`
-	Spots        []SpotDef  `json:"spots,omitempty"`
-	Signs        []SignDef  `json:"signs,omitempty"`
-	Reactions    []Reaction `json:"reactions,omitempty"`
-	Routines     []Routine  `json:"routines,omitempty"`
-	Chatter      []Chatter  `json:"chatter,omitempty"`
+	VisibleMarks []string       `json:"visibleMarks,omitempty"`
+	Glyphs       []GlyphDef     `json:"glyphs,omitempty"`
+	Travelers    *TravelerMarks `json:"travelerMarks,omitempty"`
+	Spots        []SpotDef      `json:"spots,omitempty"`
+	Signs        []SignDef      `json:"signs,omitempty"`
+	Reactions    []Reaction     `json:"reactions,omitempty"`
+	Routines     []Routine      `json:"routines,omitempty"`
+	Chatter      []Chatter      `json:"chatter,omitempty"`
 	// ChatterEvery is how many ticks pass between overheard conversations
 	// (default 3). One conversation per place is chosen each time.
 	ChatterEvery Tick   `json:"chatterEvery,omitempty"`

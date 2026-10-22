@@ -122,7 +122,8 @@ func (w *World) tellBelief(s *State, origin string, actor ID, args map[string]ID
 		return reject("tell")
 	}
 	npc, ok := s.Entities[args["npc"]]
-	if !ok || !slices.Contains(w.U.Perceivers, npc.Kind) || npc.Kind == w.U.PlayerKind || npc.Region != ent.Region {
+	toPlayer := ok && npc.Kind == w.U.PlayerKind
+	if !ok || npc.ID == actor || npc.Region != ent.Region || !toPlayer && !slices.Contains(w.U.Perceivers, npc.Kind) {
 		return reject("listener")
 	}
 	p, subject, object := string(args["p"]), args["s"], args["o"]
@@ -157,6 +158,9 @@ func (w *World) tellBelief(s *State, origin string, actor ID, args map[string]ID
 		heard := mine
 		heard.Source, heard.From, heard.At = "communication", actor, s.Tick
 		s.believe(npc.ID, heard)
+		if toPlayer { // a secret passed between players: the listener is told too
+			w.emit(s, Event{Kind: "told", Actor: actor, Holder: npc.ID, Text: ent.Name + " lhe conta algo que sabe.", Cause: cause, Data: map[string]string{"p": p}})
+		}
 		msg := "{npc} escuta com atencao."
 		if covered && r.Told != "" {
 			msg = r.Told
@@ -181,12 +185,16 @@ func (w *World) signAffordances(s *State, p ID, self Entity) []Affordance {
 	}
 	for _, npc := range sortedIDs(s.Entities) {
 		e := s.Entities[npc]
-		if e.Region != self.Region || e.Kind == w.U.PlayerKind || !slices.Contains(w.U.Perceivers, e.Kind) {
+		if npc == p || e.Region != self.Region || !(e.Kind == w.U.PlayerKind || slices.Contains(w.U.Perceivers, e.Kind)) {
 			continue
 		}
 		for _, k := range sortedKeys(s.Beliefs[p]) {
 			b := s.Beliefs[p][k]
-			if _, ok := w.reactionFor(b.P, b.S, npc); !ok {
+			if e.Kind == w.U.PlayerKind { // another player: pass on what they do not already believe
+				if theirs, has := s.Beliefs[npc][k]; has && theirs.Holds == b.Holds {
+					continue
+				}
+			} else if _, ok := w.reactionFor(b.P, b.S, npc); !ok {
 				continue
 			}
 			args := map[string]ID{"npc": npc, "p": ID(b.P), "s": b.S}

@@ -138,6 +138,7 @@ type State struct {
 	Tension   int64                    `json:"tension"`   // world tension for pacing
 	Skills    map[ID]map[string]Tick   `json:"skills"`    // learned skills and when
 	Deeds     map[ID]map[string]int64  `json:"deeds"`     // how often each player did each thing
+	Marks     []Mark                   `json:"marks"`     // symbols travellers left in places
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -207,6 +208,10 @@ func (s *State) Clone() State {
 	for k, v := range s.Skills {
 		c.Skills[k] = maps.Clone(v)
 	}
+	c.Marks = slices.Clone(s.Marks)
+	for i := range c.Marks {
+		c.Marks[i].Agree = slices.Clone(c.Marks[i].Agree)
+	}
 	c.Deeds = make(map[ID]map[string]int64, len(s.Deeds))
 	for k, v := range s.Deeds {
 		c.Deeds[k] = maps.Clone(v)
@@ -220,7 +225,7 @@ func NewState(w *World) State {
 	s := State{Universe: u.ID, Entities: map[ID]Entity{}, Facts: map[string]Fact{}, Beliefs: map[ID]map[string]Belief{},
 		Arcs: map[string]ArcState{}, Quests: map[string]Quest{}, Declined: map[string]Tick{}, Decisions: map[string]Decision{},
 		Cooldowns: map[string]Tick{}, Receipts: map[string]int64{}, Events: []Event{}, Schedules: []Scheduled{},
-		Relations: map[string]int64{}, Styles: map[ID]map[string]int64{}, Skills: map[ID]map[string]Tick{}, Deeds: map[ID]map[string]int64{}}
+		Relations: map[string]int64{}, Styles: map[ID]map[string]int64{}, Skills: map[ID]map[string]Tick{}, Deeds: map[ID]map[string]int64{}, Marks: []Mark{}}
 	for _, e := range u.Entities {
 		s.Entities[e.ID] = newEntity(e)
 	}

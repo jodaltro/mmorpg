@@ -69,6 +69,7 @@ func (w *World) Affordances(s *State, p ID) []Affordance {
 		expand(0, Bind{"self": p})
 	}
 	out = append(out, w.signAffordances(s, p, self)...)
+	out = append(out, w.markAffordances(s, p, self)...)
 	slices.SortStableFunc(out, func(x, y Affordance) int { return strings.Compare(string(x.With), string(y.With)) })
 	return out
 }
