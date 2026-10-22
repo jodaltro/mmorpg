@@ -7,7 +7,7 @@ signal arrived
 
 const UAL := ["res://assets/animations/UAL1_Standard.glb", "res://assets/animations/UAL2_Standard.glb"]
 const LOOPS := ["Idle", "Walk", "Jog_Fwd", "Sprint", "Sword_Idle", "Idle_Talking", "Idle_Torch", "Idle_FoldArms",
-	"Crouch_Idle", "Sitting_Idle", "Idle_Shield", "Idle_Lantern"]
+	"Crouch_Idle", "Sitting_Idle", "Idle_Shield", "Idle_Lantern", "Zombie_Idle", "Zombie_Walk_Fwd"]
 
 static var _library: AnimationLibrary
 
@@ -24,6 +24,13 @@ var goal := Vector3.ZERO
 var has_goal := false
 var _stuck := 0.0
 var _once := 0
+var pick: Area3D
+var speed_run := 5.0
+var speed_walk := 2.2
+var clip_run := "Jog_Fwd"
+var clip_walk := "Walk"
+var dash_t := 0.0
+var dash_dir := Vector3.ZERO
 
 
 static func library() -> AnimationLibrary:
@@ -76,7 +83,7 @@ func setup(id: String, shown_name: String, female := false, with_sword := false,
 	add_child(label)
 
 	# Click target for the camera ray (areas on layer 3).
-	var pick := Area3D.new()
+	pick = Area3D.new()
 	pick.collision_layer = 4
 	pick.collision_mask = 0
 	pick.set_meta("actor", self)
@@ -103,6 +110,7 @@ func dress(outfit: String) -> void:
 	var src := inst.find_child("Skeleton3D", true, false) as Skeleton3D
 	for m in src.get_children():
 		if m is MeshInstance3D:
+			m.owner = null  # reparenting keeps the old scene owner otherwise
 			m.reparent(skeleton, false)
 			(m as MeshInstance3D).skeleton = NodePath("..")
 	inst.free()
@@ -150,6 +158,30 @@ func walk_to(p: Vector3, running := true) -> void:
 	_stuck = 0.0
 
 
+## Multiplies the albedo of every surface (a cheap way to make variants).
+func tint(c: Color) -> void:
+	for m in model.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		if mi.name.begins_with("Eye"):
+			continue
+		for i in mi.mesh.get_surface_count():
+			var mat := mi.get_active_material(i)
+			if mat is BaseMaterial3D:
+				var d := mat.duplicate() as BaseMaterial3D
+				d.albedo_color = d.albedo_color * c
+				mi.set_surface_override_material(i, d)
+
+
+func interrupt() -> void:
+	busy = false
+	_once += 1
+
+
+func dash(dir: Vector3, seconds: float) -> void:
+	dash_dir = dir.normalized()
+	dash_t = seconds
+
+
 func face(dir: Vector3) -> void:
 	dir.y = 0
 	if dir.length() > 0.01:
@@ -157,6 +189,12 @@ func face(dir: Vector3) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if dash_t > 0.0:
+		dash_t -= delta
+		velocity = dash_dir * 7.5
+		move_and_slide()
+		global_position.y = 0.0
+		return
 	if not has_goal or busy:
 		return
 	var to := goal - global_position
@@ -168,11 +206,11 @@ func _physics_process(delta: float) -> void:
 		arrived.emit()
 		return
 	var dir := to.normalized()
-	velocity = dir * (5.0 if run else 2.2)
+	velocity = dir * (speed_run if run else speed_walk)
 	move_and_slide()
 	global_position.y = 0.0
 	face(dir)
-	play("Jog_Fwd" if run else "Walk")
+	play(clip_run if run else clip_walk)
 	_stuck = _stuck + delta if get_real_velocity().length() < 0.3 else 0.0
 	if _stuck > 0.5:  # blocked by a wall: give up instead of pushing forever
 		has_goal = false

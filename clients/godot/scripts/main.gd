@@ -6,7 +6,20 @@ const REGION_NAMES := {"vila": "Vila Cinzenta", "floresta": "Floresta Cinzenta",
 	"mina": "Mina de Kharum", "ruinas": "Ruinas de Asterion", "toca": "Toca dos Lebrinos"}
 # Where each NPC stands in the plaza and what talking to them tries to do.
 # The action is only an intent: the engine accepts or rejects it.
-const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "floresta": Vector3(46, 0, 0)}
+const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), "floresta": Vector3(64, 0, 0)}
+# Threats appear and end through public world events (the engine decides when).
+# Defeating a camp is reported back as a confirmed occurrence; the engine validates it.
+const THREATS := {
+	"estrada": {"event": "bandits", "end": "bandits-left", "kind": "bandido", "action": "enfrentar-bandidos",
+		"at": [Vector2(-3, -5), Vector2(2, 5), Vector2(7, -4)]},
+	"vila": {"event": "wolves", "end": "wolves-left", "kind": "corrompido", "action": "cacar-lobos",
+		"at": [Vector2(-9, -9), Vector2(9, 9), Vector2(-9, 9)]},
+}
+const COMBO := [
+	{"clip": "Sword_Regular_A", "hit": 0.30, "dmg": 22.0, "speed": 1.3},
+	{"clip": "Sword_Regular_B", "hit": 0.30, "dmg": 28.0, "speed": 1.3},
+	{"clip": "Sword_Regular_C", "hit": 0.34, "dmg": 38.0, "speed": 1.25},
+]
 const NPCS := {
 	"mira": {"at": Vector2(-5, -3), "female": true, "act": "diagnosticar"},
 	"orin": {"at": Vector2(5, -3), "act": "examinar-poco"},
@@ -26,6 +39,20 @@ var cam: Camera3D
 var sun: DirectionalLight3D
 var env: Environment
 var _synced := false
+var enemies: Array[Enemy] = []
+var threat_on := {}
+var threat_forced := {}  # dev: --threat=region keeps a camp up whatever the world says
+var camp_done := {}
+var player_hp := 100.0
+var player_max := 100.0
+var player_down := false
+var invuln_until := 0
+var combo := 0
+var last_attack_ms := 0
+var kills := 0
+var deaths := 0
+var last_report := ""
+var hp_fg: ColorRect
 var npc_nodes := {}  # entity id -> Actor, driven by view.others
 var region := "vila"
 var last_seq := 0
@@ -49,6 +76,9 @@ func _ready() -> void:
 	_build_player()
 	_build_camera()
 	_build_hud()
+	for r in String(_args.get("threat", "")).split(",", false):  # dev: force a threat on
+		threat_on[r] = true
+		threat_forced[r] = true
 	client = WorldClient.new()
 	client.base_url = _args.get("server", "http://127.0.0.1:8095")
 	client.player_id = _args.get("player", "godot-1")
@@ -183,13 +213,23 @@ func _build_world() -> void:
 			continue
 		_spawn("nature/Grass_Common_Short" if _rng.randf() < 0.6 else "nature/Grass_Common_Tall", gp, _rng.randf() * 360.0)
 
-	_region_zone("vila", Vector3(0, 0, 0), Vector3(48, 6, 44))
-	_region_zone("floresta", Vector3(46, 0, 0), Vector3(48, 6, 70))
+	# Bandit camp props on the road.
+	_spawn("village/Prop_Wagon", Vector3(30, 0, 7), 25.0)
+	_solid(Vector3(30, 0, 7), Vector3(4.0, 1.5, 2.0), 25.0)
+	_spawn("village/Prop_Crate", Vector3(21, 0, -6.5))
+	_spawn("village/Prop_Crate", Vector3(22.2, 0, -6.8), 30.0)
+	_solid(Vector3(21.6, 0, -6.6), Vector3(2.2, 1.1, 1.2))
+
+	_region_zone("vila", Vector3(-6, 0, 0), Vector3(40, 6, 70))
+	_region_zone("estrada", Vector3(24, 0, 0), Vector3(20, 6, 70))
+	_region_zone("floresta", Vector3(64, 0, 0), Vector3(60, 6, 70))
 
 
 func _tree(p: Vector3) -> void:
 	if p.length() < 24 and abs(p.z) < 22:
 		return
+	if absf(p.z) < 10.0 and p.x > 8.0 and p.x < 62.0:
+		return  # keep the road and the bandit camp visible from the fixed camera
 	var kinds: Array[String] = ["nature/CommonTree_1", "nature/CommonTree_2", "nature/CommonTree_3", "nature/DeadTree_1"]
 	var kind: String = kinds[_rng.randi() % 4]
 	var s := _rng.randf_range(0.8, 1.3)
@@ -259,7 +299,8 @@ func _region_zone(id: String, pos: Vector3, size: Vector3) -> void:
 	area.body_entered.connect(func(b: Node3D) -> void:
 		if b == player and region != id:
 			region = id
-			client.move_region(id))
+			client.move_region(id)
+			_sync_enemies())
 
 
 # --- player and camera -------------------------------------------------------
@@ -284,6 +325,20 @@ func _build_camera() -> void:
 	cam.position = Vector3(0, 0, 80)
 	cam_rig.add_child(cam)
 	cam.make_current()
+	if not _args.has("nopost"):
+		var quad := MeshInstance3D.new()
+		var qm := QuadMesh.new()
+		qm.size = Vector2(2, 2)
+		quad.mesh = qm
+		var mat := ShaderMaterial.new()
+		mat.shader = load("res://shaders/toon_post.gdshader")
+		mat.set_shader_parameter("cam_near", cam.near)
+		mat.set_shader_parameter("cam_far", cam.far)
+		mat.render_priority = 100
+		quad.material_override = mat
+		quad.extra_cull_margin = 16384.0
+		quad.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		cam.add_child(quad)
 
 
 func _process(delta: float) -> void:
@@ -311,7 +366,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_E:
 				talk_nearest()
 			KEY_R:
-				player.play_once("Roll", 1.2)
+				roll()
 			KEY_Y:
 				_answer_quest(true)
 			KEY_N:
@@ -326,7 +381,11 @@ func click(screen: Vector2) -> void:
 	q.collide_with_bodies = false
 	var hit := get_world_3d().direct_space_state.intersect_ray(q)
 	if hit and hit.collider.has_meta("actor"):
-		interact(hit.collider.get_meta("actor"))
+		var who: Actor = hit.collider.get_meta("actor")
+		if who is Enemy:
+			engage(who)
+		else:
+			interact(who)
 		return
 	if absf(dir.y) > 0.001:
 		var t := -from.y / dir.y
@@ -360,13 +419,188 @@ func talk_nearest() -> void:
 
 
 func attack() -> void:
-	if player.busy:
+	if player.busy or player_down:
 		return
-	var fwd := Vector3(sin(player.model.rotation.y), 0, cos(player.model.rotation.y))
-	player.play_once("Sword_Regular_A", 1.3)
-	await get_tree().create_timer(0.28).timeout
-	_burst(player.global_position + fwd * 1.5 + Vector3(0, 1.1, 0))
-	_shake = 0.6
+	var now := Time.get_ticks_msec()
+	if now - last_attack_ms > 1400:
+		combo = 0
+	var step: Dictionary = COMBO[combo % COMBO.size()]
+	combo += 1
+	last_attack_ms = now
+	var near := _nearest_enemy(3.5)
+	if near:  # aim assist: swing toward the closest enemy
+		var to := near.global_position - player.global_position
+		player.model.rotation.y = atan2(to.x, to.z)
+	player.play_once(step.clip, step.speed)
+	await get_tree().create_timer(step.hit).timeout
+	if player_down or not player.busy:  # fell or walked away: the swing is cancelled
+		return
+	_strike(step.dmg)
+
+
+func _strike(dmg: float) -> void:
+	var yaw := player.model.rotation.y
+	var fwd := Vector3(sin(yaw), 0, cos(yaw))
+	var hit_any := false
+	for e in enemies:
+		if not is_instance_valid(e) or e.state == Enemy.State.DEAD:
+			continue
+		var to := e.global_position - player.global_position
+		to.y = 0
+		if to.length() < 2.7 and fwd.dot(to.normalized()) > 0.3:
+			e.take_hit(dmg, player.global_position)
+			_burst(e.global_position + Vector3(0, 1.2, 0))
+			hit_any = true
+	if hit_any:
+		_shake = 0.8
+		_hitstop()
+	else:
+		_burst(player.global_position + fwd * 1.5 + Vector3(0, 1.1, 0))
+		_shake = 0.3
+
+
+func _nearest_enemy(radius: float) -> Enemy:
+	var best: Enemy = null
+	for e in enemies:
+		if is_instance_valid(e) and e.state != Enemy.State.DEAD:
+			var d := e.global_position.distance_to(player.global_position)
+			if d < radius and (best == null or d < best.global_position.distance_to(player.global_position)):
+				best = e
+	return best
+
+
+func _hitstop(sec := 0.06) -> void:
+	if Engine.time_scale < 1.0:
+		return
+	Engine.time_scale = 0.08
+	await get_tree().create_timer(sec, true, false, true).timeout
+	Engine.time_scale = 1.0
+
+
+func roll() -> void:
+	if player_down:
+		return
+	player.interrupt()
+	var yaw := player.model.rotation.y
+	invuln_until = Time.get_ticks_msec() + 550
+	player.dash(Vector3(sin(yaw), 0, cos(yaw)), 0.45)
+	player.play_once("Roll", 1.3)
+
+
+func engage(e: Enemy) -> void:
+	var to := e.global_position - player.global_position
+	to.y = 0
+	if to.length() > 2.2:
+		player.walk_to(e.global_position - to.normalized() * 1.7)
+		await player.arrived
+	if is_instance_valid(e) and e.state != Enemy.State.DEAD:
+		attack()
+
+
+# --- enemies ----------------------------------------------------------------
+
+func _sync_enemies() -> void:
+	enemies.assign(enemies.filter(func(x): return is_instance_valid(x)))
+	for e in enemies.duplicate():
+		if e.camp != region:
+			e.queue_free()
+			enemies.erase(e)
+	var t: Dictionary = THREATS.get(region, {})
+	if t.is_empty() or not threat_on.get(region, false) or camp_done.get(region, false):
+		return
+	for e in enemies:
+		if is_instance_valid(e) and e.camp == region:
+			return  # camp already standing
+	var origin: Vector3 = REGION_ORIGIN[region]
+	for off in t.at:
+		var e := Enemy.new()
+		add_child(e)
+		e.configure(t.kind, region, origin + Vector3(off.x, 0, off.y), player)
+		e.damaged.connect(_on_enemy_damaged)
+		e.hit_player.connect(_on_hit_player)
+		e.died.connect(_on_enemy_died)
+		enemies.append(e)
+	_log("[color=#ffb070]%s: %d inimigos a vista.[/color]" % [REGION_NAMES.get(region, region), t.at.size()])
+
+
+func _on_enemy_damaged(e: Enemy, amount: float) -> void:
+	_float_text(e.global_position + Vector3(0, 2.3, 0), str(int(amount)), Color(1, 0.9, 0.35))
+
+
+func _on_enemy_died(e: Enemy) -> void:
+	kills += 1
+	for other in enemies:
+		if is_instance_valid(other) and other.camp == e.camp and other.state != Enemy.State.DEAD:
+			return
+	camp_done[e.camp] = true  # last one down: the server confirms the outcome to the engine
+	var t: Dictionary = THREATS[e.camp]
+	var res := await client.occur(t.action)
+	_report("Servidor de jogo", t.action, res)
+
+
+func _on_hit_player(_e: Enemy, amount: float) -> void:
+	if player_down:
+		return
+	if Time.get_ticks_msec() < invuln_until:
+		_float_text(player.global_position + Vector3(0, 2.3, 0), "esquiva", Color(0.6, 0.9, 1.0))
+		return
+	player_hp = maxf(player_hp - amount, 0.0)
+	_set_hp()
+	_float_text(player.global_position + Vector3(0, 2.3, 0), str(int(amount)), Color(1, 0.35, 0.3))
+	_shake = 0.7
+	if player_hp <= 0.0:
+		_player_fell()
+		return
+	if not player.busy:
+		player.play_once("Hit_Chest", 1.3)
+
+
+func _player_fell() -> void:
+	player_down = true
+	deaths += 1
+	player.interrupt()
+	player.has_goal = false
+	player.busy = true
+	player.anim.play("Death01", 0.1, 1.0)
+	for e in enemies:
+		if is_instance_valid(e):
+			e.target_down = true
+	_log("[color=#e8806a]Voce caiu. A vila te acolhe...[/color]")
+	await get_tree().create_timer(2.8).timeout
+	player_hp = player_max
+	_set_hp()
+	player_down = false
+	player.busy = false
+	player.global_position = REGION_ORIGIN["vila"] + Vector3(0, 0, 3)
+	player.play(player.idle_clip)
+	region = "vila"
+	client.move_region("vila")
+	for e in enemies:
+		if is_instance_valid(e):
+			e.target_down = false
+	_sync_enemies()
+
+
+func _set_hp() -> void:
+	hp_fg.size.x = 240.0 * player_hp / player_max
+
+
+func _float_text(pos: Vector3, text: String, color: Color) -> void:
+	var l := Label3D.new()
+	l.text = text
+	l.font_size = 72
+	l.pixel_size = 0.006
+	l.outline_size = 14
+	l.modulate = color
+	l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	l.no_depth_test = true
+	l.render_priority = 10
+	l.position = pos
+	add_child(l)
+	var tw := create_tween().set_parallel(true)
+	tw.tween_property(l, "position:y", pos.y + 1.3, 0.8)
+	tw.tween_property(l, "modulate:a", 0.0, 0.8).set_delay(0.3)
+	tw.chain().tween_callback(l.queue_free)
 
 
 func _burst(pos: Vector3) -> void:
@@ -411,6 +645,7 @@ func _answer_quest(accept: bool) -> void:
 
 
 func _report(who: String, what: String, res: Dictionary) -> void:
+	last_report = "%s:%s" % [what, "ok" if res.status == 200 else res.body.get("error", "sem resposta")]
 	if res.status == 200:
 		var lines: Array = []
 		for e in res.body.get("events", []):
@@ -436,8 +671,15 @@ func _on_view(v: Dictionary) -> void:
 	for e in v.get("events", []):
 		if int(e.seq) > last_seq:
 			last_seq = int(e.seq)
+			for r in THREATS:
+				if e.kind == THREATS[r].event:
+					threat_on[r] = true
+					camp_done[r] = false
+				elif e.kind == THREATS[r].end and not threat_forced.has(r):
+					threat_on[r] = false
 			if e.get("text", "") != "":
 				_log("[color=#c9b3ff]%s[/color]" % e.text)
+	_sync_enemies()
 	var side := "Habilidades:\n"
 	for s in v.get("skills", []):
 		side += "  • %s (%s)\n" % [s.name, s.rarity]
@@ -450,7 +692,7 @@ func _on_view(v: Dictionary) -> void:
 	for q in v.get("quests", []):
 		if q.state == "offered":
 			offered = "Oferta: %s   [Y] aceitar  [N] recusar" % q.title
-	hud_hint.text = offered if offered != "" else "Clique: mover/falar | E: falar com o mais proximo | Espaco/Q: golpe | R: rolar"
+	hud_hint.text = offered if offered != "" else "Clique: mover/falar | E: falar com o mais proximo | Espaco/Q: golpe (combo) | R: rolar (esquiva) | clique no inimigo: atacar"
 
 
 func _sync_npcs(v: Dictionary) -> void:
@@ -484,9 +726,10 @@ func _sun(hour: int) -> void:
 	if hour < 0:
 		return
 	var day := clampf(sin((hour - 6) / 12.0 * PI), 0.0, 1.0)
-	sun.light_energy = lerpf(0.15, 1.3, day)
-	env.background_color = Color(0.05, 0.07, 0.15).lerp(Color(0.55, 0.72, 0.9), day)
-	env.ambient_light_energy = lerpf(0.25, 0.65, day)
+	sun.light_energy = lerpf(0.2, 1.3, day)
+	env.background_color = Color(0.12, 0.15, 0.28).lerp(Color(0.55, 0.72, 0.9), day)
+	env.ambient_light_energy = lerpf(0.3, 0.65, day)
+	env.ambient_light_color = Color(0.45, 0.55, 0.9).lerp(Color(0.75, 0.8, 0.95), day)
 
 
 # --- HUD ---------------------------------------------------------------------
@@ -495,7 +738,17 @@ func _build_hud() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	hud_region = _label(layer, Vector2(16, 10), 22)
-	hud_side = _label(layer, Vector2(16, 48), 16)
+	var hp_bg := ColorRect.new()
+	hp_bg.color = Color(0.1, 0.03, 0.03, 0.85)
+	hp_bg.position = Vector2(16, 46)
+	hp_bg.size = Vector2(240, 16)
+	layer.add_child(hp_bg)
+	hp_fg = ColorRect.new()
+	hp_fg.color = Color(0.85, 0.2, 0.22)
+	hp_fg.position = Vector2(16, 46)
+	hp_fg.size = Vector2(240, 16)
+	layer.add_child(hp_fg)
+	hud_side = _label(layer, Vector2(16, 70), 16)
 	hud_hint = _label(layer, Vector2(16, 690), 16)
 	hud_log = RichTextLabel.new()
 	hud_log.bbcode_enabled = true
@@ -539,19 +792,23 @@ func _shot(name: String) -> void:
 	print("SHOT ", name)
 
 
+func _arrive(timeout := 20.0) -> void:
+	var t := Time.get_ticks_msec()
+	while player.has_goal and Time.get_ticks_msec() - t < timeout * 1000.0:
+		await get_tree().create_timer(0.1).timeout
+
+
 func _autotest() -> void:
 	var t0 := Time.get_ticks_msec()
-	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 8000:
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
 		await get_tree().create_timer(0.2).timeout
 	await get_tree().create_timer(1.5).timeout
 	var ok := {"view": not client.view.is_empty(), "npcs": npc_nodes.size()}
 	await _shot("01_plaza")
-	for who in ["orin", "brom"]:
-		if npc_nodes.has(who):
-			interact(npc_nodes[who])
-			await player.arrived
-			await get_tree().create_timer(1.2).timeout
-			await _shot("02_" + who)
+	if npc_nodes.has("orin"):
+		interact(npc_nodes["orin"])
+		await player.arrived
+		await get_tree().create_timer(1.2).timeout
 	var offered := false
 	for q in client.view.get("quests", []):
 		offered = offered or q.state == "offered"
@@ -560,20 +817,44 @@ func _autotest() -> void:
 		await _answer_quest(true)
 		await get_tree().create_timer(1.6).timeout
 		ok["quest_active"] = client.view.get("quests", []).any(func(q): return q.state == "active")
-	attack()
-	await get_tree().create_timer(0.45).timeout
-	await _shot("03_attack")
-	await get_tree().create_timer(1.0).timeout
+	print("STEP walking to estrada")
+	player.walk_to(REGION_ORIGIN["estrada"])
+	await _arrive(25.0)
+	print("STEP arrived estrada, enemies=", enemies.size())
+	await get_tree().create_timer(1.2).timeout
+	ok["enemies_spawned"] = enemies.size()
+	await _shot("02_estrada")
+	print("STEP fight start")
+	var t_fight := Time.get_ticks_msec()
+	var shot_fight := false
+	while Time.get_ticks_msec() - t_fight < 60000:
+		var alive := enemies.filter(func(e): return is_instance_valid(e) and e.state != Enemy.State.DEAD)
+		if alive.is_empty():
+			break
+		if player_down:
+			await get_tree().create_timer(0.5).timeout
+			continue
+		alive.sort_custom(func(a, b): return a.global_position.distance_to(player.global_position) < b.global_position.distance_to(player.global_position))
+		var e: Enemy = alive[0]
+		if player.global_position.distance_to(e.global_position) > 2.3:
+			player.walk_to(e.global_position - (e.global_position - player.global_position).normalized() * 1.6)
+		else:
+			attack()
+		await get_tree().create_timer(0.25).timeout
+		if not shot_fight and Time.get_ticks_msec() - t_fight > 6000:
+			shot_fight = true
+			await _shot("03_fight")
+	await get_tree().create_timer(2.5).timeout
+	await _shot("04_clear")
 	cam.size = 3.5
 	await get_tree().create_timer(0.6).timeout
 	await _shot("05_closeup")
 	cam.size = 14.0
-	player.walk_to(Vector3(44, 0, 0))
-	await player.arrived
-	await get_tree().create_timer(2.5).timeout
-	await _shot("04_forest")
+	ok["kills"] = kills
+	ok["deaths"] = deaths
+	ok["player_hp"] = int(player_hp)
+	ok["report"] = last_report
 	ok["region_local"] = region
 	ok["region_server"] = client.view.get("self", {}).get("region", "")
-	ok["skills"] = client.view.get("skills", []).size()
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()

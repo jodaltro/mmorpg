@@ -32,3 +32,38 @@ Resumo impresso: `AUTOTEST {"npcs":5,"quest_active":true,"quest_offered":true,"r
 ### Não validado
 
 Export web, stream SSE, pathfinding, estilização, mais de um cliente simultâneo, desempenho com muitos NPCs.
+
+## 22/10/2026 — estilização e inimigos, com o Jev ligado
+
+Daqui em diante os testes rodam com o Jev: `worldsim serve ... -advisor jev -env-file .env` (log do servidor: `advisor=jev`), mundo novo em `data/mundo-novo`, porta 8095. Latência, custo e taxa de resolução do Jev **não foram medidos** nesta rodada; só se confirmou que o servidor subiu e respondeu com o Jev ligado.
+
+### Estilização
+
+- Primeira versão do pós-processamento (contorno por profundidade **e** normal): exagerada. As normal maps davam contorno a cada pedra do calçamento, e a posterização escurecia demais a noite. Corrigido: contorno só por profundidade (limiar de 0,45 m, intensidade 0,7, graduado), faixas de luz suaves, noite mais clara. Conferido em capturas (`--out`); o ajuste é de gosto e segue aberto a revisão.
+- Árvores de 7 m escondiam a luta; abertos corredores sem árvores na estrada e no acampamento.
+
+### Combate contra o motor (Jev ligado)
+
+Comando: `Godot --path clients/godot --resolution 1280x720 -- --autotest --threat=estrada --player=gd-<timestamp> --name=Teste --out=...`.
+
+| Passo | Resultado |
+|---|---|
+| ameaça da vila | o mundo emitiu `wolves` por conta própria; 3 corrompidos apareceram na vila (log do cliente) |
+| `act examinar-poco` e `accept` | aceitos; missão `active` |
+| acampamento na estrada | 3 bandidos criados (`--threat` força o acampamento) |
+| luta | 3 abates, 0 quedas, vida final do jogador 64 de 100 |
+| `occur enfrentar-bandidos` (adapter) | **aceito** pelo motor: evento público "Teste derrota um grupo de bandidos na estrada." |
+
+Resumo: `AUTOTEST {"deaths":0,"enemies_spawned":3,"kills":3,"quest_active":true,"quest_offered":true,"region_local":"estrada","region_server":"estrada","report":"enfrentar-bandidos:ok","view":true}`.
+
+Observação: em uma rodada em que o evento `bandits-left` já tinha chegado, o acampamento não surgiu (comportamento correto: o mundo mandou os bandidos embora). A flag `--threat` passou a prevalecer sobre esse evento só para teste.
+
+### Defeitos corrigidos
+
+- `await player.arrived` nunca resolvia se o jogador caía no caminho; o teste agora espera com tempo limite.
+- Acesso a inimigo já liberado em `_sync_enemies` (corrigido filtrando instâncias válidas).
+- Aviso "owner inconsistent" ao vestir outfits (corrigido zerando o `owner` antes do `reparent`).
+
+### Não validado
+
+Queda e renascimento do jogador (`_player_fell`) no cliente completo (ocorreu uma vez numa rodada, sem registro de conferência), esquiva, combo de 3 golpes em jogo manual, corrompidos da vila em combate, export web, SSE, pathfinding.

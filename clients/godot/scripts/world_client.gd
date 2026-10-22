@@ -90,6 +90,15 @@ func act(action: String, args: Dictionary = {}) -> Dictionary:
 	return await _command("player", "act", extra)
 
 
+## A confirmed outcome from the game server (e.g. a group was defeated).
+## The engine validates it against the world and decides what it means.
+func occur(action: String, args: Dictionary = {}) -> Dictionary:
+	var extra := {"action": action}
+	if not args.is_empty():
+		extra["args"] = args
+	return await _command("adapter", "act", extra)
+
+
 func accept(quest: String) -> Dictionary:
 	return await _command("player", "accept", {"quest": quest})
 
