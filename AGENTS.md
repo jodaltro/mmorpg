@@ -43,3 +43,20 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 - Unreal 5.8 instalada em `C:\Program Files\Epic Games\UE_5.8`; projeto de teste em `D:\UnrealProjects\WorldSimDemo` (fora do repositório). Ver a skill `.claude/skills/unreal`.
 - **C: quase sem espaço**: projetos, downloads de assets (`D:\UnrealDownloads`) e caches grandes ficam no D: (exFAT: sem junctions/symlinks; copiar em vez de linkar).
 - Shell: Git Bash e PowerShell 5.1. Heredocs muito longos podem falhar no Bash; dividir em blocos.
+
+## Hospedeiro (MMORPG dentro de um corpo humano)
+
+Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, compartilhado por todos. Visão em `Docs/Hospedeiro/BiologicalVersion.md`, estrutura em `Docs/Hospedeiro/GameStructure.md`, dados científicos em `Docs/Hospedeiro/HostScience.md`. Ler antes de mudar regras do Hospedeiro.
+
+- Protótipo Godot 4.7 (GDScript) em `clients/hospedeiro/`, com **modo offline**: combate de ação em tempo real e genoma locais, sem motor. Ainda não conversa com o motor (marco H1).
+- `scripts/domain`: regras puras (`RefCounted`, sem Node). `scripts/runtime`: Nodes, física, input, apresentação. `tests/`: runner headless próprio.
+- Estética bioluminescente procedural, tom sombrio-onírico. Hitbox lógica separada do corpo deformável. Biologia é base, não lei.
+- Sem níveis nem XP: progressão por diferenciação, genes, epigenética, memória e linhagem.
+- Testes (Godot em `D:\tools\godot\bin`). O runner não captura erros de script: conferir `SCRIPT ERROR`/`ERROR` na saída além da contagem.
+
+```bash
+G="/d/tools/godot/bin/Godot_v4.7.2-stable_win64_console.exe"
+"$G" --headless --path clients/hospedeiro --import
+"$G" --headless --path clients/hospedeiro --script res://tests/run_tests.gd 2>&1 | grep -E "FAIL|ERROR|----"
+"$G" --path clients/hospedeiro   # jogar
+```
