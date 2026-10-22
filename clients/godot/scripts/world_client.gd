@@ -18,9 +18,15 @@ var joined := false
 var _counter := 0
 var _refreshing := false
 var _timer: Timer
+var _sse := HTTPClient.new()
+var _sse_state := 0  # 0 off, 1 connecting, 2 requested, 3 streaming
+var _sse_retry := 0.0
+var streaming := false  # true while the push stream is delivering
+var _sse_buf := ""
 
 
 func _ready() -> void:
+	set_process(false)
 	_timer = Timer.new()
 	_timer.wait_time = poll_seconds
 	_timer.timeout.connect(refresh)
@@ -36,6 +42,8 @@ func start() -> void:
 		await get_tree().create_timer(1.0).timeout
 	await refresh()
 	_timer.start()
+	_sse_state = 0
+	set_process(true)
 
 
 func request(method: int, path: String, body: Variant = null) -> Dictionary:
@@ -123,3 +131,70 @@ func refresh() -> void:
 	if res.status == 200:
 		view = res.body
 		view_changed.emit(view)
+
+
+## Push: the engine's SSE stream says "something changed"; the view is then
+## fetched once. The slow timer stays as a fallback while the stream is down.
+func _process(delta: float) -> void:
+	_sse.poll()
+	match _sse_state:
+		0:
+			_sse_retry -= delta
+			if _sse_retry > 0.0 or not joined:
+				return
+			var url := base_url.trim_prefix("http://")
+			var parts := url.split(":")
+			var port := int(parts[1]) if parts.size() > 1 else 80
+			if _sse.connect_to_host(parts[0], port) == OK:
+				_sse_state = 1
+			else:
+				_sse_retry = 3.0
+		1:
+			var st := _sse.get_status()
+			if st == HTTPClient.STATUS_CONNECTED:
+				var err := _sse.request(HTTPClient.METHOD_GET, "/v1/stream/%s" % player_id, PackedStringArray(["Accept: text/event-stream"]))
+				_sse_state = 2 if err == OK else 0
+				if err != OK:
+					_sse_retry = 3.0
+			elif st == HTTPClient.STATUS_CANT_CONNECT or st == HTTPClient.STATUS_CANT_RESOLVE or st == HTTPClient.STATUS_CONNECTION_ERROR:
+				_sse_drop()
+		2:
+			var st := _sse.get_status()
+			if st == HTTPClient.STATUS_BODY:
+				if _sse.get_response_code() == 200:
+					_sse_state = 3
+					streaming = true
+					_timer.wait_time = 5.0
+				else:
+					_sse_drop()
+			elif st == HTTPClient.STATUS_DISCONNECTED or st == HTTPClient.STATUS_CONNECTION_ERROR:
+				_sse_drop()
+		3:
+			if _sse.get_status() != HTTPClient.STATUS_BODY:
+				_sse_drop()
+				return
+			var chunk := _sse.read_response_body_chunk()
+			if chunk.size() > 0:
+				_sse_buf += chunk.get_string_from_utf8()
+				var changed := false
+				while true:
+					var i := _sse_buf.find("
+
+")
+					if i < 0:
+						break
+					var msg := _sse_buf.substr(0, i)
+					_sse_buf = _sse_buf.substr(i + 2)
+					if msg.contains("event: delta"):
+						changed = true
+				if changed:
+					refresh()
+
+
+func _sse_drop() -> void:
+	_sse.close()
+	_sse_state = 0
+	_sse_retry = 3.0
+	_sse_buf = ""
+	streaming = false
+	_timer.wait_time = poll_seconds

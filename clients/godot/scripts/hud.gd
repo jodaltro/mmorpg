@@ -69,6 +69,7 @@ class Minimap extends Control:
 	var quest_regions: Array = []
 	var current_region := ""
 	var region_names := {}
+	var known: Array = []  # regions on the map: it starts blank
 
 	func _p(x: float, z: float) -> Vector2:
 		return Vector2((x - X0) / (X1 - X0) * size.x, (z - Z0) / (Z1 - Z0) * size.y)
@@ -77,6 +78,8 @@ class Minimap extends Control:
 		draw_rect(Rect2(Vector2.ZERO, size), Color(0.04, 0.04, 0.06, 0.95))
 		var font := ThemeDB.fallback_font
 		for b in REGION_RECTS:
+			if not known.has(b[0]):
+				continue
 			var a := _p(b[1], b[3])
 			var c := _p(b[2], b[4])
 			var r := Rect2(a, c - a)
@@ -527,6 +530,11 @@ func toast(text: String, color := Color.WHITE) -> void:
 	tw.tween_interval(3.2)
 	tw.tween_property(p, "modulate:a", 0.0, 0.8)
 	tw.tween_callback(p.queue_free)
+
+
+func set_known(list: Array) -> void:
+	minimap.known = list
+	minimap.queue_redraw()
 
 
 func set_minimap(player_pos: Vector3, yaw: float, npc_pos: Array, enemy_pos: Array, region: String) -> void:

@@ -175,6 +175,8 @@ func (w *World) join(s *State, c Command) error {
 	}
 	s.Entities[c.Actor] = newEntity(seed)
 	w.emit(s, Event{Kind: "join", Actor: c.Actor, Holder: c.Actor, Text: s.Entities[c.Actor].Name})
+	w.findPlace(s, c.Actor, ID(s.Entities[c.Actor].Region))
+	w.apply(s, w.U.OnJoin, Bind{"self": c.Actor}, "join")
 	return nil
 }
 
@@ -193,6 +195,7 @@ func (w *World) move(s *State, c Command, cause string) error {
 	ent.Region = c.Region
 	s.Entities[c.Actor] = ent
 	w.count(s, c.Actor, "move")
+	w.findPlace(s, c.Actor, ID(c.Region))
 	w.emit(s, Event{Kind: "moved", Actor: c.Actor, Holder: c.Actor, Text: place.Name, Cause: cause, Data: map[string]string{"region": string(c.Region)}})
 	if ent.Kind == w.U.PlayerKind {
 		w.refreshOffers(s, c.Actor, cause)
@@ -229,4 +232,15 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 	w.apply(s, a.Effects, b, cause)
 	w.learn(s, actor, a.Tags, 1)
 	return nil
+}
+
+// findPlace records, privately, that who has found the place.
+func (w *World) findPlace(s *State, who, place ID) {
+	if w.U.Discovered == "" || place == "" || s.Entities[who].Kind != w.U.PlayerKind {
+		return
+	}
+	k := factKey(who, w.U.Discovered, who, place)
+	if _, ok := s.Facts[k]; !ok {
+		s.Facts[k] = Fact{Holder: who, P: w.U.Discovered, S: who, O: place, At: s.Tick, Cause: "visit"}
+	}
 }

@@ -38,23 +38,29 @@ type Universe struct {
 	// quest with a giver is only offered to someone the giver believes it
 	// knows: it saw them act nearby, or heard of them through gossip. Quests
 	// without a giver (the system's own) only depend on their conditions.
-	Acquaintance string       `json:"acquaintance,omitempty"`
-	Player       EntitySeed   `json:"player"`
-	Perceivers   []string     `json:"perceivers"`
-	Entities     []EntitySeed `json:"entities"`
-	Facts        []FactSeed   `json:"facts,omitempty"`
-	Beliefs      []BeliefSeed `json:"beliefs,omitempty"`
-	Schedules    []Schedule   `json:"schedules,omitempty"`
-	Actions      []ActionDef  `json:"actions"`
-	Rules        []RuleDef    `json:"rules,omitempty"`
-	Agents       []AgentDef   `json:"agents,omitempty"`
-	Arcs         []ArcDef     `json:"arcs,omitempty"`
-	Quests       []QuestDef   `json:"quests,omitempty"`
-	Happenings   []Happening  `json:"happenings,omitempty"`
-	Director     *Director    `json:"director,omitempty"`
-	Gossip       *Gossip      `json:"gossip,omitempty"`
-	Skills       []SkillDef   `json:"skills,omitempty"`
-	Limits       Limits       `json:"limits"`
+	Acquaintance string `json:"acquaintance,omitempty"`
+	// Discovered names the predicate "player S has found place O" (private
+	// to the player). The place a character starts in and every place it
+	// enters become discovered; clients use it to reveal their maps.
+	Discovered string `json:"discovered,omitempty"`
+	// OnJoin runs when a character is created, with $self bound to it.
+	OnJoin     []Effect     `json:"onJoin,omitempty"`
+	Player     EntitySeed   `json:"player"`
+	Perceivers []string     `json:"perceivers"`
+	Entities   []EntitySeed `json:"entities"`
+	Facts      []FactSeed   `json:"facts,omitempty"`
+	Beliefs    []BeliefSeed `json:"beliefs,omitempty"`
+	Schedules  []Schedule   `json:"schedules,omitempty"`
+	Actions    []ActionDef  `json:"actions"`
+	Rules      []RuleDef    `json:"rules,omitempty"`
+	Agents     []AgentDef   `json:"agents,omitempty"`
+	Arcs       []ArcDef     `json:"arcs,omitempty"`
+	Quests     []QuestDef   `json:"quests,omitempty"`
+	Happenings []Happening  `json:"happenings,omitempty"`
+	Director   *Director    `json:"director,omitempty"`
+	Gossip     *Gossip      `json:"gossip,omitempty"`
+	Skills     []SkillDef   `json:"skills,omitempty"`
+	Limits     Limits       `json:"limits"`
 }
 
 // Happening is an optional world event. The director periodically gathers

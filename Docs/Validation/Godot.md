@@ -184,3 +184,14 @@ Javali Branco e onda de corrompidos em jogo (dependem de rastro à noite e do se
 ### Não validado
 
 Sensação das habilidades em jogo manual (força, tempo de recarga, alcance), Investida contra paredes, clique direito em NPC distante, uso com teclado ABNT diferente de QWERTY para WASD (usa a tecla física).
+
+## 22/10/2026 — F0 do plano MVP (base: push, mapa em branco, telemetria)
+
+Motor: `worldsim serve ... -advisor jev` em `127.0.0.1:8095`, mundo novo (`data/f0`). Cliente: `Godot --path clients/godot -- --autotest=f0`.
+
+- **Motor:** `discovered` (predicado privado por jogador, afirmado ao entrar e a cada `move`) e `onJoin` (efeitos na criação do personagem). Testes novos em `engine/scenarios/discovery_test.go`: `TestPlacesAreDiscoveredByGoingThere`, `TestOnJoinEffectsRunForTheNewcomer`. `gofmt`, `go vet`, `go test ./...` passaram; `worldsim validate` ok; `simulate` de 200 ticks e 3 jogadores sem travar.
+- **Push (SSE):** o cliente abre `/v1/stream/{id}` e busca a visão quando chega um `delta`; o polling cai para 5 s enquanto o stream está no ar. Três rodadas do `--autotest=f0`: acontecimento visível em 227, 236 e 245 ms (sem refresh manual). Uma rodada anterior, logo após reimportar o projeto, falhou (o `move` não chegou a ser confirmado em 4 s); não repetiu em quatro tentativas seguintes, causa não investigada.
+- **Mapa em branco:** ao entrar, só a vila está descoberta; a estrada passou a constar depois do `move`; a Toca continua oculta. Rótulos de pontos de interesse só aparecem a menos de 7 m e em regiões descobertas (0 rótulos distantes visíveis).
+- **Telemetria:** `user://telemetry-<jogador>.jsonl` (ou `--telemetry=`) com sessão, lugares descobertos, regiões, verbos e lacunas. Resumo no teste: verbos distintos, tempo até o primeiro feito, duração.
+- **Regressão:** `--autotest` (javalis, bandidos, caminho, missão aceita pelo clique; 300–410 fps) e `--autotest=places` passaram. O principal registrou 1 queda do jogador na luta.
+- **Não feito da F0:** POIs lidos do universo (ainda em `places.gd`), tabela de apresentação (`presentation.json`) e lugares/`spot` no universo. Ficam para a F1, onde a nova planta da vila os exige.

@@ -55,6 +55,9 @@ func Compile(u Universe) (*World, error) {
 		}
 		w.preds[p] = true
 	}
+	if u.Discovered != "" && !w.preds[u.Discovered] {
+		return nil, invalid("discovered predicate %q is not declared", u.Discovered)
+	}
 	if u.Acquaintance != "" && !w.preds[u.Acquaintance] {
 		return nil, invalid("acquaintance predicate %q is not declared", u.Acquaintance)
 	}

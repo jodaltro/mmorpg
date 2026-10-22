@@ -67,7 +67,8 @@
     "dreamed",
     "fair",
     "traded-spell",
-    "met"
+    "met",
+    "found"
   ],
   "playerKind": "player",
   "player": {
@@ -7632,6 +7633,7 @@
   "dayLength": 48,
   "tickSeconds": 15,
   "acquaintance": "met",
+  "discovered": "found",
   "skills": [
     {
       "id": "andarilho",

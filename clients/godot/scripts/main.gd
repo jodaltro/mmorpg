@@ -6,6 +6,8 @@ const REGION_NAMES := {"vila": "Vila Cinzenta", "floresta": "Floresta Cinzenta",
 	"mina": "Mina de Kharum", "ruinas": "Ruinas de Asterion", "toca": "Toca dos Lebrinos"}
 # Where each NPC stands in their region. Talking to one is the "conversar"
 # intent: whoever is around sees it, and from then on they know the player.
+const DISCOVERED := "found"  # the universe's discovered-place predicate
+const LABEL_RANGE := 7.0  # world labels show only when you are close enough to notice
 const REGION_ORIGIN := {"vila": Vector3(0, 0, 0), "estrada": Vector3(24, 0, 0), "floresta": Vector3(64, 0, 0),
 	"mina": Vector3(106, 0, 0), "ruinas": Vector3(136, 0, 0), "toca": Vector3(66, 0, 41)}
 # Combat outcomes are reported by fights, never offered as menu options.
@@ -87,6 +89,8 @@ var hud: Hud
 var nav_region: NavigationRegion3D
 var occluders: Array = []  # {nodes, center, radius, fade, applied}
 var _prompt := ""
+var telemetry := Telemetry.new()
+var found_places: Dictionary = {}  # regions this character has discovered (engine fact "found")
 var pois: Array = []  # Places.POIS with their label nodes
 var _menu: Array = []  # affordances shown in the action menu
 var ready_at := {}  # ability id -> msec when it can be used again
@@ -123,6 +127,7 @@ func _ready() -> void:
 	client.player_name = _args.get("name", "Viajante")
 	add_child(client)
 	client.view_changed.connect(_on_view)
+	telemetry.open(String(_args.get("telemetry", "user://telemetry-%s.jsonl" % client.player_id)), client.player_id)
 	client.start()
 	if _args.has("autotest"):
 		match String(_args.autotest):
@@ -136,6 +141,8 @@ func _ready() -> void:
 				_autotest_places()
 			"skills":
 				_autotest_skills()
+			"f0":
+				_autotest_f0()
 			_:
 				_autotest()
 
@@ -387,6 +394,7 @@ func _region_zone(id: String, pos: Vector3, size: Vector3) -> void:
 	area.body_entered.connect(func(b: Node3D) -> void:
 		if b == player and region != id:
 			region = id
+			telemetry.note("region", {"place": id})
 			client.move_region(id)
 			_sync_enemies())
 
@@ -658,6 +666,7 @@ func _perform(a: Dictionary) -> void:
 	else:
 		res = await client.act(a.action, args)
 	last_report = "%s:%s" % [a.action, "ok" if res.status == 200 else res.body.get("error", "sem resposta")]
+	telemetry.verb(a.action, res.status == 200)
 	if res.status == 200:
 		var lines: Array = []
 		for ev in res.body.get("events", []):
@@ -1198,6 +1207,7 @@ func _on_view(v: Dictionary) -> void:
 	var names := NPC_NAMES.duplicate()
 	for o in v.get("others", []):
 		names[o.id] = o.name
+	_sync_discovered(v)
 	hud.set_status(REGION_NAMES.get(me.get("region", ""), me.get("region", "?")), int(v.get("hour", -1)), int(v.get("tick", 0)))
 	hud.set_quests(v.get("quests", []), int(v.get("tick", 0)), names, REGION_NAMES)
 	hud.set_skills(v.get("skills", []))
@@ -1222,6 +1232,23 @@ func _on_view(v: Dictionary) -> void:
 	_sync_enemies()
 	for id in npc_nodes:
 		npc_nodes[id].set_marker("!" if givers.has(id) else "")
+
+
+## The map starts blank: only places the engine says this character found.
+func _sync_discovered(v: Dictionary) -> void:
+	for f in v.get("facts", []):
+		if f.p == DISCOVERED and f.s == client.player_id and not found_places.has(f.o):
+			found_places[f.o] = true
+			telemetry.note("discovered", {"place": f.o})
+			if found_places.size() > 1:
+				hud.toast("Lugar descoberto: %s" % REGION_NAMES.get(f.o, f.o), Color(0.7, 0.9, 1.0))
+	hud.set_known(found_places.keys())
+
+
+func _update_poi_labels() -> void:
+	for poi in pois:
+		var near: bool = found_places.has(poi.region) and Vector2(poi.at.x - player.global_position.x, poi.at.z - player.global_position.z).length() < LABEL_RANGE
+		poi.node.visible = near
 
 
 func _conditional_threats(v: Dictionary) -> void:
@@ -1301,6 +1328,7 @@ func _build_hud() -> void:
 
 
 func _update_hud_world() -> void:
+	_update_poi_labels()
 	var npcs: Array = []
 	var best: Actor = null
 	for n in npc_nodes.values():
@@ -1504,6 +1532,35 @@ func _autotest_wolves() -> void:
 	ok["deaths"] = deaths
 	ok["player_hp"] = int(player_hp)
 	ok["report"] = last_report
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+## F0: blank map, labels only up close, push stream, telemetry.
+func _autotest_f0() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(1.5).timeout
+	var ok := {"view": not client.view.is_empty()}
+	ok["streaming"] = client.streaming
+	ok["start_map"] = found_places.keys()
+	ok["minimap_known_start"] = hud.minimap.known.duplicate()
+	var far_visible := 0
+	for poi in pois:
+		if poi.node.visible and Vector2(poi.at.x - player.global_position.x, poi.at.z - player.global_position.z).length() > LABEL_RANGE:
+			far_visible += 1
+	ok["far_labels_visible"] = far_visible
+	var rev0 := int(client.view.get("revision", 0))
+	var t1 := Time.get_ticks_msec()
+	await client.move_region("estrada")  # a confirmed change; no manual refresh follows
+	while int(client.view.get("revision", 0)) == rev0 and Time.get_ticks_msec() - t1 < 4000:
+		await get_tree().create_timer(0.05).timeout
+	ok["push_ms"] = Time.get_ticks_msec() - t1
+	ok["push_seen"] = int(client.view.get("revision", 0)) != rev0
+	ok["estrada_found"] = found_places.has("estrada")
+	ok["toca_hidden"] = not found_places.has("toca") and not hud.minimap.known.has("toca")
+	ok["telemetry"] = telemetry.summary()
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
 
