@@ -1,12 +1,22 @@
 class_name BioWorld
 extends Node2D
-## Composition root: camera, glow, world, player, HUD, population upkeep and the mutation loop.
+## Composition root: the marrow and the blood, camera, glow, player, HUD, population upkeep, the
+## mutation loop and the link to the engine (BioHostSync). Plays offline when the engine is absent.
+
+signal region_changed(region: StringName)
+signal virus_destroyed
+signal nutrient_absorbed
+
+const BLOOD_FLOW_UNITS := 2.2
+const VIRUS_SPEED := 3.6
+const FEVER_SLOWDOWN := 0.55
 
 @export var virus_count := 6
 @export var nutrient_target := 45
-@export var world_radius_units := 24.0
 @export var seed_value := 1337
 @export var save_path := "user://hospedeiro_genome.json"  # empty disables persistence
+@export var engine_url := "http://127.0.0.1:8095"  # empty keeps the game offline
+@export var identity_path := "user://hospedeiro_player.json"
 
 var player: BioCellActor
 var hud: BioHud
@@ -14,11 +24,16 @@ var camera: BioCameraFollow
 var genome: BioGenome
 var tracker: BioMutationTracker
 var panel: BioMutationPanel
+var sync: BioHostSync
+var region: StringName = BioBodyMap.MEDULA
+var fever := false
+var sleeping := false
 
 var _rng := RandomNumberGenerator.new()
 var _built := false
 var _upkeep_timer := 0.0
 var _virus_respawn_timer := 0.0
+var _tint: CanvasModulate
 
 
 func _ready() -> void:
@@ -41,13 +56,14 @@ func build() -> void:
 	BioFx.root = self
 	RenderingServer.set_default_clear_color(Color(0.006, 0.01, 0.03))
 	_add_glow_environment()
+	_tint = CanvasModulate.new()
+	add_child(_tint)
 
-	BioFactory.create_boundary(self, world_radius_units)
-	var motes := BioAmbientMotes.new()
-	motes.build(110, 14, world_radius_units, seed_value)
-	add_child(motes)
+	BioFactory.create_body_boundary(self, BioBodyMap.outline_units())
+	_add_motes(BioBodyMap.MEDULA, [BioArt.AMBER, BioArt.MAGENTA, BioArt.JADE])
+	_add_motes(BioBodyMap.SANGUE, [BioArt.CRIMSON, BioArt.MAGENTA, Color(0.6, 0.05, 0.12)])
 
-	player = BioFactory.spawn_player(self, Vector2.ZERO)
+	player = BioFactory.spawn_player(self, BioBodyMap.center_px(BioBodyMap.MEDULA))
 	camera = BioCameraFollow.new()
 	camera.name = "Camera"
 	add_child(camera)
@@ -61,7 +77,9 @@ func build() -> void:
 	tracker = BioMutationTracker.new(seed_value)
 	genome = BioGenomeStore.load_state(save_path, tracker)
 	player.combatant.set_genome(genome)
-	player.combatant.nutrient_consumed.connect(func(_kind: int) -> void: add_pressure(BioMutationTracker.NUTRIENT_POINTS))
+	player.combatant.nutrient_consumed.connect(func(_kind: int) -> void:
+		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
+		nutrient_absorbed.emit())
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
 		if result.outcome == BioActor.HitOutcome.EVADED:
 			add_pressure(BioMutationTracker.EVADE_POINTS))
@@ -79,6 +97,11 @@ func build() -> void:
 		_spawn_nutrient(0.0)
 	for i in virus_count:
 		_spawn_virus(12.0)
+
+	sync = BioHostSync.new()
+	sync.name = "HostSync"
+	sync.configure(self)
+	add_child(sync)
 
 
 ## Confirmed events (food, kills, evasions) build evolutionary pressure; at the threshold a mutation is offered.
@@ -105,20 +128,72 @@ func decline_mutation() -> void:
 	BioGenomeStore.save(save_path, genome, tracker)
 
 
+## A gene the engine says this cell discovered by living (a skill). Expressed if there is a free slot.
+func discover_gene(id: StringName) -> bool:
+	if genome.has_gene(id) or not BioGeneCatalog.all_ids().has(id) or genome.equipped.size() >= BioGenome.SLOTS:
+		return false
+	genome.equip(id)
+	player.combatant.set_genome(genome)
+	BioGenomeStore.save(save_path, genome, tracker)
+	return true
+
+
 func respawn_player() -> void:
 	if player.combatant.actor.vitals.is_alive():
 		return
 	player.set_active(true)
-	player.global_position = Vector2.ZERO
+	player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
 	player.velocity = Vector2.ZERO
 	player.combatant.reset_vitals()
 	hud.show_banner("")
 
 
+## Fever (a body state the player knows of): virions slow down.
+func set_fever(on: bool) -> void:
+	if fever == on:
+		return
+	fever = on
+	for v in viruses():
+		(v as BioCellActor).max_speed_units = _virus_speed()
+	_update_tint()
+
+
+func set_sleeping(on: bool) -> void:
+	if sleeping == on:
+		return
+	sleeping = on
+	_update_tint()
+
+
+## The host ate: glucose floods the blood.
+func spawn_meal(count: int) -> void:
+	for i in count:
+		BioFactory.spawn_nutrient(self, BioBodyMap.random_point_px(_rng, BioBodyMap.SANGUE, player.global_position, 3.0), BioNutrientRules.Kind.GLUCOSE)
+
+
+## A new outbreak: more virions in the blood.
+func spawn_outbreak(count: int) -> void:
+	for i in count:
+		_spawn_virus(10.0)
+
+
+func _virus_speed() -> float:
+	return VIRUS_SPEED * (FEVER_SLOWDOWN if fever else 1.0)
+
+
+func _update_tint() -> void:
+	var c := Color.WHITE
+	if fever:
+		c *= Color(1.15, 0.92, 0.85)
+	if sleeping:
+		c *= Color(0.8, 0.82, 0.95)
+	_tint.color = c
+
+
 func _on_player_died(_who: BioCombatant) -> void:
 	player.set_intent(Vector2.ZERO)
 	player.set_active(false)
-	hud.show_banner("A célula se dissolveu no caldo\nPressione R para ressurgir")
+	hud.show_banner("A célula se dissolveu no fluido\nPressione R para renascer na medula")
 
 
 func _process(delta: float) -> void:
@@ -126,9 +201,15 @@ func _process(delta: float) -> void:
 		return
 	if not player.is_active() and Input.is_action_just_pressed("bio_respawn"):
 		respawn_player()
-	for i in 3:
-		if Input.is_action_just_pressed("bio_pick_%d" % (i + 1)):
-			pick_mutation(i)
+	if player.is_active():
+		var now := BioBodyMap.region_of(player.global_position)
+		if now != region:
+			region = now
+			region_changed.emit(region)
+	if not sync.wants_numbers():
+		for i in 3:
+			if Input.is_action_just_pressed("bio_pick_%d" % (i + 1)):
+				pick_mutation(i)
 	if Input.is_action_just_pressed("bio_decline"):
 		decline_mutation()
 	panel.refresh(genome, tracker)
@@ -145,24 +226,38 @@ func _process(delta: float) -> void:
 			_virus_respawn_timer = 6.0
 
 
-func _random_point(min_distance_units: float) -> Vector2:
-	var center := player.global_position if player != null else Vector2.ZERO
-	for attempt in 12:
-		var p := Vector2.from_angle(_rng.randf() * TAU) * sqrt(_rng.randf()) * (world_radius_units - 2.0) * BioArt.UNIT
-		if p.distance_to(center) >= min_distance_units * BioArt.UNIT:
-			return p
-	return Vector2((world_radius_units - 3.0) * BioArt.UNIT, 0.0)
+## The blood is a river: cells and nutrients there are carried around the chamber.
+func _physics_process(delta: float) -> void:
+	for node in get_tree().get_nodes_in_group("cells"):
+		var cell := node as BioCellActor
+		if cell != null and cell.is_active():
+			cell.velocity += BioBodyMap.blood_flow_px(cell.global_position, BLOOD_FLOW_UNITS) * delta * 1.5
+	for node in get_tree().get_nodes_in_group("nutrients"):
+		var nutrient := node as Node2D
+		nutrient.global_position += BioBodyMap.blood_flow_px(nutrient.global_position, BLOOD_FLOW_UNITS * 0.6) * delta
 
 
 func _spawn_nutrient(min_distance_units: float) -> void:
 	var kind := BioNutrientRules.Kind.GLUCOSE if _rng.randf() < 0.75 else BioNutrientRules.Kind.LIPID
-	BioFactory.spawn_nutrient(self, _random_point(min_distance_units), kind)
+	var where := BioBodyMap.MEDULA if _rng.randf() < 0.6 else BioBodyMap.SANGUE
+	BioFactory.spawn_nutrient(self, BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units), kind)
 
 
 func _spawn_virus(min_distance_units: float) -> void:
-	var brain := BioFactory.spawn_virus(self, _random_point(min_distance_units), player)
+	var pos := BioBodyMap.random_point_px(_rng, BioBodyMap.SANGUE, player.global_position, min_distance_units)
+	var brain := BioFactory.spawn_virus(self, pos, player)
 	var host := brain.get_parent() as BioCellActor
-	host.combatant.died.connect(func(_who: BioCombatant) -> void: add_pressure(BioMutationTracker.KILL_POINTS))
+	host.max_speed_units = _virus_speed()
+	host.combatant.died.connect(func(_who: BioCombatant) -> void:
+		add_pressure(BioMutationTracker.KILL_POINTS)
+		virus_destroyed.emit())
+
+
+func _add_motes(where: StringName, palette: Array) -> void:
+	var motes := BioAmbientMotes.new()
+	motes.position = BioBodyMap.center_px(where)
+	motes.build(70, 9, BioBodyMap.radius_units(where), seed_value + where.length(), palette)
+	add_child(motes)
 
 
 func _add_glow_environment() -> void:

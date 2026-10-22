@@ -11,10 +11,10 @@ func count() -> int:
 	return _motes.size()
 
 
-func build(specks: int, blobs: int, radius_units: float, rng_seed: int) -> void:
+func build(specks: int, blobs: int, radius_units: float, rng_seed: int, palette_override: Array = []) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = rng_seed
-	var palette := [BioArt.CYAN, BioArt.DEEP_BLUE, BioArt.MAGENTA, BioArt.JADE]
+	var palette: Array = palette_override if not palette_override.is_empty() else [BioArt.CYAN, BioArt.DEEP_BLUE, BioArt.MAGENTA, BioArt.JADE]
 	for i in specks + blobs:
 		var is_blob := i >= specks
 		var color: Color = palette[rng.randi() % palette.size()]

@@ -22,6 +22,11 @@ static func ensure_actions() -> void:
 	_bind("bio_pick_2", [_key(KEY_2)])
 	_bind("bio_pick_3", [_key(KEY_3)])
 	_bind("bio_decline", [_key(KEY_X)])
+	_bind("bio_accept", [_key(KEY_Y)])
+	_bind("bio_refuse", [_key(KEY_N)])
+	_bind("bio_interact", [_key(KEY_E)])
+	for i in 9:
+		_bind("bio_num_%d" % (i + 1), [_key(KEY_1 + i)])
 
 
 func configure(controller: BioCellController, host: Node2D) -> void:

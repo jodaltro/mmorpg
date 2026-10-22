@@ -10,6 +10,7 @@ func _run() -> void:
 	var out_dir: String = args[0] if args.size() > 0 else "."
 	var world := load("res://scenes/main.tscn").instantiate() as BioWorld
 	world.save_path = ""  # never touch the player's real save
+	world.engine_url = ""
 	root.add_child(world)
 	await create_timer(0.8).timeout
 	_shot(out_dir, "01_idle")

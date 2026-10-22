@@ -87,12 +87,12 @@ static func spawn_nutrient(parent: Node, pos: Vector2, kind: int) -> BioNutrient
 	return nutrient
 
 
-static func create_boundary(parent: Node, radius_units: float) -> StaticBody2D:
+## The body's walls: one closed outline (world units) used both as collision and as the glowing membrane.
+static func create_body_boundary(parent: Node, outline_units: PackedVector2Array) -> StaticBody2D:
 	var wall := StaticBody2D.new()
-	wall.name = "WorldBoundary"
+	wall.name = "BodyWalls"
 	wall.collision_layer = BioCellActor.LAYER_WALL
 	wall.collision_mask = 0
-	var count := 72
 	var segments := PackedVector2Array()
 	var ring := Line2D.new()
 	ring.closed = true
@@ -100,9 +100,10 @@ static func create_boundary(parent: Node, radius_units: float) -> StaticBody2D:
 	ring.default_color = BioArt.with_alpha(BioArt.MAGENTA, 0.35)
 	ring.material = BioArt.additive()
 	ring.z_index = -5
+	var count := outline_units.size()
 	for i in count:
-		var a := Vector2.from_angle(i * TAU / count) * radius_units * BioArt.UNIT
-		var b := Vector2.from_angle((i + 1) * TAU / count) * radius_units * BioArt.UNIT
+		var a := outline_units[i] * BioArt.UNIT
+		var b := outline_units[(i + 1) % count] * BioArt.UNIT
 		segments.append(a)
 		segments.append(b)
 		ring.add_point(a)
@@ -129,5 +130,6 @@ static func _make_actor(parent: Node, node_name: String, pos: Vector2) -> BioCel
 	combatant.name = "Combatant"
 	actor.add_child(combatant)
 	actor.combatant = combatant
+	actor.add_to_group("cells")
 	parent.add_child(actor)
 	return actor

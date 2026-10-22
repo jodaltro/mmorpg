@@ -1,0 +1,1594 @@
+{
+ "version": 1,
+ "id": "hospedeiro",
+ "name": "Hospedeiro",
+ "description": "O mundo e um corpo humano anonimo. Voce e uma célula-tronco recem-nascida na medula. Um surto viral corre pelo sangue e algo está reescrevendo o código do corpo.",
+ "tickSeconds": 4,
+ "kinds": [
+  "tecido",
+  "celula",
+  "patogeno",
+  "jogador"
+ ],
+ "regionKinds": [
+  "tecido"
+ ],
+ "predicates": [
+  "foco",
+  "alerta",
+  "febre",
+  "sono",
+  "codigo-estranho",
+  "reescrita-revelada",
+  "leu-codigo",
+  "viu-codigo",
+  "vigiou",
+  "assinatura",
+  "defesa-armada",
+  "met"
+ ],
+ "acquaintance": "met",
+ "playerKind": "jogador",
+ "player": {
+  "id": "template",
+  "kind": "jogador",
+  "name": "",
+  "num": {
+   "reputacao": 0,
+   "abates": 0,
+   "nutrientes": 0,
+   "mergulhos": 0
+  },
+  "region": "medula"
+ },
+ "perceivers": [
+  "celula",
+  "jogador"
+ ],
+ "entities": [
+  {
+   "id": "medula",
+   "kind": "tecido",
+   "name": "Medula Óssea",
+   "num": {
+    "reserva": 50,
+    "vigias": 0
+   }
+  },
+  {
+   "id": "sangue",
+   "kind": "tecido",
+   "name": "Corrente Sanguínea",
+   "num": {
+    "carga": 0,
+    "glicose": 50
+   }
+  },
+  {
+   "id": "virion",
+   "kind": "patogeno",
+   "name": "Vírion Espinhoso"
+  },
+  {
+   "id": "estroma",
+   "kind": "celula",
+   "name": "Osteia, célula do estroma",
+   "region": "medula"
+  },
+  {
+   "id": "neva",
+   "kind": "celula",
+   "name": "Neva, neutrófila veterana",
+   "region": "sangue"
+  },
+  {
+   "id": "rubra",
+   "kind": "celula",
+   "name": "Rubra, hemácia anciã",
+   "region": "sangue"
+  },
+  {
+   "id": "dendra",
+   "kind": "celula",
+   "name": "Dendra, célula dendrítica",
+   "region": "sangue"
+  }
+ ],
+ "facts": [
+  {
+   "p": "assinatura",
+   "s": "virion"
+  }
+ ],
+ "spots": [
+  {
+   "id": "nicho",
+   "region": "medula",
+   "name": "Nicho das células-tronco",
+   "near": [
+    "sinusoide"
+   ]
+  },
+  {
+   "id": "sinusoide",
+   "region": "medula",
+   "name": "Sinusoide, a saida para o sangue",
+   "near": [
+    "nicho"
+   ]
+  },
+  {
+   "id": "capilar",
+   "region": "sangue",
+   "name": "Capilar inflamado",
+   "near": [
+    "corrente"
+   ]
+  },
+  {
+   "id": "corrente",
+   "region": "sangue",
+   "name": "Corrente principal",
+   "near": [
+    "capilar"
+   ]
+  }
+ ],
+ "schedules": [
+  {
+   "rule": "surto-inicial",
+   "at": 5
+  },
+  {
+   "rule": "codigo-aparece",
+   "at": 25
+  }
+ ],
+ "rules": [
+  {
+   "id": "surto-inicial",
+   "when": {},
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": 25,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "surto",
+     "public": true,
+     "text": "Um surto viral começa nos capilares do sangue."
+    }
+   ]
+  },
+  {
+   "id": "infeccao-cresce",
+   "every": 3,
+   "when": {
+    "fact": {
+     "p": "foco",
+     "s": "sangue"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": 4,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "alerta-dispara",
+   "every": 2,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "carga",
+       "op": ">=",
+       "v": 40
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "alerta",
+        "s": "sangue"
+       }
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "alerta",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "citocina",
+     "public": true,
+     "text": "Sinais de citocina se espalham: o sangue pede socorro.",
+     "reveals": {
+      "p": "alerta",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "alerta-cessa",
+   "every": 2,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "carga",
+       "op": "<",
+       "v": 15
+      }
+     },
+     {
+      "fact": {
+       "p": "alerta",
+       "s": "sangue"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "retract",
+     "fact": {
+      "p": "alerta",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "calmaria",
+     "public": true,
+     "text": "Os sinais de citocina se dissipam.",
+     "reveals": {
+      "p": "alerta",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "foco-extinto",
+   "every": 2,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "carga",
+       "op": "<=",
+       "v": 0
+      }
+     },
+     {
+      "fact": {
+       "p": "foco",
+       "s": "sangue"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "retract",
+     "fact": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "cura",
+     "public": true,
+     "text": "O foco de infecção no capilar se apaga.",
+     "reveals": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "glicose-cai",
+   "every": 5,
+   "when": {
+    "num": {
+     "e": "sangue",
+     "k": "glicose",
+     "op": ">",
+     "v": 0
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "glicose",
+     "d": -3,
+     "min": 0
+    }
+   ]
+  },
+  {
+   "id": "codigo-aparece",
+   "when": {},
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "codigo-estranho",
+      "s": "medula"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "estranho",
+     "public": true,
+     "text": "Um brilho que não é de célula nenhuma surge no nicho da medula."
+    }
+   ]
+  },
+  {
+   "id": "febre-age",
+   "every": 2,
+   "when": {
+    "fact": {
+     "p": "febre",
+     "s": "sangue"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -2,
+     "min": 0
+    }
+   ]
+  },
+  {
+   "id": "febre-passa",
+   "when": {},
+   "effects": [
+    {
+     "op": "retract",
+     "fact": {
+      "p": "febre",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "febre-fim",
+     "public": true,
+     "text": "A febre do Hospedeiro cede.",
+     "reveals": {
+      "p": "febre",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "sono-repara",
+   "every": 3,
+   "when": {
+    "fact": {
+     "p": "sono",
+     "s": "medula"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 3,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "despertar",
+   "when": {},
+   "effects": [
+    {
+     "op": "retract",
+     "fact": {
+      "p": "sono",
+      "s": "medula"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "despertar",
+     "public": true,
+     "text": "O Hospedeiro desperta. O ritmo do corpo volta a subir.",
+     "reveals": {
+      "p": "sono",
+      "s": "medula"
+     }
+    }
+   ]
+  }
+ ],
+ "actions": [
+  {
+   "id": "absorver-nutriente",
+   "title": "Absorver nutriente",
+   "by": [
+    "adapter"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "nutrientes",
+     "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 1,
+     "max": 100,
+     "if": {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     }
+    },
+    {
+     "op": "emit",
+     "event": "nutriente",
+     "text": "{self} absorve um nutriente."
+    }
+   ]
+  },
+  {
+   "id": "derrotar-virus",
+   "title": "Derrotar um vírion",
+   "by": [
+    "adapter"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "abates",
+     "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -6,
+     "min": 0,
+     "if": {
+      "in": {
+       "e": "$self",
+       "region": "sangue"
+      }
+     }
+    },
+    {
+     "op": "observe",
+     "fact": {
+      "p": "assinatura",
+      "s": "virion"
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "vigias",
+     "d": 1,
+     "if": {
+      "all": [
+       {
+        "fact": {
+         "p": "reescrita-revelada",
+         "s": "medula"
+        }
+       },
+       {
+        "in": {
+         "e": "$self",
+         "region": "sangue"
+        }
+       },
+       {
+        "not": {
+         "fact": {
+          "p": "vigiou",
+          "s": "$self",
+          "o": "sangue",
+          "private": true
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "op": "assert",
+     "fact": {
+      "p": "vigiou",
+      "s": "$self",
+      "o": "sangue",
+      "private": true
+     },
+     "if": {
+      "all": [
+       {
+        "fact": {
+         "p": "reescrita-revelada",
+         "s": "medula"
+        }
+       },
+       {
+        "in": {
+         "e": "$self",
+         "region": "sangue"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "op": "emit",
+     "event": "abate",
+     "text": "{self} destroi um vírion espinhoso."
+    }
+   ]
+  },
+  {
+   "id": "farejar",
+   "title": "Farejar o gradiente químico",
+   "by": [
+    "player"
+   ],
+   "requires": {},
+   "effects": [
+    {
+     "op": "observe",
+     "fact": {
+      "p": "alerta",
+      "s": "sangue"
+     },
+     "if": {
+      "all": [
+       {
+        "in": {
+         "e": "$self",
+         "region": "sangue"
+        }
+       },
+       {
+        "fact": {
+         "p": "alerta",
+         "s": "sangue"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "op": "emit",
+     "event": "faro",
+     "text": "{self} sente o fluido ao redor em busca de sinais químicos."
+    }
+   ]
+  },
+  {
+   "id": "ler-codigo",
+   "title": "Decifrar o fragmento de código",
+   "by": [
+    "player"
+   ],
+   "requires": {
+    "all": [
+     {
+      "fact": {
+       "p": "codigo-estranho",
+       "s": "medula"
+      }
+     },
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "knows": {
+       "p": "assinatura",
+       "s": "virion"
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "leu-codigo",
+        "s": "$self",
+        "o": "medula",
+        "private": true
+       }
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "leu-codigo",
+      "s": "$self",
+      "o": "medula",
+      "private": true
+     }
+    },
+    {
+     "op": "emit",
+     "event": "decifrou",
+     "text": "{self} reconhece a língua dos vírions no fragmento e o decifra."
+    }
+   ]
+  },
+  {
+   "id": "armar-defesa",
+   "by": [
+    "agent"
+   ],
+   "requires": {
+    "all": [
+     {
+      "knows": {
+       "p": "assinatura",
+       "s": "virion"
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "defesa-armada",
+        "s": "sangue"
+       }
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "defesa-armada",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -15,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "antigeno",
+     "public": true,
+     "text": "Dendra apresenta o antígeno do Vírion Espinhoso: as defesas do sangue agora o reconhecem.",
+     "reveals": {
+      "p": "defesa-armada",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "combater-foco",
+   "by": [
+    "agent"
+   ],
+   "requires": {
+    "all": [
+     {
+      "any": [
+       {
+        "knows": {
+         "p": "foco",
+         "s": "sangue"
+        }
+       },
+       {
+        "knows": {
+         "p": "alerta",
+         "s": "sangue"
+        }
+       }
+      ]
+     },
+     {
+      "fact": {
+       "p": "foco",
+       "s": "sangue"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -5,
+     "min": 0
+    },
+    {
+     "op": "observe",
+     "fact": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "investida",
+     "text": "Neva investe contra o foco de infecção."
+    }
+   ]
+  },
+  {
+   "id": "nutrir-nicho",
+   "by": [
+    "agent"
+   ],
+   "requires": {
+    "num": {
+     "e": "medula",
+     "k": "reserva",
+     "op": "<",
+     "v": 80
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 2,
+     "max": 100
+    }
+   ]
+  }
+ ],
+ "agents": [
+  {
+   "entity": "dendra",
+   "goals": [
+    {
+     "id": "apresentar",
+     "priority": 10,
+     "action": "armar-defesa",
+     "when": {
+      "all": [
+       {
+        "knows": {
+         "p": "assinatura",
+         "s": "virion"
+        }
+       },
+       {
+        "not": {
+         "knows": {
+          "p": "defesa-armada",
+          "s": "sangue"
+         }
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "entity": "neva",
+   "goals": [
+    {
+     "id": "combater",
+     "priority": 10,
+     "action": "combater-foco",
+     "cooldown": 3,
+     "when": {
+      "any": [
+       {
+        "knows": {
+         "p": "foco",
+         "s": "sangue"
+        }
+       },
+       {
+        "knows": {
+         "p": "alerta",
+         "s": "sangue"
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "entity": "estroma",
+   "goals": [
+    {
+     "id": "nutrir",
+     "priority": 5,
+     "action": "nutrir-nicho",
+     "cooldown": 6,
+     "when": {
+      "num": {
+       "e": "medula",
+       "k": "reserva",
+       "op": "<",
+       "v": 80
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "signs": [
+  {
+   "id": "inflamacao",
+   "region": "sangue",
+   "spot": "capilar",
+   "title": "Examinar o capilar inflamado",
+   "look": "Um capilar pulsa vermelho e quente.",
+   "text": "As paredes do capilar estao inchadas e vírions espinhosos se acumulam ali. Há um foco de infecção.",
+   "when": {
+    "fact": {
+     "p": "foco",
+     "s": "sangue"
+    }
+   },
+   "examine": [
+    {
+     "op": "observe",
+     "fact": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "fragmento",
+   "region": "medula",
+   "spot": "nicho",
+   "farFrom": [
+    "sangue"
+   ],
+   "title": "Examinar o brilho estranho no nicho",
+   "look": "Algo brilha no nicho com uma luz que não é de célula nenhuma.",
+   "text": "Um fragmento enrolado como DNA, escrito numa língua que não e a do corpo. Quem conhece os vírions talvez consiga lê-lo.",
+   "when": {
+    "fact": {
+     "p": "codigo-estranho",
+     "s": "medula"
+    }
+   },
+   "examine": [
+    {
+     "op": "observe",
+     "fact": {
+      "p": "codigo-estranho",
+      "s": "medula"
+     }
+    }
+   ]
+  }
+ ],
+ "reactions": [
+  {
+   "p": "assinatura",
+   "s": "virion",
+   "who": [
+    "dendra"
+   ],
+   "told": "Dendra recolhe o fragmento de proteína: \"Agora sei o rosto dele. Vou mostrá-lo aos linfócitos.\"",
+   "known": "Dendra assente: \"Eu já conheco esse rosto.\"",
+   "stale": "Dendra estranha: \"Esse vírion não existe mais.\"",
+   "effects": [
+    {
+     "op": "relate",
+     "e": "dendra",
+     "to": "$self",
+     "d": 2,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "p": "foco",
+   "s": "sangue",
+   "who": [
+    "neva"
+   ],
+   "told": "Neva se eriça: \"Um foco no capilar? Estou indo.\"",
+   "known": "Neva já está a caminho: \"Eu sei. Vamos juntas.\"",
+   "stale": "Neva sacode a membrana: \"O capilar já está limpo.\"",
+   "effects": [
+    {
+     "op": "relate",
+     "e": "neva",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "p": "foco",
+   "s": "sangue",
+   "told": "{npc} estremece: \"Infeccao? Vou avisar as outras.\"",
+   "known": "{npc} já ouviu falar do foco.",
+   "stale": "{npc} diz: \"Isso já passou.\""
+  }
+ ],
+ "gossip": {
+  "every": 3,
+  "kinds": [
+   "celula",
+   "jogador"
+  ],
+  "predicates": [
+   "foco",
+   "assinatura",
+   "met"
+  ],
+  "texts": {
+   "foco": "{from} cochicha: dizem que há um foco de infecção no {s}.",
+   "assinatura": "{from} descreve o rosto do {s}.",
+   "met": "{from} comenta sobre uma célula-tronco nova."
+  }
+ },
+ "skills": [
+  {
+   "id": "cilios-ageis",
+   "name": "Cílios Ágeis",
+   "rarity": "incomum",
+   "desc": "De tanto atravessar a sinusoide, seus cílios aprenderam a correnteza.",
+   "learn": {
+    "deeds": {
+     "action": "move",
+     "op": ">=",
+     "v": 6
+    }
+   }
+  },
+  {
+   "id": "enzima-voraz",
+   "name": "Enzima Voraz",
+   "rarity": "incomum",
+   "desc": "Voce digeriu tanto que suas enzimas ficaram famintas.",
+   "learn": {
+    "deeds": {
+     "action": "absorver-nutriente",
+     "op": ">=",
+     "v": 20
+    }
+   }
+  },
+  {
+   "id": "flagelo-calejado",
+   "name": "Flagelo Calejado",
+   "rarity": "rara",
+   "desc": "Cada vírion destruido deixou uma cicatriz dura na sua cauda.",
+   "learn": {
+    "deeds": {
+     "action": "derrotar-virus",
+     "op": ">=",
+     "v": 12
+    }
+   }
+  }
+ ],
+ "arcs": [
+  {
+   "id": "reescrita",
+   "title": "A Reescrita",
+   "start": "lembranca",
+   "beats": [
+    {
+     "id": "lembranca",
+     "title": "Cenário Único: A Primeira Lembrança",
+     "unique": true,
+     "desc": "Decifrar o fragmento de código que surgiu no nicho da medula.",
+     "opens": {
+      "fact": {
+       "p": "codigo-estranho",
+       "s": "medula"
+      }
+     },
+     "goal": {
+      "fact": {
+       "p": "leu-codigo",
+       "s": "$self",
+       "o": "medula",
+       "private": true
+      }
+     },
+     "claim": [
+      {
+       "op": "assert",
+       "fact": {
+        "p": "reescrita-revelada",
+        "s": "medula"
+       }
+      },
+      {
+       "op": "set",
+       "e": "$self",
+       "k": "title",
+       "v": "Primeira Lembrança"
+      },
+      {
+       "op": "adjust",
+       "e": "$self",
+       "k": "reputacao",
+       "d": 5
+      },
+      {
+       "op": "emit",
+       "event": "revelacao",
+       "public": true,
+       "text": "{self} decifrou o código estranho: algo está reescrevendo o Hospedeiro.",
+       "reveals": {
+        "p": "reescrita-revelada",
+        "s": "medula"
+       }
+      }
+     ],
+     "rival": [
+      {
+       "op": "assert",
+       "fact": {
+        "p": "viu-codigo",
+        "s": "$self",
+        "o": "medula",
+        "private": true
+       }
+      },
+      {
+       "op": "adjust",
+       "e": "$self",
+       "k": "reputacao",
+       "d": 1
+      },
+      {
+       "op": "emit",
+       "event": "rival",
+       "text": "{claimant} decifrou o código antes de você, mas você viu o mesmo fragmento."
+      }
+     ],
+     "next": [
+      "vigilia"
+     ]
+    },
+    {
+     "id": "vigilia",
+     "title": "Capítulo: Vigília no Sangue",
+     "desc": "Toda célula que sabe da Reescrita patrulha o sangue.",
+     "opens": {
+      "fact": {
+       "p": "reescrita-revelada",
+       "s": "medula"
+      }
+     },
+     "goal": {
+      "fact": {
+       "p": "vigiou",
+       "s": "$self",
+       "o": "sangue",
+       "private": true
+      }
+     },
+     "advanceWhen": {
+      "num": {
+       "e": "medula",
+       "k": "vigias",
+       "op": ">=",
+       "v": 3
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "id": "primeiro-mergulho",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "O primeiro mergulho",
+   "desc": "Osteia acha que você está pronta para deixar o nicho.",
+   "objective": "Atravesse a sinusoide e entre na corrente sanguínea.",
+   "reward": "Reputação +1",
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "$self",
+       "k": "mergulhos",
+       "op": "<",
+       "v": 1
+      }
+     },
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     }
+    ]
+   },
+   "goal": {
+    "in": {
+     "e": "$self",
+     "region": "sangue"
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "reputacao",
+     "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "mergulhos",
+     "d": 1
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    }
+   ],
+   "tags": [
+    "explore"
+   ]
+  },
+  {
+   "id": "investigar-inflamacao",
+   "giver": "neva",
+   "rank": "E",
+   "title": "Calor no capilar",
+   "desc": "Neva sente o sangue esquentando e quer saber por que.",
+   "objective": "Examine o capilar inflamado e descubra o que acontece.",
+   "reward": "Reputação +1",
+   "eligible": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "carga",
+       "op": ">",
+       "v": 0
+      }
+     },
+     {
+      "not": {
+       "knows": {
+        "p": "foco",
+        "s": "sangue"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "knows": {
+     "p": "foco",
+     "s": "sangue"
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "reputacao",
+     "d": 1
+    },
+    {
+     "op": "relate",
+     "e": "neva",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    }
+   ],
+   "tags": [
+    "mystery"
+   ]
+  },
+  {
+   "id": "conter-infeccao",
+   "giver": "neva",
+   "rank": "D",
+   "title": "Conter a infecção",
+   "desc": "O foco está crescendo. Neva precisa de quem lute.",
+   "objective": "Destrua vírions no sangue até a carga viral cair abaixo de 10.",
+   "reward": "Reputação +2",
+   "eligible": {
+    "all": [
+     {
+      "knows": {
+       "p": "foco",
+       "s": "sangue"
+      }
+     },
+     {
+      "num": {
+       "e": "sangue",
+       "k": "carga",
+       "op": ">=",
+       "v": 10
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "sangue",
+     "k": "carga",
+     "op": "<",
+     "v": 10
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "reputacao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "neva",
+     "to": "$self",
+     "d": 2,
+     "min": -10,
+     "max": 10
+    }
+   ],
+   "tags": [
+    "combat"
+   ]
+  },
+  {
+   "id": "rosto-do-inimigo",
+   "giver": "dendra",
+   "rank": "D",
+   "title": "O rosto do inimigo",
+   "desc": "Dendra pode ensinar as defesas a reconhecer o vírion, se alguem contar a ela como ele e.",
+   "objective": "Conte a Dendra o que você aprendeu sobre o Vírion Espinhoso.",
+   "reward": "Reputação +2",
+   "eligible": {
+    "all": [
+     {
+      "knows": {
+       "p": "assinatura",
+       "s": "virion"
+      }
+     },
+     {
+      "not": {
+       "knows": {
+        "who": "dendra",
+        "p": "assinatura",
+        "s": "virion"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "knows": {
+     "who": "dendra",
+     "p": "assinatura",
+     "s": "virion"
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "reputacao",
+     "d": 2
+    }
+   ],
+   "tags": [
+    "social"
+   ]
+  },
+  {
+   "id": "primeira-lembranca",
+   "arc": "reescrita",
+   "beat": "lembranca",
+   "rank": "S",
+   "title": "Cenário Único: A Primeira Lembrança",
+   "desc": "Decifre o fragmento de código no nicho antes de qualquer outra célula.",
+   "objective": "Examine o brilho no nicho da medula e decifre o fragmento. Para ler a língua dele, você precisa conhecer o vírion.",
+   "reward": "Título: Primeira Lembrança",
+   "eligible": {},
+   "goal": {
+    "fact": {
+     "p": "leu-codigo",
+     "s": "$self",
+     "o": "medula",
+     "private": true
+    }
+   }
+  },
+  {
+   "id": "vigilia",
+   "arc": "reescrita",
+   "beat": "vigilia",
+   "giver": "neva",
+   "rank": "C",
+   "title": "Vigília no Sangue",
+   "desc": "Agora que se sabe da Reescrita, cada vírion pode carregar um pedaco do código.",
+   "objective": "Destrua um vírion no sangue.",
+   "reward": "Reputação +1",
+   "eligible": {},
+   "goal": {
+    "fact": {
+     "p": "vigiou",
+     "s": "$self",
+     "o": "sangue",
+     "private": true
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "reputacao",
+     "d": 1
+    }
+   ]
+  }
+ ],
+ "happenings": [
+  {
+   "id": "surto-viral",
+   "title": "Surto viral",
+   "desc": "Uma nova onda de vírions invade os capilares.",
+   "intensity": 2,
+   "cooldown": 30,
+   "when": {
+    "not": {
+     "fact": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    }
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "foco",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": 20,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "surto",
+     "public": true,
+     "text": "Um novo surto viral invade os capilares."
+    }
+   ]
+  },
+  {
+   "id": "refeicao",
+   "title": "O Hospedeiro se alimenta",
+   "desc": "A glicose sobe no sangue; nutrientes abundam.",
+   "intensity": 0,
+   "cooldown": 20,
+   "when": {
+    "num": {
+     "e": "sangue",
+     "k": "glicose",
+     "op": "<",
+     "v": 70
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "glicose",
+     "d": 30,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "refeicao",
+     "public": true,
+     "text": "O Hospedeiro se alimentou: a glicose sobe no sangue."
+    }
+   ]
+  },
+  {
+   "id": "febre",
+   "title": "Febre",
+   "desc": "O corpo esquenta para conter a infecção: vírions ficam lentos.",
+   "intensity": 2,
+   "cooldown": 40,
+   "when": {
+    "all": [
+     {
+      "fact": {
+       "p": "foco",
+       "s": "sangue"
+      }
+     },
+     {
+      "num": {
+       "e": "sangue",
+       "k": "carga",
+       "op": ">=",
+       "v": 30
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "febre",
+        "s": "sangue"
+       }
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "febre",
+      "s": "sangue"
+     }
+    },
+    {
+     "op": "schedule",
+     "rule": "febre-passa",
+     "after": 15
+    },
+    {
+     "op": "emit",
+     "event": "febre",
+     "public": true,
+     "text": "O Hospedeiro tem febre: o sangue esquenta e os vírions ficam lentos.",
+     "reveals": {
+      "p": "febre",
+      "s": "sangue"
+     }
+    }
+   ]
+  },
+  {
+   "id": "sono",
+   "title": "O Hospedeiro dorme",
+   "desc": "O ritmo cai e a medula se recompõe em silêncio.",
+   "intensity": 0,
+   "cooldown": 35,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "fact": {
+        "p": "sono",
+        "s": "medula"
+       }
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "febre",
+        "s": "sangue"
+       }
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "sono",
+      "s": "medula"
+     }
+    },
+    {
+     "op": "schedule",
+     "rule": "despertar",
+     "after": 20
+    },
+    {
+     "op": "emit",
+     "event": "sono",
+     "public": true,
+     "text": "O Hospedeiro adormece. A medula trabalha em silêncio.",
+     "reveals": {
+      "p": "sono",
+      "s": "medula"
+     }
+    }
+   ]
+  }
+ ],
+ "director": {
+  "every": 8,
+  "allowNone": true
+ },
+ "limits": {
+  "maxActiveQuests": 1,
+  "decisionTimeout": 3,
+  "declineCooldown": 15,
+  "offerExpiry": 25,
+  "maxEvents": 1000,
+  "allowAbandon": true,
+  "questGap": 3,
+  "firstOfferAfterDeed": true
+ }
+}

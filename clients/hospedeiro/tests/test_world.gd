@@ -6,6 +6,7 @@ var world: BioWorld
 func before_each() -> void:
 	world = BioWorld.new()
 	world.save_path = ""  # tests never touch the player's real save
+	world.engine_url = ""  # and never talk to an engine
 	tree.root.add_child(world)
 	await tree.physics_frame
 
