@@ -173,3 +173,13 @@ Também de 22/10: `TestTorchBurnsTheBrambleAndUncoversTheSlab` e `TestLegacyLink
 - `TestShootingStarIsRareAndOnlyAtNight`: em dez dias, ao menos uma estrela cadente, sempre à noite e em menos de um quarto dos ticks noturnos.
 - `TestEachStretchOfPlayBringsSomethingNew`: em três trechos de 100 ticks seguidos, em cada um aparece, sozinho, um vestígio que não existia no início do trecho.
 Novo no motor: `visibleMarks` (universo) e `others[].marks` (visão). Valdoria: 8 vestígios novos, a regra da estrela cadente, a habilidade rara Olho de Estrela (20% ao fazer o pedido), a ação `purificar-marca` e 4 falas para quem tem a marca. `worldsim validate` ok.
+
+## 22/10/2026 — F6: os outros
+
+`gofmt`, `go vet`, `go test -count=1 ./...` passaram. Novo em `engine/scenarios/others_test.go`:
+- `TestTravellerMarksAreSharedAndConfirmed`: uma marca só vale onde o jogador está e com os glifos do mundo; todos na região veem a mesma marca, com o autor; ninguém confirma a própria nem a de outro lugar; uma confirmação por pessoa; quem está em outra região não vê nem confirma.
+- `TestMarksFadeAndAreLimitedPerTraveller`: no máximo três por viajante (a mais antiga cede); só a marca confirmada sobrevive ao prazo normal; tudo some no fim.
+- `TestSecretsPassBetweenPlayers`: só se conta o que se acredita, a quem está na mesma região e ainda não acredita; o ouvinte guarda a crença como ouvida do outro e recebe o relato em palavras; a lista de ações deixa de oferecê-la.
+- `TestTwoPlayersSeeDifferentBeliefsAndTheSameMarksAndMonument`: dois jogadores na mesma vila têm indícios diferentes, veem a mesma marca, e o capítulo reivindicado por um (crônica) e o título dele são públicos para o outro.
+- `TestPublicTitlesChangeHowPeopleGreetYou`: o guarda cumprimenta o Descobridor do Selo pelo título.
+`worldsim validate` ok. Valdoria: 5 glifos, 3 marcas por viajante com vida de 200 ticks (+60 por confirmação), falas por título (Descobridor do Selo, Guardião do Selo, Herdeiro do Ferreiro Lendário) e 3 conversas sobre o que os jogadores fizeram.

@@ -8,6 +8,7 @@ extends RefCounted
 static var _pois: Array = []
 static var _anim: Dictionary = {}
 static var _greet: Dictionary = {}
+static var glyphs: Dictionary = {}  # id -> {symbol, color}
 static var text: Dictionary = {}  # belief_text, clue_text, questions, source_text
 static var _loaded := false
 
@@ -22,6 +23,7 @@ static func _load() -> void:
 		return
 	_anim = d.get("anim", {})
 	_greet = d.get("greet", {})
+	glyphs = d.get("glyphs", {})
 	for k in ["belief_text", "clue_text", "questions", "source_text"]:
 		text[k] = d.get(k, {})
 	for p in d.get("pois", []):
@@ -43,6 +45,11 @@ static func belief_label(b: Dictionary, names: Dictionary) -> String:
 	var tpl: String = text.get("belief_text", {}).get(b.get("p", ""), "%s: %s" % [b.get("p", "?"), "{s}"])
 	var subject: String = names.get(b.get("s", ""), b.get("s", ""))
 	return tpl.replace("{s}", subject).replace("{o}", names.get(b.get("o", ""), b.get("o", "")))
+
+
+static func glyph_title(id: String) -> String:
+	_load()
+	return String(glyphs.get(id, {}).get("title", id))
 
 
 ## A short hello from someone who knows you (empty if they have none).

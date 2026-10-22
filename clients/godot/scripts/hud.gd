@@ -214,7 +214,7 @@ func _ready() -> void:
 	_build_actions()
 	_build_skills_panel()
 	var slot := _slot(Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END, 10)
-	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario   [C] Caderno   [T] Tocha   [Z] Olhar longe   [Shift] Rastrear", 12, Color(1, 1, 1, 0.55))
+	var help := _label("WASD mover   Mouse esq. golpe   Mouse dir. ir/usar   [E] Usar/Falar   [F] Acoes   [K] Habilidades   [J] Diario   [C] Caderno   [T] Tocha   [M] Marca   [Z] Olhar longe   [Shift] Rastrear", 12, Color(1, 1, 1, 0.55))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	help.size_flags_horizontal = Control.SIZE_SHRINK_END
 	help.size_flags_vertical = Control.SIZE_SHRINK_END

@@ -80,3 +80,8 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`visibleMarks`**: predicados que se mostram em quem os carrega (marca, bênção). O fato continua privado, mas quem vê a pessoa recebe `others[].marks`.
 - **Acontecimentos visíveis:** um vestígio (`signs`) com `when` ligado ao fato do acontecimento e, se quiser, `farFrom` para ser marco de longe; o cliente monta a cena enquanto ele durar e a remove ao fim.
 - **Raros:** uma regra periódica com `chance` e fato agendado para se apagar (estrela cadente) dá vestígios raros e curtos; o exame pode conceder uma habilidade rara com `grant`.
+
+## Os outros (F6)
+
+- **`glyphs`** (`{id, title}`) e **`travelerMarks`** (`perAuthor`, `life`, `agreeBonus`): o vocabulário e as regras das marcas de viajante. `marcar` e `concordar` são ids reservados do motor.
+- **Fama:** a ação `conversar` pode ramificar pelo título do jogador (`tag {e: "$self", k: "title", v: "..."}`) e as conversas ouvidas pelos fatos públicos que as reivindicações deixam (`seal-revealed`, `seal-restored`).

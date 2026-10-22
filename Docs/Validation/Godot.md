@@ -291,3 +291,13 @@ Jev ligado; servidor com tick de 500 ms a 1,2 s para ver dias passarem.
 - **Marca vista em outro jogador:** dois clientes ao mesmo tempo (Jev ligado, tick de 1,2 s): o jogador "Marcado" tocou as pedras do selo e o jogador "Observador", parado na praça, viu o outro com o orbe roxo brilhando na mão (`--autotest=observador`, `mark_seen: true`, captura conferida). O mesmo teste do marcado passou de novo: marca, Orin, Elena, lobo sem ataque, purificação.
 - **Monumento de um capítulo realmente reivindicado** (`--autotest=monumento`): `seguir-rastro` no selo fez o primeiro jogador reivindicar "A Origem da Maldição" (crônica pública: `maldicao|origem` por "Heroi"); um segundo jogador, entrando depois, viu a estátua de bronze na fileira ao norte da praça. Captura conferida.
 - **Ainda não verificado:** playtest com pessoas; a estrela cadente real (a espontânea, vinda do motor) na tela, só a injetada.
+
+## 22/10/2026 — F6: os outros
+
+Servidor com Jev e tick de 1,2 s. `--autotest=outros` com **três clientes ao mesmo tempo** (A, depois B e C entrando mais tarde):
+- **Marca de viajante** (`M` escolhe o símbolo e deixa no lugar mais próximo; anel com o símbolo no chão e, de perto, "Há algo escondido aqui / por Jogador_a (+N)"): A deixou "Há algo escondido aqui" na horta; B e C viram **a mesma marca (mesmo id), com o mesmo autor**; B e depois C confirmaram com `E` e A passou a ver "(+2)". Captura conferida.
+- **Segredo entre jogadores:** o menu de outro jogador oferece "Contar a Jogador_b: …" para o que ele ainda não acredita; A contou e B passou a ter, no Caderno, "Há uma bigorna lendária nas Ruínas de Asterion" com a fonte "ouvi de Jogador_a". C, que não recebeu nada, não tem essa crença.
+- **Crenças diferentes, mundo igual:** só A examinou as cenouras roídas (B e C: `knows_den_trail: false`); os três veem as mesmas marcas.
+- **Fama:** o título público aparece sob o nome de outro jogador (`<Descobridor do Selo>`); testado no motor.
+- **Achado do teste:** metade do que A acreditava estava desatualizado (bandidos, lobos que já tinham ido): contar a B foi aceito pelo motor mas B só incorpora o que ainda é verdade (49 tentativas, 1 incorporada).
+**Não verificado:** a marca ver-se por 4 jogadores (testei 3); o título de outro jogador na tela (só o motor); sem playtest com pessoas, sem medição do Jev nesta fase.

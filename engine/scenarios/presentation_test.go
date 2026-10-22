@@ -27,8 +27,13 @@ func TestClientPresentationMatchesTheUniverse(t *testing.T) {
 			With    string    `json:"with"`
 			Actions []string  `json:"actions"`
 		} `json:"pois"`
-		Anim  map[string]string   `json:"anim"`
-		Greet map[string][]string `json:"greet"`
+		Anim   map[string]string   `json:"anim"`
+		Greet  map[string][]string `json:"greet"`
+		Glyphs map[string]struct {
+			Symbol string `json:"symbol"`
+			Color  string `json:"color"`
+			Title  string `json:"title"`
+		} `json:"glyphs"`
 	}
 	if err := json.Unmarshal(raw, &p); err != nil {
 		t.Fatal(err)
@@ -69,6 +74,21 @@ func TestClientPresentationMatchesTheUniverse(t *testing.T) {
 	for id, lines := range p.Greet {
 		if h.s.Entities[core.ID(id)].Kind != "npc" || len(lines) == 0 {
 			t.Fatalf("greetings for %q", id)
+		}
+	}
+	// Every glyph the world knows has a symbol and a colour on the client, and the client invents none.
+	for _, g := range h.w.U.Glyphs {
+		pg, ok := p.Glyphs[g.ID]
+		if !ok || pg.Symbol == "" || len(pg.Color) != 6 {
+			t.Fatalf("glyph %q has no presentation", g.ID)
+		}
+		if pg.Title != g.Title {
+			t.Fatalf("glyph %q: client title %q differs from the universe's %q", g.ID, pg.Title, g.Title)
+		}
+	}
+	for id := range p.Glyphs {
+		if _, ok := h.w.Glyph(id); !ok {
+			t.Fatalf("the client has a glyph the world does not: %q", id)
 		}
 	}
 }

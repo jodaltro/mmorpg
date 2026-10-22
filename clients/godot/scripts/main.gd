@@ -86,6 +86,7 @@ var _seen := {"seq": 0, "opening": false, "ceremony": false, "people": {}}  # wh
 var _seen_saved_ms := 0
 var _all_names := {}  # entity id -> name, from the latest view
 var bramble: Node3D  # the thicket in the forest (null once burnt)
+var mark_nodes := {}  # traveller marks in this place, by id
 var scene_nodes := {}  # sign id -> scene while the engine shows that sign (events with a physical presence)
 var monuments := {}  # "arc|beat" -> monument in the village for a chapter that someone claimed
 var stigma := false  # the seal's mark on this character
@@ -188,6 +189,8 @@ func _ready() -> void:
 				_autotest_cenas()
 			"observador":
 				_autotest_observador()
+			"outros":
+				_autotest_outros()
 			"monumento":
 				_autotest_monumento()
 			"marca":
@@ -776,6 +779,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				hud.toggle_notebook()
 			KEY_T:
 				_light_torch()
+			KEY_M:
+				_open_mark_menu()
 			KEY_Z:
 				_look_far()
 			KEY_Y:
@@ -829,7 +834,7 @@ func _nearest_interactable() -> Dictionary:
 	var best := {}
 	var best_d := 3.2
 	for n in npc_nodes.values():
-		if n.has_meta("player") or not n.visible:
+		if not n.visible:
 			continue
 		var d: float = n.global_position.distance_to(player.global_position)
 		if d < best_d:
@@ -853,6 +858,12 @@ func _nearest_interactable() -> Dictionary:
 		if bd < 5.0 and bd < best_d + 2.0:
 			best = {"bramble": true}
 			best_d = bd
+	for id in mark_nodes:
+		var mn: Node3D = mark_nodes[id]
+		var md: float = Vector2(mn.global_position.x - player.global_position.x, mn.global_position.z - player.global_position.z).length()
+		if md < best_d:
+			best_d = md
+			best = {"mark": mn.get_meta("mark")}
 	for ps in passages:
 		var d: float = Vector2(ps.pos.x - player.global_position.x, ps.pos.z - player.global_position.z).length()
 		if d < best_d:
@@ -867,6 +878,8 @@ func use_nearest() -> void:
 		await open_npc_menu(it.npc)
 	elif it.has("poi"):
 		await open_poi_menu(it.poi)
+	elif it.has("mark"):
+		await _use_mark(it.mark)
 	elif it.has("bramble"):
 		await _burn_bramble()
 	elif it.has("passage"):
@@ -1536,6 +1549,7 @@ func _on_view(v: Dictionary) -> void:
 	_sync_signs(v)
 	_remember_people(v)
 	_sync_torch(v)
+	_sync_marks(v)
 	_sync_scenes(v)
 	_sync_monuments(v)
 	_sync_stigma(v)
@@ -1971,6 +1985,106 @@ func _update_monument_plaques() -> void:
 			get_tree().create_timer(0.12).timeout.connect(func() -> void: _sun(int(client.view.get("hour", 12))))
 
 
+## Symbols other travellers left here (and your own): the same for everyone who comes to this place.
+func _sync_marks(v: Dictionary) -> void:
+	var now := {}
+	for m in v.get("marks", []):
+		now[m.id] = m
+	for id in mark_nodes.keys():
+		if not now.has(id):
+			mark_nodes[id].queue_free()
+			mark_nodes.erase(id)
+	for id in now:
+		var m: Dictionary = now[id]
+		if mark_nodes.has(id):
+			mark_nodes[id].set_meta("mark", m)
+			_label_mark(mark_nodes[id], m)
+			continue
+		var g: Dictionary = Places.glyphs.get(m.glyph, {"symbol": "?", "color": "ffffff"})
+		var col := Color.html(String(g.color))
+		var n := Node3D.new()
+		var ang := float(hash(id) % 360) * PI / 180.0
+		n.position = Layout.spot(m.spot, Layout.ORIGIN.get(m.region, Vector3.ZERO)) + Vector3(cos(ang), 0, sin(ang)) * 1.6
+		var ring := MeshInstance3D.new()
+		var tm := TorusMesh.new()
+		tm.inner_radius = 0.55
+		tm.outer_radius = 0.68
+		ring.mesh = tm
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = col
+		mat.emission_enabled = true
+		mat.emission = col
+		mat.emission_energy_multiplier = 1.6
+		ring.material_override = mat
+		ring.position.y = 0.06
+		n.add_child(ring)
+		var sym := Label3D.new()
+		sym.text = String(g.symbol)
+		sym.font_size = 120
+		sym.pixel_size = 0.009
+		sym.outline_size = 16
+		sym.modulate = col.lightened(0.2)
+		sym.rotation_degrees = Vector3(-90, 0, 0)  # carved on the ground
+		sym.position.y = 0.09
+		sym.no_depth_test = true
+		n.add_child(sym)
+		var l := Label3D.new()
+		l.name = "Meaning"
+		l.position.y = 1.3
+		l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		l.no_depth_test = true
+		l.pixel_size = 0.006
+		l.font_size = 30
+		l.outline_size = 8
+		l.modulate = col.lightened(0.35)
+		l.visible = false
+		n.add_child(l)
+		n.set_meta("mark", m)
+		add_child(n)
+		mark_nodes[id] = n
+		_label_mark(n, m)
+		telemetry.note("mark_seen", {"glyph": m.glyph, "by": m.authorName})
+
+
+func _label_mark(n: Node3D, m: Dictionary) -> void:
+	var l: Label3D = n.get_node("Meaning")
+	l.text = "%s\npor %s%s" % [m.title, "voce" if m.get("mine", false) else m.authorName, "  (+%d)" % int(m.agree) if int(m.agree) > 0 else ""]
+
+
+func _update_mark_labels() -> void:
+	for n in mark_nodes.values():
+		(n.get_node("Meaning") as Label3D).visible = Vector2(n.global_position.x - player.global_position.x, n.global_position.z - player.global_position.z).length() < 9.0
+
+
+func _use_mark(m: Dictionary) -> void:
+	if m.get("mine", false):
+		hud.toast("Sua marca: %s." % m.title, Color(1, 1, 1, 0.8))
+		return
+	if m.get("agreed", false):
+		hud.toast("Voce ja confirmou esta marca.", Color(1, 1, 1, 0.8))
+		return
+	await _perform({"action": "concordar", "origin": "player", "args": {"mark": m.id}, "title": "Concordar com a marca: %s" % m.title})
+
+
+## M: choose a symbol and leave it at the nearest known place.
+func _open_mark_menu() -> void:
+	var spot := ""
+	var best := 9.0
+	for id in Layout.SPOTS:
+		var p: Vector3 = Layout.SPOTS[id]
+		var d: float = Vector2(p.x - player.global_position.x, p.z - player.global_position.z).length()
+		if d < best:
+			best = d
+			spot = id
+	if spot == "":
+		hud.toast("Chegue perto de um lugar conhecido para deixar uma marca.", Color(1, 1, 1, 0.8))
+		return
+	var list: Array = []
+	for id in Places.glyphs:
+		list.append({"action": "marcar", "origin": "player", "args": {"glyph": id, "spot": spot}, "title": "%s  %s" % [Places.glyphs[id].symbol, Places.glyph_title(id)]})
+	_show_menu("Deixar uma marca aqui", list)
+
+
 func _remember_people(v: Dictionary) -> void:
 	var me_region: String = v.get("self", {}).get("region", "")
 	for o in v.get("others", []):
@@ -2021,6 +2135,7 @@ func _notebook_data(v: Dictionary) -> Dictionary:
 
 
 func _update_signs_labels() -> void:
+	_update_mark_labels()
 	_update_monument_plaques()
 	_update_gallery()
 	_update_landmarks()
@@ -2037,7 +2152,7 @@ func _update_poi_labels() -> void:
 			var doing: String = n.get_meta("doing", "")
 			var close: bool = n.global_position.distance_to(player.global_position) < 9.0
 			var knows: bool = n.get_meta("knows", false)
-			var text: String = n.get_meta("base_name") + ("\n(%s)" % doing if doing != "" and close else "")
+			var text: String = n.get_meta("base_name") + ("\n<%s>" % n.get_meta("title", "") if n.get_meta("title", "") != "" else "") + ("\n(%s)" % doing if doing != "" and close else "")
 			if knows and close:
 				text += "\n[te conhece]"
 			n.label.text = text
@@ -2083,6 +2198,7 @@ func _sync_npcs(v: Dictionary) -> void:
 			var n: Actor = npc_nodes[id]
 			n.set_meta("doing", o.get("doing", ""))
 			n.set_meta("knows", bool(o.get("knowsYou", false)))
+			n.set_meta("title", o.get("title", ""))
 			if o.kind == "npc" and target.distance_to(n.get_meta("target", target)) > 0.6:
 				n.set_meta("target", target)
 				n.set_meta("spot", o.get("spot", ""))
@@ -2101,6 +2217,7 @@ func _sync_npcs(v: Dictionary) -> void:
 		npc.set_meta("target", target)
 		npc.set_meta("doing", o.get("doing", ""))
 		npc.set_meta("knows", bool(o.get("knowsYou", false)))
+		npc.set_meta("title", o.get("title", ""))
 		if is_player:
 			npc.set_meta("player", true)
 			npc.label.modulate = Color(0.6, 0.82, 1.0)
@@ -2198,6 +2315,8 @@ func _update_hud_world() -> void:
 			text = "[E] %s" % it.sign.title
 		elif it.has("passage"):
 			text = "[E] %s" % it.passage.label
+		elif it.has("mark"):
+			text = "[E] Concordar com a marca: %s" % it.mark.title if not it.mark.get("mine", false) and not it.mark.get("agreed", false) else "Marca: %s" % it.mark.title
 		elif it.has("bramble"):
 			text = "[E] Queimar a sarca" + ("" if torch_on else " (precisa de tocha: T)")
 	if text != _prompt:
@@ -2573,6 +2692,104 @@ func _autotest_cenas() -> void:
 	cam.size = 14.0
 	print("AUTOTEST ", JSON.stringify(ok))
 	get_tree().quit()
+
+
+var _marks_of := ""  # tests: only the marks left by this author count
+
+
+func _my_marks() -> Array:
+	var all: Array = client.view.get("marks", [])
+	if _marks_of == "":
+		return all
+	return all.filter(func(m): return m.author == _marks_of)
+
+
+## F6: three clients in the same village (roles a, b, c; --peers=ida,idb,idc). A looks at the carrots, leaves a
+## mark and tells B a secret; B confirms the mark and receives the secret; C sees the same mark but knows less.
+func _autotest_outros() -> void:
+	var t0 := Time.get_ticks_msec()
+	while client.view.is_empty() and Time.get_ticks_msec() - t0 < 15000:
+		await get_tree().create_timer(0.2).timeout
+	var role := String(_args.get("role", "a"))
+	var peers := String(_args.get("peers", "")).split(",", false)
+	var ok := {"role": role}
+	_marks_of = peers[0]
+	await get_tree().create_timer(1.0).timeout
+	var limit := float(_args.get("seconds", 240))
+	if role == "a":
+		await _go(Layout.spot("horta") + Vector3(1.6, 0, 1.4), 60.0)
+		ok["examined"] = await _examine_nearest("cenouras-roidas")
+		await _perform({"action": "marcar", "origin": "player", "args": {"glyph": "escondido", "spot": "horta"}, "title": "Marcar"})
+		await get_tree().create_timer(1.0).timeout
+		ok["mark_placed"] = not _my_marks().is_empty()
+		var w := 0.0
+		var told := false
+		while w < limit and not told:  # wait for B to be here and for a belief to share
+			await client.refresh_affordances()
+			var tried := 0
+			for a in client.affordances:  # some of what A believes may be out of date: B only takes in what still holds
+				if a.action == "contar" and a.get("with", "") == peers[1]:
+					var res := await client.act("contar", a.args)
+					told = told or res.status == 200
+					tried += 1
+					ok["told_b_last"] = _menu_label(a)
+					await get_tree().create_timer(0.4).timeout
+			ok["tried"] = tried
+			if not told:
+				await get_tree().create_timer(3.0).timeout
+				w += 3.0
+		ok["told"] = told
+		w = 0.0
+		while w < limit and (_my_marks().is_empty() or int(_my_marks()[0].agree) < 2):
+			await get_tree().create_timer(2.0).timeout
+			w += 2.0
+		ok["agreed_by"] = int(_my_marks()[0].agree) if not _my_marks().is_empty() else 0
+		await _shot("f6_a_marca")
+	else:
+		var w := 0.0
+		while w < limit and _my_marks().is_empty():
+			await get_tree().create_timer(1.0).timeout
+			w += 1.0
+		ok["mark_seen_after_s"] = w
+		if not _my_marks().is_empty():
+			var m: Dictionary = _my_marks()[0]
+			ok["mark"] = {"id": m.id, "glyph": m.glyph, "by": m.authorName}
+			await _go(Layout.spot(m.spot) + Vector3(2.0, 0, 2.0), 60.0)
+			await get_tree().create_timer(1.0).timeout
+			if role == "b":
+				await _use_mark(m)
+				await get_tree().create_timer(1.0).timeout
+				ok["agree_result"] = last_report
+			else:  # c waits until two others confirmed
+				var wc := 0.0
+				while wc < limit and int(_my_marks()[0].agree) < 1:
+					await get_tree().create_timer(2.0).timeout
+					wc += 2.0
+				await _use_mark(_my_marks()[0])
+			await get_tree().create_timer(1.5).timeout
+			ok["agreed_by"] = int(_my_marks()[0].agree)
+		var heard := ""
+		w = 0.0
+		while w < (limit if role == "b" else 5.0) and heard == "":
+			for b in client.view.get("beliefs", []):
+				if b.get("source", "") == "communication" and b.get("from", "") == peers[0]:
+					heard = _notebook_belief_text(b)
+			if heard == "":
+				await get_tree().create_timer(2.0).timeout
+				w += 2.0
+		ok["secret_from_a"] = heard
+		var den := false
+		for f in client.view.get("facts", []):
+			den = den or f.p == "den-trail"
+		ok["knows_den_trail"] = den
+		await _shot("f6_%s_marca" % role)
+	ok["beliefs_n"] = client.view.get("beliefs", []).size()
+	print("AUTOTEST ", JSON.stringify(ok))
+	get_tree().quit()
+
+
+func _notebook_belief_text(b: Dictionary) -> String:
+	return Places.belief_label(b, _all_names)
 
 
 ## F5 closing: a second client watches the first one carry the seal's mark.

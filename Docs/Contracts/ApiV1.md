@@ -57,3 +57,10 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 
 - **`signs` na visão:** vestígios que o observador consegue perceber onde está (`{id, region, spot, title, look}`). Mostram o efeito de algo oculto, nunca a causa, e dependem de hora, habilidades e números do observador. `others[].knowsYou` diz quem acredita conhecer o observador.
 - **Verbos do motor** (ids reservados; `origin: player`): `act` com `action: "examinar"`, `args: {sign}` (examinar um vestígio visível: o observador recebe um relato privado e a crença ou o indício correspondente) e `action: "contar"`, `args: {npc, p, s[, o]}` (contar a alguém na mesma região uma crença que o jogador tem; a pessoa responde conforme já saiba, a notícia esteja desatualizada ou seja novidade, e só então passa a acreditar, com fonte `communication`). Ambos aparecem em `/v1/affordances` com `args` prontos.
+
+
+## Os outros jogadores (F6)
+
+- **Marcas de viajante:** `act` com `action: "marcar"`, `args: {glyph, spot}` deixa um símbolo fixo (vocabulário do universo, sem texto livre) num lugar da região em que o jogador está; cada viajante mantém poucas (a mais antiga cede) e elas somem com o tempo. `action: "concordar"`, `args: {mark}` confirma a marca de outra pessoa e a faz durar mais. A visão traz `marks` (`{id, author, authorName, glyph, title, region, spot, agree, mine, agreed}`) para a região do observador: é a mesma marca para todos que chegam ali. Em `/v1/affordances` aparecem os `concordar` possíveis.
+- **Segredos entre jogadores:** `contar` aceita outro jogador na mesma região como ouvinte (`args.npc` é o id dele): quem ouve passa a ter a crença com fonte `communication` e recebe um relato privado de quem falou. A lista de ações oferece só o que o outro ainda não acredita.
+- **Reconhecimento público:** `others[].title` traz o título que um jogador ganhou ao reivindicar um capítulo único.

@@ -196,3 +196,6 @@ func (v *validator) glyphs() error {
 	}
 	return nil
 }
+
+// Glyph looks a symbol up by id (for clients and tools that check their own tables).
+func (w *World) Glyph(id string) (GlyphDef, bool) { return w.glyph(id) }
