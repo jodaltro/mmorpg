@@ -84,3 +84,18 @@ func TestDesignAdvisorChoiceIsRevalidatedAndKept(t *testing.T) {
 		t.Fatal("replaying the design log gives another world")
 	}
 }
+
+// The first design comes early, after a few deeds, so a new cell soon has a face of its own (later redesigns wait for more life).
+func TestDesignFirstOneComesEarly(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.move("p1", "sangue")
+	h.repeat("adapter", "p1", "estilo-chicote", 4)
+	h.repeat("adapter", "p1", "derrotar-virus", 3)
+	for i := 0; i < 12 && len(designDecisions(h, "p1")) == 0; i++ {
+		h.tick(1)
+	}
+	if len(designDecisions(h, "p1")) != 11 {
+		t.Fatalf("seven deeds are enough for the first design, got %d decisions", len(designDecisions(h, "p1")))
+	}
+}

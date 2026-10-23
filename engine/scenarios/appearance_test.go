@@ -25,7 +25,7 @@ func (h *harness) repeat(origin string, p core.ID, action string, n int) {
 func (h *harness) waitLook(p core.ID) *core.LookView {
 	h.t.Helper()
 	for i := 0; i < 60; i++ {
-		if v, _ := h.w.View(&h.s, p, 1); v.Look != nil {
+		if v, _ := h.w.View(&h.s, p, 1); v.Look != nil && v.Look.Variant != "" {
 			return v.Look
 		}
 		h.tick(1)

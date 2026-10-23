@@ -112,6 +112,9 @@ func perform_id(id: StringName) -> int:
 	var def := me.actor.attack_def(id)
 	var color: Color = BioEffectSignature.tint(a["color"], effect_style)
 	_limbs.signature = effect_style
+	if effect_style != &"" and BioFx.root != null:  # the cast itself carries the cell's flavour: a flare, shards, a cloud, sparks or blobs
+		BioPfx.burst(BioFx.root, origin + aim * 0.6 * BioArt.UNIT, color, 48, 300.0, 0.7, 22.0, aim, 85.0)
+		BioPfx.ring_burst(BioFx.root, origin, color, 1.3 * BioArt.UNIT, 36, 0.6, 16.0)
 	match kind:
 		"devour":
 			_devour(def, a, aim, color)

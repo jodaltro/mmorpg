@@ -51,3 +51,22 @@ static func make_glow(color: Color, diameter_units: float, z: int) -> Sprite2D:
 	sprite.scale = Vector2.ONE * (diameter_units * UNIT / 128.0)
 	sprite.z_index = z
 	return sprite
+
+
+static var _shard: ImageTexture
+
+
+## A thin glowing diamond: the particle of crystal and electric effects.
+static func shard_texture() -> ImageTexture:
+	if _shard == null:
+		var size := 64
+		var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+		for y in size:
+			for x in size:
+				var dx := absf(x - size * 0.5 + 0.5) / (size * 0.5)
+				var dy := absf(y - size * 0.5 + 0.5) / (size * 0.5)
+				var d := dx * 1.0 + dy * 3.2  # long on the x axis, thin on y
+				var a := clampf(1.0 - d, 0.0, 1.0)
+				img.set_pixel(x, y, Color(1, 1, 1, a * a * 1.4))
+		_shard = ImageTexture.create_from_image(img)
+	return _shard

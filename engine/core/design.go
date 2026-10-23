@@ -13,6 +13,11 @@ import (
 // options) and keeps it in the player's Look. A deterministic default (the option whose affinities match the body axes) applies at
 // the deadline, so the game is fine with the advisor off.
 
+const (
+	firstDesignEvery Tick  = 5 // how often (ticks) a cell without a design is checked
+	firstDesignDeeds int64 = 6 // deeds a new cell needs before its first design
+)
+
 // TraitDef is one thing the advisor designs.
 type TraitDef struct {
 	ID       string        `json:"id"`
@@ -97,7 +102,7 @@ func (w *World) pendingDesign(s *State, p ID) bool {
 // created together so the advisor answers them in parallel.
 func (w *World) designTick(s *State, cause string) {
 	a := w.U.Appearance
-	if a == nil || len(a.Traits) == 0 || s.Tick%a.Every != 0 {
+	if a == nil || len(a.Traits) == 0 {
 		return
 	}
 	for _, p := range sortedIDs(s.Entities) {
@@ -106,7 +111,12 @@ func (w *World) designTick(s *State, cause string) {
 		}
 		key := "design|" + string(p)
 		total := w.totalDeeds(s, p)
-		if total < max(a.MinDeeds, 1) || total-s.Receipts[key] < a.MinDeeds {
+		if len(s.Looks[p].Traits) == 0 {
+			// the first design comes early (a few deeds, checked often) so a new cell soon has a face of its own
+			if s.Tick%firstDesignEvery != 0 || total < firstDesignDeeds {
+				continue
+			}
+		} else if s.Tick%a.Every != 0 || total < max(a.MinDeeds, 1) || total-s.Receipts[key] < a.MinDeeds {
 			continue
 		}
 		base := w.profile(s, p)

@@ -76,3 +76,7 @@ Alguns lugares do corpo escondem **nichos**: bolsas com um gene para quem as ach
 ## Códice
 
 **B** abre o códice do corpo: lugares, invasores, o corpo e segredos. O que você ainda não aprendeu aparece como `???`. Também lista as regiões a que você se adaptou por viver nelas (a energia volta mais depressa lá). Há nichos-segredo que só existem em certo estado do corpo, e o rastro químico segue o lugar que o Jev apontou para você, quando há um.
+
+## Debug do design do Jev
+
+**F3** abre o painel de debug: de onde veio o design (motor, debug ou nenhum), cada traço, o estilo dos efeitos, os multiplicadores das partículas e quantos efeitos foram emitidos nesta sessão (e quantos com estilo). **F4** troca o estilo dos efeitos à mão (chama, cristal, névoa, elétrico, orgânico) para ver cada um sem esperar o motor; **F5** sorteia um design completo (núcleo composto, membrana, organelas, brilho, efeitos); **F6** volta ao que o motor decidiu. Cada mudança também escreve `[design] origem=... traços=...` no console. O motor desenha a célula nova depois de uns 6 atos (cerca de 20 s jogando).

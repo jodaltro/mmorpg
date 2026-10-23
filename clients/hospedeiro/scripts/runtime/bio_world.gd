@@ -26,6 +26,10 @@ var anatomy: BioAnatomyView
 var atlas: BioAtlas
 var exploration: BioExploration
 var design_traits: Dictionary = {}  # what Jev designed for this cell (engine look traits)
+var design_source := "nenhuma"  # motor (Jev or default), debug or nenhuma
+var design_changed_at := -1.0
+var engine_traits: Dictionary = {}  # the last design the engine sent, kept for F6
+var design_debug: BioDesignDebug
 var codex_panel: BioCodexPanel
 var adapted_regions: Array = []
 var compass_text := ""
@@ -136,6 +140,10 @@ func build() -> void:
 	codex_panel.name = "CodexPanel"
 	add_child(codex_panel)
 	codex_panel.configure()
+	design_debug = BioDesignDebug.new()
+	design_debug.name = "DesignDebug"
+	add_child(design_debug)
+	design_debug.configure(self)
 	exploration = BioExploration.new()
 	exploration.name = "Exploration"
 	add_child(exploration)
@@ -246,16 +254,10 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 ## background whenever the engine decides, and the body morphs towards it slowly.
 func apply_engine_look(look: Dictionary) -> void:
 	var designed: Dictionary = look.get("traits", {})
-	if designed != design_traits:
-		design_traits = designed.duplicate()
-		abilities.effect_style = StringName(str(design_traits.get("efeito", "")))
-		var feel := BioDesign.feel(design_traits)
-		BioPfx.density = feel["density"]
-		BioPfx.linger = feel["trail"]
-		BioPfx.tempo = feel["tempo"]
-		for child in player.get_children():
-			if child is BioCellBody:
-				(child as BioCellBody).set_traits(design_traits)
+	var changed := designed != engine_traits
+	engine_traits = designed.duplicate()
+	if changed or (design_source == "nenhuma" and not designed.is_empty()):  # a debug preview stays until the engine says something new
+		apply_design(designed, "motor")
 	var axes: Dictionary = look.get("axes", {})
 	if axes.is_empty():
 		return
@@ -263,6 +265,50 @@ func apply_engine_look(look: Dictionary) -> void:
 		if child is BioCellBody:
 			(child as BioCellBody).set_look(axes)
 	look_name = str(look.get("name", ""))
+
+
+## Applies a design (what Jev decided, or a debug preview) to the body, the abilities and the particles. One place, so what the debug
+## overlay shows is what is really in effect.
+func apply_design(designed: Dictionary, source: String) -> void:
+	design_traits = designed.duplicate()
+	design_source = source if not designed.is_empty() else "nenhuma"
+	design_changed_at = Time.get_ticks_msec() * 0.001
+	abilities.effect_style = StringName(str(design_traits.get("efeito", "")))
+	BioPfx.style = abilities.effect_style
+	var feel := BioDesign.feel(design_traits)
+	BioPfx.density = feel["density"]
+	BioPfx.linger = feel["trail"]
+	BioPfx.tempo = feel["tempo"]
+	for child in player.get_children():
+		if child is BioCellBody:
+			(child as BioCellBody).set_traits(design_traits)
+	print("[design] origem=%s traços=%s" % [design_source, str(design_traits)])
+	if design_debug != null:
+		design_debug.refresh()
+
+
+## Debug keys: F4 cycles the effect style, F5 tries a random design, F6 goes back to the engine's.
+func _debug_keys() -> void:
+	if Input.is_action_just_pressed("bio_debug_toggle"):
+		design_debug.toggle()
+	if Input.is_action_just_pressed("bio_debug_style"):
+		var styles: Array = BioEffectSignature.STYLES
+		var next: StringName = styles[(styles.find(abilities.effect_style) + 1) % styles.size()]
+		var cur := design_traits.duplicate()
+		cur["efeito"] = String(next)
+		apply_design(cur, "debug")
+	if Input.is_action_just_pressed("bio_debug_random"):
+		var rng := RandomNumberGenerator.new()
+		rng.randomize()
+		apply_design({
+			"nucleo": "composto", "lobulacao": BioDesign.LOBES.keys()[rng.randi() % BioDesign.LOBES.size()],
+			"recorte": BioDesign.CUTS[rng.randi() % BioDesign.CUTS.size()], "nucleolo": BioDesign.NUCLEOLI[rng.randi() % BioDesign.NUCLEOLI.size()],
+			"membrana": BioDesign.MEMBRANES[rng.randi() % BioDesign.MEMBRANES.size()], "organelas": BioDesign.ORGANELLES[rng.randi() % BioDesign.ORGANELLES.size()],
+			"brilho": BioDesign.GLOW.keys()[rng.randi() % BioDesign.GLOW.size()], "efeito": String(BioEffectSignature.STYLES[rng.randi() % BioEffectSignature.STYLES.size()]),
+			"densidade": BioDesign.DENSITY.keys()[rng.randi() % BioDesign.DENSITY.size()], "rastro": BioDesign.TRAIL.keys()[rng.randi() % BioDesign.TRAIL.size()],
+			"ritmo": BioDesign.TEMPO.keys()[rng.randi() % BioDesign.TEMPO.size()]}, "debug")
+	if Input.is_action_just_pressed("bio_debug_engine"):
+		apply_design(engine_traits, "motor")
 
 
 ## The engine's lineage for this player: the class they have become, the offer to differentiate and progress.
@@ -463,6 +509,7 @@ func _process(delta: float) -> void:
 		vitals_panel.toggle()
 	if Input.is_action_just_pressed("bio_codex"):
 		codex_panel.toggle()
+	_debug_keys()
 	if dungeon.active:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")

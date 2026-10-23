@@ -99,3 +99,25 @@ func test_a_composed_nucleus_is_unique_to_its_parts() -> void:
 	var notch := BioNucleusShapes.radius_composite(PI * 0.5, 0.0, 5, "entalhe")
 	var plain := BioNucleusShapes.radius_composite(PI * 0.5, 0.0, 5, "liso")
 	assert_true(notch < plain * 0.75, "the notch cuts deep on its side")
+
+
+func test_the_debug_overlay_shows_what_is_really_in_effect() -> void:
+	var world := BioWorld.new()
+	world.save_path = ""
+	world.engine_url = ""
+	tree.root.add_child(world)
+	await tree.physics_frame
+	world.design_debug.toggle()
+	assert_true(world.design_debug.text().contains("nenhum traço"), "no design yet, and it says so")
+	world.apply_design({"efeito": "cristal", "densidade": "densa"}, "debug")
+	assert_eq(BioPfx.style, &"cristal", "the particles take the style")
+	var text := world.design_debug.text()
+	assert_true(text.contains("origem: debug") and text.contains("cristal") and text.contains("x1.60"), "the overlay shows the source, the style and the multipliers")
+	world.apply_engine_look({"traits": {}})
+	assert_eq(world.design_source, "debug", "a debug preview stays when the engine says nothing new")
+	world.apply_engine_look({"traits": {"efeito": "chama"}})
+	assert_eq(world.design_source, "motor", "but a new engine design takes over")
+	assert_eq(BioPfx.style, &"chama", "and the particles follow it")
+	world.apply_design({}, "motor")
+	world.queue_free()
+	await tree.process_frame

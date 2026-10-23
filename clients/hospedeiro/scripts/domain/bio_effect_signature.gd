@@ -10,15 +10,15 @@ const STYLES := [&"chama", &"cristal", &"nevoa", &"eletrico", &"organico"]
 static func tint(color: Color, style: StringName) -> Color:
 	match style:
 		&"chama":
-			return color.lerp(Color(1.0, 0.45, 0.12), 0.55)
+			return color.lerp(Color(1.0, 0.45, 0.12), 0.8)
 		&"cristal":
-			return color.lerp(Color(0.72, 0.95, 1.0), 0.5)
+			return color.lerp(Color(0.72, 0.95, 1.0), 0.78)
 		&"nevoa":
-			return color.lerp(Color(0.82, 0.76, 1.0), 0.4)
+			return color.lerp(Color(0.82, 0.76, 1.0), 0.7)
 		&"eletrico":
-			return color.lerp(Color(0.55, 0.8, 1.0), 0.5).lightened(0.15)
+			return color.lerp(Color(0.55, 0.8, 1.0), 0.8).lightened(0.2)
 		&"organico":
-			return color.lerp(Color(0.55, 1.0, 0.4), 0.45)
+			return color.lerp(Color(0.55, 1.0, 0.4), 0.78)
 		_:
 			return color
 
