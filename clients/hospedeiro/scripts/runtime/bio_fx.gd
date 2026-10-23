@@ -14,10 +14,6 @@ static func shake(magnitude_units: float) -> void:
 static func burst(pos: Vector2, color: Color, count: int, speed_units: float = 3.0, size_units: float = 0.35, life: float = 0.6) -> void:
 	if root == null:
 		return
-	color = BioEffectSignature.tint(color, BioPfx.style)  # every spark of this cell carries its flavour
-	count = maxi(1, roundi(count * BioPfx.density))
-	speed_units *= BioPfx.tempo
-	life *= BioPfx.linger
 	for i in count:
 		var fx := BioFxLife.new()
 		fx.kind = BioFxLife.Kind.MOTE

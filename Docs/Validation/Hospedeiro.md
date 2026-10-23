@@ -261,3 +261,12 @@ Régua única (`BioBalance`), números afinados em `data/balance.json`, testes q
 - **Medição com corpos reais** (`capture_projectile.gd`, anticorpo contra 5 vírions de 400 de membrana, 0,9 s depois): base `[23,0,0,0,0]`, perfurante+reta+fino `[21,15,11,0,0]`, explosivo+arco+grosso `[16,9,0,0,0]`, fragmenta `[16,0,0,0,0]` (os fragmentos erraram nessa disposição), grudento `[20,0,0,0,0]` (a queimadura vem depois). Folha: `Docs/Validation/projectile/projectile_sheet.png`.
 - **Jev ao vivo:** 56 decisões de design, 26 diferentes do padrão, 357 ms de média, US$ 0,0028 no total. Projéteis escolhidos: lutador trajetória espiral, calibre grosso, impacto perfurante; andarilho trajetória arco, calibre fino, impacto perfurante (os dois iguais no impacto).
 - **Limites:** só `bolt` e `volley` usam o projétil desenhado; as outras habilidades (cones, zonas, golpes) não são projéteis e seguem só com o estilo dos efeitos. Os traços do projétil são pedidos a todas as células, mesmo às que não atiram.
+
+
+## Sem esporos, risco e recompensa por trajetória e foco (23/10/2026)
+
+- **Pedido:** tirar os esporos inúteis (ficam só o projétil e as consequências físicas) e fazer cada trajetória pagar pela dificuldade (a serpente, mais difícil de acertar que a teleguiada, precisa de uma vantagem), valendo também para as outras habilidades.
+- **Removido:** a explosão e o anel de partículas do lançamento, o formato por estilo das partículas e os traços `densidade` e `rastro` (eram só partículas). `ritmo` passou a ser a velocidade do projétil.
+- **Trajetórias** com dano, velocidade e alcance próprios (ver `JevDesign.md`); o teste exige dano x chance de acerto dentro de 12% entre as cinco, e mede que contra um alvo que se mexe a teleguiada acerta mais que a reta.
+- **Foco** (traço novo, 13 traços no total): amplo, médio ou preciso para cones, estocadas, novas, investidas, zonas e devorar. `test_focus.gd`: a régua; a geometria muda e o catálogo não; numa nova real só a ampla alcança o inimigo distante e a precisa bate mais forte no próximo; o chicote e os projéteis ignoram o foco.
+- 132 testes Godot, 0 falhas; Go só falha o antigo `TestClientPresentationMatchesTheUniverse`. Ao vivo (Jev, 2 jogadores): 52 decisões de design, 21 diferentes do padrão, 368 ms de média; os dois escolheram foco preciso, impacto perfurante e trajetória teleguiada (o Jev tende a repetir escolhas entre jogadores parecidos).

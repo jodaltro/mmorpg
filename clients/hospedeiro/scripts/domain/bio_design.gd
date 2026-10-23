@@ -28,15 +28,3 @@ static func glow(option: String) -> Color:
 const LOBES := {"l3": 3, "l4": 4, "l5": 5, "l6": 6, "l7": 7, "l8": 8}
 const CUTS := ["liso", "entalhe", "serrilhado"]
 const NUCLEOLI := ["nenhum", "brilhante", "anel", "constelacao"]
-const DENSITY := {"rala": 0.6, "media": 1.0, "densa": 1.6}
-const TRAIL := {"curto": 0.7, "medio": 1.0, "longo": 1.5}
-const TEMPO := {"lento": 0.75, "firme": 1.0, "veloz": 1.35}
-
-
-## Particle multipliers {density, trail, tempo} for the traits Jev designed (1.0 each when none).
-static func feel(traits: Dictionary) -> Dictionary:
-	return {
-		"density": float(DENSITY.get(str(traits.get("densidade", "")), 1.0)),
-		"trail": float(TRAIL.get(str(traits.get("rastro", "")), 1.0)),
-		"tempo": float(TEMPO.get(str(traits.get("ritmo", "")), 1.0)),
-	}

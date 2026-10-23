@@ -25,7 +25,7 @@ func _run() -> void:
 	for id in [&"engolir", &"onda_de_pseudopodes", &"lisossomo_acido", &"muralha_de_carne"]:
 		world.abilities.learn(id)
 	if style != "":
-		world.apply_design({"efeito": style, "densidade": "densa", "rastro": "longo", "ritmo": "veloz"}, "debug")
+		world.apply_design({"efeito": style}, "debug")
 	var ctrl := world.player.get_node("Controller") as BioCellController
 	var times: Array[float] = []
 	var started := Time.get_ticks_msec()

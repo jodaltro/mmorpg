@@ -8,7 +8,7 @@ func _universe() -> Dictionary:
 
 func test_every_option_the_engine_offers_has_a_drawing() -> void:
 	var traits: Array = _universe()["appearance"]["traits"]
-	assert_eq(traits.size(), 14, "fourteen designed traits")
+	assert_eq(traits.size(), 13, "thirteen designed traits")
 	for t in traits:
 		for o in t["options"]:
 			var id := str(o["id"])
@@ -29,12 +29,10 @@ func test_every_option_the_engine_offers_has_a_drawing() -> void:
 					assert_true(BioDesign.CUTS.has(id), "cut %s is drawn" % id)
 				"nucleolo":
 					assert_true(BioDesign.NUCLEOLI.has(id), "nucleolus %s is drawn" % id)
-				"densidade":
-					assert_true(BioDesign.DENSITY.has(id), "density %s has a multiplier" % id)
-				"rastro":
-					assert_true(BioDesign.TRAIL.has(id), "trail %s has a multiplier" % id)
 				"ritmo":
-					assert_true(BioDesign.TEMPO.has(id), "rhythm %s has a multiplier" % id)
+					assert_true(BioProjectileDesign.TEMPO.has(id), "rhythm %s has a multiplier" % id)
+				"foco":
+					assert_true(BioAbilityFocus.FOCUS.has(id), "focus %s has a meaning" % id)
 
 
 func test_the_effect_flavour_changes_looks_not_numbers() -> void:
@@ -70,28 +68,6 @@ func test_the_world_applies_the_design_to_body_and_abilities() -> void:
 	await tree.process_frame
 
 
-func test_the_feel_of_the_effects_changes_particles_not_numbers() -> void:
-	var calm := BioDesign.feel({})
-	assert_eq(calm["density"], 1.0, "no design, normal density")
-	var crowd := BioDesign.feel({"densidade": "densa", "rastro": "longo", "ritmo": "veloz"})
-	assert_true(crowd["density"] > 1.3 and crowd["trail"] > 1.3 and crowd["tempo"] > 1.2, "a crowd of fast sparks that linger")
-	var world := BioWorld.new()
-	world.save_path = ""
-	world.engine_url = ""
-	tree.root.add_child(world)
-	await tree.physics_frame
-	world.apply_engine_look({"traits": {"densidade": "densa", "rastro": "longo", "ritmo": "veloz"}})
-	assert_near(BioPfx.density, 1.6, 0.0001, "the world applies the density")
-	var p := BioPfx._base(world, Vector2.ZERO, Color.WHITE, 10, 1.0, 10.0)
-	assert_eq(p.amount, 16, "ten particles become sixteen")
-	assert_near(p.lifetime, 1.5, 0.0001, "and linger half as long again")
-	p.queue_free()
-	world.apply_engine_look({"traits": {}})
-	assert_near(BioPfx.density, 1.0, 0.0001, "no design restores the normal feel")
-	world.queue_free()
-	await tree.process_frame
-
-
 func test_a_composed_nucleus_is_unique_to_its_parts() -> void:
 	var a := BioNucleusShapes.radius_composite(0.4, 0.0, 5, "liso")
 	var b := BioNucleusShapes.radius_composite(0.4, 0.0, 7, "serrilhado")
@@ -109,15 +85,15 @@ func test_the_debug_overlay_shows_what_is_really_in_effect() -> void:
 	await tree.physics_frame
 	world.design_debug.toggle()
 	assert_true(world.design_debug.text().contains("nenhum traço"), "no design yet, and it says so")
-	world.apply_design({"efeito": "cristal", "densidade": "densa"}, "debug")
-	assert_eq(BioPfx.style, &"cristal", "the particles take the style")
+	world.apply_design({"efeito": "cristal", "foco": "preciso"}, "debug")
+	assert_eq(world.abilities.effect_style, &"cristal", "the abilities take the style")
 	var text := world.design_debug.text()
-	assert_true(text.contains("origem: debug") and text.contains("cristal") and text.contains("x1.60"), "the overlay shows the source, the style and the multipliers")
+	assert_true(text.contains("origem: debug") and text.contains("cristal"), "the overlay shows the source, the style and the multipliers")
 	world.apply_engine_look({"traits": {}})
 	assert_eq(world.design_source, "debug", "a debug preview stays when the engine says nothing new")
 	world.apply_engine_look({"traits": {"efeito": "chama"}})
 	assert_eq(world.design_source, "motor", "but a new engine design takes over")
-	assert_eq(BioPfx.style, &"chama", "and the particles follow it")
+	assert_eq(world.abilities.effect_style, &"chama", "and the abilities follow it")
 	world.apply_design({}, "motor")
 	world.queue_free()
 	await tree.process_frame

@@ -102,9 +102,11 @@ func test_a_fragmenting_shot_breaks_into_pieces_that_find_others() -> void:
 	var aside := _dummy(Vector2(3.3, -1.6))
 	var before := world.get_children().filter(func(n: Node) -> bool: return n is BioAbilityBolt).size()
 	_shoot({"impacto": "fragmenta"})
-	await _wait(0.5)
-	var pieces := world.get_children().filter(func(n: Node) -> bool: return n is BioAbilityBolt).size()
-	assert_true(pieces >= before + 1, "fragments were born at the impact (%d bolts alive)" % pieces)
+	var pieces := 0
+	for i in 40:  # watch the frames after the impact: the fragments are short lived
+		await tree.physics_frame
+		pieces = maxi(pieces, world.get_children().filter(func(n: Node) -> bool: return n is BioAbilityBolt).size())
+	assert_true(pieces >= before + 3, "three fragments were born at the impact (%d bolts at most alive)" % pieces)
 	await _wait(0.9)
 	var p := BioProjectileDesign.params({"impacto": "fragmenta"})
 	assert_near(_lost(hit), 20.0 * float(p["damage"]), 0.05, "the target takes the main blow, not its own fragments")
@@ -171,3 +173,44 @@ func test_the_design_reaches_the_runner_and_the_overlay() -> void:
 	world.design_debug.toggle()
 	assert_true(world.design_debug.text().contains("impacto explosivo"), "and the overlay says so")
 	world.apply_design({}, "motor")
+
+
+func test_every_trajectory_pays_for_how_hard_it_is_to_land() -> void:
+	var worths := {}
+	for path in BioProjectileDesign.PATHS:
+		var p := BioProjectileDesign.params({"trajetoria": path})
+		var odds: float = BioProjectileDesign.PATHS[path]["odds"]
+		worths[path] = float(p["damage"]) * odds
+	var lo := 9.0
+	var hi := 0.0
+	for k in worths:
+		lo = minf(lo, worths[k])
+		hi = maxf(hi, worths[k])
+	assert_true(hi / lo < 1.12, "damage x odds of landing is the same within 12%% for every path: %s" % str(worths))
+	var tele := BioProjectileDesign.params({"trajetoria": "teleguiada"})
+	var snake := BioProjectileDesign.params({"trajetoria": "ondulada"})
+	var straight := BioProjectileDesign.params({"trajetoria": "reta"})
+	assert_true(float(snake["damage"]) > float(tele["damage"]) * 1.15, "the snake that is harder to land hits harder than the hunter")
+	assert_true(float(straight["damage"]) > float(snake["damage"]) and float(straight["speed"]) > float(tele["speed"]), "and the straight needle is harder still: it hits hardest, fastest and furthest")
+
+
+## Against an enemy that weaves from side to side, the hunter lands more often than the straight needle: the odds the table rests on.
+func test_the_odds_of_landing_follow_the_table() -> void:
+	var rates := {}
+	for path in ["reta", "teleguiada"]:
+		var hits := 0
+		for n in 8:
+			var target := _dummy(Vector2(8, 0))
+			var phase := n * 0.8
+			var bolt := _shoot({"trajetoria": path}, Vector2.RIGHT, 14.0, false)
+			for i in 70:
+				await tree.physics_frame
+				if is_instance_valid(target):
+					target.global_position.y = sin(Time.get_ticks_msec() * 0.004 + phase) * 2.2 * BioArt.UNIT
+			if _lost(target) > 0.0:
+				hits += 1
+			if is_instance_valid(bolt):
+				bolt.queue_free()
+			target.queue_free()
+		rates[path] = hits / 8.0
+	assert_true(rates["teleguiada"] > rates["reta"], "the hunter lands more often than the straight needle: %s" % str(rates))

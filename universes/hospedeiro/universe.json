@@ -4421,80 +4421,14 @@
     ]
    },
    {
-    "id": "densidade",
-    "name": "Densidade dos efeitos",
-    "question": "how dense the particles of this cell's abilities are: sparse and precise, or a crowd of sparks",
-    "options": [
-     {
-      "id": "rala",
-      "name": "Rala",
-      "desc": "Few, precise particles.",
-      "affinity": {
-       "agilidade": 2,
-       "robustez": 1
-      }
-     },
-     {
-      "id": "media",
-      "name": "Média",
-      "desc": "A balanced amount.",
-      "affinity": {
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "densa",
-      "name": "Densa",
-      "desc": "A crowd of sparks.",
-      "affinity": {
-       "ferocidade": 2,
-       "metabolismo": 2
-      }
-     }
-    ]
-   },
-   {
-    "id": "rastro",
-    "name": "Rastro dos efeitos",
-    "question": "how long the effects of this cell's abilities linger after they happen",
-    "options": [
-     {
-      "id": "curto",
-      "name": "Curto",
-      "desc": "Effects vanish at once.",
-      "affinity": {
-       "ferocidade": 2,
-       "agilidade": 1
-      }
-     },
-     {
-      "id": "medio",
-      "name": "Médio",
-      "desc": "Effects fade at a natural pace.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "longo",
-      "name": "Longo",
-      "desc": "Effects linger like smoke.",
-      "affinity": {
-       "misterio": 2,
-       "sociabilidade": 1
-      }
-     }
-    ]
-   },
-   {
     "id": "ritmo",
     "name": "Ritmo dos efeitos",
-    "question": "how fast the effects of this cell's abilities move",
+    "question": "how fast this cell's projectiles fly",
     "options": [
      {
       "id": "lento",
       "name": "Lento",
-      "desc": "Heavy, deliberate effects.",
+      "desc": "Slow, heavy projectiles: easy to see coming, easy to land.",
       "affinity": {
        "robustez": 2,
        "misterio": 1
@@ -4503,7 +4437,7 @@
      {
       "id": "firme",
       "name": "Firme",
-      "desc": "Steady effects.",
+      "desc": "Projectiles at a steady speed.",
       "affinity": {
        "sociabilidade": 1
       }
@@ -4511,10 +4445,44 @@
      {
       "id": "veloz",
       "name": "Veloz",
-      "desc": "Quick, darting effects.",
+      "desc": "Quick projectiles that are hard to avoid.",
       "affinity": {
        "agilidade": 3,
        "ferocidade": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "foco",
+    "name": "Foco das habilidades",
+    "question": "the focus of this cell's non-projectile abilities (cones, thrusts, novas, dashes, zones): wide ones reach more and are easy to land but hit softly and short; precise ones are narrow, long and hit hard",
+    "options": [
+     {
+      "id": "amplo",
+      "name": "Amplo",
+      "desc": "A wide, short, forgiving reach with softer hits.",
+      "affinity": {
+       "sociabilidade": 2,
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "medio",
+      "name": "Médio",
+      "desc": "A balanced reach.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "preciso",
+      "name": "Preciso",
+      "desc": "A narrow, long reach that hits hard when it lands.",
+      "affinity": {
+       "ferocidade": 2,
+       "agilidade": 1,
+       "misterio": 1
       }
      }
     ]

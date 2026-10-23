@@ -99,6 +99,7 @@ func perform_id(id: StringName) -> int:
 	var origin := _host.global_position
 	var me := _host.combatant
 	var kind: String = a["kind"]
+	a = BioAbilityFocus.apply(a, _host.combatant.focus)  # the cell's focus: a wide weak reach or a narrow strong one
 	var target: BioCellActor = null
 	if kind in ["mark", "execute"]:
 		var pool := BioTargeting.enemies(_host.get_world_2d(), origin, float(a["range"]) * BioArt.UNIT, me.actor.team)
@@ -113,9 +114,6 @@ func perform_id(id: StringName) -> int:
 	var def := me.actor.attack_def(id)
 	var color: Color = BioEffectSignature.tint(a["color"], effect_style)
 	_limbs.signature = effect_style
-	if effect_style != &"" and BioFx.root != null:  # the cast itself carries the cell's flavour: a flare, shards, a cloud, sparks or blobs
-		BioPfx.burst(BioFx.root, origin + aim * 0.6 * BioArt.UNIT, color, 48, 300.0, 0.7, 22.0, aim, 85.0)
-		BioPfx.ring_burst(BioFx.root, origin, color, 1.3 * BioArt.UNIT, 36, 0.6, 16.0)
 	match kind:
 		"devour":
 			_devour(def, a, aim, color)

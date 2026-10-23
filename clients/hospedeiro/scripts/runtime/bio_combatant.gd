@@ -28,6 +28,7 @@ var damage_dealt_mult := 1.0  # how hard this one hits (enemies of a dungeon are
 
 ## The flavour of this cell's effects (BioEffectPhysics): the ability hits it lands carry a physical consequence.
 var effect_style: StringName = &""
+var focus := {}  # BioAbilityFocus.params: the risk and reward of every non-projectile ability
 var _brittle_until := 0.0
 var _burn_until := 0.0
 var _burn_dps := 0.0
@@ -147,6 +148,8 @@ func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
 	var factor := (_marked_mult if now < _marked_until else 1.0) * (_guard_mult if now < _guard_until else 1.0) * attacker.damage_dealt_mult
 	if now < _brittle_until:
 		factor *= BioEffectPhysics.BRITTLE_MULT
+	if BioAbilityFocus.applies_to(hit_def.id) and not attacker._chaining:
+		factor *= float(attacker.focus.get("damage", 1.0))
 	var styled := attacker.effect_style != &"" and not attacker._chaining and BioAbilityCatalog.has(hit_def.id)
 	if styled:
 		factor *= BioEffectPhysics.direct_mult(attacker.effect_style)

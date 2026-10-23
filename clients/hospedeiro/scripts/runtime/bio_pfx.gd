@@ -11,8 +11,8 @@ static func _base(parent: Node, pos: Vector2, color: Color, amount: int, life: f
 	var p := CPUParticles2D.new()
 	p.texture = BioArt.glow_texture()
 	p.material = BioArt.additive()
-	p.amount = maxi(1, roundi(amount * density))
-	p.lifetime = life * linger
+	p.amount = amount
+	p.lifetime = life
 	p.local_coords = false
 	p.z_index = Z
 	var ramp := Gradient.new()
@@ -26,12 +26,8 @@ static func _base(parent: Node, pos: Vector2, color: Color, amount: int, life: f
 	p.scale_amount_curve = curve
 	p.scale_amount_min = size_px * 0.6 / 128.0
 	p.scale_amount_max = size_px / 128.0
-	_shape(p, color)
 	parent.add_child(p)
 	p.global_position = pos
-	emitted += 1
-	if style != &"":
-		emitted_styled += 1
 	return p
 
 
@@ -44,16 +40,6 @@ static func _free_after(p: CPUParticles2D, seconds: float) -> void:
 				node.queue_free())
 
 
-## The feel Jev designed for this cell's effects: how many particles, how long they linger, how fast they go, and the style
-## (chama, cristal, nevoa, eletrico, organico) that gives every particle its own shape and motion.
-static var style: StringName = &""
-static var emitted := 0  # counters for the debug overlay
-static var emitted_styled := 0
-static var density := 1.0
-static var linger := 1.0
-static var tempo := 1.0
-
-
 ## An explosion of glowing motes. `spread_deg` 180 is all around; a small one fires in `direction`.
 static func burst(parent: Node, pos: Vector2, color: Color, amount: int = 28, speed: float = 220.0, life: float = 0.7, size_px: float = 14.0, direction: Vector2 = Vector2.RIGHT, spread_deg: float = 180.0, damping: float = 2.5) -> void:
 	if parent == null:
@@ -63,9 +49,8 @@ static func burst(parent: Node, pos: Vector2, color: Color, amount: int = 28, sp
 	p.explosiveness = 1.0
 	p.direction = direction
 	p.spread = spread_deg
-	var pace := tempo * float({&"nevoa": 0.55, &"eletrico": 1.7, &"cristal": 1.2, &"chama": 0.9}.get(style, 1.0))
-	p.initial_velocity_min = speed * 0.4 * pace
-	p.initial_velocity_max = speed * pace
+	p.initial_velocity_min = speed * 0.4
+	p.initial_velocity_max = speed
 	p.damping_min = damping * 0.6
 	p.damping_max = damping
 	p.emitting = true
@@ -124,57 +109,3 @@ static func trail(parent: Node2D, color: Color, size_px: float = 12.0, amount: i
 	p.initial_velocity_max = 26.0
 	p.emitting = true
 	return p
-
-
-## Each style changes what the particles are, not only their colour: a flame rises and flickers, crystal is angular shards that
-## spin, mist is big and soft and slow, electricity is thin quick flashes, the organic is wet blobs that swell and sag.
-static func _shape(p: CPUParticles2D, color: Color) -> void:
-	match style:
-		&"chama":
-			p.gravity = Vector2(0.0, -260.0)
-			p.scale_amount_min *= 1.3
-			p.scale_amount_max *= 1.5
-			p.amount = roundi(p.amount * 1.4)
-			var flicker := Curve.new()
-			flicker.add_point(Vector2(0.0, 0.5))
-			flicker.add_point(Vector2(0.15, 1.0))
-			flicker.add_point(Vector2(0.4, 0.55))
-			flicker.add_point(Vector2(0.6, 0.9))
-			flicker.add_point(Vector2(1.0, 0.0))
-			p.scale_amount_curve = flicker
-		&"cristal":
-			p.texture = BioArt.shard_texture()
-			p.angle_min = 0.0
-			p.angle_max = 360.0
-			p.angular_velocity_min = -300.0
-			p.angular_velocity_max = 300.0
-			p.scale_amount_min *= 1.1
-			p.scale_amount_max *= 1.4
-			p.amount = roundi(p.amount * 0.8)
-		&"nevoa":
-			p.scale_amount_min *= 2.4
-			p.scale_amount_max *= 3.0
-			p.lifetime *= 1.5
-			p.amount = maxi(1, roundi(p.amount * 0.6))
-			var ramp := Gradient.new()
-			ramp.offsets = PackedFloat32Array([0.0, 0.3, 1.0])
-			ramp.colors = PackedColorArray([Color(color.lerp(Color.WHITE, 0.3), 0.32), Color(color, 0.26), Color(color.darkened(0.2), 0.0)])
-			p.color_ramp = ramp
-		&"eletrico":
-			p.texture = BioArt.shard_texture()
-			p.angle_min = 0.0
-			p.angle_max = 360.0
-			p.scale_amount_min *= 0.7
-			p.scale_amount_max *= 1.1
-			p.lifetime *= 0.5
-			p.amount = roundi(p.amount * 1.8)
-		&"organico":
-			p.gravity = Vector2(0.0, 140.0)
-			p.scale_amount_min *= 1.5
-			p.scale_amount_max *= 1.9
-			var swell := Curve.new()
-			swell.add_point(Vector2(0.0, 0.3))
-			swell.add_point(Vector2(0.35, 1.2))
-			swell.add_point(Vector2(0.65, 0.8))
-			swell.add_point(Vector2(1.0, 0.0))
-			p.scale_amount_curve = swell

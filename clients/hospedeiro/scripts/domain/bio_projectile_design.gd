@@ -7,6 +7,17 @@ extends RefCounted
 
 const TRAJECTORIES := ["reta", "ondulada", "espiral", "arco", "teleguiada"]
 
+## How hard each path is to land, paid for in what it gives back. `odds` is the share of shots that find a moving enemy (measured on
+## the physics in test_projectile.gd, rounded); the multipliers are chosen so damage x odds is about the same for every path:
+## the hunter that never misses hits softly; the straight needle is hard to land and hits hard, fast and far.
+const PATHS := {
+	"reta": {"damage": 1.6, "speed": 1.25, "range": 1.15, "odds": 0.55},
+	"ondulada": {"damage": 1.25, "speed": 1.0, "range": 1.0, "odds": 0.7},  # also sweeps the sides of its path
+	"espiral": {"damage": 1.15, "speed": 0.95, "range": 1.0, "odds": 0.75},  # a wide tube in front of the cell
+	"arco": {"damage": 1.3, "speed": 1.0, "range": 1.2, "odds": 0.65},  # bends around the enemy in front and flies further
+	"teleguiada": {"damage": 1.0, "speed": 0.85, "range": 1.0, "odds": 0.9},  # hunts, never misses much
+}
+
 ## Hit radius (units), speed and range multipliers, and a damage multiplier that pays for being easier or harder to land.
 const CALIBRE := {
 	"fino": {"radius": 0.12, "speed": 1.25, "range": 1.1, "damage": 1.12},
@@ -35,12 +46,13 @@ static func params(traits: Dictionary) -> Dictionary:
 	var imp: Dictionary = IMPACTS.get(str(traits.get("impacto", "simples")), IMPACTS["simples"])
 	var path := str(traits.get("trajetoria", ""))
 	var tempo := float(TEMPO.get(str(traits.get("ritmo", "")), 1.0))
+	var pa: Dictionary = PATHS.get(path, {"damage": 1.0, "speed": 1.0, "range": 1.0})
 	return {
 		"path": path if TRAJECTORIES.has(path) else "",
 		"radius_units": float(c["radius"]),
-		"speed": float(c["speed"]) * tempo,
-		"range": float(c["range"]),
-		"damage": float(c["damage"]) * float(imp["direct"]),
+		"speed": float(c["speed"]) * tempo * float(pa["speed"]),
+		"range": float(c["range"]) * float(pa["range"]),
+		"damage": float(c["damage"]) * float(imp["direct"]) * float(pa["damage"]),
 		"impact": str(traits.get("impacto", "simples")) if IMPACTS.has(str(traits.get("impacto", "simples"))) else "simples",
 		"pierce": int(imp.get("pierce", 0)),
 		"falloff": float(imp.get("falloff", 1.0)),

@@ -32,21 +32,25 @@ Três traços novos mudam o **tiro** (hoje nos projéteis das habilidades `bolt`
 | Fragmenta | vira 3 fragmentos que seguem (30% cada, alcance 3 u) | x0,72 |
 | Grudento | gruda e queima 40% do golpe em 3 s | x0,80 |
 
+**Risco e recompensa.** Quanto mais difícil de acertar, mais o tiro dá em troca (`BioProjectileDesign.PATHS`). A chance de acerto contra um inimigo que se mexe é a medida no teste e o dano compensa, de modo que dano x chance fica igual (dentro de 12%) para toda trajetória:
+
+| Trajetória | Chance de acertar | Dano | Velocidade | Alcance |
+|---|---|---|---|---|
+| Teleguiada | ~90% | x1,0 | x0,85 | x1,0 |
+| Espiral (tubo largo) | ~75% | x1,15 | x0,95 | x1,0 |
+| Ondulada (serpente, varre os lados) | ~70% | x1,25 | x1,0 | x1,0 |
+| Arco (contorna) | ~65% | x1,3 | x1,0 | x1,2 |
+| Reta (agulha) | ~55% | x1,6 | x1,25 | x1,15 |
+
+Então o anticorpo em serpente, mais difícil de acertar que o teleguiado, bate 25% mais forte; e a reta bate 60% mais forte, mais rápida e mais longe.
+
+**Foco: a mesma régua para todas as outras habilidades.** O Jev também desenha o `foco` da célula (cones, estocadas, novas, investidas, zonas e devorar): **amplo** (largura x1,45, alcance x0,85, dano x0,8), **médio** ou **preciso** (largura x0,65, alcance x1,2, dano x1,3). Muda a geometria da própria habilidade e o dano de cada golpe dela (`BioAbilityFocus`); o chicote básico e os projéteis ficam de fora (os projéteis têm o desenho próprio acima).
+
 A trajetória é física: a onda e o saca-rolhas varrem os lados (e acertam ali), o arco contorna, a teleguiada persegue com giro forte, a reta não persegue. A régua é a mesma (`test_projectile.gd` exige 95% a 120% do tiro simples contando o que o impacto traz de volta) e cada comportamento é testado em corpos reais. **Debug:** F7 troca o impacto, F8 a trajetória, F9 o calibre; o painel F3 mostra o projétil em vigor.
 
-## Os efeitos são físicos (não só visuais)
+## Os efeitos do estilo (queimadura, quebradiço, lentidão, cadeia, sifão)
 
-O estilo que o Jev escolhe para os efeitos (trait `efeito`) muda o combate. Todo golpe de **habilidade** (o ataque básico não) carrega uma consequência, paga com um golpe direto menor (`BioEffectPhysics`):
-
-| Estilo | Consequência | Golpe direto |
-|---|---|---|
-| Chama | o alvo queima: +38% do dano ao longo de 3 s | x0,78 |
-| Cristal | o alvo fica quebradiço: +20% de dano recebido por 4 s | x0,88 |
-| Névoa | o alvo e os vizinhos (1,8 u) ficam 38% mais lentos por 3 s | x0,85 |
-| Elétrico | o golpe salta para até 2 inimigos próximos (3,2 u) com 40% do dano; o salto não encadeia de novo | x0,72 |
-| Orgânico | 32% do dano volta como membrana para quem lançou | x0,88 |
-
-Uma régua só: `test_effect_physics.gd` exige que o golpe direto mais o valor do efeito fique entre 95% e 120% do golpe sem estilo, e testa cada consequência de verdade (a queimadura continua depois do golpe e para; o quebradiço passa; a névoa não atinge quem está longe; o arco alcança dois, não três; o sifão cura; o ataque básico não muda).
+O traço `efeito` continua dando uma consequência física a cada golpe de habilidade (tabela e testes em `BioEffectPhysics`): chama queima, cristal deixa o alvo quebradiço, névoa atrasa o alvo e os vizinhos, elétrico salta para até dois inimigos, orgânico devolve membrana. **As partículas decorativas do estilo (esporos, lascas, nuvens) foram removidas**: só o projétil e as consequências físicas ficaram.
 
 ## Composição por partes (o Jev "propondo" formas novas)
 
