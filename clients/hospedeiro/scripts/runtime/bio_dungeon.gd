@@ -10,6 +10,8 @@ signal run_failed
 signal finished(cleared: bool)
 
 const CENTER := Vector2(0.0, 5600.0)
+const GRACE_SECONDS := 3.5  # enemies hold still while the cell gets its bearings
+const CLEAR_HEAL := 0.4  # share of the membrane given back when a room is cleared
 
 var active := false
 var room_index := -1
@@ -29,6 +31,8 @@ var _respawn_in := 0.0
 var _quorum_in := 0.0
 var _return_to := Vector2.ZERO
 var _t := 0.0
+var _grace_until := 0.0
+var _awake := true
 
 
 func bind(player: BioCellActor, return_to: Vector2) -> void:
@@ -82,6 +86,8 @@ func advance(index: int) -> void:
 	_clear_sent = false
 	_built_at = BioClock.now()
 	_respawn_in = float(_rule["respawn_every"])
+	_set_awake(false)  # a few seconds before they come
+	_grace_until = BioClock.now() + GRACE_SECONDS
 	room_started.emit(index, info)
 	queue_redraw()
 
@@ -92,6 +98,9 @@ func _spawn(kind: StringName, at: Vector2, speed: float) -> BioCellActor:
 	var cell := brain.get_parent() as BioCellActor
 	cell.set_meta("base_speed", cell.max_speed_units)
 	cell.set_meta("kind", String(kind))
+	cell.set_meta("brain", brain)
+	if not _awake:
+		brain.set_process(false)
 	if kind == &"bacilo_mestre":
 		var slam := BioBossSlam.new()
 		slam.configure(cell, _body_of(cell), _player)
@@ -99,6 +108,20 @@ func _spawn(kind: StringName, at: Vector2, speed: float) -> BioCellActor:
 			if active:
 				_spawn(&"bacilo", pos, speed))
 	return cell
+
+
+## Lets the enemies of the room move (or holds them still).
+func _set_awake(on: bool) -> void:
+	_awake = on
+	for e in enemies():
+		var brain: Variant = e.get_meta("brain", null)
+		if brain is Node:
+			(brain as Node).set_process(on and float((e as BioCellActor).max_speed_units) > 0.05)
+
+
+## Seconds left of the grace period (0 when the room is live).
+func grace_left() -> float:
+	return maxf(0.0, _grace_until - BioClock.now()) if active else 0.0
 
 
 func _body_of(cell: BioCellActor) -> BioCellBody:
@@ -156,9 +179,13 @@ func _process(delta: float) -> void:
 	var vitals := _player.combatant.actor.vitals
 	if float(_rule["drain"]) > 0.0 and vitals.is_alive():
 		vitals.take_damage(float(_rule["drain"]) * delta)
+	if not _awake and BioClock.now() >= _grace_until:
+		_set_awake(true)
 	var alive := enemies()
 	if not _clear_sent and BioClock.now() - _built_at > 0.6 and alive.is_empty():
 		_clear_sent = true
+		vitals.repair(vitals.max_membrane * CLEAR_HEAL)  # a breath between rooms
+		vitals.add_atp(vitals.max_atp)
 		room_cleared.emit(room_index)
 	if float(_rule["respawn_every"]) > 0.0 and (room_kind == "core" or room_kind == "boss") and not _clear_sent:
 		_respawn_in -= delta

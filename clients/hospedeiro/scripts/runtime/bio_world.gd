@@ -22,6 +22,7 @@ const FEVER_SLOWDOWN := 0.55
 var player: BioCellActor
 var abilities: BioAbilityRunner
 var dungeon: BioDungeon
+var fell_in_dungeon := false
 var gate: BioGate
 var hud: BioHud
 var camera: BioCameraFollow
@@ -313,7 +314,11 @@ func respawn_player() -> void:
 	if player.combatant.actor.vitals.is_alive():
 		return
 	player.set_active(true)
-	player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+	if fell_in_dungeon:  # back at the portal, not all the way to the marrow
+		player.global_position = gate.global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
+		fell_in_dungeon = false
+	else:
+		player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
 	player.velocity = Vector2.ZERO
 	player.combatant.reset_vitals()
 	hud.show_banner("")
@@ -364,7 +369,11 @@ func _update_tint() -> void:
 func _on_player_died(_who: BioCombatant) -> void:
 	player.set_intent(Vector2.ZERO)
 	player.set_active(false)
-	hud.show_banner("A célula se dissolveu no fluido\nPressione R para renascer na medula")
+	fell_in_dungeon = dungeon != null and dungeon.active
+	if fell_in_dungeon:
+		hud.show_banner("Você caiu no granuloma\nPressione R para voltar ao portal")
+	else:
+		hud.show_banner("A célula se dissolveu no fluido\nPressione R para renascer na medula")
 
 
 func _process(delta: float) -> void:
@@ -377,6 +386,9 @@ func _process(delta: float) -> void:
 		if now != region:
 			region = now
 			region_changed.emit(region)
+	if dungeon.active:
+		var left := dungeon.grace_left()
+		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")
 	if gate != null and gate.eligible and not dungeon.active and player.is_active():
 		var to := gate.global_position - player.global_position
 		var far := to.length() > 9.0 * BioArt.UNIT

@@ -43,8 +43,8 @@ func test_the_plan_is_the_same_for_the_same_seed_and_changes_with_modifiers() ->
 	var b := BioDungeonPlan.room(99, 0, "guard", "")
 	assert_eq(str(a["enemies"]), str(b["enemies"]), "same seed, same room")
 	assert_true(str(a["enemies"]) != str(BioDungeonPlan.room(100, 0, "guard", "")["enemies"]), "another seed, another room")
-	assert_eq((a["enemies"] as Array).size(), 5, "five patrol lymphocytes")
-	assert_eq((BioDungeonPlan.room(99, 0, "guard", "guarda-redobrada")["enemies"] as Array).size(), 10, "a doubled guard")
+	assert_eq((a["enemies"] as Array).size(), 3, "three patrol lymphocytes")
+	assert_eq((BioDungeonPlan.room(99, 0, "guard", "guarda-redobrada")["enemies"] as Array).size(), 6, "a doubled guard")
 	assert_true((BioDungeonPlan.room(99, 3, "core", "guarda-redobrada")["enemies"] as Array).size() < (BioDungeonPlan.room(99, 3, "core", "")["enemies"] as Array).size(), "and fewer later")
 	assert_true((BioDungeonPlan.room(99, 3, "core", "necrose-viva")["enemies"] as Array).size() > (BioDungeonPlan.room(99, 3, "core", "")["enemies"] as Array).size(), "living necrosis adds bacilli")
 	var boss := BioDungeonPlan.room(99, 4, "boss", "")
@@ -59,7 +59,7 @@ func test_a_run_builds_a_chamber_and_clears_room_by_room() -> void:
 	await tree.physics_frame
 	assert_true(world.dungeon.active, "the run is on")
 	assert_true(world.player.global_position.distance_to(BioDungeon.CENTER) < 9.0 * BioArt.UNIT, "the cell is inside the chamber")
-	assert_eq(world.dungeon.enemies().size(), 5, "the first room has its patrol")
+	assert_eq(world.dungeon.enemies().size(), 3, "the first room has its patrol")
 	await tree.create_timer(0.8).timeout
 	assert_eq(cleared.size(), 0, "not clear while they live")
 	await _kill_all()
@@ -68,7 +68,7 @@ func test_a_run_builds_a_chamber_and_clears_room_by_room() -> void:
 	world.dungeon.advance(1)
 	await tree.physics_frame
 	assert_eq(world.dungeon.room_index, 1, "the next room")
-	assert_true(world.dungeon.enemies().size() >= 4, "macrophages and lymphocytes")
+	assert_true(world.dungeon.enemies().size() >= 3, "macrophages and lymphocytes")
 	world.dungeon.finish(true)
 	await tree.process_frame
 	assert_true(not world.dungeon.active, "finished")
@@ -148,3 +148,37 @@ func test_dying_in_the_dungeon_reports_the_failure() -> void:
 	await tree.process_frame
 	assert_eq(failed[0], 1, "the failure is reported to the engine once")
 	assert_true(not world.dungeon.active, "and the run is over")
+
+
+func test_a_newcomer_who_only_walks_about_survives_the_first_room() -> void:
+	world.dungeon.start(_run(0, "em-febre"))
+	await tree.physics_frame
+	assert_true(world.dungeon.grace_left() > 2.0, "the enemies hold still at first")
+	var first := world.dungeon.enemies()[0] as BioCellActor
+	var at := first.global_position
+	await tree.create_timer(1.5).timeout
+	assert_true(first.global_position.distance_to(at) < 4.0, "and really do not move during the grace period")
+	await tree.create_timer(12.0).timeout
+	assert_true(world.player.combatant.actor.vitals.is_alive(), "twelve idle seconds into the room the cell is still alive")
+
+
+func test_falling_in_the_dungeon_brings_the_cell_back_to_the_portal() -> void:
+	world.dungeon.start(_run(1))
+	await tree.physics_frame
+	world.player.combatant.actor.vitals.take_damage(9999.0)
+	world.player.combatant.died.emit(world.player.combatant)
+	await tree.process_frame
+	assert_true(world.hud.banner_text().contains("granuloma"), "the banner says where the cell fell")
+	world.respawn_player()
+	assert_true(world.player.is_active(), "it is back")
+	assert_true(world.player.global_position.distance_to(world.gate.global_position) < 5.0 * BioArt.UNIT, "at the portal, not in the marrow")
+
+
+func test_clearing_a_room_gives_a_breath() -> void:
+	world.dungeon.start(_run(0))
+	await tree.physics_frame
+	var vitals := world.player.combatant.actor.vitals
+	vitals.membrane = 20.0
+	await _kill_all()
+	await tree.create_timer(1.2).timeout
+	assert_true(vitals.membrane >= 55.0, "the membrane is partly restored between rooms")

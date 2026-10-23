@@ -9,17 +9,17 @@ extends RefCounted
 static func enemy(kind: StringName) -> Dictionary:
 	match kind:
 		&"linfocito":  # a fast, fragile patrol
-			return {"name": "Linfócito de guarda", "hp": 24.0, "speed": 5.0, "size": 0.42, "core": Color(0.8, 0.95, 1.0), "edge": Color(0.35, 0.7, 1.0), "spikes": 0, "aggro": 12.0, "lunge": 3.2, "telegraph": 0.45, "recover": 0.8}
+			return {"name": "Linfócito de guarda", "hp": 18.0, "speed": 3.6, "damage": 0.5, "size": 0.42, "core": Color(0.8, 0.95, 1.0), "edge": Color(0.35, 0.7, 1.0), "spikes": 0, "aggro": 9.0, "lunge": 3.0, "telegraph": 0.65, "recover": 1.3}
 		&"macrofago_guarda":  # slow, big and hard to move
-			return {"name": "Macrófago da parede", "hp": 95.0, "speed": 1.9, "size": 0.95, "core": Color(1.0, 0.5, 0.65), "edge": Color(0.85, 0.2, 0.4), "spikes": 0, "aggro": 9.0, "lunge": 3.6, "telegraph": 0.9, "recover": 1.4}
+			return {"name": "Macrófago da parede", "hp": 85.0, "speed": 1.7, "damage": 0.7, "size": 0.95, "core": Color(1.0, 0.5, 0.65), "edge": Color(0.85, 0.2, 0.4), "spikes": 0, "aggro": 9.0, "lunge": 3.6, "telegraph": 0.9, "recover": 1.4}
 		&"celula_gigante":  # fused giant cell with pseudopod spikes
-			return {"name": "Célula gigante", "hp": 150.0, "speed": 1.5, "size": 1.25, "core": Color(0.8, 0.6, 1.0), "edge": Color(0.55, 0.25, 0.9), "spikes": 7, "aggro": 9.0, "lunge": 4.0, "telegraph": 1.0, "recover": 1.5}
+			return {"name": "Célula gigante", "hp": 130.0, "speed": 1.4, "damage": 0.85, "size": 1.25, "core": Color(0.8, 0.6, 1.0), "edge": Color(0.55, 0.25, 0.9), "spikes": 7, "aggro": 9.0, "lunge": 4.0, "telegraph": 1.0, "recover": 1.5}
 		&"bacilo":  # small rod bacteria in quorum
-			return {"name": "Bacilo em quórum", "hp": 32.0, "speed": 3.4, "size": 0.38, "core": Color(0.8, 1.0, 0.4), "edge": Color(0.45, 0.8, 0.15), "spikes": 5, "aggro": 12.0, "lunge": 3.0, "telegraph": 0.55, "recover": 0.9}
+			return {"name": "Bacilo em quórum", "hp": 28.0, "speed": 3.0, "damage": 0.55, "size": 0.38, "core": Color(0.8, 1.0, 0.4), "edge": Color(0.45, 0.8, 0.15), "spikes": 5, "aggro": 12.0, "lunge": 3.0, "telegraph": 0.55, "recover": 0.9}
 		&"emissor":  # a quorum emitter: still, it makes the others faster while it lives
 			return {"name": "Emissor de quórum", "hp": 55.0, "speed": 0.0, "size": 0.55, "core": Color(0.95, 1.0, 0.5), "edge": Color(0.6, 0.9, 0.2), "spikes": 10, "aggro": 0.0, "lunge": 0.0, "telegraph": 0.0, "recover": 0.0}
 		&"bacilo_mestre":  # the boss: the bacillus the granuloma held for years
-			return {"name": "O Bacilo", "hp": 320.0, "speed": 2.3, "size": 1.7, "core": Color(0.75, 1.0, 0.3), "edge": Color(0.35, 0.65, 0.1), "spikes": 11, "aggro": 20.0, "lunge": 5.0, "telegraph": 0.8, "recover": 1.1}
+			return {"name": "O Bacilo", "hp": 300.0, "speed": 2.0, "damage": 0.9, "size": 1.7, "core": Color(0.75, 1.0, 0.3), "edge": Color(0.35, 0.65, 0.1), "spikes": 11, "aggro": 20.0, "lunge": 5.0, "telegraph": 0.8, "recover": 1.1}
 	return {}
 
 
@@ -29,7 +29,7 @@ static func rules(modifier: String) -> Dictionary:
 	var r := {"speed_mult": 1.0, "drain": 0.0, "regen_mult": 1.0, "respawn_every": 0.0, "quorum": false, "front_mult": 1.0, "back_mult": 1.0}
 	match modifier:
 		"em-febre":
-			r.merge({"speed_mult": 1.3, "drain": 0.9}, true)
+			r.merge({"speed_mult": 1.15, "drain": 0.4}, true)
 		"necrose-viva":
 			r.merge({"respawn_every": 7.0}, true)
 		"guarda-redobrada":
@@ -51,13 +51,13 @@ static func room(seed_value: int, index: int, kind: String, modifier: String) ->
 	var radius := 8.0
 	match kind:
 		"guard":
-			mix = [[&"linfocito", 5]]
+			mix = [[&"linfocito", 3]]
 			radius = 9.0
 		"wall":
-			mix = [[&"macrofago_guarda", 3], [&"linfocito", 2]] if index < 2 else [[&"celula_gigante", 2], [&"macrofago_guarda", 2]]
+			mix = [[&"macrofago_guarda", 2], [&"linfocito", 2]] if index < 2 else [[&"celula_gigante", 2], [&"macrofago_guarda", 2]]
 			radius = 8.0
 		"core":
-			mix = [[&"bacilo", 6 + (4 if modifier == "necrose-viva" else 0)], [&"emissor", 2]]
+			mix = [[&"bacilo", 5 + (3 if modifier == "necrose-viva" else 0)], [&"emissor", 2]]
 			radius = 7.5
 		"boss":
 			mix = [[&"bacilo_mestre", 1], [&"emissor", 2]]

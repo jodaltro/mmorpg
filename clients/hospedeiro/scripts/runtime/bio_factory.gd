@@ -97,6 +97,7 @@ static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dic
 	_virus_counter += 1
 	actor.combatant.configure("enemy-%d" % _virus_counter, BioActor.Team.VIRUS, float(def["hp"]), 100.0, 0.0)
 	actor.add_to_group("dungeon_enemies")
+	actor.combatant.damage_dealt_mult = float(def.get("damage", 1.0))
 	var size := float(def["size"])
 	(actor.get_child(0) as CollisionShape2D).shape = _circle(size * 0.9)
 	var body := BioCellBody.new()

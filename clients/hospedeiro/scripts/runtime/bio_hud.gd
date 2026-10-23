@@ -21,6 +21,7 @@ const CONFIRM_SECONDS := 4.0
 var _banner: Label
 var _dungeon_label: Label
 var _guide: Label
+var _dungeon_text := ""
 var _restart_button: Button
 var _restart_armed_until := 0.0
 var _abilities: BioAbilityRunner
@@ -77,7 +78,12 @@ func set_guide(on: bool, direction: Vector2, text: String) -> void:
 
 
 func set_dungeon_text(text: String) -> void:
+	_dungeon_text = text
 	_dungeon_label.text = text
+
+
+func set_dungeon_extra(extra: String) -> void:
+	_dungeon_label.text = _dungeon_text if extra.is_empty() or _dungeon_text.is_empty() else _dungeon_text + "\n" + extra
 
 
 func show_banner(text: String) -> void:

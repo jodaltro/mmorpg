@@ -24,6 +24,7 @@ var _guard_mult := 1.0
 var _haste_until := 0.0
 var _haste := 1.0
 var _bonus_atp := 0.0
+var damage_dealt_mult := 1.0  # how hard this one hits (enemies of a dungeon are tuned)
 
 
 func configure(id: String, team: int, max_membrane: float, max_atp: float, atp_regen: float) -> void:
@@ -102,7 +103,7 @@ func speed_mult() -> float:
 
 func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
 	var now := BioClock.now()
-	var factor := (_marked_mult if now < _marked_until else 1.0) * (_guard_mult if now < _guard_until else 1.0)
+	var factor := (_marked_mult if now < _marked_until else 1.0) * (_guard_mult if now < _guard_until else 1.0) * attacker.damage_dealt_mult
 	var def := hit_def
 	if not is_equal_approx(factor, 1.0):
 		def = BioAttackDef.new(hit_def.id, hit_def.atp_cost, hit_def.damage * factor, hit_def.cooldown, hit_def.range_units, hit_def.knockback, hit_def.invulnerable_seconds)
