@@ -2,6 +2,8 @@
 
 Plano de 22/10/2026. Nada aqui está implementado, exceto o que está marcado como **feito**. Complementa [BiologicalVersion.md](BiologicalVersion.md) (visão) e [HostScience.md](HostScience.md) (dados científicos).
 
+> **Exploração, mapa 10x e mecânicas do corpo:** o plano detalhado está em [ExplorationPlan.md](ExplorationPlan.md) (marcos E0 a E7).
+
 ## Resumo
 
 1. O Hospedeiro vira **um universo do World Simulation Engine** deste repositório (`engine/`, Go). O motor guarda a verdade do mundo, as crenças, as missões, a história, as habilidades e as decisões do Jev. Não vamos construir outro backend.
