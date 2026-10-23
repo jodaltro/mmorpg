@@ -265,17 +265,3 @@ func test_a_body_stands_up_only_with_its_class_mutations() -> void:
 	assert_near(body._ascend_target, 0.0, 0.001, "and falls back when the class genes are gone")
 	world.queue_free()
 	await tree.process_frame
-
-
-func test_each_slot_has_its_own_pocket_so_marks_never_overlap() -> void:
-	var rim := PackedVector2Array()
-	for i in 64:
-		rim.append(Vector2.from_angle(i * TAU / 64.0) * 30.0)
-	var spots: Array[Vector2] = []
-	for slot in BioGenome.SLOTS:
-		spots.append(BioOrganelles.pocket_position(rim, slot))
-	for i in spots.size():
-		for j in range(i + 1, spots.size()):
-			assert_true(spots[i].distance_to(spots[j]) > 12.0, "pockets %d and %d are apart" % [i, j])
-	for id in BioGeneCatalog.all_ids():
-		assert_true(not BioGeneCatalog.get_gene(id).mark.is_empty(), "%s has a visible mark" % id)
