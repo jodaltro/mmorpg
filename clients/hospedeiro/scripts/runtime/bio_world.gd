@@ -52,7 +52,9 @@ var body := BioBodyState.new()  # the host's vital signs (from the engine) and w
 var vitals_panel: BioVitalsPanel
 var live_regions: Array[StringName] = []
 var fell_in_dungeon := false
-var gate: BioGate
+var gate: BioGate  # the granuloma's
+var liver_gate: BioGate
+var gates: Dictionary = {}  # dungeon id -> its gate
 var hud: BioHud
 var camera: BioCameraFollow
 var genome: BioGenome
@@ -148,9 +150,21 @@ func build() -> void:
 	dungeon = BioDungeon.new()
 	dungeon.name = "Dungeon"
 	add_child(dungeon)
+	liver_gate = BioGate.new()
+	liver_gate.name = "CordsGate"
+	liver_gate.dungeon_id = "cordoes-hepaticos"
+	liver_gate.title = "CORDÕES HEPÁTICOS"
+	liver_gate.ring_color = Color(0.95, 0.65, 0.2)
+	liver_gate.core_color = Color(0.75, 0.9, 0.2)
+	liver_gate.position = BioBodyMap.center_px(BioBodyMap.FIGADO) + Vector2(-8.0, 12.0) * BioArt.UNIT
+	add_child(liver_gate)
+	liver_gate.configure(player)
+	gates = {gate.dungeon_id: gate, liver_gate.dungeon_id: liver_gate}
 	dungeon.bind(player, gate.global_position + Vector2(0.0, 3.4 * BioArt.UNIT))
+	for g in gates.values():
+		dungeon.returns[(g as BioGate).dungeon_id] = (g as BioGate).global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
 	dungeon.room_started.connect(func(index: int, info: Dictionary) -> void:
-		hud.set_dungeon_text("GRANULOMA  ·  sala %d/%d  ·  %s" % [index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
+		hud.set_dungeon_text("%s  ·  sala %d/%d  ·  %s" % [dungeon.title, index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
 	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(restart_world)
 	codex_panel = BioCodexPanel.new()
@@ -521,7 +535,7 @@ func respawn_player() -> void:
 		return
 	player.set_active(true)
 	if fell_in_dungeon:  # back at the portal, not all the way to the marrow
-		player.global_position = gate.global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
+		player.global_position = (gates[dungeon.dungeon_id] as BioGate).global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
 		fell_in_dungeon = false
 	else:
 		player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
@@ -601,7 +615,7 @@ func _on_player_died(_who: BioCombatant) -> void:
 	player.set_active(false)
 	fell_in_dungeon = dungeon != null and dungeon.active
 	if fell_in_dungeon:
-		hud.show_banner("Você caiu no granuloma\nPressione R para voltar ao portal")
+		hud.show_banner(("Você caiu no granuloma" if dungeon.dungeon_id == "granuloma" else "Você caiu em %s" % dungeon.title.capitalize()) + "\nPressione R para voltar ao portal")
 	else:
 		hud.show_banner("A célula se dissolveu no fluido\nPressione R para renascer na medula")
 
@@ -633,10 +647,11 @@ func _process(delta: float) -> void:
 	if dungeon.active:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")
-	if gate != null and gate.eligible and not dungeon.active and player.is_active():
-		var to := gate.global_position - player.global_position
+	var guide_gate := _nearest_open_gate()
+	if guide_gate != null and not dungeon.active and player.is_active():
+		var to := guide_gate.global_position - player.global_position
 		var far := to.length() > 9.0 * BioArt.UNIT
-		hud.set_guide(far, to, "%s  Granuloma · %d" % ["➤", roundi(to.length() / BioArt.UNIT)])
+		hud.set_guide(far, to, "%s  %s · %d" % ["➤", guide_gate.title.capitalize(), roundi(to.length() / BioArt.UNIT)])
 	elif not dungeon.active and player.is_active() and exploration != null:
 		var trail := exploration.compass(player.global_position, region)
 		if trail.is_empty() or float(trail["distance"]) < 12.0:
@@ -677,6 +692,16 @@ func _physics_process(delta: float) -> void:
 
 
 ## Keeps the regions around the cell alive: the one it is in and the ones a vessel away. The rest of the body sleeps.
+## The open dungeon entrance closest to the cell (null when none is open).
+func _nearest_open_gate() -> BioGate:
+	var best: BioGate = null
+	for g in gates.values():
+		var candidate := g as BioGate
+		if candidate.eligible and (best == null or candidate.global_position.distance_to(player.global_position) < best.global_position.distance_to(player.global_position)):
+			best = candidate
+	return best
+
+
 func _update_live() -> void:
 	live_regions = BioAnatomy.within(region, BioAnatomyView.LIVE_HOPS)
 	anatomy.set_live(live_regions)

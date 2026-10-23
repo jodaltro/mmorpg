@@ -17,10 +17,14 @@ func (h *harness) evolutionDecision(p core.ID) (core.Decision, bool) {
 	return core.Decision{}, false
 }
 
-// fight confirms n virions destroyed by p (3 pressure and a combat deed each).
+// pace is how many times slower the body evolves than the first numbers the tests were written with (see tools/tune_pacing.py):
+// fight(p, n) is n "old" kills' worth of growth, so the tests keep reading as before.
+const pace = 3
+
+// fight confirms n virions' worth of kills by p (3 pressure and a combat deed each), at the world's pace.
 func (h *harness) fight(p core.ID, n int) {
 	h.t.Helper()
-	for i := 0; i < n; i++ {
+	for i := 0; i < n*pace; i++ {
 		h.mustAct("adapter", p, "derrotar-virus", nil)
 	}
 }
@@ -76,8 +80,8 @@ func TestEvolutionDefaultFollowsTheWayThePlayerLives(t *testing.T) {
 			t.Fatalf("a fighter is offered %s, outside the combat path: %v", id, g.Offer)
 		}
 	}
-	if got := h.s.Entities["p1"].Num["pressao"]; got != 2 {
-		t.Fatalf("the offer spends the threshold: pressure %d, want 2", got)
+	if got := h.s.Entities["p1"].Num["pressao"]; got != 2*pace {
+		t.Fatalf("the offer spends the threshold: pressure %d, want %d", got, 2*pace)
 	}
 }
 

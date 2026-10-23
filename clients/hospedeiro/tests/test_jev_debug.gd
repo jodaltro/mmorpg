@@ -104,7 +104,7 @@ func test_the_test_buttons_spawn_clear_refill_and_protect() -> void:
 	assert_eq(world.viruses().size(), 5, "five virions")
 	world.debug_menu.press("Limpar vírions")
 	await tree.create_timer(0.1).timeout
-	assert_eq(world.viruses().size(), 0, "and none after cleaning")
+	assert_eq(world.viruses().size(), 0, "and none after cleaning: %s" % [world.viruses().map(func(v: Node) -> String: return "%s in %s at %s" % [v.get_path(), str(BioBodyMap.region_of((v.get_parent() as Node2D).global_position)), str(world.region)])])
 	world.player.combatant.actor.vitals.membrane = 3.0
 	world.debug_menu.press("Vida e ATP cheios")
 	assert_eq(world.player.combatant.actor.vitals.membrane, world.player.combatant.actor.vitals.max_membrane, "full membrane")

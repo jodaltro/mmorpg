@@ -123,8 +123,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("bio_leave") and _world.dungeon.active and link.online:
 		link.act("abandonar-masmorra")
 	if Input.is_action_just_pressed("bio_interact"):
-		if _world.gate != null and _world.gate.is_near() and not _world.dungeon.active:
-			enter_dungeon()
+		var near_gate := _near_gate()
+		if near_gate != null and not _world.dungeon.active:
+			enter_dungeon(near_gate)
 		elif system.menu_open:
 			system.close_menu()
 		else:
@@ -162,16 +163,26 @@ func _track_behaviour(delta: float) -> void:
 
 
 ## The player asks to go into the granuloma. The engine decides whether they may and prepares the run.
-func enter_dungeon() -> void:
+func enter_dungeon(at: BioGate = null) -> void:
+	var door: BioGate = at if at != null else _world.gate
+	var name := "O granuloma" if door.dungeon_id == "granuloma" else door.title.capitalize()
 	if not link.online:
-		system.push_feed("O granuloma só abre com o corpo conectado ao motor.")
+		system.push_feed("%s só abre com o corpo conectado ao motor." % name)
 		return
-	if not _world.gate.eligible:
-		system.push_feed(_world.gate.hint if not _world.gate.hint.is_empty() else "O granuloma ainda não está ao seu alcance.")
+	if not door.eligible:
+		system.push_feed(door.hint if not door.hint.is_empty() else "%s ainda não está ao seu alcance." % name)
 		return
-	var res := await link.act("entrar-masmorra", {"dungeon": "granuloma"})
+	var res := await link.act("entrar-masmorra", {"dungeon": door.dungeon_id})
 	if res.status != 200:
-		system.push_feed("O granuloma recusou a entrada agora.")
+		system.push_feed("%s recusou a entrada agora." % name)
+
+
+## The entrance the cell is standing at, if any.
+func _near_gate() -> BioGate:
+	for g in _world.gates.values():
+		if (g as BioGate).is_near():
+			return g
+	return null
 
 
 func open_menu() -> void:
@@ -266,42 +277,47 @@ func _apply_skills(skills: Array) -> void:
 ## The granuloma: whether the entrance is open to this cell, and the run, step by step. The engine owns the run; this only
 ## builds what it says (the chamber, the enemies) and confirms what happened in it.
 func _apply_dungeon(d: Dictionary) -> void:
-	var open := false
-	var hint := "Entre no Granuloma na corrente sanguínea quando seu corpo estiver mais maduro."
+	var hints := {"granuloma": "Entre no Granuloma na corrente sanguínea quando seu corpo estiver mais maduro.",
+		"cordoes-hepaticos": "Os Cordões Hepáticos pedem um corpo mais maduro, dentro do fígado."}
 	for o in d.get("available", []):
-		if str(o.get("id", "")) == "granuloma":
-			open = bool(o.get("eligible", false))
-			if open:
-				hint = ""
-	if open and not _world.gate.eligible:
-		system.push_feed("O Granuloma abriu para você: siga a seta até os anéis na corrente sanguínea e aperte E.")
-	_world.gate.eligible = open
-	_world.gate.hint = hint
+		var door: BioGate = _world.gates.get(str(o.get("id", "")), null)
+		if door == null:
+			continue
+		var open := bool(o.get("eligible", false))
+		if open and not door.eligible:
+			if door.dungeon_id == "granuloma":
+				system.push_feed("O Granuloma abriu para você: siga a seta até os anéis na corrente sanguínea e aperte E.")
+			else:
+				system.push_feed("%s abriram para você: siga a seta e aperte E." % door.title.capitalize())
+		door.eligible = open
+		door.hint = "" if open else str(hints.get(door.dungeon_id, ""))
+	var run_name := str((d.get("run", {}) as Dictionary).get("name", "Granuloma")) if d.get("run") is Dictionary else "Granuloma"
+	var is_gr := (str((d.get("run", {}) as Dictionary).get("dungeon", "granuloma")) if d.get("run") is Dictionary else "granuloma") == "granuloma"
 	var run: Variant = d.get("run")
 	if not (run is Dictionary):
 		return
 	var state := str(run.get("state", ""))
 	var seed_value := int(run.get("seed", 0))
 	var mod: Variant = run.get("modifier")
-	if state != "preparing" and _world.hud.banner_text().begins_with("Entrando no granuloma"):
+	if state != "preparing" and _world.hud.banner_text().begins_with("Entrando"):
 		_world.hud.show_banner("")
 	if state == "preparing":
-		_world.hud.show_banner("Entrando no granuloma…  o Jev escolhe o desafio desta vez")
+		_world.hud.show_banner("Entrando no granuloma…  o Jev escolhe o desafio desta vez" if is_gr else "Entrando em %s…  o Jev escolhe o desafio desta vez" % run_name)
 		if _dungeon_state != "preparing":
-			system.push_feed("O granuloma se prepara…")
+			system.push_feed("O granuloma se prepara…" if is_gr else "%s se prepara…" % run_name)
 	elif state == "active":
 		if not _world.dungeon.active and (_dungeon_state != "active" or seed_value != _dungeon_seed):
 			_world.dungeon.start(run)
 			if mod is Dictionary:
-				system.push_feed("Granuloma, %s: %s" % [mod.get("name", ""), mod.get("desc", "")])
+				system.push_feed("%s, %s: %s" % ["Granuloma" if is_gr else run_name, mod.get("name", ""), mod.get("desc", "")])
 		elif _world.dungeon.active and int(run.get("room", 0)) > _world.dungeon.room_index:
 			_world.dungeon.advance(int(run.get("room", 0)))
 	elif state == "cleared" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
 		_world.dungeon.finish(true)
-		system.push_feed("O granuloma foi selado. A carga de infecção no sangue cai.")
+		system.push_feed("O granuloma foi selado. A carga de infecção no sangue cai." if is_gr else "%s foram limpos: a toxina do fígado cai." % run_name)
 	elif state == "failed" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
 		_world.dungeon.finish(false)
-		system.push_feed("Você deixou o granuloma. Ele continua lá.")
+		system.push_feed("Você deixou o granuloma. Ele continua lá." if is_gr else "Você deixou %s. Eles continuam lá." % run_name)
 	_dungeon_state = state
 	_dungeon_seed = seed_value
 

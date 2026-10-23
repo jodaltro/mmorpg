@@ -17,6 +17,9 @@ var active := false
 var room_index := -1
 var seed_value := 0
 var modifier := ""
+var dungeon_id := "granuloma"
+var title := "GRANULOMA"
+var returns: Dictionary = {}  # dungeon id -> where the cell comes out after a clear
 var rooms: Array = []
 var chamber_radius := 8.0
 var room_kind := ""
@@ -55,6 +58,10 @@ func start(run: Dictionary) -> void:
 		return
 	active = true
 	seed_value = int(run.get("seed", 1))
+	dungeon_id = str(run.get("dungeon", "granuloma"))
+	title = "GRANULOMA" if dungeon_id == "granuloma" else str(run.get("name", "")).to_upper()
+	if returns.has(dungeon_id):
+		_return_to = returns[dungeon_id]
 	var mod: Variant = run.get("modifier")
 	modifier = str((mod as Dictionary).get("id", "")) if mod is Dictionary else ""
 	rooms = run.get("rooms", [])
@@ -73,7 +80,7 @@ func advance(index: int) -> void:
 	room_index = index
 	var info: Dictionary = rooms[index]
 	room_kind = str(info.get("kind", "guard"))
-	var plan := BioDungeonPlan.room(seed_value, index, room_kind, modifier)
+	var plan := BioDungeonPlan.room(seed_value, index, room_kind, modifier, dungeon_id)
 	chamber_radius = float(plan["radius"])
 	global_position = CENTER
 	_build_walls()
@@ -93,7 +100,8 @@ func advance(index: int) -> void:
 
 
 func _spawn(kind: StringName, at: Vector2, speed: float) -> BioCellActor:
-	var def := BioDungeonPlan.enemy(kind)
+	var def := BioDungeonPlan.enemy(kind).duplicate()
+	def["hp"] = float(def["hp"]) * float(_rule.get("hp_mult", 1.0))
 	var brain := BioFactory.spawn_enemy(get_parent(), at, _player, def, speed)
 	var cell := brain.get_parent() as BioCellActor
 	cell.set_meta("base_speed", cell.max_speed_units)
@@ -101,12 +109,12 @@ func _spawn(kind: StringName, at: Vector2, speed: float) -> BioCellActor:
 	cell.set_meta("brain", brain)
 	if not _awake:
 		brain.set_process(false)
-	if kind == &"bacilo_mestre":
+	if kind == &"bacilo_mestre" or bool(def.get("boss", false)):
 		var slam := BioBossSlam.new()
 		slam.configure(cell, _body_of(cell), _player)
 		slam.summon_requested.connect(func(pos: Vector2) -> void:
 			if active:
-				_spawn(&"bacilo", pos, speed))
+				_spawn(BioDungeonPlan.reinforcement_of(dungeon_id), pos, speed))
 	return cell
 
 
@@ -191,12 +199,12 @@ func _process(delta: float) -> void:
 		_respawn_in -= delta
 		if _respawn_in <= 0.0:
 			_respawn_in = float(_rule["respawn_every"])
-			_spawn(&"bacilo", CENTER + Vector2.from_angle(randf() * TAU) * chamber_radius * 0.4 * BioArt.UNIT, float(_rule["speed_mult"]))
+			_spawn(BioDungeonPlan.reinforcement_of(dungeon_id), CENTER + Vector2.from_angle(randf() * TAU) * chamber_radius * 0.4 * BioArt.UNIT, float(_rule["speed_mult"]))
 	if bool(_rule["quorum"]):  # while an emitter lives, the others are faster
 		_quorum_in -= delta
 		if _quorum_in <= 0.0:
 			_quorum_in = 0.4
-			var emitters := alive.filter(func(e: Node) -> bool: return str(e.get_meta("kind", "")) == "emissor").size()
+			var emitters := alive.filter(func(e: Node) -> bool: return str(e.get_meta("kind", "")) == String(BioDungeonPlan.emitter_of(dungeon_id))).size()
 			for e in alive:
 				(e as BioCellActor).max_speed_units = float(e.get_meta("base_speed", 1.0)) * (1.4 if emitters > 0 else 1.0)
 	queue_redraw()
@@ -213,6 +221,8 @@ func _draw() -> void:
 			wall = Color(0.55, 0.8, 1.0)
 		"core", "boss":
 			wall = Color(0.6, 0.95, 0.3)
+	if dungeon_id == "cordoes-hepaticos":
+		wall = Color(0.95, 0.65, 0.2) if room_kind != "core" and room_kind != "boss" else Color(0.75, 0.9, 0.2)
 	for ring in 3:
 		var rr := r + ring * 14.0
 		var segs := 14

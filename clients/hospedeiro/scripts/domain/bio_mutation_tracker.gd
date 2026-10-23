@@ -4,7 +4,7 @@ extends RefCounted
 ## world offers up to three candidate mutations. At most one offer is pending, it can be accepted,
 ## declined or ignored, and a declined offer is not repeated right away.
 
-const THRESHOLD := 10
+const THRESHOLD := 30  # three times the first value: see tools/tune_pacing.py
 const KILL_POINTS := 3
 const NUTRIENT_POINTS := 1
 const EVADE_POINTS := 2

@@ -20,13 +20,33 @@ static func enemy(kind: StringName) -> Dictionary:
 			return {"name": "Emissor de quórum", "hp": 55.0, "speed": 0.0, "size": 0.55, "core": Color(0.95, 1.0, 0.5), "edge": Color(0.6, 0.9, 0.2), "spikes": 10, "aggro": 0.0, "lunge": 0.0, "telegraph": 0.0, "recover": 0.0}
 		&"bacilo_mestre":  # the boss: the bacillus the granuloma held for years
 			return {"name": "O Bacilo", "hp": 300.0, "speed": 2.0, "damage": 0.9, "size": 1.7, "core": Color(0.75, 1.0, 0.3), "edge": Color(0.35, 0.65, 0.1), "spikes": 11, "aggro": 20.0, "lunge": 5.0, "telegraph": 0.8, "recover": 1.1}
+		# The liver's cords: a chronic lesion of the liver.
+		&"celula_estrelada":  # stellate cell: small, quick, spiky; it makes the scar
+			return {"name": "Célula estrelada", "hp": 22.0, "speed": 3.4, "damage": 0.5, "size": 0.42, "core": Color(1.0, 0.85, 0.4), "edge": Color(0.9, 0.55, 0.15), "spikes": 6, "aggro": 10.0, "lunge": 3.0, "telegraph": 0.6, "recover": 1.2}
+		&"hepatocito_doente":  # swollen hepatocyte: slow and sturdy
+			return {"name": "Hepatócito doente", "hp": 95.0, "speed": 1.5, "damage": 0.7, "size": 1.0, "core": Color(0.75, 0.5, 0.25), "edge": Color(0.5, 0.3, 0.1), "spikes": 0, "aggro": 9.0, "lunge": 3.4, "telegraph": 0.9, "recover": 1.4}
+		&"gota_de_gordura":  # lipid droplet: a big pale tank that barely moves
+			return {"name": "Gota de gordura", "hp": 125.0, "speed": 1.2, "damage": 0.6, "size": 1.2, "core": Color(1.0, 0.95, 0.6), "edge": Color(0.95, 0.8, 0.3), "spikes": 0, "aggro": 8.0, "lunge": 3.8, "telegraph": 1.0, "recover": 1.6}
+		&"foco_toxico":  # a toxic focus: still, it speeds the others up while it lives
+			return {"name": "Foco tóxico", "hp": 55.0, "speed": 0.0, "size": 0.55, "core": Color(0.75, 1.0, 0.3), "edge": Color(0.45, 0.75, 0.1), "spikes": 10, "aggro": 0.0, "lunge": 0.0, "telegraph": 0.0, "recover": 0.0}
+		&"nodulo_cirrotico":  # the boss: the hard nodule the liver built to protect itself
+			return {"name": "O Nódulo", "hp": 340.0, "speed": 1.9, "damage": 0.9, "size": 1.8, "core": Color(0.8, 0.55, 0.2), "edge": Color(0.45, 0.25, 0.05), "spikes": 12, "aggro": 20.0, "lunge": 5.0, "telegraph": 0.85, "recover": 1.1, "boss": true}
 	return {}
+
+
+## Who stands still and speeds the others up, and who is sent as reinforcement, for each dungeon.
+static func emitter_of(dungeon: String) -> StringName:
+	return &"foco_toxico" if dungeon == "cordoes-hepaticos" else &"emissor"
+
+
+static func reinforcement_of(dungeon: String) -> StringName:
+	return &"celula_estrelada" if dungeon == "cordoes-hepaticos" else &"bacilo"
 
 
 ## The effect of a modifier on the run: enemy speed, a drain on the player, ATP regeneration, how often the core spawns a
 ## new bacillus (0 = never), whether quorum emitters speed up the enemies, and the head count of the first and later rooms.
 static func rules(modifier: String) -> Dictionary:
-	var r := {"speed_mult": 1.0, "drain": 0.0, "regen_mult": 1.0, "respawn_every": 0.0, "quorum": false, "front_mult": 1.0, "back_mult": 1.0}
+	var r := {"speed_mult": 1.0, "drain": 0.0, "regen_mult": 1.0, "respawn_every": 0.0, "quorum": false, "front_mult": 1.0, "back_mult": 1.0, "hp_mult": 1.0}
 	match modifier:
 		"em-febre":
 			r.merge({"speed_mult": 1.15, "drain": 0.4}, true)
@@ -38,17 +58,29 @@ static func rules(modifier: String) -> Dictionary:
 			r.merge({"regen_mult": 0.45}, true)
 		"quorum-ativo":
 			r.merge({"quorum": true}, true)
+		"bile-acida":
+			r.merge({"drain": 0.5}, true)
+		"fibrose-ativa":
+			r.merge({"respawn_every": 8.0}, true)
+		"toxinas-altas":
+			r.merge({"speed_mult": 1.2}, true)
+		"glicogenio-cheio":
+			r.merge({"regen_mult": 1.5}, true)
+		"kupffer-aliadas":
+			r.merge({"hp_mult": 0.75}, true)
 	return r
 
 
 ## The room: chamber radius (units) and its enemies as {type, angle, radius (0..1 of the chamber)}.
-static func room(seed_value: int, index: int, kind: String, modifier: String) -> Dictionary:
+static func room(seed_value: int, index: int, kind: String, modifier: String, dungeon: String = "granuloma") -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value + index * 7919
 	var rule := rules(modifier)
 	var count_mult: float = rule["front_mult"] if index < 2 else rule["back_mult"]
 	var mix: Array = []  # [type, count]
 	var radius := 8.0
+	if dungeon == "cordoes-hepaticos":
+		return _liver_room(rng, index, kind, modifier, count_mult)
 	match kind:
 		"guard":
 			mix = [[&"linfocito", 3]]
@@ -70,4 +102,32 @@ static func room(seed_value: int, index: int, kind: String, modifier: String) ->
 			n = maxi(1, roundi(n * count_mult))
 		for i in n:
 			enemies.append({"type": entry[0], "angle": rng.randf() * TAU, "radius": 0.0 if entry[0] == &"bacilo_mestre" else rng.randf_range(0.35, 0.85)})
+	return {"radius": radius, "enemies": enemies, "kind": kind}
+
+
+## The cords of the liver: stellate cells at the door, sick hepatocytes, fat and scar, a toxic focus and the nodule.
+static func _liver_room(rng: RandomNumberGenerator, index: int, kind: String, modifier: String, count_mult: float) -> Dictionary:
+	var mix: Array = []
+	var radius := 8.0
+	match kind:
+		"guard":
+			mix = [[&"celula_estrelada", 3]]
+			radius = 9.0
+		"wall":
+			mix = [[&"hepatocito_doente", 2], [&"celula_estrelada", 2]] if index < 2 else [[&"gota_de_gordura", 2], [&"hepatocito_doente", 2]]
+			radius = 8.0
+		"core":
+			mix = [[&"celula_estrelada", 5 + (3 if modifier == "fibrose-ativa" else 0)], [&"foco_toxico", 2]]
+			radius = 7.5
+		"boss":
+			mix = [[&"nodulo_cirrotico", 1], [&"foco_toxico", 2]]
+			radius = 9.5
+	var enemies: Array[Dictionary] = []
+	for entry in mix:
+		var n := int(entry[1])
+		var fixed: bool = entry[0] == &"nodulo_cirrotico" or entry[0] == &"foco_toxico"
+		if not fixed:
+			n = maxi(1, roundi(n * count_mult))
+		for i in n:
+			enemies.append({"type": entry[0], "angle": rng.randf() * TAU, "radius": 0.0 if entry[0] == &"nodulo_cirrotico" else rng.randf_range(0.35, 0.85)})
 	return {"radius": radius, "enemies": enemies, "kind": kind}

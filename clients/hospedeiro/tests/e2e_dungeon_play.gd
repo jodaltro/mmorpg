@@ -35,7 +35,7 @@ func _run() -> void:
 	await _until(func() -> bool: return world.sync.link.online, 20.0)
 	BioFactory.spawn_nutrient(world, world.player.global_position, BioNutrientRules.Kind.GLUCOSE)
 	world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
-	for i in 9:
+	for i in 27:  # maturity at the world's pace (see tools/tune_pacing.py)
 		world.virus_destroyed.emit()
 		await create_timer(0.1).timeout
 	await _until(func() -> bool: return world.gate.eligible, 30.0)

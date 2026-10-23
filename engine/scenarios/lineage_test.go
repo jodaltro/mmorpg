@@ -29,7 +29,7 @@ func (h *harness) lineageView(p core.ID) core.LineageView {
 func TestBornUndifferentiatedAndMaturityOpensTheFirstTier(t *testing.T) {
 	h := load(t, "hospedeiro")
 	h.join("p1")
-	if v := h.lineageView("p1"); v.Current != "" || v.Tier != 0 || v.Next != 14 {
+	if v := h.lineageView("p1"); v.Current != "" || v.Tier != 0 || v.Next != 14*pace {
 		t.Fatalf("a newborn is undifferentiated with the first tier at 14 maturity: %+v", v)
 	}
 	h.fight("p1", 6) // 12 maturity
@@ -75,7 +75,7 @@ func TestAdvisorPicksTheLineageAndPlayerBecomesIt(t *testing.T) {
 	}
 	h.mustAct("player", "p1", "diferenciar", map[string]core.ID{"lineage": "linfoide"})
 	v = h.lineageView("p1")
-	if v.Current != "linfoide" || v.Tier != 1 || len(v.Offer) != 0 || v.Next != 40 {
+	if v.Current != "linfoide" || v.Tier != 1 || len(v.Offer) != 0 || v.Next != 40*pace {
 		t.Fatalf("now a lymphoid cell heading for tier 2 at 40: %+v", v)
 	}
 	if h.s.Styles["p1"]["knowledge"] < 2 {
