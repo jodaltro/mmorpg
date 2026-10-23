@@ -133,14 +133,15 @@ type State struct {
 	Decisions map[string]Decision      `json:"decisions"`
 	Cooldowns map[string]Tick          `json:"cooldowns"`
 	Receipts  map[string]int64         `json:"receipts"`
-	Relations map[string]int64         `json:"relations"`         // "a|b": what a feels about b
-	Styles    map[ID]map[string]int64  `json:"styles"`            // play style learned per player
-	Tension   int64                    `json:"tension"`           // world tension for pacing
-	Skills    map[ID]map[string]Tick   `json:"skills"`            // learned skills and when
-	Deeds     map[ID]map[string]int64  `json:"deeds"`             // how often each player did each thing
-	Marks     []Mark                   `json:"marks"`             // symbols travellers left in places
-	Looks     map[ID]Look              `json:"looks,omitempty"` // each player's procedural body
-	Genomes   map[ID]Genome            `json:"genomes,omitempty"` // expressed genes and pending mutation offers
+	Relations map[string]int64         `json:"relations"`          // "a|b": what a feels about b
+	Styles    map[ID]map[string]int64  `json:"styles"`             // play style learned per player
+	Tension   int64                    `json:"tension"`            // world tension for pacing
+	Skills    map[ID]map[string]Tick   `json:"skills"`             // learned skills and when
+	Deeds     map[ID]map[string]int64  `json:"deeds"`              // how often each player did each thing
+	Marks     []Mark                   `json:"marks"`              // symbols travellers left in places
+	Lineages  map[ID]Differ            `json:"lineages,omitempty"` // pending lineage offers
+	Looks     map[ID]Look              `json:"looks,omitempty"`    // each player's procedural body
+	Genomes   map[ID]Genome            `json:"genomes,omitempty"`  // expressed genes and pending mutation offers
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -209,6 +210,11 @@ func (s *State) Clone() State {
 	c.Skills = make(map[ID]map[string]Tick, len(s.Skills))
 	for k, v := range s.Skills {
 		c.Skills[k] = maps.Clone(v)
+	}
+	c.Lineages = make(map[ID]Differ, len(s.Lineages))
+	for k, d := range s.Lineages {
+		d.Offer = slices.Clone(d.Offer)
+		c.Lineages[k] = d
 	}
 	c.Looks = make(map[ID]Look, len(s.Looks))
 	for k, l := range s.Looks {

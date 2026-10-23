@@ -6,6 +6,7 @@ extends RefCounted
 const SLOTS := 3
 
 var equipped: Array[StringName] = []
+var lineage: StringName = &""  # the class (BioLineageCatalog); empty while undifferentiated
 
 
 func has_gene(id: StringName) -> bool:
@@ -16,6 +17,9 @@ func has_gene(id: StringName) -> bool:
 func stat(key: StringName) -> float:
 	var additive := BioGene.is_additive(key)
 	var total := 0.0 if additive else 1.0
+	var lineage_mods := BioLineageCatalog.mods_of(lineage)
+	if lineage_mods.has(key):
+		total = (total + lineage_mods[key]) if additive else (total * lineage_mods[key])
 	for id in equipped:
 		var mods: Dictionary = BioGeneCatalog.get_gene(id).mods
 		if not mods.has(key):
@@ -58,12 +62,13 @@ func modify(def: BioAttackDef) -> BioAttackDef:
 
 
 func to_dict() -> Dictionary:
-	return {"equipped": equipped.map(func(id: StringName) -> String: return String(id))}
+	return {"equipped": equipped.map(func(id: StringName) -> String: return String(id)), "lineage": String(lineage)}
 
 
 ## Unknown or duplicated gene ids (e.g. from an old save) are dropped; extra ones beyond the slots too.
 static func from_dict(data: Dictionary) -> BioGenome:
 	var genome := BioGenome.new()
+	genome.lineage = StringName(str(data.get("lineage", "")))
 	var known := BioGeneCatalog.all_ids()
 	for raw in data.get("equipped", []):
 		var id := StringName(str(raw))

@@ -60,7 +60,9 @@ func decline() -> void:
 
 
 func _candidates(genome: BioGenome) -> Array:
-	var all := BioGeneCatalog.all_ids().filter(func(id: StringName) -> bool: return not genome.has_gene(id))
+	var all := BioGeneCatalog.all_ids().filter(func(id: StringName) -> bool:
+		var need := BioGeneCatalog.get_gene(id).requires_lineage
+		return not genome.has_gene(id) and (need == &"" or need == genome.lineage))
 	var fresh := all.filter(func(id: StringName) -> bool: return not declined.has(id))
 	# If declining left too few options, allow the declined ones back.
 	return fresh if fresh.size() >= OFFER_SIZE or fresh.size() == all.size() else all

@@ -22,6 +22,7 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	tail.body_radius_px = 0.55 * BioArt.UNIT
 	body.tail = tail
 	actor.add_child(tail)
+	tail.set_active(false)  # born as a plain ball: no tail until a lineage grows one
 	actor.combatant.genome_changed.connect(func(g: BioGenome) -> void:
 		body.apply_genome(g)
 		tail.apply_genome(g))
@@ -31,7 +32,11 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	actor.add_child(executor)
 	executor.performed.connect(func(id: StringName, dir: Vector2) -> void:
 		if id == BioAttackCatalog.FLAGELLUM_LASH:
-			tail.lash(dir, actor.combatant.actor.attack_def(id).range_units, BioAttackExecutor.LASH_HALF_ANGLE)
+			var reach := actor.combatant.actor.attack_def(id).range_units
+			if tail.is_active():
+				tail.lash(dir, reach, BioAttackExecutor.LASH_HALF_ANGLE)
+			else:  # no tail: the body itself lashes out in a shock arc
+				BioFx.arc(actor.global_position, dir, reach, BioAttackExecutor.LASH_HALF_ANGLE, body.core)
 		elif id == BioAttackCatalog.MEMBRANE_DASH:
 			tail.whip(1.0))
 

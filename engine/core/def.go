@@ -63,6 +63,9 @@ type Universe struct {
 	// Evolution and Mutations: every player evolves; see evolution.go.
 	Evolution *EvolutionDef `json:"evolution,omitempty"`
 	Mutations []MutationDef `json:"mutations,omitempty"`
+	// Differentiation and Lineages: born simple, grow into a lineage; see lineage.go.
+	Differentiation *DifferentiationDef `json:"differentiation,omitempty"`
+	Lineages        []LineageDef        `json:"lineages,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`
 	// VisibleMarks lists predicates that show on the person who carries them

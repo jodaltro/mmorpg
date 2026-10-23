@@ -79,3 +79,8 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 
 - `GET /v1/views/{id}` traz `look: {variant, name, axes}` (o corpo do observador) e `others[].look` (o corpo de cada jogador visível). Os eixos vão de `min` a `max` do universo; o cliente desenha o corpo a partir deles e deve **transicionar aos poucos**, sem estalo.
 - Evento `appearance` (`data.variant`) quando o corpo é redecidido; a resolução aparece como `decision` com `kind: appearance`.
+
+## Diferenciação (universos com `differentiation`)
+
+- `GET /v1/views/{id}` traz `lineage`: `{current, name, tier, offer, featured, maturity, next}`. `offer` lista `{id, name, desc, tier, tags}` com a destacada (`featured`, escolhida pelo Jev ou pelo padrão) primeiro; `next` é a maturidade que abre o próximo nível (0 no último).
+- Verbo do motor (`origin: player`): `act` com `action: "diferenciar"`, `args: {lineage}` (uma linhagem da oferta pendente). Eventos: `lineage-offered` e `differentiated` (público); a resolução aparece como `decision` com `kind: lineage`.

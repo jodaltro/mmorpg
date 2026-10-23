@@ -234,6 +234,8 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 		return w.chooseMutation(s, origin, actor, args, cause)
 	case actRefuseE:
 		return w.refuseMutation(s, origin, actor, cause)
+	case actDifferentiate:
+		return w.differentiate(s, origin, actor, args, cause)
 	}
 	a, ok := w.actions[action]
 	if !ok || !slices.Contains(a.By, origin) {

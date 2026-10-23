@@ -23,6 +23,7 @@ type View struct {
 	Signs     []SignView       `json:"signs"` // traces of hidden things the observer can make out here
 	Marks     []MarkView       `json:"marks"`
 	Evolution *EvolutionView   `json:"evolution,omitempty"` // the observer's own genome and mutation offer
+	Lineage   *LineageView     `json:"lineage,omitempty"`   // the observer's lineage, offer and progress
 	Look      *LookView        `json:"look,omitempty"`      // the observer's own procedural body
 }
 
@@ -69,7 +70,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 		return View{}, false
 	}
 	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
-		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer)}
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer), Lineage: w.lineageViewOf(s, observer)}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]

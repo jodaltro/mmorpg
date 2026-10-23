@@ -33,6 +33,10 @@ var sleeping := false
 var engine_evolution := false
 var engine_offer: Array[String] = []  # engine gene ids of the pending offer
 var engine_featured := ""
+var engine_lineage_offer: Array[Dictionary] = []  # pending differentiation offer (engine)
+var engine_lineage_featured := ""
+var lineage_id: StringName = &""
+var _pending_evolution := {}
 var look_name := ""  # the variant the advisor chose for this body (Caçador, Andarilho...)
 var _engine_fraction := 0.0
 
@@ -122,6 +126,11 @@ func add_pressure(points: int) -> void:
 
 
 func pick_mutation(index: int) -> void:
+	if not engine_lineage_offer.is_empty():  # differentiating comes first and is permanent
+		if index >= 0 and index < engine_lineage_offer.size():
+			sync.link.act("diferenciar", {"lineage": str(engine_lineage_offer[index].get("id", ""))})
+			panel.hide_offer()
+		return
 	if engine_evolution:
 		if index >= 0 and index < engine_offer.size():
 			sync.link.act("evoluir", {"gene": engine_offer[index]})
@@ -136,6 +145,8 @@ func pick_mutation(index: int) -> void:
 
 
 func decline_mutation() -> void:
+	if not engine_lineage_offer.is_empty():
+		return  # a lineage offer waits for the player: there is no refusing growth, only taking your time
 	if engine_evolution:
 		if not engine_offer.is_empty():
 			sync.link.act("recusar-evolucao")
@@ -152,6 +163,7 @@ func decline_mutation() -> void:
 ## Engine ids use hyphens (cilios-ageis); the local catalogue uses underscores (cilios_ageis).
 func apply_engine_evolution(ev: Dictionary) -> void:
 	engine_evolution = true
+	_pending_evolution = ev
 	var expressed: Array[StringName] = []
 	for g in ev.get("genes", []):
 		var id := StringName(str(g.get("id", "")).replace("-", "_"))
@@ -168,8 +180,9 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 		engine_offer = offer
 		engine_featured = featured
 		if offer.is_empty():
-			panel.hide_offer()
-		else:
+			if engine_lineage_offer.is_empty():
+				panel.hide_offer()
+		elif engine_lineage_offer.is_empty():
 			var local: Array = offer.map(func(id: String) -> StringName: return StringName(id.replace("-", "_")))
 			panel.show_offer(local, StringName(featured.replace("-", "_")))
 	var threshold := maxf(1.0, float(ev.get("threshold", 1)))
@@ -186,6 +199,36 @@ func apply_engine_look(look: Dictionary) -> void:
 		if child is BioCellBody:
 			(child as BioCellBody).set_look(axes)
 	look_name = str(look.get("name", ""))
+
+
+## The engine's lineage for this player: the class they have become, the offer to differentiate and progress.
+## The newborn is a plain ball (lineage ""); the form, stats and class mutations all follow from this.
+func apply_engine_lineage(lin: Dictionary) -> void:
+	var current := BioLineageCatalog.normalise(str(lin.get("current", "")))
+	if current != lineage_id:
+		lineage_id = current
+		genome.lineage = current
+		player.combatant.set_genome(genome)
+	var label := "FORMA: " + (BioLineageCatalog.display_name(current) if current != &"" else "Esfera (indiferenciada)")
+	var nxt := int(lin.get("next", 0))
+	if nxt > 0 and engine_lineage_offer.is_empty():
+		label += "   ·   maturidade %d/%d" % [int(lin.get("maturity", 0)), nxt]
+	panel.set_lineage_text(label)
+	var offer: Array[Dictionary] = []
+	for o in lin.get("offer", []):
+		offer.append(o)
+	var featured := str(lin.get("featured", ""))
+	if offer.size() != engine_lineage_offer.size() or featured != engine_lineage_featured:
+		var had_offer := not engine_lineage_offer.is_empty()
+		engine_lineage_offer = offer
+		engine_lineage_featured = featured
+		if offer.is_empty():
+			if had_offer:  # growth done: the pending mutation offer, if any, can be shown now
+				panel.hide_offer()
+				engine_offer = []
+				apply_engine_evolution(_pending_evolution)
+		else:
+			panel.show_lineage_offer(offer, featured)
 
 
 ## Back to the local loop (engine gone): the local tracker drives evolution again.

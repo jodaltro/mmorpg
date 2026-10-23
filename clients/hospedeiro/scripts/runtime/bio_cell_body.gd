@@ -25,6 +25,16 @@ var tail: BioFlagellum  # when set, the membrane bulges where the tail leaves th
 var genes: Array[StringName] = []  # expressed genes, drawn as organelles and changes to the shape
 var _size_mul := 1.0
 var _gene_size := 1.0
+
+## The lineage form (BioCellForms): a plain ball until the cell differentiates. It morphs over a few seconds.
+var form: StringName = &"esfera"
+var tail_on := false  # only some forms keep a tail
+var _form := BioCellForms.params(&"esfera", [])
+var _size_now := 0.82
+var _lobe_amp_now := 0.0
+var _nucleus_now := 0.8
+var _lobes := 0
+var _front := Vector2.RIGHT
 var look_now := {}  # engine axes (0-100), eased towards look_target so the body morphs slowly
 var look_target := {}
 var _base_core := Color.WHITE
@@ -47,6 +57,20 @@ func apply_genome(genome: BioGenome) -> void:
 	genes = genome.equipped.duplicate()
 	_gene_size = 1.1 if genes.has(&"membrana_espessa") else 1.0
 	_size_mul = _gene_size * (1.0 + 0.25 * _axis(&"robustez"))
+	form = genome.lineage if genome.lineage != &"" else &"esfera"
+	_refresh_form()
+
+
+func _refresh_form() -> void:
+	_form = BioCellForms.params(form, genes)
+	_lobes = int(_form["lobes"])
+	spikes = int(_form["spikes"])
+	spike_length = float(_form["spike_len"])
+	_base_spikes = spikes
+	wobble = float(_form["wobble"])
+	tail_on = bool(_form["tail"])
+	if tail != null:
+		tail.set_active(tail_on)
 
 
 ## The procedural body: axes decided by the engine from how this player plays (0-100 each).
@@ -89,7 +113,7 @@ func _ease_look(delta: float) -> void:
 	edge = _base_edge.lerp(core, 0.55).darkened(0.1)
 	spikes = _base_spikes if _base_spikes > 0 else roundi(f * 7.0)
 	spike_length = maxf(spike_length, 0.06 + 0.3 * f) if _base_spikes == 0 else spike_length
-	wobble = 0.05 + 0.08 * a
+	wobble = float(_form["wobble"]) + 0.06 * a
 	_size_mul = _gene_size * (1.0 + 0.25 * r)
 	if tail != null:
 		tail.set_look(1.0 + 0.5 * a, 1.0 + 0.25 * f)
@@ -119,6 +143,10 @@ func _process(delta: float) -> void:
 	var t := Time.get_ticks_msec() * 0.001 + _seed
 	var speed_units := _smooth_velocity.length() / BioArt.UNIT
 	var dir := _smooth_velocity.normalized() if speed_units > 0.05 else Vector2.RIGHT
+	_front = dir
+	_size_now = move_toward(_size_now, float(_form["size"]), delta * 0.3)
+	_lobe_amp_now = move_toward(_lobe_amp_now, float(_form["lobe_amp"]), delta * 0.25)
+	_nucleus_now = move_toward(_nucleus_now, float(_form["nucleus"]), delta * 0.3)
 	var stretch := clampf(speed_units * 0.04, 0.0, 0.35)
 	var breath := 1.0 + 0.04 * sin(t * 3.0) + _telegraph * 0.28
 	for i in RIM:
@@ -128,13 +156,16 @@ func _process(delta: float) -> void:
 		var spike := 0.0
 		if spikes > 0:
 			spike = spike_length * pow(maxf(0.0, cos((a + t * spin) * spikes)), 6.0)
+		var lobe := 0.0
+		if _lobes > 0:  # pseudopods: lobes that slowly crawl around the body
+			lobe = _lobe_amp_now * pow(maxf(0.0, cos((a - t * 0.25) * _lobes)), 2.0)
 		var along := n.dot(dir)
 		var squash := 1.0 + stretch * along * along - stretch * 0.5 * (1.0 - along * along)
-		_rim[i] = n * radius_units * BioArt.UNIT * (w + spike) * squash * breath * _size_mul
+		_rim[i] = n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now
 	_neck = PackedVector2Array()
-	_outline = _build_outline() if tail != null else PackedVector2Array()
+	_outline = _build_outline() if tail != null and tail_on else PackedVector2Array()
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)
-	_nucleus.scale = Vector2.ONE * (radius_units * 1.7 * pulse * (1.0 + _telegraph * 0.5) * BioArt.UNIT / 128.0)
+	_nucleus.scale = Vector2.ONE * (_nucleus_now * radius_units * 1.7 * pulse * (1.0 + _telegraph * 0.5) * BioArt.UNIT / 128.0)
 	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.75)
 	_nucleus.position = _smooth_velocity * 0.01
 	queue_redraw()
@@ -167,6 +198,7 @@ func _draw() -> void:
 	closed.append(outline[0])
 	draw_polyline(closed, BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.35), 0.95), 6.0 if genes.has(&"membrana_espessa") else 3.0, true)
 	_draw_genes(edge_now, core_now)
+	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front)
 
 
 ## Marks that come from the procedural body, not from a gene: they scale with how the player plays.

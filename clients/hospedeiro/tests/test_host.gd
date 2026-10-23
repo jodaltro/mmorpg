@@ -147,3 +147,66 @@ func test_behaviour_is_reported_in_batches_without_blocking() -> void:
 	assert_true(sync._used.is_empty(), "the interval's usage was handed off")
 	assert_near(sync._report_in, BioHostSync.REPORT_SECONDS, 0.001, "and the next report is scheduled")
 	sync.link.online = false
+
+
+func _body() -> BioCellBody:
+	for child in world.player.get_children():
+		if child is BioCellBody:
+			return child
+	return null
+
+
+func test_born_as_a_plain_ball_then_the_lineage_reshapes_everything() -> void:
+	var body := _body()
+	var tail := world.player.get_node("Flagellum") as BioFlagellum
+	assert_eq(body.form, &"esfera", "born as a plain ball")
+	assert_true(not tail.is_active(), "a ball has no tail")
+	var plain_membrane := world.player.combatant.actor.vitals.max_membrane
+	world.sync.apply_view(_view({"lineage": {"current": "macrofago", "name": "Macrófago", "tier": 2, "offer": [], "maturity": 40, "next": 0}}))
+	assert_eq(world.genome.lineage, &"macrofago", "the engine's lineage reaches the genome")
+	assert_eq(body.form, &"macrofago", "and the body")
+	assert_true(world.player.combatant.actor.vitals.max_membrane > plain_membrane * 1.4, "a macrophage is far tougher")
+	assert_true(world.player.combatant.actor.stat(BioGene.SPEED) < 0.9, "and slower")
+	body._size_now = float(body._form["size"])
+	assert_true(body._lobes >= 5, "with pseudopods crawling over the body")
+	world.sync.apply_view(_view({"lineage": {"current": "neutrofilo", "name": "Neutrófilo", "tier": 2, "offer": [], "maturity": 40, "next": 0}}))
+	assert_true(tail.is_active(), "a neutrophil keeps a tail")
+	assert_true(world.player.combatant.actor.stat(BioGene.SPEED) > 1.25, "and is fast")
+
+
+func test_the_lineage_offer_comes_first_and_hands_back_to_the_mutation_offer() -> void:
+	var ev := {"genes": [], "offer": [{"id": "cilios-ageis"}, {"id": "membrana-espessa"}, {"id": "cauda-longa"}], "featured": "cilios-ageis", "pressure": 0, "threshold": 10, "slots": 3}
+	var lin := {"current": "", "name": "", "tier": 0, "maturity": 14, "next": 14,
+		"offer": [{"id": "mieloide", "name": "Mieloide", "desc": "Os devoradores."}, {"id": "linfoide", "name": "Linfoide", "desc": "A memória."}], "featured": "linfoide"}
+	world.sync.apply_view(_view({"lineage": lin, "evolution": ev}))
+	assert_true(world.panel.is_offer_visible(), "an offer is shown")
+	assert_true(world.panel.offer_text(1).contains("pende"), "the advisor's lean is marked on the lineage card")
+	assert_true(world.panel.offer_text(0).contains("Mieloide"), "the lineage cards are what is shown first")
+	assert_eq(world.engine_lineage_offer.size(), 2, "the pending lineage offer is tracked")
+	lin["offer"] = []
+	lin["current"] = "mieloide"
+	world.sync.apply_view(_view({"lineage": lin, "evolution": ev}))
+	assert_true(world.engine_lineage_offer.is_empty(), "differentiated")
+	assert_true(world.panel.is_offer_visible() and world.panel.offer_text(0).contains("Cílios"), "then the pending mutation offer appears")
+
+
+func test_class_mutations_are_only_met_by_their_class() -> void:
+	var tracker := BioMutationTracker.new(5)
+	var plain := BioGenome.new()
+	var macro := BioGenome.new()
+	macro.lineage = &"macrofago"
+	for round_index in 12:
+		var t := BioMutationTracker.new(round_index)
+		t.add_pressure(BioMutationTracker.THRESHOLD, plain)
+		for id in t.offer:
+			assert_eq(BioGeneCatalog.get_gene(id).requires_lineage, &"", "an undifferentiated cell is never offered a class mutation")
+	var met := false
+	for round_index in 40:
+		var t := BioMutationTracker.new(round_index)
+		t.add_pressure(BioMutationTracker.THRESHOLD, macro)
+		for id in t.offer:
+			var need := BioGeneCatalog.get_gene(id).requires_lineage
+			assert_true(need == &"" or need == &"macrofago", "a macrophage only meets its own class mutations")
+			met = met or need == &"macrofago"
+	assert_true(met, "and does meet them")
+	assert_eq(tracker.pressure, 0)

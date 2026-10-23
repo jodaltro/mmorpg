@@ -79,6 +79,16 @@ func _refresh_shape() -> void:
 		_trail.clear()
 
 
+## Forms without a tail (the newborn ball, macrophages...) hide it and stop simulating it.
+func set_active(on: bool) -> void:
+	visible = on
+	set_process(on)
+
+
+func is_active() -> bool:
+	return visible
+
+
 func whip(strength: float) -> void:
 	_whip = maxf(_whip, strength)
 

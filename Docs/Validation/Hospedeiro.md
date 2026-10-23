@@ -80,3 +80,17 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 - Godot: 41 testes, 0 falhas (inclui: genes mudam o corpo; o corpo do motor aparece gradualmente, não estala; comportamento relatado em lote sem bloquear o quadro).
 - Ponta a ponta com o Jev ligado (`e2e_engine.gd`): os 9 passos anteriores e mais o novo: o cliente relata ataques em segundo plano e o **Jev decide o corpo "Caçador"** (log do mundo: `resolve` de `appearance` com `provider: jev`).
 - Capturas conferidas: quatro corpos distintos (caçador de espinhos, andarilho de cílios e cauda longa, erudito com halo e partículas violeta, banqueteiro grande com grânulos) e as marcas de cada gene (cílios, vesículas de toxina, mitocôndrias, grânulos, anel do núcleo, parede dupla, cauda blindada e longa).
+
+## H2 — diferenciação em classes (22/10/2026)
+
+**Conceito:** o jogador nasce como uma **esfera** indiferenciada (sem cauda) e cresce em dois passos: **progenitor** (mieloide ou linfoide) e **classe**, reinventando as clássicas com células reais do sistema imune: Macrófago (guerreiro, o Devorador), Neutrófilo (ladino, o Armadilheiro, que mantém a cauda), Dendrítica (bardo/explorador, a Cartógrafa), Linfócito B (mago, o Anticorpomante), T citotóxico (caçador, o Executor) e T auxiliar (clérigo, o Maestro das Citocinas). Cada classe tem 2 mutações próprias, que só ela encontra e que levam a forma mais longe (12 no total).
+
+**Motor:** `core/lineage.go` (maturidade, níveis, decisão `lineage` pelo Jev, verbo `diferenciar`, tags `lineage`/`tier`, visão `lineage`), 8 linhagens e 12 mutações de classe no universo, instruções do Jev em `advisor/jev.go`.
+- `go vet ./...` ok; `go test ./...` passa, exceto a falha antiga de `presentation.json`.
+- 4 testes novos (`lineage_test.go`): nasce indiferenciada e a maturidade abre o 1º nível; a escolha do Jev é revalidada e o jogador vira aquilo; o 2º nível oferece só as classes do progenitor escolhido (mieloide: macrófago, neutrófilo, dendrítica); mutações de classe só aparecem para a classe certa.
+
+**Cliente (Godot):** catálogo de linhagens com bônus de classe (ex.: macrófago +50% de membrana e -15% de velocidade; neutrófilo +30% de velocidade); formas procedurais por classe (`bio_cell_forms.gd`: pseudópodes, núcleo multilobulado, dendritos fractais, anticorpos em Y, agulha e grânulos, anéis de citocinas) que se transformam em segundos; painel de escolha da linhagem com a classe que o Jev destaca; mutação de classe amplia a forma (teia de DNA, árvore de dendritos, coroa de anticorpos...). 44 testes, 0 falhas.
+- Capturas conferidas: as 9 formas (esfera, os 2 progenitores e as 6 classes) e as 6 com as duas mutações de classe. São silhuetas e apêndices claramente diferentes.
+- Ponta a ponta com o Jev ligado: os passos anteriores e mais: a maturidade estoura, o motor oferece a linhagem, o **Jev escolhe (Mieloide) em decisão `lineage` com `provider: jev`**, o jogador diferencia e o corpo muda.
+
+**Não feito nesta etapa:** habilidades ativas próprias de cada classe (hoje a classe muda forma, bônus passivos e mutações; o chicote, a toxina e o impulso continuam os mesmos; o neutrófilo bate com a cauda e as outras classes com um arco de choque). E o modo offline não diferencia (fica esfera): a diferenciação é decidida pelo motor.

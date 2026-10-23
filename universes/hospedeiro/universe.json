@@ -43,7 +43,8 @@
    "uso-chicote": 0,
    "uso-toxina": 0,
    "uso-impulso": 0,
-   "explorar": 0
+   "explorar": 0,
+   "maturidade": 0
   },
   "region": "medula"
  },
@@ -458,6 +459,12 @@
     {
      "op": "adjust",
      "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
      "k": "pressao",
      "d": 1
     },
@@ -498,6 +505,12 @@
    ],
    "requires": {},
    "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    },
     {
      "op": "adjust",
      "e": "$self",
@@ -611,6 +624,12 @@
     {
      "op": "adjust",
      "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
      "k": "pressao",
      "d": 2
     },
@@ -707,6 +726,12 @@
     ]
    },
    "effects": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 3
+    },
     {
      "op": "adjust",
      "e": "$self",
@@ -1188,6 +1213,12 @@
        "e": "$self",
        "k": "pressao",
        "d": 10
+      },
+      {
+       "op": "adjust",
+       "e": "$self",
+       "k": "maturidade",
+       "d": 8
       }
      ],
      "rival": [
@@ -1310,6 +1341,12 @@
      "e": "$self",
      "k": "mergulhos",
      "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 4
     }
    ],
    "tags": [
@@ -1372,6 +1409,12 @@
      "d": 1,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 3
     }
    ]
   },
@@ -1428,6 +1471,12 @@
      "d": 1,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 3
     }
    ],
    "tags": [
@@ -1490,6 +1539,12 @@
      "d": 1,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
     }
    ]
   },
@@ -1551,6 +1606,12 @@
      "d": 2,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 4
     }
    ]
   },
@@ -1607,6 +1668,12 @@
      "d": 2,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 6
     }
    ],
    "tags": [
@@ -1661,6 +1728,12 @@
      "d": 1,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 6
     }
    ],
    "tags": [
@@ -1720,6 +1793,12 @@
      "d": 1,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 6
     }
    ]
   },
@@ -1787,6 +1866,12 @@
      "d": 2,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 10
     }
    ]
   },
@@ -1846,6 +1931,12 @@
      "d": 2,
      "min": -10,
      "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 10
     }
    ]
   },
@@ -1892,6 +1983,12 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
      "d": 5
     }
    ]
@@ -2169,6 +2266,210 @@
     "metabolism"
    ],
    "desc": "+50% de ganho de nutrientes, -2 de ATP por segundo."
+  },
+  {
+   "id": "pseudopodes-gigantes",
+   "name": "Pseudópodes Gigantes",
+   "rarity": "rara",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "macrofago"
+    }
+   },
+   "desc": "Lóbulos enormes crescem pelo corpo: +40% de membrana máxima, +20% de dano do chicote, -12% de velocidade."
+  },
+  {
+   "id": "lisossomos-acidos",
+   "name": "Lisossomos Ácidos",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "metabolism"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "macrofago"
+    }
+   },
+   "desc": "Vacúolos de ácido por dentro: +50% de ganho de nutrientes, +25% de dano da toxina, -10% de ATP máximo."
+  },
+  {
+   "id": "rede-de-dna",
+   "name": "Rede de DNA",
+   "rarity": "rara",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "neutrofilo"
+    }
+   },
+   "desc": "Filamentos de DNA em teia ao redor do corpo: +35% de alcance do chicote, +15% de velocidade, -15% de membrana máxima."
+  },
+  {
+   "id": "nucleo-multilobulado",
+   "name": "Núcleo Multilobulado",
+   "rarity": "incomum",
+   "tags": [
+    "explore",
+    "endure"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "neutrofilo"
+    }
+   },
+   "desc": "Um núcleo em vários lóbulos que se espreme por qualquer fresta: -30% de recarga do impulso, +10% de velocidade, -10% de dano do chicote."
+  },
+  {
+   "id": "dendritos-ramificados",
+   "name": "Dendritos Ramificados",
+   "rarity": "rara",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "dendritica"
+    }
+   },
+   "desc": "Braços que se ramificam sem fim: +60% de ganho de nutrientes, +25% de alcance do chicote, -12% de membrana máxima."
+  },
+  {
+   "id": "esporos-de-antigeno",
+   "name": "Esporos de Antígeno",
+   "rarity": "incomum",
+   "tags": [
+    "knowledge",
+    "metabolism"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "dendritica"
+    }
+   },
+   "desc": "Nuvens de esporos que carregam o rosto do inimigo: +3 de ATP por segundo, +20% de dano da toxina, -10% de velocidade."
+  },
+  {
+   "id": "anticorpos-em-y",
+   "name": "Anticorpos em Y",
+   "rarity": "rara",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "linfocito-b"
+    }
+   },
+   "desc": "A célula se cobre de anticorpos: +60% de dano da toxina, +20% de custo da toxina, -10% de membrana máxima."
+  },
+  {
+   "id": "plasmocito",
+   "name": "Plasmócito",
+   "rarity": "epica",
+   "tags": [
+    "knowledge",
+    "metabolism"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "linfocito-b"
+    }
+   },
+   "desc": "Uma fábrica de anticorpos: +5 de ATP por segundo, +30% de dano da toxina, -25% de velocidade."
+  },
+  {
+   "id": "granulos-de-perforina",
+   "name": "Grânulos de Perforina",
+   "rarity": "rara",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-citotoxico"
+    }
+   },
+   "desc": "Grânulos que furam as membranas dos inimigos: +45% de dano do chicote, +15% de dano da toxina, -15% de membrana máxima."
+  },
+  {
+   "id": "agulha-litica",
+   "name": "Agulha Lítica",
+   "rarity": "epica",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-citotoxico"
+    }
+   },
+   "desc": "Uma lança fina que cresce no corpo: +50% de alcance do chicote, +30% de dano do chicote, +20% de custo da toxina."
+  },
+  {
+   "id": "halo-de-citocinas",
+   "name": "Halo de Citocinas",
+   "rarity": "rara",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-auxiliar"
+    }
+   },
+   "desc": "Anéis de sinais ao redor do corpo: +30% de membrana máxima, +4 de ATP por segundo, -15% de dano do chicote."
+  },
+  {
+   "id": "coro-de-interleucinas",
+   "name": "Coro de Interleucinas",
+   "rarity": "incomum",
+   "tags": [
+    "endure",
+    "knowledge"
+   ],
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-auxiliar"
+    }
+   },
+   "desc": "Partículas que cantam em volta da célula: +40% de ganho de nutrientes, -25% de recarga do impulso, -10% de dano da toxina."
   }
  ],
  "appearance": {
@@ -2303,5 +2604,101 @@
     }
    }
   ]
- }
+ },
+ "differentiation": {
+  "maturity": "maturidade",
+  "tiers": [
+   14,
+   40
+  ]
+ },
+ "lineages": [
+  {
+   "id": "mieloide",
+   "name": "Mieloide",
+   "tier": 1,
+   "tags": [
+    "combat",
+    "metabolism",
+    "endure"
+   ],
+   "desc": "A linhagem dos devoradores e dos primeiros a chegar: células grandes, famintas e de reação rápida. Dela nascem o macrófago, o neutrófilo e a célula dendrítica."
+  },
+  {
+   "id": "linfoide",
+   "name": "Linfoide",
+   "tier": 1,
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "desc": "A linhagem da memória e da precisão: células que reconhecem o inimigo e agem com método. Dela nascem o linfócito B, o T citotóxico e o T auxiliar."
+  },
+  {
+   "id": "macrofago",
+   "name": "Macrófago",
+   "tier": 2,
+   "from": "mieloide",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "desc": "O Devorador. O guerreiro do corpo: enorme, de pseudópodes que engolem o que tocam e aguentam o que vier. Lento, mas ninguém passa."
+  },
+  {
+   "id": "neutrofilo",
+   "name": "Neutrófilo",
+   "tier": 2,
+   "from": "mieloide",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "desc": "O Armadilheiro. O ladino do sangue: veloz, de núcleo multilobulado, que lança redes de DNA para prender e retalhar."
+  },
+  {
+   "id": "dendritica",
+   "name": "Célula dendrítica",
+   "tier": 2,
+   "from": "mieloide",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "desc": "A Cartógrafa. A exploradora e bardo: de dendritos ramificados, colhe o rosto dos inimigos e leva o conhecimento a todos."
+  },
+  {
+   "id": "linfocito-b",
+   "name": "Linfócito B",
+   "tier": 2,
+   "from": "linfoide",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "desc": "O Anticorpomante. O mago do corpo: cobre-se de anticorpos em Y e os dispara à distância, marcando o que deve morrer."
+  },
+  {
+   "id": "t-citotoxico",
+   "name": "Linfócito T citotóxico",
+   "tier": 2,
+   "from": "linfoide",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "desc": "O Executor. O caçador que só ataca o que já foi marcado: grânulos de perforina e uma agulha que perfura qualquer membrana."
+  },
+  {
+   "id": "t-auxiliar",
+   "name": "Linfócito T auxiliar",
+   "tier": 2,
+   "from": "linfoide",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "desc": "O Maestro das Citocinas. O clérigo: não luta, rege. Envolve os aliados em halos de sinais que curam, aceleram e protegem."
+  }
+ ]
 }

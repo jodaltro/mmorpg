@@ -81,6 +81,19 @@ func _run() -> void:
 		return _fail("choosing expresses the gene")
 	_step("expressed %s" % featured)
 
+	# Differentiation: maturity from deeds opens the first tier; the advisor says where the body leans.
+	for i in 5:
+		world.virus_destroyed.emit()
+	if not await _until(func() -> bool: return not world.engine_lineage_offer.is_empty(), 25.0):
+		return _fail("the engine offers a lineage once the cell is mature")
+	_step("lineage offer, the body leans to %s (of %d)" % [world.engine_lineage_featured, world.engine_lineage_offer.size()])
+	await _shot("e2e_05b_lineage")
+	var picked_lineage := str(world.engine_lineage_offer[0].get("id", ""))
+	world.pick_mutation(0)
+	if not await _until(func() -> bool: return world.lineage_id == BioLineageCatalog.normalise(picked_lineage), 10.0):
+		return _fail("choosing differentiates")
+	_step("differentiated into %s: the body is now a %s" % [picked_lineage, world.sync._world.player.get_child(2).form if false else str(world.lineage_id)])
+
 	# Behaviour reported in the background shapes the body; the advisor decides it.
 	for i in 25:
 		world.sync._used[BioAttackCatalog.FLAGELLUM_LASH] = true

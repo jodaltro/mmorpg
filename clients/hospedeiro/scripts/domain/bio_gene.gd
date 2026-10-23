@@ -29,12 +29,14 @@ const LABELS := {
 var id: StringName
 var display_name: String
 var mods: Dictionary
+var requires_lineage: StringName = &""  # class mutation: only offered to that lineage
 
 
-func _init(p_id: StringName, p_display_name: String, p_mods: Dictionary) -> void:
+func _init(p_id: StringName, p_display_name: String, p_mods: Dictionary, p_requires_lineage: StringName = &"") -> void:
 	id = p_id
 	display_name = p_display_name
 	mods = p_mods
+	requires_lineage = p_requires_lineage
 
 
 static func is_additive(stat: StringName) -> bool:

@@ -217,6 +217,9 @@ func Compile(u Universe) (*World, error) {
 	if e := w.compileAppearance(); e != nil {
 		return nil, e
 	}
+	if e := w.compileDifferentiation(); e != nil {
+		return nil, e
+	}
 	for _, k := range u.Skills {
 		if k.Learn != nil {
 			if e := v.cond(*k.Learn, map[string]bool{"self": true}, "skill "+k.ID); e != nil {

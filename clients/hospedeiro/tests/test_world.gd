@@ -60,6 +60,11 @@ func test_lash_sweeps_the_tail() -> void:
 	assert_true(tail != null, "player has a flagellum")
 	if tail == null:
 		return
+	assert_true(not tail.is_active(), "a newborn ball has no tail")
+	var lineage := BioGenome.new()
+	lineage.lineage = &"neutrofilo"
+	world.player.combatant.set_genome(lineage)  # the neutrophil keeps a tail, and lashes with it
+	assert_true(tail.is_active(), "the neutrophil grows a tail")
 	var ctrl := _controller()
 	ctrl.set_aim(Vector2.RIGHT)
 	assert_true(not tail.is_lashing(), "tail idle before lash")
@@ -174,6 +179,7 @@ func test_genes_change_the_body() -> void:
 	assert_true(body.genes.is_empty(), "a newborn has no marks")
 	var base_segments := tail.segments
 	var g := BioGenome.new()
+	g.lineage = &"neutrofilo"
 	g.equip(&"membrana_espessa")
 	g.equip(&"cauda_longa")
 	g.equip(&"flagelo_calejado")

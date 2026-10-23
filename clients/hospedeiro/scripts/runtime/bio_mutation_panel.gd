@@ -5,6 +5,8 @@ extends CanvasLayer
 const CARD_SIZE := Vector2(330, 200)
 
 var _offer_root: Control
+var _title: Label
+var _lineage_label: Label
 var _cards: Array[Label] = []
 var _genes_label: Label
 var _pressure_fill: ColorRect
@@ -21,15 +23,37 @@ func offer_text(index: int) -> String:
 
 ## `featured` is where the body leans (chosen by the engine's advisor from how the player lives).
 func show_offer(ids: Array, featured: StringName = &"") -> void:
+	var entries: Array = []
+	for id in ids:
+		var gene := BioGeneCatalog.get_gene(id)
+		var tag := "  (classe)" if gene.requires_lineage != &"" else ""
+		entries.append({"name": gene.display_name + tag, "text": gene.summary().replace(" · ", "\n"), "featured": id == featured})
+	show_cards("MUTAÇÃO DISPONÍVEL — escolha uma (1 / 2 / 3) ou recuse (X)", entries)
+
+
+## The lineage offer: the body is ready to differentiate (permanent). `featured` is where the advisor says it leans.
+func show_lineage_offer(options: Array, featured: String) -> void:
+	var entries: Array = []
+	for o in options:
+		entries.append({"name": str(o.get("name", "")), "text": str(o.get("desc", "")), "featured": str(o.get("id", "")) == featured})
+	show_cards("DIFERENCIAÇÃO — seu corpo está pronto para se tornar outra coisa (1 / 2 / 3)", entries)
+
+
+func show_cards(title: String, entries: Array) -> void:
+	_title.text = title
 	for i in _cards.size():
-		if i < ids.size():
-			var gene := BioGeneCatalog.get_gene(ids[i])
-			var lean := "\n\n◆ o corpo pende para cá" if ids[i] == featured else ""
-			_cards[i].text = "[%d]  %s\n\n%s%s" % [i + 1, gene.display_name, gene.summary().replace(" · ", "\n"), lean]
+		if i < entries.size():
+			var e: Dictionary = entries[i]
+			var lean := "\n\n◆ o corpo pende para cá" if e.get("featured", false) else ""
+			_cards[i].text = "[%d]  %s\n\n%s%s" % [i + 1, e["name"], e["text"], lean]
 			_cards[i].get_parent().visible = true
 		else:
 			_cards[i].get_parent().visible = false
 	_offer_root.visible = true
+
+
+func set_lineage_text(text: String) -> void:
+	_lineage_label.text = text
 
 
 func hide_offer() -> void:
@@ -55,11 +79,23 @@ func refresh_values(genome: BioGenome, fraction: float) -> void:
 func _ready() -> void:
 	layer = 11
 
+	_lineage_label = Label.new()
+	_lineage_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	_lineage_label.offset_left = -560
+	_lineage_label.offset_right = -30
+	_lineage_label.offset_top = 4
+	_lineage_label.offset_bottom = 28
+	_lineage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_lineage_label.add_theme_font_size_override("font_size", 17)
+	_lineage_label.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.AMBER, 0.95))
+	_lineage_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_lineage_label)
+
 	_genes_label = Label.new()
 	_genes_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	_genes_label.offset_left = -560
 	_genes_label.offset_right = -30
-	_genes_label.offset_top = 24
+	_genes_label.offset_top = 32
 	_genes_label.offset_bottom = 160
 	_genes_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_genes_label.add_theme_font_size_override("font_size", 14)
@@ -94,6 +130,7 @@ func _ready() -> void:
 	_offer_root.visible = false
 	add_child(_offer_root)
 	var title := Label.new()
+	_title = title
 	title.text = "MUTAÇÃO DISPONÍVEL — escolha uma (1 / 2 / 3) ou recuse (X)"
 	title.position = Vector2(-CARD_SIZE.x * 1.5 - 20, -CARD_SIZE.y * 0.5 - 56)
 	title.size = Vector2(CARD_SIZE.x * 3 + 40, 40)

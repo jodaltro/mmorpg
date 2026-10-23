@@ -103,3 +103,9 @@ Predicado, tipo ou entidade desconhecidos; variável não ligada; operador de ef
 - **`appearance`** (`every`, `minDeeds`, `axes`, `variants`). Cada eixo (`id`, `min`, `max`, `base`, `scale`, `signals`) é um parâmetro do corpo. Os `signals` somam o comportamento: `deed:<ação>`, `style:<tag>`, `rel:<entidade>` (com quem fala), `gene:<mutação>` ou um número do jogador (ex.: `uso-chicote`, `esquivas`, `explorar`). O valor satura entre `min` e `max` ao redor de `scale`.
 - As ações `estilo-*` (origem `adapter`) são como o servidor de jogo relata em lote o que o jogador usa e como se move; o motor não confia em números do cliente, só em acontecimentos confirmados.
 - Em cada `every` ticks, para o jogador com pelo menos `minDeeds` feitos novos, o motor cria uma decisão **`appearance`**: as `variants` (cada uma inclina os eixos com `bias`) são as opções, o Jev escolhe a que melhor reflete como a pessoa joga, e o padrão no prazo é a de maior `fit`. O resultado entra em `view.look` e em `others[].look` (todos veem o corpo de todos).
+
+## Diferenciação em linhagens (Hospedeiro)
+
+- **`differentiation`** (`maturity`, `tiers`) e **`lineages`** (`{id, name, desc, tier, from, tags, eligible}`). O jogador nasce indiferenciado. A `maturity` (um número do jogador, somado pelos feitos) abre cada nível; o motor oferece as linhagens do próximo nível que descendem da atual (`from`).
+- Com mais de uma candidata, cria a decisão **`lineage`**: o Jev escolhe para onde o corpo pende, lendo o estilo aprendido, os genes e o comportamento; o padrão no prazo é a de maior `fit` (soma do estilo nas `tags`). O jogador escolhe com o verbo **`diferenciar`** (`args: {lineage}`). A escolha é permanente, reforça o caminho e grava as tags `lineage` e `tier` no jogador, que condições (`tag`) e clientes podem ler.
+- Mutações de classe: `eligible` com `{"tag": {"e": "$self", "k": "lineage", "v": "<linhagem>"}}` faz uma mutação só aparecer para quem tem aquela linhagem.

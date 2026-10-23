@@ -82,6 +82,35 @@ func _run() -> void:
 		world.player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
 		await create_timer(0.7).timeout
 		_shot(out_dir, key)
+	# Every form of the differentiation tree, plain and with both of its class mutations.
+	world.camera.zoom = Vector2.ONE * 2.6
+	var forms := {
+		"20_form_esfera": ["", []],
+		"21_form_mieloide": ["mieloide", []],
+		"22_form_linfoide": ["linfoide", []],
+		"23_form_macrofago": ["macrofago", []],
+		"24_form_macrofago_gene": ["macrofago", [&"pseudopodes_gigantes", &"lisossomos_acidos"]],
+		"25_form_neutrofilo": ["neutrofilo", []],
+		"26_form_neutrofilo_gene": ["neutrofilo", [&"rede_de_dna", &"nucleo_multilobulado"]],
+		"27_form_dendritica": ["dendritica", []],
+		"28_form_dendritica_gene": ["dendritica", [&"dendritos_ramificados", &"esporos_de_antigeno"]],
+		"29_form_linfocito_b": ["linfocito_b", []],
+		"30_form_linfocito_b_gene": ["linfocito_b", [&"anticorpos_em_y", &"plasmocito"]],
+		"31_form_t_citotoxico": ["t_citotoxico", []],
+		"32_form_t_citotoxico_gene": ["t_citotoxico", [&"granulos_de_perforina", &"agulha_litica"]],
+		"33_form_t_auxiliar": ["t_auxiliar", []],
+		"34_form_t_auxiliar_gene": ["t_auxiliar", [&"halo_de_citocinas", &"coro_de_interleucinas"]],
+	}
+	for key in forms:
+		var fg := BioGenome.new()
+		fg.lineage = StringName(forms[key][0])
+		for id in forms[key][1]:
+			fg.equip(id)
+		world.player.combatant.set_genome(fg)
+		world.player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+		await create_timer(3.4).timeout
+		_shot(out_dir, key)
+	world.camera.zoom = Vector2.ONE * 3.0
 	# Three players, three bodies: the look comes from the engine, so only axes differ here.
 	var looks := {
 		"15_look_cacador": {"ferocidade": 90, "agilidade": 30, "robustez": 30, "metabolismo": 10, "sociabilidade": 5, "misterio": 5},
