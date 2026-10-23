@@ -221,7 +221,7 @@ func (w *World) enterDungeon(s *State, origin string, p ID, args map[string]ID, 
 			ctx = append(ctx, w.genomeText(s, p))
 		}
 		s.Decisions[id] = Decision{ID: id, Kind: "dungeon", Subject: string(p), Options: opts, Default: mods[0].ID,
-			Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
+			Created: s.Tick, Due: s.Tick + 1, Context: ctx}
 		w.emit(s, Event{Kind: "dungeon-preparing", Holder: p, Text: d.Name, Cause: cause, Data: map[string]string{"dungeon": d.ID}})
 	}
 	return nil

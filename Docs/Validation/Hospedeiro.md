@@ -173,3 +173,9 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 **Executado:** Godot 76 testes, 0 falhas (3 novos: todo gene tem organela conhecida e há 12+ tipos; as organelas derivam por conta própria mas nenhuma chega à membrana em 400 quadros nem após um tranco; o mesmo dentro da silhueta de fantasma). Atlas e GIFs reais (`tests/capture_organelles.gd`). Não medi custo com muitos jogadores.
 
+### Menos luz e a entrada do granuloma clara (23/10/2026)
+
+**Luz:** o brilho global (bloom) do mundo estava forte demais e lavava as formas em branco. Intensidade 1,8 -> 0,55, força 1,2 -> 0,8, bloom 0,25 -> 0,03 e limiar HDR 0,45 -> 1,0, e o brilho do portal do granuloma foi reduzido. As formas, os membros e os efeitos agora se leem pelo contorno e pela cor.
+
+**Granuloma:** o "travou" era uma espera sem aviso: ao entrar, o motor esperava até 12 s (3 ticks) pela decisão do modificador e a tela não dizia nada. Agora a decisão tem prazo de **1 tick** (a entrada leva cerca de 2,6 s medidos com o Jev ligado) e há um aviso na tela ("Entrando no granuloma... o Jev escolhe o desafio desta vez"). Entrada clara: ao ficar elegível, uma linha no feed ("O Granuloma abriu para você: siga a seta... e aperte E"), uma seta na borda da tela com o nome e a distância quando está longe, e o portal com o rótulo GRANULOMA e "Aperte E para entrar" quando se chega perto (abaixo do portal, para não ficar escondido pelas ofertas). Jogando 30 s dentro dele com a luta automática: 60 quadros por segundo, pior quadro de 80 ms, sem travar.
+

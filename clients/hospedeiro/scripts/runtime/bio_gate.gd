@@ -36,7 +36,17 @@ func _draw() -> void:
 			var a := i * TAU / segs + _t * (0.08 if ring % 2 == 0 else -0.08)
 			draw_arc(Vector2.ZERO, rr, a, a + TAU / segs * 0.78, 6, BioArt.with_alpha(pink, 0.55 - 0.12 * ring), 6.0 - ring, true)
 	var pulse := 0.5 + 0.5 * sin(_t * 1.6)
-	draw_texture_rect(BioArt.glow_texture(), Rect2(Vector2.ONE * -r * 0.5, Vector2.ONE * r), false, Color(0.55, 0.9, 0.25, 0.18 + 0.12 * pulse))
+	draw_texture_rect(BioArt.glow_texture(), Rect2(Vector2.ONE * -r * 0.5, Vector2.ONE * r), false, Color(0.55, 0.9, 0.25, 0.08 + 0.05 * pulse))
 	draw_circle(Vector2.ZERO, r * 0.14, Color(0.1, 0.2, 0.05, 0.6))
+	var font := ThemeDB.fallback_font
+	var title := "GRANULOMA"
+	var color := Color(0.85, 1.0, 0.6, 0.95) if eligible else Color(0.7, 0.75, 0.8, 0.8)
+	draw_string(font, Vector2(-100.0, r + 34.0), title, HORIZONTAL_ALIGNMENT_CENTER, 200.0, 24, color)
+	var line := ""
 	if is_near():
-		draw_arc(Vector2.ZERO, r * 1.2, 0.0, TAU, 56, Color(1, 1, 1, 0.25 + 0.2 * pulse), 2.0, true)
+		draw_arc(Vector2.ZERO, r * 1.2, 0.0, TAU, 56, Color(1, 1, 1, 0.5 + 0.3 * pulse), 2.0, true)
+		line = "Aperte E para entrar" if eligible else hint
+	elif eligible:
+		line = "uma masmorra: chegue perto"
+	if line != "":
+		draw_string(font, Vector2(-170.0, r + 60.0), line, HORIZONTAL_ALIGNMENT_CENTER, 340.0, 18, Color(1, 1, 1, 0.95) if is_near() else color)

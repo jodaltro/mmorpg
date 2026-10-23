@@ -377,6 +377,12 @@ func _process(delta: float) -> void:
 		if now != region:
 			region = now
 			region_changed.emit(region)
+	if gate != null and gate.eligible and not dungeon.active and player.is_active():
+		var to := gate.global_position - player.global_position
+		var far := to.length() > 9.0 * BioArt.UNIT
+		hud.set_guide(far, to, "%s  Granuloma · %d" % ["➤", roundi(to.length() / BioArt.UNIT)])
+	else:
+		hud.set_guide(false, Vector2.ZERO, "")
 	if not sync.wants_numbers():
 		for i in 3:
 			if Input.is_action_just_pressed("bio_pick_%d" % (i + 1)):
@@ -440,11 +446,11 @@ func _add_glow_environment() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_CANVAS
 	env.glow_enabled = true
-	env.glow_intensity = 1.8
-	env.glow_strength = 1.2
-	env.glow_bloom = 0.25
+	env.glow_intensity = 0.55
+	env.glow_strength = 0.8
+	env.glow_bloom = 0.03
 	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_ADDITIVE
-	env.glow_hdr_threshold = 0.45
+	env.glow_hdr_threshold = 1.0
 	var holder := WorldEnvironment.new()
 	holder.name = "GlowEnvironment"
 	holder.environment = env

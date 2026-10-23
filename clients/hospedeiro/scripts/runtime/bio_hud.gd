@@ -20,6 +20,7 @@ const CONFIRM_SECONDS := 4.0
 
 var _banner: Label
 var _dungeon_label: Label
+var _guide: Label
 var _restart_button: Button
 var _restart_armed_until := 0.0
 var _abilities: BioAbilityRunner
@@ -60,6 +61,19 @@ func press_restart() -> void:
 		return
 	_restart_armed_until = now + CONFIRM_SECONDS
 	_restart_button.text = "CONFIRMAR? apaga tudo"
+
+
+## An arrow at the edge of the screen pointing at something far away (the granuloma), with a short text.
+func set_guide(on: bool, direction: Vector2, text: String) -> void:
+	_guide.visible = on
+	if not on:
+		return
+	var size := get_viewport().get_visible_rect().size
+	var d := direction.normalized() if direction.length() > 0.01 else Vector2.RIGHT
+	var half := size * 0.5 - Vector2(90.0, 70.0)
+	var scale := minf(half.x / maxf(absf(d.x), 0.001), half.y / maxf(absf(d.y), 0.001))
+	_guide.text = text
+	_guide.position = size * 0.5 + d * scale - _guide.size * 0.5
 
 
 func set_dungeon_text(text: String) -> void:
@@ -136,6 +150,14 @@ func _ready() -> void:
 	_restart_button.pressed.connect(press_restart)
 	add_child(_restart_button)
 
+	_guide = Label.new()
+	_guide.visible = false
+	_guide.add_theme_font_size_override("font_size", 18)
+	_guide.add_theme_color_override("font_color", Color(0.85, 1.0, 0.6, 0.95))
+	_guide.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	_guide.add_theme_constant_override("outline_size", 6)
+	_guide.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_guide)
 	_dungeon_label = Label.new()
 	_dungeon_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_dungeon_label.offset_left = -400

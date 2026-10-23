@@ -249,6 +249,8 @@ func _apply_dungeon(d: Dictionary) -> void:
 			open = bool(o.get("eligible", false))
 			if open:
 				hint = ""
+	if open and not _world.gate.eligible:
+		system.push_feed("O Granuloma abriu para você: siga a seta até os anéis na corrente sanguínea e aperte E.")
 	_world.gate.eligible = open
 	_world.gate.hint = hint
 	var run: Variant = d.get("run")
@@ -257,8 +259,12 @@ func _apply_dungeon(d: Dictionary) -> void:
 	var state := str(run.get("state", ""))
 	var seed_value := int(run.get("seed", 0))
 	var mod: Variant = run.get("modifier")
-	if state == "preparing" and _dungeon_state != "preparing":
-		system.push_feed("O granuloma se prepara…")
+	if state != "preparing" and _world.hud.banner_text().begins_with("Entrando no granuloma"):
+		_world.hud.show_banner("")
+	if state == "preparing":
+		_world.hud.show_banner("Entrando no granuloma…  o Jev escolhe o desafio desta vez")
+		if _dungeon_state != "preparing":
+			system.push_feed("O granuloma se prepara…")
 	elif state == "active":
 		if not _world.dungeon.active and (_dungeon_state != "active" or seed_value != _dungeon_seed):
 			_world.dungeon.start(run)
