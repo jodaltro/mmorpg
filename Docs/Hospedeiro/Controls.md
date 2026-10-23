@@ -80,3 +80,5 @@ Alguns lugares do corpo escondem **nichos**: bolsas com um gene para quem as ach
 ## Debug do design do Jev
 
 **F3** abre o painel de debug: de onde veio o design (motor, debug ou nenhum), cada traço, o estilo dos efeitos, os multiplicadores das partículas e quantos efeitos foram emitidos nesta sessão (e quantos com estilo). **F4** troca o estilo dos efeitos à mão (chama, cristal, névoa, elétrico, orgânico) para ver cada um sem esperar o motor; **F5** sorteia um design completo (núcleo composto, membrana, organelas, brilho, efeitos); **F6** volta ao que o motor decidiu. Cada mudança também escreve `[design] origem=... traços=...` no console. O motor desenha a célula nova depois de uns 6 atos (cerca de 20 s jogando).
+
+**F7** troca o impacto do projétil, **F8** a trajetória e **F9** o calibre (para ver cada projétil do Jev sem esperar o motor).

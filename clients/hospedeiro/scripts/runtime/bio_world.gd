@@ -274,6 +274,7 @@ func apply_design(designed: Dictionary, source: String) -> void:
 	design_source = source if not designed.is_empty() else "nenhuma"
 	design_changed_at = Time.get_ticks_msec() * 0.001
 	abilities.effect_style = StringName(str(design_traits.get("efeito", "")))
+	abilities.projectile_traits = design_traits.duplicate()
 	BioPfx.style = abilities.effect_style
 	player.combatant.effect_style = abilities.effect_style if BioEffectPhysics.has_style(abilities.effect_style) else &""
 	var feel := BioDesign.feel(design_traits)
@@ -308,6 +309,12 @@ func _debug_keys() -> void:
 			"brilho": BioDesign.GLOW.keys()[rng.randi() % BioDesign.GLOW.size()], "efeito": String(BioEffectSignature.STYLES[rng.randi() % BioEffectSignature.STYLES.size()]),
 			"densidade": BioDesign.DENSITY.keys()[rng.randi() % BioDesign.DENSITY.size()], "rastro": BioDesign.TRAIL.keys()[rng.randi() % BioDesign.TRAIL.size()],
 			"ritmo": BioDesign.TEMPO.keys()[rng.randi() % BioDesign.TEMPO.size()]}, "debug")
+	for pair in [["bio_debug_impact", "impacto", BioProjectileDesign.IMPACTS.keys()], ["bio_debug_path", "trajetoria", BioProjectileDesign.TRAJECTORIES], ["bio_debug_calibre", "calibre", BioProjectileDesign.CALIBRE.keys()]]:
+		if Input.is_action_just_pressed(pair[0]):
+			var options: Array = pair[2]
+			var cur := design_traits.duplicate()
+			cur[pair[1]] = options[(options.find(str(cur.get(pair[1], ""))) + 1) % options.size()]
+			apply_design(cur, "debug")
 	if Input.is_action_just_pressed("bio_debug_engine"):
 		apply_design(engine_traits, "motor")
 

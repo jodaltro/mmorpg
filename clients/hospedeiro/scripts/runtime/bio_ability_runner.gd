@@ -21,6 +21,7 @@ var _host: BioCellActor
 var _aim_source: BioCellController
 var _limbs: BioLimbs
 var effect_style: StringName = &""  # trait "efeito" designed by Jev
+var projectile_traits := {}  # traits "trajetoria", "calibre", "impacto" (and "ritmo") designed by Jev: they change the shot itself
 var _body: BioCellBody
 
 
@@ -326,13 +327,14 @@ func _shoot_bolts(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color, 
 	_host.apply_impulse(-aim * 1.6)
 	_body.elastic(aim, 0.4, 0.0, 0.0)
 	var homing := bool(a.get("homing", false))
+	var shot := BioProjectileDesign.params(projectile_traits) if BioProjectileDesign.is_designed(projectile_traits) else {}
 	for i in count:
 		var dir := aim
 		var from := _host.global_position + aim * 0.7 * BioArt.UNIT
 		if i < buds.size() and is_instance_valid(buds[i]):
 			from = buds[i].tip_global()
 			dir = (from - _host.global_position).normalized()
-		var bolt := BioAbilityBolt.spawn(_host.get_parent(), _host.combatant, def, from, dir, float(a["speed"]), float(a["range"]), color, homing)
+		var bolt := BioAbilityBolt.spawn(_host.get_parent(), _host.combatant, def, from, dir, float(a["speed"]), float(a["range"]), color, homing, shot)
 		if count > 1:  # a salvo braids: neighbours swap sides in flight
 			bolt.weave_amp = 9.0
 			bolt.weave_phase = i * TAU / count * 2.0

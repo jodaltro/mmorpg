@@ -74,6 +74,23 @@ traits = [
     {"id": "ritmo", "name": "Ritmo dos efeitos", "question": "how fast the effects of this cell's abilities move",
      "options": [o("lento", "Lento", "Heavy, deliberate effects.", robustez=2, misterio=1), o("firme", "Firme", "Steady effects.", sociabilidade=1),
                  o("veloz", "Veloz", "Quick, darting effects.", agilidade=3, ferocidade=1)]},
+    # The shot itself (it changes what a projectile does, not only how it looks).
+    {"id": "trajetoria", "name": "Trajetória do projétil", "question": "how this cell's projectiles fly: this changes where they can hit, so choose what suits how this person fights",
+     "options": [o("reta", "Reta", "A straight, fast, honest line (no homing): precise and easy to dodge for a patient enemy.", ferocidade=2, robustez=1),
+                 o("ondulada", "Ondulada", "A snaking wave: harder to dodge, covers the sides of its path.", agilidade=2, sociabilidade=1),
+                 o("espiral", "Espiral", "A corkscrew around its line: sweeps a wide tube in front of the cell.", misterio=2, metabolismo=1),
+                 o("arco", "Arco", "A curving arc that bends round obstacles and around enemies who stand in front.", agilidade=1, misterio=1),
+                 o("teleguiada", "Teleguiada", "Hunts the nearest enemy with a strong turn: never misses, but is slower to arrive.", sociabilidade=2, misterio=1)]},
+    {"id": "calibre", "name": "Calibre do projétil", "question": "how big the projectile is: small ones are fast, long-range and hard to land; big ones are slow, forgiving and cover more space",
+     "options": [o("fino", "Fino", "A thin, fast needle with long range and a little more damage, but a tiny hit area.", agilidade=2, ferocidade=1),
+                 o("medio", "Médio", "An average projectile.", robustez=1, sociabilidade=1),
+                 o("grosso", "Grosso", "A big, slow ball with a wide hit area and a little less damage.", robustez=2, metabolismo=1)]},
+    {"id": "impacto", "name": "Impacto do projétil", "question": "what the projectile does when it arrives; each option trades some direct damage for its own reach",
+     "options": [o("simples", "Simples", "Hits one enemy for full damage and is spent.", ferocidade=1),
+                 o("perfurante", "Perfurante", "Goes through up to three enemies, a little weaker each time.", ferocidade=2, agilidade=1),
+                 o("explosivo", "Explosivo", "Bursts on arrival: everyone near the impact takes a share of the damage.", metabolismo=2, ferocidade=1),
+                 o("fragmenta", "Fragmenta", "Breaks into three fragments that fly on and hit whoever is behind.", misterio=2, sociabilidade=1),
+                 o("grudento", "Grudento", "Sticks to its target and keeps hurting it for a few seconds.", robustez=1, metabolismo=2)]},
 ]
 u["appearance"]["traits"] = traits
 p.write_text(json.dumps(u, ensure_ascii=False, indent=1), encoding="utf-8")

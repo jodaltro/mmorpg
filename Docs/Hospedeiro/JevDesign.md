@@ -21,6 +21,19 @@ Os textos das opções traziam `[fit N]`, a nota do próprio motor. Medido ao vi
 
 `BioDesign` (tabelas), `BioEffectSignature` (sabor dos efeitos: muda cor e forma dos membros, nunca números) e `BioCellBody` (núcleo, membrana, organelas e brilho). O teste `test_design.gd` percorre o universo e garante que toda opção que o motor pode oferecer tem desenho.
 
+## O próprio projétil é desenhado pelo Jev
+
+Três traços novos mudam o **tiro** (hoje nos projéteis das habilidades `bolt` e `volley`, como o anticorpo do linfócito B), não só o visual: **trajetória** (reta, ondulada, espiral, arco, teleguiada), **calibre** (fino, médio, grosso: raio de acerto, velocidade, alcance e um dano que paga o tamanho) e **impacto** (simples, perfurante, explosivo, fragmenta, grudento). O `ritmo` também acelera ou atrasa o tiro. Tudo em `BioProjectileDesign` e `BioAbilityBolt`:
+
+| Impacto | O que o tiro faz | Golpe direto |
+|---|---|---|
+| Perfurante | atravessa até 3 inimigos, 25% mais fraco a cada um | x0,80 |
+| Explosivo | explode: quem está a 2,2 u do impacto leva 55% | x0,78 |
+| Fragmenta | vira 3 fragmentos que seguem (30% cada, alcance 3 u) | x0,72 |
+| Grudento | gruda e queima 40% do golpe em 3 s | x0,80 |
+
+A trajetória é física: a onda e o saca-rolhas varrem os lados (e acertam ali), o arco contorna, a teleguiada persegue com giro forte, a reta não persegue. A régua é a mesma (`test_projectile.gd` exige 95% a 120% do tiro simples contando o que o impacto traz de volta) e cada comportamento é testado em corpos reais. **Debug:** F7 troca o impacto, F8 a trajetória, F9 o calibre; o painel F3 mostra o projétil em vigor.
+
 ## Os efeitos são físicos (não só visuais)
 
 O estilo que o Jev escolhe para os efeitos (trait `efeito`) muda o combate. Todo golpe de **habilidade** (o ataque básico não) carrega uma consequência, paga com um golpe direto menor (`BioEffectPhysics`):

@@ -4518,6 +4518,143 @@
       }
      }
     ]
+   },
+   {
+    "id": "trajetoria",
+    "name": "Trajetória do projétil",
+    "question": "how this cell's projectiles fly: this changes where they can hit, so choose what suits how this person fights",
+    "options": [
+     {
+      "id": "reta",
+      "name": "Reta",
+      "desc": "A straight, fast, honest line (no homing): precise and easy to dodge for a patient enemy.",
+      "affinity": {
+       "ferocidade": 2,
+       "robustez": 1
+      }
+     },
+     {
+      "id": "ondulada",
+      "name": "Ondulada",
+      "desc": "A snaking wave: harder to dodge, covers the sides of its path.",
+      "affinity": {
+       "agilidade": 2,
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "espiral",
+      "name": "Espiral",
+      "desc": "A corkscrew around its line: sweeps a wide tube in front of the cell.",
+      "affinity": {
+       "misterio": 2,
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "arco",
+      "name": "Arco",
+      "desc": "A curving arc that bends round obstacles and around enemies who stand in front.",
+      "affinity": {
+       "agilidade": 1,
+       "misterio": 1
+      }
+     },
+     {
+      "id": "teleguiada",
+      "name": "Teleguiada",
+      "desc": "Hunts the nearest enemy with a strong turn: never misses, but is slower to arrive.",
+      "affinity": {
+       "sociabilidade": 2,
+       "misterio": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "calibre",
+    "name": "Calibre do projétil",
+    "question": "how big the projectile is: small ones are fast, long-range and hard to land; big ones are slow, forgiving and cover more space",
+    "options": [
+     {
+      "id": "fino",
+      "name": "Fino",
+      "desc": "A thin, fast needle with long range and a little more damage, but a tiny hit area.",
+      "affinity": {
+       "agilidade": 2,
+       "ferocidade": 1
+      }
+     },
+     {
+      "id": "medio",
+      "name": "Médio",
+      "desc": "An average projectile.",
+      "affinity": {
+       "robustez": 1,
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "grosso",
+      "name": "Grosso",
+      "desc": "A big, slow ball with a wide hit area and a little less damage.",
+      "affinity": {
+       "robustez": 2,
+       "metabolismo": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "impacto",
+    "name": "Impacto do projétil",
+    "question": "what the projectile does when it arrives; each option trades some direct damage for its own reach",
+    "options": [
+     {
+      "id": "simples",
+      "name": "Simples",
+      "desc": "Hits one enemy for full damage and is spent.",
+      "affinity": {
+       "ferocidade": 1
+      }
+     },
+     {
+      "id": "perfurante",
+      "name": "Perfurante",
+      "desc": "Goes through up to three enemies, a little weaker each time.",
+      "affinity": {
+       "ferocidade": 2,
+       "agilidade": 1
+      }
+     },
+     {
+      "id": "explosivo",
+      "name": "Explosivo",
+      "desc": "Bursts on arrival: everyone near the impact takes a share of the damage.",
+      "affinity": {
+       "metabolismo": 2,
+       "ferocidade": 1
+      }
+     },
+     {
+      "id": "fragmenta",
+      "name": "Fragmenta",
+      "desc": "Breaks into three fragments that fly on and hit whoever is behind.",
+      "affinity": {
+       "misterio": 2,
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "grudento",
+      "name": "Grudento",
+      "desc": "Sticks to its target and keeps hurting it for a few seconds.",
+      "affinity": {
+       "robustez": 1,
+       "metabolismo": 2
+      }
+     }
+    ]
    }
   ]
  },

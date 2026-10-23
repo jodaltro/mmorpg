@@ -51,7 +51,8 @@ func refresh() -> void:
 		return
 	var traits: Dictionary = _world.design_traits
 	var lines: Array[String] = []
-	lines.append("DESIGN DO JEV  ·  F3 fecha  ·  F4 estilo  ·  F5 sorteio  ·  F6 volta ao motor")
+	lines.append("DESIGN DO JEV  ·  F3 fecha  ·  F4 estilo  ·  F5 sorteio  ·  F6 motor
+F7 impacto  ·  F8 trajetória  ·  F9 calibre do projétil")
 	lines.append("origem: %s   ·   motor: %s" % [_world.design_source, "online" if _world.sync != null and _world.sync.link.online else "offline"])
 	lines.append("recebido há %s" % ("—" if _world.design_changed_at < 0.0 else "%.0f s" % (Time.get_ticks_msec() * 0.001 - _world.design_changed_at)))
 	lines.append("")
@@ -64,6 +65,7 @@ func refresh() -> void:
 	lines.append("")
 	lines.append("efeito das habilidades: %s" % (str(_world.abilities.effect_style) if _world.abilities.effect_style != &"" else "(nenhum)"))
 	lines.append("efeito físico: %s" % BioEffectPhysics.describe(_world.abilities.effect_style))
+	lines.append("projétil: %s" % BioProjectileDesign.describe(_world.design_traits))
 	lines.append("partículas: densidade x%.2f  ·  duração x%.2f  ·  velocidade x%.2f  ·  forma: %s" % [BioPfx.density, BioPfx.linger, BioPfx.tempo, str(BioPfx.style) if BioPfx.style != &"" else "(padrão)"])
 	lines.append("emitidas nesta sessão: %d efeitos (%d com estilo aplicado)" % [BioPfx.emitted, BioPfx.emitted_styled])
 	_label.text = "\n".join(lines)

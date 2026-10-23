@@ -79,7 +79,7 @@ func _ready() -> void:
 		actor = _create()
 
 
-var _burn_owner: BioCombatant
+var _burn_color := Color(1.0, 0.5, 0.15)
 
 
 func _process(delta: float) -> void:
@@ -90,7 +90,14 @@ func _process(delta: float) -> void:
 		actor.vitals.add_atp(_bonus_atp * delta)
 
 
-## A burning cell loses membrane over time; it is credited to whoever set it alight.
+## Sets the cell alight (a flame, or a shot that sticks): `dps` membrane per second for `seconds`; a stronger burn replaces a weaker one.
+func ignite(dps: float, seconds: float, color: Color = Color(1.0, 0.5, 0.15)) -> void:
+	_burn_dps = maxf(_burn_dps, dps)
+	_burn_until = maxf(_burn_until, BioClock.now() + seconds)
+	_burn_color = color
+
+
+## A burning cell loses membrane over time.
 func _tick_burn(delta: float) -> void:
 	if BioClock.now() >= _burn_until or not actor.vitals.is_alive():
 		_burn_dps = 0.0
@@ -102,7 +109,7 @@ func _tick_burn(delta: float) -> void:
 		_burn_fx = 0.35
 		var host := get_parent() as Node2D
 		if host != null:
-			BioPfx.burst(BioFx.root, host.global_position, Color(1.0, 0.5, 0.15), 3, 90.0, 0.4, 8.0, Vector2.UP, 40.0)
+			BioPfx.burst(BioFx.root, host.global_position, _burn_color, 3, 90.0, 0.4, 8.0, Vector2.UP, 40.0)
 	if before and not actor.vitals.is_alive():
 		_burn_dps = 0.0
 		died.emit(self)
@@ -163,9 +170,7 @@ func _apply_style(victim: BioCombatant, dealt: float, hit_def: BioAttackDef) -> 
 	var host := victim.get_parent() as BioCellActor
 	match effect_style:
 		&"chama":
-			victim._burn_dps = maxf(victim._burn_dps, dealt * BioEffectPhysics.BURN_SHARE / BioEffectPhysics.BURN_SECONDS)
-			victim._burn_until = now + BioEffectPhysics.BURN_SECONDS
-			victim._burn_owner = self
+			victim.ignite(dealt * BioEffectPhysics.BURN_SHARE / BioEffectPhysics.BURN_SECONDS, BioEffectPhysics.BURN_SECONDS, Color(1.0, 0.5, 0.15))
 		&"cristal":
 			victim._brittle_until = now + BioEffectPhysics.BRITTLE_SECONDS
 		&"nevoa":

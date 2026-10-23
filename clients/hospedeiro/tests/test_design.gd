@@ -8,7 +8,7 @@ func _universe() -> Dictionary:
 
 func test_every_option_the_engine_offers_has_a_drawing() -> void:
 	var traits: Array = _universe()["appearance"]["traits"]
-	assert_eq(traits.size(), 11, "eleven designed traits")
+	assert_eq(traits.size(), 14, "fourteen designed traits")
 	for t in traits:
 		for o in t["options"]:
 			var id := str(o["id"])
