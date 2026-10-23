@@ -108,7 +108,7 @@ type Option struct {
 // The world never waits for it: at Due the Default applies.
 type Decision struct {
 	ID      string   `json:"id"`
-	Kind    string   `json:"kind"` // offer | story | world | evolution | appearance
+	Kind    string   `json:"kind"` // offer | story | world | evolution | appearance | lineage | ability | dungeon
 	Subject string   `json:"subject"`
 	Options []Option `json:"options"`
 	Default string   `json:"default"`
@@ -142,6 +142,7 @@ type State struct {
 	Lineages  map[ID]Differ            `json:"lineages,omitempty"` // pending lineage offers
 	Looks     map[ID]Look              `json:"looks,omitempty"`    // each player's procedural body
 	Genomes   map[ID]Genome            `json:"genomes,omitempty"`  // expressed genes and pending mutation offers
+	Delves    map[ID]Delve             `json:"delves,omitempty"`   // each player's current or last dungeon run
 }
 
 func factKey(holder ID, p string, s, o ID) string {

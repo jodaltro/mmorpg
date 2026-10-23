@@ -57,6 +57,7 @@ func (w *World) tick(s *State, cause string) {
 	w.mutationTick(s, cause)
 	w.lineageTick(s, cause)
 	w.abilityTick(s, cause)
+	w.dungeonTick(s, cause)
 	w.appearanceTick(s, cause)
 }
 

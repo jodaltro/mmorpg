@@ -21,6 +21,8 @@ const FEVER_SLOWDOWN := 0.55
 
 var player: BioCellActor
 var abilities: BioAbilityRunner
+var dungeon: BioDungeon
+var gate: BioGate
 var hud: BioHud
 var camera: BioCameraFollow
 var genome: BioGenome
@@ -104,6 +106,18 @@ func build() -> void:
 	add_child(hud)
 	hud.bind(player.combatant)
 	hud.bind_abilities(abilities)
+	gate = BioGate.new()
+	gate.name = "GranulomaGate"
+	gate.position = BioBodyMap.center_px(BioBodyMap.SANGUE) + Vector2(6.0, -9.0) * BioArt.UNIT
+	add_child(gate)
+	gate.configure(player)
+	dungeon = BioDungeon.new()
+	dungeon.name = "Dungeon"
+	add_child(dungeon)
+	dungeon.bind(player, gate.global_position + Vector2(0.0, 3.4 * BioArt.UNIT))
+	dungeon.room_started.connect(func(index: int, info: Dictionary) -> void:
+		hud.set_dungeon_text("GRANULOMA  ·  sala %d/%d  ·  %s" % [index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
+	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(restart_world)
 	panel = BioMutationPanel.new()
 	panel.name = "MutationPanel"
@@ -358,7 +372,7 @@ func _process(delta: float) -> void:
 		return
 	if not player.is_active() and Input.is_action_just_pressed("bio_respawn"):
 		respawn_player()
-	if player.is_active():
+	if player.is_active() and not dungeon.active:
 		var now := BioBodyMap.region_of(player.global_position)
 		if now != region:
 			region = now
@@ -389,6 +403,8 @@ func _process(delta: float) -> void:
 ## The blood is a river: cells and nutrients there are carried around the chamber.
 func _physics_process(delta: float) -> void:
 	for node in get_tree().get_nodes_in_group("cells"):
+		if dungeon != null and dungeon.active:
+			break  # inside the granuloma there is no current
 		var cell := node as BioCellActor
 		if cell != null and cell.is_active():
 			cell.velocity += BioBodyMap.blood_flow_px(cell.global_position, BLOOD_FLOW_UNITS) * delta * 1.5

@@ -19,6 +19,7 @@ signal restart_requested
 const CONFIRM_SECONDS := 4.0
 
 var _banner: Label
+var _dungeon_label: Label
 var _restart_button: Button
 var _restart_armed_until := 0.0
 var _abilities: BioAbilityRunner
@@ -59,6 +60,10 @@ func press_restart() -> void:
 		return
 	_restart_armed_until = now + CONFIRM_SECONDS
 	_restart_button.text = "CONFIRMAR? apaga tudo"
+
+
+func set_dungeon_text(text: String) -> void:
+	_dungeon_label.text = text
 
 
 func show_banner(text: String) -> void:
@@ -130,6 +135,17 @@ func _ready() -> void:
 	_restart_button.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.CRIMSON, 0.9))
 	_restart_button.pressed.connect(press_restart)
 	add_child(_restart_button)
+
+	_dungeon_label = Label.new()
+	_dungeon_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_dungeon_label.offset_left = -400
+	_dungeon_label.offset_right = 400
+	_dungeon_label.offset_top = 24
+	_dungeon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_dungeon_label.add_theme_font_size_override("font_size", 20)
+	_dungeon_label.add_theme_color_override("font_color", Color(0.8, 1.0, 0.45, 0.9))
+	_dungeon_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_dungeon_label)
 
 	var title := Label.new()
 	title.text = "HOSPEDEIRO"

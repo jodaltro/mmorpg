@@ -66,6 +66,7 @@ type Universe struct {
 	// Differentiation and Lineages: born simple, grow into a lineage; see lineage.go.
 	Differentiation *DifferentiationDef `json:"differentiation,omitempty"`
 	Abilities       *AbilitiesDef       `json:"abilities,omitempty"`
+	Dungeons        []DungeonDef        `json:"dungeons,omitempty"`
 	Lineages        []LineageDef        `json:"lineages,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`

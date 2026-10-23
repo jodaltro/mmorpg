@@ -155,3 +155,12 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 **Limpeza visual (23/10/2026):** com mutações equipadas, o corpo mantém o interior limpo: os grânulos, vacúolos e a teia de DNA da própria forma não são desenhados (os bolsos já contam isso), o núcleo não cresce sobre os bolsos e os bolsos ficaram na parte baixa do corpo. Macrófago e neutrófilo deixaram de ficar carregados. Godot 68 testes, 0 falhas.
 
+### H3.5 — a primeira masmorra: o Granuloma (23/10/2026)
+
+**Motor:** `core/dungeon.go` (`DungeonDef`, execução por jogador, verbos `entrar-masmorra`, `sala-limpa`, `falhar-masmorra`, `abandonar-masmorra`, decisão **`dungeon`** com o Jev escolhendo o modificador, revalidada e com padrão no prazo, semente do motor, recompensas, cenário único do primeiro a fechar, espera para tentar de novo, visão `dungeon`), instrução do Jev em `advisor/jev.go`, universo com o granuloma (5 salas, 5 modificadores, 2 habilidades-título).
+
+**Cliente:** `BioDungeonPlan` (puro: o que há em cada sala a partir da semente, do tipo da sala e do modificador), `BioDungeon` (câmara, salas, inimigos, fim), `BioBossSlam` (golpe em onda com aviso e bacilos invocados), `BioGate` (a entrada na corrente sanguínea), inimigos novos (`BioFactory.spawn_enemy`), texto de progresso no HUD.
+
+**Executado:** Go: 5 testes novos (`dungeon_test.go`: precisa de maturidade e do lugar certo; o Jev escolhe e a resposta é revalidada; o padrão no prazo; cinco salas, recompensas e primeiro título único; queda, espera e desistência), todos passam; o restante passa exceto o teste antigo de `presentation.json`; `worldsim validate` ok. Godot: 74 testes, 0 falhas (6 novos: plano determinístico e modificadores, câmara sala a sala, o motor conduz a execução, modificadores mudam a execução, o golpe do chefe só acerta dentro do raio, morrer reporta a falha). **Ponta a ponta com o motor e o Jev ligado** (`tests/e2e_dungeon.gd`): amadurece, a entrada abre, entra, o modificador é escolhido (Em febre), as cinco salas abrem uma a uma confirmadas pelo motor, o chefe cai, a execução fecha e o motor dá o Selo e o título único. GIFs e capturas reais.
+
+**Não feito:** a ruptura do granuloma se ninguém entrar; execução cooperativa em grupo (a semente já é compartilhável); entrada de quem está em outra região; quests e ofertas continuam aparecendo por cima da câmara; equilíbrio dos números dos inimigos e do chefe. O `provider` da decisão do modificador não foi verificado neste registro (o padrão `em-febre` foi o escolhido).

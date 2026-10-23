@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "dungeon-preparing", "dungeon-started", "dungeon-room", "dungeon-cleared", "dungeon-failed", "dungeon-left"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -29,6 +29,8 @@ var _signs := {}  # sign id -> BioSignMarker
 var _names := {}  # entity id -> display name
 var _last_seq := -1
 var _announce_abilities := false  # the first view is history, not news
+var _dungeon_state := ""  # the run state we last reacted to
+var _dungeon_seed := 0
 
 ## Behaviour the engine reads to shape the body. It is reported in batches, in the background:
 ## one confirmation per kind per interval, so combat never waits on the network.
@@ -58,6 +60,12 @@ func _ready() -> void:
 	link.view_changed.connect(apply_view)
 	add_child(link)
 	_world.region_changed.connect(_on_region)
+	_world.dungeon.room_cleared.connect(func(_index: int) -> void:
+		if link.online:
+			link.occur("sala-limpa"))
+	_world.dungeon.run_failed.connect(func() -> void:
+		if link.online:
+			link.occur("falhar-masmorra"))
 	_world.virus_destroyed.connect(func() -> void:
 		if link.online:
 			link.occur("derrotar-virus"))
@@ -103,8 +111,12 @@ func _process(delta: float) -> void:
 		_answer_offer(true)
 	elif Input.is_action_just_pressed("bio_refuse") and not system.offer_key.is_empty():
 		_answer_offer(false)
+	if Input.is_action_just_pressed("bio_leave") and _world.dungeon.active and link.online:
+		link.act("abandonar-masmorra")
 	if Input.is_action_just_pressed("bio_interact"):
-		if system.menu_open:
+		if _world.gate != null and _world.gate.is_near() and not _world.dungeon.active:
+			enter_dungeon()
+		elif system.menu_open:
 			system.close_menu()
 		else:
 			open_menu()
@@ -138,6 +150,19 @@ func _track_behaviour(delta: float) -> void:
 	if _travelled >= EXPLORE_UNITS:
 		_travelled = 0.0
 		link.occur("estilo-explorar")
+
+
+## The player asks to go into the granuloma. The engine decides whether they may and prepares the run.
+func enter_dungeon() -> void:
+	if not link.online:
+		system.push_feed("O granuloma só abre com o corpo conectado ao motor.")
+		return
+	if not _world.gate.eligible:
+		system.push_feed(_world.gate.hint if not _world.gate.hint.is_empty() else "O granuloma ainda não está ao seu alcance.")
+		return
+	var res := await link.act("entrar-masmorra", {"dungeon": "granuloma"})
+	if res.status != 200:
+		system.push_feed("O granuloma recusou a entrada agora.")
 
 
 func open_menu() -> void:
@@ -192,6 +217,8 @@ func apply_view(view: Dictionary) -> void:
 	_apply_signs(view.get("signs", []))
 	_apply_beliefs(view.get("beliefs", []))
 	_apply_skills(view.get("skills", []))
+	if view.get("dungeon") is Dictionary:
+		_apply_dungeon(view["dungeon"])
 	_apply_events(view.get("events", []))
 	if view.has("lineage") and view["lineage"] is Dictionary:
 		_world.apply_engine_lineage(view["lineage"])
@@ -210,6 +237,43 @@ func _apply_skills(skills: Array) -> void:
 		if _world.abilities.learn(id) and _announce_abilities:
 			system.push_feed("Nova habilidade: %s." % BioAbilityCatalog.get_ability(id).get("name", id))
 	_announce_abilities = true
+
+
+## The granuloma: whether the entrance is open to this cell, and the run, step by step. The engine owns the run; this only
+## builds what it says (the chamber, the enemies) and confirms what happened in it.
+func _apply_dungeon(d: Dictionary) -> void:
+	var open := false
+	var hint := "Entre no Granuloma na corrente sanguínea quando seu corpo estiver mais maduro."
+	for o in d.get("available", []):
+		if str(o.get("id", "")) == "granuloma":
+			open = bool(o.get("eligible", false))
+			if open:
+				hint = ""
+	_world.gate.eligible = open
+	_world.gate.hint = hint
+	var run: Variant = d.get("run")
+	if not (run is Dictionary):
+		return
+	var state := str(run.get("state", ""))
+	var seed_value := int(run.get("seed", 0))
+	var mod: Variant = run.get("modifier")
+	if state == "preparing" and _dungeon_state != "preparing":
+		system.push_feed("O granuloma se prepara…")
+	elif state == "active":
+		if not _world.dungeon.active and (_dungeon_state != "active" or seed_value != _dungeon_seed):
+			_world.dungeon.start(run)
+			if mod is Dictionary:
+				system.push_feed("Granuloma, %s: %s" % [mod.get("name", ""), mod.get("desc", "")])
+		elif _world.dungeon.active and int(run.get("room", 0)) > _world.dungeon.room_index:
+			_world.dungeon.advance(int(run.get("room", 0)))
+	elif state == "cleared" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
+		_world.dungeon.finish(true)
+		system.push_feed("O granuloma foi selado. A carga de infecção no sangue cai.")
+	elif state == "failed" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
+		_world.dungeon.finish(false)
+		system.push_feed("Você deixou o granuloma. Ele continua lá.")
+	_dungeon_state = state
+	_dungeon_seed = seed_value
 
 
 func _apply_quests(quests: Array) -> void:

@@ -56,3 +56,7 @@ Cada classe nasce com **1** habilidade; as outras 3 vêm do que você faz: a pro
 - `clients/hospedeiro/scripts/domain`: vitais, ator, ataques, genoma (puro).
 - `clients/hospedeiro/scripts/runtime`: corpo procedural, combate, mapa do corpo (`bio_body_map.gd`), ligação com o motor (`bio_engine_link.gd`, `bio_host_sync.gd`), janela do Sistema.
 - `clients/hospedeiro/tests`: runner headless, testes de regras, mundo e ponte com o motor; `e2e_engine.gd` (ponta a ponta) e `capture.gd` (screenshots).
+
+## O Granuloma (primeira masmorra)
+
+Na corrente sanguínea há um granuloma: anéis de macrófagos em volta de um núcleo necrótico. Chegue perto (a coroa de luz acende) e aperte **E** para entrar; só abre para quem já amadureceu e só com o corpo conectado ao motor. O motor prepara a execução, o Jev escolhe o **modificador** (Em febre, Necrose viva, Guarda redobrada, Ar rarefeito ou Quórum ativo) e a câmara se forma longe do corpo: **cinco salas** (guarda de linfócitos, parede de macrófagos, anel interno, núcleo necrótico e o chefe, O Bacilo). Limpar a sala avança; o chefe faz um golpe em onda com um segundo de aviso (o anel no chão cresce) e solta bacilos. **Backspace** desiste. Morrer encerra a execução, e é preciso esperar um pouco para tentar de novo. Fechar o granuloma reduz a carga de infecção no sangue, dá o Selo do Granuloma e, para a primeira célula do mundo, o título Primeiro Selador.

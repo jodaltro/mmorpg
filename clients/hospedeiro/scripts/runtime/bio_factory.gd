@@ -87,6 +87,45 @@ static func spawn_virus(parent: Node, pos: Vector2, prey: BioCellActor) -> BioVi
 	return brain
 
 
+## An enemy of a dungeon, shaped by BioDungeonPlan.enemy: hp, speed, size, colours and how it lunges.
+static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dictionary, speed_mult: float = 1.0) -> BioVirusBrain:
+	var actor := _make_actor(parent, str(def.get("name", "Enemy")), pos)
+	var speed := float(def["speed"]) * speed_mult
+	actor.thrust_units = 12.0 + 4.0 * speed
+	actor.max_speed_units = maxf(speed, 0.01)
+	actor.damping = 3.0
+	_virus_counter += 1
+	actor.combatant.configure("enemy-%d" % _virus_counter, BioActor.Team.VIRUS, float(def["hp"]), 100.0, 0.0)
+	actor.add_to_group("dungeon_enemies")
+	var size := float(def["size"])
+	(actor.get_child(0) as CollisionShape2D).shape = _circle(size * 0.9)
+	var body := BioCellBody.new()
+	body.configure(size, def["core"], def["edge"], int(def["spikes"]), 0.3 if int(def["spikes"]) > 0 else 0.0, 0.5, 8)
+	actor.add_child(body)
+	var executor := BioAttackExecutor.new()
+	executor.configure(actor.combatant, actor)
+	actor.add_child(executor)
+	var brain := BioVirusBrain.new()
+	brain.configure(actor, executor, body, prey)
+	brain.aggro_range_units = float(def["aggro"])
+	brain.lunge_range_units = float(def["lunge"])
+	brain.telegraph_seconds = maxf(float(def["telegraph"]), 0.05)
+	brain.recover_seconds = float(def["recover"])
+	if speed <= 0.0:
+		brain.set_process(false)  # an emitter never moves
+	actor.add_child(brain)
+	var feedback := BioHitFeedback.new()
+	feedback.configure(actor, body, def["edge"])
+	actor.add_child(feedback)
+	return brain
+
+
+static func _circle(radius_units: float) -> CircleShape2D:
+	var circle := CircleShape2D.new()
+	circle.radius = radius_units * BioArt.UNIT
+	return circle
+
+
 static func spawn_projectile(parent: Node, owner_combatant: BioCombatant, def: BioAttackDef, pos: Vector2, direction: Vector2) -> BioProjectile:
 	var projectile := BioProjectile.new()
 	projectile.name = "ToxinSpit"
