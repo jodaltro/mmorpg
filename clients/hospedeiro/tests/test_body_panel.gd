@@ -1,5 +1,5 @@
 extends TestCase
-## The windows: what waits for calm, the Body window with its tabs, the comparison of a swap and the saved builds.
+## The windows: the Body window with its tabs, the comparison of a swap and the saved builds.
 
 var world: BioWorld
 
@@ -45,24 +45,11 @@ func _lineage_offer() -> Dictionary:
 
 func _online() -> void:
 	world.sync.link.online = true
-	world.sensor.state.reset()
 
 
-func _fight() -> void:
-	world.sensor.state.note_threat(BioClock.now())
 
 
 # --- the pieces without a screen -------------------------------------------------------------------------------------------------
-
-func test_combat_state_waits_for_calm() -> void:
-	var s := BioCombatState.new()
-	assert_true(s.is_calm(100.0), "nothing happened: calm")
-	s.note_threat(100.0)
-	assert_true(s.in_combat(102.0), "two seconds after a threat is still a fight")
-	assert_near(s.calm_in(102.0), BioCombatState.CALM_AFTER - 2.0, 0.001, "it says how long is left")
-	assert_true(s.is_calm(100.0 + BioCombatState.CALM_AFTER), "calm again after the quiet time")
-	s.note_threat(50.0)
-	assert_true(s.is_calm(100.0 + BioCombatState.CALM_AFTER), "an old threat does not bring the fight back")
 
 
 func test_preview_says_what_a_swap_does_to_each_stat() -> void:
@@ -98,48 +85,6 @@ func test_builds_keep_their_names_and_the_order_of_the_abilities() -> void:
 
 # --- calls and the tray ------------------------------------------------------------------------------------------------------------
 
-func test_tray_chips_wait_while_the_cell_fights() -> void:
-	var tray := world.tray
-	tray.set_call("mutation", "mutation", "Mutação disponível", "3 genes para escolher", "G")
-	assert_true(tray.has_call("mutation"), "the chip is up")
-	assert_true(tray.chip_text("mutation").contains("3 genes"), "it says what is waiting")
-	tray.set_calm(false)
-	assert_true(tray.chip_text("mutation").contains("após o combate"), "in a fight it says to wait")
-	tray.set_calm(true)
-	assert_true(tray.chip_text("mutation").contains("3 genes"), "calm again: what it is about")
-	tray.clear_call("mutation")
-	assert_true(not tray.has_call("mutation"), "the chip goes away")
-
-
-func test_a_call_waits_for_the_end_of_the_fight() -> void:
-	var offer := {"key": "q|p1", "state": "offered", "giver": "", "rank": "E", "title": "Calor no capilar", "objective": "Examine o capilar.", "reward": "Reputação +1"}
-	var system := world.sync.system
-	system.set_calm(false)
-	system.show_offer(offer, "Neva")
-	assert_true(system.has_offer(), "the call exists")
-	assert_true(not system.is_offer_visible(), "but it does not interrupt a fight: Y and N do nothing")
-	assert_true(world.tray.has_call("quest"), "it waits as a chip")
-	system.set_calm(true)
-	assert_true(system.is_offer_visible(), "calm: the card opens")
-	assert_true(not world.tray.has_call("quest"), "and the chip goes away")
-	assert_true(system.offer_text().contains("Neva") and system.offer_text().contains("Calor no capilar"), "the card says who calls and for what")
-	system.hide_offer()
-	assert_true(not system.is_offer_visible() and not system.has_offer(), "withdrawn")
-
-
-func test_the_sensor_sees_an_enemy_that_has_noticed_the_cell() -> void:
-	assert_true(not world.sensor._engaged(), "virions that only drift by are not a fight")
-	var virus := world.viruses()[0] as BioCellActor
-	virus.global_position = world.player.global_position + Vector2(3.0, 0.0) * BioArt.UNIT
-	for child in virus.get_children():
-		if child is BioVirusBrain:
-			child.state = BioVirusBrain.State.CHASE
-	assert_true(world.sensor._engaged(), "one that is chasing is")
-	for child in virus.get_children():
-		if child is BioVirusBrain:
-			child.state = BioVirusBrain.State.WANDER
-	assert_true(not world.sensor._engaged(), "and when it loses interest the fight ends")
-
 
 func test_a_pending_offer_puts_a_chip_in_the_tray() -> void:
 	world.sync.apply_view(_view({"evolution": _evolution({"offer": [_gene("cauda-longa", "Cauda Longa")], "featured": "cauda-longa"})}))
@@ -168,19 +113,6 @@ func test_the_body_window_opens_where_something_waits() -> void:
 	assert_true(BioUi.captures_input(), "an open window takes the mouse")
 	world.body_panel.close()
 	assert_true(not BioUi.captures_input(), "closed: the cell attacks with the mouse again")
-
-
-func test_choices_wait_for_calm() -> void:
-	_online()
-	world.sync.apply_view(_view({"evolution": _evolution({"offer": [_gene("cauda-longa", "Cauda Longa")], "featured": "cauda-longa"})}))
-	world.body_panel.open()
-	_fight()
-	assert_true(world.body_panel.lock_reason().contains("combate"), "in a fight the genes are locked")
-	assert_true(not world.body_panel.pick(0), "and the offer cannot be chosen")
-	world.sensor.state.reset()
-	assert_eq(world.body_panel.lock_reason(), "", "calm: nothing in the way")
-	assert_true(world.body_panel.pick(0), "the choice goes to the engine")
-	world.body_panel.close()
 
 
 func test_nothing_changes_inside_a_dungeon_or_offline() -> void:
@@ -235,4 +167,26 @@ func test_two_clicks_swap_the_keys_of_two_abilities() -> void:
 	assert_eq(world.build_store.current_order[0], String(second), "the order is remembered")
 	world.abilities.arrange([first, second])
 	assert_eq(world.abilities.slot_id(0), first, "a saved build puts them back in its order")
+	world.body_panel.close()
+
+
+func test_chips_and_calls_are_always_there_for_the_player_to_open() -> void:
+	var tray := world.tray
+	tray.set_call("mutation", "mutation", "Mutação disponível", "3 genes para escolher", "G")
+	assert_true(tray.chip_text("mutation").contains("3 genes"), "the chip says what is waiting, fight or not")
+	tray.clear_call("mutation")
+	var offer := {"key": "q|p1", "state": "offered", "giver": "", "rank": "E", "title": "Calor no capilar", "objective": "Examine o capilar.", "reward": "Reputação +1"}
+	world.sync.system.show_offer(offer, "Neva")
+	assert_true(world.sync.system.is_offer_visible(), "the call card is up as soon as it arrives")
+	assert_true(world.sync.system.offer_text().contains("Neva") and world.sync.system.offer_text().contains("Calor no capilar"), "it says who calls and for what")
+	world.sync.system.hide_offer()
+	assert_true(not world.sync.system.is_offer_visible(), "withdrawn")
+
+
+func test_choices_are_not_held_back_by_a_fight() -> void:
+	_online()
+	world.sync.apply_view(_view({"evolution": _evolution({"offer": [_gene("cauda-longa", "Cauda Longa")], "featured": "cauda-longa"})}))
+	world.body_panel.open()
+	assert_eq(world.body_panel.lock_reason(), "", "nothing in the way, fight or not")
+	assert_true(world.body_panel.pick(0), "the choice goes to the engine")
 	world.body_panel.close()

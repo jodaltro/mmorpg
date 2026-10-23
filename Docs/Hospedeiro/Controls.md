@@ -26,7 +26,7 @@ go run ./cmd/worldsim serve -universe ../universes/hospedeiro/universe.json -dat
 | Chicote de cauda (corpo a corpo, 8 ATP) | J / botão esquerdo | Botão X (oeste) |
 | Cuspe de toxina (projétil, 15 ATP) | K / botão direito | Botão B (leste) |
 | Impulso de membrana (dash + i-frames, 12 ATP) | Espaço / Shift | Botão A (sul) |
-| Aceitar / recusar um chamado (só aparece fora de combate) | Y / N, ou clique | — |
+| Aceitar / recusar um chamado | Y / N, ou clique | — |
 | Ações do lugar (examinar, contar, farejar, decifrar) | E, depois 1–9 | — |
 | Abrir a janela do **Corpo** (forma, genes, habilidades, builds) | G, ou clique no aviso no canto | — |
 | Dentro do Corpo: escolher uma oferta / recusar a mutação | 1, 2, 3 / X, ou clique | — |
@@ -60,7 +60,7 @@ Uma janela só para tudo o que o corpo virou, com quatro abas:
 - **HABILIDADES:** as 4 habilidades de classe e suas teclas; clique em duas para trocá-las de lugar (a ordem fica guardada nesta máquina).
 - **BUILDS:** três conjuntos de genes guardados (com a ordem das habilidades e um nome que você escolhe). **Salvar aqui** guarda o que está expresso; **Aplicar** expressa a build de uma vez, e a prévia mostra o efeito antes.
 
-**Quando se pode mexer:** trocar genes, aplicar build e escolher ofertas esperam a calma: nada de combate (inimigo que já notou a célula, golpe dado ou recebido, nos últimos 4 s), nada de masmorra, e o corpo precisa **se acomodar** por alguns segundos depois de cada troca (o motor impõe). Chamados de missão seguem a mesma regra: no meio de um combate eles esperam como um aviso apagado no canto e só abrem o cartão quando o combate acaba; Y e N não respondem enquanto isso.
+**Quando se pode mexer:** você escolhe quando abrir o Corpo (G); não há trava de combate. Só não vale dentro de uma masmorra, e o corpo precisa **se acomodar** por alguns segundos depois de cada troca (o motor impõe). Chamados de missão aparecem como um cartão pequeno no canto, que você responde quando quiser.
 
 ## Arquivos
 

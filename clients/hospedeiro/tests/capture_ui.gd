@@ -39,20 +39,16 @@ func _run() -> void:
 	world.sync.apply_view(view)
 	world.sync.system.push_feed("Conectado ao Hospedeiro.")
 	world.sync.system.push_feed("Seu corpo expressa um novo gene: Citoplasma Esponjoso")
-	world.sensor.state.reset()
 	await create_timer(0.8).timeout
 	await _shot("ui_1_hud_calm")
 
 	# a call arrives in the middle of a fight: it waits as a chip
-	world.sensor.state.note_threat(BioClock.now())
 	view["quests"] = [quest, call]
 	world.sync.apply_view(view)
 	await create_timer(0.7).timeout
 	await _shot("ui_2_hud_fight")
 
 	# calm again: the card
-	world.sensor.state.reset()
-	world.sync.system.set_calm(true)
 	view["quests"] = [call]
 	world.sync.apply_view(view)
 	await create_timer(0.6).timeout

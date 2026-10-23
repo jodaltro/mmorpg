@@ -121,7 +121,7 @@ func wants_numbers() -> bool:
 
 func _process(delta: float) -> void:
 	_track_behaviour(delta)
-	var calling := system.is_offer_visible() and not BioUi.typing()  # a call is answered only when it is on screen (calm)
+	var calling := system.is_offer_visible() and not BioUi.typing()
 	if Input.is_action_just_pressed("bio_accept") and calling:
 		_answer_offer(true)
 	elif Input.is_action_just_pressed("bio_refuse") and calling:

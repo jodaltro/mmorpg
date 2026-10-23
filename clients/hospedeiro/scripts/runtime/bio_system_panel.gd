@@ -2,8 +2,7 @@ class_name BioSystemPanel
 extends CanvasLayer
 ## The "System" window: connection and region (top-left), the active quest (top-right), a call that is waiting for an answer, the
 ## body's states (fever, sleep), the feed of what happened and the action menu (E). Shows only what the engine's view says; decides
-## nothing. A call (a quest offered by someone) is a compact card, and it only appears when the cell is not fighting: in the middle of
-## a fight it waits as a chip in the call tray and the keys that answer it do nothing.
+## nothing. A call (a quest offered by someone) is a compact card in the corner, answered with Y and N or a click.
 
 signal offer_clicked(accepted: bool)
 signal menu_chosen(index: int)
@@ -33,7 +32,6 @@ var _card_goal: Label
 var _card_reward: Label
 var _offer: Dictionary = {}
 var _caller := ""
-var _calm := true
 var _feed_box: VBoxContainer
 var _feed_lines: Array[String] = []
 var _feed_born: Array[float] = []
@@ -179,14 +177,6 @@ func set_states(states: Array[String]) -> void:
 	_states.text = "  ·  ".join(states)
 
 
-## The cell is calm (true) or fighting (false). Called by whoever watches the fight.
-func set_calm(calm: bool) -> void:
-	if calm == _calm:
-		return
-	_calm = calm
-	_refresh_offer()
-
-
 func show_offer(quest: Dictionary, giver_name: String) -> void:
 	offer_key = str(quest.get("key", ""))
 	_offer = quest
@@ -226,13 +216,9 @@ func _refresh_offer() -> void:
 	_card_title.text = str(_offer.get("title", ""))
 	_card_goal.text = str(_offer.get("objective", _offer.get("desc", "")))
 	_card_reward.text = "Recompensa: %s" % str(_offer.get("reward", "-"))
-	_card.visible = _calm
-	if tray == null:
-		return
-	if _calm:
+	_card.visible = true
+	if tray != null:
 		tray.clear_call("quest")
-	else:
-		tray.set_call("quest", "quest", _caller.capitalize() if _caller != "SISTEMA" else "O Sistema chama", str(_offer.get("title", "")), "", "chamado em espera: após o combate")
 
 
 func push_feed(text: String) -> void:

@@ -62,7 +62,6 @@ var tracker: BioMutationTracker
 var panel: BioMutationPanel
 var tray: BioCallTray
 var body_panel: BioBodyPanel
-var sensor: BioThreatSensor
 var build_store: BioBuildStore
 var sync: BioHostSync
 var region: StringName = BioBodyMap.MEDULA
@@ -211,10 +210,6 @@ func build() -> void:
 	panel.name = "MutationPanel"
 	add_child(panel)
 	panel.refresh(genome, tracker)
-	sensor = BioThreatSensor.new()
-	sensor.name = "ThreatSensor"
-	add_child(sensor)
-	sensor.configure(player, dungeon)
 	build_store = BioBuildStore.new("" if save_path.is_empty() else "user://hospedeiro_builds.json")
 	tray = BioCallTray.new()
 	tray.name = "CallTray"
@@ -514,10 +509,10 @@ func _sync_calls() -> void:
 	match panel.offer_kind():
 		"lineage":
 			tray.clear_call("mutation")
-			tray.set_call("lineage", "lineage", "Diferenciação disponível", "seu corpo pode se tornar outra forma", "G", "disponível após o combate")
+			tray.set_call("lineage", "lineage", "Diferenciação disponível", "seu corpo pode se tornar outra forma", "G")
 		"mutation":
 			tray.clear_call("lineage")
-			tray.set_call("mutation", "mutation", "Mutação disponível", "%d genes para escolher" % panel.entries().size(), "G", "disponível após o combate")
+			tray.set_call("mutation", "mutation", "Mutação disponível", "%d genes para escolher" % panel.entries().size(), "G")
 		_:
 			tray.clear_call("lineage")
 			tray.clear_call("mutation")
@@ -526,9 +521,6 @@ func _sync_calls() -> void:
 
 
 func _open_from_chip(_key: String) -> void:
-	if sensor.in_combat():
-		sync.system.push_feed("Isso espera o fim do combate.")
-		return
 	body_panel.open()
 
 
@@ -718,9 +710,6 @@ func _process(delta: float) -> void:
 		codex_panel.toggle()
 	if Input.is_action_just_pressed("bio_body") and not BioUi.typing():
 		body_panel.toggle()
-	var calm := not sensor.in_combat()
-	sync.system.set_calm(calm)
-	tray.set_calm(calm)
 	_debug_keys()
 	if debug_god:
 		player.combatant.actor.vitals.membrane = player.combatant.actor.vitals.max_membrane

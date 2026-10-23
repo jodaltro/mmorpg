@@ -1,16 +1,15 @@
 class_name BioCallTray
 extends CanvasLayer
 ## What asks for the player's attention, without taking it: small chips in the bottom-right corner (a mutation to choose, a body ready to
-## differentiate, a call that arrived in the middle of a fight). A chip never opens a window by itself. While the cell is fighting
-## the chips wait, dimmed, and say so; when it is calm, a click (or the key shown on the chip) opens what they are about.
+## differentiate). A chip never opens a window by itself: the player opens what it is about when they choose, with a click or the key
+## shown on the chip.
 
 signal chip_activated(key: String)
 
 const CHIP_WIDTH := 300.0
 
 var _box: VBoxContainer
-var _chips := {}  # key -> {root, title, detail, calm_detail, hint}
-var _calm := true
+var _chips := {}  # key -> {root, title, detail, hint}
 
 
 func _ready() -> void:
@@ -28,13 +27,12 @@ func _ready() -> void:
 	add_child(_box)
 
 
-## Puts a chip up (or updates it). `hint` is the key that opens it; `waiting` is what it says while the cell is fighting.
-func set_call(key: String, kind: String, title: String, detail: String, hint: String = "", waiting: String = "disponível após o combate") -> void:
+## Puts a chip up (or updates it). `hint` is the key that opens it; The player opens it when they choose.
+func set_call(key: String, kind: String, title: String, detail: String, hint: String = "") -> void:
 	if _chips.has(key):
 		var c: Dictionary = _chips[key]
 		c["title"].text = title
 		c["detail_text"] = detail
-		c["waiting_text"] = waiting
 		_paint(key)
 		return
 	var root := PanelContainer.new()
@@ -67,11 +65,11 @@ func set_call(key: String, kind: String, title: String, detail: String, hint: St
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			chip_activated.emit(key))
 	_box.add_child(root)
-	_chips[key] = {"root": root, "title": title_label, "detail": detail_label, "detail_text": detail, "waiting_text": waiting, "kind": kind}
+	_chips[key] = {"root": root, "title": title_label, "detail": detail_label, "detail_text": detail, "kind": kind}
 	_paint(key)
 	root.modulate.a = 0.0  # arrives quietly
 	var tween := root.create_tween()
-	tween.tween_property(root, "modulate:a", 1.0 if _calm else 0.62, 0.35)
+	tween.tween_property(root, "modulate:a", 1.0, 0.35)
 
 
 func clear_call(key: String) -> void:
@@ -90,7 +88,7 @@ func call_keys() -> Array:
 	return _chips.keys()
 
 
-## What a chip says right now (the waiting text while the cell fights).
+## What a chip says right now.
 func chip_text(key: String) -> String:
 	if not _chips.has(key):
 		return ""
@@ -98,17 +96,6 @@ func chip_text(key: String) -> String:
 	return "%s\n%s" % [c["title"].text, c["detail"].text]
 
 
-## While the cell fights the chips wait, dimmed.
-func set_calm(calm: bool) -> void:
-	if calm == _calm:
-		return
-	_calm = calm
-	for key in _chips:
-		_paint(key)
-		var root: Control = _chips[key]["root"]
-		root.modulate.a = 1.0 if calm else 0.62
-
-
 func _paint(key: String) -> void:
 	var c: Dictionary = _chips[key]
-	c["detail"].text = c["detail_text"] if _calm else c["waiting_text"]
+	c["detail"].text = c["detail_text"]

@@ -1,5 +1,5 @@
 extends SceneTree
-## Against a running engine: the cell grows seven genes (one more than the slots), the Body window picks them when calm, the eldest
+## Against a running engine: the cell grows seven genes (one more than the slots), the Body window picks them , the eldest
 ## goes to the library, a build is saved, a gene is swapped from the library, and the saved build brings the old set back.
 ##   godot --path clients/hospedeiro --script res://tests/e2e_body.gd -- <engine_url> <output_dir>
 
@@ -39,10 +39,9 @@ func _run() -> void:
 		if not await _until(func() -> bool: return not world.panel.offer_kind().is_empty(), 45.0):
 			continue
 		var kind := world.panel.offer_kind()
-		world.sensor.state.reset()
 		world.body_panel.open()
 		if not await _until(func() -> bool: return world.body_panel.pick(0), 5.0):
-			return _fail("an offer (%s) is chosen from the Body window when calm" % kind)
+			return _fail("an offer (%s) is chosen from the Body window " % kind)
 		if kind == "mutation":
 			chosen += 1
 			_step("gene %d chosen (%d kills)" % [chosen, kills])
@@ -60,7 +59,6 @@ func _run() -> void:
 	_step("library holds the eldest gene: %s" % str(ev.call()["library"][0]["name"]))
 	var before: Array = (ev.call()["genes"] as Array).map(func(g: Dictionary) -> String: return str(g["id"]))
 
-	world.sensor.state.reset()
 	world.body_panel.open(BioBodyPanel.BUILDS)
 	world.body_panel.save_build(1)
 	if not await _until(func() -> bool: return ((ev.call().get("builds", [{}])[0] as Dictionary).get("genes", []) as Array).size() == 6, 10.0):
