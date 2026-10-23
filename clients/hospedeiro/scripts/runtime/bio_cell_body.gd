@@ -62,6 +62,7 @@ var _nuc_pos := Vector2.ZERO
 var _nuc_r := 6.0
 var _nuc_rot := 0.0
 var _kicks: Array = []  # [seconds left, velocity]
+var _pocket_layer: BioPocketLayer
 var _bulges := {}  # limb id -> [angle, amount, spread]: the membrane swells where a limb is being pushed out
 
 
@@ -203,8 +204,16 @@ func set_telegraph(amount: float) -> void:
 	_telegraph = clampf(amount, 0.0, 1.0)
 
 
+func rim() -> PackedVector2Array:
+	return _rim
+
+
 func _ready() -> void:
 	material = BioArt.additive()
+	_pocket_layer = BioPocketLayer.new()
+	_pocket_layer.body = self
+	_pocket_layer.name = "Pockets"
+	add_child(_pocket_layer)
 	_nucleus = BioArt.make_glow(core, 1.0, 2)
 	add_child(_nucleus)
 	_rim.resize(RIM)
@@ -279,6 +288,7 @@ func _process(delta: float) -> void:
 	if _human > 0.0:
 		_nuc_r = minf(_nuc_r, BioGhostForm.head_room(form, r_px, _human) * 0.8)
 	_nucleus.position = _nuc_pos
+	_pocket_layer.queue_redraw()
 	_nucleus.scale = Vector2.ONE * (_nuc_r * 2.5 * (1.0 + _telegraph * 0.5) / 128.0)
 	if pull.length() > 0.02:  # the nucleus stretches towards where the limb is growing
 		_nucleus.rotation = pull.angle()
@@ -366,11 +376,6 @@ func _draw_genes(edge_now: Color, core_now: Color) -> void:
 			wall.append(p * 1.12)
 		wall.append(wall[0])
 		draw_polyline(wall, BioArt.with_alpha(edge_now, 0.5), 3.0, true)
-	var size := maxf(BioOrganelles.body_radius(_rim) * BioOrganelles.POCKET_SIZE, 5.0)
-	for i in genes.size():
-		var mark: Dictionary = BioGeneCatalog.get_gene(genes[i]).mark
-		if not mark.is_empty():
-			BioOrganelles.draw_pocket(self, mark, BioOrganelles.pocket_position(_rim, i), size, t, i)
 
 
 ## Triangle fan from the centre as raw primitives: no triangulation step that could fail on odd shapes.

@@ -52,10 +52,10 @@ static func _ensure() -> void:
 	_add(&"vacuolo_digestivo", "Vacúolo Digestivo", {BioGene.NUTRIENT_YIELD: 1.15, BioGene.LASH_DAMAGE: 0.92}, &"macrofago", {&"lisossomo_acido": {&"radius": 1.35, &"duration": 1.2}}, {&"kind": "vacuoles", &"color": "#b6ff3a", &"count": 2})
 	_add(&"receptor_de_limpeza", "Receptor de Limpeza", {BioGene.ABILITY_POWER: 1.12, BioGene.SPEED: 0.93}, &"macrofago", {&"onda_de_pseudopodes": {&"damage": 1.3, &"knockback": 1.35}}, {&"kind": "crescents", &"color": "#ff5c8a", &"count": 5})
 	# --- neutrofilo ---
-	_add(&"rede_de_dna", "Rede de DNA", {BioGene.LASH_RANGE: 1.35, BioGene.SPEED: 1.15, BioGene.MAX_MEMBRANE: 0.85}, &"neutrofilo", {&"rede_de_dna": {&"radius": 1.2, &"duration": 1.2}}, {&"kind": "filaments", &"color": "#e8ffff", &"count": 5})
+	_add(&"rede_de_dna", "Rede de DNA", {BioGene.LASH_RANGE: 1.35, BioGene.SPEED: 1.15, BioGene.MAX_MEMBRANE: 0.85}, &"neutrofilo", {&"rede_de_dna": {&"radius": 1.2, &"duration": 1.2}}, {&"kind": "filaments", &"color": "#8fd0ff", &"count": 5})
 	_add(&"nucleo_multilobulado", "Núcleo Multilobulado", {BioGene.DASH_COOLDOWN: 0.7, BioGene.SPEED: 1.1, BioGene.LASH_DAMAGE: 0.9}, &"neutrofilo", {&"explosao_neutrofilica": {&"cooldown": 0.85}}, {&"kind": "orbs", &"color": "#ffd0f0", &"count": 3})
 	_add(&"granulos_explosivos", "Grânulos Explosivos", {BioGene.MAX_MEMBRANE: 0.9, BioGene.ABILITY_POWER: 1.08}, &"neutrofilo", {&"netose": {&"burst": 1.4, &"radius": 1.15}}, {&"kind": "orbs", &"color": "#e8ffff", &"count": 9, &"radius": 0.6})
-	_add(&"fibras_pegajosas", "Fibras Pegajosas", {BioGene.SPEED: 1.05, BioGene.LASH_DAMAGE: 0.9}, &"neutrofilo", {&"rede_de_dna": {&"slow": 1.4, &"tick": 1.3}}, {&"kind": "filaments", &"color": "#dffcff", &"count": 8})
+	_add(&"fibras_pegajosas", "Fibras Pegajosas", {BioGene.SPEED: 1.05, BioGene.LASH_DAMAGE: 0.9}, &"neutrofilo", {&"rede_de_dna": {&"slow": 1.4, &"tick": 1.3}}, {&"kind": "filaments", &"color": "#7fb8ff", &"count": 8})
 	_add(&"flagelo_turbinado", "Flagelo Turbinado", {BioGene.SPEED: 1.08, BioGene.MAX_ATP: 0.9}, &"neutrofilo", {&"explosao_neutrofilica": {&"distance": 1.3, &"damage": 1.1}}, {&"kind": "tendrils", &"color": "#bdf6ff", &"count": 3})
 	_add(&"degranulacao_toxica", "Degranulação Tóxica", {BioGene.MAX_MEMBRANE: 0.88, BioGene.ABILITY_COST: 1.1}, &"neutrofilo", {&"degranulacao": {&"tick": 1.5, &"radius": 1.2, &"duration": 1.15}}, {&"kind": "orbs", &"color": "#cfff5a", &"count": 10, &"radius": 0.75})
 	# --- dendritica ---

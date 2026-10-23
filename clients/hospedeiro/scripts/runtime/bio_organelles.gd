@@ -20,8 +20,10 @@ static func body_radius(rim: PackedVector2Array) -> float:
 	return total / rim.size()
 
 
-static func pocket_position(rim: PackedVector2Array, slot: int) -> Vector2:
-	return (POCKET_GRID[slot % POCKET_GRID.size()] as Vector2) * body_radius(rim)
+## `away` is a direction the pockets keep clear of (where a tail leaves the body): the whole grid slides the other way.
+static func pocket_position(rim: PackedVector2Array, slot: int, away: Vector2 = Vector2.ZERO) -> Vector2:
+	var r := body_radius(rim)
+	return (POCKET_GRID[slot % POCKET_GRID.size()] as Vector2) * r - away.normalized() * r * 0.32 if away != Vector2.ZERO else (POCKET_GRID[slot % POCKET_GRID.size()] as Vector2) * r
 
 
 static func draw_pocket(c: CanvasItem, mark: Dictionary, at: Vector2, size: float, t: float, slot: int) -> void:

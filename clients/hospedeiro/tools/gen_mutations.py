@@ -79,13 +79,13 @@ g("receptor_de_limpeza", "Receptor de Limpeza", "epica", ["combat", "endure"], "
 
 # ---- Neutrófilo: o Armadilheiro ----------------------------------------------------------------
 g("rede_de_dna", "Rede de DNA", "rara", ["combat", "explore"], "neutrofilo", "", {"lash_range": 1.35, "speed": 1.15, "max_membrane": 0.85},
-  {"rede_de_dna": {"radius": 1.2, "duration": 1.2}}, mark={"kind": "filaments", "color": "#e8ffff", "count": 5}, keep=True)
+  {"rede_de_dna": {"radius": 1.2, "duration": 1.2}}, mark={"kind": "filaments", "color": "#8fd0ff", "count": 5}, keep=True)
 g("nucleo_multilobulado", "Núcleo Multilobulado", "incomum", ["explore", "endure"], "neutrofilo", "", {"dash_cooldown": 0.7, "speed": 1.1, "lash_damage": 0.9},
   {"explosao_neutrofilica": {"cooldown": 0.85}}, mark={"kind": "orbs", "color": "#ffd0f0", "count": 3}, keep=True)
 g("granulos_explosivos", "Grânulos Explosivos", "rara", ["combat"], "neutrofilo", "A armadilha detona com mais força.", {"max_membrane": 0.9, "ability_power": 1.08},
   {"netose": {"burst": 1.4, "radius": 1.15}}, {"kind": "orbs", "color": "#e8ffff", "count": 9, "radius": 0.6})
 g("fibras_pegajosas", "Fibras Pegajosas", "incomum", ["explore", "knowledge"], "neutrofilo", "O que toca a rede não escapa.", {"speed": 1.05, "lash_damage": 0.9},
-  {"rede_de_dna": {"slow": 1.4, "tick": 1.3}}, {"kind": "filaments", "color": "#dffcff", "count": 8})
+  {"rede_de_dna": {"slow": 1.4, "tick": 1.3}}, {"kind": "filaments", "color": "#7fb8ff", "count": 8})
 g("flagelo_turbinado", "Flagelo Turbinado", "incomum", ["explore", "combat"], "neutrofilo", "Uma investida mais longa.", {"speed": 1.08, "max_atp": 0.9},
   {"explosao_neutrofilica": {"distance": 1.3, "damage": 1.1}}, {"kind": "tendrils", "color": "#bdf6ff", "count": 3})
 g("degranulacao_toxica", "Degranulação Tóxica", "epica", ["combat", "metabolism"], "neutrofilo", "As granulações viram veneno denso.", {"max_membrane": 0.88, "ability_cost": 1.1},
