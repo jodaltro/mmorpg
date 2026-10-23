@@ -89,6 +89,27 @@ traits = [
                  o("explosivo", "Explosivo", "Bursts on arrival: everyone near the impact takes a share of the damage.", metabolismo=2, ferocidade=1),
                  o("fragmenta", "Fragmenta", "Breaks into three fragments that fly on and hit whoever is behind.", misterio=2, sociabilidade=1),
                  o("grudento", "Grudento", "Sticks to its target and keeps hurting it for a few seconds.", robustez=1, metabolismo=2)]},
+    # How each family of abilities behaves (every mode trades some direct damage for what it buys).
+    {"id": "modo_cone", "name": "Comportamento dos cones", "question": "how this cell's cone abilities (whips, sweeps) behave: standard, closing on victims or lashing twice",
+     "options": [o("padrao", "Padrão", "The cone sweeps once.", robustez=1),
+                 o("fecha", "Fecha", "The cone closes: victims are dragged toward the cell, with slightly less damage.", sociabilidade=2, metabolismo=1),
+                 o("chicoteia", "Chicoteia", "The whips come back: a second lash a beat later, each lash a bit softer.", ferocidade=2, agilidade=1)]},
+    {"id": "modo_nova", "name": "Comportamento das ondas", "question": "how this cell's nova abilities (radial bursts) behave: one blast, three pulses or a repelling blast",
+     "options": [o("padrao", "Padrão", "A single radial blast.", robustez=1),
+                 o("pulsos", "Pulsos", "Three weaker beats instead of one: hits things that move in and out.", agilidade=2, misterio=1),
+                 o("repele", "Repele", "The blast throws every enemy away from the cell, with a little less damage.", robustez=2, sociabilidade=1)]},
+    {"id": "modo_estocada", "name": "Comportamento das estocadas", "question": "how this cell's thrusts (piercing lances) behave: a plain thrust or a harpoon that reels the victim in",
+     "options": [o("padrao", "Padrão", "A plain thrust.", ferocidade=1),
+                 o("arpao", "Arpão", "The thrust harpoons the victim and drags it to the cell, with a little less damage.", metabolismo=1, misterio=2)]},
+    {"id": "modo_investida", "name": "Comportamento das investidas", "question": "how this cell's dash attacks behave: one strike at the end, or a second strike a beat later",
+     "options": [o("padrao", "Padrão", "One strike at the end of the dash.", agilidade=1),
+                 o("dupla", "Dupla", "A second strike lands a beat later, each strike a bit softer.", ferocidade=2, agilidade=2)]},
+    {"id": "modo_zona", "name": "Comportamento das zonas", "question": "how this cell's zone abilities (acid puddles, nets, clouds) behave: fixed in place or wandering towards the nearest enemy",
+     "options": [o("padrao", "Padrão", "The zone stays where it was cast.", robustez=2),
+                 o("migra", "Migra", "The zone wanders slowly towards the nearest enemy; smaller and a bit weaker.", agilidade=1, misterio=2)]},
+    {"id": "modo_devorar", "name": "Comportamento do devorar", "question": "how this cell's devouring bite behaves: a plain bite or a suction that pulls prey in",
+     "options": [o("padrao", "Padrão", "A plain bite.", metabolismo=1),
+                 o("suga", "Suga", "The bite sucks prey toward the cell first, with a little less damage.", metabolismo=2, sociabilidade=1)]},
 ]
 u["appearance"]["traits"] = traits
 p.write_text(json.dumps(u, ensure_ascii=False, indent=1), encoding="utf-8")

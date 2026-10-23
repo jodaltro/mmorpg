@@ -25,6 +25,7 @@ var heal_total := 0.0  # membrane restored over the duration (to the owner)
 var regen_membrane := 0.0  # per second, while the owner stands inside
 var regen_atp := 0.0
 var sentinels := 0
+var drift := 0.0  # units per second towards the nearest enemy (the wandering zone)
 
 var _age := 0.0
 var _tick := 0.0
@@ -54,6 +55,7 @@ static func spawn(parent: Node, host_cell: BioCellActor, id: StringName, pos: Ve
 	z.regen_membrane = float(params.get("regen_membrane", 0.0))
 	z.regen_atp = float(params.get("regen_atp", 0.0))
 	z.sentinels = int(params.get("count", 0)) if z.style == "sentinels" else 0
+	z.drift = float(params.get("drift", 0.0))
 	z.position = pos
 	parent.add_child(z)
 	return z
@@ -86,6 +88,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_age += delta
+	if drift > 0.0 and is_instance_valid(owner_combatant.get_parent()) and style != "trap":
+		var near := BioTargeting.enemies(get_world_2d(), global_position, 7.0 * BioArt.UNIT, owner_combatant.actor.team)
+		var best := BioTargeting.best(near, global_position, Vector2.ZERO, 7.0 * BioArt.UNIT)
+		if best != null:
+			global_position = global_position.move_toward(best.global_position, drift * BioArt.UNIT * delta)
 	if follow and is_instance_valid(host):
 		global_position = host.global_position
 	if is_instance_valid(_stream):

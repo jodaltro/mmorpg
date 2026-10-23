@@ -29,6 +29,7 @@ var damage_dealt_mult := 1.0  # how hard this one hits (enemies of a dungeon are
 ## The flavour of this cell's effects (BioEffectPhysics): the ability hits it lands carry a physical consequence.
 var effect_style: StringName = &""
 var focus := {}  # BioAbilityFocus.params: the risk and reward of every non-projectile ability
+var modes := {}  # BioAbilityMode: how each family of abilities behaves {family: mode}
 var _brittle_until := 0.0
 var _burn_until := 0.0
 var _burn_dps := 0.0
@@ -150,6 +151,9 @@ func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
 		factor *= BioEffectPhysics.BRITTLE_MULT
 	if BioAbilityFocus.applies_to(hit_def.id) and not attacker._chaining:
 		factor *= float(attacker.focus.get("damage", 1.0))
+	var family := BioAbilityMode.family_of(hit_def.id) if not attacker._chaining else ""
+	if family != "":
+		factor *= BioAbilityMode.direct(family, attacker.modes)
 	var styled := attacker.effect_style != &"" and not attacker._chaining and BioAbilityCatalog.has(hit_def.id)
 	if styled:
 		factor *= BioEffectPhysics.direct_mult(attacker.effect_style)
@@ -162,9 +166,35 @@ func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
 	hit.emit(self, result)
 	if styled and result.damage_applied > 0.0:
 		attacker._apply_style(self, result.damage_applied, hit_def)
+	if family != "" and result.outcome != BioActor.HitOutcome.EVADED:
+		attacker._apply_mode(self, family, hit_def)
 	if result.outcome == BioActor.HitOutcome.KILLED:
 		died.emit(self)
 	return result
+
+
+## What the family's designed mode does to a victim it just hit: reel it in, throw it away, strike it again.
+func _apply_mode(victim: BioCombatant, family: String, hit_def: BioAttackDef) -> void:
+	var m := BioAbilityMode.mode(family, modes)
+	var host := victim.get_parent() as BioCellActor
+	var mine := get_parent() as BioCellActor
+	if host != null and mine != null:
+		var to_me := (mine.global_position - host.global_position).normalized()
+		if m.has("pull"):
+			host.apply_impulse(to_me * float(m["pull"]))
+		if m.has("knock"):
+			host.apply_impulse(-to_me * float(m["knock"]))
+	if m.has("repeat"):
+		var r: Array = m["repeat"]
+		for i in int(r[2]):
+			get_tree().create_timer(float(r[0]) * (i + 1)).timeout.connect(func() -> void:
+				if not is_instance_valid(victim) or not victim.actor.vitals.is_alive() or not is_instance_valid(self):
+					return
+				_chaining = true  # the second blow does not trigger modes again
+				var again := BioAttackDef.new(hit_def.id, 0.0, hit_def.damage * float(r[1]), 0.0, hit_def.range_units, 0.0, 0.0)
+				victim.receive_hit(self, again)
+				_chaining = false
+				BioPfx.burst(BioFx.root, (victim.get_parent() as Node2D).global_position, Color(1.0, 0.85, 0.6), 5, 120.0, 0.25, 8.0))
 
 
 ## The physical consequence of this cell's flavour on a victim it just hurt for `dealt`.

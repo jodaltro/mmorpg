@@ -4623,6 +4623,168 @@
       }
      }
     ]
+   },
+   {
+    "id": "modo_cone",
+    "name": "Comportamento dos cones",
+    "question": "how this cell's cone abilities (whips, sweeps) behave: standard, closing on victims or lashing twice",
+    "options": [
+     {
+      "id": "padrao",
+      "name": "Padrão",
+      "desc": "The cone sweeps once.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "fecha",
+      "name": "Fecha",
+      "desc": "The cone closes: victims are dragged toward the cell, with slightly less damage.",
+      "affinity": {
+       "sociabilidade": 2,
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "chicoteia",
+      "name": "Chicoteia",
+      "desc": "The whips come back: a second lash a beat later, each lash a bit softer.",
+      "affinity": {
+       "ferocidade": 2,
+       "agilidade": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "modo_nova",
+    "name": "Comportamento das ondas",
+    "question": "how this cell's nova abilities (radial bursts) behave: one blast, three pulses or a repelling blast",
+    "options": [
+     {
+      "id": "padrao",
+      "name": "Padrão",
+      "desc": "A single radial blast.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "pulsos",
+      "name": "Pulsos",
+      "desc": "Three weaker beats instead of one: hits things that move in and out.",
+      "affinity": {
+       "agilidade": 2,
+       "misterio": 1
+      }
+     },
+     {
+      "id": "repele",
+      "name": "Repele",
+      "desc": "The blast throws every enemy away from the cell, with a little less damage.",
+      "affinity": {
+       "robustez": 2,
+       "sociabilidade": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "modo_estocada",
+    "name": "Comportamento das estocadas",
+    "question": "how this cell's thrusts (piercing lances) behave: a plain thrust or a harpoon that reels the victim in",
+    "options": [
+     {
+      "id": "padrao",
+      "name": "Padrão",
+      "desc": "A plain thrust.",
+      "affinity": {
+       "ferocidade": 1
+      }
+     },
+     {
+      "id": "arpao",
+      "name": "Arpão",
+      "desc": "The thrust harpoons the victim and drags it to the cell, with a little less damage.",
+      "affinity": {
+       "metabolismo": 1,
+       "misterio": 2
+      }
+     }
+    ]
+   },
+   {
+    "id": "modo_investida",
+    "name": "Comportamento das investidas",
+    "question": "how this cell's dash attacks behave: one strike at the end, or a second strike a beat later",
+    "options": [
+     {
+      "id": "padrao",
+      "name": "Padrão",
+      "desc": "One strike at the end of the dash.",
+      "affinity": {
+       "agilidade": 1
+      }
+     },
+     {
+      "id": "dupla",
+      "name": "Dupla",
+      "desc": "A second strike lands a beat later, each strike a bit softer.",
+      "affinity": {
+       "ferocidade": 2,
+       "agilidade": 2
+      }
+     }
+    ]
+   },
+   {
+    "id": "modo_zona",
+    "name": "Comportamento das zonas",
+    "question": "how this cell's zone abilities (acid puddles, nets, clouds) behave: fixed in place or wandering towards the nearest enemy",
+    "options": [
+     {
+      "id": "padrao",
+      "name": "Padrão",
+      "desc": "The zone stays where it was cast.",
+      "affinity": {
+       "robustez": 2
+      }
+     },
+     {
+      "id": "migra",
+      "name": "Migra",
+      "desc": "The zone wanders slowly towards the nearest enemy; smaller and a bit weaker.",
+      "affinity": {
+       "agilidade": 1,
+       "misterio": 2
+      }
+     }
+    ]
+   },
+   {
+    "id": "modo_devorar",
+    "name": "Comportamento do devorar",
+    "question": "how this cell's devouring bite behaves: a plain bite or a suction that pulls prey in",
+    "options": [
+     {
+      "id": "padrao",
+      "name": "Padrão",
+      "desc": "A plain bite.",
+      "affinity": {
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "suga",
+      "name": "Suga",
+      "desc": "The bite sucks prey toward the cell first, with a little less damage.",
+      "affinity": {
+       "metabolismo": 2,
+       "sociabilidade": 1
+      }
+     }
+    ]
    }
   ]
  },

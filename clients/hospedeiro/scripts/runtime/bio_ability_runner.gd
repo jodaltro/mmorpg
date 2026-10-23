@@ -99,7 +99,7 @@ func perform_id(id: StringName) -> int:
 	var origin := _host.global_position
 	var me := _host.combatant
 	var kind: String = a["kind"]
-	a = BioAbilityFocus.apply(a, _host.combatant.focus)  # the cell's focus: a wide weak reach or a narrow strong one
+	a = BioAbilityMode.apply(BioAbilityFocus.apply(a, _host.combatant.focus), BioAbilityMode.family_of(id), _host.combatant.modes)  # the cell's focus: a wide weak reach or a narrow strong one
 	var target: BioCellActor = null
 	if kind in ["mark", "execute"]:
 		var pool := BioTargeting.enemies(_host.get_world_2d(), origin, float(a["range"]) * BioArt.UNIT, me.actor.team)

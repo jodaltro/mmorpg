@@ -277,6 +277,7 @@ func apply_design(designed: Dictionary, source: String) -> void:
 	abilities.projectile_traits = design_traits.duplicate()
 	player.combatant.effect_style = abilities.effect_style if BioEffectPhysics.has_style(abilities.effect_style) else &""
 	player.combatant.focus = BioAbilityFocus.params(design_traits)
+	player.combatant.modes = BioAbilityMode.from_traits(design_traits)
 	for child in player.get_children():
 		if child is BioCellBody:
 			(child as BioCellBody).set_traits(design_traits)

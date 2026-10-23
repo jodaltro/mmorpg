@@ -48,6 +48,21 @@ Então o anticorpo em serpente, mais difícil de acertar que o teleguiado, bate 
 
 A trajetória é física: a onda e o saca-rolhas varrem os lados (e acertam ali), o arco contorna, a teleguiada persegue com giro forte, a reta não persegue. A régua é a mesma (`test_projectile.gd` exige 95% a 120% do tiro simples contando o que o impacto traz de volta) e cada comportamento é testado em corpos reais. **Debug:** F7 troca o impacto, F8 a trajetória, F9 o calibre; o painel F3 mostra o projétil em vigor.
 
+## Cada família de habilidade tem um comportamento próprio
+
+Além do foco (largura, alcance e dano), o Jev desenha **como cada família se comporta** (`BioAbilityMode`, seis traços `modo_*`). Cada modo troca um pouco de dano direto pelo que traz, e uma régua só (`worth`, entre 95% e 120% do golpe simples) vale para todos:
+
+| Família | Modos | O que muda de verdade |
+|---|---|---|
+| Cone | padrão · **fecha** · **chicoteia** | fecha arrasta as vítimas até a célula (dano x0,9); chicoteia golpeia de novo 0,35 s depois (0,7 + 0,5) |
+| Nova | padrão · **pulsos** · **repele** | três batidas (0,48 + 2 x 0,32); repele joga os inimigos para longe (x0,9) |
+| Estocada | padrão · **arpão** | arpoa e puxa a vítima (x0,9) |
+| Investida | padrão · **dupla** | um segundo golpe 0,4 s depois (0,65 + 0,55) |
+| Zona | padrão · **migra** | a zona anda até o inimigo mais próximo (1,3 u/s), menor (raio x0,9) e mais fraca (x0,85) |
+| Devorar | padrão · **suga** | puxa a presa antes de morder (x0,9) |
+
+`test_modes.gd` confere a régua, que o universo oferece exatamente os modos que existem, e cada comportamento em corpos reais (a vítima é puxada ou jogada, o segundo golpe chega, a zona anda). O chicote básico e os projéteis não têm modos.
+
 ## Os efeitos do estilo (queimadura, quebradiço, lentidão, cadeia, sifão)
 
 O traço `efeito` continua dando uma consequência física a cada golpe de habilidade (tabela e testes em `BioEffectPhysics`): chama queima, cristal deixa o alvo quebradiço, névoa atrasa o alvo e os vizinhos, elétrico salta para até dois inimigos, orgânico devolve membrana. **As partículas decorativas do estilo (esporos, lascas, nuvens) foram removidas**: só o projétil e as consequências físicas ficaram.
