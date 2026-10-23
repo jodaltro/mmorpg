@@ -10,7 +10,7 @@ const ESFERA := &"esfera"
 ## Shape parameters of a form, given the expressed genes: lobes (pseudopods), their amplitude, size,
 ## wobble, spikes, nucleus scale and whether it keeps a tail.
 static func params(form: StringName, genes: Array[StringName]) -> Dictionary:
-	var p := {"lobes": 0, "lobe_amp": 0.0, "size": 0.82, "wobble": 0.035, "spikes": 0, "spike_len": 0.0, "nucleus": 0.8, "tail": false}
+	var p := {"lobes": 0, "lobe_amp": 0.0, "size": 0.82, "wobble": 0.035, "spikes": 0, "spike_len": 0.0, "nucleus": 0.8, "tail": false, "poly": 0, "poly_amp": 0.0, "oval": 0.0}
 	match form:
 		&"mieloide":
 			p.merge({"lobes": 3, "lobe_amp": 0.2, "size": 1.0, "wobble": 0.05, "nucleus": 1.0}, true)
@@ -19,15 +19,15 @@ static func params(form: StringName, genes: Array[StringName]) -> Dictionary:
 		&"macrofago":
 			p.merge({"lobes": 5, "lobe_amp": 0.4, "size": 1.45, "wobble": 0.05, "nucleus": 0.9}, true)
 		&"neutrofilo":
-			p.merge({"size": 0.88, "wobble": 0.06, "nucleus": 0.7, "tail": true}, true)
+			p.merge({"size": 0.88, "wobble": 0.06, "nucleus": 0.7, "tail": true, "oval": 0.24}, true)
 		&"dendritica":
-			p.merge({"lobes": 7, "lobe_amp": 0.1, "size": 1.0, "wobble": 0.05, "nucleus": 0.9}, true)
+			p.merge({"lobes": 7, "lobe_amp": 0.1, "size": 1.0, "wobble": 0.05, "nucleus": 0.9, "poly": 7, "poly_amp": 0.1}, true)
 		&"linfocito_b":
-			p.merge({"size": 1.0, "wobble": 0.025, "nucleus": 1.6}, true)
+			p.merge({"size": 1.0, "wobble": 0.012, "nucleus": 1.6}, true)
 		&"t_citotoxico":
-			p.merge({"size": 0.95, "wobble": 0.03, "spikes": 4, "spike_len": 0.22, "nucleus": 1.1}, true)
+			p.merge({"size": 0.95, "wobble": 0.015, "spikes": 6, "spike_len": 0.2, "nucleus": 1.1, "poly": 6, "poly_amp": 0.11}, true)
 		&"t_auxiliar":
-			p.merge({"size": 1.05, "wobble": 0.045, "nucleus": 1.0}, true)
+			p.merge({"size": 1.05, "wobble": 0.045, "nucleus": 1.0, "poly": 4, "poly_amp": 0.07}, true)
 	if genes.has(&"pseudopodes_gigantes"):
 		p["lobes"] += 3
 		p["lobe_amp"] += 0.18
@@ -39,7 +39,9 @@ static func params(form: StringName, genes: Array[StringName]) -> Dictionary:
 
 
 ## Draws the organelles and appendages of a form around the origin of the cell's canvas.
-static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: float, t: float, core: Color, edge: Color, front: Vector2) -> void:
+static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: float, t: float, core: Color, edge: Color, front: Vector2, human: float = 0.0) -> void:
+	if human > 0.35 and form in [&"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
+		return  # a risen cell wears its gear (BioHumanoid) instead of the radial appendages
 	match form:
 		&"mieloide":
 			_granules(c, r, t, 6, BioArt.JADE * 0.8, 0.45)
@@ -49,7 +51,7 @@ static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: f
 			_vacuoles(c, r, t, 4 + (3 if genes.has(&"lisossomos_acidos") else 0), BioArt.TOXIN if genes.has(&"lisossomos_acidos") else edge.lightened(0.2))
 		&"neutrofilo":
 			_multilobed_nucleus(c, r, t, 6 if genes.has(&"nucleo_multilobulado") else 3)
-			if genes.has(&"rede_de_dna"):
+			if genes.has(&"rede_de_dna") and human <= 0.35:
 				_dna_web(c, r, t, core)
 		&"dendritica":
 			var depth := 3 if genes.has(&"dendritos_ramificados") else 2

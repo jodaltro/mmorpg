@@ -50,6 +50,17 @@ var _swell := 1.0
 var _swell_v := 0.0
 var _swell_target := 1.0
 var _swell_until := 0.0
+var _poly := 0
+var _poly_amp := 0.0
+var _oval := 0.0
+var _ascend := 0.0  # how far it has risen (BioGenome.ascension), eased
+var _ascend_target := 0.0
+var _human := 0.0  # the humanoid factor (0..1) derived from it
+var _walk := 0.0
+var _face := 1.0
+var _nuc_pos := Vector2.ZERO
+var _nuc_r := 6.0
+var _nuc_rot := 0.0
 var _kicks: Array = []  # [seconds left, velocity]
 var _bulges := {}  # limb id -> [angle, amount, spread]: the membrane swells where a limb is being pushed out
 
@@ -70,6 +81,7 @@ func apply_genome(genome: BioGenome) -> void:
 	_gene_size = 1.1 if genes.has(&"membrana_espessa") else 1.0
 	_size_mul = _gene_size * (1.0 + 0.25 * _axis(&"robustez"))
 	form = genome.lineage if genome.lineage != &"" else &"esfera"
+	_ascend_target = genome.ascension()
 	_refresh_form()
 
 
@@ -81,6 +93,9 @@ func _refresh_form() -> void:
 	_base_spikes = spikes
 	wobble = float(_form["wobble"])
 	tail_on = bool(_form["tail"])
+	_poly = int(_form["poly"])
+	_poly_amp = float(_form["poly_amp"])
+	_oval = float(_form["oval"])
 	if tail != null:
 		tail.set_active(tail_on)
 
@@ -209,6 +224,10 @@ func _process(delta: float) -> void:
 	_size_now = move_toward(_size_now, float(_form["size"]), delta * 0.3)
 	_lobe_amp_now = move_toward(_lobe_amp_now, float(_form["lobe_amp"]), delta * 0.25)
 	_nucleus_now = move_toward(_nucleus_now, float(_form["nucleus"]), delta * 0.3)
+	_ascend = move_toward(_ascend, _ascend_target, delta * 0.18)
+	_human = smoothstep(0.25, 1.0, _ascend)
+	_walk += speed_units * delta * 1.7
+	_face = lerpf(_face, signf(_smooth_velocity.x) if absf(_smooth_velocity.x) > 8.0 else _face, 1.0 - exp(-6.0 * delta))
 	var stretch := clampf(speed_units * 0.04, 0.0, 0.35)
 	var breath := 1.0 + 0.04 * sin(t * 3.0) + _telegraph * 0.28
 	for i in RIM:
@@ -222,12 +241,19 @@ func _process(delta: float) -> void:
 		if _lobes > 0:  # pseudopods: lobes that slowly crawl around the body
 			lobe = _lobe_amp_now * pow(maxf(0.0, cos((a - t * 0.25) * _lobes)), 2.0)
 		var along := n.dot(dir)
+		var silhouette := 1.0
+		if _poly > 0:
+			silhouette += _poly_amp * cos(_poly * a)
+		if _oval > 0.0:
+			silhouette += _oval * (2.0 * along * along - 1.0)
 		var squash := 1.0 + stretch * along * along - stretch * 0.5 * (1.0 - along * along)
 		var swelling := 1.0
 		for b in _bulges.values():
 			var d := angle_difference(a, float(b[0])) / float(b[2])
 			swelling += float(b[1]) * exp(-d * d)
-		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell * swelling
+		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell * swelling * silhouette
+		if _human > 0.0:  # the torso: taller and a little narrower
+			p = Vector2(p.x * (1.0 - 0.12 * _human), p.y * (1.0 + 0.32 * _human))
 		if absf(_stretch) > 0.002:  # volume-preserving rubber stretch, with the leading side bulging further
 			var along_p := p.dot(_stretch_dir)
 			var side := p - _stretch_dir * along_p
@@ -238,17 +264,25 @@ func _process(delta: float) -> void:
 	_neck = PackedVector2Array()
 	_outline = _build_outline() if tail != null and tail_on else PackedVector2Array()
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)
-	_nucleus.scale = Vector2.ONE * (_nucleus_now * radius_units * 1.7 * pulse * (1.0 + _telegraph * 0.5) * BioArt.UNIT / 128.0)
 	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.75)
+	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
 	var pull := Vector2.ZERO
 	for b in _bulges.values():
 		pull += Vector2.from_angle(float(b[0])) * float(b[1])
-	_nucleus.position = _smooth_velocity * 0.01 + pull * radius_units * BioArt.UNIT * 0.55
+	_nuc_pos = _smooth_velocity * 0.01 + pull * radius_units * BioArt.UNIT * 0.55
+	_nuc_r = r_px * 0.42 * _nucleus_now * pulse
+	if _human > 0.0:  # the nucleus rises into the head
+		_nuc_pos = _nuc_pos.lerp(BioHumanoid.head_center(form, r_px, _human), _human)
+		_nuc_r = lerpf(_nuc_r, BioHumanoid.head_radius(form, r_px, _human), _human)
+	_nucleus.position = _nuc_pos
+	_nucleus.scale = Vector2.ONE * (_nuc_r * 3.4 * (1.0 + _telegraph * 0.5) / 128.0)
 	if pull.length() > 0.02:  # the nucleus stretches towards where the limb is growing
 		_nucleus.rotation = pull.angle()
+		_nuc_rot = pull.angle() * 0.5
 		_nucleus.scale *= Vector2(1.0 + minf(pull.length(), 1.0) * 0.7, 1.0 - minf(pull.length(), 1.0) * 0.12)
 	else:
 		_nucleus.rotation = 0.0
+		_nuc_rot = lerp_angle(_nuc_rot, 0.0, 0.1)
 	queue_redraw()
 
 
@@ -265,6 +299,9 @@ func _draw() -> void:
 		return
 	var edge_now := _edge_now()
 	var core_now := _core_now()
+	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
+	if _human > 0.02:
+		BioHumanoid.draw(self, form, _human, r_px, Time.get_ticks_msec() * 0.001 + _seed, _walk, _face, _smooth_velocity.length() / BioArt.UNIT / 7.0, core_now, edge_now)
 	var layers := [[1.0, BioArt.with_alpha(edge_now, 0.28)], [0.7, BioArt.with_alpha(core_now, 0.16 + _telegraph * 0.2)], [0.4, BioArt.with_alpha(core_now, 0.2)]]
 	for layer in layers:
 		var scaled := PackedVector2Array()
@@ -278,8 +315,9 @@ func _draw() -> void:
 	var closed := outline.duplicate()
 	closed.append(outline[0])
 	draw_polyline(closed, BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.35), 0.95), 6.0 if genes.has(&"membrana_espessa") else 3.0, true)
+	BioNucleusShapes.draw(self, form, _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now)
 	_draw_genes(edge_now, core_now)
-	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front)
+	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human)
 
 
 ## Marks that come from the procedural body, not from a gene: they scale with how the player plays.

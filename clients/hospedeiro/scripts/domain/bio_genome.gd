@@ -31,6 +31,18 @@ func stat(key: StringName) -> float:
 	return total
 
 
+## How far this cell has risen towards its final form: the share of its three slots taken by its own class's
+## mutations (0 for the newborn and the progenitors, 1 when all three are the class's own). At full the body stands up.
+func ascension() -> float:
+	if lineage == &"" or BioLineageCatalog.mods_of(lineage).is_empty():
+		return 0.0
+	var own := 0
+	for id in equipped:
+		if BioGeneCatalog.get_gene(id).requires_lineage == lineage:
+			own += 1
+	return clampf(own / float(SLOTS), 0.0, 1.0)
+
+
 ## What the expressed genes do to one class ability, combined: multipliers multiply, "+name" additions add.
 func perk(ability: StringName) -> Dictionary:
 	var out := {}

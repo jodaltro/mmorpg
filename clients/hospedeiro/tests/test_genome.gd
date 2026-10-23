@@ -193,3 +193,59 @@ func test_the_summary_names_the_ability_a_mutation_reshapes() -> void:
 	var text := BioGeneCatalog.get_gene(&"granulos_explosivos").summary()
 	assert_true(text.contains("NETose"), "names NETose")
 	assert_true(text.contains("explosão"), "and what changes")
+
+
+func test_ascension_follows_the_share_of_own_class_mutations() -> void:
+	var g := BioGenome.new()
+	assert_near(g.ascension(), 0.0, 0.001, "a newborn has not risen")
+	g.lineage = &"mieloide"
+	g.equip(&"cilios_ageis")
+	assert_near(g.ascension(), 0.0, 0.001, "a progenitor cannot rise")
+	g.lineage = &"t_citotoxico"
+	g.equipped = [&"cilios_ageis"] as Array[StringName]
+	assert_near(g.ascension(), 0.0, 0.001, "generic mutations do not count")
+	g.equip(&"receptor_fas")
+	assert_near(g.ascension(), 1.0 / 3.0, 0.001, "one of three")
+	g.equip(&"granzima_b")
+	g.equip(&"agulha_litica")  # the oldest (generic) one is reabsorbed
+	assert_near(g.ascension(), 1.0, 0.001, "all three slots are the class's own")
+
+
+func test_every_form_has_its_own_nucleus_and_humanoid_proportions() -> void:
+	var seen := {}
+	for form in [&"mieloide", &"macrofago", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
+		var shape := []
+		for i in 12:
+			shape.append(snappedf(BioNucleusShapes.radius_at(form, i * TAU / 12.0, 0.0), 0.05))
+		assert_true(not seen.has(shape), "%s nucleus differs from the others" % form)
+		seen[shape] = true
+	var heads := {}
+	for form in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
+		var prof := BioHumanoid.profile(form)
+		heads[str([prof["head"], prof["shoulder"], prof["leg"], prof["gear"]])] = true
+	assert_eq(heads.size(), 6, "six different bodies")
+	assert_true(BioHumanoid.head_center(&"macrofago", 20.0, 1.0).y < -20.0, "the head rises above the torso")
+
+
+func test_a_body_stands_up_only_with_its_class_mutations() -> void:
+	var world := BioWorld.new()
+	world.save_path = ""
+	world.engine_url = ""
+	tree.root.add_child(world)
+	await tree.physics_frame
+	var body: BioCellBody
+	for child in world.player.get_children():
+		if child is BioCellBody:
+			body = child
+	world.genome.lineage = &"t_auxiliar"
+	for id in BioGeneCatalog.class_ids(&"t_auxiliar").slice(0, 3):
+		world.genome.equip(id)
+	world.player.combatant.set_genome(world.genome)
+	body._ascend = 1.0
+	await tree.create_timer(0.3).timeout
+	assert_true(body._human > 0.9, "the humanoid factor is up")
+	world.genome.equipped = []
+	world.player.combatant.set_genome(world.genome)
+	assert_near(body._ascend_target, 0.0, 0.001, "and falls back when the class genes are gone")
+	world.queue_free()
+	await tree.process_frame

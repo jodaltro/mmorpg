@@ -133,3 +133,13 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 **Executado:** Godot 61 testes, 0 falhas (4 novos: seis por classe e só toca habilidades da própria classe, cada classe só encontra as suas, perks mudam a habilidade e o dano de domínio, o resumo nomeia a habilidade). Go: tudo passa exceto `TestClientPresentationMatchesTheUniverse` (já falhava, arquivo ausente); novo `TestEveryClassHasSixOwnMutationsThatNameTheirAbility`; `worldsim validate` ok. Capturas reais: cada classe com 3 mutações próprias e a carta de oferta (`tests/capture_marks.gd`). Não balanceei os números e a combinação de 3 genes iguais por classe ainda não foi testada em partida longa.
 
+### Núcleo por classe, silhuetas marcantes e ascensão humanoide (22/10/2026)
+
+**Núcleo:** deixou de ser um círculo igual para todos (`BioNucleusShapes`): esfera, redondo macio; mieloide, feijão; macrófago, rim grande; neutrófilo, três lóbulos ligados por fios; dendrítica, flor irregular; linfócito B, núcleo enorme e redondo com nucléolo brilhante; T citotóxico, hexágono compacto com ponto quente; T auxiliar, trevo de quatro folhas. O núcleo também é puxado para onde um membro brota.
+
+**Silhuetas:** novos parâmetros de forma (`poly`, `poly_amp`, `oval`): neutrófilo alongado, dendrítica de 7 pontas, B perfeitamente redonda, T citotóxico hexagonal com 6 espinhos, T auxiliar quadrada arredondada.
+
+**Ascensão (evolução máxima):** `BioGenome.ascension()` = parcela dos 3 espaços ocupada por mutações da própria classe (0 a 1). A partir de 2 de 3 o corpo começa a se erguer; com 3 de 3 vira uma figura levemente humanoide (`BioHumanoid`): a membrana vira tronco mais alto, **o núcleo sobe e vira a cabeça (com o formato do núcleo da classe)**, e crescem braços, pernas ou túnica e equipamento próprio: macrófago, brutamontes de ombros imensos e punhos; neutrófilo, corredor esguio com cachecol de membrana; dendrítica, figura de túnica com coroa e véu de dendritos; linfócito B, mago de túnica com asas de anticorpos; T citotóxico, guerreiro de elmo com lança; T auxiliar, curandeiro com auréola e orbes. Anda, balança e vira conforme o movimento; a hitbox lógica continua circular. Perder as mutações de classe faz o corpo voltar.
+
+**Executado:** Godot 64 testes, 0 falhas (3 novos: ascensão por parcela de mutações próprias, núcleos e corpos distintos, o corpo se ergue e volta). Capturas reais (`tests/capture_forms.gd`) de cada forma em repouso e na ascensão máxima; limpei o excesso de apêndices radiais quando a figura se ergue. Não testei em movimento prolongado com as habilidades (os membros brotam da membrana do tronco) nem no controle.
+
