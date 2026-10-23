@@ -42,6 +42,7 @@ func _spawn(dir: Vector2, length_units: float, grow: float, hold: float, opts: D
 	if opts.has("style"):
 		limb.style.merge(opts["style"], true)
 	limb.host = _host
+	limb.body = _body
 	limb.core = _body.core
 	limb.edge = _body.edge
 	limb.tint = opts.get("tint", Color(0, 0, 0, 0))

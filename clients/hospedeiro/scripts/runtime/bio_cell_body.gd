@@ -51,6 +51,7 @@ var _swell_v := 0.0
 var _swell_target := 1.0
 var _swell_until := 0.0
 var _kicks: Array = []  # [seconds left, velocity]
+var _bulges := {}  # limb id -> [angle, amount, spread]: the membrane swells where a limb is being pushed out
 
 
 func configure(radius: float, core_color: Color, edge_color: Color, spike_count: int, spike_len: float, spin_speed: float, z: int) -> void:
@@ -156,6 +157,15 @@ func swell(factor: float, seconds: float) -> void:
 	_swell_until = BioClock.now() + seconds
 
 
+## A limb tells the body where it is emerging, so the membrane and the nucleus flow into it instead of it being stuck on.
+func set_bulge(id: int, angle: float, amount: float, spread: float) -> void:
+	_bulges[id] = [angle, amount, spread]
+
+
+func clear_bulge(id: int) -> void:
+	_bulges.erase(id)
+
+
 func _step_elastic(delta: float) -> void:
 	for kick in _kicks:
 		kick[0] = float(kick[0]) - delta
@@ -213,7 +223,11 @@ func _process(delta: float) -> void:
 			lobe = _lobe_amp_now * pow(maxf(0.0, cos((a - t * 0.25) * _lobes)), 2.0)
 		var along := n.dot(dir)
 		var squash := 1.0 + stretch * along * along - stretch * 0.5 * (1.0 - along * along)
-		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell
+		var swelling := 1.0
+		for b in _bulges.values():
+			var d := angle_difference(a, float(b[0])) / float(b[2])
+			swelling += float(b[1]) * exp(-d * d)
+		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell * swelling
 		if absf(_stretch) > 0.002:  # volume-preserving rubber stretch, with the leading side bulging further
 			var along_p := p.dot(_stretch_dir)
 			var side := p - _stretch_dir * along_p
@@ -226,7 +240,15 @@ func _process(delta: float) -> void:
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)
 	_nucleus.scale = Vector2.ONE * (_nucleus_now * radius_units * 1.7 * pulse * (1.0 + _telegraph * 0.5) * BioArt.UNIT / 128.0)
 	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.75)
-	_nucleus.position = _smooth_velocity * 0.01
+	var pull := Vector2.ZERO
+	for b in _bulges.values():
+		pull += Vector2.from_angle(float(b[0])) * float(b[1])
+	_nucleus.position = _smooth_velocity * 0.01 + pull * radius_units * BioArt.UNIT * 0.55
+	if pull.length() > 0.02:  # the nucleus stretches towards where the limb is growing
+		_nucleus.rotation = pull.angle()
+		_nucleus.scale *= Vector2(1.0 + minf(pull.length(), 1.0) * 0.7, 1.0 - minf(pull.length(), 1.0) * 0.12)
+	else:
+		_nucleus.rotation = 0.0
 	queue_redraw()
 
 

@@ -36,6 +36,8 @@ var _reached_sent := false
 var _seed := randf() * 20.0
 var _pts := PackedVector2Array()
 var _tip_dir := Vector2.RIGHT
+var _bend := 1.0 if randf() > 0.5 else -1.0
+var body: BioCellBody
 
 
 func _ready() -> void:
@@ -45,6 +47,11 @@ func _ready() -> void:
 	var anchor := aim * body_radius_px * 0.55
 	for i in POINTS:
 		_pts[i] = anchor
+
+
+func _exit_tree() -> void:
+	if body != null and is_instance_valid(body):
+		body.clear_bulge(get_instance_id())
 
 
 func release() -> void:
@@ -105,11 +112,16 @@ func _process(delta: float) -> void:
 	var rate := lerpf(9.0, 70.0, stiff)
 	var wave_amp := float(style.get("wave", 0.25)) * length_now * 0.15 * (1.0 - stiff * 0.9) * minf(_ext, 1.2)
 	var speed := float(style.get("speed", 1.0))
+	var bend_amp := length_now * 0.13 * (1.0 - stiff * 0.8) * minf(_ext, 1.1)
 	_pts[0] = anchor
+	if body != null and is_instance_valid(body):
+		var root_w := float(style.get("base", 15.0)) * 1.6
+		body.set_bulge(get_instance_id(), dir.angle(), clampf(_ext, 0.0, 1.0) * clampf(root_w / maxf(body_radius_px, 1.0), 0.0, 1.0) * 0.95, 0.5 + root_w / maxf(body_radius_px, 1.0) * 0.5)
 	for i in range(1, POINTS):
 		var f := i / float(POINTS - 1)
 		var wanted := anchor.lerp(tip_target, f)
 		wanted += perp * sin(_age * 7.0 * speed - f * 5.0 + _seed) * wave_amp * sin(PI * f)
+		wanted += perp * _bend * bend_amp * sin(PI * f) * (1.0 - f * 0.35)  # a natural arc, not a ruler
 		wanted -= vel * 0.022 * f * (1.0 - stiff)
 		var r := rate * lerpf(1.25, 0.6, f * (1.0 - stiff))
 		_pts[i] = _pts[i].lerp(wanted, 1.0 - exp(-r * delta))
@@ -121,7 +133,8 @@ func _width(f: float) -> float:
 	var base := float(style.get("base", 15.0))
 	var tip_w := float(style.get("tip_w", 12.0))
 	var w := lerpf(base, tip_w, pow(f, 0.8))
-	w *= 1.0 + 0.5 * maxf(0.0, 1.0 - f / 0.18)  # the root flares into the membrane
+	var neck := smoothstep(0.0, 1.0, maxf(0.0, 1.0 - f / 0.32))
+	w *= 1.0 + 0.7 * neck * neck  # the root is a wide neck that narrows like drawn-out membrane
 	return w * lerpf(0.55, 1.0, minf(_ext, 1.0))
 
 
@@ -144,9 +157,13 @@ func _draw() -> void:
 	_strip(left, right, _pts, 1.7, BioArt.with_alpha(glow_c, 0.07 * alpha))
 	_strip(left, right, _pts, 1.0, BioArt.with_alpha(edge.lerp(core, 0.4), 0.24 * alpha))
 	_strip(left, right, _pts, 0.45, BioArt.with_alpha(core.lerp(Color.WHITE, 0.2), 0.2 * alpha))
+	_flow(left, right, alpha)
 	var outline_c := BioArt.with_alpha(edge.lerp(Color.WHITE, 0.2), 0.8 * alpha)
-	draw_polyline(left, outline_c, 2.2, true)
-	draw_polyline(right, outline_c, 2.2, true)
+	for i in POINTS - 1:  # outline fades in away from the root, so no seam shows inside the body
+		var fo := smoothstep(0.05, 0.35, i / float(POINTS - 1))
+		var oc := BioArt.with_alpha(outline_c, outline_c.a * fo)
+		draw_line(left[i], left[i + 1], oc, 2.2, true)
+		draw_line(right[i], right[i + 1], oc, 2.2, true)
 	var tip := _pts[POINTS - 1]
 	var d_tip := _tip_dir
 	_draw_extras(widths, alpha)
@@ -155,14 +172,30 @@ func _draw() -> void:
 
 ## A tapered ribbon as quads between the two edges (scaled around the spine).
 func _strip(left: PackedVector2Array, right: PackedVector2Array, spine: PackedVector2Array, width_scale: float, color: Color) -> void:
-	var colors := PackedColorArray([color, color, color, color])
 	for i in POINTS - 1:
+		var fade := smoothstep(0.0, 0.3, i / float(POINTS - 1))  # the root dissolves into the membrane
+		var c0 := BioArt.with_alpha(color, color.a * fade)
+		var c1 := BioArt.with_alpha(color, color.a * smoothstep(0.0, 0.3, (i + 1) / float(POINTS - 1)))
+		var colors := PackedColorArray([c0, c1, c1, c0])
 		var q := PackedVector2Array([
 			spine[i] + (left[i] - spine[i]) * width_scale,
 			spine[i + 1] + (left[i + 1] - spine[i + 1]) * width_scale,
 			spine[i + 1] + (right[i + 1] - spine[i + 1]) * width_scale,
 			spine[i] + (right[i] - spine[i]) * width_scale])
 		draw_primitive(q, colors, PackedVector2Array())
+
+
+## The nucleus's light flows into the limb: a bright core strand, strongest at the root and travelling outwards.
+func _flow(left: PackedVector2Array, right: PackedVector2Array, alpha: float) -> void:
+	for i in POINTS - 1:
+		var f := i / float(POINTS - 1)
+		var wave := 0.5 + 0.5 * sin(_age * 6.0 - f * 9.0)
+		var thin := clampf(14.0 / maxf(float(style.get("base", 15.0)), 1.0), 0.3, 1.0)
+		var c := BioArt.with_alpha(core.lerp(Color.WHITE, 0.35), (0.34 * (1.0 - f) + 0.1 + 0.1 * wave) * alpha * thin * smoothstep(0.0, 0.2, f))
+		var s0 := _pts[i]
+		var s1 := _pts[i + 1]
+		var q := PackedVector2Array([s0 + (left[i] - s0) * 0.55, s1 + (left[i + 1] - s1) * 0.55, s1 + (right[i + 1] - s1) * 0.55, s0 + (right[i] - s0) * 0.55])
+		draw_primitive(q, PackedColorArray([c, c, c, c]), PackedVector2Array())
 
 
 func _at(f: float) -> Vector2:
