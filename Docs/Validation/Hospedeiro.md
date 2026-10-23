@@ -94,3 +94,19 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 - Ponta a ponta com o Jev ligado: os passos anteriores e mais: a maturidade estoura, o motor oferece a linhagem, o **Jev escolhe (Mieloide) em decisão `lineage` com `provider: jev`**, o jogador diferencia e o corpo muda.
 
 **Não feito nesta etapa:** habilidades ativas próprias de cada classe (hoje a classe muda forma, bônus passivos e mutações; o chicote, a toxina e o impulso continuam os mesmos; o neutrófilo bate com a cauda e as outras classes com um arco de choque). E o modo offline não diferencia (fica esfera): a diferenciação é decidida pelo motor.
+
+## H3 — habilidades de classe com efeitos de partículas (22/10/2026)
+
+**Conceito:** cada classe nasce com 1 habilidade ativa e adquire as outras 3 jogando: por missão (`prova-<classe>`), por feitos (`learn`) e pelo **despertar decidido pelo Jev** (decisão `ability`, a cada 40 ticks se os feitos cresceram 12). 24 habilidades em Q/F/C/V, cada uma com efeito próprio (partículas `CPUParticles2D` aditivas, anéis, feixe, sigilo de marca, zonas animadas).
+
+**Motor:** `core/ability.go` (starter ao diferenciar, candidatas por classe, decisão `ability` revalidada, padrão por `fit`), `SkillDef` com `class/starter/offer/tags`, 6 missões e 24 habilidades no universo, instrução do Jev em `advisor/jev.go`.
+
+**Cliente:** `bio_ability_catalog.gd` (dados), `bio_ability_runner.gd` (execução, custo/recarga pelo ator de domínio, sem alvo não gasta), `bio_ability_zone.gd`, `bio_ability_bolt.gd`, `bio_mark_glyph.gd`, `bio_pfx.gd`, `bio_targeting.gd`; estados de marca/guarda/pressa no `BioCombatant`; barra de habilidades no HUD.
+
+**Executado:**
+- `go test ./...` em `engine/`: todos passam, exceto `TestClientPresentationMatchesTheUniverse`, que já falhava antes (procura `clients/godot/data/presentation.json`, arquivo que não está no repositório; não relacionado). 4 testes novos em `ability_test.go`.
+- Godot headless: 52 testes, 0 falhas, sem `SCRIPT ERROR` (8 novos em `test_abilities.gd`: catálogo, ids do motor, slots pela visão, engolir cura, marca amplifica 1,4x e sem alvo não gasta, armadilha explode após o atraso, anticorpo teleguiado acerta, muralha reduz dano a 30%).
+- Captura com renderizador real (`tests/capture_abilities.gd`): as 24 habilidades conferidas visualmente (Apoptose exige alvo ferido, por desenho).
+- Ponta a ponta contra o motor com Jev ligado: mieloide, classe (neutrófilo), nasceu com Rede de DNA, usou, o corpo foi decidido pelo Jev (Caçador) e uma segunda habilidade (NETose) foi adquirida jogando (~tick 40, recibo `ability:<jogador>:40` no log). Não verifiquei neste registro o `provider` dessa decisão de habilidade.
+
+**Não feito:** aquisição por missão de classe não foi exercitada ao vivo (só em teste do motor); balanceamento dos números; masmorra e multijogador visíveis.

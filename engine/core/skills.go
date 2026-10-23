@@ -91,18 +91,20 @@ func (w *World) discover(s *State, p ID, cause string) {
 
 // SkillView is a learned skill as the player sees it.
 type SkillView struct {
-	ID     string `json:"id"`
-	Name   string `json:"name"`
-	Desc   string `json:"desc"`
-	Rarity string `json:"rarity"`
-	At     Tick   `json:"at"`
+	Class  string   `json:"class,omitempty"`
+	Tags   []string `json:"tags,omitempty"`
+	ID     string   `json:"id"`
+	Name   string   `json:"name"`
+	Desc   string   `json:"desc"`
+	Rarity string   `json:"rarity"`
+	At     Tick     `json:"at"`
 }
 
 func (w *World) skillsOf(s *State, p ID) []SkillView {
 	out := []SkillView{}
 	for _, id := range sortedKeys(s.Skills[p]) {
 		if k, ok := w.skill(id); ok {
-			out = append(out, SkillView{ID: id, Name: k.Name, Desc: k.Desc, Rarity: k.Rarity, At: s.Skills[p][id]})
+			out = append(out, SkillView{ID: id, Name: k.Name, Desc: k.Desc, Rarity: k.Rarity, At: s.Skills[p][id], Class: k.Class, Tags: k.Tags})
 		}
 	}
 	return out

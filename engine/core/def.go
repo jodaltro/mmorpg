@@ -65,6 +65,7 @@ type Universe struct {
 	Mutations []MutationDef `json:"mutations,omitempty"`
 	// Differentiation and Lineages: born simple, grow into a lineage; see lineage.go.
 	Differentiation *DifferentiationDef `json:"differentiation,omitempty"`
+	Abilities       *AbilitiesDef       `json:"abilities,omitempty"`
 	Lineages        []LineageDef        `json:"lineages,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`
@@ -118,6 +119,12 @@ type SkillDef struct {
 	Desc   string `json:"desc"`
 	Rarity string `json:"rarity"`
 	Learn  *Cond  `json:"learn,omitempty"` // discovered when this holds for the player
+	// Class makes the skill an ability of a lineage. Starter: granted on becoming that class.
+	// Offer: the body may awaken it, the advisor deciding which. Tags: the path it belongs to.
+	Class   string   `json:"class,omitempty"`
+	Starter bool     `json:"starter,omitempty"`
+	Offer   bool     `json:"offer,omitempty"`
+	Tags    []string `json:"tags,omitempty"`
 }
 
 // Gossip spreads beliefs between entities that share a place, so news

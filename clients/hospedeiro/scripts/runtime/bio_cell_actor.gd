@@ -10,6 +10,8 @@ var thrust_units := 42.0
 var max_speed_units := 7.0
 var damping := 3.5
 var intent := Vector2.ZERO
+var _slow_until := 0.0
+var _slow_factor := 1.0
 
 var _dash_until := 0.0
 var _dash_velocity := Vector2.ZERO
@@ -41,6 +43,16 @@ func apply_impulse(units_per_second: Vector2) -> void:
 	velocity += units_per_second * BioArt.UNIT
 
 
+## Ability effect: movement multiplied by `factor` for `seconds` (nets, fever, opsonisation).
+func slow(factor: float, seconds: float) -> void:
+	_slow_factor = factor
+	_slow_until = BioClock.now() + seconds
+
+
+func is_slowed() -> bool:
+	return BioClock.now() < _slow_until
+
+
 func set_active(on: bool) -> void:
 	visible = on
 	process_mode = Node.PROCESS_MODE_INHERIT if on else Node.PROCESS_MODE_DISABLED
@@ -56,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	if is_dashing():
 		velocity = _dash_velocity
 	else:
-		var speed_stat := combatant.actor.stat(BioGene.SPEED)
+		var speed_stat := combatant.actor.stat(BioGene.SPEED) * combatant.speed_mult() * (_slow_factor if BioClock.now() < _slow_until else 1.0)
 		velocity += intent * thrust_units * speed_stat * BioArt.UNIT * delta
 		velocity -= velocity * minf(1.0, damping * delta)
 		var cap := max_speed_units * speed_stat * BioArt.UNIT

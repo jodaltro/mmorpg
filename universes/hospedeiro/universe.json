@@ -1992,6 +1992,348 @@
      "d": 5
     }
    ]
+  },
+  {
+   "id": "prova-macrofago",
+   "giver": "neva",
+   "rank": "C",
+   "title": "Prova do Devorador",
+   "desc": "Quem se diferencia aprende com a prática. Onda de Pseudópodes espera por você.",
+   "objective": "Absorva 40 nutrientes: um macrófago se prova comendo.",
+   "reward": "A habilidade Onda de Pseudópodes e pressão evolutiva +5",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "macrofago"
+      }
+     },
+     {
+      "not": {
+       "has": {
+        "skill": "onda-de-pseudopodes"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "nutrientes",
+     "op": ">=",
+     "v": 40
+    }
+   },
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "onda-de-pseudopodes"
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
+    }
+   ]
+  },
+  {
+   "id": "prova-neutrofilo",
+   "giver": "neva",
+   "rank": "C",
+   "title": "Prova do Armadilheiro",
+   "desc": "Quem se diferencia aprende com a prática. Explosão Neutrofílica espera por você.",
+   "objective": "Esquive de 8 golpes: o neutrófilo vive de não ser atingido.",
+   "reward": "A habilidade Explosão Neutrofílica e pressão evolutiva +5",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "neutrofilo"
+      }
+     },
+     {
+      "not": {
+       "has": {
+        "skill": "explosao-neutrofilica"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "esquivas",
+     "op": ">=",
+     "v": 8
+    }
+   },
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "explosao-neutrofilica"
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
+    }
+   ]
+  },
+  {
+   "id": "prova-dendritica",
+   "giver": "dendra",
+   "rank": "C",
+   "title": "Prova da Cartógrafa",
+   "desc": "Quem se diferencia aprende com a prática. Dendritos em Chicote espera por você.",
+   "objective": "Colha 30 nutrientes: a dendrítica aprende o que prova.",
+   "reward": "A habilidade Dendritos em Chicote e pressão evolutiva +5",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "dendritica"
+      }
+     },
+     {
+      "not": {
+       "has": {
+        "skill": "dendritos-em-chicote"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "nutrientes",
+     "op": ">=",
+     "v": 30
+    }
+   },
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "dendritos-em-chicote"
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
+    }
+   ]
+  },
+  {
+   "id": "prova-linfocito-b",
+   "giver": "dendra",
+   "rank": "C",
+   "title": "Prova do Anticorpomante",
+   "desc": "Quem se diferencia aprende com a prática. Salva de Anticorpos espera por você.",
+   "objective": "Dispare 20 vezes: um linfócito B aprende atirando.",
+   "reward": "A habilidade Salva de Anticorpos e pressão evolutiva +5",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "linfocito-b"
+      }
+     },
+     {
+      "not": {
+       "has": {
+        "skill": "salva-de-anticorpos"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "uso-toxina",
+     "op": ">=",
+     "v": 20
+    }
+   },
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "salva-de-anticorpos"
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
+    }
+   ]
+  },
+  {
+   "id": "prova-t-citotoxico",
+   "giver": "neva",
+   "rank": "C",
+   "title": "Prova do Executor",
+   "desc": "Quem se diferencia aprende com a prática. Golpe Lítico espera por você.",
+   "objective": "Destrua 12 vírions: o executor se prova eliminando.",
+   "reward": "A habilidade Golpe Lítico e pressão evolutiva +5",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-citotoxico"
+      }
+     },
+     {
+      "not": {
+       "has": {
+        "skill": "golpe-litico"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "abates",
+     "op": ">=",
+     "v": 12
+    }
+   },
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "golpe-litico"
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
+    }
+   ]
+  },
+  {
+   "id": "prova-t-auxiliar",
+   "giver": "rubra",
+   "rank": "C",
+   "title": "Prova do Maestro",
+   "desc": "Quem se diferencia aprende com a prática. Canto de Citocinas espera por você.",
+   "objective": "Colha 25 nutrientes: o maestro rege o que alimenta.",
+   "reward": "A habilidade Canto de Citocinas e pressão evolutiva +5",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-auxiliar"
+      }
+     },
+     {
+      "not": {
+       "has": {
+        "skill": "canto-de-citocinas"
+       }
+      }
+     }
+    ]
+   },
+   "goal": {
+    "num": {
+     "e": "$self",
+     "k": "nutrientes",
+     "op": ">=",
+     "v": 25
+    }
+   },
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "canto-de-citocinas"
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 5
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5
+    }
+   ]
   }
  ],
  "happenings": [
@@ -2700,5 +3042,407 @@
    ],
    "desc": "O Maestro das Citocinas. O clérigo: não luta, rege. Envolve os aliados em halos de sinais que curam, aceleram e protegem."
   }
- ]
+ ],
+ "skills": [
+  {
+   "id": "engolir",
+   "name": "Engolir",
+   "rarity": "comum",
+   "desc": "Devora o inimigo à frente e se cura com o que engoliu.",
+   "class": "macrofago",
+   "starter": true,
+   "tags": [
+    "combat",
+    "endure"
+   ]
+  },
+  {
+   "id": "onda-de-pseudopodes",
+   "name": "Onda de Pseudópodes",
+   "rarity": "incomum",
+   "desc": "Lóbulos enormes se estendem em todas as direções e arremessam quem está perto.",
+   "class": "macrofago",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "offer": true
+  },
+  {
+   "id": "lisossomo-acido",
+   "name": "Lisossomo Ácido",
+   "rarity": "rara",
+   "desc": "Cospe uma poça de ácido que corrói tudo o que pisa nela.",
+   "class": "macrofago",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "macrofago"
+      }
+     },
+     {
+      "deeds": {
+       "action": "estilo-chicote",
+       "op": ">=",
+       "v": 30
+      }
+     }
+    ]
+   },
+   "offer": true
+  },
+  {
+   "id": "muralha-de-carne",
+   "name": "Muralha de Carne",
+   "rarity": "rara",
+   "desc": "Os pseudópodes se fecham ao redor do corpo e absorvem a maior parte do dano.",
+   "class": "macrofago",
+   "offer": true,
+   "tags": [
+    "combat",
+    "endure"
+   ]
+  },
+  {
+   "id": "rede-de-dna",
+   "name": "Rede de DNA",
+   "rarity": "comum",
+   "desc": "Lança uma teia de DNA que prende e retarda quem for pego.",
+   "class": "neutrofilo",
+   "starter": true,
+   "tags": [
+    "combat",
+    "explore"
+   ]
+  },
+  {
+   "id": "explosao-neutrofilica",
+   "name": "Explosão Neutrofílica",
+   "rarity": "incomum",
+   "desc": "Um arranque veloz que corta tudo no caminho e deixa um rastro de faíscas.",
+   "class": "neutrofilo",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "offer": true
+  },
+  {
+   "id": "netose",
+   "name": "NETose",
+   "rarity": "rara",
+   "desc": "Planta uma armadilha de DNA que explode depois de um instante.",
+   "class": "neutrofilo",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "neutrofilo"
+      }
+     },
+     {
+      "deeds": {
+       "action": "estilo-impulso",
+       "op": ">=",
+       "v": 20
+      }
+     }
+    ]
+   },
+   "offer": true
+  },
+  {
+   "id": "degranulacao",
+   "name": "Degranulação",
+   "rarity": "rara",
+   "desc": "Libera uma nuvem de grânulos tóxicos ao redor do corpo.",
+   "class": "neutrofilo",
+   "offer": true,
+   "tags": [
+    "combat",
+    "explore"
+   ]
+  },
+  {
+   "id": "apresentar-antigeno",
+   "name": "Apresentar Antígeno",
+   "rarity": "comum",
+   "desc": "Marca um inimigo com o seu rosto: ele passa a sofrer mais dano de todos.",
+   "class": "dendritica",
+   "starter": true,
+   "tags": [
+    "knowledge",
+    "explore"
+   ]
+  },
+  {
+   "id": "dendritos-em-chicote",
+   "name": "Dendritos em Chicote",
+   "rarity": "incomum",
+   "desc": "Braços ramificados se estendem em leque e açoitam tudo à frente.",
+   "class": "dendritica",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "offer": true
+  },
+  {
+   "id": "chuva-de-esporos",
+   "name": "Chuva de Esporos",
+   "rarity": "rara",
+   "desc": "Esporos de memória caem ao redor e restauram a energia de quem está dentro.",
+   "class": "dendritica",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "dendritica"
+      }
+     },
+     {
+      "deeds": {
+       "action": "absorver-nutriente",
+       "op": ">=",
+       "v": 25
+      }
+     }
+    ]
+   },
+   "offer": true
+  },
+  {
+   "id": "mapa-quimico",
+   "name": "Mapa Químico",
+   "rarity": "epica",
+   "desc": "Uma onda de sinais revela e marca todos os inimigos ao redor.",
+   "class": "dendritica",
+   "offer": true,
+   "tags": [
+    "knowledge",
+    "explore"
+   ]
+  },
+  {
+   "id": "anticorpo-y",
+   "name": "Anticorpo Y",
+   "rarity": "comum",
+   "desc": "Dispara um anticorpo em Y que persegue o alvo.",
+   "class": "linfocito-b",
+   "starter": true,
+   "tags": [
+    "knowledge",
+    "combat"
+   ]
+  },
+  {
+   "id": "salva-de-anticorpos",
+   "name": "Salva de Anticorpos",
+   "rarity": "incomum",
+   "desc": "Uma rajada de cinco anticorpos em leque.",
+   "class": "linfocito-b",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "offer": true
+  },
+  {
+   "id": "opsonizacao",
+   "name": "Opsonização",
+   "rarity": "rara",
+   "desc": "Cobre o inimigo de anticorpos: ele fica mais lento e sofre mais dano.",
+   "class": "linfocito-b",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "linfocito-b"
+      }
+     },
+     {
+      "deeds": {
+       "action": "estilo-toxina",
+       "op": ">=",
+       "v": 25
+      }
+     }
+    ]
+   },
+   "offer": true
+  },
+  {
+   "id": "explosao-de-plasmocito",
+   "name": "Explosão de Plasmócito",
+   "rarity": "epica",
+   "desc": "A célula vira uma fábrica e detona uma onda de anticorpos.",
+   "class": "linfocito-b",
+   "offer": true,
+   "tags": [
+    "knowledge",
+    "combat"
+   ]
+  },
+  {
+   "id": "perforina",
+   "name": "Perforina",
+   "rarity": "comum",
+   "desc": "Crava uma agulha que perfura a membrana; fere muito mais quem já está ferido.",
+   "class": "t-citotoxico",
+   "starter": true,
+   "tags": [
+    "combat",
+    "knowledge"
+   ]
+  },
+  {
+   "id": "golpe-litico",
+   "name": "Golpe Lítico",
+   "rarity": "incomum",
+   "desc": "Um arranque que atravessa o inimigo com a agulha.",
+   "class": "t-citotoxico",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "offer": true
+  },
+  {
+   "id": "apoptose",
+   "name": "Apoptose",
+   "rarity": "rara",
+   "desc": "Sentencia um inimigo ferido: se estiver quase morto, ele se desfaz.",
+   "class": "t-citotoxico",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-citotoxico"
+      }
+     },
+     {
+      "deeds": {
+       "action": "derrotar-virus",
+       "op": ">=",
+       "v": 18
+      }
+     }
+    ]
+   },
+   "offer": true
+  },
+  {
+   "id": "sinal-de-morte",
+   "name": "Sinal de Morte",
+   "rarity": "epica",
+   "desc": "Marca o alvo: tudo o que o atingir causa muito mais dano.",
+   "class": "t-citotoxico",
+   "offer": true,
+   "tags": [
+    "combat",
+    "knowledge"
+   ]
+  },
+  {
+   "id": "citocina-curativa",
+   "name": "Citocina Curativa",
+   "rarity": "comum",
+   "desc": "Libera sinais que curam a membrana aos poucos.",
+   "class": "t-auxiliar",
+   "starter": true,
+   "tags": [
+    "endure",
+    "metabolism"
+   ]
+  },
+  {
+   "id": "canto-de-citocinas",
+   "name": "Canto de Citocinas",
+   "rarity": "incomum",
+   "desc": "Um coro de sinais que acelera o corpo e o regenera.",
+   "class": "t-auxiliar",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "offer": true
+  },
+  {
+   "id": "chamado-a-linfa",
+   "name": "Chamado à Linfa",
+   "rarity": "rara",
+   "desc": "Chama células auxiliares que orbitam o corpo e ferem quem se aproxima.",
+   "class": "t-auxiliar",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-auxiliar"
+      }
+     },
+     {
+      "deeds": {
+       "action": "absorver-nutriente",
+       "op": ">=",
+       "v": 20
+      }
+     }
+    ]
+   },
+   "offer": true
+  },
+  {
+   "id": "febre-dirigida",
+   "name": "Febre Dirigida",
+   "rarity": "epica",
+   "desc": "Aquece uma região: inimigos ali queimam e ficam lentos.",
+   "class": "t-auxiliar",
+   "offer": true,
+   "tags": [
+    "endure",
+    "metabolism"
+   ]
+  }
+ ],
+ "abilities": {
+  "every": 40,
+  "minDeeds": 12
+ }
 }

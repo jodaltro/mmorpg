@@ -25,6 +25,10 @@ static func ensure_actions() -> void:
 	_bind("bio_accept", [_key(KEY_Y)])
 	_bind("bio_refuse", [_key(KEY_N)])
 	_bind("bio_interact", [_key(KEY_E)])
+	_bind("bio_ab_1", [_key(KEY_Q)])
+	_bind("bio_ab_2", [_key(KEY_F)])
+	_bind("bio_ab_3", [_key(KEY_C)])
+	_bind("bio_ab_4", [_key(KEY_V)])
 	for i in 9:
 		_bind("bio_num_%d" % (i + 1), [_key(KEY_1 + i)])
 

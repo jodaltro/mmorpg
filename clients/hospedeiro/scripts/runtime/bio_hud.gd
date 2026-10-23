@@ -15,10 +15,32 @@ var _membrane_fill: ColorRect
 var _atp_fill: ColorRect
 var _cooldowns: Array[ColorRect] = []
 var _banner: Label
+var _abilities: BioAbilityRunner
+var _ab_cells: Array[ColorRect] = []
+var _ab_shades: Array[ColorRect] = []
+var _ab_labels: Array[Label] = []
 
 
 func bind(combatant: BioCombatant) -> void:
 	_player = combatant
+
+
+func bind_abilities(runner: BioAbilityRunner) -> void:
+	_abilities = runner
+	runner.learned.connect(func(_id: StringName) -> void: _refresh_abilities())
+	_refresh_abilities()
+
+
+func _refresh_abilities() -> void:
+	for i in BioAbilityRunner.SLOTS:
+		var id := _abilities.slot_id(i)
+		var keys := ["Q", "F", "C", "V"]
+		var a := BioAbilityCatalog.get_ability(id)
+		_ab_labels[i].text = "%s
+%s" % [keys[i], a.get("name", "—")] if id != &"" else "%s
+—" % keys[i]
+		var c: Color = a.get("color", Color(0.3, 0.4, 0.5))
+		_ab_cells[i].color = Color(c.r * 0.45, c.g * 0.45, c.b * 0.45, 0.9) if id != &"" else Color(0.05, 0.08, 0.12, 0.6)
 
 
 func show_banner(text: String) -> void:
@@ -44,6 +66,27 @@ func _ready() -> void:
 
 	for i in ABILITIES.size():
 		_cooldowns.append(_ability_cell(panel, ABILITY_LABELS[i], Vector2(i * 130, 0)))
+	for i in BioAbilityRunner.SLOTS:
+		var back := ColorRect.new()
+		back.position = Vector2(i * 130, -70)
+		back.size = CELL_SIZE
+		back.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_child(back)
+		var shade := ColorRect.new()
+		shade.color = Color(0, 0, 0, 0.7)
+		shade.position = Vector2(0, CELL_SIZE.y)
+		shade.size = Vector2(CELL_SIZE.x, 0)
+		shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		back.add_child(shade)
+		var text := Label.new()
+		text.size = CELL_SIZE
+		text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		text.add_theme_font_size_override("font_size", 13)
+		back.add_child(text)
+		_ab_cells.append(back)
+		_ab_shades.append(shade)
+		_ab_labels.append(text)
 	_membrane_fill = _bar(panel, "MEMBRANA", Vector2(0, 80), BioArt.CRIMSON)
 	_atp_fill = _bar(panel, "ATP", Vector2(0, 118), BioArt.CYAN)
 
@@ -76,6 +119,11 @@ func _process(_delta: float) -> void:
 	atp_fraction = vitals.atp / vitals.max_atp if vitals.max_atp > 0.0 else 0.0
 	_membrane_fill.size.x = (BAR_SIZE.x - 4.0) * clampf(membrane_fraction, 0.0, 1.0)
 	_atp_fill.size.x = (BAR_SIZE.x - 4.0) * clampf(atp_fraction, 0.0, 1.0)
+	if _abilities != null:
+		for i in BioAbilityRunner.SLOTS:
+			var f := _abilities.cooldown_fraction(i)
+			_ab_shades[i].size.y = CELL_SIZE.y * f
+			_ab_shades[i].position.y = CELL_SIZE.y - _ab_shades[i].size.y
 	var now := BioClock.now()
 	for i in ABILITIES.size():
 		var def := _player.actor.attack_def(ABILITIES[i])

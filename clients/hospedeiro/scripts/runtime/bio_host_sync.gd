@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -28,6 +28,7 @@ var _residents := {}  # entity id -> BioResident
 var _signs := {}  # sign id -> BioSignMarker
 var _names := {}  # entity id -> display name
 var _last_seq := -1
+var _announce_abilities := false  # the first view is history, not news
 
 ## Behaviour the engine reads to shape the body. It is reported in batches, in the background:
 ## one confirmation per kind per interval, so combat never waits on the network.
@@ -171,6 +172,7 @@ func apply_view(view: Dictionary) -> void:
 	_apply_residents(view.get("others", []))
 	_apply_signs(view.get("signs", []))
 	_apply_beliefs(view.get("beliefs", []))
+	_apply_skills(view.get("skills", []))
 	_apply_events(view.get("events", []))
 	if view.has("lineage") and view["lineage"] is Dictionary:
 		_world.apply_engine_lineage(view["lineage"])
@@ -178,6 +180,17 @@ func apply_view(view: Dictionary) -> void:
 		_world.apply_engine_evolution(view["evolution"])
 	if view.has("look") and view["look"] is Dictionary:
 		_world.apply_engine_look(view["look"])
+
+
+## Class abilities the engine says the player knows go into the ability slots; a new one is announced by how it came.
+func _apply_skills(skills: Array) -> void:
+	for s in skills:
+		if str(s.get("class", "")).is_empty():
+			continue
+		var id := BioAbilityCatalog.normalise(str(s.get("id", "")))
+		if _world.abilities.learn(id) and _announce_abilities:
+			system.push_feed("Nova habilidade: %s." % BioAbilityCatalog.get_ability(id).get("name", id))
+	_announce_abilities = true
 
 
 func _apply_quests(quests: Array) -> void:

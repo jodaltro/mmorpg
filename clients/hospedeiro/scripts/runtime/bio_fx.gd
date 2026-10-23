@@ -3,6 +3,12 @@ extends RefCounted
 ## Fire-and-forget bioluminescent effects. Nodes are short lived; pooling is a later optimisation.
 
 static var root: Node2D
+static var shake_hook: Callable  # set by the world: camera shake in world units
+
+
+static func shake(magnitude_units: float) -> void:
+	if shake_hook.is_valid():
+		shake_hook.call(magnitude_units)
 
 
 static func burst(pos: Vector2, color: Color, count: int, speed_units: float = 3.0, size_units: float = 0.35, life: float = 0.6) -> void:

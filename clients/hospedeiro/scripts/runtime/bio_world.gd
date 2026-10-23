@@ -20,6 +20,7 @@ const FEVER_SLOWDOWN := 0.55
 @export var identity_path := "user://hospedeiro_player.json"
 
 var player: BioCellActor
+var abilities: BioAbilityRunner
 var hud: BioHud
 var camera: BioCameraFollow
 var genome: BioGenome
@@ -75,11 +76,13 @@ func build() -> void:
 	_add_motes(BioBodyMap.SANGUE, [BioArt.CRIMSON, BioArt.MAGENTA, Color(0.6, 0.05, 0.12)])
 
 	player = BioFactory.spawn_player(self, BioBodyMap.center_px(BioBodyMap.MEDULA))
+	abilities = player.get_node("Abilities") as BioAbilityRunner
 	camera = BioCameraFollow.new()
 	camera.name = "Camera"
 	add_child(camera)
 	camera.set_target(player)
 	camera.make_current()
+	BioFx.shake_hook = camera.shake
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
 		if result.outcome == BioActor.HitOutcome.HIT or result.outcome == BioActor.HitOutcome.KILLED:
 			camera.shake(0.18))
@@ -100,6 +103,7 @@ func build() -> void:
 	hud.name = "Hud"
 	add_child(hud)
 	hud.bind(player.combatant)
+	hud.bind_abilities(abilities)
 	panel = BioMutationPanel.new()
 	panel.name = "MutationPanel"
 	add_child(panel)

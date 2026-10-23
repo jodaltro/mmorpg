@@ -44,6 +44,10 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	controller.name = "Controller"
 	controller.configure(actor, executor)
 	actor.add_child(controller)
+	var abilities := BioAbilityRunner.new()
+	abilities.name = "Abilities"
+	abilities.configure(actor, controller)
+	actor.add_child(abilities)
 	var feedback := BioHitFeedback.new()
 	feedback.configure(actor, body, BioArt.CYAN)
 	actor.add_child(feedback)

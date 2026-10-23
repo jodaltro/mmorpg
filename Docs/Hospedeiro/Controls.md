@@ -30,6 +30,11 @@ go run ./cmd/worldsim serve -universe ../universes/hospedeiro/universe.json -dat
 | Ações do lugar (examinar, contar, farejar, decifrar) | E, depois 1–9 | — |
 | Escolher / recusar mutação | 1, 2, 3 / X | — |
 | Renascer na medula | R | — |
+| Habilidades de classe (4 espaços, na ordem em que você as adquire) | Q, F, C, V | — |
+
+## Habilidades de classe
+
+Cada classe nasce com **1** habilidade; as outras 3 vêm do que você faz: a prova da classe (missão dada por Neva, Dendra ou Rubra), feitos que combinam com ela e o **despertar** que o Jev decide de tempos em tempos olhando como você joga. Elas ocupam Q, F, C e V; quem tem alvo exigido (marcas, Apoptose) não gasta nada sem alvo. Resumo: Macrófago (engolir cura, onda, ácido, muralha), Neutrófilo (rede, investida, NETose, degranulação), Dendrítica (antígeno, chicote, esporos, mapa), Linfócito B (anticorpo Y teleguiado, salva, opsonização, plasmócito), T citotóxico (perforina, golpe lítico, apoptose, sinal de morte), T auxiliar (citocina curativa, canto, chamado, febre).
 
 ## O mundo (H1)
 

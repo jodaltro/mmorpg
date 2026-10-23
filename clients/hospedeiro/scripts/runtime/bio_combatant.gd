@@ -16,6 +16,15 @@ var _max_membrane := 100.0
 var _max_atp := 100.0
 var _atp_regen := 6.0
 
+## Temporary states from abilities. Marks and guards scale the damage taken; haste speeds the cell and feeds ATP.
+var _marked_until := 0.0
+var _marked_mult := 1.0
+var _guard_until := 0.0
+var _guard_mult := 1.0
+var _haste_until := 0.0
+var _haste := 1.0
+var _bonus_atp := 0.0
+
 
 func configure(id: String, team: int, max_membrane: float, max_atp: float, atp_regen: float) -> void:
 	_id = id
@@ -63,10 +72,41 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	actor.vitals.tick(delta)
+	if BioClock.now() < _haste_until and _bonus_atp > 0.0:
+		actor.vitals.add_atp(_bonus_atp * delta)
 
 
-func receive_hit(attacker: BioCombatant, def: BioAttackDef) -> BioHitResult:
-	var result := BioCombatRules.resolve(attacker.actor, actor, def, BioClock.now())
+func mark(mult: float, seconds: float) -> void:
+	_marked_until = BioClock.now() + seconds
+	_marked_mult = mult
+
+
+func is_marked() -> bool:
+	return BioClock.now() < _marked_until
+
+
+func guard(taken_mult: float, seconds: float) -> void:
+	_guard_until = BioClock.now() + seconds
+	_guard_mult = taken_mult
+
+
+func haste(speed_mult: float, seconds: float, atp_per_second: float) -> void:
+	_haste_until = BioClock.now() + seconds
+	_haste = speed_mult
+	_bonus_atp = atp_per_second
+
+
+func speed_mult() -> float:
+	return _haste if BioClock.now() < _haste_until else 1.0
+
+
+func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
+	var now := BioClock.now()
+	var factor := (_marked_mult if now < _marked_until else 1.0) * (_guard_mult if now < _guard_until else 1.0)
+	var def := hit_def
+	if not is_equal_approx(factor, 1.0):
+		def = BioAttackDef.new(hit_def.id, hit_def.atp_cost, hit_def.damage * factor, hit_def.cooldown, hit_def.range_units, hit_def.knockback, hit_def.invulnerable_seconds)
+	var result := BioCombatRules.resolve(attacker.actor, actor, def, now)
 	if result.outcome == BioActor.HitOutcome.IGNORED:
 		return result
 	hit.emit(self, result)

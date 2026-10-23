@@ -12,6 +12,8 @@ static var _defs: Dictionary = {}
 
 
 static func get_def(id: StringName) -> BioAttackDef:
+	if BioAbilityCatalog.has(id):
+		return BioAbilityCatalog.attack_def(id)
 	if _defs.is_empty():
 		_defs[FLAGELLUM_LASH] = BioAttackDef.new(FLAGELLUM_LASH, 8.0, 14.0, 0.45, 1.7, 6.0, 0.0)
 		_defs[TOXIN_SPIT] = BioAttackDef.new(TOXIN_SPIT, 15.0, 10.0, 0.9, 9.0, 3.0, 0.0)

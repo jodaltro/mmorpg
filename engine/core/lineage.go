@@ -241,6 +241,7 @@ func (w *World) differentiate(s *State, origin string, p ID, args map[string]ID,
 	w.count(s, p, actDifferentiate)
 	w.emit(s, Event{Kind: "differentiated", Actor: p, Holder: p, Public: true, Text: s.Entities[p].Name + " se diferencia em " + l.Name + ".", Cause: cause,
 		Data: map[string]string{"lineage": l.ID, "tier": strconv.Itoa(l.Tier)}})
+	w.grantStarters(s, p, l.ID, cause)
 	w.discover(s, p, cause)
 	return nil
 }

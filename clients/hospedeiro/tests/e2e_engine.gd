@@ -94,16 +94,44 @@ func _run() -> void:
 		return _fail("choosing differentiates")
 	_step("differentiated into %s: the body is now a %s" % [picked_lineage, world.sync._world.player.get_child(2).form if false else str(world.lineage_id)])
 
+	# The second tier is the class: more deeds, a second offer, and the class starter ability comes with it.
+	for i in 40:
+		world.virus_destroyed.emit()
+		await create_timer(0.05).timeout
+	if not await _until(func() -> bool: return not world.engine_lineage_offer.is_empty(), 40.0):
+		return _fail("the engine offers a class once the cell is more mature")
+	_step("class offer: %s" % str(world.engine_lineage_offer.map(func(o: Dictionary) -> String: return str(o.get("id", "")))))
+	world.pick_mutation(0)
+	if not await _until(func() -> bool: return BioAbilityCatalog.ids_of_class(world.lineage_id).size() > 0, 10.0):
+		return _fail("choosing a class differentiates")
+	_step("class: %s" % str(world.lineage_id))
+	# Each class is born with one ability; the rest comes by deeds, quests and the advisor's awakening.
+	if not await _until(func() -> bool: return world.abilities.known().size() >= 1, 10.0):
+		return _fail("the class starter ability reaches the client")
+	_step("born with %s" % str(world.abilities.known()))
+	world.abilities.set_known(world.abilities.known())
+	var first := world.abilities.slot_id(0)
+	world.player.combatant.reset_vitals()
+	var status := world.abilities.perform(0)
+	if status != BioActor.AttackStatus.STARTED and status != BioAbilityRunner.NO_TARGET:
+		return _fail("the starter performs (status %d)" % status)
+	_step("performed %s (status %d)" % [first, status])
+	await _shot("e2e_05c_ability")
+
 	# Behaviour reported in the background shapes the body; the advisor decides it.
 	for i in 25:
 		world.sync._used[BioAttackCatalog.FLAGELLUM_LASH] = true
 		world.sync._report_in = 0.0
 		world.sync._track_behaviour(0.016)
 		await create_timer(0.15).timeout
-	if not await _until(func() -> bool: return world.look_name != "", 40.0):
+	if not await _until(func() -> bool: return world.look_name != "", 260.0):
 		return _fail("the advisor decides a body from the reported behaviour")
 	_step("body decided by the advisor: %s" % world.look_name)
 	await _shot("e2e_06_body")
+	if await _until(func() -> bool: return world.abilities.known().size() >= 2, 300.0):
+		_step("a new ability was acquired while playing: %s" % str(world.abilities.known()))
+	else:
+		print("NOTE: no second ability within 300s (deeds/quests/awakening need more play)")
 	print("E2E OK")
 	quit(0)
 

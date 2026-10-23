@@ -84,3 +84,4 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 
 - `GET /v1/views/{id}` traz `lineage`: `{current, name, tier, offer, featured, maturity, next}`. `offer` lista `{id, name, desc, tier, tags}` com a destacada (`featured`, escolhida pelo Jev ou pelo padrão) primeiro; `next` é a maturidade que abre o próximo nível (0 no último).
 - Verbo do motor (`origin: player`): `act` com `action: "diferenciar"`, `args: {lineage}` (uma linhagem da oferta pendente). Eventos: `lineage-offered` e `differentiated` (público); a resolução aparece como `decision` com `kind: lineage`.
+- `GET /v1/views/{id}` traz em `skills` cada habilidade aprendida com `class` e `tags`; as de classe vão para os espaços Q/F/C/V do cliente. O evento `skill-learned` carrega `how` (`starter`, `quest`, `discovered`, `awakened`); a decisão `ability` (`kind: ability`) é a escolha do Jev.
