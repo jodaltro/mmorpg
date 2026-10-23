@@ -115,3 +115,13 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 `BioHud.press_restart` (duas pressões para confirmar) -> `BioWorld.restart_world` -> `BioEngineLink.reset_world` (`POST /v1/world/reset`, `confirm: new-world`) e zera genoma, classe, habilidades, aparência, vírions e nutrientes. Executado: Godot 54 testes, 0 falhas (2 novos); `tests/e2e_restart.gd` contra o motor com o Jev ligado: tick 369 -> 0, a célula reentrou e voltou sem habilidades nem classe (RESTART OK).
 
+### Habilidades que usam o corpo (22/10/2026)
+
+**O que mudou:** as habilidades e o ataque inicial deixaram de ser efeitos soltos e passaram a ser gestos do corpo. A membrana é **elástica** (`BioCellBody.elastic/swell`: mola com recuo, estica, passa do ponto e assenta, preservando o volume) e **brotam membros** dela (`BioLimb`, cadeia elástica com ponta; `BioLimbs` os gerencia). O estilo do membro é uma função pura (`domain/bio_limb_style.gd`) da **forma** (classe), do **visual procedural** do Jev (ferocidade dá farpas e ponta fina, agilidade alonga e afina, robustez engrossa, metabolismo põe grânulos, sociabilidade ramifica, mistério solta luz) e dos **genes** (agulha lítica, dendritos ramificados, anticorpos em Y...).
+
+**Ataque inicial (chicote):** o recém-nascido projeta um pseudópode rombudo; mieloide, dois lóbulos alternados; macrófago, um braço largo em concha que varre; neutrófilo, a cauda; dendrítica, leque de dendritos finos; linfócito B, filamento com anticorpo Y; T citotóxico, lança rígida; T auxiliar, tentáculo macio com bulbo. O **arco do golpe também muda com a forma** (lança estreita, braço largo): `BioAttackExecutor.half_angle_source`.
+
+**Habilidades:** engolir (braços em concha + corpo que se estica e engole), onda e plasmócito (corpo incha e projeta membros em todas as direções), perforina e golpe lítico (corpo vira lança; o golpe comprime como mola antes de lançar), anticorpos (brotam Y da membrana e saem da ponta, com coice), marcas (membros finos alcançam cada alvo), zonas (um membro estica até o ponto), muralha (corpo engrossa e membros blindados), canto (tentáculos balançando), chamado (bulbos brotam e viram sentinelas).
+
+**Executado:** Godot 57 testes, 0 falhas (3 novos: o estilo segue a forma, os eixos mudam o membro, o corpo estica e assenta). Capturas com renderizador real: `tests/capture_body.gd` (chicote das 8 formas, sem e com visual feroz/ágil) e `tests/capture_abilities.gd` (as 24 habilidades); ajustei o brilho aditivo que estourava com muitos membros sobrepostos. Não medi desempenho com muitos jogadores nem testei em controle.
+

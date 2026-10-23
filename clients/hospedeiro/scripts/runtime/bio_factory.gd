@@ -27,16 +27,22 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 		body.apply_genome(g)
 		tail.apply_genome(g))
 
+	var limbs := BioLimbs.new()
+	limbs.name = "Limbs"
+	limbs.configure(actor, body)
+	actor.add_child(limbs)
 	var executor := BioAttackExecutor.new()
 	executor.configure(actor.combatant, actor)
 	actor.add_child(executor)
+	executor.half_angle_source = limbs.lash_half_angle
 	executor.performed.connect(func(id: StringName, dir: Vector2) -> void:
 		if id == BioAttackCatalog.FLAGELLUM_LASH:
 			var reach := actor.combatant.actor.attack_def(id).range_units
 			if tail.is_active():
-				tail.lash(dir, reach, BioAttackExecutor.LASH_HALF_ANGLE)
-			else:  # no tail: the body itself lashes out in a shock arc
-				BioFx.arc(actor.global_position, dir, reach, BioAttackExecutor.LASH_HALF_ANGLE, body.core)
+				tail.lash(dir, reach, executor.lash_half_angle)
+				body.elastic(dir, 0.08, 0.15, 0.06)
+			else:  # no tail: the body lashes with whatever limb its form and look grow
+				limbs.lash(dir, reach)
 		elif id == BioAttackCatalog.MEMBRANE_DASH:
 			tail.whip(1.0))
 
@@ -46,7 +52,7 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	actor.add_child(controller)
 	var abilities := BioAbilityRunner.new()
 	abilities.name = "Abilities"
-	abilities.configure(actor, controller)
+	abilities.configure(actor, controller, limbs, body)
 	actor.add_child(abilities)
 	var feedback := BioHitFeedback.new()
 	feedback.configure(actor, body, BioArt.CYAN)

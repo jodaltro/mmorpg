@@ -4,7 +4,11 @@ extends Node
 
 signal performed(attack_id: StringName, direction: Vector2)
 
+## Default arc of the basic lash; the player's body narrows or widens it (a lance, a macrophage's arm).
 const LASH_HALF_ANGLE := 75.0
+
+var lash_half_angle := LASH_HALF_ANGLE
+var half_angle_source: Callable  # optional: asks the body how wide its lash is
 
 var _combatant: BioCombatant
 var _host: BioCellActor
@@ -25,6 +29,8 @@ func perform(id: StringName, aim: Vector2) -> int:
 	var status := _combatant.actor.try_begin_attack(id, BioClock.now())
 	if status != BioActor.AttackStatus.STARTED:
 		return status
+	if id == BioAttackCatalog.FLAGELLUM_LASH and half_angle_source.is_valid():
+		lash_half_angle = half_angle_source.call()
 	var def := _combatant.actor.attack_def(id)
 	var origin := _host.global_position
 	match id:
@@ -60,7 +66,7 @@ func _do_lash(def: BioAttackDef, origin: Vector2, aim: Vector2) -> void:
 		var reach := to.length() - 0.5 * BioArt.UNIT
 		if reach > def.range_units * BioArt.UNIT:
 			continue
-		if rad_to_deg(absf(aim.angle_to(to))) > LASH_HALF_ANGLE:
+		if rad_to_deg(absf(aim.angle_to(to))) > lash_half_angle:
 			continue
 		_try_hit(collider, def, origin, seen)
 

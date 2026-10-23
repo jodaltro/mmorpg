@@ -41,6 +41,17 @@ var _base_core := Color.WHITE
 var _base_edge := Color.WHITE
 var _base_spikes := 0
 
+## Elastic motion: a spring along a direction (negative = squashed back, positive = stretched out), a
+## breathing spring for swelling, and a short queue of timed kicks (wind-up, then snap).
+var _stretch := 0.0
+var _stretch_v := 0.0
+var _stretch_dir := Vector2.RIGHT
+var _swell := 1.0
+var _swell_v := 0.0
+var _swell_target := 1.0
+var _swell_until := 0.0
+var _kicks: Array = []  # [seconds left, velocity]
+
 
 func configure(radius: float, core_color: Color, edge_color: Color, spike_count: int, spike_len: float, spin_speed: float, z: int) -> void:
 	radius_units = radius
@@ -131,6 +142,34 @@ func _ease_look(delta: float) -> void:
 		tail.set_look(1.0 + 0.5 * a, 1.0 + 0.25 * f)
 
 
+## A stretchy gesture towards `dir`: the body first pulls back (`windup`, a fraction of the radius) and, after
+## `windup_time`, snaps out by `amount`, overshoots and settles like rubber.
+func elastic(dir: Vector2, windup: float, amount: float, windup_time: float = 0.1) -> void:
+	_stretch_dir = dir.normalized() if dir.length() > 0.01 else _stretch_dir
+	_stretch_v -= windup * 15.0
+	_kicks.append([windup_time, amount * 15.0])
+
+
+## The whole body swells (or shrinks) to `factor` for `seconds` and springs back.
+func swell(factor: float, seconds: float) -> void:
+	_swell_target = factor
+	_swell_until = BioClock.now() + seconds
+
+
+func _step_elastic(delta: float) -> void:
+	for kick in _kicks:
+		kick[0] = float(kick[0]) - delta
+		if float(kick[0]) <= 0.0:
+			_stretch_v += float(kick[1])
+	_kicks = _kicks.filter(func(k: Array) -> bool: return float(k[0]) > 0.0)
+	_stretch_v += (-220.0 * _stretch - 14.0 * _stretch_v) * delta
+	_stretch = clampf(_stretch + _stretch_v * delta, -0.55, 1.4)
+	if _swell_target != 1.0 and BioClock.now() >= _swell_until:
+		_swell_target = 1.0
+	_swell_v += (-150.0 * (_swell - _swell_target) - 13.0 * _swell_v) * delta
+	_swell = clampf(_swell + _swell_v * delta, 0.5, 1.8)
+
+
 func flash() -> void:
 	_flash = 1.0
 
@@ -149,6 +188,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_flash = move_toward(_flash, 0.0, delta * 6.0)
 	_ease_look(delta)
+	_step_elastic(delta)
 	var host := get_parent() as CharacterBody2D
 	var v := host.velocity if host != null else Vector2.ZERO
 	_smooth_velocity = _smooth_velocity.lerp(v, 1.0 - exp(-8.0 * delta))
@@ -173,7 +213,14 @@ func _process(delta: float) -> void:
 			lobe = _lobe_amp_now * pow(maxf(0.0, cos((a - t * 0.25) * _lobes)), 2.0)
 		var along := n.dot(dir)
 		var squash := 1.0 + stretch * along * along - stretch * 0.5 * (1.0 - along * along)
-		_rim[i] = n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now
+		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell
+		if absf(_stretch) > 0.002:  # volume-preserving rubber stretch, with the leading side bulging further
+			var along_p := p.dot(_stretch_dir)
+			var side := p - _stretch_dir * along_p
+			var s := maxf(_stretch, -0.55)
+			p = _stretch_dir * along_p * (1.0 + s) + side / sqrt(1.0 + s)
+			p += _stretch_dir * maxf(0.0, along_p) * s * 0.6
+		_rim[i] = p
 	_neck = PackedVector2Array()
 	_outline = _build_outline() if tail != null and tail_on else PackedVector2Array()
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)

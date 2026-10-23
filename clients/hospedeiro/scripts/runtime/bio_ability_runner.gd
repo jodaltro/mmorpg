@@ -3,6 +3,10 @@ extends Node
 ## The player's class abilities. The engine decides which ones are known (starter, quest, discovery, awakening);
 ## this node holds them in four slots (Q F C V) and performs them. Cost and cooldown go through the domain actor
 ## like any attack; a target-seeking ability that finds no target costs nothing.
+##
+## Every ability is something THIS body does: the membrane stretches and recoils like rubber (BioCellBody.elastic and
+## swell) and limbs grow out of it (BioLimbs, shaped by form, look and genes). Damage and states are still decided
+## by the domain rules, never by the drawing.
 
 signal learned(id: StringName)
 signal performed(id: StringName)
@@ -14,13 +18,16 @@ const UNKNOWN := 11
 var slots: Array[StringName] = []
 
 var _host: BioCellActor
-var _aim := Vector2.RIGHT
 var _aim_source: BioCellController
+var _limbs: BioLimbs
+var _body: BioCellBody
 
 
-func configure(host: BioCellActor, controller: BioCellController) -> void:
+func configure(host: BioCellActor, controller: BioCellController, limbs: BioLimbs, body: BioCellBody) -> void:
 	_host = host
 	_aim_source = controller
+	_limbs = limbs
+	_body = body
 
 
 func known() -> Array[StringName]:
@@ -103,52 +110,46 @@ func perform_id(id: StringName) -> int:
 	var color: Color = a["color"]
 	match kind:
 		"devour":
-			_cone(def, a, origin, aim, color, true)
+			_devour(def, a, aim, color)
 		"cone":
-			_cone(def, a, origin, aim, color, false)
+			_whips(def, a, aim, color)
 		"pierce":
-			_pierce(def, a, origin, aim, color)
+			_lance(def, a, aim, color)
 		"nova":
-			_nova(id, def, a, color)
+			_nova(def, a, color)
 		"dash_strike":
 			_dash_strike(def, a, origin, aim, color)
 		"bolt":
-			BioAbilityBolt.spawn(_host.get_parent(), me, def, origin + aim * 0.7 * BioArt.UNIT, aim, float(a["speed"]), float(a["range"]), color, bool(a.get("homing", false)))
+			_shoot_bolts(def, a, aim, color, 1)
 		"volley":
-			var n := int(a["count"])
-			var spread := deg_to_rad(float(a["spread"]))
-			for i in n:
-				var ang := lerpf(-spread * 0.5, spread * 0.5, i / float(maxi(n - 1, 1)))
-				BioAbilityBolt.spawn(_host.get_parent(), me, def, origin + aim * 0.7 * BioArt.UNIT, aim.rotated(ang), float(a["speed"]), float(a["range"]), color, false)
+			_shoot_bolts(def, a, aim, color, int(a["count"]))
 		"mark":
-			_mark(target, a, color)
+			_reach_and_mark([target], a, color)
 		"mark_all":
-			for e in BioTargeting.enemies(_host.get_world_2d(), origin, float(a["radius"]) * BioArt.UNIT, me.actor.team):
-				_mark(e, a, color)
+			var seen := BioTargeting.enemies(_host.get_world_2d(), origin, float(a["radius"]) * BioArt.UNIT, me.actor.team)
+			_reach_and_mark(seen.slice(0, 6), a, color)
 			BioFx.ring(origin, float(a["radius"]), color)
 			BioPfx.ring_burst(BioFx.root, origin, color, float(a["radius"]) * BioArt.UNIT * 0.8, 70, 1.0, 9.0)
 		"execute":
 			_execute(target, def, a, color)
 		"zone":
-			var spot := origin + aim * float(a["reach"]) * BioArt.UNIT
-			BioAbilityZone.spawn(_host.get_parent(), _host, id, spot, a)
+			_zone(id, a, origin, aim, color)
 		"heal":
-			a = a.duplicate()
-			a["style"] = "heal"
-			a["radius"] = 1.4
-			a["duration"] = float(a["seconds"])
-			a["follow"] = true
-			BioAbilityZone.spawn(_host.get_parent(), _host, id, origin, a)
+			_heal(id, a, origin, color)
 		"aura":
 			_aura(id, a, color)
 		"summon":
-			a = a.duplicate()
-			a["style"] = "sentinels"
-			a["radius"] = 2.0
-			a["follow"] = true
-			BioAbilityZone.spawn(_host.get_parent(), _host, id, origin, a)
+			_summon(id, a, color)
 	performed.emit(id)
 	return status
+
+
+func _wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
+
+
+func _alive() -> bool:
+	return is_instance_valid(_host) and _host.combatant.actor.vitals.is_alive()
 
 
 func _hit(target: BioCellActor, def: BioAttackDef, from: Vector2, color: Color) -> BioHitResult:
@@ -162,10 +163,41 @@ func _hit(target: BioCellActor, def: BioAttackDef, from: Vector2, color: Color) 
 	return result
 
 
+## Macrophage: three broad scooping arms close in front of the body, which stretches into the bite and swells as it swallows.
+func _devour(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color) -> void:
+	var reach := float(a["range"])
+	_limbs.fan(aim, 3, float(a["half"]) * 1.3, reach + 0.4, 0.1, 0.24, {"tint": color, "sweep": 0.0, "style": {"tip": &"cup", "base": 26.0, "tip_w": 28.0, "stiffness": 0.35}})
+	_body.elastic(aim, 0.3, 0.55, 0.1)
+	await _wait(0.1)
+	if not _alive():
+		return
+	_cone(def, a, _host.global_position, aim, color, true)
+	_body.swell(1.18, 0.3)
+
+
+## Dendritic cell: a fan of fine branching whips.
+func _whips(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color) -> void:
+	var count := maxi(5, int(_limbs.style()["count"]) + 2)
+	_limbs.fan(aim, count, float(a["half"]) * 2.0, float(a["range"]) + 0.35, 0.1, 0.16, {"tint": color, "sweep": 25.0, "style": {"tip": &"fork", "base": 8.0, "tip_w": 4.0, "stiffness": 0.2, "wave": 0.7}})
+	_body.elastic(aim, 0.15, 0.3, 0.08)
+	await _wait(0.08)
+	if _alive():
+		_cone(def, a, _host.global_position, aim, color, false)
+
+
+## Cytotoxic T cell: the body thrusts a rigid lance.
+func _lance(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color) -> void:
+	_limbs.reach(aim, float(a["range"]) + 0.5, 0.07, 0.14, {"tint": color, "sweep": 0.0, "style": {"tip": &"spear", "stiffness": 0.97, "wave": 0.02, "base": 14.0, "tip_w": 2.0, "barbs": 3}})
+	_body.elastic(aim, 0.3, 0.6, 0.06)
+	_host.apply_impulse(aim * 2.5)
+	await _wait(0.07)
+	if _alive():
+		_pierce(def, a, _host.global_position, aim, color)
+
+
 func _cone(def: BioAttackDef, a: Dictionary, origin: Vector2, aim: Vector2, color: Color, devour: bool) -> void:
 	var half := float(a["half"])
 	var reach := float(a["range"])
-	BioFx.arc(origin, aim, reach, half, color)
 	BioPfx.burst(BioFx.root, origin + aim * reach * 0.5 * BioArt.UNIT, color, 26, 260.0, 0.45, 12.0, aim, half)
 	var inside := BioTargeting.in_cone(BioTargeting.enemies(_host.get_world_2d(), origin, (reach + 0.6) * BioArt.UNIT, _host.combatant.actor.team), origin, aim, reach * BioArt.UNIT, half)
 	for e in inside:
@@ -220,15 +252,18 @@ func _beam(from: Vector2, to: Vector2, color: Color, width_px: float) -> void:
 	tween.chain().tween_callback(soft.queue_free)
 
 
-func _nova(id: StringName, def: BioAttackDef, a: Dictionary, color: Color) -> void:
-	var charge := float(a.get("charge", 0.0))
+## The body swells with the charge, then spines of its own limbs burst out in every direction.
+func _nova(def: BioAttackDef, a: Dictionary, color: Color) -> void:
+	var charge := maxf(float(a.get("charge", 0.0)), 0.14)
 	var radius := float(a["radius"])
-	if charge > 0.0:
-		BioPfx.ring_burst(BioFx.root, _host.global_position, color, radius * BioArt.UNIT, 60, charge, 12.0, true)
-		await get_tree().create_timer(charge).timeout
-		if not is_instance_valid(_host) or not _host.combatant.actor.vitals.is_alive():
-			return
+	_body.swell(1.35, charge + 0.1)
+	BioPfx.ring_burst(BioFx.root, _host.global_position, color, radius * BioArt.UNIT, 60, charge, 12.0, true)
+	await _wait(charge)
+	if not _alive():
+		return
 	var origin := _host.global_position
+	_limbs.radial(clampi(int(radius * 3.0), 8, 14), radius, 0.09, 0.16, {"tint": color, "sweep": 0.0})
+	_body.swell(0.82, 0.12)
 	BioFx.ring(origin, radius, color)
 	BioFx.ring(origin, radius * 0.65, Color.WHITE)
 	BioPfx.ring_burst(BioFx.root, origin, color, radius * BioArt.UNIT * 0.4, 64, 0.7, 14.0)
@@ -238,8 +273,15 @@ func _nova(id: StringName, def: BioAttackDef, a: Dictionary, color: Color) -> vo
 	BioFx.shake(0.2)
 
 
+## Compresses like a spring, then launches stretched into a lance and rebounds.
 func _dash_strike(def: BioAttackDef, a: Dictionary, origin: Vector2, aim: Vector2, color: Color) -> void:
+	_body.elastic(aim, 0.45, 1.0, 0.13)
+	_host.apply_impulse(-aim * 3.0)
+	await _wait(0.13)
+	if not _alive():
+		return
 	_host.dash(aim, float(a["distance"]), 0.2)
+	_limbs.reach(aim, 1.7, 0.08, 0.3, {"tint": color, "sweep": 0.0, "style": {"tip": &"spear", "stiffness": 0.9, "wave": 0.05}})
 	BioPfx.trail(_host, color, 16.0, 40)
 	BioFx.ring(origin, 0.6, color)
 	var seen := {}
@@ -249,8 +291,49 @@ func _dash_strike(def: BioAttackDef, a: Dictionary, origin: Vector2, aim: Vector
 			if not seen.has(e):
 				seen[e] = true
 				_hit(e, def, _host.global_position - aim * BioArt.UNIT, color)
+				_body.elastic(-aim, 0.0, 0.35, 0.0)  # the impact squashes the body back
 				BioFx.shake(0.12)
 		await get_tree().physics_frame
+
+
+## Antibodies bud off the membrane: a Y grows out, then is fired from its tip while the body recoils.
+func _shoot_bolts(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color, count: int) -> void:
+	var style := {"tip": &"y", "stiffness": 0.7, "base": 8.0, "tip_w": 6.0, "wave": 0.1}
+	var buds: Array[BioLimb] = []
+	if count == 1:
+		var bud := _limbs.reach(aim, 1.2, 0.08, 0.16, {"tint": color, "sweep": 0.0, "style": style})
+		if bud != null:
+			buds.append(bud)
+	else:
+		buds.append_array(_limbs.fan(aim, count, float(a["spread"]) * 1.2, 1.35, 0.1, 0.2, {"tint": color, "sweep": 0.0, "style": style}))
+	_body.elastic(aim, 0.12, 0.3, 0.06)
+	await _wait(0.1)
+	if not _alive():
+		return
+	_host.apply_impulse(-aim * 1.6)
+	_body.elastic(aim, 0.4, 0.0, 0.0)
+	var homing := bool(a.get("homing", false))
+	for i in count:
+		var dir := aim
+		var from := _host.global_position + aim * 0.7 * BioArt.UNIT
+		if i < buds.size() and is_instance_valid(buds[i]):
+			from = buds[i].tip_global()
+			dir = (from - _host.global_position).normalized()
+		BioAbilityBolt.spawn(_host.get_parent(), _host.combatant, def, from, dir, float(a["speed"]), float(a["range"]), color, homing)
+
+
+## Fine limbs reach out to each target and tag it, the tag landing when the tip touches.
+func _reach_and_mark(targets: Array, a: Dictionary, color: Color) -> void:
+	var length := float(a.get("range", a.get("radius", 8.0))) + 0.5
+	for t in targets:
+		if is_instance_valid(t):
+			_limbs.reach_node(t as Node2D, length, 0.14, 0.3, {"tint": color, "style": {"tip": &"fork", "base": 7.0, "tip_w": 4.0, "stiffness": 0.25}})
+	if not targets.is_empty() and is_instance_valid(targets[0]):
+		_body.elastic(targets[0].global_position - _host.global_position, 0.1, 0.25, 0.08)
+	await _wait(0.16)
+	for t in targets:
+		if is_instance_valid(t):
+			_mark(t as BioCellActor, a, color)
 
 
 func _mark(target: BioCellActor, a: Dictionary, color: Color) -> void:
@@ -264,21 +347,73 @@ func _mark(target: BioCellActor, a: Dictionary, color: Color) -> void:
 func _execute(target: BioCellActor, def: BioAttackDef, a: Dictionary, color: Color) -> void:
 	var v := target.combatant.actor.vitals
 	var kill := BioAttackDef.new(def.id, def.atp_cost, maxf(def.damage, v.membrane + 1.0), def.cooldown, def.range_units, 0.0, 0.0)
+	_limbs.reach_node(target, float(a["range"]) + 0.5, 0.16, 0.3, {"tint": color, "style": {"tip": &"spear", "stiffness": 0.95, "wave": 0.03}})
+	_body.elastic(target.global_position - _host.global_position, 0.2, 0.5, 0.1)
 	BioPfx.ring_burst(BioFx.root, target.global_position, color, 80.0, 40, 0.4, 11.0, true)
-	await get_tree().create_timer(0.28).timeout
+	await _wait(0.3)
 	if is_instance_valid(target) and target.combatant.actor.vitals.is_alive():
 		_hit(target, kill, _host.global_position, color)
 		BioFx.ring(target.global_position, 1.2, color)
 		BioFx.shake(0.16)
 
 
+## Zones: a limb stretches to the spot (or the body bursts in place), and the effect appears at its tip.
+func _zone(id: StringName, a: Dictionary, origin: Vector2, aim: Vector2, color: Color) -> void:
+	var reach := float(a["reach"])
+	var style := str(a.get("style", ""))
+	var spot := origin + aim * reach * BioArt.UNIT
+	if reach > 0.0:
+		if style == "net":
+			_limbs.fan(aim, 5, 60.0, reach + 0.2, 0.14, 0.4, {"tint": color, "sweep": 0.0, "style": {"tip": &"fork", "base": 6.0, "tip_w": 3.0, "stiffness": 0.2, "wave": 0.5}})
+		else:
+			_limbs.reach(aim, reach + 0.2, 0.14, 0.4, {"tint": color, "sweep": 0.0, "style": {"tip": &"blob", "base": 17.0, "tip_w": 20.0}})
+		_body.elastic(aim, 0.25, 0.5, 0.08)
+		await _wait(0.14)
+	else:  # centred on the body: it swells, bristles with short bumpy limbs, and releases
+		_body.swell(1.28, 0.22)
+		_limbs.radial(8, float(a.get("radius", 2.0)) * 0.55, 0.12, 0.3, {"tint": color, "sweep": 0.0, "style": {"tip": &"blob", "bumps": 3, "base": 14.0, "tip_w": 12.0}})
+		await _wait(0.12)
+	if _alive():
+		BioAbilityZone.spawn(_host.get_parent(), _host, id, spot if reach > 0.0 else _host.global_position, a)
+
+
+func _heal(id: StringName, a: Dictionary, origin: Vector2, color: Color) -> void:
+	_limbs.radial(5, 1.4, 0.16, float(a["seconds"]) * 0.5, {"tint": color, "sweep": 0.0, "style": {"tip": &"bulb", "wave": 0.9, "stiffness": 0.1, "motes": true}})
+	_body.swell(1.12, 0.5)
+	var params := a.duplicate()
+	params["style"] = "heal"
+	params["radius"] = 1.4
+	params["duration"] = float(a["seconds"])
+	params["follow"] = true
+	BioAbilityZone.spawn(_host.get_parent(), _host, id, origin, params)
+
+
+## Shield: the body thickens and armoured limbs ring it. Song: soft tendrils sway in rhythm.
 func _aura(id: StringName, a: Dictionary, color: Color) -> void:
 	var style := str(a.get("style", "shield"))
 	var duration := float(a["duration"])
 	var me := _host.combatant
 	if style == "shield":
 		me.guard(float(a["taken"]), duration)
+		_body.swell(1.22, duration)
+		_limbs.radial(8, 1.25, 0.12, duration * 0.85, {"tint": color, "sweep": 0.0, "style": {"tip": &"blob", "base": 22.0, "tip_w": 20.0, "stiffness": 0.85, "wave": 0.04, "barbs": 2}})
 	elif style == "song":
 		me.haste(float(a["speed"]), duration, float(a.get("regen_atp", 0.0)))
+		_limbs.radial(5, 1.9, 0.2, duration * 0.8, {"tint": color, "sweep": 0.0, "style": {"tip": &"bulb", "wave": 1.0, "stiffness": 0.08, "motes": true}})
+		_body.elastic(Vector2.UP, 0.0, 0.2, 0.0)
 	var params := {"style": style, "color": color, "radius": 1.4 if style == "shield" else 3.2, "duration": duration, "follow": true}
+	BioAbilityZone.spawn(_host.get_parent(), _host, id, _host.global_position, params)
+
+
+## Sentinels bud off the body: bulbs grow out, then orbit as separate lights.
+func _summon(id: StringName, a: Dictionary, color: Color) -> void:
+	_limbs.radial(int(a["count"]), 1.7, 0.14, 0.35, {"tint": color, "sweep": 0.0, "style": {"tip": &"bulb", "stiffness": 0.3}})
+	_body.swell(1.12, 0.3)
+	await _wait(0.3)
+	if not _alive():
+		return
+	var params := a.duplicate()
+	params["style"] = "sentinels"
+	params["radius"] = 2.0
+	params["follow"] = true
 	BioAbilityZone.spawn(_host.get_parent(), _host, id, _host.global_position, params)

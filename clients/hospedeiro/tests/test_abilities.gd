@@ -61,6 +61,7 @@ func test_devour_damages_and_heals_and_charges_atp() -> void:
 	var before := virus.combatant.actor.vitals.membrane
 	(world.player.get_node("Controller") as BioCellController).set_aim(Vector2.RIGHT)
 	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "performed")
+	await tree.create_timer(0.3).timeout  # the body stretches first, the bite lands with it
 	assert_true(virus.combatant.actor.vitals.membrane < before, "damaged")
 	assert_true(world.player.combatant.actor.vitals.membrane > 50.0, "healed by devouring")
 	assert_true(world.player.combatant.actor.vitals.atp < atp, "paid ATP")
@@ -76,6 +77,7 @@ func test_mark_without_target_costs_nothing_and_with_target_amplifies_damage() -
 	var virus := _idle_virus(Vector2(3.0, 0.0) * BioArt.UNIT)
 	await tree.physics_frame
 	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "marked")
+	await tree.create_timer(0.35).timeout  # the limb has to reach the target first
 	assert_true(virus.combatant.is_marked(), "is marked")
 	var lash := BioAttackCatalog.get_def(BioAttackCatalog.FLAGELLUM_LASH)
 	var before := virus.combatant.actor.vitals.membrane
@@ -147,3 +149,43 @@ func test_restart_button_needs_a_second_press_to_confirm() -> void:
 	assert_eq(fired[0], 0, "first press only arms")
 	world.hud.press_restart()
 	assert_eq(fired[0], 1, "second press confirms")
+
+
+func test_basic_lash_grows_a_limb_that_follows_the_form() -> void:
+	await _clear_viruses()
+	var limbs := world.player.get_node("Limbs") as BioLimbs
+	var ball := limbs.style()
+	assert_eq(ball["tip"], &"blob", "a newborn ball reaches with a blunt pseudopod")
+	var body := limbs.body()
+	body.form = &"t_citotoxico"
+	assert_eq(limbs.style()["tip"], &"spear", "a killer cell has a lance")
+	assert_true(limbs.lash_half_angle() < 30.0, "a lance is narrow")
+	body.form = &"macrofago"
+	assert_eq(limbs.style()["tip"], &"cup", "a macrophage scoops")
+	assert_true(limbs.lash_half_angle() > 70.0, "and sweeps wide")
+	body.form = &"esfera"
+	(world.player.get_node("Controller") as BioCellController).lash()
+	await tree.process_frame
+	assert_true(tree.get_nodes_in_group("limbs").size() >= 1, "the lash grew a limb")
+
+
+func test_look_axes_change_the_limb_procedurally() -> void:
+	var calm := BioLimbStyle.for_body(&"mieloide", {}, [])
+	var fierce := BioLimbStyle.for_body(&"mieloide", {"ferocidade": 100, "agilidade": 100, "robustez": 100}, [])
+	assert_true(fierce["barbs"] > calm["barbs"], "ferocity grows barbs")
+	assert_true(fierce["length"] > calm["length"], "agility lengthens")
+	assert_true(fierce["base"] > calm["base"], "robustness thickens")
+	var social := BioLimbStyle.for_body(&"mieloide", {"sociabilidade": 100}, [])
+	assert_true(social["branches"] > calm["branches"], "sociability branches")
+
+
+func test_body_stretches_like_rubber_and_settles() -> void:
+	var body := world.player.get_node("Limbs").body() as BioCellBody
+	body.elastic(Vector2.RIGHT, 0.2, 0.6, 0.05)
+	var peak := 0.0
+	for i in 40:
+		await tree.process_frame
+		peak = maxf(peak, absf(body._stretch))
+	assert_true(peak > 0.15, "it deformed (%f)" % peak)
+	await tree.create_timer(1.5).timeout
+	assert_true(absf(body._stretch) < 0.02, "and settled back")

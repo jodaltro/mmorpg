@@ -2,7 +2,7 @@ extends SceneTree
 ## Visual check of every class ability (real renderer):
 ## godot --path clients/hospedeiro --script res://tests/capture_abilities.gd -- <output_dir>
 
-const ONLY := [&"engolir", &"anticorpo_y", &"salva_de_anticorpos", &"perforina", &"golpe_litico", &"explosao_de_plasmocito"]
+const ONLY := []
 const SHOTS := [
 	["macrofago", [&"engolir", &"onda_de_pseudopodes", &"lisossomo_acido", &"muralha_de_carne"]],
 	["neutrofilo", [&"rede_de_dna", &"explosao_neutrofilica", &"netose", &"degranulacao"]],
@@ -35,6 +35,9 @@ func _run() -> void:
 		for id in entry[1]:
 			if not ONLY.is_empty() and not ONLY.has(id):
 				continue
+			world.genome.lineage = StringName(entry[0])
+			world.player.combatant.set_genome(world.genome)
+			await create_timer(1.0).timeout
 			world.abilities.slots.clear()
 			world.abilities.learn(id)
 			world.player.combatant.reset_vitals()
@@ -48,7 +51,7 @@ func _run() -> void:
 			var status := world.abilities.perform(0)
 			print(id, " status ", status)
 			for i in 3:
-				await create_timer(0.14 if i < 2 else 0.5).timeout
+				await create_timer(0.1 if i < 2 else 0.45).timeout
 				_shot(out_dir, "%s_%d" % [id, i])
 			await create_timer(1.5).timeout
 			for v in victims:
