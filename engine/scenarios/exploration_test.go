@@ -274,3 +274,68 @@ func TestHospedeiroRotaDefaultsAtDeadlineAndReplays(t *testing.T) {
 		t.Fatal("replay digest differs")
 	}
 }
+
+// E2 part 3: diapedesis is a key of its own. The aorta's wall is crossed by the macrophage and the neutrophil because of what they are,
+// or by any cell with the elastic cytoskeleton; an undifferentiated cell without the gene stays out.
+func TestHospedeiroDiapedesisOpensTheAorta(t *testing.T) {
+	toHeart := func(h *harness, p core.ID) {
+		h.move(p, "sangue")
+		h.move(p, "coracao")
+	}
+	h := load(t, "hospedeiro")
+	h.join("p0")
+	toHeart(h, "p0")
+	if _, err := h.try(core.Command{Kind: "move", Origin: "adapter", Actor: "p0", Region: "aorta"}); !isRejected(err) {
+		t.Fatalf("a plain cell cannot cross the aorta's wall, got %v", err)
+	}
+	for class, progenitor := range map[string]string{"macrofago": "mieloide", "neutrofilo": "mieloide", "dendritica": "mieloide"} {
+		h := load(t, "hospedeiro")
+		h.join("p1")
+		h.becomeClass("p1", progenitor, class)
+		toHeart(h, "p1")
+		_, err := h.try(core.Command{Kind: "move", Origin: "adapter", Actor: "p1", Region: "aorta"})
+		if open := err == nil; open != (class != "dendritica") {
+			t.Fatalf("%s: aorta open = %v, err %v", class, open, err)
+		}
+	}
+	h.move("p0", "sangue")
+	findNiche(h, "p0", "bolsa-da-venula")
+	toHeart(h, "p0")
+	h.move("p0", "aorta")
+	if h.s.Entities["p0"].Region != "aorta" {
+		t.Fatal("the elastic cytoskeleton also opens the aorta")
+	}
+}
+
+// E2 part 3: the route turns into a quest. While the advisor points the player to a niche, the first mentor offers the trail; finding
+// the niche completes it and pays pressure.
+func TestHospedeiroRouteQuestCompletesWhenTheNicheIsFound(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil) // the first deed unlocks offers
+	h.move("p1", "sangue")
+	var d core.Decision
+	for i := 0; i < 30 && d.ID == ""; i++ {
+		h.tick(1)
+		for _, x := range h.s.Decisions {
+			if x.Kind == "rota" {
+				d = x
+			}
+		}
+	}
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "bolsa-da-venula", Provider: "test"})
+	q := h.steer("p1", "rastro-bolsa-da-venula")
+	if q.Giver != "estroma" {
+		t.Fatalf("Osteia offers the trail, got %q", q.Giver)
+	}
+	h.accept("p1", q)
+	before := h.s.Entities["p1"].Num["pressao"]
+	findNiche(h, "p1", "bolsa-da-venula")
+	h.tick(2)
+	if got, _ := h.quest("p1", "rastro-bolsa-da-venula"); got.State != "done" {
+		t.Fatalf("finding the niche should complete the trail, state %q", got.State)
+	}
+	if h.s.Entities["p1"].Num["pressao"] <= before {
+		t.Fatal("the trail should pay evolutionary pressure")
+	}
+}

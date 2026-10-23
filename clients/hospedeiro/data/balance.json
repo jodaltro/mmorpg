@@ -1,0 +1,630 @@
+{
+  "abilities": {
+    "anticorpo_y": {
+      "cooldown": 1.0,
+      "damage": 23.5
+    },
+    "apoptose": {
+      "cooldown": 6.0,
+      "cost": 18.0,
+      "damage": 28.0
+    },
+    "apresentar_antigeno": {
+      "mult": 1.42
+    },
+    "canto_de_citocinas": {
+      "regen_atp": 7.0,
+      "speed": 1.28
+    },
+    "chamado_a_linfa": {
+      "tick": 4.0
+    },
+    "chuva_de_esporos": {
+      "cooldown": 7.5,
+      "cost": 14.5,
+      "regen_atp": 9.5,
+      "regen_membrane": 3.5
+    },
+    "citocina_curativa": {
+      "amount": 39.5
+    },
+    "degranulacao": {
+      "tick": 8.0
+    },
+    "dendritos_em_chicote": {
+      "damage": 22.5
+    },
+    "engolir": {
+      "damage": 16.5,
+      "heal": 0.53
+    },
+    "explosao_de_plasmocito": {
+      "damage": 37.5
+    },
+    "explosao_neutrofilica": {
+      "damage": 34.0
+    },
+    "febre_dirigida": {
+      "cooldown": 17.5,
+      "cost": 29.0,
+      "tick": 3.5
+    },
+    "golpe_litico": {
+      "damage": 33.0
+    },
+    "lisossomo_acido": {
+      "tick": 5.5
+    },
+    "mapa_quimico": {
+      "mult": 1.39
+    },
+    "muralha_de_carne": {
+      "cooldown": 8.5,
+      "cost": 20.5,
+      "duration": 8.0,
+      "taken": 0.2
+    },
+    "netose": {
+      "burst": 41.5
+    },
+    "onda_de_pseudopodes": {
+      "damage": 34.0
+    },
+    "opsonizacao": {
+      "mult": 1.35
+    },
+    "perforina": {
+      "cooldown": 2.0,
+      "damage": 11.5
+    },
+    "rede_de_dna": {
+      "cooldown": 4.5,
+      "cost": 12.5,
+      "tick": 3.5
+    },
+    "salva_de_anticorpos": {
+      "cooldown": 3.5,
+      "cost": 18.0,
+      "damage": 16.5
+    },
+    "sinal_de_morte": {
+      "mult": 1.76
+    }
+  },
+  "genes": {
+    "afinidade_aumentada": {
+      "mods": {
+        "ability_cost": 1.05,
+        "max_atp": 0.92
+      },
+      "perks": {
+        "anticorpo_y": {
+          "damage": 1.63,
+          "speed": 1.42
+        }
+      }
+    },
+    "agulha_litica": {
+      "mods": {
+        "lash_damage": 1.22,
+        "lash_range": 1.36,
+        "spit_cost": 1.2
+      },
+      "perks": {
+        "perforina": {
+          "range": 1.15
+        }
+      }
+    },
+    "anticorpos_em_y": {
+      "mods": {
+        "max_membrane": 0.9,
+        "spit_cost": 1.2,
+        "spit_damage": 1.59
+      },
+      "perks": {
+        "anticorpo_y": {
+          "damage": 1.2
+        }
+      }
+    },
+    "apresentacao_cruzada": {
+      "mods": {
+        "ability_power": 1.04,
+        "lash_damage": 0.9
+      },
+      "perks": {
+        "apresentar_antigeno": {
+          "mult": 1.07,
+          "seconds": 1.17
+        }
+      }
+    },
+    "cauda_longa": {
+      "mods": {
+        "lash_damage": 0.9,
+        "lash_range": 1.52
+      },
+      "perks": {}
+    },
+    "cilios_ageis": {
+      "mods": {
+        "max_membrane": 0.9,
+        "speed": 1.15
+      },
+      "perks": {}
+    },
+    "citoesqueleto_elastico": {
+      "mods": {
+        "lash_range": 1.11,
+        "max_membrane": 0.95,
+        "speed": 1.07
+      },
+      "perks": {}
+    },
+    "citoplasma_esponjoso": {
+      "mods": {
+        "ability_cooldown": 1.05,
+        "max_membrane": 1.14,
+        "speed": 0.92
+      },
+      "perks": {
+        "muralha_de_carne": {
+          "duration": 1.28,
+          "taken": 0.83
+        }
+      }
+    },
+    "coro_de_interleucinas": {
+      "mods": {
+        "dash_cooldown": 0.8,
+        "nutrient_yield": 1.33,
+        "spit_damage": 0.9
+      },
+      "perks": {
+        "canto_de_citocinas": {
+          "speed": 1.07
+        }
+      }
+    },
+    "degranulacao_toxica": {
+      "mods": {
+        "ability_cost": 1.1,
+        "max_membrane": 0.88
+      },
+      "perks": {
+        "degranulacao": {
+          "duration": 1.21,
+          "radius": 1.29,
+          "tick": 1.71
+        }
+      }
+    },
+    "dendritos_ramificados": {
+      "mods": {
+        "lash_range": 1.42,
+        "max_membrane": 0.88,
+        "nutrient_yield": 2.01
+      },
+      "perks": {
+        "dendritos_em_chicote": {
+          "half": 1.25
+        }
+      }
+    },
+    "dendritos_sensores": {
+      "mods": {
+        "ability_cooldown": 1.04,
+        "max_membrane": 0.96
+      },
+      "perks": {
+        "dendritos_em_chicote": {
+          "damage": 1.45,
+          "range": 1.75
+        }
+      }
+    },
+    "enzima_voraz": {
+      "mods": {
+        "atp_regen": -1.5,
+        "nutrient_yield": 2.5
+      },
+      "perks": {}
+    },
+    "espinhos_de_quitina": {
+      "mods": {
+        "lash_damage": 1.16,
+        "max_membrane": 1.09,
+        "speed": 0.93
+      },
+      "perks": {}
+    },
+    "esporos_de_antigeno": {
+      "mods": {
+        "atp_regen": 2.0,
+        "speed": 0.9,
+        "spit_damage": 1.13
+      },
+      "perks": {
+        "chuva_de_esporos": {
+          "regen_atp": 1.19
+        }
+      }
+    },
+    "esporulacao_rapida": {
+      "mods": {
+        "atp_regen": 1.0,
+        "speed": 0.95
+      },
+      "perks": {
+        "chuva_de_esporos": {
+          "duration": 1.16,
+          "radius": 1.16,
+          "regen_membrane": 1.4
+        }
+      }
+    },
+    "fagossomo_profundo": {
+      "mods": {
+        "max_atp": 1.21,
+        "speed": 0.95
+      },
+      "perks": {
+        "engolir": {
+          "heal": 2.04,
+          "range": 1.21
+        }
+      }
+    },
+    "fibras_pegajosas": {
+      "mods": {
+        "lash_damage": 0.9,
+        "speed": 1.05
+      },
+      "perks": {
+        "rede_de_dna": {
+          "slow": 1.4,
+          "tick": 1.3
+        }
+      }
+    },
+    "flagelo_calejado": {
+      "mods": {
+        "lash_damage": 1.27,
+        "speed": 0.92
+      },
+      "perks": {}
+    },
+    "flagelo_turbinado": {
+      "mods": {
+        "max_atp": 0.9,
+        "speed": 1.1
+      },
+      "perks": {
+        "explosao_neutrofilica": {
+          "damage": 1.12,
+          "distance": 1.36
+        }
+      }
+    },
+    "granulos_de_perforina": {
+      "mods": {
+        "lash_damage": 1.3,
+        "max_membrane": 0.85,
+        "spit_damage": 1.1
+      },
+      "perks": {
+        "perforina": {
+          "damage": 1.1
+        }
+      }
+    },
+    "granulos_explosivos": {
+      "mods": {
+        "ability_power": 1.06,
+        "max_membrane": 0.9
+      },
+      "perks": {
+        "netose": {
+          "burst": 1.31,
+          "radius": 1.12
+        }
+      }
+    },
+    "granzima_b": {
+      "mods": {
+        "ability_cooldown": 1.02,
+        "speed": 0.99
+      },
+      "perks": {
+        "perforina": {
+          "damage": 1.3,
+          "execute_below": 1.75,
+          "execute_mult": 2.05
+        }
+      }
+    },
+    "halo_de_citocinas": {
+      "mods": {
+        "atp_regen": 2.0,
+        "lash_damage": 0.85,
+        "max_membrane": 1.15
+      },
+      "perks": {
+        "canto_de_citocinas": {
+          "duration": 1.1
+        }
+      }
+    },
+    "hipermutacao_somatica": {
+      "mods": {
+        "ability_cooldown": 1.08,
+        "max_membrane": 0.88
+      },
+      "perks": {
+        "salva_de_anticorpos": {
+          "+count": 2.0,
+          "damage": 1.43,
+          "spread": 1.57
+        }
+      }
+    },
+    "interferon_gama": {
+      "mods": {
+        "lash_damage": 0.9,
+        "max_atp": 0.92
+      },
+      "perks": {
+        "citocina_curativa": {
+          "amount": 1.65
+        }
+      }
+    },
+    "interleucina_2": {
+      "mods": {
+        "ability_cost": 1.08,
+        "speed": 0.93
+      },
+      "perks": {
+        "chamado_a_linfa": {
+          "+count": 2.0,
+          "duration": 1.1,
+          "tick": 1.07
+        }
+      }
+    },
+    "ligacao_multivalente": {
+      "mods": {
+        "speed": 0.95,
+        "spit_damage": 1.04
+      },
+      "perks": {
+        "opsonizacao": {
+          "mult": 1.04,
+          "seconds": 1.17,
+          "slow": 1.13
+        }
+      }
+    },
+    "lisossomos_acidos": {
+      "mods": {
+        "max_atp": 0.9,
+        "nutrient_yield": 1.31,
+        "spit_damage": 1.15
+      },
+      "perks": {
+        "lisossomo_acido": {
+          "tick": 1.15
+        }
+      }
+    },
+    "membrana_espessa": {
+      "mods": {
+        "max_membrane": 1.22,
+        "speed": 0.9
+      },
+      "perks": {}
+    },
+    "memoria_de_longa_vida": {
+      "mods": {
+        "ability_cooldown": 0.85,
+        "max_atp": 1.2,
+        "speed": 0.92
+      },
+      "perks": {
+        "anticorpo_y": {
+          "cooldown": 0.8
+        }
+      }
+    },
+    "miosina_de_contracao": {
+      "mods": {
+        "max_atp": 0.9,
+        "max_membrane": 0.94
+      },
+      "perks": {
+        "golpe_litico": {
+          "cooldown": 0.79,
+          "damage": 1.42,
+          "distance": 1.42
+        }
+      }
+    },
+    "mitocondria_avida": {
+      "mods": {
+        "atp_regen": 3.5,
+        "max_atp": 0.8
+      },
+      "perks": {}
+    },
+    "nucleo_multilobulado": {
+      "mods": {
+        "dash_cooldown": 0.75,
+        "lash_damage": 0.9,
+        "speed": 1.08
+      },
+      "perks": {
+        "explosao_neutrofilica": {
+          "cooldown": 0.88
+        }
+      }
+    },
+    "nucleo_reativo": {
+      "mods": {
+        "dash_cooldown": 0.5,
+        "max_membrane": 0.92
+      },
+      "perks": {}
+    },
+    "peroxissomos": {
+      "mods": {
+        "atp_regen": 1.5,
+        "max_membrane": 1.09,
+        "speed": 0.95
+      },
+      "perks": {}
+    },
+    "pirogenio": {
+      "mods": {
+        "ability_cooldown": 1.05,
+        "max_membrane": 0.92
+      },
+      "perks": {
+        "febre_dirigida": {
+          "duration": 1.25,
+          "radius": 1.19,
+          "tick": 1.37
+        }
+      }
+    },
+    "plasmocito": {
+      "mods": {
+        "atp_regen": 6.5,
+        "speed": 0.75,
+        "spit_damage": 1.38
+      },
+      "perks": {
+        "explosao_de_plasmocito": {
+          "radius": 1.19
+        }
+      }
+    },
+    "pseudopodes_gigantes": {
+      "mods": {
+        "lash_damage": 1.13,
+        "max_membrane": 1.25,
+        "speed": 0.88
+      },
+      "perks": {
+        "onda_de_pseudopodes": {
+          "knockback": 1.13,
+          "radius": 1.09
+        }
+      }
+    },
+    "receptor_de_limpeza": {
+      "mods": {
+        "ability_power": 1.11,
+        "speed": 0.93
+      },
+      "perks": {
+        "onda_de_pseudopodes": {
+          "damage": 1.27,
+          "knockback": 1.32
+        }
+      }
+    },
+    "receptor_de_mapa": {
+      "mods": {
+        "max_membrane": 0.92,
+        "speed": 1.07
+      },
+      "perks": {
+        "mapa_quimico": {
+          "radius": 1.39,
+          "seconds": 1.39
+        }
+      }
+    },
+    "receptor_fas": {
+      "mods": {
+        "ability_cost": 1.04,
+        "max_membrane": 0.95
+      },
+      "perks": {
+        "apoptose": {
+          "below": 1.9,
+          "cooldown": 0.55,
+          "damage": 1.6,
+          "range": 1.6
+        }
+      }
+    },
+    "receptores_de_quimiotaxia": {
+      "mods": {
+        "max_atp": 0.92,
+        "nutrient_yield": 1.47,
+        "speed": 1.09
+      },
+      "perks": {}
+    },
+    "rede_de_dna": {
+      "mods": {
+        "lash_range": 1.28,
+        "max_membrane": 0.85,
+        "speed": 1.12
+      },
+      "perks": {
+        "rede_de_dna": {
+          "duration": 1.16,
+          "radius": 1.16
+        }
+      }
+    },
+    "regulador_de_resposta": {
+      "mods": {
+        "lash_damage": 0.88,
+        "speed": 0.96
+      },
+      "perks": {
+        "canto_de_citocinas": {
+          "duration": 1.23,
+          "regen_atp": 1.39,
+          "speed": 1.08
+        }
+      }
+    },
+    "sinapse_imunologica": {
+      "mods": {
+        "ability_cooldown": 1.05,
+        "speed": 0.94
+      },
+      "perks": {
+        "sinal_de_morte": {
+          "mult": 1.09,
+          "range": 1.14,
+          "seconds": 1.28
+        }
+      }
+    },
+    "vacuolo_digestivo": {
+      "mods": {
+        "lash_damage": 0.92,
+        "nutrient_yield": 1.25
+      },
+      "perks": {
+        "lisossomo_acido": {
+          "duration": 1.33,
+          "radius": 1.58
+        }
+      }
+    },
+    "vesicula_toxica": {
+      "mods": {
+        "spit_cost": 1.3,
+        "spit_damage": 1.5
+      },
+      "perks": {}
+    }
+  }
+}

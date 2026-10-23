@@ -2843,6 +2843,419 @@
      "d": 5
     }
    ]
+  },
+  {
+   "id": "rastro-nicho-estroma",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Bolsa do estroma",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Bolsa do estroma e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "nicho-estroma"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:nicho-estroma",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:nicho-estroma",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
+  },
+  {
+   "id": "rastro-bolsa-da-venula",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Bolsa da vênula",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Bolsa da vênula e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "bolsa-da-venula"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:bolsa-da-venula",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:bolsa-da-venula",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
+  },
+  {
+   "id": "rastro-recesso-do-atrio",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Recesso do átrio",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Recesso do átrio e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "recesso-do-atrio"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:recesso-do-atrio",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:recesso-do-atrio",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
+  },
+  {
+   "id": "rastro-gruta-alveolar",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Gruta alveolar",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Gruta alveolar e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "gruta-alveolar"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:gruta-alveolar",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:gruta-alveolar",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
+  },
+  {
+   "id": "rastro-valva-aortica",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Seio da valva aórtica",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Seio da valva aórtica e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "valva-aortica"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:valva-aortica",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:valva-aortica",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
+  },
+  {
+   "id": "rastro-sonho-da-medula",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Câmara do sono",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Câmara do sono e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "sonho-da-medula"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:sonho-da-medula",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:sonho-da-medula",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
+  },
+  {
+   "id": "rastro-calor-do-alveolo",
+   "giver": "estroma",
+   "rank": "F",
+   "title": "Rastro: Alvéolo em brasa",
+   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
+   "objective": "Siga o rastro químico até Alvéolo em brasa e entre.",
+   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
+   "tags": [
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "rota",
+       "v": "calor-do-alveolo"
+      }
+     },
+     {
+      "deeds": {
+       "action": "nicho:calor-do-alveolo",
+       "op": "<",
+       "v": 1
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "nicho:calor-do-alveolo",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 2
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 2
+    }
+   ]
   }
  ],
  "happenings": [
@@ -5539,7 +5952,13 @@
    "id": "aorta_ascendente",
    "from": "coracao",
    "to": "aorta",
-   "name": "Aorta ascendente"
+   "name": "Aorta ascendente",
+   "gene": "citoesqueleto-elastico",
+   "lineages": [
+    "macrofago",
+    "neutrofilo"
+   ],
+   "hint": "A parede da aorta é espessa: passam os que atravessam a parede por ofício (macrófago e neutrófilo, a diapedese) ou os que se espremem com o citoesqueleto elástico."
   }
  ],
  "niches": [

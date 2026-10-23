@@ -31,3 +31,6 @@ clients/godot/.shots/
 # test screenshots and logs written by the Godot autotests
 .shots/
 playtest/
+
+# The Hospedeiro balance tables are source data (tests read them), not world logs.
+!clients/hospedeiro/data/

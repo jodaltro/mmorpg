@@ -19,6 +19,9 @@ type PassageDef struct {
 	Name string `json:"name"`
 	// Gene is the key: the gene a cell must express to go through.
 	Gene string `json:"gene,omitempty"`
+	// Lineages are a second key: a cell of any of these lineages goes through without the gene (diapedesis is a trait of the
+	// macrophage and the neutrophil, which cross a vessel wall by being what they are).
+	Lineages []string `json:"lineages,omitempty"`
 	// Hint says, in words, what the passage asks for (shown while it is closed).
 	Hint string `json:"hint,omitempty"`
 }
@@ -79,9 +82,16 @@ func (w *World) passageBetween(a, b ID) (PassageDef, bool) {
 	return PassageDef{}, false
 }
 
-// passageOpen is whether the player's genome carries the passage's key.
+// passageOpen is whether the player carries one of the passage's keys: its gene or one of its lineages. Without keys it is open.
 func (w *World) passageOpen(s *State, who ID, p PassageDef) bool {
-	return p.Gene == "" || slices.Contains(s.Genomes[who].Genes, p.Gene)
+	if p.Gene == "" && len(p.Lineages) == 0 {
+		return true
+	}
+	if p.Gene != "" && slices.Contains(s.Genomes[who].Genes, p.Gene) {
+		return true
+	}
+	lineage, _ := w.lineageOf(s, who)
+	return lineage != "" && slices.Contains(p.Lineages, lineage)
 }
 
 func (w *World) niche(id string) (NicheDef, bool) {
@@ -201,6 +211,11 @@ func (w *World) compileExploration(ents map[ID]string) error {
 		ids[p.ID] = true
 		if _, ok := w.mutation(p.Gene); p.Gene != "" && !ok {
 			return invalid("passage %s: unknown gene %q", p.ID, p.Gene)
+		}
+		for _, l := range p.Lineages {
+			if _, ok := w.lineageDef(l); !ok {
+				return invalid("passage %s: unknown lineage %q", p.ID, l)
+			}
 		}
 	}
 	for _, n := range w.U.Niches {
