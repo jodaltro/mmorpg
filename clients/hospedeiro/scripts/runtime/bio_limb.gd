@@ -40,7 +40,11 @@ var _bend := 1.0 if randf() > 0.5 else -1.0
 var body: BioCellBody
 
 
+static var _crowd := 0  # limbs alive right now
+
+
 func _ready() -> void:
+	_crowd += 1
 	z_index = 9
 	material = BioArt.additive()
 	_pts.resize(POINTS)
@@ -50,6 +54,7 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+	_crowd = maxi(_crowd - 1, 0)
 	if body != null and is_instance_valid(body):
 		body.clear_bulge(get_instance_id())
 
@@ -126,7 +131,11 @@ func _process(delta: float) -> void:
 		var r := rate * lerpf(1.25, 0.6, f * (1.0 - stiff))
 		_pts[i] = _pts[i].lerp(wanted, 1.0 - exp(-r * delta))
 	_tip_dir = (_pts[POINTS - 1] - _pts[POINTS - 3]).normalized() if _pts[POINTS - 1] != _pts[POINTS - 3] else dir
-	queue_redraw()
+	# level of detail: with many limbs alive (a nova, a fight) each is redrawn every second or third frame (staggered), which is what
+	# keeps a crowded fight smooth; one limb on its own is drawn every frame
+	var step := 1 if _crowd <= 6 else (2 if _crowd <= 14 else 3)
+	if step == 1 or (Engine.get_process_frames() + get_instance_id()) % step == 0:
+		queue_redraw()
 
 
 func _width(f: float) -> float:
@@ -138,64 +147,115 @@ func _width(f: float) -> float:
 	return w * lerpf(0.55, 1.0, minf(_ext, 1.0))
 
 
+## Per-point constants of every limb (same for all of them), computed once: the position along the limb, its root fades and the
+## narrowing of the neck. They keep _draw to one cheap pass per limb.
+static var _t_pow := PackedFloat32Array()
+static var _t_neck := PackedFloat32Array()
+static var _t_strip_fade := PackedFloat32Array()
+static var _t_outline_fade := PackedFloat32Array()
+static var _t_flow_root := PackedFloat32Array()
+static var _t_along := _make_along()  # last: filling the others needs them declared first
+
+
+static func _make_along() -> PackedFloat32Array:
+	var f := PackedFloat32Array()
+	f.resize(POINTS)
+	_t_pow.resize(POINTS)
+	_t_neck.resize(POINTS)
+	_t_strip_fade.resize(POINTS)
+	_t_outline_fade.resize(POINTS)
+	_t_flow_root.resize(POINTS)
+	for i in POINTS:
+		var x := i / float(POINTS - 1)
+		f[i] = x
+		_t_pow[i] = pow(x, 0.8)
+		var neck := smoothstep(0.0, 1.0, maxf(0.0, 1.0 - x / 0.32))
+		_t_neck[i] = 1.0 + 0.7 * neck * neck
+		_t_strip_fade[i] = smoothstep(0.0, 0.3, x)
+		_t_outline_fade[i] = smoothstep(0.05, 0.35, x)
+		_t_flow_root[i] = smoothstep(0.0, 0.2, x)
+	return f
+
+
 func _draw() -> void:
 	var alpha := clampf(_ext * 2.0, 0.0, 1.0) * intensity
 	var glow_c := core.lerp(tint, tint.a * 0.55) if tint.a > 0.0 else core
+	var base_w := float(style.get("base", 15.0))
+	var tip_w := float(style.get("tip_w", 12.0))
+	var grow := lerpf(0.55, 1.0, minf(_ext, 1.0))
+	var thin := clampf(14.0 / maxf(base_w, 1.0), 0.3, 1.0)
+	var crowd := _crowd  # level of detail: many limbs at once (a nova, a fight) draw fewer layers
+	var c_glow := glow_c
+	var c_mid := edge.lerp(core, 0.4)
+	var c_core := core.lerp(Color.WHITE, 0.2)
+	var c_flow := core.lerp(Color.WHITE, 0.35)
+	var c_out := edge.lerp(Color.WHITE, 0.2)
 	var left := PackedVector2Array()
 	var right := PackedVector2Array()
+	var widths := PackedFloat32Array()
+	var col_glow := PackedColorArray()
+	var col_mid := PackedColorArray()
+	var col_core := PackedColorArray()
+	var col_flow := PackedColorArray()
+	var col_out := PackedColorArray()
 	left.resize(POINTS)
 	right.resize(POINTS)
-	var widths: Array[float] = []
+	widths.resize(POINTS)
+	col_glow.resize(POINTS)
+	col_mid.resize(POINTS)
+	col_core.resize(POINTS)
+	col_flow.resize(POINTS)
+	col_out.resize(POINTS)
+	var last := POINTS - 1
 	for i in POINTS:
 		var a := _pts[maxi(i - 1, 0)]
-		var b := _pts[mini(i + 1, POINTS - 1)]
+		var b := _pts[mini(i + 1, last)]
 		var d := (b - a).normalized() if b != a else _tip_dir
-		var w := _width(i / float(POINTS - 1))
-		widths.append(w)
-		left[i] = _pts[i] + d.orthogonal() * w * 0.5
-		right[i] = _pts[i] - d.orthogonal() * w * 0.5
-	_strip(left, right, _pts, 1.7, BioArt.with_alpha(glow_c, 0.07 * alpha))
-	_strip(left, right, _pts, 1.0, BioArt.with_alpha(edge.lerp(core, 0.4), 0.24 * alpha))
-	_strip(left, right, _pts, 0.45, BioArt.with_alpha(core.lerp(Color.WHITE, 0.2), 0.2 * alpha))
-	_flow(left, right, alpha)
-	var outline_c := BioArt.with_alpha(edge.lerp(Color.WHITE, 0.2), 0.8 * alpha)
-	for i in POINTS - 1:  # outline fades in away from the root, so no seam shows inside the body
-		var fo := smoothstep(0.05, 0.35, i / float(POINTS - 1))
-		var oc := BioArt.with_alpha(outline_c, outline_c.a * fo)
-		draw_line(left[i], left[i + 1], oc, 2.2, true)
-		draw_line(right[i], right[i + 1], oc, 2.2, true)
-	var tip := _pts[POINTS - 1]
-	var d_tip := _tip_dir
+		var w := lerpf(base_w, tip_w, _t_pow[i]) * _t_neck[i] * grow
+		widths[i] = w
+		var n := d.orthogonal() * (w * 0.5)
+		left[i] = _pts[i] + n
+		right[i] = _pts[i] - n
+		var fade := _t_strip_fade[i]
+		col_glow[i] = Color(c_glow.r, c_glow.g, c_glow.b, 0.07 * alpha * fade)
+		col_mid[i] = Color(c_mid.r, c_mid.g, c_mid.b, 0.24 * alpha * fade)
+		col_core[i] = Color(c_core.r, c_core.g, c_core.b, 0.2 * alpha * fade)
+		var wave := 0.5 + 0.5 * sin(_age * 6.0 - _t_along[i] * 9.0)
+		col_flow[i] = Color(c_flow.r, c_flow.g, c_flow.b, (0.34 * (1.0 - _t_along[i]) + 0.1 + 0.1 * wave) * alpha * thin * _t_flow_root[i])
+		col_out[i] = Color(c_out.r, c_out.g, c_out.b, 0.8 * alpha * _t_outline_fade[i])
+	_ribbon(left, right, _pts, 1.0, col_mid)
+	if crowd <= 16:
+		_ribbon(left, right, _pts, 0.45, col_core)
+		_ribbon(left, right, _pts, 0.55, col_flow)
+	draw_polyline_colors(left, col_out, 2.2, true)
+	draw_polyline_colors(right, col_out, 2.2, true)
 	_draw_extras(widths, alpha)
-	_draw_tip(tip, d_tip, widths[POINTS - 1], glow_c, alpha)
+	_draw_tip(_pts[last], _tip_dir, widths[last], glow_c, alpha)
 
 
-## A tapered ribbon as quads between the two edges (scaled around the spine).
-func _strip(left: PackedVector2Array, right: PackedVector2Array, spine: PackedVector2Array, width_scale: float, color: Color) -> void:
+static var _ribbon_indices := _make_ribbon_indices()
+
+
+static func _make_ribbon_indices() -> PackedInt32Array:
+	var idx := PackedInt32Array()
 	for i in POINTS - 1:
-		var fade := smoothstep(0.0, 0.3, i / float(POINTS - 1))  # the root dissolves into the membrane
-		var c0 := BioArt.with_alpha(color, color.a * fade)
-		var c1 := BioArt.with_alpha(color, color.a * smoothstep(0.0, 0.3, (i + 1) / float(POINTS - 1)))
-		var colors := PackedColorArray([c0, c1, c1, c0])
-		var q := PackedVector2Array([
-			spine[i] + (left[i] - spine[i]) * width_scale,
-			spine[i + 1] + (left[i + 1] - spine[i + 1]) * width_scale,
-			spine[i + 1] + (right[i + 1] - spine[i + 1]) * width_scale,
-			spine[i] + (right[i] - spine[i]) * width_scale])
-		draw_primitive(q, colors, PackedVector2Array())
+		idx.append_array(PackedInt32Array([2 * i, 2 * i + 1, 2 * i + 2, 2 * i + 1, 2 * i + 3, 2 * i + 2]))
+	return idx
 
 
-## The nucleus's light flows into the limb: a bright core strand, strongest at the root and travelling outwards.
-func _flow(left: PackedVector2Array, right: PackedVector2Array, alpha: float) -> void:
-	for i in POINTS - 1:
-		var f := i / float(POINTS - 1)
-		var wave := 0.5 + 0.5 * sin(_age * 6.0 - f * 9.0)
-		var thin := clampf(14.0 / maxf(float(style.get("base", 15.0)), 1.0), 0.3, 1.0)
-		var c := BioArt.with_alpha(core.lerp(Color.WHITE, 0.35), (0.34 * (1.0 - f) + 0.1 + 0.1 * wave) * alpha * thin * smoothstep(0.0, 0.2, f))
-		var s0 := _pts[i]
-		var s1 := _pts[i + 1]
-		var q := PackedVector2Array([s0 + (left[i] - s0) * 0.55, s1 + (left[i + 1] - s1) * 0.55, s1 + (right[i + 1] - s1) * 0.55, s0 + (right[i] - s0) * 0.55])
-		draw_primitive(q, PackedColorArray([c, c, c, c]), PackedVector2Array())
+## A ribbon between the two edges as ONE draw command: vertices on both sides of the spine with a colour each, and the triangles
+## between them (a draw call per quad made limbs the most expensive thing in a fight).
+func _ribbon(left: PackedVector2Array, right: PackedVector2Array, spine: PackedVector2Array, width_scale: float, colors_along: PackedColorArray) -> void:
+	var pts := PackedVector2Array()
+	var cols := PackedColorArray()
+	pts.resize(2 * POINTS)
+	cols.resize(2 * POINTS)
+	for i in POINTS:
+		pts[2 * i] = spine[i] + (left[i] - spine[i]) * width_scale
+		pts[2 * i + 1] = spine[i] + (right[i] - spine[i]) * width_scale
+		cols[2 * i] = colors_along[i]
+		cols[2 * i + 1] = colors_along[i]
+	RenderingServer.canvas_item_add_triangle_array(get_canvas_item(), _ribbon_indices, pts, cols)
 
 
 func _at(f: float) -> Vector2:
@@ -210,7 +270,7 @@ func _normal_at(f: float) -> Vector2:
 	return (b - a).normalized().orthogonal() if a != b else _tip_dir.orthogonal()
 
 
-func _draw_extras(widths: Array[float], alpha: float) -> void:
+func _draw_extras(widths: PackedFloat32Array, alpha: float) -> void:
 	var barbs := int(style.get("barbs", 0))
 	var bumps := int(style.get("bumps", 0))
 	var branches := int(style.get("branches", 0))

@@ -108,7 +108,8 @@ func _process(delta: float) -> void:
 		host.combatant.actor.vitals.add_atp(regen_atp * delta)
 	if sentinels > 0:
 		_sentinel_hits()
-	queue_redraw()
+	if Engine.get_process_frames() % 2 == 0:  # a zone's drawing is detailed and slow-moving: every second frame is enough
+		queue_redraw()
 	if _age >= duration:
 		_finish()
 

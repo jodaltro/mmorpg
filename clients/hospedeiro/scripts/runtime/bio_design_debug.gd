@@ -63,6 +63,7 @@ func refresh() -> void:
 			lines.append("  %-11s %s" % [key, traits[key]])
 	lines.append("")
 	lines.append("efeito das habilidades: %s" % (str(_world.abilities.effect_style) if _world.abilities.effect_style != &"" else "(nenhum)"))
+	lines.append("efeito físico: %s" % BioEffectPhysics.describe(_world.abilities.effect_style))
 	lines.append("partículas: densidade x%.2f  ·  duração x%.2f  ·  velocidade x%.2f  ·  forma: %s" % [BioPfx.density, BioPfx.linger, BioPfx.tempo, str(BioPfx.style) if BioPfx.style != &"" else "(padrão)"])
 	lines.append("emitidas nesta sessão: %d efeitos (%d com estilo aplicado)" % [BioPfx.emitted, BioPfx.emitted_styled])
 	_label.text = "\n".join(lines)

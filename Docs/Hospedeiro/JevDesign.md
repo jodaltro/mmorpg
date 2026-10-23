@@ -21,6 +21,20 @@ Os textos das opções traziam `[fit N]`, a nota do próprio motor. Medido ao vi
 
 `BioDesign` (tabelas), `BioEffectSignature` (sabor dos efeitos: muda cor e forma dos membros, nunca números) e `BioCellBody` (núcleo, membrana, organelas e brilho). O teste `test_design.gd` percorre o universo e garante que toda opção que o motor pode oferecer tem desenho.
 
+## Os efeitos são físicos (não só visuais)
+
+O estilo que o Jev escolhe para os efeitos (trait `efeito`) muda o combate. Todo golpe de **habilidade** (o ataque básico não) carrega uma consequência, paga com um golpe direto menor (`BioEffectPhysics`):
+
+| Estilo | Consequência | Golpe direto |
+|---|---|---|
+| Chama | o alvo queima: +38% do dano ao longo de 3 s | x0,78 |
+| Cristal | o alvo fica quebradiço: +20% de dano recebido por 4 s | x0,88 |
+| Névoa | o alvo e os vizinhos (1,8 u) ficam 38% mais lentos por 3 s | x0,85 |
+| Elétrico | o golpe salta para até 2 inimigos próximos (3,2 u) com 40% do dano; o salto não encadeia de novo | x0,72 |
+| Orgânico | 32% do dano volta como membrana para quem lançou | x0,88 |
+
+Uma régua só: `test_effect_physics.gd` exige que o golpe direto mais o valor do efeito fique entre 95% e 120% do golpe sem estilo, e testa cada consequência de verdade (a queimadura continua depois do golpe e para; o quebradiço passa; a névoa não atinge quem está longe; o arco alcança dois, não três; o sifão cura; o ataque básico não muda).
+
 ## Composição por partes (o Jev "propondo" formas novas)
 
 A API de decisões do Jev só aceita escolha entre opções; então a liberdade vem de **combinar traços independentes**: o núcleo composto tem lobulação x recorte x nucléolo (72 combinações), e junto com membrana, organelas, brilho, efeito, densidade, rastro e ritmo o espaço de células passa de 10 milhões. O motor valida cada peça; o cliente desenha qualquer combinação (`BioNucleusShapes.draw_composite`). Limite: o Jev ainda não inventa uma peça que o vocabulário não tenha.

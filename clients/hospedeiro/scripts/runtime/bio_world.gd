@@ -275,6 +275,7 @@ func apply_design(designed: Dictionary, source: String) -> void:
 	design_changed_at = Time.get_ticks_msec() * 0.001
 	abilities.effect_style = StringName(str(design_traits.get("efeito", "")))
 	BioPfx.style = abilities.effect_style
+	player.combatant.effect_style = abilities.effect_style if BioEffectPhysics.has_style(abilities.effect_style) else &""
 	var feel := BioDesign.feel(design_traits)
 	BioPfx.density = feel["density"]
 	BioPfx.linger = feel["trail"]
