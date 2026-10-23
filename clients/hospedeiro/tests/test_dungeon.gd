@@ -43,8 +43,9 @@ func test_the_plan_is_the_same_for_the_same_seed_and_changes_with_modifiers() ->
 	var b := BioDungeonPlan.room(99, 0, "guard", "")
 	assert_eq(str(a["enemies"]), str(b["enemies"]), "same seed, same room")
 	assert_true(str(a["enemies"]) != str(BioDungeonPlan.room(100, 0, "guard", "")["enemies"]), "another seed, another room")
-	assert_eq((a["enemies"] as Array).size(), 3, "three patrol lymphocytes")
-	assert_eq((BioDungeonPlan.room(99, 0, "guard", "guarda-redobrada")["enemies"] as Array).size(), 6, "a doubled guard")
+	var patrol := (a["enemies"] as Array).size()
+	assert_true(patrol >= 2 and patrol <= 4, "a patrol of two to four")
+	assert_true((BioDungeonPlan.room(99, 0, "guard", "guarda-redobrada")["enemies"] as Array).size() > patrol, "a doubled guard is bigger")
 	assert_true((BioDungeonPlan.room(99, 3, "core", "guarda-redobrada")["enemies"] as Array).size() < (BioDungeonPlan.room(99, 3, "core", "")["enemies"] as Array).size(), "and fewer later")
 	assert_true((BioDungeonPlan.room(99, 3, "core", "necrose-viva")["enemies"] as Array).size() > (BioDungeonPlan.room(99, 3, "core", "")["enemies"] as Array).size(), "living necrosis adds bacilli")
 	var boss := BioDungeonPlan.room(99, 4, "boss", "")
@@ -59,7 +60,7 @@ func test_a_run_builds_a_chamber_and_clears_room_by_room() -> void:
 	await tree.physics_frame
 	assert_true(world.dungeon.active, "the run is on")
 	assert_true(world.player.global_position.distance_to(BioDungeon.CENTER) < 9.0 * BioArt.UNIT, "the cell is inside the chamber")
-	assert_eq(world.dungeon.enemies().size(), 3, "the first room has its patrol")
+	assert_true(world.dungeon.enemies().size() >= 2 and world.dungeon.enemies().size() <= 4, "the first room has its patrol")
 	await tree.create_timer(0.8).timeout
 	assert_eq(cleared.size(), 0, "not clear while they live")
 	await _kill_all()
@@ -68,7 +69,7 @@ func test_a_run_builds_a_chamber_and_clears_room_by_room() -> void:
 	world.dungeon.advance(1)
 	await tree.physics_frame
 	assert_eq(world.dungeon.room_index, 1, "the next room")
-	assert_true(world.dungeon.enemies().size() >= 3, "macrophages and lymphocytes")
+	assert_true(world.dungeon.enemies().size() >= 2, "a bruiser and its fodder")
 	world.dungeon.finish(true)
 	await tree.process_frame
 	assert_true(not world.dungeon.active, "finished")

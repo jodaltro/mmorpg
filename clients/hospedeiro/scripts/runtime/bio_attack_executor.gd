@@ -36,7 +36,7 @@ func perform(id: StringName, aim: Vector2) -> int:
 	match id:
 		BioAttackCatalog.FLAGELLUM_LASH:
 			_do_lash(def, origin, aim)
-		BioAttackCatalog.TOXIN_SPIT:
+		BioAttackCatalog.TOXIN_SPIT, BioAttackCatalog.ENEMY_SPIT:
 			var muzzle := origin + aim * 0.7 * BioArt.UNIT
 			BioFactory.spawn_projectile(_host.get_parent(), _combatant, def, muzzle, aim)
 			BioFx.burst(muzzle, BioArt.TOXIN, 5, 2.0, 0.25, 0.35)

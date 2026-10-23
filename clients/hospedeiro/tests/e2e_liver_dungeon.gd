@@ -1,6 +1,6 @@
 extends SceneTree
 ## Against a running engine (with the advisor on): a cell matures, gets the key to the aorta, walks to the liver, enters the Cordões
-## Hepáticos, the advisor picks the modifier from what the liver's state allows, the five rooms are cleared and the engine rewards the run.
+## Hepáticos, the advisor picks the modifier from what the liver's state allows, the rooms of the run are cleared and the engine rewards the run.
 ##   godot --path clients/hospedeiro --script res://tests/e2e_liver_dungeon.gd -- <engine_url> <output_dir>
 
 var world: BioWorld
@@ -52,7 +52,9 @@ func _run() -> void:
 	if world.dungeon.dungeon_id != "cordoes-hepaticos":
 		return _fail("the run is the cords, not %s" % world.dungeon.dungeon_id)
 	_step("run started: %s, modifier: %s, seed %d" % [world.dungeon.title, world.dungeon.modifier, world.dungeon.seed_value])
-	for room in 5:
+	var total := world.dungeon.rooms.size()  # procedural: the run draws its own length
+	_step("this run has %d rooms: %s" % [total, str(world.dungeon.rooms.map(func(r: Dictionary) -> String: return str(r.get("kind", ""))))])
+	for room in total:
 		if not await _until(func() -> bool: return world.dungeon.room_index == room and world.dungeon.enemies().size() > 0, 40.0):
 			return _fail("room %d builds" % room)
 		var kinds := {}
@@ -65,7 +67,7 @@ func _run() -> void:
 		for e in world.dungeon.enemies():
 			(e as BioCellActor).combatant.actor.vitals.take_damage(9999.0)
 			e.queue_free()
-		if room < 4 and not await _until(func() -> bool: return world.dungeon.room_index == room + 1, 40.0):
+		if room < total - 1 and not await _until(func() -> bool: return world.dungeon.room_index == room + 1, 40.0):
 			return _fail("the engine confirms room %d and opens the next" % (room + 1))
 	if not await _until(func() -> bool: return not world.dungeon.active, 40.0):
 		return _fail("the cleared run closes")

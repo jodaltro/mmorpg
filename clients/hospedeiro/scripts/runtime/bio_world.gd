@@ -642,7 +642,7 @@ func set_fever(on: bool) -> void:
 		return
 	fever = on
 	for v in viruses():
-		(v as BioCellActor).max_speed_units = _virus_speed()
+		(v as BioCellActor).max_speed_units = float(v.get_meta("base_speed", VIRUS_SPEED)) * (FEVER_SLOWDOWN if fever else 1.0)
 	_update_tint()
 
 
@@ -849,7 +849,29 @@ func _spawn_virus(min_distance_units: float) -> void:
 
 
 func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
-	_spawn_virus_at(BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units))
+	var at := BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	var kind := BioBestiary.pick(where, _rng)  # each organ has its own wild things (the blood has the virion)
+	if kind == BioBestiary.VIRION:
+		_spawn_virus_at(at)
+	else:
+		_spawn_native_at(kind, at)
+
+
+## A wild thing of an organ (see BioBestiary): counted with the virions, so it is streamed, slowed by fever and paid in pressure alike.
+func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
+	var def := BioDungeonPlan.enemy(kind)
+	for i in int(def.get("group", 1)):
+		var at := pos + Vector2.from_angle(randf() * TAU) * (0.8 * BioArt.UNIT if i > 0 else 0.0)
+		var brain := BioFactory.spawn_enemy(self, at, player, def, FEVER_SLOWDOWN if fever else 1.0, "viruses")
+		var host := brain.get_parent() as BioCellActor
+		host.set_meta("base_speed", float(def["speed"]))
+		host.combatant.died.connect(func(_who: BioCombatant) -> void:
+			add_pressure(BioMutationTracker.KILL_POINTS)
+			virus_destroyed.emit()
+			var split: Variant = def.get("split")
+			if split is Dictionary:
+				for k in int((split as Dictionary)["count"]):
+					_spawn_native_at.call_deferred(StringName((split as Dictionary)["kind"]), host.global_position + Vector2.from_angle(randf() * TAU) * 0.9 * BioArt.UNIT))
 
 
 func _spawn_virus_at(pos: Vector2) -> void:

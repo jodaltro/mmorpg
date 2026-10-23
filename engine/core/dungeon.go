@@ -29,6 +29,8 @@ type DungeonDef struct {
 	Region     string        `json:"region"`             // where its entrance is
 	Eligible   *Cond         `json:"eligible,omitempty"` // $self is the player
 	Rooms      []RoomDef     `json:"rooms"`
+	Pool       []RoomDef     `json:"pool,omitempty"`  // procedural dungeon: the first of Rooms opens it, the last closes it (the boss) and a run draws the rooms between them from here
+	Depth      []int         `json:"depth,omitempty"` // with a pool: [min, max] rooms drawn between the opening and the boss
 	Modifiers  []ModifierDef `json:"modifiers,omitempty"`
 	Rewards    []Effect      `json:"rewards,omitempty"`    // every clear, $self is the player
 	FirstClear []Effect      `json:"firstClear,omitempty"` // only the first clear in the world: a unique scenario
@@ -55,12 +57,13 @@ type ModifierDef struct {
 
 // Delve is a player's run: preparing (the modifier is being decided), active, cleared or failed.
 type Delve struct {
-	Dungeon  string `json:"dungeon"`
-	State    string `json:"state"`
-	Seed     int64  `json:"seed"`
-	Modifier string `json:"modifier,omitempty"`
-	Room     int    `json:"room"`
-	Started  Tick   `json:"started"`
+	Dungeon  string    `json:"dungeon"`
+	State    string    `json:"state"`
+	Seed     int64     `json:"seed"`
+	Modifier string    `json:"modifier,omitempty"`
+	Room     int       `json:"room"`
+	Started  Tick      `json:"started"`
+	Rooms    []RoomDef `json:"rooms,omitempty"` // the rooms of this run when the dungeon is procedural (drawn from the seed)
 }
 
 // DungeonView is what a player sees of the dungeons.
@@ -117,7 +120,12 @@ func (w *World) compileDungeons(v *validator) error {
 		}
 		seen[d.ID] = true
 		rooms := map[string]bool{}
-		for _, r := range d.Rooms {
+		if len(d.Pool) > 0 {
+			if len(d.Rooms) < 2 || len(d.Depth) != 2 || d.Depth[0] < 1 || d.Depth[1] < d.Depth[0] || d.Depth[1] > len(d.Pool) {
+				return invalid("dungeon %s: a pool needs an opening and a boss in rooms, and depth [min, max] within the pool", d.ID)
+			}
+		}
+		for _, r := range append(slices.Clone(d.Rooms), d.Pool...) {
 			if !validID(r.ID) || r.Name == "" || rooms[r.ID] {
 				return invalid("dungeon %s: room %q", d.ID, r.ID)
 			}
@@ -155,6 +163,31 @@ func (w *World) compileDungeons(v *validator) error {
 		}
 	}
 	return nil
+}
+
+// composeRooms is the sequence of rooms of one run. A fixed dungeon is always the same rooms; a procedural one opens with its first room,
+// closes with its last (the boss) and draws between them, from the seed of the run, a number of rooms of its pool: two runs differ in
+// length, in which rooms they have and in what order, and everyone who shares the seed shares the dungeon.
+func composeRooms(def DungeonDef, seed int64) []RoomDef {
+	if len(def.Pool) == 0 {
+		return slices.Clone(def.Rooms)
+	}
+	state := uint64(seed)*2862933555777941757 + 3037000493
+	next := func(n int) int { // a small deterministic generator: the engine never depends on a library's sequence
+		state ^= state << 13
+		state ^= state >> 7
+		state ^= state << 17
+		return int((state >> 11) % uint64(n))
+	}
+	pool := slices.Clone(def.Pool)
+	n := def.Depth[0] + next(def.Depth[1]-def.Depth[0]+1)
+	out := []RoomDef{def.Rooms[0]}
+	for i := 0; i < n; i++ {
+		k := next(len(pool))
+		out = append(out, pool[k])
+		pool = slices.Delete(pool, k, k+1)
+	}
+	return append(out, def.Rooms[len(def.Rooms)-1])
 }
 
 func (w *World) seedOf(s *State, p ID, dungeon string) int64 {
@@ -242,11 +275,12 @@ func (w *World) decideDungeon(s *State, d Decision, choice, cause string) error 
 
 func (w *World) beginRun(s *State, p ID, modifier, cause string) {
 	run := s.Delves[p]
-	run.State, run.Modifier, run.Room = "active", modifier, 0
-	s.Delves[p] = run
 	def, _ := w.dungeon(run.Dungeon)
+	run.State, run.Modifier, run.Room = "active", modifier, 0
+	run.Rooms = composeRooms(def, run.Seed)
+	s.Delves[p] = run
 	w.emit(s, Event{Kind: "dungeon-started", Holder: p, Text: def.Name, Cause: cause,
-		Data: map[string]string{"dungeon": run.Dungeon, "seed": strconv.FormatInt(run.Seed, 10), "modifier": modifier, "rooms": strconv.Itoa(len(def.Rooms))}})
+		Data: map[string]string{"dungeon": run.Dungeon, "seed": strconv.FormatInt(run.Seed, 10), "modifier": modifier, "rooms": strconv.Itoa(len(run.Rooms))}})
 }
 
 // dungeonTick starts any run whose decision vanished (a default that was no longer valid) with the first valid modifier.
@@ -278,11 +312,14 @@ func (w *World) clearRoom(s *State, origin string, p ID, cause string) error {
 	if origin != "adapter" || !has || !ok || run.State != "active" {
 		return reject("room")
 	}
+	if len(run.Rooms) == 0 {
+		run.Rooms = def.Rooms // a run saved before rooms were drawn per run
+	}
 	run.Room++
 	s.Delves[p] = run
-	w.emit(s, Event{Kind: "dungeon-room", Holder: p, Text: def.Rooms[run.Room-1].Name, Cause: cause,
-		Data: map[string]string{"dungeon": def.ID, "room": strconv.Itoa(run.Room), "of": strconv.Itoa(len(def.Rooms))}})
-	if run.Room < len(def.Rooms) {
+	w.emit(s, Event{Kind: "dungeon-room", Holder: p, Text: run.Rooms[run.Room-1].Name, Cause: cause,
+		Data: map[string]string{"dungeon": def.ID, "room": strconv.Itoa(run.Room), "of": strconv.Itoa(len(run.Rooms))}})
+	if run.Room < len(run.Rooms) {
 		return nil
 	}
 	run.State = "cleared"
@@ -341,12 +378,15 @@ func (w *World) dungeonView(s *State, p ID) *DungeonView {
 	}
 	v := &DungeonView{Available: []DungeonOption{}}
 	for _, d := range w.U.Dungeons {
-		v.Available = append(v.Available, DungeonOption{ID: d.ID, Name: d.Name, Desc: d.Desc, Region: d.Region, Rooms: len(d.Rooms), Eligible: w.mayEnter(s, p, d)})
+		v.Available = append(v.Available, DungeonOption{ID: d.ID, Name: d.Name, Desc: d.Desc, Region: d.Region, Rooms: len(d.Rooms) + maxDepth(d), Eligible: w.mayEnter(s, p, d)})
 	}
 	if run, has := s.Delves[p]; has {
 		def, _ := w.dungeon(run.Dungeon)
 		rv := &RunView{Dungeon: run.Dungeon, Name: def.Name, State: run.State, Seed: run.Seed, Room: run.Room, Rooms: []RoomView{}}
-		for _, r := range def.Rooms {
+		if len(run.Rooms) == 0 {
+			run.Rooms = def.Rooms
+		}
+		for _, r := range run.Rooms {
 			rv.Rooms = append(rv.Rooms, RoomView{ID: r.ID, Name: r.Name, Desc: r.Desc, Kind: r.Kind})
 		}
 		if i := slices.IndexFunc(def.Modifiers, func(m ModifierDef) bool { return m.ID == run.Modifier }); i >= 0 {
@@ -356,4 +396,12 @@ func (w *World) dungeonView(s *State, p ID) *DungeonView {
 		v.Run = rv
 	}
 	return v
+}
+
+// maxDepth is how many rooms a run of d can have between its opening and its boss (0 for a fixed dungeon).
+func maxDepth(d DungeonDef) int {
+	if len(d.Pool) == 0 {
+		return 0
+	}
+	return d.Depth[1]
 }

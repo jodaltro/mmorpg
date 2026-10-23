@@ -23,6 +23,8 @@ var returns: Dictionary = {}  # dungeon id -> where the cell comes out after a c
 var rooms: Array = []
 var chamber_radius := 8.0
 var room_kind := ""
+var shape := {"kind": "round"}  # the outline of the chamber (see BioDungeonPlan.wall_radius)
+var obstacles: Array[Dictionary] = []  # pillars on the floor of this room: {pos (px, local), radius (px)}
 
 var _player: BioCellActor
 var _walls: StaticBody2D
@@ -35,6 +37,8 @@ var _quorum_in := 0.0
 var _return_to := Vector2.ZERO
 var _t := 0.0
 var _grace_until := 0.0
+var _outline := PackedVector2Array()
+var _hazards: Array[Node] = []
 var _awake := true
 
 
@@ -82,19 +86,23 @@ func advance(index: int) -> void:
 	room_kind = str(info.get("kind", "guard"))
 	var plan := BioDungeonPlan.room(seed_value, index, room_kind, modifier, dungeon_id)
 	chamber_radius = float(plan["radius"])
+	shape = plan["shape"]
 	global_position = CENTER
+	_plan_obstacles(plan)
 	_build_walls()
-	_player.global_position = CENTER + Vector2(0.0, chamber_radius * 0.8 * BioArt.UNIT)
+	_plan_hazards(plan)
+	_player.global_position = CENTER + Vector2(0.0, wall_at(PI * 0.5) * 0.8 * BioArt.UNIT)
 	_player.velocity = Vector2.ZERO
 	var speed := float(_rule["speed_mult"])
 	for e in plan["enemies"]:
-		var at: Vector2 = CENTER + Vector2.from_angle(float(e["angle"])) * float(e["radius"]) * chamber_radius * BioArt.UNIT
-		_spawn(StringName(e["type"]), at, speed)
+		var angle := float(e["angle"])
+		var reach := minf(float(e["radius"]) * chamber_radius, 0.88 * wall_at(angle))
+		_spawn(StringName(e["type"]), CENTER + Vector2.from_angle(angle) * reach * BioArt.UNIT, speed)
 	_clear_sent = false
 	_built_at = BioClock.now()
 	_respawn_in = float(_rule["respawn_every"])
 	_set_awake(false)  # a few seconds before they come
-	_grace_until = BioClock.now() + GRACE_SECONDS
+	_grace_until = BioClock.now() + float(plan.get("grace", GRACE_SECONDS))
 	room_started.emit(index, info)
 	queue_redraw()
 
@@ -109,6 +117,18 @@ func _spawn(kind: StringName, at: Vector2, speed: float) -> BioCellActor:
 	cell.set_meta("brain", brain)
 	if not _awake:
 		brain.set_process(false)
+	var split: Variant = def.get("split")
+	if split is Dictionary:  # it comes apart into smaller ones when it dies
+		cell.combatant.died.connect(func(_who: BioCombatant) -> void:
+			if active:
+				_split.call_deferred(StringName((split as Dictionary)["kind"]), int((split as Dictionary)["count"]), cell.global_position, speed))
+	if brain is BioNestBrain:  # it lays more of its brood until it is broken
+		var brood := StringName(str((def["spawns"] as Dictionary)["kind"]))
+		(brain as BioNestBrain).spawn = func(pos: Vector2) -> void:
+			if active:
+				_spawn(brood, pos, speed)
+		(brain as BioNestBrain).alive_of_kind = func() -> int:
+			return enemies().filter(func(e: Node) -> bool: return str(e.get_meta("kind", "")) == String(brood)).size()
 	if kind == &"bacilo_mestre" or bool(def.get("boss", false)):
 		var slam := BioBossSlam.new()
 		slam.configure(cell, _body_of(cell), _player)
@@ -118,13 +138,20 @@ func _spawn(kind: StringName, at: Vector2, speed: float) -> BioCellActor:
 	return cell
 
 
+func _split(kind: StringName, count: int, at: Vector2, speed: float) -> void:
+	if not active:
+		return
+	for i in count:
+		_spawn(kind, at + Vector2.from_angle(randf() * TAU) * 0.9 * BioArt.UNIT, speed)
+
+
 ## Lets the enemies of the room move (or holds them still).
 func _set_awake(on: bool) -> void:
 	_awake = on
 	for e in enemies():
 		var brain: Variant = e.get_meta("brain", null)
 		if brain is Node:
-			(brain as Node).set_process(on and float((e as BioCellActor).max_speed_units) > 0.05)
+			(brain as Node).set_process(on and (float((e as BioCellActor).max_speed_units) > 0.05 or brain is BioNestBrain))
 
 
 ## Seconds left of the grace period (0 when the room is live).
@@ -139,25 +166,62 @@ func _body_of(cell: BioCellActor) -> BioCellBody:
 	return null
 
 
+## How far the wall is from the centre in this direction, in world units (the chamber is not always round).
+func wall_at(angle: float) -> float:
+	return BioDungeonPlan.wall_radius(shape, chamber_radius, angle)
+
+
+func _plan_obstacles(plan: Dictionary) -> void:
+	obstacles = []
+	for o in plan.get("obstacles", []):
+		var angle := float(o["angle"])
+		obstacles.append({"pos": Vector2.from_angle(angle) * float(o["radius"]) * wall_at(angle) * BioArt.UNIT, "radius": float(o["size"]) * BioArt.UNIT * 0.6})
+
+
+func _plan_hazards(plan: Dictionary) -> void:
+	for h in plan.get("hazards", []):
+		var angle := float(h["angle"])
+		var pool := BioHazardPool.new()
+		pool.configure(float(h["size"]), BioDungeonPlan.family(dungeon_id)["hazard"])
+		pool.position = Vector2.from_angle(angle) * float(h["radius"]) * wall_at(angle) * BioArt.UNIT
+		add_child(pool)
+		_hazards.append(pool)
+
+
 func _build_walls() -> void:
 	_walls = StaticBody2D.new()
 	_walls.collision_layer = BioCellActor.LAYER_WALL
 	_walls.collision_mask = 0
 	var segments := PackedVector2Array()
-	var n := 48
-	var r := chamber_radius * BioArt.UNIT
+	var n := 64
+	_outline = PackedVector2Array()
+	for i in n + 1:
+		var a := i * TAU / n
+		_outline.append(Vector2.from_angle(a) * wall_at(a) * BioArt.UNIT)
 	for i in n:
-		segments.append(Vector2.from_angle(i * TAU / n) * r)
-		segments.append(Vector2.from_angle((i + 1) * TAU / n) * r)
-	var shape := CollisionShape2D.new()
+		segments.append(_outline[i])
+		segments.append(_outline[i + 1])
+	var wall_shape := CollisionShape2D.new()
 	var concave := ConcavePolygonShape2D.new()
 	concave.segments = segments
-	shape.shape = concave
-	_walls.add_child(shape)
+	wall_shape.shape = concave
+	_walls.add_child(wall_shape)
+	for o in obstacles:
+		var pillar := CollisionShape2D.new()
+		var circle := CircleShape2D.new()
+		circle.radius = float(o["radius"])
+		pillar.shape = circle
+		pillar.position = o["pos"]
+		_walls.add_child(pillar)
 	add_child(_walls)
 
 
 func _free_room() -> void:
+	for h in _hazards:
+		if is_instance_valid(h):
+			h.queue_free()
+	_hazards.clear()
+	obstacles = []
 	for e in enemies():
 		e.queue_free()
 	if is_instance_valid(_walls):
@@ -223,12 +287,23 @@ func _draw() -> void:
 			wall = Color(0.6, 0.95, 0.3)
 	if dungeon_id == "cordoes-hepaticos":
 		wall = Color(0.95, 0.65, 0.2) if room_kind != "core" and room_kind != "boss" else Color(0.75, 0.9, 0.2)
+	var count := _outline.size() - 1
 	for ring in 3:
-		var rr := r + ring * 14.0
-		var segs := 14
-		for i in segs:
-			var a := i * TAU / segs + _t * 0.05 * (1 if ring % 2 == 0 else -1)
-			draw_arc(Vector2.ZERO, rr, a, a + TAU / segs * 0.85, 8, Color(wall.r, wall.g, wall.b, 0.5 - 0.15 * ring), 8.0 - ring * 2.0, true)
+		var grow := 1.0 + ring * 14.0 / maxf(r, 1.0)
+		var offset := int(_t * 3.0 * (1 if ring % 2 == 0 else -1)) % count
+		var points := PackedVector2Array()
+		for k in count + 1:
+			points.append(_outline[(k + offset + count) % count] * grow)
+		var i := 0
+		while i + 4 < points.size():  # dashes
+			draw_polyline(points.slice(i, i + 5), Color(wall.r, wall.g, wall.b, 0.5 - 0.15 * ring), 8.0 - ring * 2.0, true)
+			i += 6
+	for o in obstacles:  # pillars
+		var at: Vector2 = o["pos"]
+		var pr := float(o["radius"])
+		draw_circle(at, pr * 1.5, Color(wall.r, wall.g, wall.b, 0.07))
+		draw_circle(at, pr, Color(0.03, 0.04, 0.07, 0.95))
+		draw_arc(at, pr, 0.0, TAU, 20, Color(wall.r, wall.g, wall.b, 0.8), 2.5, true)
 	draw_texture_rect(BioArt.glow_texture(), Rect2(Vector2.ONE * -r * 1.1, Vector2.ONE * r * 2.2), false, Color(wall.r, wall.g, wall.b, 0.05 + 0.03 * pulse))
 	if room_kind == "core" or room_kind == "boss":  # necrotic tissue: sickly glows
 		for k in 7:

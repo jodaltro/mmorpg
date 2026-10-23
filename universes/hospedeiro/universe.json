@@ -6097,24 +6097,6 @@
      "kind": "guard"
     },
     {
-     "id": "parede-de-macrofagos",
-     "name": "A parede de macrófagos",
-     "desc": "Células grandes e lentas, apertadas umas nas outras.",
-     "kind": "wall"
-    },
-    {
-     "id": "anel-interno",
-     "name": "O anel interno",
-     "desc": "As células gigantes fundidas, de onde saem pseudópodes.",
-     "kind": "wall"
-    },
-    {
-     "id": "nucleo-necrotico",
-     "name": "O núcleo necrótico",
-     "desc": "Tecido morto, ar rarefeito e bactérias em quórum.",
-     "kind": "core"
-    },
-    {
      "id": "bacilo",
      "name": "O bacilo",
      "desc": "A bactéria que o granuloma segurava por anos.",
@@ -6205,7 +6187,55 @@
     }
    ],
    "firstText": "foi a primeira a selar o Granuloma.",
-   "retry": 6
+   "retry": 6,
+   "pool": [
+    {
+     "id": "parede-de-macrofagos",
+     "name": "A parede de macrófagos",
+     "desc": "Células grandes e lentas, apertadas umas nas outras.",
+     "kind": "wall"
+    },
+    {
+     "id": "anel-interno",
+     "name": "O anel interno",
+     "desc": "As células gigantes fundidas, de onde saem pseudópodes.",
+     "kind": "wall"
+    },
+    {
+     "id": "nucleo-necrotico",
+     "name": "O núcleo necrótico",
+     "desc": "Tecido morto, ar rarefeito e bactérias em quórum.",
+     "kind": "core"
+    },
+    {
+     "id": "emboscada-de-neutrofilos",
+     "name": "A emboscada",
+     "kind": "ambush",
+     "desc": "A parede se abre e a guarda cai de todos os lados, de uma vez."
+    },
+    {
+     "id": "camara-de-pilares",
+     "name": "A câmara de pilares",
+     "kind": "pillars",
+     "desc": "Colunas de fibrina escondem bacilos que cospem ácido de longe."
+    },
+    {
+     "id": "ninho-de-bacilos",
+     "name": "O ninho de bacilos",
+     "kind": "nest",
+     "desc": "Uma colônia que não para de gerar bacilos enquanto estiver de pé."
+    },
+    {
+     "id": "poca-necrotica",
+     "name": "A poça necrótica",
+     "kind": "hazard",
+     "desc": "O chão é tecido morto: as poças queimam a membrana de quem pisa."
+    }
+   ],
+   "depth": [
+    3,
+    4
+   ]
   },
   {
    "id": "cordoes-hepaticos",
@@ -6226,24 +6256,6 @@
      "name": "Os sinusoides vigiados",
      "desc": "Células estreladas patrulham o sangue lento: pequenas, rápidas e frágeis.",
      "kind": "guard"
-    },
-    {
-     "id": "cordao-de-hepatocitos",
-     "name": "O cordão de hepatócitos",
-     "desc": "Hepatócitos inchados e doentes, lentos e resistentes, com estreladas por perto.",
-     "kind": "wall"
-    },
-    {
-     "id": "faixa-de-fibrose",
-     "name": "A faixa de fibrose",
-     "desc": "Gotas de gordura e hepatócitos presos numa cicatriz que não cede.",
-     "kind": "wall"
-    },
-    {
-     "id": "foco-toxico",
-     "name": "O foco tóxico",
-     "desc": "Toxina concentrada: emissores que aceleram quem está perto.",
-     "kind": "core"
     },
     {
      "id": "nodulo",
@@ -6374,7 +6386,55 @@
     }
    ],
    "firstText": "foi a primeira a limpar os Cordões Hepáticos.",
-   "retry": 6
+   "retry": 6,
+   "pool": [
+    {
+     "id": "cordao-de-hepatocitos",
+     "name": "O cordão de hepatócitos",
+     "desc": "Hepatócitos inchados e doentes, lentos e resistentes, com estreladas por perto.",
+     "kind": "wall"
+    },
+    {
+     "id": "faixa-de-fibrose",
+     "name": "A faixa de fibrose",
+     "desc": "Gotas de gordura e hepatócitos presos numa cicatriz que não cede.",
+     "kind": "wall"
+    },
+    {
+     "id": "foco-toxico",
+     "name": "O foco tóxico",
+     "desc": "Toxina concentrada: emissores que aceleram quem está perto.",
+     "kind": "core"
+    },
+    {
+     "id": "veias-em-emboscada",
+     "name": "As veias em emboscada",
+     "kind": "ambush",
+     "desc": "As células estreladas saem das paredes do sinusoide, todas juntas."
+    },
+    {
+     "id": "trabeculas",
+     "name": "As trabéculas",
+     "kind": "pillars",
+     "desc": "Placas de hepatócitos formam um labirinto; esporos de bile atiram de trás delas."
+    },
+    {
+     "id": "cisto-hidatidico",
+     "name": "O cisto",
+     "kind": "nest",
+     "desc": "Um cisto que gera célula estrelada atrás de célula estrelada até ser rompido."
+    },
+    {
+     "id": "bile-derramada",
+     "name": "A bile derramada",
+     "kind": "hazard",
+     "desc": "Poças de bile pelo chão queimam a membrana; plasmódios se escondem entre elas."
+    }
+   ],
+   "depth": [
+    3,
+    4
+   ]
   }
  ],
  "vitals": [

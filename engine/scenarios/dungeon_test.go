@@ -2,6 +2,7 @@ package scenarios
 
 import (
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/jodaltro/mmorpg/engine/core"
@@ -43,8 +44,8 @@ func TestGranulomaNeedsMaturityAndTheRightPlace(t *testing.T) {
 	}
 	h.matureInBlood("p1")
 	view := h.dungeonView("p1")
-	if len(view.Available) != 2 || view.Available[0].ID != "granuloma" || view.Available[0].Rooms != 5 {
-		t.Fatalf("the granuloma has five rooms and is listed, got %+v", view.Available)
+	if len(view.Available) != 2 || view.Available[0].ID != "granuloma" || view.Available[0].Rooms != 6 {
+		t.Fatalf("the granuloma lists its longest run (opening + 4 + boss) and is listed, got %+v", view.Available)
 	}
 	if !view.Available[0].Eligible {
 		t.Fatal("a mature cell in the blood may enter")
@@ -76,8 +77,8 @@ func TestTheAdvisorPicksTheModifierAndTheRunStarts(t *testing.T) {
 	}
 	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "ar-rarefeito", Provider: "test"})
 	run := h.dungeonView("p1").Run
-	if run == nil || run.State != "active" || run.Modifier == nil || run.Modifier.ID != "ar-rarefeito" || run.Seed == 0 || len(run.Rooms) != 5 {
-		t.Fatalf("the run is active with the chosen modifier and a seed, got %+v", run)
+	if run == nil || run.State != "active" || run.Modifier == nil || run.Modifier.ID != "ar-rarefeito" || run.Seed == 0 || len(run.Rooms) < 5 || len(run.Rooms) > 6 {
+		t.Fatalf("the run is active with the chosen modifier and a seed (5 or 6 rooms), got %+v", run)
 	}
 	if started := h.events("dungeon-started"); len(started) != 1 || started[0].Data["modifier"] != "ar-rarefeito" {
 		t.Fatalf("the start is announced, got %+v", started)
@@ -113,11 +114,9 @@ func TestClearingTheRoomsRewardsAndTheFirstClearIsUnique(t *testing.T) {
 		t.Fatal("a client cannot declare that it cleared a room")
 	}
 	before := h.s.Entities["p1"].Num["maturidade"]
-	for i := 0; i < 5; i++ {
-		h.mustAct("adapter", "p1", "sala-limpa", nil)
-	}
+	h.clearRun("p1")
 	if run := h.dungeonView("p1").Run; run.State != "cleared" {
-		t.Fatalf("five rooms clear the dungeon, got %+v", run)
+		t.Fatalf("clearing every room of the run clears the dungeon, got %+v", run)
 	}
 	if after := h.s.Entities["p1"].Num["maturidade"]; after-before != 8 {
 		t.Fatalf("the reward adds maturity, got %d -> %d", before, after)
@@ -133,9 +132,7 @@ func TestClearingTheRoomsRewardsAndTheFirstClearIsUnique(t *testing.T) {
 	}
 	h.tick(7)
 	enter("p2")
-	for i := 0; i < 5; i++ {
-		h.mustAct("adapter", "p2", "sala-limpa", nil)
-	}
+	h.clearRun("p2")
 	got := h.skillIDs("p2")
 	if !slices.Contains(got, "selo-do-granuloma") || slices.Contains(got, "primeiro-selador") {
 		t.Fatalf("the second clear gets the seal but not the unique title, got %v", got)
@@ -164,5 +161,58 @@ func TestAFailedRunEndsAndHasACooldown(t *testing.T) {
 	}
 	if run := h.dungeonView("p1").Run; run.State != "failed" {
 		t.Fatalf("giving up ends the run, got %+v", run)
+	}
+}
+
+// clearRun confirms every room of p's current run (the length is drawn per run).
+func (h *harness) clearRun(p core.ID) {
+	h.t.Helper()
+	run := h.dungeonView(p).Run
+	if run == nil {
+		h.t.Fatal("no run to clear")
+	}
+	for i := 0; i < len(run.Rooms); i++ {
+		h.mustAct("adapter", p, "sala-limpa", nil)
+	}
+}
+
+// Procedural dungeons: the opening and the boss are fixed, the rooms between them are drawn from the pool by the seed of the run, so
+// different runs differ in length, rooms and order, never repeat a room, and the same run replays the same.
+func TestDungeonsAreProceduralPerRun(t *testing.T) {
+	for _, tc := range []struct {
+		dungeon, first, last string
+		mature               func(*harness, core.ID)
+	}{
+		{"granuloma", "guarda-de-linfocitos", "bacilo", func(h *harness, p core.ID) { h.matureInBlood(p) }},
+		{"cordoes-hepaticos", "sinusoides-vigiados", "nodulo", func(h *harness, p core.ID) { h.matureInLiver(p) }},
+	} {
+		h := load(t, "hospedeiro")
+		seen := map[string]bool{}
+		lengths := map[int]bool{}
+		for i := 0; i < 10; i++ {
+			p := core.ID("p" + string(rune('a'+i)))
+			h.join(p)
+			tc.mature(h, p)
+			h.mustAct("player", p, "entrar-masmorra", map[string]core.ID{"dungeon": core.ID(tc.dungeon)})
+			h.tick(6)
+			run := h.dungeonView(p).Run
+			ids := []string{}
+			kinds := map[string]bool{}
+			for _, r := range run.Rooms {
+				if kinds[r.ID] {
+					t.Fatalf("%s: a room repeats in %v", tc.dungeon, ids)
+				}
+				kinds[r.ID] = true
+				ids = append(ids, r.ID)
+			}
+			if ids[0] != tc.first || ids[len(ids)-1] != tc.last || len(ids) < 5 || len(ids) > 6 {
+				t.Fatalf("%s: a run opens with %s, closes with %s and has 5 or 6 rooms, got %v", tc.dungeon, tc.first, tc.last, ids)
+			}
+			seen[strings.Join(ids, ",")] = true
+			lengths[len(ids)] = true
+		}
+		if len(seen) < 6 || len(lengths) < 2 {
+			t.Fatalf("%s: ten runs should differ (%d distinct sequences, lengths %v)", tc.dungeon, len(seen), lengths)
+		}
 	}
 }

@@ -87,8 +87,9 @@ static func spawn_virus(parent: Node, pos: Vector2, prey: BioCellActor) -> BioVi
 	return brain
 
 
-## An enemy of a dungeon, shaped by BioDungeonPlan.enemy: hp, speed, size, colours and how it lunges.
-static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dictionary, speed_mult: float = 1.0) -> BioVirusBrain:
+## An enemy shaped by BioDungeonPlan.enemy: hp, speed, size, colours and how it fights (it lunges, it shoots from afar, or it is a nest).
+## `group` is where it is counted: the dungeon's enemies by default, or "viruses" for the wild ones of an organ. Returns its brain.
+static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dictionary, speed_mult: float = 1.0, group: String = "dungeon_enemies") -> Node:
 	var actor := _make_actor(parent, str(def.get("name", "Enemy")), pos)
 	var speed := float(def["speed"]) * speed_mult
 	actor.thrust_units = 12.0 + 4.0 * speed
@@ -96,24 +97,42 @@ static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dic
 	actor.damping = 3.0
 	_virus_counter += 1
 	actor.combatant.configure("enemy-%d" % _virus_counter, BioActor.Team.VIRUS, float(def["hp"]), 100.0, 0.0)
-	actor.add_to_group("dungeon_enemies")
+	actor.add_to_group(group)
 	actor.combatant.damage_dealt_mult = float(def.get("damage", 1.0))
 	var size := float(def["size"])
 	(actor.get_child(0) as CollisionShape2D).shape = _circle(size * 0.9)
 	var body := BioCellBody.new()
-	body.configure(size, def["core"], def["edge"], int(def["spikes"]), 0.3 if int(def["spikes"]) > 0 else 0.0, 0.5, 8)
+	body.configure(size, def["core"], def["edge"], int(def["spikes"]), float(def.get("spike_len", 0.3 if int(def["spikes"]) > 0 else 0.0)), float(def.get("spin", 0.5)), 8)
 	actor.add_child(body)
 	var executor := BioAttackExecutor.new()
 	executor.configure(actor.combatant, actor)
 	actor.add_child(executor)
-	var brain := BioVirusBrain.new()
-	brain.configure(actor, executor, body, prey)
-	brain.aggro_range_units = float(def["aggro"])
-	brain.lunge_range_units = float(def["lunge"])
-	brain.telegraph_seconds = maxf(float(def["telegraph"]), 0.05)
-	brain.recover_seconds = float(def["recover"])
-	if speed <= 0.0:
-		brain.set_process(false)  # an emitter never moves
+	var brain: Node
+	match str(def.get("behavior", "lunge")):
+		"ranged":
+			var shooter := BioRangedBrain.new()
+			shooter.configure(actor, executor, body, prey)
+			shooter.aggro_range_units = float(def["aggro"])
+			shooter.lunge_range_units = float(def["lunge"])
+			shooter.telegraph_seconds = maxf(float(def["telegraph"]), 0.05)
+			shooter.recover_seconds = float(def["recover"])
+			brain = shooter
+		"nest":
+			var nest := BioNestBrain.new()
+			nest.every = float((def["spawns"] as Dictionary)["every"])
+			nest.cap = int((def["spawns"] as Dictionary)["cap"])
+			nest.configure(actor, body)
+			brain = nest
+		_:
+			var biter := BioVirusBrain.new()
+			biter.configure(actor, executor, body, prey)
+			biter.aggro_range_units = float(def["aggro"])
+			biter.lunge_range_units = float(def["lunge"])
+			biter.telegraph_seconds = maxf(float(def["telegraph"]), 0.05)
+			biter.recover_seconds = float(def["recover"])
+			brain = biter
+			if speed <= 0.0:
+				brain.set_process(false)  # an emitter never moves
 	actor.add_child(brain)
 	var feedback := BioHitFeedback.new()
 	feedback.configure(actor, body, def["edge"])

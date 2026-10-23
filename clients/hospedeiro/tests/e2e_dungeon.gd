@@ -1,5 +1,5 @@
 extends SceneTree
-## Against a running engine (with the advisor on): a cell matures, enters the granuloma, the advisor picks the modifier, the five rooms are
+## Against a running engine (with the advisor on): a cell matures, enters the granuloma, the advisor picks the modifier, the rooms of the run are
 ## cleared and the boss falls, and the engine rewards the run. Needs a real renderer for the screenshots.
 ##   godot --path clients/hospedeiro --script res://tests/e2e_dungeon.gd -- <engine_url> <output_dir>
 
@@ -39,7 +39,9 @@ func _run() -> void:
 	if not await _until(func() -> bool: return world.dungeon.active, 40.0):
 		return _fail("the run starts (advisor or default modifier)")
 	_step("run started, modifier: %s, seed %d" % [world.dungeon.modifier, world.dungeon.seed_value])
-	for room in 5:
+	var total := world.dungeon.rooms.size()  # procedural: the run draws its own length
+	_step("this run has %d rooms: %s" % [total, str(world.dungeon.rooms.map(func(r: Dictionary) -> String: return str(r.get("kind", ""))))])
+	for room in total:
 		if not await _until(func() -> bool: return world.dungeon.room_index == room and world.dungeon.enemies().size() > 0, 40.0):
 			return _fail("room %d builds" % room)
 		_step("room %d (%s): %d enemies" % [room + 1, world.dungeon.room_kind, world.dungeon.enemies().size()])
@@ -49,7 +51,7 @@ func _run() -> void:
 		for e in world.dungeon.enemies():
 			(e as BioCellActor).combatant.actor.vitals.take_damage(9999.0)
 			e.queue_free()
-		if room < 4 and not await _until(func() -> bool: return world.dungeon.room_index == room + 1, 40.0):
+		if room < total - 1 and not await _until(func() -> bool: return world.dungeon.room_index == room + 1, 40.0):
 			return _fail("the engine confirms room %d and opens the next" % (room + 1))
 	if not await _until(func() -> bool: return not world.dungeon.active, 40.0):
 		return _fail("the cleared run closes")

@@ -38,15 +38,20 @@ func _types(room: Dictionary) -> Array:
 
 func test_the_cords_have_their_own_enemies_in_every_room() -> void:
 	var plan := func(i: int, kind: String) -> Dictionary: return BioDungeonPlan.room(5, i, kind, "", "cordoes-hepaticos")
-	assert_eq(_types(plan.call(0, "guard")).filter(func(t: StringName) -> bool: return t == &"celula_estrelada").size(), 3, "three stellate cells at the door")
-	assert_true(_types(plan.call(1, "wall")).has(&"hepatocito_doente"), "sick hepatocytes in the cord")
-	assert_true(_types(plan.call(2, "wall")).has(&"gota_de_gordura"), "fat in the scar")
+	var door := _types(plan.call(0, "guard"))
+	assert_true(door.size() >= 2 and door.size() <= 4 and door.all(func(t: StringName) -> bool: return t == &"celula_estrelada"), "a few stellate cells at the door")
+	var bruisers := 0
+	for seed_value in 12:  # a wall room has a sick hepatocyte or a fat droplet, whichever the seed picks, over several seeds both turn up
+		var types := _types(BioDungeonPlan.room(seed_value, 1, "wall", "", "cordoes-hepaticos"))
+		assert_true(types.has(&"hepatocito_doente") or types.has(&"gota_de_gordura"), "the liver's bruisers in the cord")
+		bruisers += 1 if types.has(&"gota_de_gordura") else 0
+	assert_true(bruisers > 0 and bruisers < 12, "and not always the same one")
 	assert_true(_types(plan.call(3, "core")).has(&"foco_toxico"), "toxic foci in the core")
 	var boss := _types(plan.call(4, "boss"))
 	assert_eq(boss.filter(func(t: StringName) -> bool: return t == &"nodulo_cirrotico").size(), 1, "one nodule")
 	assert_true(bool(BioDungeonPlan.enemy(&"nodulo_cirrotico").get("boss", false)) and float(BioDungeonPlan.enemy(&"nodulo_cirrotico")["hp"]) > 300.0, "a tough boss")
 	assert_eq(str(plan.call(0, "guard")["enemies"]), str(BioDungeonPlan.room(5, 0, "guard", "", "cordoes-hepaticos")["enemies"]), "same seed, same room")
-	assert_eq(_types(BioDungeonPlan.room(5, 0, "guard", "")), [&"linfocito", &"linfocito", &"linfocito"] as Array, "the granuloma is untouched")
+	assert_true(_types(BioDungeonPlan.room(5, 0, "guard", "")).all(func(t: StringName) -> bool: return t == &"linfocito" or t == &"bacilo"), "the granuloma keeps its own cast")
 
 
 func test_the_liver_modifiers_change_the_run() -> void:
@@ -75,7 +80,7 @@ func test_a_cords_run_builds_the_livers_enemies_and_comes_out_in_the_liver() -> 
 	assert_true(world.dungeon.active and world.dungeon.dungeon_id == "cordoes-hepaticos", "the run is the cords")
 	assert_eq(world.dungeon.title, "OS CORDÕES HEPÁTICOS", "with its own title")
 	var kinds := world.dungeon.enemies().map(func(e: Node) -> String: return str(e.get_meta("kind", "")))
-	assert_true(kinds.size() == 3 and kinds.all(func(k: String) -> bool: return k == "celula_estrelada"), "three stellate cells: %s" % [kinds])
+	assert_true(kinds.size() >= 2 and kinds.size() <= 4 and kinds.all(func(k: String) -> bool: return k == "celula_estrelada"), "a few stellate cells: %s" % [kinds])
 	var hp := (world.dungeon.enemies()[0] as BioCellActor).combatant.actor.vitals.membrane
 	assert_near(hp, 22.0 * 0.75, 0.01)
 	world.sync.apply_view({"tick": 2, "dungeon": {"available": [], "run": _run(4, "kupffer-aliadas")}})

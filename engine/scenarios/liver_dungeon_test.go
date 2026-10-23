@@ -93,12 +93,10 @@ func TestCordsClearCleansTheLiverAndFirstClearIsUnique(t *testing.T) {
 	h.mustAct("player", "p1", "entrar-masmorra", cords)
 	h.tick(6)
 	before := h.s.Entities["figado"].Num["toxina"]
-	if run := h.dungeonView("p1").Run; run == nil || run.Dungeon != "cordoes-hepaticos" || run.State != "active" || len(run.Rooms) != 5 {
-		t.Fatalf("the cords run is active with five rooms, got %+v", run)
+	if run := h.dungeonView("p1").Run; run == nil || run.Dungeon != "cordoes-hepaticos" || run.State != "active" || len(run.Rooms) < 5 || len(run.Rooms) > 6 {
+		t.Fatalf("the cords run is active with 5 or 6 rooms, got %+v", run)
 	}
-	for i := 0; i < 5; i++ {
-		h.mustAct("adapter", "p1", "sala-limpa", nil)
-	}
+	h.clearRun("p1")
 	if got := h.s.Entities["figado"].Num["toxina"]; got >= before {
 		t.Fatalf("clearing the cords should clean the liver of toxin, %d -> %d", before, got)
 	}
@@ -108,9 +106,7 @@ func TestCordsClearCleansTheLiverAndFirstClearIsUnique(t *testing.T) {
 	h.tick(7)
 	h.mustAct("player", "p2", "entrar-masmorra", cords)
 	h.tick(6)
-	for i := 0; i < 5; i++ {
-		h.mustAct("adapter", "p2", "sala-limpa", nil)
-	}
+	h.clearRun("p2")
 	if got := h.skillIDs("p2"); !slices.Contains(got, "selo-do-figado") || slices.Contains(got, "primeiro-filtro") {
 		t.Fatalf("the second clear gets the seal only, got %v", got)
 	}
