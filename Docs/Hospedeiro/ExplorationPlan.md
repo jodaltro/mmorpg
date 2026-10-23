@@ -212,7 +212,9 @@ Cada marco entrega algo **jogável e testado** e termina com a régua de balance
 - Regiões: **Medula, Veia cava, Coração, Pulmão** e **Aorta/artérias** (cinco, cerca de 16.000 u²).
 - **Pronto quando:** dá para atravessar medula -> veia -> coração -> pulmão -> aorta jogando; 60 fps medidos; testes de geração determinística (mesma semente, mesmo mapa); o que existe hoje (granuloma, missões) continua funcionando.
 
-### E1 — Corpo vivo
+### E1 — Corpo vivo — ENTREGUE em 23/10/2026
+
+> **Como ficou:** o motor expõe `vitals` (números públicos do universo) em toda visão; o universo ganhou a entidade `corpo` (temperatura, inflamação, adrenalina, cortisol, insulina), a cadeia da infecção pulmonar (bactérias → inflamação → citocinas → febre → hipóxia → cura) e hormônios que aceleram o coração. No cliente, `BioBodyState` transforma os números em efeitos (febre e hipóxia reduzem a regeneração de ATP, adrenalina acelera, insulina valoriza nutrientes), o pulso do mundo segue a frequência cardíaca e **Tab** abre o painel de sinais vitais com a explicação de causa e efeito. Ainda não feito: refeição/sono ligados a mais órgãos (virão com E3) e o ciclo dia/noite.
 - Motor: sinais vitais e ciclos (pulso, respiração, ciclo dia/noite), 3 cadeias (refeição, infecção, sono), painel de sinais.
 - Cliente: pulso nas veias, febre que muda a velocidade, hipóxia, hormônios como buffs.
 - **Pronto quando:** uma infecção no pulmão provoca febre visível em todo o corpo e passa; testes de determinismo e de replay do log.

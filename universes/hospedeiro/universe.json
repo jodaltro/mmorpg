@@ -8,7 +8,8 @@
   "tecido",
   "celula",
   "patogeno",
-  "jogador"
+  "jogador",
+  "corpo"
  ],
  "regionKinds": [
   "tecido"
@@ -125,6 +126,18 @@
    "num": {
     "pressao": 60,
     "carga": 0
+   }
+  },
+  {
+   "id": "corpo",
+   "kind": "corpo",
+   "name": "O Hospedeiro",
+   "num": {
+    "temperatura": 370,
+    "inflamacao": 0,
+    "adrenalina": 0,
+    "cortisol": 0,
+    "insulina": 20
    }
   }
  ],
@@ -518,6 +531,426 @@
       "p": "sono",
       "s": "medula"
      }
+    }
+   ]
+  },
+  {
+   "id": "pulmao-cresce",
+   "every": 3,
+   "when": {
+    "fact": {
+     "p": "foco",
+     "s": "pulmao"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": 4,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "citocinas-sobem",
+   "every": 2,
+   "when": {
+    "any": [
+     {
+      "fact": {
+       "p": "foco",
+       "s": "pulmao"
+      }
+     },
+     {
+      "fact": {
+       "p": "foco",
+       "s": "sangue"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": 6,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "inflamacao-cai",
+   "every": 3,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "foco",
+        "s": "sangue"
+       }
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": -4,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "hipoxia-pulmao",
+   "every": 2,
+   "when": {
+    "num": {
+     "e": "pulmao",
+     "k": "carga",
+     "op": ">=",
+     "v": 30
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": -4,
+     "min": 40,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "ar-volta",
+   "every": 2,
+   "when": {
+    "num": {
+     "e": "pulmao",
+     "k": "carga",
+     "op": "<",
+     "v": 30
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": 3,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "febre-age-pulmao",
+   "every": 2,
+   "when": {
+    "all": [
+     {
+      "fact": {
+       "p": "febre",
+       "s": "sangue"
+      }
+     },
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "carga",
+       "op": ">",
+       "v": 0
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -3,
+     "min": 0
+    }
+   ]
+  },
+  {
+   "id": "foco-pulmao-extinto",
+   "every": 2,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "carga",
+       "op": "<=",
+       "v": 0
+      }
+     },
+     {
+      "fact": {
+       "p": "foco",
+       "s": "pulmao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "retract",
+     "fact": {
+      "p": "foco",
+      "s": "pulmao"
+     }
+    },
+    {
+     "op": "emit",
+     "event": "cura-pulmao",
+     "public": true,
+     "text": "O foco de infecção nos alvéolos se apaga.",
+     "reveals": {
+      "p": "foco",
+      "s": "pulmao"
+     }
+    }
+   ]
+  },
+  {
+   "id": "temperatura-sobe",
+   "every": 1,
+   "when": {
+    "fact": {
+     "p": "febre",
+     "s": "sangue"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "temperatura",
+     "d": 3,
+     "min": 0,
+     "max": 395
+    }
+   ]
+  },
+  {
+   "id": "temperatura-desce",
+   "every": 1,
+   "when": {
+    "not": {
+     "fact": {
+      "p": "febre",
+      "s": "sangue"
+     }
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "temperatura",
+     "d": -2,
+     "min": 370,
+     "max": 420
+    }
+   ]
+  },
+  {
+   "id": "adrenalina-sobe",
+   "every": 2,
+   "when": {
+    "num": {
+     "e": "corpo",
+     "k": "inflamacao",
+     "op": ">=",
+     "v": 30
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "adrenalina",
+     "d": 6,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "adrenalina-cai",
+   "every": 2,
+   "when": {
+    "num": {
+     "e": "corpo",
+     "k": "inflamacao",
+     "op": "<",
+     "v": 30
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "adrenalina",
+     "d": -4,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "cortisol-sobe",
+   "every": 3,
+   "when": {
+    "num": {
+     "e": "corpo",
+     "k": "adrenalina",
+     "op": ">=",
+     "v": 50
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "cortisol",
+     "d": 4,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "cortisol-cai",
+   "every": 3,
+   "when": {
+    "num": {
+     "e": "corpo",
+     "k": "adrenalina",
+     "op": "<",
+     "v": 50
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "cortisol",
+     "d": -2,
+     "min": 0,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "insulina-cai",
+   "every": 3,
+   "when": {
+    "num": {
+     "e": "corpo",
+     "k": "insulina",
+     "op": ">",
+     "v": 20
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "insulina",
+     "d": -3,
+     "min": 20,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "pulso-acelera",
+   "every": 2,
+   "when": {
+    "any": [
+     {
+      "num": {
+       "e": "corpo",
+       "k": "adrenalina",
+       "op": ">=",
+       "v": 30
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "temperatura",
+       "op": ">",
+       "v": 375
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "coracao",
+     "k": "pulso",
+     "d": 3,
+     "min": 0,
+     "max": 130
+    }
+   ]
+  },
+  {
+   "id": "pulso-repousa",
+   "every": 2,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "corpo",
+       "k": "adrenalina",
+       "op": "<",
+       "v": 30
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "temperatura",
+       "op": "<=",
+       "v": 375
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "coracao",
+     "k": "pulso",
+     "d": -3,
+     "min": 62,
+     "max": 130
     }
    ]
   }
@@ -2472,6 +2905,14 @@
      "max": 100
     },
     {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "insulina",
+     "d": 40,
+     "min": 0,
+     "max": 100
+    },
+    {
      "op": "emit",
      "event": "refeicao",
      "public": true,
@@ -2482,25 +2923,11 @@
   {
    "id": "febre",
    "title": "Febre",
-   "desc": "O corpo esquenta para conter a infecção: vírions ficam lentos.",
+   "desc": "O corpo esquenta para conter a infecção: o corpo todo acelera, os vírions ficam lentos.",
    "intensity": 2,
    "cooldown": 40,
    "when": {
     "all": [
-     {
-      "fact": {
-       "p": "foco",
-       "s": "sangue"
-      }
-     },
-     {
-      "num": {
-       "e": "sangue",
-       "k": "carga",
-       "op": ">=",
-       "v": 30
-      }
-     },
      {
       "not": {
        "fact": {
@@ -2508,6 +2935,46 @@
         "s": "sangue"
        }
       }
+     },
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "fact": {
+           "p": "foco",
+           "s": "sangue"
+          }
+         },
+         {
+          "num": {
+           "e": "sangue",
+           "k": "carga",
+           "op": ">=",
+           "v": 30
+          }
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "fact": {
+           "p": "foco",
+           "s": "pulmao"
+          }
+         },
+         {
+          "num": {
+           "e": "corpo",
+           "k": "inflamacao",
+           "op": ">=",
+           "v": 30
+          }
+         }
+        ]
+       }
+      ]
      }
     ]
    },
@@ -2583,6 +3050,68 @@
      "reveals": {
       "p": "sono",
       "s": "medula"
+     }
+    }
+   ]
+  },
+  {
+   "id": "infeccao-pulmonar",
+   "title": "Bactérias nos alvéolos",
+   "desc": "Uma infecção começa no pulmão: inflamação, citocinas no sangue e febre em seguida.",
+   "intensity": 2,
+   "cooldown": 45,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "febre",
+        "s": "sangue"
+       }
+      }
+     },
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "carga",
+       "op": "<=",
+       "v": 0
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "assert",
+     "fact": {
+      "p": "foco",
+      "s": "pulmao"
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": 25,
+     "min": 0,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "infeccao-pulmonar",
+     "public": true,
+     "text": "Bactérias chegam aos alvéolos: o pulmão se inflama e as citocinas começam a subir.",
+     "reveals": {
+      "p": "foco",
+      "s": "pulmao"
      }
     }
    ]
@@ -4105,6 +4634,88 @@
    ],
    "firstText": "foi a primeira a selar o Granuloma.",
    "retry": 6
+  }
+ ],
+ "vitals": [
+  {
+   "id": "temperatura",
+   "label": "Temperatura",
+   "e": "corpo",
+   "k": "temperatura",
+   "min": 360,
+   "max": 410,
+   "low": 365,
+   "high": 375
+  },
+  {
+   "id": "pulso",
+   "label": "Pulso",
+   "e": "coracao",
+   "k": "pulso",
+   "min": 50,
+   "max": 140,
+   "low": 60,
+   "high": 90
+  },
+  {
+   "id": "oxigenio",
+   "label": "Oxigênio",
+   "e": "pulmao",
+   "k": "oxigenio",
+   "min": 0,
+   "max": 100,
+   "low": 70,
+   "high": 100
+  },
+  {
+   "id": "glicose",
+   "label": "Glicose",
+   "e": "sangue",
+   "k": "glicose",
+   "min": 0,
+   "max": 100,
+   "low": 30,
+   "high": 80
+  },
+  {
+   "id": "inflamacao",
+   "label": "Inflamação",
+   "e": "corpo",
+   "k": "inflamacao",
+   "min": 0,
+   "max": 100,
+   "low": 0,
+   "high": 30
+  },
+  {
+   "id": "adrenalina",
+   "label": "Adrenalina",
+   "e": "corpo",
+   "k": "adrenalina",
+   "min": 0,
+   "max": 100,
+   "low": 0,
+   "high": 50
+  },
+  {
+   "id": "cortisol",
+   "label": "Cortisol",
+   "e": "corpo",
+   "k": "cortisol",
+   "min": 0,
+   "max": 100,
+   "low": 0,
+   "high": 50
+  },
+  {
+   "id": "insulina",
+   "label": "Insulina",
+   "e": "corpo",
+   "k": "insulina",
+   "min": 0,
+   "max": 100,
+   "low": 10,
+   "high": 70
   }
  ]
 }

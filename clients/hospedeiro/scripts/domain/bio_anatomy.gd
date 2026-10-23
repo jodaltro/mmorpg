@@ -17,6 +17,7 @@ const FLOW_CELL := 1.5  # size of a flow cell (units)
 const FAR := 14.0  # beyond this distance from a part, it no longer matters to the field
 
 static var _built: Dictionary = {}
+static var heart_hz := HEART_HZ  # the world's pulse follows the host's heart rate
 
 
 ## The authored part: where each place is, how big, how it flows, what lives there. Densities are per region at full scale.
@@ -45,7 +46,7 @@ static func definition() -> Dictionary:
 
 ## The pulse of the world at time t (seconds): a sharp beat each 1/HEART_HZ, 0 between beats.
 static func beat(t: float) -> float:
-	return pow(maxf(0.0, sin(TAU * HEART_HZ * t)), 2.0)
+	return pow(maxf(0.0, sin(TAU * heart_hz * t)), 2.0)
 
 
 static func region_def(id: StringName) -> Dictionary:

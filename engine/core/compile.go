@@ -119,6 +119,9 @@ func Compile(u Universe) (*World, error) {
 	if l.MaxActiveQuests < 1 || l.DecisionTimeout < 1 || l.DeclineCooldown < 0 || l.OfferExpiry < 1 || l.MaxEvents < 16 {
 		return nil, invalid("limits")
 	}
+	if err := w.compileVitals(ents); err != nil {
+		return nil, err
+	}
 	v := &validator{w: w, ents: ents}
 	for _, f := range u.Facts {
 		if !w.preds[f.P] || ents[f.S] == "" || f.O != "" && ents[f.O] == "" || f.Holder != "" && ents[f.Holder] == "" {

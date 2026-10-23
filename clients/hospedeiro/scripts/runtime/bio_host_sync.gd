@@ -216,6 +216,8 @@ func apply_view(view: Dictionary) -> void:
 	_apply_residents(view.get("others", []))
 	_apply_signs(view.get("signs", []))
 	_apply_beliefs(view.get("beliefs", []))
+	if view.get("vitals") is Array:
+		_world.apply_body(view["vitals"])
 	_apply_skills(view.get("skills", []))
 	if view.get("dungeon") is Dictionary:
 		_apply_dungeon(view["dungeon"])

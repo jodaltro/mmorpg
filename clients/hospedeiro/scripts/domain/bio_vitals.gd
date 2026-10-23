@@ -6,6 +6,7 @@ var membrane: float
 var max_atp: float
 var atp: float
 var atp_regen_per_second: float
+var regen_scale := 1.0  # the body's state (fever, a lung short of air) scales how fast energy comes back
 
 
 func _init(p_max_membrane: float, p_max_atp: float, p_atp_regen_per_second: float) -> void:
@@ -62,4 +63,4 @@ func add_atp(amount: float) -> void:
 
 func tick(delta: float) -> void:
 	if is_alive() and delta > 0.0:
-		add_atp(atp_regen_per_second * delta)
+		add_atp(atp_regen_per_second * regen_scale * delta)

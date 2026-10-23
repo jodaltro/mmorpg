@@ -60,6 +60,8 @@ type Universe struct {
 	Director   *Director    `json:"director,omitempty"`
 	Gossip     *Gossip      `json:"gossip,omitempty"`
 	Skills     []SkillDef   `json:"skills,omitempty"`
+	// Vitals are the public numbers of the body (temperature, oxygen, hormones) shown in every view.
+	Vitals []VitalDef `json:"vitals,omitempty"`
 	// Evolution and Mutations: every player evolves; see evolution.go.
 	Evolution *EvolutionDef `json:"evolution,omitempty"`
 	Mutations []MutationDef `json:"mutations,omitempty"`

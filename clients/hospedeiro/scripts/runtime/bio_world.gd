@@ -24,6 +24,8 @@ var abilities: BioAbilityRunner
 var dungeon: BioDungeon
 var anatomy: BioAnatomyView
 var atlas: BioAtlas
+var body := BioBodyState.new()  # the host's vital signs (from the engine) and what they do to the cell
+var vitals_panel: BioVitalsPanel
 var live_regions: Array[StringName] = []
 var fell_in_dungeon := false
 var gate: BioGate
@@ -125,6 +127,10 @@ func build() -> void:
 		hud.set_dungeon_text("GRANULOMA  ·  sala %d/%d  ·  %s" % [index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
 	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(restart_world)
+	vitals_panel = BioVitalsPanel.new()
+	vitals_panel.name = "VitalsPanel"
+	add_child(vitals_panel)
+	vitals_panel.configure(body)
 	atlas = BioAtlas.new()
 	atlas.name = "Atlas"
 	add_child(atlas)
@@ -337,6 +343,18 @@ func respawn_player() -> void:
 	hud.show_banner("")
 
 
+## The host's vital signs arrived (from the engine's view): they weigh on the cell. Fever tires it, a lung short of air starves it of
+## energy, adrenaline hurries it and insulin makes nutrients worth more.
+func apply_body(vitals: Array) -> void:
+	body.apply(vitals)
+	player.combatant.environment_speed = body.speed_multiplier()
+	player.combatant.actor.vitals.regen_scale = body.atp_regen_multiplier()
+	BioNutrientRules.body_multiplier = body.nutrient_multiplier()
+	if body.value("pulso") > 0.0:
+		BioAnatomy.heart_hz = body.value("pulso") / 60.0
+	vitals_panel.refresh()
+
+
 ## Fever (a body state the player knows of): virions slow down.
 func set_fever(on: bool) -> void:
 	if fever == on:
@@ -404,6 +422,8 @@ func _process(delta: float) -> void:
 			region_changed.emit(region)
 	if Input.is_action_just_pressed("bio_map"):
 		atlas.toggle()
+	if Input.is_action_just_pressed("bio_vitals"):
+		vitals_panel.toggle()
 	if dungeon.active:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")

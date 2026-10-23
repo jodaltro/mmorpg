@@ -185,3 +185,36 @@ func TestHospedeiroDodgeQuestCountsConfirmedDodges(t *testing.T) {
 		t.Fatalf("three confirmed dodges complete it, state %q", got.State)
 	}
 }
+
+// E1, the living body: a lung infection (bacteria, inflammation, cytokines in the blood) makes the whole body feverish and short of
+// oxygen, and then it passes. The vitals are public numbers in every view, and the whole chain is deterministic.
+func TestHospedeiroLungInfectionBecomesFeverAndPasses(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	peakTemp, minOxygen, peakPulse := int64(0), int64(100), int64(0)
+	var order []string
+	seen := map[string]bool{}
+	for i := 0; i < 900; i++ {
+		h.tick(1)
+		e := h.s.Entities
+		peakTemp = max(peakTemp, e["corpo"].Num["temperatura"])
+		minOxygen = min(minOxygen, e["pulmao"].Num["oxigenio"])
+		peakPulse = max(peakPulse, e["coracao"].Num["pulso"])
+		for _, ev := range h.w.Chronicle(&h.s, 0).Events {
+			if (ev.Kind == "infeccao-pulmonar" || ev.Kind == "febre" || ev.Kind == "febre-fim" || ev.Kind == "cura-pulmao") && !seen[ev.Kind] {
+				seen[ev.Kind] = true
+				order = append(order, ev.Kind)
+			}
+		}
+	}
+	if !seen["infeccao-pulmonar"] || !seen["febre"] || !seen["febre-fim"] {
+		t.Fatalf("expected infection, fever and its end, got %v", order)
+	}
+	if peakTemp < 380 || peakPulse < 85 || minOxygen > 70 {
+		t.Fatalf("the fever should be felt: peak temperature %d, peak pulse %d, minimum oxygen %d", peakTemp, peakPulse, minOxygen)
+	}
+	v, ok := h.w.View(&h.s, "p1", 20)
+	if !ok || len(v.Vitals) < 8 {
+		t.Fatalf("every view carries the vitals, got %d", len(v.Vitals))
+	}
+}

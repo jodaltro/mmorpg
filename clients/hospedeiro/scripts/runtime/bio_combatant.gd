@@ -97,8 +97,11 @@ func haste(speed_mult: float, seconds: float, atp_per_second: float) -> void:
 	_bonus_atp = atp_per_second
 
 
+var environment_speed := 1.0  # the body's hormones (adrenaline) make every cell quicker
+
+
 func speed_mult() -> float:
-	return _haste if BioClock.now() < _haste_until else 1.0
+	return (_haste if BioClock.now() < _haste_until else 1.0) * environment_speed
 
 
 func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:

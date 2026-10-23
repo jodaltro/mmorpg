@@ -64,3 +64,7 @@ Na corrente sanguínea há um granuloma: anéis de macrófagos em volta de um n�
 ## Atlas do corpo
 
 **M** abre e fecha o atlas: o corpo é uma única membrana contínua; as regiões que a célula já visitou ficam acesas e nomeadas, as outras aparecem só como contorno apagado com um "?". A descoberta é lembrada entre sessões.
+
+## Sinais vitais
+
+Uma linha no canto superior direito mostra temperatura, pulso e oxigênio (laranja quando fora do normal). **Tab** abre o painel completo: uma barra para cada sinal, com a faixa saudável marcada, e frases que explicam o que está acontecendo e por quê (febre, hipóxia, adrenalina, cortisol, insulina).

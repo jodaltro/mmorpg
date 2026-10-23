@@ -15,9 +15,9 @@ import (
 // everyone in the same run sees the same dungeon.
 
 const (
-	actEnterDungeon = "entrar-masmorra"     // player; args: dungeon
-	actClearRoom    = "sala-limpa"          // adapter: the current room was cleared
-	actFailDungeon  = "falhar-masmorra"     // adapter: the run failed (the cell died)
+	actEnterDungeon = "entrar-masmorra"    // player; args: dungeon
+	actClearRoom    = "sala-limpa"         // adapter: the current room was cleared
+	actFailDungeon  = "falhar-masmorra"    // adapter: the run failed (the cell died)
 	actLeaveDungeon = "abandonar-masmorra" // player: leaves a run
 )
 
