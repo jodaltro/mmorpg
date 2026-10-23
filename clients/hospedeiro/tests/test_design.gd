@@ -97,3 +97,16 @@ func test_the_debug_overlay_shows_what_is_really_in_effect() -> void:
 	world.apply_design({}, "motor")
 	world.queue_free()
 	await tree.process_frame
+
+
+func test_a_look_with_only_traits_and_a_null_axes_does_not_break() -> void:
+	var world := BioWorld.new()
+	world.save_path = ""
+	world.engine_url = ""
+	tree.root.add_child(world)
+	await tree.physics_frame
+	world.apply_engine_look({"variant": "", "name": "", "axes": null, "traits": {"efeito": "chama"}})  # what the engine sends before the first variant
+	assert_eq(world.abilities.effect_style, &"chama", "the traits are applied")
+	world.apply_engine_look({"variant": "cacador", "axes": {"ferocidade": 50}, "traits": null})
+	world.queue_free()
+	await tree.process_frame

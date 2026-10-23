@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "dungeon-preparing", "dungeon-started", "dungeon-room", "dungeon-cleared", "dungeon-failed", "dungeon-left", "codice", "adaptou", "rota"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "dungeon-preparing", "dungeon-started", "dungeon-room", "dungeon-cleared", "dungeon-failed", "dungeon-left", "codice", "adaptou", "rota", "design"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -230,6 +230,8 @@ func apply_view(view: Dictionary) -> void:
 			visited.append(f.get("o", ""))
 	if not visited.is_empty():
 		_world.atlas.merge(visited)
+	if view.get("advisor") is Dictionary:
+		_world.jev_panel.set_data(view["advisor"])
 	if view.get("vitals") is Array:
 		_world.apply_body(view["vitals"])
 	_apply_skills(view.get("skills", []))
@@ -406,6 +408,7 @@ um gene novo é seu")
 
 
 func _on_status(online: bool) -> void:
+	_world.jev_panel.set_online(online)
 	system.set_status(online, 0)
 	if not online:
 		_world.release_engine_evolution()

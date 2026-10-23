@@ -99,3 +99,49 @@ func TestDesignFirstOneComesEarly(t *testing.T) {
 		t.Fatalf("seven deeds are enough for the first design, got %d decisions", len(designDecisions(h, "p1")))
 	}
 }
+
+// A player can see what the advisor did for them: who answered each decision, how long it took, and what is still waiting.
+func TestAdvisorViewShowsWhoAnsweredWhat(t *testing.T) {
+	h := load(t, "hospedeiro")
+	lifeOf(h)
+	for i := 0; i < 45 && len(designDecisions(h, "lutador")) == 0; i++ {
+		h.tick(1)
+	}
+	v, _ := h.w.View(&h.s, "lutador", 20)
+	if v.Advisor == nil || len(v.Advisor.Pending) < 19 {
+		t.Fatalf("the design decisions are listed as waiting, got %+v", v.Advisor)
+	}
+	nucleo := designDecisions(h, "lutador")["nucleo"]
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: nucleo.ID, Choice: "trevo", Provider: "jev", Model: "typesafe/jev-test", LatencyMS: 412})
+	h.tick(4) // the rest fall to their defaults
+	v, _ = h.w.View(&h.s, "lutador", 20)
+	var jev, def int
+	for _, r := range v.Advisor.Recent {
+		if r.Kind == "design" && r.Detail == "nucleo" {
+			if r.Provider != "jev" || r.Choice != "trevo" || r.LatencyMS != 412 || r.Default == "" {
+				t.Fatalf("the nucleus row says who chose it and how long it took: %+v", r)
+			}
+		}
+		switch r.Provider {
+		case "jev":
+			jev++
+		case "default":
+			def++
+		}
+	}
+	pendingDesign := 0
+	for _, p := range v.Advisor.Pending {
+		if p.Kind == "design" {
+			pendingDesign++
+		}
+	}
+	if jev != 1 || def < 18 || pendingDesign != 0 {
+		t.Fatalf("one answer by Jev, the others by the deadline, no design waiting: jev=%d default=%d waiting=%d", jev, def, pendingDesign)
+	}
+	other, _ := h.w.View(&h.s, "andarilho", 20)
+	for _, r := range other.Advisor.Recent {
+		if r.Detail == "nucleo" && r.Choice == "trevo" {
+			t.Fatal("another player does not see this player's decisions")
+		}
+	}
+}

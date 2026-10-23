@@ -30,6 +30,19 @@ var design_source := "nenhuma"  # motor (Jev or default), debug or nenhuma
 var design_changed_at := -1.0
 var engine_traits: Dictionary = {}  # the last design the engine sent, kept for F6
 var design_debug: BioDesignDebug
+var jev_panel: BioJevPanel
+var debug_menu: BioDebugMenu
+var debug_god := false
+
+## Rooms and classes the test menu goes straight to.
+const DEBUG_ROOMS := [
+	{"id": "guarda-de-linfocitos", "name": "A guarda de linfócitos", "kind": "guard"},
+	{"id": "parede-de-macrofagos", "name": "A parede de macrófagos", "kind": "wall"},
+	{"id": "anel-interno", "name": "O anel interno", "kind": "wall"},
+	{"id": "nucleo-necrotico", "name": "O núcleo necrótico", "kind": "core"},
+	{"id": "bacilo", "name": "O bacilo (chefe)", "kind": "boss"},
+]
+const DEBUG_CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]
 var codex_panel: BioCodexPanel
 var adapted_regions: Array = []
 var compass_text := ""
@@ -140,6 +153,14 @@ func build() -> void:
 	codex_panel.name = "CodexPanel"
 	add_child(codex_panel)
 	codex_panel.configure()
+	jev_panel = BioJevPanel.new()
+	jev_panel.name = "JevPanel"
+	add_child(jev_panel)
+	jev_panel.configure(self)
+	debug_menu = BioDebugMenu.new()
+	debug_menu.name = "DebugMenu"
+	add_child(debug_menu)
+	debug_menu.configure(self)
 	design_debug = BioDesignDebug.new()
 	design_debug.name = "DesignDebug"
 	add_child(design_debug)
@@ -253,12 +274,12 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 ## The engine's procedural body for this player, decided from how they play. It arrives in the
 ## background whenever the engine decides, and the body morphs towards it slowly.
 func apply_engine_look(look: Dictionary) -> void:
-	var designed: Dictionary = look.get("traits", {})
+	var designed: Dictionary = look["traits"] if look.get("traits") is Dictionary else {}
 	var changed := designed != engine_traits
 	engine_traits = designed.duplicate()
 	if changed or (design_source == "nenhuma" and not designed.is_empty()):  # a debug preview stays until the engine says something new
 		apply_design(designed, "motor")
-	var axes: Dictionary = look.get("axes", {})
+	var axes: Dictionary = look["axes"] if look.get("axes") is Dictionary else {}  # the engine sends null until the body has a variant
 	if axes.is_empty():
 		return
 	for child in player.get_children():
@@ -286,8 +307,103 @@ func apply_design(designed: Dictionary, source: String) -> void:
 		design_debug.refresh()
 
 
+## The shortcuts behind the test menu (Esc). Each one is a plain method, so it is tested without a screen.
+func debug_goto(id: StringName) -> void:
+	if dungeon.active:
+		dungeon.finish(false)
+	player.global_position = BioBodyMap.center_px(id)
+	player.velocity = Vector2.ZERO
+	player.set_active(true)
+	player.combatant.reset_vitals()
+	hud.show_banner("")
+
+
+func debug_dungeon_room(index: int) -> void:
+	if dungeon.active:
+		dungeon.finish(false)
+	player.set_active(true)
+	player.combatant.reset_vitals()
+	dungeon.start({"state": "active", "seed": 424242, "room": index, "rooms": DEBUG_ROOMS, "modifier": {"id": "necrose-viva", "name": "Necrose viva", "desc": ""}})
+	hud.show_banner("")
+
+
+func debug_leave_dungeon() -> void:
+	if dungeon.active:
+		dungeon.finish(false)
+		respawn_player()
+
+
+func debug_become(lineage: StringName) -> void:
+	lineage_id = lineage
+	genome.lineage = lineage
+	player.combatant.set_genome(genome)
+	abilities.clear()
+	for id in BioAbilityCatalog.ids_of_class(lineage):
+		abilities.learn(id)
+	debug_refill()
+
+
+func debug_spawn_virions(count: int) -> void:
+	for i in count:
+		var a := TAU * i / maxf(count, 1) + randf() * 0.4
+		_spawn_virus_at(player.global_position + Vector2.from_angle(a) * randf_range(4.0, 8.0) * BioArt.UNIT)
+
+
+func debug_clear_virions() -> void:
+	for v in viruses():
+		v.queue_free()
+
+
+func debug_refill() -> void:
+	player.set_active(true)
+	player.combatant.actor.vitals.membrane = player.combatant.actor.vitals.max_membrane
+	player.combatant.actor.vitals.atp = player.combatant.actor.vitals.max_atp
+
+
+func debug_reset_cooldowns() -> void:
+	player.combatant.actor._ready_at.clear()
+
+
+func debug_toggle_god() -> void:
+	debug_god = not debug_god
+	hud.show_banner("INVULNERÁVEL LIGADO" if debug_god else "")
+
+
+func debug_random_design() -> void:
+	_debug_random_design()
+
+
+func debug_engine_design() -> void:
+	apply_design(engine_traits, "motor")
+
+
+## Moves one trait to its next option (what F4, F7, F8 and F9 do).
+func debug_cycle(trait_id: String) -> void:
+	var options: Array
+	match trait_id:
+		"efeito":
+			options = BioEffectSignature.STYLES.map(func(s: StringName) -> String: return String(s))
+		"trajetoria":
+			options = BioProjectileDesign.TRAJECTORIES
+		"impacto":
+			options = BioProjectileDesign.IMPACTS.keys()
+		"calibre":
+			options = BioProjectileDesign.CALIBRE.keys()
+		"foco":
+			options = BioAbilityFocus.FOCUS.keys()
+		_:
+			return
+	var cur := design_traits.duplicate()
+	cur[trait_id] = options[(options.find(str(cur.get(trait_id, ""))) + 1) % options.size()]
+	apply_design(cur, "debug")
+
+
 ## Debug keys: F4 cycles the effect style, F5 tries a random design, F6 goes back to the engine's.
 func _debug_keys() -> void:
+	if Input.is_action_just_pressed("bio_jev"):
+		jev_panel.toggle()
+	if Input.is_action_just_pressed("bio_menu"):
+		debug_menu.toggle()
 	if Input.is_action_just_pressed("bio_debug_toggle"):
 		design_debug.toggle()
 	if Input.is_action_just_pressed("bio_debug_style"):
@@ -297,16 +413,7 @@ func _debug_keys() -> void:
 		cur["efeito"] = String(next)
 		apply_design(cur, "debug")
 	if Input.is_action_just_pressed("bio_debug_random"):
-		var rng := RandomNumberGenerator.new()
-		rng.randomize()
-		apply_design({
-			"nucleo": "composto", "lobulacao": BioDesign.LOBES.keys()[rng.randi() % BioDesign.LOBES.size()],
-			"recorte": BioDesign.CUTS[rng.randi() % BioDesign.CUTS.size()], "nucleolo": BioDesign.NUCLEOLI[rng.randi() % BioDesign.NUCLEOLI.size()],
-			"membrana": BioDesign.MEMBRANES[rng.randi() % BioDesign.MEMBRANES.size()], "organelas": BioDesign.ORGANELLES[rng.randi() % BioDesign.ORGANELLES.size()],
-			"brilho": BioDesign.GLOW.keys()[rng.randi() % BioDesign.GLOW.size()], "efeito": String(BioEffectSignature.STYLES[rng.randi() % BioEffectSignature.STYLES.size()]),
-			"foco": BioAbilityFocus.FOCUS.keys()[rng.randi() % BioAbilityFocus.FOCUS.size()], "trajetoria": BioProjectileDesign.TRAJECTORIES[rng.randi() % BioProjectileDesign.TRAJECTORIES.size()],
-			"calibre": BioProjectileDesign.CALIBRE.keys()[rng.randi() % BioProjectileDesign.CALIBRE.size()], "impacto": BioProjectileDesign.IMPACTS.keys()[rng.randi() % BioProjectileDesign.IMPACTS.size()],
-			"ritmo": BioProjectileDesign.TEMPO.keys()[rng.randi() % BioProjectileDesign.TEMPO.size()]}, "debug")
+		_debug_random_design()
 	for pair in [["bio_debug_impact", "impacto", BioProjectileDesign.IMPACTS.keys()], ["bio_debug_path", "trajetoria", BioProjectileDesign.TRAJECTORIES], ["bio_debug_calibre", "calibre", BioProjectileDesign.CALIBRE.keys()]]:
 		if Input.is_action_just_pressed(pair[0]):
 			var options: Array = pair[2]
@@ -516,6 +623,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("bio_codex"):
 		codex_panel.toggle()
 	_debug_keys()
+	if debug_god:
+		player.combatant.actor.vitals.membrane = player.combatant.actor.vitals.max_membrane
+		player.combatant.actor.vitals.atp = player.combatant.actor.vitals.max_atp
 	if dungeon.active:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")
@@ -619,7 +729,10 @@ func _spawn_virus(min_distance_units: float) -> void:
 
 
 func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
-	var pos := BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	_spawn_virus_at(BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units))
+
+
+func _spawn_virus_at(pos: Vector2) -> void:
 	var brain := BioFactory.spawn_virus(self, pos, player)
 	var host := brain.get_parent() as BioCellActor
 	host.max_speed_units = _virus_speed()
@@ -641,3 +754,20 @@ func _add_glow_environment() -> void:
 	holder.name = "GlowEnvironment"
 	holder.environment = env
 	add_child(holder)
+
+
+## A whole design drawn at random from every option the client knows (nucleus, membrane, effects, projectile, focus and the mode of
+## each family), to see combinations without waiting for the engine.
+func _debug_random_design() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	var pick := func(options: Array) -> Variant: return options[rng.randi() % options.size()]
+	var designed := {
+		"nucleo": "composto", "lobulacao": pick.call(BioDesign.LOBES.keys()), "recorte": pick.call(BioDesign.CUTS), "nucleolo": pick.call(BioDesign.NUCLEOLI),
+		"membrana": pick.call(BioDesign.MEMBRANES), "organelas": pick.call(BioDesign.ORGANELLES), "brilho": pick.call(BioDesign.GLOW.keys()),
+		"efeito": String(pick.call(BioEffectSignature.STYLES)), "foco": pick.call(BioAbilityFocus.FOCUS.keys()),
+		"trajetoria": pick.call(BioProjectileDesign.TRAJECTORIES), "calibre": pick.call(BioProjectileDesign.CALIBRE.keys()),
+		"impacto": pick.call(BioProjectileDesign.IMPACTS.keys()), "ritmo": pick.call(BioProjectileDesign.TEMPO.keys())}
+	for family in BioAbilityMode.TRAIT_OF:
+		designed[BioAbilityMode.TRAIT_OF[family]] = pick.call(BioAbilityMode.FAMILIES[family])
+	apply_design(designed, "debug")
