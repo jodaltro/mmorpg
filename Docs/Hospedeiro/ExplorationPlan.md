@@ -233,6 +233,7 @@ Cada marco entrega algo **jogável e testado** e termina com a régua de balance
 - Cada um com seu verbo, bioma, inimigos e uma **mini-masmorra** (centro germinativo nos linfonodos; cripta no intestino).
 - Área cresce para cerca de 25x.
 - **Pronto quando:** cada órgão é jogável por si e entrega um recurso que outro órgão consome.
+- **Baço, intestino e rim (ENTREGUES em 23/10/2026):** cada um com região, verbo, cadeias com os outros órgãos (ferro do baço para a medula; o intestino despeja nutrientes e toxinas no fígado; toxina do fígado vira ureia no rim; rim sobrecarregado sobe a pressão da artéria), nicho único, missões, códice, bichos próprios e uma **masmorra procedural** (Centro Germinativo, Criptas Profundas, Néfrons). Detalhes em `Docs/Validation/Hospedeiro.md`. A área do corpo passou de 21x do mapa antigo (meta da E3: cerca de 25x).
 - **Interface (transversal, ENTREGUE em 23/10/2026):** janelas discretas (avisos no canto; o cartão de chamado só abre com calma, nunca no meio do combate), a janela do **Corpo** (G) com forma, genes, biblioteca de genes silenciados, habilidades e 3 builds com prévia do efeito. Detalhes e testes em `Docs/Validation/Hospedeiro.md`.
 
 ### E4 — Interações entre órgãos

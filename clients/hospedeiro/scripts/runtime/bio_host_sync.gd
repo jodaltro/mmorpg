@@ -86,6 +86,9 @@ func _ready() -> void:
 	_world.glycogen_stored.connect(func() -> void:
 		if link.online:
 			link.occur("guardar-glicogenio"))
+	_world.organ_deed.connect(func(action: String) -> void:
+		if link.online:
+			link.occur(action))
 	_world.evaded.connect(func() -> void:
 		if link.online:
 			link.occur("esquivar"))
@@ -297,7 +300,7 @@ func _apply_dungeon(d: Dictionary) -> void:
 			else:
 				system.push_feed("%s abriram para você: siga a seta e aperte E." % door.title.capitalize())
 		door.eligible = open
-		door.hint = "" if open else str(hints.get(door.dungeon_id, ""))
+		door.hint = "" if open else str(hints.get(door.dungeon_id, "%s pede um corpo mais maduro, dentro do órgão." % door.title.capitalize()))
 	var run_name := str((d.get("run", {}) as Dictionary).get("name", "Granuloma")) if d.get("run") is Dictionary else "Granuloma"
 	var is_gr := (str((d.get("run", {}) as Dictionary).get("dungeon", "granuloma")) if d.get("run") is Dictionary else "granuloma") == "granuloma"
 	var run: Variant = d.get("run")
@@ -321,7 +324,7 @@ func _apply_dungeon(d: Dictionary) -> void:
 			_world.dungeon.advance(int(run.get("room", 0)))
 	elif state == "cleared" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
 		_world.dungeon.finish(true)
-		system.push_feed("O granuloma foi selado. A carga de infecção no sangue cai." if is_gr else "%s foram limpos: a toxina do fígado cai." % run_name)
+		system.push_feed("O granuloma foi selado. A carga de infecção no sangue cai." if is_gr else "%s: limpo. O órgão respira." % run_name)
 	elif state == "failed" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
 		_world.dungeon.finish(false)
 		system.push_feed("Você deixou o granuloma. Ele continua lá." if is_gr else "Você deixou %s. Eles continuam lá." % run_name)

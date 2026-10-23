@@ -36,6 +36,15 @@ static func definition() -> Dictionary:
 			"wall": Color(1.0, 0.4, 0.24, 0.5), "fill": Color(0.65, 0.1, 0.05, 0.09), "palette": [Color(1.0, 0.35, 0.2), Color(1.0, 0.6, 0.3), Color(0.8, 0.1, 0.1)]},
 		{"id": &"figado", "name": "SINUSOIDES DO FÍGADO", "center": Vector2(268.0, 96.0), "radius": 40.0, "wobble": 0.15, "bubbles": 0, "swirl": 0.7, "pulse": 0.3, "nutrients": 26, "viruses": 3, "toxins": 14,
 			"wall": Color(0.85, 0.5, 0.15, 0.45), "fill": Color(0.45, 0.2, 0.04, 0.1), "palette": [Color(0.95, 0.65, 0.2), Color(0.6, 0.3, 0.1), Color(0.7, 0.85, 0.2)]},
+	{"id": &"baco", "name": "POLPA DO BAÇO", "center": Vector2(268.0, -62.0), "radius": 38.0, "wobble": 0.13, "bubbles": 0, "swirl": 0.8, "pulse": 0.2, "nutrients": 20, "viruses": 3,
+			"motes": {&"hemacia_velha": 12},
+			"wall": Color(0.62, 0.42, 0.95, 0.45), "fill": Color(0.28, 0.1, 0.5, 0.1), "palette": [Color(0.7, 0.45, 1.0), Color(0.9, 0.3, 0.6), Color(0.45, 0.5, 1.0)]},
+		{"id": &"intestino", "name": "CRIPTAS DO INTESTINO", "center": Vector2(170.0, 140.0), "radius": 42.0, "wobble": 0.2, "bubbles": 0, "swirl": 0.5, "pulse": 0.15, "nutrients": 44, "viruses": 4,
+			"motes": {&"microbio": 12},
+			"wall": Color(0.5, 0.88, 0.4, 0.45), "fill": Color(0.15, 0.4, 0.08, 0.1), "palette": [Color(0.55, 1.0, 0.4), Color(1.0, 0.85, 0.35), Color(1.0, 0.55, 0.5)]},
+		{"id": &"rim", "name": "NÉFRONS DO RIM", "center": Vector2(330.0, 10.0), "radius": 36.0, "wobble": 0.1, "bubbles": 0, "swirl": 1.2, "pulse": 0.4, "nutrients": 14, "viruses": 3,
+			"motes": {&"cristal_de_ureia": 12},
+			"wall": Color(0.3, 0.88, 0.82, 0.45), "fill": Color(0.04, 0.3, 0.3, 0.1), "palette": [Color(0.35, 0.95, 0.9), Color(1.0, 0.85, 0.4), Color(0.4, 0.7, 1.0)]},
 	]
 	var links: Array[Dictionary] = [
 		{"id": &"sinusoide", "from": &"medula", "to": &"sangue", "half_width": 2.6, "speed": 1.6, "pulse": 0.0, "name": "Sinusoide"},
@@ -43,6 +52,9 @@ static func definition() -> Dictionary:
 		{"id": &"arteria_pulmonar", "from": &"coracao", "to": &"pulmao", "half_width": 3.4, "speed": 2.8, "pulse": 1.0, "name": "Artéria pulmonar"},
 		{"id": &"aorta_ascendente", "from": &"coracao", "to": &"aorta", "half_width": 4.2, "speed": 3.6, "pulse": 1.0, "name": "Aorta ascendente"},
 		{"id": &"arteria_hepatica", "from": &"aorta", "to": &"figado", "half_width": 3.2, "speed": 2.4, "pulse": 0.7, "name": "Artéria hepática"},
+		{"id": &"arteria_esplenica", "from": &"aorta", "to": &"baco", "half_width": 3.0, "speed": 2.4, "pulse": 0.7, "name": "Artéria esplênica"},
+		{"id": &"arteria_mesenterica", "from": &"aorta", "to": &"intestino", "half_width": 3.2, "speed": 2.4, "pulse": 0.7, "name": "Artéria mesentérica"},
+		{"id": &"arteria_renal", "from": &"aorta", "to": &"rim", "half_width": 3.0, "speed": 2.6, "pulse": 0.7, "name": "Artéria renal"},
 	]
 	return {"regions": regions, "links": links}
 

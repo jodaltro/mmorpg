@@ -279,14 +279,13 @@ func _draw() -> void:
 		return
 	var r := chamber_radius * BioArt.UNIT
 	var pulse := 0.5 + 0.5 * sin(_t * 1.4)
-	var wall := Color(1.0, 0.45, 0.62)
+	var colors: Dictionary = BioDungeonPlan.family(dungeon_id)["colors"]
+	var wall: Color = colors["wall"]
 	match room_kind:
 		"guard":
-			wall = Color(0.55, 0.8, 1.0)
+			wall = colors["guard"]
 		"core", "boss":
-			wall = Color(0.6, 0.95, 0.3)
-	if dungeon_id == "cordoes-hepaticos":
-		wall = Color(0.95, 0.65, 0.2) if room_kind != "core" and room_kind != "boss" else Color(0.75, 0.9, 0.2)
+			wall = colors["deep"]
 	var count := _outline.size() - 1
 	for ring in 3:
 		var grow := 1.0 + ring * 14.0 / maxf(r, 1.0)

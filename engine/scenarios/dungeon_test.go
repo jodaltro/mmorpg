@@ -44,7 +44,7 @@ func TestGranulomaNeedsMaturityAndTheRightPlace(t *testing.T) {
 	}
 	h.matureInBlood("p1")
 	view := h.dungeonView("p1")
-	if len(view.Available) != 2 || view.Available[0].ID != "granuloma" || view.Available[0].Rooms != 6 {
+	if len(view.Available) != 5 || view.Available[0].ID != "granuloma" || view.Available[0].Rooms != 6 {
 		t.Fatalf("the granuloma lists its longest run (opening + 4 + boss) and is listed, got %+v", view.Available)
 	}
 	if !view.Available[0].Eligible {

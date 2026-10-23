@@ -100,3 +100,18 @@ Alguns lugares do corpo escondem **nichos**: bolsas com um gene para quem as ach
 **Esc** abre o menu de teste (clique com o mouse; o jogo continua rodando por trás): ir direto a cada lugar do corpo, a cada sala do granuloma (ou ao chefe), virar qualquer classe (já com as 4 habilidades dela), criar 5 ou 15 vírions, limpar vírions, vida e ATP cheios, zerar recargas, modo invulnerável, sortear um design completo, voltar ao design do motor, trocar de estilo, trajetória, impacto, calibre ou foco, e abrir os painéis. Ligado ao motor, a classe pode ser desfeita pelo motor; ir a uma região bloqueada pelo motor (o pulmão sem a chave) é aceito só no cliente.
 
 **F2** abre o painel do Jev: o que está à espera de resposta, as últimas decisões com **quem respondeu (Jev ou o padrão do prazo)**, quanto demorou, quanto custou e se diferiu do padrão, e cada traço do design atual com a origem (jev, padrão ou debug). Uma linha fica sempre visível abaixo da região: `JEV: 22 decisões · 22 pelo Jev · 0 pelo padrão · 394 ms · 0 à espera`, ou `JEV: sem motor (offline)` quando nada é decidido por ele.
+
+## Os órgãos além da artéria (E3)
+
+Da artéria saem os caminhos para o **fígado**, o **baço**, o **intestino** e o **rim**. Cada um tem o seu verbo, os seus bichos e a sua masmorra (o jogo avisa quando ela abre e a seta aponta o caminho).
+
+| Órgão | O que flutua | Verbo (o que o motor ouve) | Bichos selvagens | Masmorra |
+|---|---|---|---|---|
+| Fígado | toxinas | filtrar toxina, guardar glicogênio | plasmódio (se divide), esporo de bile (cospe) | Cordões Hepáticos |
+| Baço | hemácias velhas | reciclar hemácia (devolve ferro à medula); capturar antígeno (matar no baço) | meningococos (em trio), bactéria encapsulada | Centro Germinativo |
+| Intestino | bactérias boas | nutrir a microbiota; repelir invasor (matar no intestino) | bactéria entérica, verme, esporo de clostrídio (cospe) | Criptas Profundas |
+| Rim | cristais de ureia | filtrar ureia; equilibrar o sal (nutriente tomado no rim) | cristais de urato (em trio), cálculo, espícula de oxalato (cospe) | Néfrons |
+
+Os órgãos se falam: o ferro reciclado no baço vira hemácia na medula; o intestino despeja nutrientes **e toxinas** no fígado; a toxina que o fígado não filtra vira ureia no rim; e um rim que não dá conta sobe a pressão da artéria e inflama o corpo.
+
+As masmorras são **procedurais**: cada corrida abre com uma sala fixa, fecha com o chefe e sorteia, da semente, de 3 a 4 salas entre as dos órgãos (emboscada, pilares, ninho, poças, e as de sempre), cada uma com formato, pilares, poças e elenco próprios. Duas corridas não se parecem.

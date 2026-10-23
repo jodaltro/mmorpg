@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 
 PACE = 3
-BASE = {"threshold": 10, "tiers": [14, 40], "granuloma": 14, "cordoes-hepaticos": 16}
+BASE = {"threshold": 10, "tiers": [14, 40], "granuloma": 14, "cordoes-hepaticos": 16,
+        "centro-germinativo": 18, "criptas-profundas": 20, "nefrons": 22}
 
 p = Path(__file__).resolve().parents[3] / "universes/hospedeiro/universe.json"
 u = json.loads(p.read_text(encoding="utf-8"))

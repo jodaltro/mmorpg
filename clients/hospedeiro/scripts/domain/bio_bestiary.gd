@@ -13,6 +13,9 @@ const NATIVES := {
 	&"pulmao": [[&"virion", 20], [&"pneumococo", 40], [&"esporo_fungico", 40]],
 	&"aorta": [[&"virion", 20], [&"placa", 40], [&"embolo", 40]],
 	&"figado": [[&"virion", 20], [&"plasmodio", 45], [&"esporo_de_bile", 35]],
+	&"baco": [[&"virion", 15], [&"meningococo", 45], [&"bacteria_encapsulada", 40]],
+	&"intestino": [[&"virion", 10], [&"bacteria_enterica", 40], [&"verme_intestinal", 30], [&"esporo_de_clostridio", 20]],
+	&"rim": [[&"virion", 15], [&"cristal_de_urato", 45], [&"calculo_renal", 25], [&"espiculo_de_oxalato", 15]],
 }
 
 

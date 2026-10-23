@@ -80,7 +80,7 @@ func _paint() -> void:
 		var off := _state.is_off(id)
 		_panel.draw_rect(Rect2(bar.position, Vector2(width * fraction, bar.size.y)), Color(1.0, 0.55, 0.25, 0.9) if off else Color(0.35, 0.9, 1.0, 0.85))
 		_panel.draw_string(font, Vector2(bar.end.x + 12.0, y), _state.display(id), HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, Color(1.0, 0.7, 0.4, 1.0) if off else Color(1, 1, 1, 0.85))
-		y += 30.0
+		y += 25.0
 	y += 14.0
 	for line in _state.explain():
 		for chunk in _wrap(line, 56):

@@ -9,6 +9,7 @@ signal nutrient_absorbed
 signal evaded
 signal toxin_filtered
 signal glycogen_stored
+signal organ_deed(action: String)  # a verb of an organ was done (a mote taken, a kill in the spleen...): the game server tells the engine
 
 const BLOOD_FLOW_UNITS := 2.2
 const VIRUS_SPEED := 3.6
@@ -135,7 +136,9 @@ func build() -> void:
 		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
 		nutrient_absorbed.emit()
 		if region == BioBodyMap.FIGADO:
-			glycogen_stored.emit())  # in the liver a nutrient is also kept, as glycogen
+			glycogen_stored.emit()  # in the liver a nutrient is also kept, as glycogen
+		elif region == BioBodyMap.RIM:
+			organ_deed.emit("equilibrar-sal"))  # in the kidney it is salt to be balanced
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
 		if result.outcome == BioActor.HitOutcome.EVADED:
 			add_pressure(BioMutationTracker.EVADE_POINTS)
@@ -164,6 +167,7 @@ func build() -> void:
 	add_child(liver_gate)
 	liver_gate.configure(player)
 	gates = {gate.dungeon_id: gate, liver_gate.dungeon_id: liver_gate}
+	_add_organ_gates()
 	dungeon.bind(player, gate.global_position + Vector2(0.0, 3.4 * BioArt.UNIT))
 	for g in gates.values():
 		dungeon.returns[(g as BioGate).dungeon_id] = (g as BioGate).global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
@@ -762,6 +766,28 @@ func _physics_process(delta: float) -> void:
 
 
 ## Keeps the regions around the cell alive: the one it is in and the ones a vessel away. The rest of the body sleeps.
+## The entrances of the dungeons of the next organs: where, how it is called and how it looks. The granuloma's and the cords' are above.
+const ORGAN_GATES := [
+	{"id": "centro-germinativo", "region": &"baco", "title": "CENTRO GERMINATIVO", "at": Vector2(-8.0, 14.0), "ring": Color(0.65, 0.45, 0.95), "core": Color(0.95, 0.45, 0.8)},
+	{"id": "criptas-profundas", "region": &"intestino", "title": "CRIPTAS PROFUNDAS", "at": Vector2(10.0, -14.0), "ring": Color(0.55, 0.9, 0.4), "core": Color(0.95, 0.8, 0.3)},
+	{"id": "nefrons", "region": &"rim", "title": "NÉFRONS", "at": Vector2(-6.0, -13.0), "ring": Color(0.35, 0.9, 0.85), "core": Color(1.0, 0.85, 0.4)},
+]
+
+
+func _add_organ_gates() -> void:
+	for g in ORGAN_GATES:
+		var door := BioGate.new()
+		door.name = "Gate_%s" % g["id"]
+		door.dungeon_id = g["id"]
+		door.title = g["title"]
+		door.ring_color = g["ring"]
+		door.core_color = g["core"]
+		door.position = BioBodyMap.center_px(g["region"]) + (g["at"] as Vector2) * BioArt.UNIT
+		add_child(door)
+		door.configure(player)
+		gates[g["id"]] = door
+
+
 ## The open dungeon entrance closest to the cell (null when none is open).
 func _nearest_open_gate() -> BioGate:
 	var best: BioGate = null
@@ -785,6 +811,7 @@ func _populate(fill_all: bool) -> void:
 	var nutrients_in := {}
 	var viruses_in := {}
 	var toxins_in := {}
+	var motes_in := {}
 	for node in get_tree().get_nodes_in_group("toxins"):
 		var rt := BioBodyMap.region_of((node as Node2D).global_position)
 		if not live_regions.has(rt):
@@ -800,6 +827,12 @@ func _populate(fill_all: bool) -> void:
 			node.queue_free()
 		else:
 			nutrients_in[r] = int(nutrients_in.get(r, 0)) + 1
+	for node in get_tree().get_nodes_in_group("motes"):
+		var rm := BioBodyMap.region_of((node as Node2D).global_position)
+		if not live_regions.has(rm):
+			node.queue_free()
+		else:
+			motes_in[rm] = int(motes_in.get(rm, 0)) + 1
 	for node in get_tree().get_nodes_in_group("viruses"):
 		var r2 := BioBodyMap.region_of((node as Node2D).global_position)
 		if not live_regions.has(r2):
@@ -815,6 +848,10 @@ func _populate(fill_all: bool) -> void:
 		var missing_t: int = int(def.get("toxins", 0)) - int(toxins_in.get(id, 0))
 		for i in (missing_t if fill_all else mini(missing_t, 2)):
 			_spawn_toxin_in(id, 0.0 if fill_all else 8.0)
+		for mote_kind in (def.get("motes", {}) as Dictionary):
+			var missing_m: int = int((def["motes"] as Dictionary)[mote_kind]) - int(motes_in.get(id, 0))  # (one kind per organ)
+			for i in (missing_m if fill_all else mini(missing_m, 2)):
+				_spawn_mote_in(id, mote_kind, 0.0 if fill_all else 8.0)
 		for i in (missing_n if fill_all else mini(missing_n, 3)):
 			_spawn_nutrient_in(id, 0.0 if fill_all else 8.0)
 		for i in (missing_v if fill_all else mini(missing_v, 1)):
@@ -844,6 +881,17 @@ func _spawn_toxin_in(where: StringName, min_distance_units: float) -> void:
 	add_child(toxin)
 
 
+func _spawn_mote_in(where: StringName, kind: StringName, min_distance_units: float) -> void:
+	var mote := BioMote.new()
+	mote.name = "Mote"
+	mote.configure(kind)
+	mote.position = BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	mote.taken.connect(func(taken_kind: StringName) -> void:
+		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
+		organ_deed.emit(str(BioMoteRules.kind(taken_kind)["action"])))
+	add_child(mote)
+
+
 func _spawn_virus(min_distance_units: float) -> void:
 	_spawn_virus_in(BioBodyMap.SANGUE, min_distance_units)
 
@@ -857,6 +905,17 @@ func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
 		_spawn_native_at(kind, at)
 
 
+## A wild thing died: pressure and the confirmed kill, and in the spleen and the intestine the verb of the organ too.
+func _on_wild_kill(at: Vector2) -> void:
+	add_pressure(BioMutationTracker.KILL_POINTS)
+	virus_destroyed.emit()
+	match BioBodyMap.region_of(at):
+		BioBodyMap.BACO:
+			organ_deed.emit("capturar-antigeno")
+		BioBodyMap.INTESTINO:
+			organ_deed.emit("repelir-invasor")
+
+
 ## A wild thing of an organ (see BioBestiary): counted with the virions, so it is streamed, slowed by fever and paid in pressure alike.
 func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
 	var def := BioDungeonPlan.enemy(kind)
@@ -866,8 +925,7 @@ func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
 		var host := brain.get_parent() as BioCellActor
 		host.set_meta("base_speed", float(def["speed"]))
 		host.combatant.died.connect(func(_who: BioCombatant) -> void:
-			add_pressure(BioMutationTracker.KILL_POINTS)
-			virus_destroyed.emit()
+			_on_wild_kill(host.global_position)
 			var split: Variant = def.get("split")
 			if split is Dictionary:
 				for k in int((split as Dictionary)["count"]):
@@ -878,9 +936,7 @@ func _spawn_virus_at(pos: Vector2) -> void:
 	var brain := BioFactory.spawn_virus(self, pos, player)
 	var host := brain.get_parent() as BioCellActor
 	host.max_speed_units = _virus_speed()
-	host.combatant.died.connect(func(_who: BioCombatant) -> void:
-		add_pressure(BioMutationTracker.KILL_POINTS)
-		virus_destroyed.emit())
+	host.combatant.died.connect(func(_who: BioCombatant) -> void: _on_wild_kill(host.global_position))
 
 
 func _add_glow_environment() -> void:
