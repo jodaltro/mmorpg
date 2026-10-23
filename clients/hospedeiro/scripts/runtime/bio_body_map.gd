@@ -68,3 +68,10 @@ static func random_point_px(rng: RandomNumberGenerator, region: StringName, avoi
 ## The flow of the blood at a point (pixels per second) at time t; zero outside the body.
 static func flow_px(pos_px: Vector2, t: float) -> Vector2:
 	return BioAnatomy.flow_at(seed_value, pos_px / BioArt.UNIT, t) * BioArt.UNIT
+
+
+## Where a niche hides in its region (px): a fixed point, the same for everyone, away from the walls.
+static func niche_px(id: String, region: StringName) -> Vector2:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value * 13 + id.hash()
+	return BioAnatomy.random_point(seed_value, region, rng, 7.0) * BioArt.UNIT

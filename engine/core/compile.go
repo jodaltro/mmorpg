@@ -122,6 +122,9 @@ func Compile(u Universe) (*World, error) {
 	if err := w.compileVitals(ents); err != nil {
 		return nil, err
 	}
+	if err := w.compileExploration(ents); err != nil {
+		return nil, err
+	}
 	v := &validator{w: w, ents: ents}
 	for _, f := range u.Facts {
 		if !w.preds[f.P] || ents[f.S] == "" || f.O != "" && ents[f.O] == "" || f.Holder != "" && ents[f.Holder] == "" {

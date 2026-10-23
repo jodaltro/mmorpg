@@ -12,12 +12,12 @@ func configure(state: BioBodyState) -> void:
 	_state = state
 	layer = 11
 	_strip = Label.new()
-	_strip.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	_strip.offset_left = -620
-	_strip.offset_right = -40
-	_strip.offset_top = 86
-	_strip.offset_bottom = 110
-	_strip.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_strip.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_strip.offset_left = -300
+	_strip.offset_right = 300
+	_strip.offset_top = 104
+	_strip.offset_bottom = 128
+	_strip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_strip.add_theme_font_size_override("font_size", 14)
 	_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_strip)

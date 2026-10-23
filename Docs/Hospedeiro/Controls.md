@@ -68,3 +68,7 @@ Na corrente sanguínea há um granuloma: anéis de macrófagos em volta de um n�
 ## Sinais vitais
 
 Uma linha no canto superior direito mostra temperatura, pulso e oxigênio (laranja quando fora do normal). **Tab** abre o painel completo: uma barra para cada sinal, com a faixa saudável marcada, e frases que explicam o que está acontecendo e por quê (febre, hipóxia, adrenalina, cortisol, insulina).
+
+## Explorar
+
+Alguns lugares do corpo escondem **nichos**: bolsas com um gene para quem as achar. Uma seta no canto da tela ("rastro químico · distância") aponta para o nicho mais próximo que você já consegue alcançar; o nicho cintila quando você chega perto, e basta tocá-lo. Os nichos únicos dão o gene só ao primeiro a chegar. Algumas passagens têm uma **membrana alaranjada** que só abre para quem tem o gene certo (o pulmão pede o Citoesqueleto Elástico); ela diz o que pede quando você chega perto. Requer o motor conectado.

@@ -58,6 +58,18 @@ func discover(id: StringName) -> bool:
 	return true
 
 
+## Regions the engine remembers this cell visited (silent: it is history, not news).
+func merge(ids: Array) -> void:
+	var changed := false
+	for id in ids:
+		var key := StringName(str(id))
+		if not known.has(key) and BioAnatomy.region_def(key).size() > 0:
+			known.append(key)
+			changed = true
+	if changed:
+		_save()
+
+
 func forget_all() -> void:
 	known.clear()
 	_save()

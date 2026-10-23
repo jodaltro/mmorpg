@@ -219,7 +219,9 @@ Cada marco entrega algo **jogável e testado** e termina com a régua de balance
 - Cliente: pulso nas veias, febre que muda a velocidade, hipóxia, hormônios como buffs.
 - **Pronto quando:** uma infecção no pulmão provoca febre visível em todo o corpo e passa; testes de determinismo e de replay do log.
 
-### E2 — Exploração
+### E2 — Exploração — PARTE 1 ENTREGUE em 23/10/2026
+
+> **Entregue:** o motor ganhou `passages` (passagens que exigem um gene como chave) e `niches` (nichos escondidos que dão um gene, por jogador ou únicos por mundo), a visão `explore`, o verbo `achar-nicho` (só o adaptador confirma) e a memória de regiões visitadas (`visitou`) que alimenta o atlas; o `move` do motor recusa a travessia sem a chave. No cliente: membrana na passagem fechada, nichos que cintilam ao perto, bússola química (seta + distância) até o nicho mais próximo que a célula consegue alcançar sem cruzar passagem fechada, e o atlas que lembra o que o motor lembra. Mundo atual: o pulmão só abre com o Citoesqueleto Elástico, que está num nicho na vênula; há 5 nichos (3 únicos). **Fica para a parte 2:** códice, spots e segredos que dependem do estado do corpo, chaves de diapedese/adesão, adaptação regional (epigenética) e a decisão `rota` do Jev com missões de exploração.
 - Névoa e atlas, bússola química, códice, spots e segredos por estado do corpo, travessias com chave (diapedese, adesão, espremer), recompensas (genes em nichos, adaptação regional), missões de exploração e a decisão `rota`.
 - **Pronto quando:** um jogador novo é conduzido por gradientes até um nicho e volta com um gene; as chaves bloqueiam e liberam de verdade.
 

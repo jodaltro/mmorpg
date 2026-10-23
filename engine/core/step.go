@@ -199,6 +199,9 @@ func (w *World) move(s *State, c Command, cause string) error {
 	if c.Spot != "" && c.Spot != OpenGround && w.spotRegion(c.Spot) != c.Region {
 		return reject("spot") // a spot only exists inside its own region
 	}
+	if ps, ok := w.passageBetween(ent.Region, c.Region); ok && ent.Region != c.Region && ent.Kind == w.U.PlayerKind && !w.passageOpen(s, c.Actor, ps) {
+		return reject("passage") // the way is closed to a cell without the key
+	}
 	if ent.Region == c.Region {
 		if ent.Tag["spot"] != c.Spot {
 			setSpot(&ent, c.Spot)
@@ -232,6 +235,8 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 		return w.agreeMark(s, origin, actor, args, cause)
 	case actEvolve:
 		return w.chooseMutation(s, origin, actor, args, cause)
+	case actFindNiche:
+		return w.findNiche(s, origin, actor, args, cause)
 	case actRefuseE:
 		return w.refuseMutation(s, origin, actor, cause)
 	case actDifferentiate:

@@ -201,3 +201,10 @@ Régua única (`BioBalance`), números afinados em `data/balance.json`, testes q
 - Go: novo teste `TestHospedeiroLungInfectionBecomesFeverAndPasses` (900 ticks sem jogadores: infecção pulmonar, febre e fim da febre ocorrem; temperatura ≥ 38,0, pulso ≥ 85, oxigênio ≤ 70; toda visão traz 8 sinais vitais). `go vet` limpo; `go test ./...` só falha o já existente `TestClientPresentationMatchesTheUniverse`. `worldsim validate` ok.
 - Godot headless: 97 testes, 0 falhas (novo `test_body_state.gd`: corpo saudável não pesa; febre + hipóxia + adrenalina + insulina viram modificadores; o mundo aplica o corpo à célula e ao pulso).
 - Capturas: `Docs/Validation/e1/vitals_healthy.png` e `vitals_fever.png`.
+
+
+## E2, parte 1 — exploração (23/10/2026)
+
+- Go: `exploration_test.go` (3 testes): o pulmão recusa o `move` sem o gene e abre depois do nicho da vênula, com replay do log reproduzindo o `Digest`; nicho único só para o primeiro (o segundo recebe `nicho-vazio`, e jogador ou região errada é recusado); descoberta (`visitou`) e dicas só nas regiões conhecidas e vizinhas. `go vet` limpo; `go test ./...` só falha o já existente `TestClientPresentationMatchesTheUniverse`. `worldsim validate` ok.
+- Godot headless: 101 testes, 0 falhas (`test_exploration.gd`: a membrana segura a célula e some com a chave; nichos só onde o motor sussurra e tocados uma vez; bússola leva ao nicho alcançável, nunca para o pulmão fechado; atlas aceita a memória do motor).
+- Ponta a ponta com motor real (`tests/e2e_explore.gd`, renderizador real, motor `-advisor deterministic` na porta 8099): conecta, recebe nichos e a passagem fechada, acha o nicho do estroma e o da vênula, recebe `cilios-ageis` e `citoesqueleto-elastico`, a membrana do pulmão some, o motor aceita o move ao pulmão e o atlas o conhece. Capturas em `Docs/Validation/e2/e2e/`.

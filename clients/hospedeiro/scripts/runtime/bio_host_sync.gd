@@ -60,6 +60,9 @@ func _ready() -> void:
 	link.view_changed.connect(apply_view)
 	add_child(link)
 	_world.region_changed.connect(_on_region)
+	_world.exploration.niche_reached.connect(func(id: String) -> void:
+		if link.online:
+			link.occur("achar-nicho", {"niche": id}))
 	_world.dungeon.room_cleared.connect(func(_index: int) -> void:
 		if link.online:
 			link.occur("sala-limpa"))
@@ -216,6 +219,14 @@ func apply_view(view: Dictionary) -> void:
 	_apply_residents(view.get("others", []))
 	_apply_signs(view.get("signs", []))
 	_apply_beliefs(view.get("beliefs", []))
+	if view.get("explore") is Dictionary:
+		_world.exploration.apply(view["explore"])
+	var visited: Array = []
+	for f in view.get("facts", []):
+		if f.get("p", "") == "visitou":
+			visited.append(f.get("o", ""))
+	if not visited.is_empty():
+		_world.atlas.merge(visited)
 	if view.get("vitals") is Array:
 		_world.apply_body(view["vitals"])
 	_apply_skills(view.get("skills", []))
@@ -377,6 +388,12 @@ func _apply_events(events: Array) -> void:
 				_world.spawn_meal(10)
 			"surto":
 				_world.spawn_outbreak(3)
+			"nicho":
+				_world.hud.show_banner("NICHO ENCONTRADO
+um gene novo é seu")
+				_world.get_tree().create_timer(5.0).timeout.connect(func() -> void:
+					if is_instance_valid(_world.hud) and _world.hud.banner_text().begins_with("NICHO ENCONTRADO"):
+						_world.hud.show_banner(""))
 			"mutated":
 				system.push_feed("Seu corpo expressa um novo gene: %s" % e.get("text", ""))
 

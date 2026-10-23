@@ -62,6 +62,9 @@ type Universe struct {
 	Skills     []SkillDef   `json:"skills,omitempty"`
 	// Vitals are the public numbers of the body (temperature, oxygen, hormones) shown in every view.
 	Vitals []VitalDef `json:"vitals,omitempty"`
+	// Passages and Niches: exploring the body; see exploration.go.
+	Passages []PassageDef `json:"passages,omitempty"`
+	Niches   []NicheDef   `json:"niches,omitempty"`
 	// Evolution and Mutations: every player evolves; see evolution.go.
 	Evolution *EvolutionDef `json:"evolution,omitempty"`
 	Mutations []MutationDef `json:"mutations,omitempty"`

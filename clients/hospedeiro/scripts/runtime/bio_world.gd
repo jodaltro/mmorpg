@@ -24,6 +24,8 @@ var abilities: BioAbilityRunner
 var dungeon: BioDungeon
 var anatomy: BioAnatomyView
 var atlas: BioAtlas
+var exploration: BioExploration
+var compass_text := ""
 var body := BioBodyState.new()  # the host's vital signs (from the engine) and what they do to the cell
 var vitals_panel: BioVitalsPanel
 var live_regions: Array[StringName] = []
@@ -127,6 +129,10 @@ func build() -> void:
 		hud.set_dungeon_text("GRANULOMA  ·  sala %d/%d  ·  %s" % [index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
 	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(restart_world)
+	exploration = BioExploration.new()
+	exploration.name = "Exploration"
+	add_child(exploration)
+	exploration.configure(player, seed_value)
 	vitals_panel = BioVitalsPanel.new()
 	vitals_panel.name = "VitalsPanel"
 	add_child(vitals_panel)
@@ -431,6 +437,13 @@ func _process(delta: float) -> void:
 		var to := gate.global_position - player.global_position
 		var far := to.length() > 9.0 * BioArt.UNIT
 		hud.set_guide(far, to, "%s  Granuloma · %d" % ["➤", roundi(to.length() / BioArt.UNIT)])
+	elif not dungeon.active and player.is_active() and exploration != null:
+		var trail := exploration.compass(player.global_position, region)
+		if trail.is_empty() or float(trail["distance"]) < 12.0:
+			hud.set_guide(false, Vector2.ZERO, "")
+		else:
+			compass_text = str(trail["hint"])
+			hud.set_guide(true, (trail["target"] as Vector2) - player.global_position, "rastro químico · %d" % roundi(float(trail["distance"])))
 	else:
 		hud.set_guide(false, Vector2.ZERO, "")
 	if not sync.wants_numbers():

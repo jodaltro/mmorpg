@@ -536,3 +536,14 @@ static func route(seed_value: int, from: StringName, to: StringName) -> Array[Ve
 				for i in range(path.size() - 1, -1, -1):
 					out.append(path[i])
 	return out
+
+
+## A point along a vessel (units) at fraction f of its length, the direction it runs there and its half width there.
+static func link_point(seed_value: int, link_id: StringName, f: float) -> Dictionary:
+	for l in build(seed_value)["links"]:
+		if l["id"] == link_id:
+			var path: PackedVector2Array = l["path"]
+			var widths: PackedFloat32Array = l["widths"]
+			var i := clampi(int(f * (path.size() - 1)), 0, path.size() - 2)
+			return {"p": path[i], "dir": (path[i + 1] - path[i]).normalized(), "half_width": (widths[i] + widths[i + 1]) * 0.5}
+	return {}
