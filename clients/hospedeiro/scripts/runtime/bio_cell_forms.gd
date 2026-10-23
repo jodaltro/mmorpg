@@ -50,7 +50,6 @@ static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: f
 		&"macrofago":
 			_vacuoles(c, r, t, 4 + (3 if genes.has(&"lisossomos_acidos") else 0), BioArt.TOXIN if genes.has(&"lisossomos_acidos") else edge.lightened(0.2))
 		&"neutrofilo":
-			_multilobed_nucleus(c, r, t, 6 if genes.has(&"nucleo_multilobulado") else 3)
 			if genes.has(&"rede_de_dna") and human <= 0.35:
 				_dna_web(c, r, t, core)
 		&"dendritica":

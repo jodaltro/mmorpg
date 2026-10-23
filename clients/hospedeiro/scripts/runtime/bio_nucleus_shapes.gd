@@ -29,18 +29,18 @@ static func radius_at(form: StringName, a: float, t: float) -> float:
 			return breath
 
 
-static func draw(c: CanvasItem, form: StringName, pos: Vector2, rn: float, rot: float, t: float, core: Color, edge: Color) -> void:
+static func draw(c: CanvasItem, form: StringName, pos: Vector2, rn: float, rot: float, t: float, core: Color, edge: Color, lobes: int = 3) -> void:
 	if form == &"neutrofilo":
-		_lobes(c, pos, rn, t, core, edge)
+		_lobes(c, pos, rn, t, core, edge, lobes)
 		return
 	var n := 36
 	var pts := PackedVector2Array()
 	for i in n:
 		var a := i * TAU / n
 		pts.append(pos + Vector2.from_angle(a + rot) * rn * radius_at(form, a, t))
-	var fill := BioArt.with_alpha(core.lerp(Color.WHITE, 0.25), 0.42)
+	var fill := BioArt.with_alpha(core.lerp(Color.WHITE, 0.1), 0.26)
 	for i in n:
-		c.draw_primitive(PackedVector2Array([pos, pts[i], pts[(i + 1) % n]]), PackedColorArray([BioArt.with_alpha(core, 0.55), fill, fill]), PackedVector2Array())
+		c.draw_primitive(PackedVector2Array([pos, pts[i], pts[(i + 1) % n]]), PackedColorArray([BioArt.with_alpha(core, 0.34), fill, fill]), PackedVector2Array())
 	var closed := pts.duplicate()
 	closed.append(pts[0])
 	c.draw_polyline(closed, BioArt.with_alpha(edge.lerp(Color.WHITE, 0.55), 0.9), 2.4, true)
@@ -63,14 +63,15 @@ static func draw(c: CanvasItem, form: StringName, pos: Vector2, rn: float, rot: 
 
 
 ## The neutrophil's nucleus: three round lobes joined by thin threads.
-static func _lobes(c: CanvasItem, pos: Vector2, rn: float, t: float, core: Color, edge: Color) -> void:
+static func _lobes(c: CanvasItem, pos: Vector2, rn: float, t: float, core: Color, edge: Color, count: int) -> void:
 	var centres: Array[Vector2] = []
-	for k in 3:
-		var a := t * 0.35 + k * TAU / 3.0
-		centres.append(pos + Vector2.from_angle(a) * rn * 0.62)
-	for k in 3:
-		c.draw_line(centres[k], centres[(k + 1) % 3], BioArt.with_alpha(edge.lerp(Color.WHITE, 0.4), 0.6), 3.0, true)
-	for k in 3:
-		c.draw_circle(centres[k], rn * 0.5, BioArt.with_alpha(core, 0.5))
-		c.draw_arc(centres[k], rn * 0.5, 0.0, TAU, 20, BioArt.with_alpha(edge.lerp(Color.WHITE, 0.55), 0.9), 2.2, true)
-		c.draw_circle(centres[k], rn * 0.14, BioArt.with_alpha(Color.WHITE, 0.8))
+	var size := 0.5 if count <= 3 else 0.36
+	for k in count:
+		var a := t * 0.35 + k * TAU / count
+		centres.append(pos + Vector2.from_angle(a) * rn * (0.62 if count <= 3 else 0.7))
+	for k in count:
+		c.draw_line(centres[k], centres[(k + 1) % count], BioArt.with_alpha(edge.lerp(Color.WHITE, 0.3), 0.5), 2.4, true)
+	for k in count:
+		c.draw_circle(centres[k], rn * size, BioArt.with_alpha(core, 0.26))
+		c.draw_arc(centres[k], rn * size, 0.0, TAU, 20, BioArt.with_alpha(edge.lerp(Color.WHITE, 0.45), 0.85), 2.0, true)
+		c.draw_circle(centres[k], rn * 0.12, BioArt.with_alpha(Color.WHITE, 0.6))

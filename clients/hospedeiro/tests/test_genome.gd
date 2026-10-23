@@ -211,7 +211,7 @@ func test_ascension_follows_the_share_of_own_class_mutations() -> void:
 	assert_near(g.ascension(), 1.0, 0.001, "all three slots are the class's own")
 
 
-func test_every_form_has_its_own_nucleus_and_humanoid_proportions() -> void:
+func test_every_form_has_its_own_nucleus_and_ghost_silhouette() -> void:
 	var seen := {}
 	for form in [&"mieloide", &"macrofago", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
 		var shape := []
@@ -219,12 +219,26 @@ func test_every_form_has_its_own_nucleus_and_humanoid_proportions() -> void:
 			shape.append(snappedf(BioNucleusShapes.radius_at(form, i * TAU / 12.0, 0.0), 0.05))
 		assert_true(not seen.has(shape), "%s nucleus differs from the others" % form)
 		seen[shape] = true
-	var heads := {}
+	var outlines := {}
 	for form in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
-		var prof := BioHumanoid.profile(form)
-		heads[str([prof["head"], prof["shoulder"], prof["leg"], prof["gear"]])] = true
-	assert_eq(heads.size(), 6, "six different bodies")
-	assert_true(BioHumanoid.head_center(&"macrofago", 20.0, 1.0).y < -20.0, "the head rises above the torso")
+		var outline := []
+		for i in 16:
+			outline.append(snappedf(BioGhostForm.radius_mul(form, i * TAU / 16.0, 1.0), 0.05))
+		outlines[str(outline)] = true
+	assert_eq(outlines.size(), 6, "six different ghosts")
+
+
+func test_the_ghost_grows_gradually_and_nothing_is_added() -> void:
+	for form in [&"macrofago", &"linfocito_b", &"t_citotoxico"]:
+		assert_near(BioGhostForm.radius_mul(form, 1.0, 0.0), 1.0, 0.0001, "%s is untouched at zero" % form)
+		var up := -PI * 0.5
+		var head_a := BioGhostForm.radius_mul(form, up, 0.4)
+		var head_b := BioGhostForm.radius_mul(form, up, 1.0)
+		assert_true(head_b > head_a and head_a > 1.0, "%s: the head grows with the ascension" % form)
+		for i in 64:  # one smooth outline: every angle keeps a sane radius
+			var v := BioGhostForm.radius_mul(form, i * TAU / 64.0, 1.0)
+			assert_true(v >= 0.45 and v < 2.2, "%s radius %f stays a single body" % [form, v])
+	assert_true(BioGhostForm.head_center(&"macrofago", 20.0, 1.0).y < -10.0, "the nucleus rises into the head")
 
 
 func test_a_body_stands_up_only_with_its_class_mutations() -> void:
