@@ -13,6 +13,7 @@ const HEART_HZ := 1.1  # beats per second of the world's pulse
 const CELL := 1.0  # size of a field cell (units)
 const BLEND := 5.0  # how smoothly chambers melt into their vessels (units)
 const MARGIN := 10.0  # empty space kept around the body in the grid (units)
+const FLOW_CELL := 1.5  # size of a flow cell (units)
 const FAR := 14.0  # beyond this distance from a part, it no longer matters to the field
 
 static var _built: Dictionary = {}
@@ -97,6 +98,7 @@ static func build(seed_value: int) -> Dictionary:
 	var body := {"seed": seed_value, "regions": regions, "links": links, "noise": noise}
 	_make_field(body)
 	_make_walls(body)
+	_make_flow(body)
 	_built[seed_value] = body
 	return body
 
@@ -159,6 +161,13 @@ static func _vessel_probe(link: Dictionary, p: Vector2) -> Dictionary:
 	return {"distance": best, "dir": dir, "half_width": width}
 
 
+static func _field_inside_grid(body: Dictionary, p: Vector2) -> float:
+	var q := (p - (body["origin"] as Vector2)) / CELL
+	var i := clampi(int(q.x), 0, int(body["nx"]) - 1)
+	var j := clampi(int(q.y), 0, int(body["ny"]) - 1)
+	return (body["grid"] as PackedFloat32Array)[j * int(body["nx"]) + i]
+
+
 static func _smin(a: float, b: float, k: float) -> float:
 	var h := maxf(k - absf(a - b), 0.0) / k
 	return minf(a, b) - h * h * k * 0.25
@@ -218,6 +227,24 @@ static func _make_field(body: Dictionary) -> void:
 	body["ny"] = ny
 	body["grid"] = grid
 	body["area"] = inside_cells * CELL * CELL
+
+
+## The flow sampled on a coarse grid for three moments of the beat, so asking for it costs a few lookups.
+static func _make_flow(body: Dictionary) -> void:
+	var lo: Vector2 = body["origin"]
+	var nx := int(ceil(float(body["nx"]) * CELL / FLOW_CELL)) + 1
+	var ny := int(ceil(float(body["ny"]) * CELL / FLOW_CELL)) + 1
+	var grids: Array = []
+	for b in [0.0, 0.5, 1.0]:
+		var g := PackedVector2Array()
+		g.resize(nx * ny)
+		for j in ny:
+			for i in nx:
+				g[j * nx + i] = _flow_exact(body, lo + Vector2(i, j) * FLOW_CELL, b - 0.35)
+		grids.append(g)
+	body["flow"] = grids
+	body["flow_nx"] = nx
+	body["flow_ny"] = ny
 
 
 ## The contour of the field (marching squares), chained into closed loops and cut into runs by the place each part of the wall
@@ -367,7 +394,34 @@ static func in_body(seed_value: int, p: Vector2) -> bool:
 ## surges with the heart beat according to how much each part feels it.
 static func flow_at(seed_value: int, p: Vector2, t: float) -> Vector2:
 	var body := build(seed_value)
-	var surge := beat(t) - 0.35
+	var q := (p - (body["origin"] as Vector2)) / FLOW_CELL
+	var nx: int = body["flow_nx"]
+	var ny: int = body["flow_ny"]
+	if q.x < 0.0 or q.y < 0.0 or q.x >= nx - 1 or q.y >= ny - 1:
+		return Vector2.ZERO
+	var i := int(q.x)
+	var j := int(q.y)
+	var fx := q.x - i
+	var fy := q.y - j
+	var b := beat(t)
+	# the flow is quadratic in the beat: three stored samples (beat 0, 1/2, 1) rebuild it exactly
+	var w0 := (1.0 - b) * (1.0 - 2.0 * b)
+	var w1 := 4.0 * b * (1.0 - b)
+	var w2 := b * (2.0 * b - 1.0)
+	var grids: Array = body["flow"]
+	var out := Vector2.ZERO
+	for k in 3:
+		var g: PackedVector2Array = grids[k]
+		var top := g[j * nx + i].lerp(g[j * nx + i + 1], fx)
+		var bottom := g[(j + 1) * nx + i].lerp(g[(j + 1) * nx + i + 1], fx)
+		out += top.lerp(bottom, fy) * [w0, w1, w2][k]
+	return out
+
+
+## The exact flow at a point for a given surge of the heart (beat - 0.35); the grid above is sampled from this.
+static func _flow_exact(body: Dictionary, p: Vector2, surge: float) -> Vector2:
+	if _field_inside_grid(body, p) >= 0.0:
+		return Vector2.ZERO
 	for region in body["regions"]:
 		if not _inside(region, p):
 			continue

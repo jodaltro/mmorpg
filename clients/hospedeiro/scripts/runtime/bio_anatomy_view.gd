@@ -44,7 +44,7 @@ func build(body_seed: int) -> void:
 		var motes := BioAmbientMotes.new()
 		motes.position = (region["center"] as Vector2) * BioArt.UNIT
 		var area := BioAnatomy.polygon_area(region["outline"])
-		motes.build(clampi(int(area / 800.0 * 70.0), 50, 150), clampi(int(area / 800.0 * 9.0), 8, 20), float(region["radius"]), body_seed + String(id).length(), region["palette"])
+		motes.build(clampi(int(area / 800.0 * 40.0), 40, 70), clampi(int(area / 800.0 * 5.0), 6, 10), float(region["radius"]), body_seed + String(id).length(), region["palette"])
 		add_child(motes)
 		_motes[id] = motes
 	set_live(BioAnatomy.within(&"medula", LIVE_HOPS))

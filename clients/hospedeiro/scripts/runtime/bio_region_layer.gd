@@ -12,7 +12,10 @@ var seed_value := 1337
 var _streaks: Array[Dictionary] = []
 var _alveoli: Array[Dictionary] = []
 var _t := 0.0
+var _owed := 0.0
 var _still: Node2D
+var _lung: Node2D  # the air sacs, drawn once and breathing by scale
+var _glow: Node2D  # the wall swelling on the beat: drawn once, its brightness follows the heart
 var _rng := RandomNumberGenerator.new()
 
 
@@ -26,6 +29,17 @@ func configure(region_data: Dictionary, wall_runs: Array, body_seed: int) -> voi
 	_still = Node2D.new()  # what never changes is drawn once
 	_still.draw.connect(_draw_still)
 	add_child(_still)
+	_glow = Node2D.new()
+	_glow.draw.connect(_draw_glow)
+	add_child(_glow)
+	_still.use_parent_material = true
+	if region["id"] == BioBodyMap.PULMAO:
+		_lung = Node2D.new()
+		_lung.position = (region["center"] as Vector2) * BioArt.UNIT
+		_lung.draw.connect(_draw_lung)
+		_lung.use_parent_material = true
+		add_child(_lung)
+	_glow.use_parent_material = true
 	var area := BioAnatomy.polygon_area(region["outline"])
 	for i in clampi(int(area / 30.0), 18, 70):
 		_streaks.append({"p": _random_inside(), "age": _rng.randf() * 3.0, "life": _rng.randf_range(2.0, 5.0)})
@@ -44,6 +58,11 @@ func _random_inside() -> Vector2:
 
 func _process(delta: float) -> void:
 	_t += delta
+	_owed += delta
+	if Engine.get_process_frames() % 2 == 0:  # streaks and the heart's fibres move at half the frame rate: it reads the same, costs half
+		return
+	delta = _owed
+	_owed = 0.0
 	var clock := Time.get_ticks_msec() * 0.001
 	for s in _streaks:
 		var p: Vector2 = s["p"]
@@ -93,8 +112,7 @@ func _draw_still() -> void:
 			_still.draw_circle(Vector2.ZERO, 0.55 * u, BioArt.with_alpha(tint, 0.16))
 			_still.draw_circle(Vector2(0.12 * u, 0.0), 0.2 * u, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.4), 0.22))
 	_still.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	if float(region["pulse"]) <= 0.0:
-		_draw_membrane(_still, 5.0)
+	_draw_membrane(_still, 5.0)
 
 
 func _draw_membrane(canvas: CanvasItem, width: float) -> void:
@@ -109,6 +127,16 @@ func _draw_membrane(canvas: CanvasItem, width: float) -> void:
 		canvas.draw_polyline(pts, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.5), tint.a * 0.7), 1.6, true)
 
 
+func _draw_glow() -> void:
+	var tint: Color = region["wall"]
+	for run in walls:
+		var pts := PackedVector2Array()
+		for p in run["points"]:
+			pts.append(p * BioArt.UNIT)
+		_glow.draw_polyline(pts, BioArt.with_alpha(tint, tint.a * 0.5), 18.0, true)
+		_glow.draw_polyline(pts, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.4), tint.a), 7.0, true)
+
+
 func _draw() -> void:
 	var center: Vector2 = (region["center"] as Vector2) * BioArt.UNIT
 	var u := BioArt.UNIT
@@ -116,8 +144,9 @@ func _draw() -> void:
 	var beat := BioAnatomy.beat(clock)
 	var tint: Color = region["wall"]
 	# the membrane, thicker on the beat for the parts that feel the heart
-	if float(region["pulse"]) > 0.0:  # the places that feel the heart redraw their wall; the others drew it once
-		_draw_membrane(self, 5.0 + 6.0 * beat * float(region["pulse"]))
+	_glow.modulate.a = beat * float(region["pulse"])
+	if _lung != null:
+		_lung.scale = Vector2.ONE * (1.0 + 0.04 * sin(clock * 1.2))
 	# blood carried by the flow: short streaks along its direction
 	for s in _streaks:
 		var p: Vector2 = s["p"]
@@ -127,8 +156,6 @@ func _draw() -> void:
 		draw_line(tail, p * u, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.35), 0.35 * fade), 2.0, true)
 	if region["id"] == BioBodyMap.CORACAO:
 		_draw_heart(center, beat)
-	elif region["id"] == BioBodyMap.PULMAO:
-		_draw_lung(clock)
 
 
 ## Muscle fibres in the wall of the heart that tighten on each beat.
@@ -141,12 +168,12 @@ func _draw_heart(center: Vector2, beat: float) -> void:
 		draw_arc(center, rr, 0.4 + k, 2.2 + k, 24, col, 2.0, true)
 
 
-## Alveoli: clusters of little bubbles on the lung wall that swell and shrink with the breath.
-func _draw_lung(clock: float) -> void:
+## Alveoli: clusters of little bubbles on the lung wall (they swell and shrink with the breath by scaling this node).
+func _draw_lung() -> void:
 	var u := BioArt.UNIT
-	var breath := 1.0 + 0.14 * sin(clock * 1.2)
+	var origin := (region["center"] as Vector2)
 	for al in _alveoli:
-		var p: Vector2 = al["p"]
-		var r: float = float(al["r"]) * u * breath * (1.0 + 0.06 * sin(clock * 2.0 + float(al["phase"])))
-		draw_arc(p * u, r, 0.0, TAU, 14, BioArt.with_alpha(Color(0.85, 0.92, 1.0), 0.5), 2.0, true)
-		draw_circle(p * u, r * 0.45, BioArt.with_alpha(Color(1.0, 0.8, 0.9), 0.12))
+		var p: Vector2 = (al["p"] as Vector2) - origin
+		var r: float = float(al["r"]) * u
+		_lung.draw_arc(p * u, r, 0.0, TAU, 14, BioArt.with_alpha(Color(0.85, 0.92, 1.0), 0.5), 2.0, true)
+		_lung.draw_circle(p * u, r * 0.45, BioArt.with_alpha(Color(1.0, 0.8, 0.9), 0.12))

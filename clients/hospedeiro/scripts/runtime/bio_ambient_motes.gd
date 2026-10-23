@@ -5,6 +5,7 @@ extends Node2D
 var _motes: Array[Sprite2D] = []
 var _anchors: Array[Vector2] = []
 var _phases: Array[float] = []
+var _skip := 0
 
 
 func count() -> int:
@@ -34,6 +35,9 @@ func build(specks: int, blobs: int, radius_units: float, rng_seed: int, palette_
 
 
 func _process(_delta: float) -> void:
+	_skip = (_skip + 1) % 3  # the drift is slow: three frames out of four it needs no update
+	if _skip != 0:
+		return
 	var t := Time.get_ticks_msec() * 0.001
 	var drift := 0.8 * BioArt.UNIT
 	for i in _motes.size():

@@ -192,5 +192,5 @@ Régua única (`BioBalance`), números afinados em `data/balance.json`, testes q
 ## E0 — corpo como dados, mapa 10x (23/10/2026)
 
 - Godot headless: 94 testes, 0 falhas (inclui `test_anatomy.gd`: determinismo, ~10x de área, membrana única fechada, vasos sinuosos dentro da membrana, fluxo e batimento, atlas persistente; e `test_body_world.gd`: streaming de regiões, paredes, descoberta no atlas e travessia medula→aorta pelos vasos).
-- Travessia medula→aorta com renderizador real (`tests/capture_crossing.gd`): 40/40 waypoints, ~28 s; FPS médio 44,6, pior 25 (sem salvar frames). **Meta de 60 fps ainda não atingida**; otimização pendente.
+- Travessia medula→aorta com renderizador real (`tests/capture_crossing.gd`): 40/40 waypoints, ~28 s; FPS médio 44,6, pior 25 antes da otimização. Depois (fluxo em grade de 3 amostras do batimento, membrana e alvéolos desenhados uma vez, partículas a meia taxa): médio 58,6, mínimo 55 (medula 60, vênula 60, endocárdio 57, artéria 59).
 - `worldsim validate` do universo com as novas regiões: ok. `go test ./...`: só falha o já existente `TestClientPresentationMatchesTheUniverse`.
