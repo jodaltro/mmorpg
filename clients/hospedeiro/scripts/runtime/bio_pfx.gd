@@ -11,8 +11,8 @@ static func _base(parent: Node, pos: Vector2, color: Color, amount: int, life: f
 	var p := CPUParticles2D.new()
 	p.texture = BioArt.glow_texture()
 	p.material = BioArt.additive()
-	p.amount = amount
-	p.lifetime = life
+	p.amount = maxi(1, roundi(amount * density))
+	p.lifetime = life * linger
 	p.local_coords = false
 	p.z_index = Z
 	var ramp := Gradient.new()
@@ -40,6 +40,12 @@ static func _free_after(p: CPUParticles2D, seconds: float) -> void:
 				node.queue_free())
 
 
+## The feel Jev designed for this cell's effects: how many particles, how long they linger, how fast they go.
+static var density := 1.0
+static var linger := 1.0
+static var tempo := 1.0
+
+
 ## An explosion of glowing motes. `spread_deg` 180 is all around; a small one fires in `direction`.
 static func burst(parent: Node, pos: Vector2, color: Color, amount: int = 28, speed: float = 220.0, life: float = 0.7, size_px: float = 14.0, direction: Vector2 = Vector2.RIGHT, spread_deg: float = 180.0, damping: float = 2.5) -> void:
 	if parent == null:
@@ -49,8 +55,8 @@ static func burst(parent: Node, pos: Vector2, color: Color, amount: int = 28, sp
 	p.explosiveness = 1.0
 	p.direction = direction
 	p.spread = spread_deg
-	p.initial_velocity_min = speed * 0.4
-	p.initial_velocity_max = speed
+	p.initial_velocity_min = speed * 0.4 * tempo
+	p.initial_velocity_max = speed * tempo
 	p.damping_min = damping * 0.6
 	p.damping_max = damping
 	p.emitting = true

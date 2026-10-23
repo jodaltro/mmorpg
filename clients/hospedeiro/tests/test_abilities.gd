@@ -186,7 +186,8 @@ func test_body_stretches_like_rubber_and_settles() -> void:
 	var body := world.player.get_node("Limbs").body() as BioCellBody
 	body.elastic(Vector2.RIGHT, 0.2, 0.6, 0.05)
 	var peak := 0.0
-	for i in 40:
+	var until := Time.get_ticks_msec() + 500  # sampled by time, not by frame count: the frame rate varies between runs
+	while Time.get_ticks_msec() < until:
 		await tree.process_frame
 		peak = maxf(peak, absf(body._stretch))
 	assert_true(peak > 0.15, "it deformed (%f)" % peak)

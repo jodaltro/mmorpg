@@ -36,7 +36,7 @@ func TestDesignTraitsFollowHowEachPlayerLivesByDefault(t *testing.T) {
 	lifeOf(h)
 	h.tick(46) // the design is reconsidered at tick 45 and the defaults apply at the deadline
 	a, b := h.waitLook("lutador"), h.waitLook("andarilho")
-	if len(a.Traits) != 5 || len(b.Traits) != 5 {
+	if len(a.Traits) != 11 || len(b.Traits) != 11 {
 		t.Fatalf("every trait is designed, got %v / %v", a.Traits, b.Traits)
 	}
 	if a.Traits["nucleo"] == b.Traits["nucleo"] && a.Traits["membrana"] == b.Traits["membrana"] && a.Traits["efeito"] == b.Traits["efeito"] {
@@ -58,8 +58,8 @@ func TestDesignAdvisorChoiceIsRevalidatedAndKept(t *testing.T) {
 		h.tick(1)
 	}
 	ds := designDecisions(h, "lutador")
-	if len(ds) != 5 {
-		t.Fatalf("five traits are asked together, got %d", len(ds))
+	if len(ds) != 11 {
+		t.Fatalf("every trait is asked together, got %d", len(ds))
 	}
 	nucleo := ds["nucleo"]
 	if _, err := h.try(core.Command{Kind: "resolve", Origin: "advisor", Decision: nucleo.ID, Choice: "ondulada"}); !isRejected(err) {
@@ -70,7 +70,7 @@ func TestDesignAdvisorChoiceIsRevalidatedAndKept(t *testing.T) {
 		t.Fatalf("the advisor's nucleus is kept, got %q", got)
 	}
 	h.tick(4) // the other traits fall back to their defaults
-	if tr := h.waitLook("lutador").Traits; tr["nucleo"] != "trevo" || len(tr) != 5 {
+	if tr := h.waitLook("lutador").Traits; tr["nucleo"] != "trevo" || len(tr) != 11 {
 		t.Fatalf("the rest completes by default without undoing the advisor's pick: %v", tr)
 	}
 	b := load(t, "hospedeiro")

@@ -44,7 +44,14 @@ func TestLiveJevHospedeiroPlayerDecisions(t *testing.T) {
 	}
 	stats := map[string]*stat{}
 	asked := map[string]bool{}
-	answer := func() {
+	var answerPass func()
+	answer := func() { // answering can create more decisions (the slots of a composed offer): keep going until nothing new
+		for before := -1; before != len(asked); {
+			before = len(asked)
+			answerPass()
+		}
+	}
+	answerPass = func() {
 		ids := make([]string, 0, len(h.s.Decisions))
 		for id := range h.s.Decisions {
 			ids = append(ids, id)
@@ -110,7 +117,10 @@ func TestLiveJevHospedeiroPlayerDecisions(t *testing.T) {
 		total += s.n
 		t.Logf("%-10s asked=%d chose-other-than-default=%d mean-latency=%dms cost=$%.6f choices=%v", k, s.n, s.differs, s.latency/int64(s.n), s.cost, s.choices)
 	}
-	for _, want := range []string{"evolution", "lineage", "appearance", "design"} {
+	for _, who := range []core.ID{"lutador", "andarilho"} {
+		t.Logf("%s design=%v offer=%v building=%v", who, h.s.Looks[who].Traits, h.s.Genomes[who].Offer, h.s.Genomes[who].Building)
+	}
+	for _, want := range []string{"evolution", "lineage", "appearance", "design", "evolution-slot"} {
 		if stats[want] == nil {
 			t.Errorf("no %s decision reached Jev", want)
 		}

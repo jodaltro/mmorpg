@@ -408,7 +408,10 @@ func _draw() -> void:
 	closed.append(outline[0])
 	draw_polyline(closed, BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.35), 0.95), 6.0 if genes.has(&"membrana_espessa") else 3.0, true)
 	_draw_membrane_trait(closed, edge_now, Time.get_ticks_msec() * 0.001 + _seed)
-	BioNucleusShapes.draw(self, BioDesign.nucleus_form(str(traits.get("nucleo", "")), form), _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, 6 if genes.has(&"nucleo_multilobulado") else 3)
+	if str(traits.get("nucleo", "")) == "composto":
+		BioNucleusShapes.draw_composite(self, _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, int(BioDesign.LOBES.get(str(traits.get("lobulacao", "")), 5)), str(traits.get("recorte", "liso")), str(traits.get("nucleolo", "nenhum")))
+	else:
+		BioNucleusShapes.draw(self, BioDesign.nucleus_form(str(traits.get("nucleo", "")), form), _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, 6 if genes.has(&"nucleo_multilobulado") else 3)
 	_draw_genes(edge_now, core_now)
 	_draw_organelle_trait(radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now)
 	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human, not genes.is_empty())

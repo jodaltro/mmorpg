@@ -4069,6 +4069,14 @@
        "ferocidade": 3,
        "misterio": 1
       }
+     },
+     {
+      "id": "composto",
+      "name": "Composto",
+      "desc": "A nucleus built from parts: its lobes, its cut and its nucleolus are designed separately, so it is one of a kind.",
+      "affinity": {
+       "misterio": 1
+      }
      }
     ]
    },
@@ -4281,6 +4289,232 @@
       "desc": "Abilities grow: wet, pulsing, budding forms.",
       "affinity": {
        "metabolismo": 3
+      }
+     }
+    ]
+   },
+   {
+    "id": "lobulacao",
+    "name": "Lobulação do núcleo",
+    "question": "how many lobes the nucleus has when it is built from parts: few lobes are calm, many are restless",
+    "options": [
+     {
+      "id": "l3",
+      "name": "Três lóbulos",
+      "desc": "A soft triangle of lobes.",
+      "affinity": {
+       "misterio": 1
+      }
+     },
+     {
+      "id": "l4",
+      "name": "Quatro lóbulos",
+      "desc": "A balanced cross of lobes.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "l5",
+      "name": "Cinco lóbulos",
+      "desc": "A five-petalled nucleus.",
+      "affinity": {
+       "sociabilidade": 2
+      }
+     },
+     {
+      "id": "l6",
+      "name": "Seis lóbulos",
+      "desc": "A six-lobed rosette.",
+      "affinity": {
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "l7",
+      "name": "Sete lóbulos",
+      "desc": "A restless seven-lobed nucleus.",
+      "affinity": {
+       "agilidade": 2
+      }
+     },
+     {
+      "id": "l8",
+      "name": "Oito lóbulos",
+      "desc": "A crowded, bustling ring of lobes.",
+      "affinity": {
+       "ferocidade": 1,
+       "agilidade": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "recorte",
+    "name": "Recorte do núcleo",
+    "question": "how the outline of the composed nucleus is cut",
+    "options": [
+     {
+      "id": "liso",
+      "name": "Liso",
+      "desc": "A clean, unbroken outline.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "entalhe",
+      "name": "Entalhe",
+      "desc": "A deep notch on one side, like a bean or a kidney.",
+      "affinity": {
+       "metabolismo": 2
+      }
+     },
+     {
+      "id": "serrilhado",
+      "name": "Serrilhado",
+      "desc": "A finely serrated outline.",
+      "affinity": {
+       "ferocidade": 2
+      }
+     }
+    ]
+   },
+   {
+    "id": "nucleolo",
+    "name": "Nucléolo",
+    "question": "the bright mark inside the nucleus, the signature of this cell",
+    "options": [
+     {
+      "id": "nenhum",
+      "name": "Nenhum",
+      "desc": "A plain nucleus.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "brilhante",
+      "name": "Brilhante",
+      "desc": "One bright off-centre point.",
+      "affinity": {
+       "misterio": 2
+      }
+     },
+     {
+      "id": "anel",
+      "name": "Anel",
+      "desc": "A ring around the middle.",
+      "affinity": {
+       "sociabilidade": 2
+      }
+     },
+     {
+      "id": "constelacao",
+      "name": "Constelação",
+      "desc": "Five points joined by thin lines.",
+      "affinity": {
+       "misterio": 3,
+       "agilidade": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "densidade",
+    "name": "Densidade dos efeitos",
+    "question": "how dense the particles of this cell's abilities are: sparse and precise, or a crowd of sparks",
+    "options": [
+     {
+      "id": "rala",
+      "name": "Rala",
+      "desc": "Few, precise particles.",
+      "affinity": {
+       "agilidade": 2,
+       "robustez": 1
+      }
+     },
+     {
+      "id": "media",
+      "name": "Média",
+      "desc": "A balanced amount.",
+      "affinity": {
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "densa",
+      "name": "Densa",
+      "desc": "A crowd of sparks.",
+      "affinity": {
+       "ferocidade": 2,
+       "metabolismo": 2
+      }
+     }
+    ]
+   },
+   {
+    "id": "rastro",
+    "name": "Rastro dos efeitos",
+    "question": "how long the effects of this cell's abilities linger after they happen",
+    "options": [
+     {
+      "id": "curto",
+      "name": "Curto",
+      "desc": "Effects vanish at once.",
+      "affinity": {
+       "ferocidade": 2,
+       "agilidade": 1
+      }
+     },
+     {
+      "id": "medio",
+      "name": "Médio",
+      "desc": "Effects fade at a natural pace.",
+      "affinity": {
+       "robustez": 1
+      }
+     },
+     {
+      "id": "longo",
+      "name": "Longo",
+      "desc": "Effects linger like smoke.",
+      "affinity": {
+       "misterio": 2,
+       "sociabilidade": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "ritmo",
+    "name": "Ritmo dos efeitos",
+    "question": "how fast the effects of this cell's abilities move",
+    "options": [
+     {
+      "id": "lento",
+      "name": "Lento",
+      "desc": "Heavy, deliberate effects.",
+      "affinity": {
+       "robustez": 2,
+       "misterio": 1
+      }
+     },
+     {
+      "id": "firme",
+      "name": "Firme",
+      "desc": "Steady effects.",
+      "affinity": {
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "veloz",
+      "name": "Veloz",
+      "desc": "Quick, darting effects.",
+      "affinity": {
+       "agilidade": 3,
+       "ferocidade": 1
       }
      }
     ]

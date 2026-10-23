@@ -44,6 +44,7 @@ type Genome struct {
 	Offer    []string `json:"offer,omitempty"`    // pending offer, featured first
 	Featured string   `json:"featured,omitempty"` // where the body leans (the advisor's pick or the default)
 	Declined []string `json:"declined,omitempty"` // last declined offer, not repeated right away
+	Building []string `json:"building,omitempty"` // the offer being composed (see compose.go); the player does not see it yet
 }
 
 // GeneView is a mutation as the player sees it.
@@ -162,9 +163,10 @@ func (w *World) mutationTick(s *State, cause string) {
 	if ev == nil {
 		return
 	}
+	w.composeTick(s, cause)
 	for _, p := range sortedIDs(s.Entities) {
 		e := s.Entities[p]
-		if e.Kind != w.U.PlayerKind || e.Num[ev.Pressure] < ev.Threshold || len(s.Genomes[p].Offer) > 0 {
+		if e.Kind != w.U.PlayerKind || e.Num[ev.Pressure] < ev.Threshold || len(s.Genomes[p].Offer) > 0 || len(s.Genomes[p].Building) > 0 {
 			continue
 		}
 		if slices.ContainsFunc(sortedKeys(s.Decisions), func(k string) bool {
@@ -223,18 +225,24 @@ func (w *World) decideMutation(s *State, d Decision, choice, cause string) error
 		return reject("choice no longer valid")
 	}
 	delete(s.Decisions, d.ID)
-	w.offerMutations(s, p, choice, cause)
+	w.startOffer(s, p, choice, cause)
 	return nil
 }
 
 // offerMutations shows p the featured mutation plus the best-fitting others.
 func (w *World) offerMutations(s *State, p ID, featured, cause string) {
-	offer := []string{featured}
+	w.offerFrom(s, p, []string{featured}, cause)
+}
+
+// offerFrom shows p the chosen mutations (the first is featured), completed by fit up to the size of the offer.
+func (w *World) offerFrom(s *State, p ID, chosen []string, cause string) {
+	featured := chosen[0]
+	offer := slices.Clone(chosen)
 	for _, m := range w.byFit(s, p, w.mutationCandidates(s, p)) {
 		if len(offer) >= w.offerSize() {
 			break
 		}
-		if m.ID != featured {
+		if !slices.Contains(offer, m.ID) {
 			offer = append(offer, m.ID)
 		}
 	}

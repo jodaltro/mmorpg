@@ -8,6 +8,8 @@ const DESIGNS := [
 	{"name": "cristalino", "traits": {"nucleo": "esfera", "membrana": "dupla", "organelas": "vesiculas", "brilho": "ciano", "efeito": "cristal"}},
 	{"name": "eletrico", "traits": {"nucleo": "trevo", "membrana": "contas", "organelas": "tubulos", "brilho": "violeta", "efeito": "eletrico"}},
 	{"name": "nevoa", "traits": {"nucleo": "flor", "membrana": "ondulada", "organelas": "mitocondrias", "brilho": "jade", "efeito": "nevoa"}},
+	{"name": "composto1", "traits": {"nucleo": "composto", "lobulacao": "l7", "recorte": "serrilhado", "nucleolo": "constelacao", "membrana": "ondulada", "organelas": "tubulos", "brilho": "magenta", "efeito": "eletrico", "densidade": "densa", "rastro": "longo", "ritmo": "veloz"}},
+	{"name": "composto2", "traits": {"nucleo": "composto", "lobulacao": "l4", "recorte": "entalhe", "nucleolo": "anel", "membrana": "dupla", "organelas": "vacuolos", "brilho": "ambar", "efeito": "nevoa", "densidade": "rala", "rastro": "curto", "ritmo": "lento"}},
 ]
 
 

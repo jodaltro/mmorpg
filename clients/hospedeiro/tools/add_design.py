@@ -21,7 +21,8 @@ traits = [
          o("hexagono", "Hexágono", "A compact hexagon: disciplined and exact.", ferocidade=2, robustez=1),
          o("trevo", "Trevo", "A four-leaf clover: a nucleus that coordinates others.", sociabilidade=2, misterio=2),
          o("lobulos", "Lóbulos", "A chain of lobes: made to squeeze through anything.", agilidade=3),
-         o("estrela", "Estrela", "A five-pointed star: sharp, radiant, a little cruel.", ferocidade=3, misterio=1)]},
+         o("estrela", "Estrela", "A five-pointed star: sharp, radiant, a little cruel.", ferocidade=3, misterio=1),
+         o("composto", "Composto", "A nucleus built from parts: its lobes, its cut and its nucleolus are designed separately, so it is one of a kind.", misterio=1)]},
     {"id": "membrana", "name": "Membrana", "question": "the texture of the outer membrane, the skin this cell shows the world",
      "options": [
          o("lisa", "Lisa", "A smooth, glossy membrane: nothing to catch on.", agilidade=2),
@@ -52,6 +53,27 @@ traits = [
          o("nevoa", "Névoa", "Abilities billow: soft, drifting clouds with long tails.", sociabilidade=2, misterio=2),
          o("eletrico", "Elétrico", "Abilities crackle: jagged, instant, branching arcs.", agilidade=3),
          o("organico", "Orgânico", "Abilities grow: wet, pulsing, budding forms.", metabolismo=3)]},
+    # Composed nucleus: the advisor builds a nucleus from parts instead of picking a preset (the three below override "nucleo").
+    {"id": "lobulacao", "name": "Lobulação do núcleo", "question": "how many lobes the nucleus has when it is built from parts: few lobes are calm, many are restless",
+     "options": [o("l3", "Três lóbulos", "A soft triangle of lobes.", misterio=1), o("l4", "Quatro lóbulos", "A balanced cross of lobes.", robustez=1),
+                 o("l5", "Cinco lóbulos", "A five-petalled nucleus.", sociabilidade=2), o("l6", "Seis lóbulos", "A six-lobed rosette.", metabolismo=1),
+                 o("l7", "Sete lóbulos", "A restless seven-lobed nucleus.", agilidade=2), o("l8", "Oito lóbulos", "A crowded, bustling ring of lobes.", ferocidade=1, agilidade=1)]},
+    {"id": "recorte", "name": "Recorte do núcleo", "question": "how the outline of the composed nucleus is cut",
+     "options": [o("liso", "Liso", "A clean, unbroken outline.", robustez=1), o("entalhe", "Entalhe", "A deep notch on one side, like a bean or a kidney.", metabolismo=2),
+                 o("serrilhado", "Serrilhado", "A finely serrated outline.", ferocidade=2)]},
+    {"id": "nucleolo", "name": "Nucléolo", "question": "the bright mark inside the nucleus, the signature of this cell",
+     "options": [o("nenhum", "Nenhum", "A plain nucleus.", robustez=1), o("brilhante", "Brilhante", "One bright off-centre point.", misterio=2),
+                 o("anel", "Anel", "A ring around the middle.", sociabilidade=2), o("constelacao", "Constelação", "Five points joined by thin lines.", misterio=3, agilidade=1)]},
+    # How the cell's abilities feel: how many particles, how long they linger, how fast they move.
+    {"id": "densidade", "name": "Densidade dos efeitos", "question": "how dense the particles of this cell's abilities are: sparse and precise, or a crowd of sparks",
+     "options": [o("rala", "Rala", "Few, precise particles.", agilidade=2, robustez=1), o("media", "Média", "A balanced amount.", sociabilidade=1),
+                 o("densa", "Densa", "A crowd of sparks.", ferocidade=2, metabolismo=2)]},
+    {"id": "rastro", "name": "Rastro dos efeitos", "question": "how long the effects of this cell's abilities linger after they happen",
+     "options": [o("curto", "Curto", "Effects vanish at once.", ferocidade=2, agilidade=1), o("medio", "Médio", "Effects fade at a natural pace.", robustez=1),
+                 o("longo", "Longo", "Effects linger like smoke.", misterio=2, sociabilidade=1)]},
+    {"id": "ritmo", "name": "Ritmo dos efeitos", "question": "how fast the effects of this cell's abilities move",
+     "options": [o("lento", "Lento", "Heavy, deliberate effects.", robustez=2, misterio=1), o("firme", "Firme", "Steady effects.", sociabilidade=1),
+                 o("veloz", "Veloz", "Quick, darting effects.", agilidade=3, ferocidade=1)]},
 ]
 u["appearance"]["traits"] = traits
 p.write_text(json.dumps(u, ensure_ascii=False, indent=1), encoding="utf-8")

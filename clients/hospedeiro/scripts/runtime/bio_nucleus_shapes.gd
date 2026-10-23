@@ -77,3 +77,40 @@ static func _lobes(c: CanvasItem, pos: Vector2, rn: float, t: float, core: Color
 		c.draw_circle(centres[k], rn * size, BioArt.with_alpha(core, 0.26))
 		c.draw_arc(centres[k], rn * size, 0.0, TAU, 20, BioArt.with_alpha(edge.lerp(Color.WHITE, 0.45), 0.85), 2.0, true)
 		c.draw_circle(centres[k], rn * 0.12, BioArt.with_alpha(Color.WHITE, 0.6))
+
+
+## A nucleus built from parts (see BioDesign): its lobes, how its outline is cut and the nucleolus inside.
+static func radius_composite(a: float, t: float, lobes: int, cut: String) -> float:
+	var r := 1.0 + 0.2 * cos(lobes * a + t * 0.2)
+	match cut:
+		"entalhe":
+			r *= 1.0 - 0.4 * exp(-pow(angle_difference(a, PI * 0.5) / 0.55, 2.0))
+		"serrilhado":
+			r += 0.07 * cos(lobes * 4.0 * a)
+	return r * (1.0 + 0.03 * sin(t * 2.0 + a * 2.0)) * 0.95
+
+
+static func draw_composite(c: CanvasItem, pos: Vector2, rn: float, rot: float, t: float, core: Color, edge: Color, lobes: int, cut: String, nucleolus: String) -> void:
+	var n := 48
+	var pts := PackedVector2Array()
+	for i in n:
+		var a := i * TAU / n
+		pts.append(pos + Vector2.from_angle(a + rot) * rn * radius_composite(a, t, lobes, cut))
+	var fill := BioArt.with_alpha(core.lerp(Color.WHITE, 0.1), 0.26)
+	for i in n:
+		c.draw_primitive(PackedVector2Array([pos, pts[i], pts[(i + 1) % n]]), PackedColorArray([BioArt.with_alpha(core, 0.34), fill, fill]), PackedVector2Array())
+	var closed := pts.duplicate()
+	closed.append(pts[0])
+	c.draw_polyline(closed, BioArt.with_alpha(edge.lerp(Color.WHITE, 0.55), 0.9), 2.4, true)
+	match nucleolus:
+		"brilhante":
+			c.draw_circle(pos + Vector2.from_angle(rot + 0.7) * rn * 0.32, rn * 0.2, BioArt.with_alpha(Color.WHITE, 0.85))
+		"anel":
+			c.draw_arc(pos, rn * 0.5, 0.0, TAU, 28, BioArt.with_alpha(core.lerp(Color.WHITE, 0.5), 0.8), 2.2, true)
+		"constelacao":
+			var stars := PackedVector2Array()
+			for k in 5:
+				stars.append(pos + Vector2.from_angle(rot + k * 1.9 + t * 0.1) * rn * (0.3 + 0.12 * (k % 2)))
+			for k in 5:
+				c.draw_line(stars[k], stars[(k + 1) % 5], BioArt.with_alpha(Color.WHITE, 0.4), 1.2, true)
+				c.draw_circle(stars[k], 2.2, BioArt.with_alpha(Color.WHITE, 0.9))

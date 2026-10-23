@@ -249,6 +249,10 @@ func apply_engine_look(look: Dictionary) -> void:
 	if designed != design_traits:
 		design_traits = designed.duplicate()
 		abilities.effect_style = StringName(str(design_traits.get("efeito", "")))
+		var feel := BioDesign.feel(design_traits)
+		BioPfx.density = feel["density"]
+		BioPfx.linger = feel["trail"]
+		BioPfx.tempo = feel["tempo"]
 		for child in player.get_children():
 			if child is BioCellBody:
 				(child as BioCellBody).set_traits(design_traits)

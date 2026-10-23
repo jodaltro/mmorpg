@@ -8,13 +8,13 @@ func _universe() -> Dictionary:
 
 func test_every_option_the_engine_offers_has_a_drawing() -> void:
 	var traits: Array = _universe()["appearance"]["traits"]
-	assert_eq(traits.size(), 5, "five designed traits")
+	assert_eq(traits.size(), 11, "eleven designed traits")
 	for t in traits:
 		for o in t["options"]:
 			var id := str(o["id"])
 			match str(t["id"]):
 				"nucleo":
-					assert_true(BioDesign.NUCLEUS.has(id), "nucleus %s has a shape" % id)
+					assert_true(BioDesign.NUCLEUS.has(id) or id == "composto", "nucleus %s has a shape" % id)
 				"membrana":
 					assert_true(BioDesign.MEMBRANES.has(id), "membrane %s has a texture" % id)
 				"organelas":
@@ -23,6 +23,18 @@ func test_every_option_the_engine_offers_has_a_drawing() -> void:
 					assert_true(BioDesign.GLOW.has(id), "glow %s has a colour" % id)
 				"efeito":
 					assert_true(BioEffectSignature.STYLES.has(StringName(id)), "effect %s has a flavour" % id)
+				"lobulacao":
+					assert_true(BioDesign.LOBES.has(id), "lobes %s are drawn" % id)
+				"recorte":
+					assert_true(BioDesign.CUTS.has(id), "cut %s is drawn" % id)
+				"nucleolo":
+					assert_true(BioDesign.NUCLEOLI.has(id), "nucleolus %s is drawn" % id)
+				"densidade":
+					assert_true(BioDesign.DENSITY.has(id), "density %s has a multiplier" % id)
+				"rastro":
+					assert_true(BioDesign.TRAIL.has(id), "trail %s has a multiplier" % id)
+				"ritmo":
+					assert_true(BioDesign.TEMPO.has(id), "rhythm %s has a multiplier" % id)
 
 
 func test_the_effect_flavour_changes_looks_not_numbers() -> void:
@@ -56,3 +68,34 @@ func test_the_world_applies_the_design_to_body_and_abilities() -> void:
 	assert_eq(world.abilities.effect_style, &"", "no design, no flavour")
 	world.queue_free()
 	await tree.process_frame
+
+
+func test_the_feel_of_the_effects_changes_particles_not_numbers() -> void:
+	var calm := BioDesign.feel({})
+	assert_eq(calm["density"], 1.0, "no design, normal density")
+	var crowd := BioDesign.feel({"densidade": "densa", "rastro": "longo", "ritmo": "veloz"})
+	assert_true(crowd["density"] > 1.3 and crowd["trail"] > 1.3 and crowd["tempo"] > 1.2, "a crowd of fast sparks that linger")
+	var world := BioWorld.new()
+	world.save_path = ""
+	world.engine_url = ""
+	tree.root.add_child(world)
+	await tree.physics_frame
+	world.apply_engine_look({"traits": {"densidade": "densa", "rastro": "longo", "ritmo": "veloz"}})
+	assert_near(BioPfx.density, 1.6, 0.0001, "the world applies the density")
+	var p := BioPfx._base(world, Vector2.ZERO, Color.WHITE, 10, 1.0, 10.0)
+	assert_eq(p.amount, 16, "ten particles become sixteen")
+	assert_near(p.lifetime, 1.5, 0.0001, "and linger half as long again")
+	p.queue_free()
+	world.apply_engine_look({"traits": {}})
+	assert_near(BioPfx.density, 1.0, 0.0001, "no design restores the normal feel")
+	world.queue_free()
+	await tree.process_frame
+
+
+func test_a_composed_nucleus_is_unique_to_its_parts() -> void:
+	var a := BioNucleusShapes.radius_composite(0.4, 0.0, 5, "liso")
+	var b := BioNucleusShapes.radius_composite(0.4, 0.0, 7, "serrilhado")
+	assert_true(absf(a - b) > 0.001, "different parts, different outlines")
+	var notch := BioNucleusShapes.radius_composite(PI * 0.5, 0.0, 5, "entalhe")
+	var plain := BioNucleusShapes.radius_composite(PI * 0.5, 0.0, 5, "liso")
+	assert_true(notch < plain * 0.75, "the notch cuts deep on its side")

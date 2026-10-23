@@ -220,11 +220,12 @@ func (s *State) Clone() State {
 	c.Looks = make(map[ID]Look, len(s.Looks))
 	for k, l := range s.Looks {
 		l.Axes = maps.Clone(l.Axes)
+		l.Traits = maps.Clone(l.Traits)
 		c.Looks[k] = l
 	}
 	c.Genomes = make(map[ID]Genome, len(s.Genomes))
 	for k, g := range s.Genomes {
-		g.Genes, g.Offer, g.Declined = slices.Clone(g.Genes), slices.Clone(g.Offer), slices.Clone(g.Declined)
+		g.Genes, g.Offer, g.Declined, g.Building = slices.Clone(g.Genes), slices.Clone(g.Offer), slices.Clone(g.Declined), slices.Clone(g.Building)
 		c.Genomes[k] = g
 	}
 	c.Marks = slices.Clone(s.Marks)

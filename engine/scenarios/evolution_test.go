@@ -2,6 +2,7 @@ package scenarios
 
 import (
 	"slices"
+	"sort"
 	"testing"
 
 	"github.com/jodaltro/mmorpg/engine/core"
@@ -27,7 +28,7 @@ func (h *harness) fight(p core.ID, n int) {
 // waitOffer ticks until p holds a mutation offer (the default applies at the deadline).
 func (h *harness) waitOffer(p core.ID) core.Genome {
 	h.t.Helper()
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 20; i++ { // a composed offer takes a slot decision per open slot
 		if g := h.s.Genomes[p]; len(g.Offer) > 0 {
 			return g
 		}
@@ -91,9 +92,83 @@ func TestAdvisorPicksWhereTheBodyLeans(t *testing.T) {
 		t.Fatal("a choice outside the options is refused")
 	}
 	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "membrana-espessa", Provider: "test"})
-	g := h.s.Genomes["p1"]
+	g := h.waitOffer("p1") // the other slots fall back to fit at the deadline
 	if g.Featured != "membrana-espessa" || g.Offer[0] != "membrana-espessa" || len(g.Offer) != 3 {
 		t.Fatalf("the advisor's pick leads the offer: %+v", g)
+	}
+}
+
+func slotDecisions(h *harness, p core.ID) []core.Decision {
+	out := []core.Decision{}
+	for _, d := range h.s.Decisions {
+		if d.Kind == "evolution-slot" && d.Subject == string(p) {
+			out = append(out, d)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].ID < out[j].ID })
+	return out
+}
+
+// The advisor composes the whole offer: after the featured mutation the other slots are asked one after the other (each knowing what
+// the earlier ones became), every answer is validated, a duplicate collapses, and the player sees nothing until the offer is whole.
+func TestAdvisorComposesTheWholeOffer(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.fight("p1", 4)
+	h.tick(1)
+	d, _ := h.evolutionDecision("p1")
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "membrana-espessa", Provider: "test"})
+	if len(h.s.Genomes["p1"].Offer) != 0 {
+		t.Fatal("the offer is not shown while slots are being composed")
+	}
+	first := slotDecisions(h, "p1")
+	if len(first) != 1 {
+		t.Fatalf("the slots are asked one at a time, got %d", len(first))
+	}
+	if hasOption(first[0].Options, "membrana-espessa") {
+		t.Fatal("a slot never offers the featured mutation again")
+	}
+	if _, err := h.try(core.Command{Kind: "resolve", Origin: "advisor", Decision: first[0].ID, Choice: "membrana-espessa", Provider: "test"}); !isRejected(err) {
+		t.Fatalf("the featured mutation is not a valid slot answer, got %v", err)
+	}
+	pick := first[0].Options[len(first[0].Options)-1].ID // the last candidate: not what fit would pick
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: first[0].ID, Choice: pick, Provider: "test"})
+	if len(h.s.Genomes["p1"].Offer) != 0 {
+		t.Fatal("one slot is still waiting")
+	}
+	second := slotDecisions(h, "p1")
+	if len(second) != 1 || hasOption(second[0].Options, pick) {
+		t.Fatalf("the next slot is asked without what was just chosen, got %+v", second)
+	}
+	pick2 := second[0].Options[len(second[0].Options)-1].ID
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: second[0].ID, Choice: pick2, Provider: "test"})
+	g := h.s.Genomes["p1"]
+	if len(g.Offer) != 3 || g.Offer[0] != "membrana-espessa" || g.Offer[1] != pick || g.Offer[2] != pick2 {
+		t.Fatalf("the composed offer keeps the advisor's picks in order: %+v", g)
+	}
+	b := load(t, "hospedeiro")
+	for _, c := range h.log {
+		var err error
+		if b.s, _, err = b.w.Step(b.s, c); err != nil {
+			t.Fatalf("replay rejected %+v: %v", c, err)
+		}
+	}
+	if b.s.Digest() != h.s.Digest() {
+		t.Fatal("replaying a composed offer gives another world")
+	}
+}
+
+// With nobody answering the slots, the deadline completes the offer by fit.
+func TestComposedOfferCompletesByFitAtTheDeadline(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.fight("p1", 4)
+	h.tick(1)
+	d, _ := h.evolutionDecision("p1")
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "membrana-espessa", Provider: "test"})
+	g := h.waitOffer("p1")
+	if len(g.Offer) != 3 || len(g.Building) != 0 || len(slotDecisions(h, "p1")) != 0 {
+		t.Fatalf("the offer completes on its own: %+v", g)
 	}
 }
 

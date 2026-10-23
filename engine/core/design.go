@@ -126,6 +126,9 @@ func (w *World) designTick(s *State, cause string) {
 			}
 			id := "design:" + t.ID + ":" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
 			ctx := append([]string{"trait being designed: " + t.Name + " - " + t.Question}, base...)
+			if worn := w.wornBy(s, p, t); worn != "" {
+				ctx = append(ctx, "options other players already wear for this trait (make this cell recognisable and different): "+worn)
+			}
 			s.Decisions[id] = Decision{ID: id, Kind: "design", Subject: string(p), Options: opts, Default: w.designDefault(s, p, t),
 				Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
 		}
@@ -158,4 +161,27 @@ func (w *World) decideDesign(s *State, d Decision, choice, cause string) error {
 	s.Looks[p] = l
 	w.emit(s, Event{Kind: "design", Holder: p, Text: t.Name, Cause: cause, Data: map[string]string{"trait": t.ID, "choice": choice}})
 	return nil
+}
+
+// wornBy says which options of a trait the other players currently have (with how many), so the advisor can keep cells distinct.
+func (w *World) wornBy(s *State, p ID, t TraitDef) string {
+	count := map[string]int{}
+	for _, other := range sortedIDs(s.Entities) {
+		if other == p || s.Entities[other].Kind != w.U.PlayerKind {
+			continue
+		}
+		if o := s.Looks[other].Traits[t.ID]; o != "" {
+			count[o]++
+		}
+	}
+	keys := make([]string, 0, len(count))
+	for k := range count {
+		keys = append(keys, k)
+	}
+	slices.Sort(keys)
+	parts := make([]string, 0, len(keys))
+	for _, k := range keys {
+		parts = append(parts, k+" x"+strconv.Itoa(count[k]))
+	}
+	return strings.Join(parts, ", ")
 }
