@@ -140,6 +140,15 @@
     "cortisol": 0,
     "insulina": 20
    }
+  },
+  {
+   "id": "figado",
+   "kind": "tecido",
+   "name": "Fígado",
+   "num": {
+    "glicogenio": 30,
+    "toxina": 20
+   }
   }
  ],
  "facts": [
@@ -227,6 +236,22 @@
    "name": "Braquiocefálica, a saída para o corpo",
    "near": [
     "arco"
+   ]
+  },
+  {
+   "id": "sinusoide-hepatico",
+   "region": "figado",
+   "name": "Sinusoide hepático, onde o sangue devagar encontra os hepatócitos",
+   "near": [
+    "veia-central"
+   ]
+  },
+  {
+   "id": "veia-central",
+   "region": "figado",
+   "name": "Veia central, a saída do fígado",
+   "near": [
+    "sinusoide-hepatico"
    ]
   }
  ],
@@ -954,6 +979,140 @@
      "max": 130
     }
    ]
+  },
+  {
+   "id": "figado-guarda",
+   "every": 4,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "glicose",
+       "op": ">=",
+       "v": 70
+      }
+     },
+     {
+      "num": {
+       "e": "figado",
+       "k": "glicogenio",
+       "op": "<",
+       "v": 100
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "glicogenio",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "glicose",
+     "d": -5,
+     "min": 0
+    }
+   ]
+  },
+  {
+   "id": "figado-libera",
+   "every": 4,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "glicose",
+       "op": "<",
+       "v": 48
+      }
+     },
+     {
+      "num": {
+       "e": "figado",
+       "k": "glicogenio",
+       "op": ">=",
+       "v": 6
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "glicogenio",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "glicose",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "figado-libera",
+     "public": true,
+     "text": "O fígado solta glicogênio no sangue: a glicose volta a subir."
+    }
+   ]
+  },
+  {
+   "id": "toxina-sobe",
+   "every": 5,
+   "when": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": "<",
+     "v": 100
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": 2,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "figado-sobrecarregado",
+   "every": 6,
+   "when": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": ">=",
+     "v": 80
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": 3,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "figado-sobrecarregado",
+     "public": true,
+     "text": "O fígado se sobrecarrega de toxinas e o corpo inflama."
+    }
+   ]
   }
  ],
  "actions": [
@@ -1464,6 +1623,75 @@
      "op": "adjust",
      "e": "$self",
      "k": "explorar",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "guardar-glicogenio",
+   "title": "Guardar glicogênio",
+   "by": [
+    "adapter"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "figado"
+    }
+   },
+   "tags": [
+    "metabolism"
+   ],
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "glicogenio",
+     "d": 4,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "filtrar-toxina",
+   "title": "Filtrar toxina",
+   "by": [
+    "adapter"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "figado"
+    }
+   },
+   "tags": [
+    "metabolism",
+    "endure"
+   ],
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": -4,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
      "d": 1
     }
    ]
@@ -3254,6 +3482,128 @@
      "e": "$self",
      "k": "maturidade",
      "d": 2
+    }
+   ]
+  },
+  {
+   "id": "guardar-a-reserva",
+   "giver": "estroma",
+   "rank": "E",
+   "title": "Guardar a reserva",
+   "desc": "Osteia explica: o que o sangue não gasta, o fígado guarda.",
+   "objective": "No fígado, absorva 8 nutrientes: o glicogênio guardado sustenta o corpo quando a glicose cai.",
+   "reward": "Pressão evolutiva +3",
+   "tags": [
+    "metabolism",
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "fact": {
+       "p": "visitou",
+       "s": "$self",
+       "o": "figado",
+       "private": true
+      }
+     },
+     {
+      "deeds": {
+       "action": "guardar-glicogenio",
+       "op": "<",
+       "v": 8
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "guardar-glicogenio",
+     "op": ">=",
+     "v": 8
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 3
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 3
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "figado-limpo",
+   "giver": "estroma",
+   "rank": "E",
+   "title": "Fígado limpo",
+   "desc": "Osteia teme o que o fígado acumula: toxina demais vira inflamação.",
+   "objective": "Filtre 8 toxinas nos sinusoides, antes que o corpo inflame.",
+   "reward": "Pressão evolutiva +3",
+   "tags": [
+    "metabolism",
+    "explore"
+   ],
+   "eligible": {
+    "all": [
+     {
+      "fact": {
+       "p": "visitou",
+       "s": "$self",
+       "o": "figado",
+       "private": true
+      }
+     },
+     {
+      "deeds": {
+       "action": "filtrar-toxina",
+       "op": "<",
+       "v": 8
+      }
+     }
+    ]
+   },
+   "goal": {
+    "deeds": {
+     "action": "filtrar-toxina",
+     "op": ">=",
+     "v": 8
+    }
+   },
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 3
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 3
+    },
+    {
+     "op": "relate",
+     "e": "estroma",
+     "to": "$self",
+     "d": 1,
+     "min": -10,
+     "max": 10
     }
    ]
   }
@@ -5924,6 +6274,26 @@
    "max": 100,
    "low": 10,
    "high": 70
+  },
+  {
+   "id": "glicogenio",
+   "label": "Glicogênio (fígado)",
+   "e": "figado",
+   "k": "glicogenio",
+   "min": 0,
+   "max": 100,
+   "low": 10,
+   "high": 90
+  },
+  {
+   "id": "toxina",
+   "label": "Toxinas (fígado)",
+   "e": "figado",
+   "k": "toxina",
+   "min": 0,
+   "max": 100,
+   "low": 0,
+   "high": 70
   }
  ],
  "discovered": "visitou",
@@ -5959,6 +6329,12 @@
     "neutrofilo"
    ],
    "hint": "A parede da aorta é espessa: passam os que atravessam a parede por ofício (macrófago e neutrófilo, a diapedese) ou os que se espremem com o citoesqueleto elástico."
+  },
+  {
+   "id": "arteria_hepatica",
+   "from": "aorta",
+   "to": "figado",
+   "name": "Artéria hepática"
   }
  ],
  "niches": [
@@ -6032,6 +6408,15 @@
    },
    "hint": "Na febre, os alvéolos mais quentes brilham de outro jeito.",
    "text": "Na febre, um alvéolo em brasa lhe passa o interferon gama: o sinal que acende as defesas."
+  },
+  {
+   "id": "cripta-de-kupffer",
+   "region": "figado",
+   "name": "Cripta de Kupffer",
+   "gene": "peroxissomos",
+   "unique": true,
+   "hint": "Entre os cordões de hepatócitos há uma cripta onde um macrófago antigo nunca parou de limpar.",
+   "text": "Na cripta, uma célula de Kupffer lhe empresta o ofício de quebrar o que envenena: os peroxissomos. Daqui em diante a toxina do fígado lhe dá energia, não dano."
   }
  ],
  "exploring": {
@@ -6209,6 +6594,46 @@
     }
    },
    "text": "Na febre, o interferon gama acende as defesas dos pulmões: é o sinal que diz às células vizinhas para se prepararem."
+  },
+  {
+   "id": "cx-figado",
+   "kind": "regiao",
+   "title": "O fígado",
+   "when": {
+    "fact": {
+     "p": "visitou",
+     "s": "$self",
+     "o": "figado",
+     "private": true
+    }
+   },
+   "text": "O maior órgão interno é uma usina química: seus sinusoides deixam o sangue passar devagar entre cordões de hepatócitos, que guardam açúcar, quebram toxinas e fabricam proteínas."
+  },
+  {
+   "id": "cx-glicogenio",
+   "kind": "fisiologia",
+   "title": "Glicogênio",
+   "when": {
+    "deeds": {
+     "action": "guardar-glicogenio",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "Depois da refeição, a insulina manda o fígado guardar glicose como glicogênio; com o jejum, ele a devolve ao sangue. É o reservatório que mantém o açúcar estável."
+  },
+  {
+   "id": "cx-kupffer",
+   "kind": "segredo",
+   "title": "Células de Kupffer",
+   "when": {
+    "deeds": {
+     "action": "nicho:cripta-de-kupffer",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "Os macrófagos residentes do fígado ficam dentro dos sinusoides e limpam bactérias e restos que vêm do intestino. Seus peroxissomos quebram toxinas."
   }
  ]
 }

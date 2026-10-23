@@ -75,6 +75,12 @@ func _ready() -> void:
 	_world.nutrient_absorbed.connect(func() -> void:
 		if link.online:
 			link.occur("absorver-nutriente"))
+	_world.toxin_filtered.connect(func() -> void:
+		if link.online:
+			link.occur("filtrar-toxina"))
+	_world.glycogen_stored.connect(func() -> void:
+		if link.online:
+			link.occur("guardar-glicogenio"))
 	_world.evaded.connect(func() -> void:
 		if link.online:
 			link.occur("esquivar"))

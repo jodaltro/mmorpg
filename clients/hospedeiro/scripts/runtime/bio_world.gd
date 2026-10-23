@@ -7,6 +7,8 @@ signal region_changed(region: StringName)
 signal virus_destroyed
 signal nutrient_absorbed
 signal evaded
+signal toxin_filtered
+signal glycogen_stored
 
 const BLOOD_FLOW_UNITS := 2.2
 const VIRUS_SPEED := 3.6
@@ -125,7 +127,9 @@ func build() -> void:
 	player.combatant.set_genome(genome)
 	player.combatant.nutrient_consumed.connect(func(_kind: int) -> void:
 		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
-		nutrient_absorbed.emit())
+		nutrient_absorbed.emit()
+		if region == BioBodyMap.FIGADO:
+			glycogen_stored.emit())  # in the liver a nutrient is also kept, as glycogen
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
 		if result.outcome == BioActor.HitOutcome.EVADED:
 			add_pressure(BioMutationTracker.EVADE_POINTS)
@@ -495,7 +499,7 @@ func restart_world() -> void:
 	abilities.clear()
 	set_fever(false)
 	set_sleeping(false)
-	for node in get_tree().get_nodes_in_group("viruses") + get_tree().get_nodes_in_group("nutrients"):
+	for node in get_tree().get_nodes_in_group("viruses") + get_tree().get_nodes_in_group("nutrients") + get_tree().get_nodes_in_group("toxins"):
 		node.queue_free()
 	await get_tree().process_frame
 	player.set_active(true)
@@ -685,6 +689,13 @@ func _populate(fill_all: bool) -> void:
 	var virus_scale := float(virus_count) / 6.0
 	var nutrients_in := {}
 	var viruses_in := {}
+	var toxins_in := {}
+	for node in get_tree().get_nodes_in_group("toxins"):
+		var rt := BioBodyMap.region_of((node as Node2D).global_position)
+		if not live_regions.has(rt):
+			node.queue_free()
+		else:
+			toxins_in[rt] = int(toxins_in.get(rt, 0)) + 1
 	for node in get_tree().get_nodes_in_group("nutrients"):
 		var at := (node as Node2D).global_position
 		if not BioAnatomy.in_body(seed_value, at / BioArt.UNIT):
@@ -706,6 +717,9 @@ func _populate(fill_all: bool) -> void:
 		var want_v := roundi(float(def["viruses"]) * virus_scale)
 		var missing_n: int = want_n - int(nutrients_in.get(id, 0))
 		var missing_v: int = want_v - int(viruses_in.get(id, 0))
+		var missing_t: int = int(def.get("toxins", 0)) - int(toxins_in.get(id, 0))
+		for i in (missing_t if fill_all else mini(missing_t, 2)):
+			_spawn_toxin_in(id, 0.0 if fill_all else 8.0)
 		for i in (missing_n if fill_all else mini(missing_n, 3)):
 			_spawn_nutrient_in(id, 0.0 if fill_all else 8.0)
 		for i in (missing_v if fill_all else mini(missing_v, 1)):
@@ -722,6 +736,17 @@ func _spawn_nutrient_in(where: StringName, min_distance_units: float) -> void:
 
 func _spawn_nutrient(min_distance_units: float) -> void:
 	_spawn_nutrient_in(BioBodyMap.MEDULA if _rng.randf() < 0.6 else BioBodyMap.SANGUE, min_distance_units)
+
+
+func _spawn_toxin_in(where: StringName, min_distance_units: float) -> void:
+	var toxin := BioToxin.new()
+	toxin.name = "Toxin"
+	toxin.position = BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	toxin.resistant_check = func() -> bool: return genome != null and genome.has_gene(BioToxinRules.RESISTANT_GENE)
+	toxin.filtered.connect(func() -> void:
+		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
+		toxin_filtered.emit())
+	add_child(toxin)
 
 
 func _spawn_virus(min_distance_units: float) -> void:

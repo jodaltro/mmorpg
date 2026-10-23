@@ -8,6 +8,7 @@ const SANGUE := &"sangue"
 const CORACAO := &"coracao"
 const PULMAO := &"pulmao"
 const AORTA := &"aorta"
+const FIGADO := &"figado"
 
 ## The seed the body is grown from (the world sets it; the same seed gives the same body to everyone).
 static var seed_value := 1337
@@ -24,6 +25,8 @@ const SPOTS := {
 	"bronquiolo": Vector2(88.0, -78.0),
 	"arco": Vector2(178.0, 8.0),
 	"braquiocefalica": Vector2(198.0, 34.0),
+	"sinusoide-hepatico": Vector2(256.0, 88.0),
+	"veia-central": Vector2(284.0, 108.0),
 }
 
 ## Where each resident cell lives in its region.
@@ -34,7 +37,7 @@ const RESIDENTS := {
 	"dendra": Vector2(41.0, 12.0),
 }
 
-const NAMES := {MEDULA: "NICHO DA MEDULA", SANGUE: "VÊNULA", CORACAO: "ENDOCÁRDIO", PULMAO: "ALVÉOLOS", AORTA: "ARTÉRIA"}
+const NAMES := {MEDULA: "NICHO DA MEDULA", SANGUE: "VÊNULA", CORACAO: "ENDOCÁRDIO", PULMAO: "ALVÉOLOS", AORTA: "ARTÉRIA", FIGADO: "SINUSOIDES DO FÍGADO"}
 
 
 static func body() -> Dictionary:

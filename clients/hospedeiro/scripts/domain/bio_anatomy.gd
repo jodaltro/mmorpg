@@ -34,12 +34,15 @@ static func definition() -> Dictionary:
 			"wall": Color(0.75, 0.85, 1.0, 0.4), "fill": Color(0.5, 0.65, 0.95, 0.06), "palette": [Color(0.8, 0.9, 1.0), Color(1.0, 0.7, 0.85), Color(0.5, 0.75, 1.0)]},
 		{"id": &"aorta", "name": "ARTÉRIA", "center": Vector2(186.0, 20.0), "radius": 38.0, "wobble": 0.12, "bubbles": 0, "swirl": 2.6, "pulse": 0.8, "nutrients": 20, "viruses": 3,
 			"wall": Color(1.0, 0.4, 0.24, 0.5), "fill": Color(0.65, 0.1, 0.05, 0.09), "palette": [Color(1.0, 0.35, 0.2), Color(1.0, 0.6, 0.3), Color(0.8, 0.1, 0.1)]},
+		{"id": &"figado", "name": "SINUSOIDES DO FÍGADO", "center": Vector2(268.0, 96.0), "radius": 40.0, "wobble": 0.15, "bubbles": 0, "swirl": 0.7, "pulse": 0.3, "nutrients": 26, "viruses": 3, "toxins": 14,
+			"wall": Color(0.85, 0.5, 0.15, 0.45), "fill": Color(0.45, 0.2, 0.04, 0.1), "palette": [Color(0.95, 0.65, 0.2), Color(0.6, 0.3, 0.1), Color(0.7, 0.85, 0.2)]},
 	]
 	var links: Array[Dictionary] = [
 		{"id": &"sinusoide", "from": &"medula", "to": &"sangue", "half_width": 2.6, "speed": 1.6, "pulse": 0.0, "name": "Sinusoide"},
 		{"id": &"veia_cava", "from": &"sangue", "to": &"coracao", "half_width": 3.8, "speed": 3.0, "pulse": 0.5, "name": "Vênula coletora"},
 		{"id": &"arteria_pulmonar", "from": &"coracao", "to": &"pulmao", "half_width": 3.4, "speed": 2.8, "pulse": 1.0, "name": "Artéria pulmonar"},
 		{"id": &"aorta_ascendente", "from": &"coracao", "to": &"aorta", "half_width": 4.2, "speed": 3.6, "pulse": 1.0, "name": "Aorta ascendente"},
+		{"id": &"arteria_hepatica", "from": &"aorta", "to": &"figado", "half_width": 3.2, "speed": 2.4, "pulse": 0.7, "name": "Artéria hepática"},
 	]
 	return {"regions": regions, "links": links}
 
