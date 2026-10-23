@@ -20,7 +20,10 @@ func after_each() -> void:
 func _idle_virus(pos: Vector2) -> BioCellActor:
 	var brain := BioFactory.spawn_virus(world, pos, world.player)
 	brain.set_process(false)
-	return brain.get_parent() as BioCellActor
+	var cell := brain.get_parent() as BioCellActor
+	cell.combatant.actor.vitals.max_membrane = 400.0  # sturdy dummies: tuned abilities must not kill them mid-test
+	cell.combatant.actor.vitals.membrane = 400.0
+	return cell
 
 
 func _clear_viruses() -> void:
@@ -82,7 +85,7 @@ func test_mark_without_target_costs_nothing_and_with_target_amplifies_damage() -
 	var lash := BioAttackCatalog.get_def(BioAttackCatalog.FLAGELLUM_LASH)
 	var before := virus.combatant.actor.vitals.membrane
 	virus.combatant.receive_hit(world.player.combatant, lash)
-	assert_near(before - virus.combatant.actor.vitals.membrane, lash.damage * 1.4, 0.05, "marked takes 1.4x")
+	assert_near(before - virus.combatant.actor.vitals.membrane, lash.damage * float(BioAbilityCatalog.get_ability(&"apresentar_antigeno")["mult"]), 0.05, "a marked cell takes the mark multiplier")
 
 
 func test_trap_zone_bursts_after_its_delay() -> void:
@@ -123,7 +126,7 @@ func test_shield_reduces_damage_taken() -> void:
 	player.actor.invulnerable_until = 0.0
 	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "shield up")
 	player.receive_hit(virus.combatant, hit)
-	assert_near(start - player.actor.vitals.membrane, plain * 0.3, 0.05, "takes 30%")
+	assert_near(start - player.actor.vitals.membrane, plain * float(BioAbilityCatalog.get_ability(&"muralha_de_carne")["taken"]), 0.05, "takes only what the shield lets through")
 
 
 func test_restart_world_returns_to_a_plain_newborn() -> void:

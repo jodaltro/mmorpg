@@ -96,7 +96,7 @@ func test_online_the_engine_owns_the_genome_and_the_offer() -> void:
 	world.sync.apply_view(_view({"evolution": ev}))
 	assert_true(world.engine_evolution, "engine drives evolution")
 	assert_eq(world.genome.equipped, [&"cilios_ageis"] as Array[StringName], "genome from the engine")
-	assert_near(world.player.combatant.actor.stat(BioGene.SPEED), 1.18, 0.001, "and it reshapes the cell")
+	assert_near(world.player.combatant.actor.stat(BioGene.SPEED), float(BioGeneCatalog.get_gene(&"cilios_ageis").mods[BioGene.SPEED]), 0.001, "and it reshapes the cell")
 	assert_true(world.panel.is_offer_visible(), "the engine's offer is shown")
 	assert_true(world.panel.offer_text(0).contains("pende"), "the featured gene is marked")
 	assert_true(not world.panel.offer_text(1).contains("pende"), "only the featured one")

@@ -11,10 +11,10 @@ func test_stats_multiply_and_add() -> void:
 	assert_near(genome.stat(BioGene.ATP_REGEN), 0.0, 0.0001, "neutral regen")
 	genome.equip(&"cilios_ageis")
 	genome.equip(&"membrana_espessa")
-	assert_near(genome.stat(BioGene.SPEED), 1.18 * 0.9, 0.0001, "speed multiplies")
-	assert_near(genome.stat(BioGene.MAX_MEMBRANE), 0.9 * 1.3, 0.0001, "membrane multiplies")
+	assert_near(genome.stat(BioGene.SPEED), float(BioGeneCatalog.get_gene(&"cilios_ageis").mods[BioGene.SPEED]) * float(BioGeneCatalog.get_gene(&"membrana_espessa").mods[BioGene.SPEED]), 0.0001, "speed multiplies")
+	assert_near(genome.stat(BioGene.MAX_MEMBRANE), float(BioGeneCatalog.get_gene(&"cilios_ageis").mods[BioGene.MAX_MEMBRANE]) * float(BioGeneCatalog.get_gene(&"membrana_espessa").mods[BioGene.MAX_MEMBRANE]), 0.0001, "membrane multiplies")
 	genome.equip(&"mitocondria_avida")
-	assert_near(genome.stat(BioGene.ATP_REGEN), 4.0, 0.0001, "regen is additive")
+	assert_near(genome.stat(BioGene.ATP_REGEN), float(BioGeneCatalog.get_gene(&"mitocondria_avida").mods[BioGene.ATP_REGEN]), 0.0001, "regen is additive")
 
 
 func test_slots_reabsorb_the_oldest_gene() -> void:
@@ -35,10 +35,10 @@ func test_genome_reshapes_attacks_without_touching_the_catalog() -> void:
 	cell.genome.equip(&"vesicula_toxica")
 	var base := BioAttackCatalog.get_def(BioAttackCatalog.FLAGELLUM_LASH)
 	var lash := cell.attack_def(BioAttackCatalog.FLAGELLUM_LASH)
-	assert_near(lash.damage, base.damage * 1.25 * 0.9, 0.001, "lash damage")
-	assert_near(lash.range_units, base.range_units * 1.3, 0.001, "lash range")
+	assert_near(lash.damage, base.damage * float(BioGeneCatalog.get_gene(&"flagelo_calejado").mods[BioGene.LASH_DAMAGE]) * float(BioGeneCatalog.get_gene(&"cauda_longa").mods[BioGene.LASH_DAMAGE]), 0.001, "lash damage")
+	assert_near(lash.range_units, base.range_units * float(BioGeneCatalog.get_gene(&"cauda_longa").mods[BioGene.LASH_RANGE]), 0.001, "lash range")
 	var spit := cell.attack_def(BioAttackCatalog.TOXIN_SPIT)
-	assert_near(spit.atp_cost, BioAttackCatalog.get_def(BioAttackCatalog.TOXIN_SPIT).atp_cost * 1.3, 0.001, "spit cost")
+	assert_near(spit.atp_cost, BioAttackCatalog.get_def(BioAttackCatalog.TOXIN_SPIT).atp_cost * float(BioGeneCatalog.get_gene(&"vesicula_toxica").mods[BioGene.SPIT_COST]), 0.001, "spit cost")
 	assert_near(BioAttackCatalog.get_def(BioAttackCatalog.FLAGELLUM_LASH).damage, base.damage, 0.0001, "catalog untouched")
 
 
@@ -57,7 +57,7 @@ func test_nutrient_yield_gene() -> void:
 	cell.genome.equip(&"enzima_voraz")
 	cell.vitals.try_spend_atp(50.0)
 	BioNutrientRules.consume(cell, BioNutrientRules.Kind.GLUCOSE)
-	assert_near(cell.vitals.atp, 50.0 + BioNutrientRules.GLUCOSE_ATP * 1.5, 0.001)
+	assert_near(cell.vitals.atp, 50.0 + BioNutrientRules.GLUCOSE_ATP * float(BioGeneCatalog.get_gene(&"enzima_voraz").mods[BioGene.NUTRIENT_YIELD]), 0.001)
 
 
 func test_rescale_keeps_fractions_and_life() -> void:
@@ -178,8 +178,8 @@ func test_perks_change_the_ability_as_the_genome_performs_it() -> void:
 	var base := BioAbilityCatalog.get_ability(&"lisossomo_acido")
 	genome.equip(&"vacuolo_digestivo")
 	var tuned := genome.tune(&"lisossomo_acido", base)
-	assert_near(float(tuned["radius"]), float(base["radius"]) * 1.35, 0.001, "radius grows")
-	assert_near(float(tuned["duration"]), float(base["duration"]) * 1.2, 0.001, "lasts longer")
+	assert_near(float(tuned["radius"]), float(base["radius"]) * float(BioGeneCatalog.get_gene(&"vacuolo_digestivo").perks[&"lisossomo_acido"]["radius"]), 0.001, "radius grows")
+	assert_near(float(tuned["duration"]), float(base["duration"]) * float(BioGeneCatalog.get_gene(&"vacuolo_digestivo").perks[&"lisossomo_acido"]["duration"]), 0.001, "lasts longer")
 	var other := genome.tune(&"engolir", BioAbilityCatalog.get_ability(&"engolir"))
 	assert_near(float(other["heal"]), float(BioAbilityCatalog.get_ability(&"engolir")["heal"]), 0.001, "another ability is untouched")
 	genome.equip(&"receptor_de_limpeza")

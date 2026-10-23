@@ -2541,7 +2541,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "+25% de dano do chicote de cauda, -8% de velocidade."
+   "desc": "+27% dano do chicote, -8% velocidade."
   },
   {
    "id": "cilios-ageis",
@@ -2550,7 +2550,7 @@
    "tags": [
     "explore"
    ],
-   "desc": "+18% de velocidade, -10% de membrana máxima."
+   "desc": "-10% membrana máx., +15% velocidade."
   },
   {
    "id": "membrana-espessa",
@@ -2559,7 +2559,7 @@
    "tags": [
     "endure"
    ],
-   "desc": "+30% de membrana máxima, -10% de velocidade."
+   "desc": "+22% membrana máx., -10% velocidade."
   },
   {
    "id": "mitocondria-avida",
@@ -2568,7 +2568,7 @@
    "tags": [
     "metabolism"
    ],
-   "desc": "+4 de ATP por segundo, -20% de ATP máximo."
+   "desc": "+4 ATP/s, -20% ATP máx.."
   },
   {
    "id": "vesicula-toxica",
@@ -2578,7 +2578,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "+40% de dano da toxina, +30% de custo da toxina."
+   "desc": "+30% custo da toxina, +50% dano da toxina."
   },
   {
    "id": "nucleo-reativo",
@@ -2588,7 +2588,7 @@
     "endure",
     "explore"
    ],
-   "desc": "-35% de recarga do impulso, -8% de membrana máxima."
+   "desc": "-50% recarga do impulso, -8% membrana máx.."
   },
   {
    "id": "cauda-longa",
@@ -2598,7 +2598,7 @@
     "combat",
     "explore"
    ],
-   "desc": "+30% de alcance do chicote, -10% de dano do chicote."
+   "desc": "-10% dano do chicote, +52% alcance do chicote."
   },
   {
    "id": "enzima-voraz",
@@ -2607,7 +2607,7 @@
    "tags": [
     "metabolism"
    ],
-   "desc": "+50% de ganho de nutrientes, -2 de ATP por segundo."
+   "desc": "-2 ATP/s, +150% ganho de nutrientes."
   },
   {
    "id": "citoesqueleto-elastico",
@@ -2617,7 +2617,7 @@
     "explore",
     "endure"
    ],
-   "desc": "A rede interna cede e volta. +8% velocidade, +12% alcance do chicote, -5% membrana máx.."
+   "desc": "A rede interna cede e volta. +11% alcance do chicote, -5% membrana máx., +7% velocidade."
   },
   {
    "id": "receptores-de-quimiotaxia",
@@ -2627,7 +2627,7 @@
     "explore",
     "knowledge"
    ],
-   "desc": "Sente o cheiro do alimento à distância. +25% ganho de nutrientes, +5% velocidade, -8% ATP máx.."
+   "desc": "Sente o cheiro do alimento à distância. -8% ATP máx., +47% ganho de nutrientes, +9% velocidade."
   },
   {
    "id": "peroxissomos",
@@ -2637,7 +2637,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "Pequenas fornalhas que limpam a membrana. +12% membrana máx., +2 ATP/s, -5% velocidade."
+   "desc": "Pequenas fornalhas que limpam a membrana. +2 ATP/s, +9% membrana máx., -5% velocidade."
   },
   {
    "id": "espinhos-de-quitina",
@@ -2646,7 +2646,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Uma couraça de agulhas. +15% dano do chicote, +8% membrana máx., -7% velocidade."
+   "desc": "Uma couraça de agulhas. +16% dano do chicote, +9% membrana máx., -7% velocidade."
   },
   {
    "id": "pseudopodes-gigantes",
@@ -2656,7 +2656,7 @@
     "combat",
     "endure"
    ],
-   "desc": "Lóbulos enormes crescem pelo corpo: +40% de membrana máxima, +20% de dano do chicote, -12% de velocidade. Onda de Pseudópodes: +15% raio, +20% empurrão.",
+   "desc": "+13% dano do chicote, +25% membrana máx., -12% velocidade. Onda de Pseudópodes: +13% empurrão, +9% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2673,7 +2673,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Vacúolos de ácido por dentro: +50% de ganho de nutrientes, +25% de dano da toxina, -10% de ATP máximo. Lisossomo Ácido: +25% dano contínuo.",
+   "desc": "-10% ATP máx., +31% ganho de nutrientes, +15% dano da toxina. Lisossomo Ácido: +15% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2690,7 +2690,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Engole mais fundo e digere melhor. +10% ATP máx., -5% velocidade. Engolir: +50% cura, +10% alcance.",
+   "desc": "Engole mais fundo e digere melhor. +21% ATP máx., -5% velocidade. Engolir: +104% cura, +21% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2706,7 +2706,7 @@
    "tags": [
     "endure"
    ],
-   "desc": "Absorve o impacto como uma esponja. +20% membrana máx., -8% velocidade, +5% recarga das habilidades. Muralha de Carne: +40% duração, -25% dano recebido.",
+   "desc": "Absorve o impacto como uma esponja. +5% recarga das habilidades, +14% membrana máx., -8% velocidade. Muralha de Carne: +28% duração, -17% dano recebido.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2723,7 +2723,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Um lago de ácido que cresce. +15% ganho de nutrientes, -8% dano do chicote. Lisossomo Ácido: +35% raio, +20% duração.",
+   "desc": "Um lago de ácido que cresce. -8% dano do chicote, +25% ganho de nutrientes. Lisossomo Ácido: +33% duração, +58% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2740,7 +2740,7 @@
     "combat",
     "endure"
    ],
-   "desc": "O corpo inteiro empurra o que for sujo para longe. +12% poder das habilidades, -7% velocidade. Onda de Pseudópodes: +30% dano, +35% empurrão.",
+   "desc": "O corpo inteiro empurra o que for sujo para longe. +11% poder das habilidades, -7% velocidade. Onda de Pseudópodes: +27% dano, +32% empurrão.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2757,7 +2757,7 @@
     "combat",
     "explore"
    ],
-   "desc": "Filamentos de DNA em teia ao redor do corpo: +35% de alcance do chicote, +15% de velocidade, -15% de membrana máxima. Rede de DNA: +20% raio, +20% duração.",
+   "desc": "+28% alcance do chicote, -15% membrana máx., +12% velocidade. Rede de DNA: +16% duração, +16% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2774,7 +2774,7 @@
     "explore",
     "endure"
    ],
-   "desc": "Um núcleo em vários lóbulos que se espreme por qualquer fresta: -30% de recarga do impulso, +10% de velocidade, -10% de dano do chicote. Explosão Neutrofílica: -15% recarga.",
+   "desc": "-25% recarga do impulso, -10% dano do chicote, +8% velocidade. Explosão Neutrofílica: -12% recarga.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2790,7 +2790,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "A armadilha detona com mais força. -10% membrana máx., +8% poder das habilidades. NETose: +40% explosão, +15% raio.",
+   "desc": "A armadilha detona com mais força. +6% poder das habilidades, -10% membrana máx.. NETose: +31% explosão, +12% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2807,7 +2807,7 @@
     "explore",
     "knowledge"
    ],
-   "desc": "O que toca a rede não escapa. +5% velocidade, -10% dano do chicote. Rede de DNA: +40% lentidão, +30% dano contínuo.",
+   "desc": "O que toca a rede não escapa. -10% dano do chicote, +5% velocidade. Rede de DNA: +40% lentidão, +30% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2824,7 +2824,7 @@
     "explore",
     "combat"
    ],
-   "desc": "Uma investida mais longa. +8% velocidade, -10% ATP máx.. Explosão Neutrofílica: +30% distância, +10% dano.",
+   "desc": "Uma investida mais longa. -10% ATP máx., +10% velocidade. Explosão Neutrofílica: +12% dano, +36% distância.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2841,7 +2841,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "As granulações viram veneno denso. -12% membrana máx., +10% custo das habilidades. Degranulação: +50% dano contínuo, +20% raio, +15% duração.",
+   "desc": "As granulações viram veneno denso. +10% custo das habilidades, -12% membrana máx.. Degranulação: +21% duração, +29% raio, +71% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2858,7 +2858,7 @@
     "knowledge",
     "explore"
    ],
-   "desc": "Braços que se ramificam sem fim: +60% de ganho de nutrientes, +25% de alcance do chicote, -12% de membrana máxima. Dendritos em Chicote: +15% abertura.",
+   "desc": "+42% alcance do chicote, -12% membrana máx., +101% ganho de nutrientes. Dendritos em Chicote: +25% abertura.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2875,7 +2875,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "Nuvens de esporos que carregam o rosto do inimigo: +3 de ATP por segundo, +20% de dano da toxina, -10% de velocidade. Chuva de Esporos: +30% ATP/s.",
+   "desc": "+2 ATP/s, -10% velocidade, +13% dano da toxina. Chuva de Esporos: +19% ATP/s.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2892,7 +2892,7 @@
     "knowledge",
     "explore"
    ],
-   "desc": "Lê o corpo inteiro de uma vez. +5% velocidade, -8% membrana máx.. Mapa Químico: +30% raio, +30% duração.",
+   "desc": "Lê o corpo inteiro de uma vez. -8% membrana máx., +7% velocidade. Mapa Químico: +39% raio, +39% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2908,7 +2908,7 @@
    "tags": [
     "knowledge"
    ],
-   "desc": "Mostra o inimigo a toda a defesa. +8% poder das habilidades, -10% dano do chicote. Apresentar Antígeno: +12% amplificação, +30% duração.",
+   "desc": "Mostra o inimigo a toda a defesa. +4% poder das habilidades, -10% dano do chicote. Apresentar Antígeno: +7% amplificação, +17% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2925,7 +2925,7 @@
     "explore",
     "combat"
    ],
-   "desc": "Fios mais longos e mais finos. +5% recarga das habilidades, -5% membrana máx.. Dendritos em Chicote: +25% alcance, +15% dano.",
+   "desc": "Fios mais longos e mais finos. +4% recarga das habilidades, -4% membrana máx.. Dendritos em Chicote: +45% dano, +75% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2942,7 +2942,7 @@
     "metabolism",
     "knowledge"
    ],
-   "desc": "Os esporos nascem e caem em ondas. -5% velocidade, +1 ATP/s. Chuva de Esporos: +20% raio, +50% reparo, +20% duração.",
+   "desc": "Os esporos nascem e caem em ondas. +1 ATP/s, -5% velocidade. Chuva de Esporos: +16% duração, +16% raio, +40% reparo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2959,7 +2959,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "A célula se cobre de anticorpos: +60% de dano da toxina, +20% de custo da toxina, -10% de membrana máxima. Anticorpo Y: +20% dano.",
+   "desc": "-10% membrana máx., +20% custo da toxina, +59% dano da toxina. Anticorpo Y: +20% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2976,7 +2976,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "Uma fábrica de anticorpos: +5 de ATP por segundo, +30% de dano da toxina, -25% de velocidade. Explosão de Plasmócito: +15% raio.",
+   "desc": "+6 ATP/s, -25% velocidade, +38% dano da toxina. Explosão de Plasmócito: +19% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -2993,7 +2993,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "O anticorpo gruda melhor e voa mais rápido. -8% ATP máx., +5% custo das habilidades. Anticorpo Y: +30% dano, +20% velocidade.",
+   "desc": "O anticorpo gruda melhor e voa mais rápido. +5% custo das habilidades, -8% ATP máx.. Anticorpo Y: +63% dano, +42% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3009,7 +3009,7 @@
    "tags": [
     "knowledge"
    ],
-   "desc": "Mais variantes por salva. -12% membrana máx., +8% recarga das habilidades. Salva de Anticorpos: +2 unidades, +20% abertura.",
+   "desc": "Mais variantes por salva. +8% recarga das habilidades, -12% membrana máx.. Salva de Anticorpos: +2 unidades, +43% dano, +57% abertura.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3043,7 +3043,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "Cada anticorpo prende em vários pontos. -5% velocidade, +10% dano da toxina. Opsonização: +30% lentidão, +10% amplificação, +40% duração.",
+   "desc": "Cada anticorpo prende em vários pontos. -5% velocidade, +4% dano da toxina. Opsonização: +4% amplificação, +17% duração, +13% lentidão.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3060,7 +3060,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Grânulos que furam as membranas dos inimigos: +45% de dano do chicote, +15% de dano da toxina, -15% de membrana máxima. Perforina: +15% dano.",
+   "desc": "+30% dano do chicote, -15% membrana máx., +10% dano da toxina. Perforina: +10% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3077,7 +3077,7 @@
     "combat",
     "explore"
    ],
-   "desc": "Uma lança fina que cresce no corpo: +50% de alcance do chicote, +30% de dano do chicote, +20% de custo da toxina. Perforina: +20% alcance.",
+   "desc": "+22% dano do chicote, +36% alcance do chicote, +20% custo da toxina. Perforina: +15% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3094,7 +3094,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Fareja quem já está condenado. -10% membrana máx., +8% custo das habilidades. Apoptose: +30% limiar, +20% alcance.",
+   "desc": "Fareja quem já está condenado. +4% custo das habilidades, -5% membrana máx.. Apoptose: +90% limiar, -45% recarga, +60% dano, +60% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3111,7 +3111,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Fica preso ao alvo até o fim. -6% velocidade, +5% recarga das habilidades. Sinal de Morte: +10% amplificação, +30% duração, +15% alcance.",
+   "desc": "Fica preso ao alvo até o fim. +5% recarga das habilidades, -6% velocidade. Sinal de Morte: +9% amplificação, +14% alcance, +28% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3128,7 +3128,7 @@
     "combat",
     "explore"
    ],
-   "desc": "O corpo é um músculo carregado. -10% ATP máx., -6% membrana máx.. Golpe Lítico: +20% distância, +20% dano, -10% recarga.",
+   "desc": "O corpo é um músculo carregado. -10% ATP máx., -6% membrana máx.. Golpe Lítico: -21% recarga, +42% dano, +42% distância.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3144,7 +3144,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Quem está ferido não resiste. +10% recarga das habilidades, -5% velocidade. Perforina: +35% bônus de execução, +25% limiar.",
+   "desc": "Quem está ferido não resiste. +2% recarga das habilidades, -1% velocidade. Perforina: +30% dano, +75% limiar, +105% bônus de execução.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3161,7 +3161,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "Anéis de sinais ao redor do corpo: +30% de membrana máxima, +4 de ATP por segundo, -15% de dano do chicote. Canto de Citocinas: +20% duração.",
+   "desc": "+2 ATP/s, -15% dano do chicote, +15% membrana máx.. Canto de Citocinas: +10% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3178,7 +3178,7 @@
     "endure",
     "knowledge"
    ],
-   "desc": "Partículas que cantam em volta da célula: +40% de ganho de nutrientes, -25% de recarga do impulso, -10% de dano da toxina. Canto de Citocinas: +8% velocidade.",
+   "desc": "-20% recarga do impulso, +33% ganho de nutrientes, -10% dano da toxina. Canto de Citocinas: +7% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3195,7 +3195,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "A cura chega a quem mais precisa. -8% ATP máx., -10% dano do chicote. Citocina Curativa: +40% cura.",
+   "desc": "A cura chega a quem mais precisa. -10% dano do chicote, -8% ATP máx.. Citocina Curativa: +65% cura.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3212,7 +3212,7 @@
     "knowledge",
     "endure"
    ],
-   "desc": "A linfa responde em maior número. -7% velocidade, +8% custo das habilidades. Chamado à Linfa: +2 unidades, +30% duração, +20% dano contínuo.",
+   "desc": "A linfa responde em maior número. +8% custo das habilidades, -7% velocidade. Chamado à Linfa: +2 unidades, +10% duração, +7% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3229,7 +3229,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Provoca febre onde o dedo aponta. -8% membrana máx., +5% recarga das habilidades. Febre Dirigida: +30% dano contínuo, +15% raio, +20% duração.",
+   "desc": "Provoca febre onde o dedo aponta. +5% recarga das habilidades, -8% membrana máx.. Febre Dirigida: +25% duração, +19% raio, +37% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -3246,7 +3246,7 @@
     "endure",
     "knowledge"
    ],
-   "desc": "O ritmo certo do coro, na hora certa. -4% velocidade, -12% dano do chicote. Canto de Citocinas: +10% velocidade, +50% ATP/s, +30% duração.",
+   "desc": "O ritmo certo do coro, na hora certa. -12% dano do chicote, -4% velocidade. Canto de Citocinas: +23% duração, +39% ATP/s, +8% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",

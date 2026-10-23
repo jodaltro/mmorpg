@@ -77,7 +77,7 @@ func test_all_24_abilities_work_and_clean_up() -> void:
 		await tree.create_timer(2.3 if id in [&"netose", &"explosao_de_plasmocito", &"apoptose"] else 1.5).timeout
 		match str(spec[1]):
 			"damage":
-				assert_true(is_instance_valid(victim) and victim.combatant.actor.vitals.membrane < before, "%s hurt its target" % id)
+				assert_true(not is_instance_valid(victim) or victim.combatant.actor.vitals.membrane < before, "%s hurt its target" % id)
 			"kill":
 				assert_true(not is_instance_valid(victim) or not victim.combatant.actor.vitals.is_alive(), "%s executed it" % id)
 			"mark":

@@ -113,7 +113,7 @@ g("plasmocito", "Plasmócito", "epica", ["knowledge", "metabolism"], "linfocito_
 g("afinidade_aumentada", "Afinidade Aumentada", "rara", ["knowledge", "combat"], "linfocito_b", "O anticorpo gruda melhor e voa mais rápido.", {"max_atp": 0.92, "ability_cost": 1.05},
   {"anticorpo_y": {"damage": 1.3, "speed": 1.2}}, {"kind": "crystal", "color": "#ffb8f0", "count": 5})
 g("hipermutacao_somatica", "Hipermutação Somática", "epica", ["knowledge"], "linfocito_b", "Mais variantes por salva.", {"max_membrane": 0.88, "ability_cooldown": 1.08},
-  {"salva_de_anticorpos": {"+count": 2, "spread": 1.2}}, {"kind": "ribosomes", "color": "#ff9ee9", "count": 7, "radius": 0.75})
+  {"salva_de_anticorpos": {"+count": 2, "spread": 1.2, "damage": 1.15}}, {"kind": "ribosomes", "color": "#ff9ee9", "count": 7, "radius": 0.75})
 g("memoria_de_longa_vida", "Memória de Longa Vida", "rara", ["knowledge", "endure"], "linfocito_b", "Reconhece e responde mais depressa.", {"ability_cooldown": 0.85, "max_atp": 1.2, "speed": 0.92},
   {"anticorpo_y": {"cooldown": 0.8}}, {"kind": "golgi", "color": "#ffd1f6", "count": 2})
 g("ligacao_multivalente", "Ligação Multivalente", "incomum", ["knowledge", "combat"], "linfocito_b", "Cada anticorpo prende em vários pontos.", {"speed": 0.95, "spit_damage": 1.1},
@@ -125,13 +125,13 @@ g("granulos_de_perforina", "Grânulos de Perforina", "rara", ["combat", "knowled
 g("agulha_litica", "Agulha Lítica", "epica", ["combat", "explore"], "t_citotoxico", "", {"lash_range": 1.5, "lash_damage": 1.3, "spit_cost": 1.2},
   {"perforina": {"range": 1.2}}, mark={"kind": "crystal", "color": "#ffd0d0", "count": 3}, keep=True)
 g("receptor_fas", "Receptor Fas", "rara", ["combat", "knowledge"], "t_citotoxico", "Fareja quem já está condenado.", {"max_membrane": 0.9, "ability_cost": 1.08},
-  {"apoptose": {"below": 1.3, "range": 1.2}}, {"kind": "golgi", "color": "#ff6b7d", "count": 3})
+  {"apoptose": {"below": 1.3, "range": 1.2, "cooldown": 0.85, "damage": 1.2}}, {"kind": "golgi", "color": "#ff6b7d", "count": 3})
 g("sinapse_imunologica", "Sinapse Imunológica", "incomum", ["combat", "knowledge"], "t_citotoxico", "Fica preso ao alvo até o fim.", {"speed": 0.94, "ability_cooldown": 1.05},
   {"sinal_de_morte": {"mult": 1.1, "seconds": 1.3, "range": 1.15}}, {"kind": "centriole", "color": "#ff8c9a", "count": 2})
 g("miosina_de_contracao", "Miosina de Contração", "incomum", ["combat", "explore"], "t_citotoxico", "O corpo é um músculo carregado.", {"max_atp": 0.9, "max_membrane": 0.94},
   {"golpe_litico": {"distance": 1.2, "damage": 1.2, "cooldown": 0.9}}, {"kind": "microtubules", "color": "#ff9aa5", "count": 5})
 g("granzima_b", "Granzima B", "epica", ["combat"], "t_citotoxico", "Quem está ferido não resiste.", {"ability_cooldown": 1.1, "speed": 0.95},
-  {"perforina": {"execute_mult": 1.35, "execute_below": 1.25}}, {"kind": "vesicles", "color": "#ff3b4e", "count": 9, "radius": 0.5})
+  {"perforina": {"execute_mult": 1.35, "execute_below": 1.25, "damage": 1.1}}, {"kind": "vesicles", "color": "#ff3b4e", "count": 9, "radius": 0.5})
 
 # ---- Linfócito T auxiliar: o Maestro das Citocinas ----------------------------------------------
 g("halo_de_citocinas", "Halo de Citocinas", "rara", ["endure", "metabolism"], "t_auxiliar", "", {"max_membrane": 1.3, "atp_regen": 4.0, "lash_damage": 0.85},
@@ -173,13 +173,7 @@ def perks_text(perks):
 
 
 def desc(gene, old):
-    if gene["keep"]:
-        d = old.get("desc", "")
-        cuts = [d.find(" " + n + ":") for n in ABILITY_NAMES.values() if d.find(" " + n + ":") >= 0]
-        if cuts:  # idempotent: drop the perk text a previous run appended
-            d = d[:min(cuts)]
-    else:
-        d = (gene["flavour"] + " " if gene["flavour"] else "") + stats_text(gene["stats"]) + "."
+    d = (gene["flavour"] + " " if gene["flavour"] else "") + stats_text(gene["stats"]) + "."
     if gene["perks"]:
         d = d.rstrip() + " " + perks_text(gene["perks"]) + "."
     return d
@@ -201,7 +195,24 @@ def gd_dict(d):
     return "{" + ", ".join('%s: %s' % (('&"%s"' % k) if not k.startswith("+") else '"%s"' % k, gd_dict(v) if isinstance(v, dict) else gd_value(v)) for k, v in d.items()) + "}"
 
 
+def apply_balance():
+    """Replaces the stats and perks of each mutation with the tuned ones (data/balance.json, from BioBalance)."""
+    path = ROOT / "clients/hospedeiro/data/balance.json"
+    if not path.exists():
+        return
+    tuned = json.loads(path.read_text(encoding="utf-8")).get("genes", {})
+    for gene in G:
+        t = tuned.get(gene["id"])
+        if not t:
+            continue
+        gene["stats"] = {k: float(v) for k, v in t["mods"].items()}
+        gene["perks"] = {ab: {k: (int(v) if k.startswith("+") else float(v)) for k, v in params.items()} for ab, params in t["perks"].items()}
+
+
 def main():
+    apply_balance()
+    (ROOT / "clients/hospedeiro/data").mkdir(exist_ok=True)
+    (ROOT / "clients/hospedeiro/data/gene_rarity.json").write_text(json.dumps({gene["id"]: gene["rarity"] for gene in G}, indent=1), encoding="utf-8")
     raw = UNIVERSE.read_text(encoding="utf-8")
     u = json.loads(raw)
     old = {m["id"]: m for m in u["mutations"]}

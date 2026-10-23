@@ -76,6 +76,22 @@ static func _ensure() -> void:
 	_a(&"canto_de_citocinas", &"t_auxiliar", "aura", gold, 18, 12.0, {"style": "song", "duration": 6.0, "speed": 1.25, "regen_atp": 6.0})
 	_a(&"chamado_a_linfa", &"t_auxiliar", "summon", gold, 26, 16.0, {"count": 3, "duration": 8.0, "tick": 6.0})
 	_a(&"febre_dirigida", &"t_auxiliar", "zone", Color(1.0, 0.55, 0.25), 24, 12.0, {"style": "heat", "reach": 4.5, "radius": 2.8, "duration": 5.0, "tick": 9.0, "slow": 0.6})
+	_apply_balance()
+
+
+## The tuned numbers live in data/balance.json (written by tests/balance_tune.gd from BioBalance); they replace the defaults above.
+static func _apply_balance() -> void:
+	var path := "res://data/balance.json"
+	if not FileAccess.file_exists(path):
+		return
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not (data is Dictionary) or not (data as Dictionary).has("abilities"):
+		return
+	for id in data["abilities"]:
+		var key := StringName(str(id))
+		if _defs.has(key):
+			for param in data["abilities"][id]:
+				_defs[key][str(param)] = data["abilities"][id][param]
 
 
 static func _a(id: StringName, lineage: StringName, kind: String, color: Color, cost: float, cooldown: float, extra: Dictionary) -> void:

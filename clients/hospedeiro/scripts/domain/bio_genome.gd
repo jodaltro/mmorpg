@@ -10,6 +10,12 @@ const ASCENSION_GENES := 4
 
 var equipped: Array[StringName] = []
 var lineage: StringName = &""  # the class (BioLineageCatalog); empty while undifferentiated
+## Genes to use instead of the catalog ones (the balance tuner tries scaled copies without touching the catalog).
+var override_genes: Dictionary = {}
+
+
+func _gene(id: StringName) -> BioGene:
+	return override_genes.get(id, null) if override_genes.has(id) else BioGeneCatalog.get_gene(id)
 
 
 func has_gene(id: StringName) -> bool:
@@ -24,7 +30,7 @@ func stat(key: StringName) -> float:
 	if lineage_mods.has(key):
 		total = (total + lineage_mods[key]) if additive else (total * lineage_mods[key])
 	for id in equipped:
-		var mods: Dictionary = BioGeneCatalog.get_gene(id).mods
+		var mods: Dictionary = _gene(id).mods
 		if not mods.has(key):
 			continue
 		if additive:
@@ -50,7 +56,7 @@ func ascension() -> float:
 func perk(ability: StringName) -> Dictionary:
 	var out := {}
 	for id in equipped:
-		var all: Dictionary = BioGeneCatalog.get_gene(id).perks
+		var all: Dictionary = _gene(id).perks
 		if not all.has(ability):
 			continue
 		for key in all[ability]:

@@ -183,3 +183,7 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 Reproduzido com teclado e mouse reais (`tests/e2e_dungeon_input.gd`): a célula **se movia e atacava**, mas só andando ela morria em cerca de 8 s e, depois de morrer, ficava invisível e parada até apertar R, sem explicação. Ajustes: os inimigos esperam 3,5 s no início de cada sala (contagem "Prepare-se"), os primeiros são menos e mais lentos e batem mais fraco (cada inimigo tem um fator de dano), a febre drena menos, limpar a sala devolve 40% da membrana e todo o ATP, a legenda dos controles aparece na tela, e cair no granuloma mostra "Você caiu no granuloma, pressione R para voltar ao portal" e renasce no portal, não na medula. Teste novo: uma célula que só anda por 12 s na primeira sala continua viva. Godot 79 testes, 0 falhas.
 
+### Balanceamento de habilidades e incrementos (23/10/2026)
+
+Régua única (`BioBalance`), números afinados em `data/balance.json`, testes que seguram as faixas (`tests/test_balance.gd`) e um duelo prático (`tests/balance_duel.gd`). Detalhes em `Docs/Hospedeiro/Balance.md`. Antes, o valor por preço das habilidades ia de 0,75 a 3,98; depois, todas ficaram em ±18% da meta de sua classe, e as 48 mutações a cerca de 1 ponto da meta da raridade. No duelo, o tempo para limpar a mesma sala: 15,6 a 20,5 s entre as seis classes (antes 10,1 a 22,7 s). Godot 83 testes, 0 falhas; Go passa, exceto o teste antigo de `presentation.json`; `worldsim validate` ok. Os testes antigos que repetiam números de mutações à mão passaram a ler o catálogo.
+
