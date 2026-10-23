@@ -4,8 +4,9 @@ extends CanvasLayer
 
 const ABILITIES := [BioAttackCatalog.FLAGELLUM_LASH, BioAttackCatalog.TOXIN_SPIT, BioAttackCatalog.MEMBRANE_DASH]
 const ABILITY_LABELS := ["J / Clique\nChicote", "K / Direito\nToxina", "Espaço\nImpulso"]
-const CELL_SIZE := Vector2(120, 62)
-const BAR_SIZE := Vector2(420, 22)
+const CELL_SIZE := Vector2(126, 58)
+const CELL_STEP := 134.0
+const BAR_SIZE := Vector2(396, 16)
 
 var membrane_fraction := 0.0
 var atp_fraction := 0.0
@@ -45,9 +46,7 @@ func _refresh_abilities() -> void:
 		var id := _abilities.slot_id(i)
 		var keys := ["Q", "F", "C", "V"]
 		var a := BioAbilityCatalog.get_ability(id)
-		_ab_labels[i].text = "%s
-%s" % [keys[i], a.get("name", "—")] if id != &"" else "%s
-—" % keys[i]
+		_ab_labels[i].text = "%s  %s" % [keys[i], a.get("name", "—")] if id != &"" else "%s  —" % keys[i]
 		var c: Color = a.get("color", Color(0.3, 0.4, 0.5))
 		_ab_cells[i].color = Color(c.r * 0.45, c.g * 0.45, c.b * 0.45, 0.9) if id != &"" else Color(0.05, 0.08, 0.12, 0.6)
 
@@ -108,10 +107,10 @@ func _ready() -> void:
 	add_child(panel)
 
 	for i in ABILITIES.size():
-		_cooldowns.append(_ability_cell(panel, ABILITY_LABELS[i], Vector2(i * 130, 0)))
+		_cooldowns.append(_ability_cell(panel, ABILITY_LABELS[i], Vector2(i * CELL_STEP, 0)))
 	for i in BioAbilityRunner.SLOTS:
 		var back := ColorRect.new()
-		back.position = Vector2(i * 130, -70)
+		back.position = Vector2(i * CELL_STEP, -66)
 		back.size = CELL_SIZE
 		back.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		panel.add_child(back)
@@ -125,13 +124,14 @@ func _ready() -> void:
 		text.size = CELL_SIZE
 		text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		text.add_theme_font_size_override("font_size", 13)
+		text.add_theme_font_size_override("font_size", 12)
+		text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		back.add_child(text)
 		_ab_cells.append(back)
 		_ab_shades.append(shade)
 		_ab_labels.append(text)
-	_membrane_fill = _bar(panel, "MEMBRANA", Vector2(0, 80), BioArt.CRIMSON)
-	_atp_fill = _bar(panel, "ATP", Vector2(0, 118), BioArt.CYAN)
+	_membrane_fill = _bar(panel, "MEMBRANA", Vector2(0, 78), BioArt.CRIMSON)
+	_atp_fill = _bar(panel, "ATP", Vector2(0, 102), BioArt.CYAN)
 
 	_banner = Label.new()
 	_banner.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
@@ -148,11 +148,14 @@ func _ready() -> void:
 
 	_restart_button = Button.new()
 	_restart_button.text = "REINICIAR MUNDO"
-	_restart_button.position = Vector2(40, 100)
-	_restart_button.size = Vector2(230, 30)
+	_restart_button.position = Vector2(20, 80)
+	_restart_button.size = Vector2(170, 22)
+	_restart_button.flat = true
+	_restart_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_restart_button.focus_mode = Control.FOCUS_NONE  # keys (space, enter) must never press it
-	_restart_button.add_theme_font_size_override("font_size", 15)
-	_restart_button.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.CRIMSON, 0.9))
+	_restart_button.add_theme_font_size_override("font_size", 11)
+	_restart_button.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.CRIMSON, 0.55))
+	_restart_button.add_theme_color_override("font_hover_color", BioArt.with_alpha(BioArt.CRIMSON, 1.0))
 	_restart_button.pressed.connect(press_restart)
 	add_child(_restart_button)
 
@@ -177,9 +180,10 @@ func _ready() -> void:
 
 	var title := Label.new()
 	title.text = "HOSPEDEIRO"
-	title.position = Vector2(40, 28)
-	title.add_theme_font_size_override("font_size", 22)
-	title.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.CYAN, 0.6))
+	title.position = Vector2(28, 14)
+	title.add_theme_font_size_override("font_size", 14)
+	title.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.CYAN, 0.55))
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(title)
 
 
@@ -225,8 +229,8 @@ func _bar(parent: Control, label: String, pos: Vector2, color: Color) -> ColorRe
 	back.add_child(fill)
 	var text := Label.new()
 	text.text = label
-	text.position = Vector2(10, -1)
-	text.add_theme_font_size_override("font_size", 14)
+	text.position = Vector2(10, -2)
+	text.add_theme_font_size_override("font_size", 11)
 	back.add_child(text)
 	return fill
 
@@ -249,7 +253,7 @@ func _ability_cell(parent: Control, label: String, pos: Vector2) -> ColorRect:
 	text.size = CELL_SIZE
 	text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	text.add_theme_font_size_override("font_size", 14)
+	text.add_theme_font_size_override("font_size", 12)
 	back.add_child(text)
 	return shade
 

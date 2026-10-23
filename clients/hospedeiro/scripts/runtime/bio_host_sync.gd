@@ -55,6 +55,11 @@ func _ready() -> void:
 	if not _world.engine_url.is_empty():
 		var identity := BioEngineLink.local_identity(_world.identity_path)
 		link.configure(_world.engine_url, str(identity["id"]), str(identity["name"]))
+	system.tray = _world.tray
+	system.offer_clicked.connect(func(accepted: bool) -> void:
+		if system.is_offer_visible():
+			_answer_offer(accepted))
+	system.menu_chosen.connect(choose)
 	link.region = String(_world.region)
 	link.status_changed.connect(_on_status)
 	link.view_changed.connect(apply_view)
@@ -116,13 +121,14 @@ func wants_numbers() -> bool:
 
 func _process(delta: float) -> void:
 	_track_behaviour(delta)
-	if Input.is_action_just_pressed("bio_accept") and not system.offer_key.is_empty():
+	var calling := system.is_offer_visible() and not BioUi.typing()  # a call is answered only when it is on screen (calm)
+	if Input.is_action_just_pressed("bio_accept") and calling:
 		_answer_offer(true)
-	elif Input.is_action_just_pressed("bio_refuse") and not system.offer_key.is_empty():
+	elif Input.is_action_just_pressed("bio_refuse") and calling:
 		_answer_offer(false)
 	if Input.is_action_just_pressed("bio_leave") and _world.dungeon.active and link.online:
 		link.act("abandonar-masmorra")
-	if Input.is_action_just_pressed("bio_interact"):
+	if Input.is_action_just_pressed("bio_interact") and not _world.body_panel.is_open() and not BioUi.typing():
 		var near_gate := _near_gate()
 		if near_gate != null and not _world.dungeon.active:
 			enter_dungeon(near_gate)
@@ -272,6 +278,7 @@ func _apply_skills(skills: Array) -> void:
 		if _world.abilities.learn(id) and _announce_abilities:
 			system.push_feed("Nova habilidade: %s." % BioAbilityCatalog.get_ability(id).get("name", id))
 	_announce_abilities = true
+	_world.restore_ability_order()
 
 
 ## The granuloma: whether the entrance is open to this cell, and the run, step by step. The engine owns the run; this only

@@ -241,6 +241,14 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 		return w.findNiche(s, origin, actor, args, cause)
 	case actRefuseE:
 		return w.refuseMutation(s, origin, actor, cause)
+	case actExpress:
+		return w.expressChoice(s, origin, actor, args, cause)
+	case actSilence:
+		return w.silenceChoice(s, origin, actor, args, cause)
+	case actSaveBuild:
+		return w.saveBuild(s, origin, actor, args, cause)
+	case actApplyBuild:
+		return w.applyBuild(s, origin, actor, args, cause)
 	case actDifferentiate:
 		return w.differentiate(s, origin, actor, args, cause)
 	case actEnterDungeon:

@@ -21,10 +21,12 @@ const (
 
 // EvolutionDef configures how mutations are offered.
 type EvolutionDef struct {
-	Pressure  string `json:"pressure"`        // player number that builds up with deeds
-	Threshold int64  `json:"threshold"`       // pressure spent per offer
-	Offer     int    `json:"offer,omitempty"` // candidates per offer (default 3)
-	Slots     int    `json:"slots,omitempty"` // genes expressed at once (default 3); the oldest is reabsorbed
+	Pressure  string `json:"pressure"`         // player number that builds up with deeds
+	Threshold int64  `json:"threshold"`        // pressure spent per offer
+	Offer     int    `json:"offer,omitempty"`  // candidates per offer (default 3)
+	Slots     int    `json:"slots,omitempty"`  // genes expressed at once (default 3); the oldest is silenced (kept in the library)
+	Builds    int    `json:"builds,omitempty"` // saved builds a player may keep (0 = off)
+	Rest      Tick   `json:"rest,omitempty"`   // ticks the body must settle after changing the expression of its genes
 }
 
 // MutationDef is a gene the body may express. Tags are the evolutionary path
@@ -40,11 +42,14 @@ type MutationDef struct {
 
 // Genome is a player's expressed genes and pending mutation offer.
 type Genome struct {
-	Genes    []string `json:"genes,omitempty"`    // expressed, oldest first
-	Offer    []string `json:"offer,omitempty"`    // pending offer, featured first
-	Featured string   `json:"featured,omitempty"` // where the body leans (the advisor's pick or the default)
-	Declined []string `json:"declined,omitempty"` // last declined offer, not repeated right away
-	Building []string `json:"building,omitempty"` // the offer being composed (see compose.go); the player does not see it yet
+	Genes     []string            `json:"genes,omitempty"`     // expressed, oldest first
+	Offer     []string            `json:"offer,omitempty"`     // pending offer, featured first
+	Featured  string              `json:"featured,omitempty"`  // where the body leans (the advisor's pick or the default)
+	Declined  []string            `json:"declined,omitempty"`  // last declined offer, not repeated right away
+	Building  []string            `json:"building,omitempty"`  // the offer being composed (see compose.go); the player does not see it yet
+	Library   []string            `json:"library,omitempty"`   // genes the body has but does not express (silenced); see builds.go
+	Builds    map[string][]string `json:"builds,omitempty"`    // saved builds by slot
+	RestUntil Tick                `json:"restUntil,omitempty"` // the expression may not change again before this tick
 }
 
 // GeneView is a mutation as the player sees it.
@@ -58,12 +63,15 @@ type GeneView struct {
 
 // EvolutionView is the observer's own genome, offer and pressure.
 type EvolutionView struct {
-	Genes     []GeneView `json:"genes"`
-	Offer     []GeneView `json:"offer"`
-	Featured  string     `json:"featured,omitempty"`
-	Pressure  int64      `json:"pressure"`
-	Threshold int64      `json:"threshold"`
-	Slots     int        `json:"slots"`
+	Genes     []GeneView  `json:"genes"`
+	Offer     []GeneView  `json:"offer"`
+	Featured  string      `json:"featured,omitempty"`
+	Pressure  int64       `json:"pressure"`
+	Threshold int64       `json:"threshold"`
+	Slots     int         `json:"slots"`
+	Library   []GeneView  `json:"library"`
+	Builds    []BuildView `json:"builds"`
+	RestLeft  int64       `json:"restLeft"` // ticks until the genes may be changed again
 }
 
 func (w *World) offerSize() int {
@@ -116,7 +124,7 @@ func (w *World) compileEvolution(v *validator) error {
 			return invalid("action id %q is reserved by the engine", reserved)
 		}
 	}
-	return nil
+	return w.compileBuilds()
 }
 
 // fit is how well a mutation follows the path the player has been living.
@@ -134,7 +142,7 @@ func (w *World) mutationCandidates(s *State, p ID) []MutationDef {
 	g := s.Genomes[p]
 	all := []MutationDef{}
 	for _, m := range w.U.Mutations {
-		if slices.Contains(g.Genes, m.ID) {
+		if slices.Contains(g.Genes, m.ID) || slices.Contains(g.Library, m.ID) {
 			continue
 		}
 		if m.Eligible != nil && !w.Holds(s, *m.Eligible, Bind{"self": p}) {
@@ -268,18 +276,14 @@ func (w *World) chooseMutation(s *State, origin string, p ID, args map[string]ID
 		return reject("evolution")
 	}
 	m, _ := w.mutation(gene)
-	g.Genes = append(slices.Clone(g.Genes), gene)
-	replaced := ""
-	if len(g.Genes) > w.geneSlots() {
-		replaced, g.Genes = g.Genes[0], g.Genes[1:]
-	}
+	replaced := w.expressGene(&g, gene)
 	g.Offer, g.Featured, g.Declined = nil, "", nil
 	s.Genomes[p] = g
 	w.learn(s, p, m.Tags, 1)
 	w.count(s, p, actEvolve)
 	data := map[string]string{"gene": gene, "rarity": m.Rarity}
 	if replaced != "" {
-		data["replaced"] = replaced
+		data["replaced"] = replaced // silenced, and kept in the library
 	}
 	w.emit(s, Event{Kind: "mutated", Actor: p, Holder: p, Text: m.Name, Cause: cause, Data: data})
 	w.discover(s, p, cause)
@@ -314,5 +318,6 @@ func (w *World) evolutionView(s *State, p ID) *EvolutionView {
 	}
 	g := s.Genomes[p]
 	return &EvolutionView{Genes: w.geneViews(g.Genes), Offer: w.geneViews(g.Offer), Featured: g.Featured,
-		Pressure: s.Entities[p].Num[w.U.Evolution.Pressure], Threshold: w.U.Evolution.Threshold, Slots: w.geneSlots()}
+		Pressure: s.Entities[p].Num[w.U.Evolution.Pressure], Threshold: w.U.Evolution.Threshold, Slots: w.geneSlots(),
+		Library: w.geneViews(g.Library), Builds: w.buildViews(g), RestLeft: int64(max(0, g.RestUntil-s.Tick))}
 }

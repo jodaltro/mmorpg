@@ -29,6 +29,7 @@ static func ensure_actions() -> void:
 	_bind("bio_map", [_key(KEY_M)])
 	_bind("bio_vitals", [_key(KEY_TAB)])
 	_bind("bio_codex", [_key(KEY_B)])
+	_bind("bio_body", [_key(KEY_G)])
 	_bind("bio_debug_toggle", [_key(KEY_F3)])
 	_bind("bio_jev", [_key(KEY_F2)])
 	_bind("bio_menu", [_key(KEY_ESCAPE)])
@@ -55,12 +56,17 @@ func configure(controller: BioCellController, host: Node2D) -> void:
 func _process(_delta: float) -> void:
 	if _controller == null or not _host.visible:
 		return
+	if BioUi.typing():  # the keys are letters in a text box
+		_controller.move(Vector2.ZERO)
+		return
 	_controller.move(Input.get_vector("bio_left", "bio_right", "bio_up", "bio_down"))
 	var stick := Input.get_vector("bio_aim_left", "bio_aim_right", "bio_aim_up", "bio_aim_down")
 	if stick.length_squared() > 0.2:
 		_controller.set_aim(stick)
 	else:
 		_controller.set_aim(_host.get_global_mouse_position() - _host.global_position)
+	if BioUi.captures_input():  # a click on a window is not an attack
+		return
 	if Input.is_action_pressed("bio_lash"):
 		_controller.lash()
 	if Input.is_action_pressed("bio_spit"):

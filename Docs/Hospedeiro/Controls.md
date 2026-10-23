@@ -26,9 +26,10 @@ go run ./cmd/worldsim serve -universe ../universes/hospedeiro/universe.json -dat
 | Chicote de cauda (corpo a corpo, 8 ATP) | J / botão esquerdo | Botão X (oeste) |
 | Cuspe de toxina (projétil, 15 ATP) | K / botão direito | Botão B (leste) |
 | Impulso de membrana (dash + i-frames, 12 ATP) | Espaço / Shift | Botão A (sul) |
-| Aceitar / recusar um chamado | Y / N | — |
+| Aceitar / recusar um chamado (só aparece fora de combate) | Y / N, ou clique | — |
 | Ações do lugar (examinar, contar, farejar, decifrar) | E, depois 1–9 | — |
-| Escolher / recusar mutação | 1, 2, 3 / X | — |
+| Abrir a janela do **Corpo** (forma, genes, habilidades, builds) | G, ou clique no aviso no canto | — |
+| Dentro do Corpo: escolher uma oferta / recusar a mutação | 1, 2, 3 / X, ou clique | — |
 | Renascer na medula | R | — |
 | Habilidades de classe (4 espaços, na ordem em que você as adquire) | Q, F, C, V | — |
 
@@ -48,7 +49,18 @@ Cada classe nasce com **1** habilidade; as outras 3 vêm do que você faz: a pro
 - O motor decide missões e história. Células como Osteia (estroma), Neva (neutrófila) e Dendra (dendrítica) só chamam quem já viram agir. Nada é oferecido antes do seu primeiro feito.
 - O corpo vive sozinho: surtos virais, febre (vírions lentos), refeições (glicose no sangue), sono (tudo escurece). O Jev escolhe os acontecimentos.
 - Conhecimento muda o mundo: destruir um vírion ensina o "rosto" dele. Contar à Dendra arma as defesas do sangue. Conhecer o vírion também permite decifrar o fragmento de código que aparece no nicho (cenário único: só a primeira célula recebe o título).
-- **Evoluir é o objetivo de todo jogador.** Cada feito confirmado (vírion destruído, nutriente, esquiva, código decifrado) soma pressão evolutiva e ensina o seu caminho (combate, metabolismo, resistência, exploração, conhecimento). Quando a pressão estoura, o motor oferece 3 mutações; o Jev escolhe para onde o seu corpo pende (marcada com ◆) lendo como você vive. Você escolhe com 1, 2, 3 ou recusa com X. Escolher aprofunda o caminho; o genoma tem 3 espaços e o gene mais antigo é reabsorvido.
+- **Evoluir é o objetivo de todo jogador.** Cada feito confirmado (vírion destruído, nutriente, esquiva, código decifrado) soma pressão evolutiva e ensina o seu caminho (combate, metabolismo, resistência, exploração, conhecimento). Quando a pressão estoura, o motor oferece 3 mutações; o Jev escolhe para onde o seu corpo pende (marcada com ◆) lendo como você vive. Um aviso discreto aparece no canto; você abre a janela do Corpo (G) quando quiser e escolhe lá (1, 2, 3, ou clique), ou recusa com X. Escolher aprofunda o caminho. Os espaços de genes estão cheios? O gene mais antigo é **silenciado**, não perdido: vai para a biblioteca e pode voltar.
+
+## A janela do Corpo (G) e as builds
+
+Uma janela só para tudo o que o corpo virou, com quatro abas:
+
+- **FORMA:** a classe, o que ela faz com o corpo, maturidade e pressão evolutiva. A diferenciação oferecida é escolhida aqui (é permanente).
+- **GENES:** os genes expressos, a **biblioteca** dos silenciados, a oferta de mutação pendente e uma **comparação ao vivo** (membrana, velocidade, dano... antes → depois, verde melhora, vermelho piora) do que uma troca faria. Clique num gene da biblioteca e, se os espaços estiverem cheios, no gene expresso que dá o lugar; depois **Trocar**. **Silenciar** libera um espaço.
+- **HABILIDADES:** as 4 habilidades de classe e suas teclas; clique em duas para trocá-las de lugar (a ordem fica guardada nesta máquina).
+- **BUILDS:** três conjuntos de genes guardados (com a ordem das habilidades e um nome que você escolhe). **Salvar aqui** guarda o que está expresso; **Aplicar** expressa a build de uma vez, e a prévia mostra o efeito antes.
+
+**Quando se pode mexer:** trocar genes, aplicar build e escolher ofertas esperam a calma: nada de combate (inimigo que já notou a célula, golpe dado ou recebido, nos últimos 4 s), nada de masmorra, e o corpo precisa **se acomodar** por alguns segundos depois de cada troca (o motor impõe). Chamados de missão seguem a mesma regra: no meio de um combate eles esperam como um aviso apagado no canto e só abrem o cartão quando o combate acaba; Y e N não respondem enquanto isso.
 
 ## Arquivos
 

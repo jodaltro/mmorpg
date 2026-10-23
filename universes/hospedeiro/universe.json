@@ -3899,7 +3899,9 @@
   "pressure": "pressao",
   "threshold": 30,
   "offer": 3,
-  "slots": 6
+  "slots": 6,
+  "builds": 3,
+  "rest": 10
  },
  "mutations": [
   {

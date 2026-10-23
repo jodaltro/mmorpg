@@ -16,11 +16,12 @@ var _text: RichTextLabel
 
 func configure(world: Node) -> void:
 	_world = world
-	layer = 19
+	layer = 13  # under the Body window
 	_badge = Label.new()
-	_badge.position = Vector2(40, 130)
-	_badge.size = Vector2(620, 20)
-	_badge.add_theme_font_size_override("font_size", 12)
+	_badge.position = Vector2(28, 104)
+	_badge.size = Vector2(620, 18)
+	_badge.add_theme_font_size_override("font_size", 11)
+	_badge.modulate.a = 0.6
 	_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_badge)
 	_panel = ColorRect.new()

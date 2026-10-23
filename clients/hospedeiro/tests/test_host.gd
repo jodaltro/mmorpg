@@ -32,7 +32,7 @@ func _go_to_blood() -> void:
 
 func test_without_an_engine_the_game_stays_offline() -> void:
 	assert_true(not world.sync.link.online, "no engine, no connection")
-	assert_true(world.sync.system._status.text.contains("OFFLINE"), "status says offline")
+	assert_true(world.sync.system._status.text.contains("offline"), "status says offline")
 	assert_eq(world.viruses().size(), 6, "combat world still populated")
 
 

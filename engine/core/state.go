@@ -225,7 +225,8 @@ func (s *State) Clone() State {
 	}
 	c.Genomes = make(map[ID]Genome, len(s.Genomes))
 	for k, g := range s.Genomes {
-		g.Genes, g.Offer, g.Declined, g.Building = slices.Clone(g.Genes), slices.Clone(g.Offer), slices.Clone(g.Declined), slices.Clone(g.Building)
+		g.Genes, g.Offer, g.Declined, g.Building, g.Library = slices.Clone(g.Genes), slices.Clone(g.Offer), slices.Clone(g.Declined), slices.Clone(g.Building), slices.Clone(g.Library)
+		g.Builds = maps.Clone(g.Builds)
 		c.Genomes[k] = g
 	}
 	c.Marks = slices.Clone(s.Marks)

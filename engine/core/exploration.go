@@ -129,10 +129,9 @@ func (w *World) findNiche(s *State, origin string, p ID, args map[string]ID, cau
 	}
 	g := s.Genomes[p]
 	data := map[string]string{"niche": n.ID, "gene": n.Gene}
-	if !slices.Contains(g.Genes, n.Gene) {
-		g.Genes = append(slices.Clone(g.Genes), n.Gene)
-		if len(g.Genes) > w.geneSlots() {
-			data["replaced"], g.Genes = g.Genes[0], g.Genes[1:]
+	if !slices.Contains(g.Genes, n.Gene) { // (a silenced gene found again is expressed again)
+		if replaced := w.expressGene(&g, n.Gene); replaced != "" {
+			data["replaced"] = replaced
 		}
 		s.Genomes[p] = g
 		if m, ok := w.mutation(n.Gene); ok {

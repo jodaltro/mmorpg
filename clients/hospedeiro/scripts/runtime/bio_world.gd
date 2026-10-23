@@ -60,6 +60,10 @@ var camera: BioCameraFollow
 var genome: BioGenome
 var tracker: BioMutationTracker
 var panel: BioMutationPanel
+var tray: BioCallTray
+var body_panel: BioBodyPanel
+var sensor: BioThreatSensor
+var build_store: BioBuildStore
 var sync: BioHostSync
 var region: StringName = BioBodyMap.MEDULA
 var fever := false
@@ -72,6 +76,7 @@ var engine_lineage_offer: Array[Dictionary] = []  # pending differentiation offe
 var engine_lineage_featured := ""
 var lineage_id: StringName = &""
 var _pending_evolution := {}
+var _engine_lineage := {}
 var look_name := ""  # the variant the advisor chose for this body (Caçador, Andarilho...)
 var _engine_fraction := 0.0
 
@@ -206,6 +211,20 @@ func build() -> void:
 	panel.name = "MutationPanel"
 	add_child(panel)
 	panel.refresh(genome, tracker)
+	sensor = BioThreatSensor.new()
+	sensor.name = "ThreatSensor"
+	add_child(sensor)
+	sensor.configure(player, dungeon)
+	build_store = BioBuildStore.new("" if save_path.is_empty() else "user://hospedeiro_builds.json")
+	tray = BioCallTray.new()
+	tray.name = "CallTray"
+	add_child(tray)
+	body_panel = BioBodyPanel.new()
+	body_panel.name = "BodyPanel"
+	add_child(body_panel)
+	body_panel.configure(self)
+	panel.offer_changed.connect(_sync_calls)
+	tray.chip_activated.connect(_open_from_chip)
 
 	_update_live()
 	_populate(true)
@@ -263,6 +282,7 @@ func decline_mutation() -> void:
 ## Engine ids use hyphens (cilios-ageis); the local catalogue uses underscores (cilios_ageis).
 func apply_engine_evolution(ev: Dictionary) -> void:
 	engine_evolution = true
+	var changed := ev != _pending_evolution
 	_pending_evolution = ev
 	var expressed: Array[StringName] = []
 	for g in ev.get("genes", []):
@@ -287,6 +307,8 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 			panel.show_offer(local, StringName(featured.replace("-", "_")))
 	var threshold := maxf(1.0, float(ev.get("threshold", 1)))
 	_engine_fraction = 1.0 if not offer.is_empty() else clampf(float(ev.get("pressure", 0)) / threshold, 0.0, 1.0)
+	if changed and body_panel != null:
+		body_panel.refresh()
 
 
 ## The engine's procedural body for this player, decided from how they play. It arrives in the
@@ -445,15 +467,17 @@ func _debug_keys() -> void:
 ## The engine's lineage for this player: the class they have become, the offer to differentiate and progress.
 ## The newborn is a plain ball (lineage ""); the form, stats and class mutations all follow from this.
 func apply_engine_lineage(lin: Dictionary) -> void:
+	var lineage_changed := lin != _engine_lineage
+	_engine_lineage = lin
 	var current := BioLineageCatalog.normalise(str(lin.get("current", "")))
 	if current != lineage_id:
 		lineage_id = current
 		genome.lineage = current
 		player.combatant.set_genome(genome)
-	var label := "FORMA: " + (BioLineageCatalog.display_name(current) if current != &"" else "Esfera (indiferenciada)")
+	var label := BioLineageCatalog.display_name(current) if current != &"" else "Esfera"
 	var nxt := int(lin.get("next", 0))
 	if nxt > 0 and engine_lineage_offer.is_empty():
-		label += "   ·   maturidade %d/%d" % [int(lin.get("maturity", 0)), nxt]
+		label += "  ·  maturidade %d/%d" % [int(lin.get("maturity", 0)), nxt]
 	panel.set_lineage_text(label)
 	var offer: Array[Dictionary] = []
 	for o in lin.get("offer", []):
@@ -470,6 +494,58 @@ func apply_engine_lineage(lin: Dictionary) -> void:
 				apply_engine_evolution(_pending_evolution)
 		else:
 			panel.show_lineage_offer(offer, featured)
+	if lineage_changed and body_panel != null:
+		body_panel.refresh()
+
+
+## The engine's expressed genes, library, builds and rest, as the last view said (empty offline).
+func engine_evolution_view() -> Dictionary:
+	return _pending_evolution if engine_evolution else {}
+
+
+func engine_lineage_view() -> Dictionary:
+	return _engine_lineage
+
+
+## The chips of the call tray follow the pending offer: one for a differentiation, one for a mutation, none otherwise.
+func _sync_calls() -> void:
+	if tray == null:
+		return
+	match panel.offer_kind():
+		"lineage":
+			tray.clear_call("mutation")
+			tray.set_call("lineage", "lineage", "Diferenciação disponível", "seu corpo pode se tornar outra forma", "G", "disponível após o combate")
+		"mutation":
+			tray.clear_call("lineage")
+			tray.set_call("mutation", "mutation", "Mutação disponível", "%d genes para escolher" % panel.entries().size(), "G", "disponível após o combate")
+		_:
+			tray.clear_call("lineage")
+			tray.clear_call("mutation")
+	if body_panel != null and body_panel.is_open():
+		body_panel.refresh()
+
+
+func _open_from_chip(_key: String) -> void:
+	if sensor.in_combat():
+		sync.system.push_feed("Isso espera o fim do combate.")
+		return
+	body_panel.open()
+
+
+## Two abilities trade keys, and the order is remembered.
+func swap_abilities(a: int, b: int) -> void:
+	abilities.swap_slots(a, b)
+	build_store.remember_current(abilities.known())
+
+
+func arrange_abilities(order: Array) -> void:
+	abilities.arrange(order)
+	build_store.remember_current(abilities.known())
+
+
+## The order the player gave their abilities, restored once the engine says which ones the class knows.
+func restore_ability_order() -> void:
+	abilities.arrange(build_store.current_order)
 
 
 ## Back to the local loop (engine gone): the local tracker drives evolution again.
@@ -506,7 +582,7 @@ func restart_world() -> void:
 	engine_evolution = false
 	lineage_id = &""
 	look_name = ""
-	panel.set_lineage_text("FORMA: Esfera (indiferenciada)")
+	panel.set_lineage_text("Esfera")
 	for child in player.get_children():
 		if child is BioCellBody:
 			(child as BioCellBody).clear_look()
@@ -640,6 +716,11 @@ func _process(delta: float) -> void:
 		vitals_panel.toggle()
 	if Input.is_action_just_pressed("bio_codex"):
 		codex_panel.toggle()
+	if Input.is_action_just_pressed("bio_body") and not BioUi.typing():
+		body_panel.toggle()
+	var calm := not sensor.in_combat()
+	sync.system.set_calm(calm)
+	tray.set_calm(calm)
 	_debug_keys()
 	if debug_god:
 		player.combatant.actor.vitals.membrane = player.combatant.actor.vitals.max_membrane
@@ -661,12 +742,12 @@ func _process(delta: float) -> void:
 			hud.set_guide(true, (trail["target"] as Vector2) - player.global_position, "rastro químico · %d" % roundi(float(trail["distance"])))
 	else:
 		hud.set_guide(false, Vector2.ZERO, "")
-	if not sync.wants_numbers():
+	if body_panel.is_open() and not sync.wants_numbers() and not BioUi.typing():  # offers are chosen in the Body window, when calm
 		for i in 3:
 			if Input.is_action_just_pressed("bio_pick_%d" % (i + 1)):
-				pick_mutation(i)
-	if Input.is_action_just_pressed("bio_decline"):
-		decline_mutation()
+				body_panel.pick(i)
+		if Input.is_action_just_pressed("bio_decline"):
+			body_panel.decline()
 	if engine_evolution:
 		panel.refresh_values(genome, _engine_fraction)
 	else:

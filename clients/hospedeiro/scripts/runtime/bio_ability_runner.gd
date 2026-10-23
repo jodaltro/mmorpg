@@ -77,8 +77,33 @@ func cooldown_fraction(slot: int) -> float:
 	return frac
 
 
+## Two abilities trade keys (what the Body window does when the player clicks two slots).
+func swap_slots(a: int, b: int) -> void:
+	if a < 0 or b < 0 or a >= slots.size() or b >= slots.size() or a == b:
+		return
+	var held := slots[a]
+	slots[a] = slots[b]
+	slots[b] = held
+	learned.emit(&"")  # lets the bar refresh
+
+
+## Puts the known abilities in the order given (what a saved build asks for); the ones it does not name keep their place after.
+func arrange(order: Array) -> void:
+	var wanted: Array[StringName] = []
+	for id in order:
+		var key := StringName(str(id))
+		if slots.has(key) and not wanted.has(key):
+			wanted.append(key)
+	for id in slots:
+		if not wanted.has(id):
+			wanted.append(id)
+	if wanted != slots:
+		slots = wanted
+		learned.emit(&"")
+
+
 func _process(_delta: float) -> void:
-	if _host == null or not _host.visible:
+	if _host == null or not _host.visible or BioUi.captures_input() or BioUi.typing():
 		return
 	for i in SLOTS:
 		if Input.is_action_just_pressed("bio_ab_%d" % (i + 1)):

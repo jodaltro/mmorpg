@@ -56,10 +56,11 @@ func refresh() -> void:
 
 func _paint() -> void:
 	var size := _panel.size
-	var box := Rect2(size.x - 470.0, 200.0, 430.0, 440.0)
-	_panel.draw_rect(box, Color(0.0, 0.01, 0.03, 0.86))
+	var box := Rect2(size.x - 470.0, 200.0, 430.0, 490.0)
+	_panel.draw_style_box(BioUi.style(BioUi.BG, BioUi.LINE_STRONG, 12, 0), box)
 	var font := ThemeDB.fallback_font
-	_panel.draw_string(font, box.position + Vector2(18, 30), "SINAIS VITAIS DO HOSPEDEIRO   ·   Tab para fechar", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, Color(0.8, 0.95, 1.0, 0.95))
+	_panel.draw_string(font, box.position + Vector2(18, 32), "SINAIS VITAIS", HORIZONTAL_ALIGNMENT_LEFT, -1.0, BioUi.FS_HEAD, BioUi.ACCENT)
+	_panel.draw_string(font, box.position + Vector2(18, 32), "Tab fecha", HORIZONTAL_ALIGNMENT_RIGHT, box.size.x - 36.0, BioUi.FS_SMALL, BioUi.MUTED)
 	var y := box.position.y + 56.0
 	for id in _state.order:
 		var r: Dictionary = _state.readings[id]
