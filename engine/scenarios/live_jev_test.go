@@ -17,7 +17,11 @@ func TestLiveJevDecidesRealWorldDecisions(t *testing.T) {
 	if os.Getenv("JEV_LIVE") != "1" {
 		t.Skip("JEV_LIVE not set: live Jev calls are opt-in")
 	}
-	key, err := advisor.ResolveKey("../.env")
+	envFile := os.Getenv("JEV_ENV_FILE")
+	if envFile == "" {
+		envFile = "../.env"
+	}
+	key, err := advisor.ResolveKey(envFile)
 	if err != nil || key == "" {
 		t.Fatal("OPENROUTER_API_KEY unavailable")
 	}

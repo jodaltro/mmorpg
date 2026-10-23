@@ -217,8 +217,8 @@ Régua única (`BioBalance`), números afinados em `data/balance.json`, testes q
 - Ponta a ponta com motor real (`tests/e2e_codex.gd`, motor `-advisor deterministic -tick 1s`, porta 8099): o códice chega com 13 entradas (1 aberta), visitar vênula e coração leva a 3, e a rota vem do motor (`recesso-do-atrio`). Captura: `Docs/Validation/e2/e2e/e2e_codex_panel.png`. **O consultor foi o determinístico**: a decisão `rota` com o Jev de verdade (chamada ao vivo) ainda não foi exercitada.
 
 
-## Jev ao vivo na decisão `rota` (23/10/2026) — BLOQUEADO
+## Jev ao vivo na decisão `rota` (23/10/2026)
 
-- Novo teste opt-in `TestLiveJevPointsTheCellToAPlace` (`JEV_LIVE=1`, chave via `JEV_ENV_FILE`): monta a decisão `rota` real, pergunta ao Jev, valida a escolha e confere que o motor a aceita (registra latência e custo).
-- Resultado: `provider_http_error`. Reproduzido com `curl` direto no endpoint do Jev: **HTTP 402 "Insufficient credits"** da OpenRouter. Sem créditos, toda chamada ao Jev cai no padrão determinístico, então **a latência, o custo e a taxa de resolução da `rota` com o Jev real não foram medidos**. Os ponta a ponta com `-advisor jev` rodaram, mas só exercitaram o padrão.
-- Para destravar: adicionar créditos em openrouter.ai/settings/credits e rodar o teste acima de novo.
+- Teste opt-in `TestLiveJevPointsTheCellToAPlace` (`JEV_LIVE=1`, chave via `JEV_ENV_FILE`): monta a decisão `rota` real, pergunta ao Jev, valida a escolha e confere que o motor a aceita. Antes o Jev respondia 402 (sem créditos); depois de recarregar os créditos: **3 opções, o Jev escolheu `recesso-do-atrio` (o padrão era `bolsa-da-venula`), modelo `typesafe/jev-1.13-20260917`, latência 473–522 ms (3 rodadas), custo US$ 0,00003 por chamada**, e o motor aceitou a rota.
+- Ponta a ponta (`e2e_codex.gd`, motor `-advisor jev`, tick de 4 s): o log de comandos traz `resolve` com `"provider":"jev"` tanto para a `rota` (escolheu `nicho-estroma`) quanto para um acontecimento do mundo (`infeccao-pulmonar`, confiança 0,53), ou seja, as decisões foram do Jev e não do padrão.
+- Pendente, anterior a esta mudança: `TestLiveJevDecidesRealWorldDecisions` (Valdoria) falha em `seguir-rastro ... rejected: requirements` (o roteiro do teste ficou defasado do universo); não tem relação com o Hospedeiro e não foi investigado.
