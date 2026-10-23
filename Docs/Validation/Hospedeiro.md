@@ -153,3 +153,5 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 **Executado:** Godot 68 testes, 0 falhas, incluindo `test_every_ability.gd`: as 24 habilidades rodam no mundo com alvos e cada uma tem seu efeito (dano, marca, execução, zona, cura, pressa) e nenhum nó de efeito sobra depois. Go: passa exceto o teste antigo de `presentation.json`. GIFs de todas as habilidades (`tests/capture_gifs.gd`). Não testei com controle nem com muitos jogadores.
 
+**Limpeza visual (23/10/2026):** com mutações equipadas, o corpo mantém o interior limpo: os grânulos, vacúolos e a teia de DNA da própria forma não são desenhados (os bolsos já contam isso), o núcleo não cresce sobre os bolsos e os bolsos ficaram na parte baixa do corpo. Macrófago e neutrófilo deixaram de ficar carregados. Godot 68 testes, 0 falhas.
+

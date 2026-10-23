@@ -39,18 +39,21 @@ static func params(form: StringName, genes: Array[StringName]) -> Dictionary:
 
 
 ## Draws the organelles and appendages of a form around the origin of the cell's canvas.
-static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: float, t: float, core: Color, edge: Color, front: Vector2, human: float = 0.0) -> void:
+static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: float, t: float, core: Color, edge: Color, front: Vector2, human: float = 0.0, pockets: bool = false) -> void:
+	# With mutations in their pockets the body keeps a clean inside: the form's own granules and vacuoles stay out of the way.
 	if human > 0.35 and form in [&"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
 		return  # a risen cell wears its gear (BioHumanoid) instead of the radial appendages
 	match form:
 		&"mieloide":
-			_granules(c, r, t, 6, BioArt.JADE * 0.8, 0.45)
+			if not pockets:
+				_granules(c, r, t, 6, BioArt.JADE * 0.8, 0.45)
 		&"linfoide":
 			_receptors(c, r, t, 12, 7.0, core)
 		&"macrofago":
-			_vacuoles(c, r, t, 4 + (3 if genes.has(&"lisossomos_acidos") else 0), BioArt.TOXIN if genes.has(&"lisossomos_acidos") else edge.lightened(0.2))
+			if not pockets:
+				_vacuoles(c, r, t, 4 + (3 if genes.has(&"lisossomos_acidos") else 0), BioArt.TOXIN if genes.has(&"lisossomos_acidos") else edge.lightened(0.2))
 		&"neutrofilo":
-			if genes.has(&"rede_de_dna") and human <= 0.35:
+			if genes.has(&"rede_de_dna") and human <= 0.35 and not pockets:
 				_dna_web(c, r, t, core)
 		&"dendritica":
 			var depth := 3 if genes.has(&"dendritos_ramificados") else 2
@@ -66,7 +69,8 @@ static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: f
 				c.draw_arc(Vector2.ZERO, r * 1.5, 0.0, TAU, 48, BioArt.with_alpha(BioArt.MAGENTA, 0.5), 3.0, true)
 		&"t_citotoxico":
 			_needle(c, r, t, front, 2.0 if genes.has(&"agulha_litica") else 1.0)
-			_granules(c, r, t, 11 if genes.has(&"granulos_de_perforina") else 5, BioArt.CRIMSON, 0.55)
+			if not pockets:
+				_granules(c, r, t, 11 if genes.has(&"granulos_de_perforina") else 5, BioArt.CRIMSON, 0.55)
 		&"t_auxiliar":
 			_rings(c, r, t, 2 + (2 if genes.has(&"halo_de_citocinas") else 0), core)
 			_spores(c, r * 0.9, t, Color(1.0, 0.9, 0.5), 3 + (6 if genes.has(&"coro_de_interleucinas") else 0))

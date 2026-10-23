@@ -7,8 +7,8 @@ extends RefCounted
 
 ## Where each slot sits: a 3 x 2 grid in the lower part of the body (the top is left for the nucleus or the head), in
 ## units of the body radius, so six pockets always fit apart from each other.
-const POCKET_GRID := [Vector2(-0.5, 0.12), Vector2(0.0, 0.12), Vector2(0.5, 0.12), Vector2(-0.5, 0.6), Vector2(0.0, 0.6), Vector2(0.5, 0.6)]
-const POCKET_SIZE := 0.17  # of the body radius
+const POCKET_GRID := [Vector2(-0.5, 0.4), Vector2(0.0, 0.4), Vector2(0.5, 0.4), Vector2(-0.5, 0.82), Vector2(0.0, 0.82), Vector2(0.5, 0.82)]
+const POCKET_SIZE := 0.14  # of the body radius
 
 
 static func body_radius(rim: PackedVector2Array) -> float:

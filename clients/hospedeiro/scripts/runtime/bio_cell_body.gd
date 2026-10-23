@@ -272,6 +272,8 @@ func _process(delta: float) -> void:
 		pull += Vector2.from_angle(float(b[0])) * float(b[1])
 	_nuc_pos = _smooth_velocity * 0.01 + pull * radius_units * BioArt.UNIT * 0.55
 	_nuc_r = r_px * 0.42 * _nucleus_now * pulse
+	if not genes.is_empty():  # room for the pockets below: the nucleus never grows over them
+		_nuc_r = minf(_nuc_r, r_px * 0.3)
 	if _human > 0.0:  # the nucleus rises into the head
 		_nuc_pos = _nuc_pos.lerp(BioGhostForm.head_center(form, r_px, _human), minf(_human * 1.5, 1.0)).rotated(BioGhostForm.lean(_smooth_velocity.x, _human))
 	if _human > 0.0:
@@ -317,7 +319,7 @@ func _draw() -> void:
 	draw_polyline(closed, BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.35), 0.95), 6.0 if genes.has(&"membrana_espessa") else 3.0, true)
 	BioNucleusShapes.draw(self, form, _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, 6 if genes.has(&"nucleo_multilobulado") else 3)
 	_draw_genes(edge_now, core_now)
-	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human)
+	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human, not genes.is_empty())
 
 
 ## Marks that come from the procedural body, not from a gene: they scale with how the player plays.
