@@ -140,14 +140,15 @@ func TestSlotsReabsorbTheOldestGene(t *testing.T) {
 	h := load(t, "hospedeiro")
 	h.join("p1")
 	chosen := []string{}
-	for i := 0; i < 4; i++ {
+	slots := h.w.U.Evolution.Slots
+	for i := 0; i < slots+1; i++ {
 		h.fight("p1", 4)
 		g := h.waitOffer("p1")
 		h.mustAct("player", "p1", "evoluir", map[string]core.ID{"gene": core.ID(g.Featured)})
 		chosen = append(chosen, g.Featured)
 	}
 	genes := h.s.Genomes["p1"].Genes
-	if len(genes) != 3 || slices.Contains(genes, chosen[0]) || !slices.Equal(genes, chosen[1:]) {
-		t.Fatalf("three slots, oldest reabsorbed: chosen %v, expressed %v", chosen, genes)
+	if len(genes) != slots || slices.Contains(genes, chosen[0]) || !slices.Equal(genes, chosen[1:]) {
+		t.Fatalf("%d slots, oldest reabsorbed: chosen %v, expressed %v", slots, chosen, genes)
 	}
 }

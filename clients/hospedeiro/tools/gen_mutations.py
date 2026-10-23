@@ -46,14 +46,14 @@ def g(id, name, rarity, tags, lineage, flavour, stats, perks=None, mark=None, ke
 
 
 # ---- Generic mutations (any cell) ------------------------------------------------------------
-g("flagelo_calejado", "Flagelo Calejado", "incomum", ["combat"], "", "", {"lash_damage": 1.25, "speed": 0.92}, keep=True)
-g("cilios_ageis", "Cílios Ágeis", "comum", ["explore"], "", "", {"speed": 1.18, "max_membrane": 0.9}, keep=True)
-g("membrana_espessa", "Membrana Espessa", "comum", ["endure"], "", "", {"max_membrane": 1.3, "speed": 0.9}, keep=True)
-g("mitocondria_avida", "Mitocôndria Ávida", "incomum", ["metabolism"], "", "", {"atp_regen": 4.0, "max_atp": 0.8}, keep=True)
-g("vesicula_toxica", "Vesícula Tóxica", "incomum", ["combat", "knowledge"], "", "", {"spit_damage": 1.4, "spit_cost": 1.3}, keep=True)
-g("nucleo_reativo", "Núcleo Reativo", "incomum", ["endure", "explore"], "", "", {"dash_cooldown": 0.65, "max_membrane": 0.92}, keep=True)
-g("cauda_longa", "Cauda Longa", "incomum", ["combat", "explore"], "", "", {"lash_range": 1.3, "lash_damage": 0.9}, keep=True)
-g("enzima_voraz", "Enzima Voraz", "comum", ["metabolism"], "", "", {"nutrient_yield": 1.5, "atp_regen": -2.0}, keep=True)
+g("flagelo_calejado", "Flagelo Calejado", "incomum", ["combat"], "", "", {"lash_damage": 1.25, "speed": 0.92}, mark={"kind": "crescents", "color": "#ffc15a", "count": 3}, keep=True)
+g("cilios_ageis", "Cílios Ágeis", "comum", ["explore"], "", "", {"speed": 1.18, "max_membrane": 0.9}, mark={"kind": "spikes", "color": "#8fe9ff", "count": 9}, keep=True)
+g("membrana_espessa", "Membrana Espessa", "comum", ["endure"], "", "", {"max_membrane": 1.3, "speed": 0.9}, mark={"kind": "ring", "color": "#6ea8ff", "count": 2}, keep=True)
+g("mitocondria_avida", "Mitocôndria Ávida", "incomum", ["metabolism"], "", "", {"atp_regen": 4.0, "max_atp": 0.8}, mark={"kind": "capsules", "color": "#ffb347", "count": 3}, keep=True)
+g("vesicula_toxica", "Vesícula Tóxica", "incomum", ["combat", "knowledge"], "", "", {"spit_damage": 1.4, "spit_cost": 1.3}, mark={"kind": "orbs", "color": "#b6ff3a", "count": 3}, keep=True)
+g("nucleo_reativo", "Núcleo Reativo", "incomum", ["endure", "explore"], "", "", {"dash_cooldown": 0.65, "max_membrane": 0.92}, mark={"kind": "ring", "color": "#ffffff", "count": 1}, keep=True)
+g("cauda_longa", "Cauda Longa", "incomum", ["combat", "explore"], "", "", {"lash_range": 1.3, "lash_damage": 0.9}, mark={"kind": "tendrils", "color": "#7fd8ff", "count": 1}, keep=True)
+g("enzima_voraz", "Enzima Voraz", "comum", ["metabolism"], "", "", {"nutrient_yield": 1.5, "atp_regen": -2.0}, mark={"kind": "vacuoles", "color": "#5cffa0", "count": 2}, keep=True)
 g("citoesqueleto_elastico", "Citoesqueleto Elástico", "comum", ["explore", "endure"], "", "A rede interna cede e volta.", {"speed": 1.08, "lash_range": 1.12, "max_membrane": 0.95},
   mark={"kind": "filaments", "color": "#9fe8ff", "count": 6})
 g("receptores_de_quimiotaxia", "Receptores de Quimiotaxia", "incomum", ["explore", "knowledge"], "", "Sente o cheiro do alimento à distância.", {"nutrient_yield": 1.25, "speed": 1.05, "max_atp": 0.92},
@@ -65,9 +65,9 @@ g("espinhos_de_quitina", "Espinhos de Quitina", "incomum", ["combat"], "", "Uma 
 
 # ---- Macrófago: o Devorador ------------------------------------------------------------------
 g("pseudopodes_gigantes", "Pseudópodes Gigantes", "rara", ["combat", "endure"], "macrofago", "", {"max_membrane": 1.4, "lash_damage": 1.2, "speed": 0.88},
-  {"onda_de_pseudopodes": {"radius": 1.15, "knockback": 1.2}}, keep=True)
+  {"onda_de_pseudopodes": {"radius": 1.15, "knockback": 1.2}}, mark={"kind": "crescents", "color": "#ff7a9c", "count": 3}, keep=True)
 g("lisossomos_acidos", "Lisossomos Ácidos", "incomum", ["combat", "metabolism"], "macrofago", "", {"nutrient_yield": 1.5, "spit_damage": 1.25, "max_atp": 0.9},
-  {"lisossomo_acido": {"tick": 1.25}}, keep=True)
+  {"lisossomo_acido": {"tick": 1.25}}, mark={"kind": "vacuoles", "color": "#c4ff3a", "count": 3}, keep=True)
 g("fagossomo_profundo", "Fagossomo Profundo", "rara", ["combat", "metabolism"], "macrofago", "Engole mais fundo e digere melhor.", {"max_atp": 1.1, "speed": 0.95},
   {"engolir": {"heal": 1.5, "range": 1.1}}, {"kind": "vacuoles", "color": "#ff7a9c", "count": 3})
 g("citoplasma_esponjoso", "Citoplasma Esponjoso", "incomum", ["endure"], "macrofago", "Absorve o impacto como uma esponja.", {"max_membrane": 1.2, "speed": 0.92, "ability_cooldown": 1.05},
@@ -79,9 +79,9 @@ g("receptor_de_limpeza", "Receptor de Limpeza", "epica", ["combat", "endure"], "
 
 # ---- Neutrófilo: o Armadilheiro ----------------------------------------------------------------
 g("rede_de_dna", "Rede de DNA", "rara", ["combat", "explore"], "neutrofilo", "", {"lash_range": 1.35, "speed": 1.15, "max_membrane": 0.85},
-  {"rede_de_dna": {"radius": 1.2, "duration": 1.2}}, keep=True)
+  {"rede_de_dna": {"radius": 1.2, "duration": 1.2}}, mark={"kind": "filaments", "color": "#e8ffff", "count": 5}, keep=True)
 g("nucleo_multilobulado", "Núcleo Multilobulado", "incomum", ["explore", "endure"], "neutrofilo", "", {"dash_cooldown": 0.7, "speed": 1.1, "lash_damage": 0.9},
-  {"explosao_neutrofilica": {"cooldown": 0.85}}, keep=True)
+  {"explosao_neutrofilica": {"cooldown": 0.85}}, mark={"kind": "orbs", "color": "#ffd0f0", "count": 3}, keep=True)
 g("granulos_explosivos", "Grânulos Explosivos", "rara", ["combat"], "neutrofilo", "A armadilha detona com mais força.", {"max_membrane": 0.9, "ability_power": 1.08},
   {"netose": {"burst": 1.4, "radius": 1.15}}, {"kind": "orbs", "color": "#e8ffff", "count": 9, "radius": 0.6})
 g("fibras_pegajosas", "Fibras Pegajosas", "incomum", ["explore", "knowledge"], "neutrofilo", "O que toca a rede não escapa.", {"speed": 1.05, "lash_damage": 0.9},
@@ -93,9 +93,9 @@ g("degranulacao_toxica", "Degranulação Tóxica", "epica", ["combat", "metaboli
 
 # ---- Célula dendrítica: a Cartógrafa ---------------------------------------------------------
 g("dendritos_ramificados", "Dendritos Ramificados", "rara", ["knowledge", "explore"], "dendritica", "", {"nutrient_yield": 1.6, "lash_range": 1.25, "max_membrane": 0.88},
-  {"dendritos_em_chicote": {"half": 1.15}}, keep=True)
+  {"dendritos_em_chicote": {"half": 1.15}}, mark={"kind": "tendrils", "color": "#7ff0ff", "count": 3}, keep=True)
 g("esporos_de_antigeno", "Esporos de Antígeno", "incomum", ["knowledge", "metabolism"], "dendritica", "", {"atp_regen": 3.0, "spit_damage": 1.2, "speed": 0.9},
-  {"chuva_de_esporos": {"regen_atp": 1.3}}, keep=True)
+  {"chuva_de_esporos": {"regen_atp": 1.3}}, mark={"kind": "orbs", "color": "#e3c8ff", "count": 4}, keep=True)
 g("receptor_de_mapa", "Receptor de Mapa", "rara", ["knowledge", "explore"], "dendritica", "Lê o corpo inteiro de uma vez.", {"speed": 1.05, "max_membrane": 0.92},
   {"mapa_quimico": {"radius": 1.3, "seconds": 1.3}}, {"kind": "ring", "color": "#6ff2ff", "count": 3})
 g("apresentacao_cruzada", "Apresentação Cruzada", "rara", ["knowledge"], "dendritica", "Mostra o inimigo a toda a defesa.", {"ability_power": 1.08, "lash_damage": 0.9},
@@ -107,9 +107,9 @@ g("esporulacao_rapida", "Esporulação Rápida", "incomum", ["metabolism", "know
 
 # ---- Linfócito B: o Anticorpomante -------------------------------------------------------------
 g("anticorpos_em_y", "Anticorpos em Y", "rara", ["knowledge", "combat"], "linfocito_b", "", {"spit_damage": 1.6, "spit_cost": 1.2, "max_membrane": 0.9},
-  {"anticorpo_y": {"damage": 1.2}}, keep=True)
+  {"anticorpo_y": {"damage": 1.2}}, mark={"kind": "spikes", "color": "#ffb8f0", "count": 5}, keep=True)
 g("plasmocito", "Plasmócito", "epica", ["knowledge", "metabolism"], "linfocito_b", "", {"atp_regen": 5.0, "spit_damage": 1.3, "speed": 0.75},
-  {"explosao_de_plasmocito": {"radius": 1.15}}, keep=True)
+  {"explosao_de_plasmocito": {"radius": 1.15}}, mark={"kind": "ring", "color": "#ff7ae0", "count": 2}, keep=True)
 g("afinidade_aumentada", "Afinidade Aumentada", "rara", ["knowledge", "combat"], "linfocito_b", "O anticorpo gruda melhor e voa mais rápido.", {"max_atp": 0.92, "ability_cost": 1.05},
   {"anticorpo_y": {"damage": 1.3, "speed": 1.2}}, {"kind": "crystals", "color": "#ffb8f0", "count": 5})
 g("hipermutacao_somatica", "Hipermutação Somática", "epica", ["knowledge"], "linfocito_b", "Mais variantes por salva.", {"max_membrane": 0.88, "ability_cooldown": 1.08},
@@ -121,9 +121,9 @@ g("ligacao_multivalente", "Ligação Multivalente", "incomum", ["knowledge", "co
 
 # ---- Linfócito T citotóxico: o Executor ---------------------------------------------------------
 g("granulos_de_perforina", "Grânulos de Perforina", "rara", ["combat", "knowledge"], "t_citotoxico", "", {"lash_damage": 1.45, "spit_damage": 1.15, "max_membrane": 0.85},
-  {"perforina": {"damage": 1.15}}, keep=True)
+  {"perforina": {"damage": 1.15}}, mark={"kind": "capsules", "color": "#ff5c6e", "count": 4}, keep=True)
 g("agulha_litica", "Agulha Lítica", "epica", ["combat", "explore"], "t_citotoxico", "", {"lash_range": 1.5, "lash_damage": 1.3, "spit_cost": 1.2},
-  {"perforina": {"range": 1.2}}, keep=True)
+  {"perforina": {"range": 1.2}}, mark={"kind": "spikes", "color": "#ffd0d0", "count": 3}, keep=True)
 g("receptor_fas", "Receptor Fas", "rara", ["combat", "knowledge"], "t_citotoxico", "Fareja quem já está condenado.", {"max_membrane": 0.9, "ability_cost": 1.08},
   {"apoptose": {"below": 1.3, "range": 1.2}}, {"kind": "crystals", "color": "#ff6b7d", "count": 3})
 g("sinapse_imunologica", "Sinapse Imunológica", "incomum", ["combat", "knowledge"], "t_citotoxico", "Fica preso ao alvo até o fim.", {"speed": 0.94, "ability_cooldown": 1.05},
@@ -135,9 +135,9 @@ g("granzima_b", "Granzima B", "epica", ["combat"], "t_citotoxico", "Quem está f
 
 # ---- Linfócito T auxiliar: o Maestro das Citocinas ----------------------------------------------
 g("halo_de_citocinas", "Halo de Citocinas", "rara", ["endure", "metabolism"], "t_auxiliar", "", {"max_membrane": 1.3, "atp_regen": 4.0, "lash_damage": 0.85},
-  {"canto_de_citocinas": {"duration": 1.2}}, keep=True)
+  {"canto_de_citocinas": {"duration": 1.2}}, mark={"kind": "pulses", "color": "#ffe08a", "count": 2}, keep=True)
 g("coro_de_interleucinas", "Coro de Interleucinas", "incomum", ["endure", "knowledge"], "t_auxiliar", "", {"nutrient_yield": 1.4, "dash_cooldown": 0.75, "spit_damage": 0.9},
-  {"canto_de_citocinas": {"speed": 1.08}}, keep=True)
+  {"canto_de_citocinas": {"speed": 1.08}}, mark={"kind": "orbs", "color": "#fff0b0", "count": 4}, keep=True)
 g("interferon_gama", "Interferon Gama", "rara", ["endure", "metabolism"], "t_auxiliar", "A cura chega a quem mais precisa.", {"max_atp": 0.92, "lash_damage": 0.9},
   {"citocina_curativa": {"amount": 1.4}}, {"kind": "pulses", "color": "#ffe08a", "count": 3})
 g("interleucina_2", "Interleucina 2", "epica", ["knowledge", "endure"], "t_auxiliar", "A linfa responde em maior número.", {"speed": 0.93, "ability_cost": 1.08},

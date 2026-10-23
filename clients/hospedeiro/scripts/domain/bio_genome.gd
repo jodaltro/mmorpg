@@ -3,7 +3,10 @@ extends RefCounted
 ## The genes a cell currently expresses. There are no levels: power comes only from the chosen
 ## mutations, and every slot is a trade-off.
 
-const SLOTS := 3
+## Six pockets: a body can wear a good set of mutations at once instead of swapping one for another.
+const SLOTS := 6
+## Own class mutations needed for the final form (the rest of the slots are free for general ones).
+const ASCENSION_GENES := 4
 
 var equipped: Array[StringName] = []
 var lineage: StringName = &""  # the class (BioLineageCatalog); empty while undifferentiated
@@ -31,7 +34,7 @@ func stat(key: StringName) -> float:
 	return total
 
 
-## How far this cell has risen towards its final form: the share of its three slots taken by its own class's
+## How far this cell has risen towards its final form: the share (of ASCENSION_GENES) of its own class's
 ## mutations (0 for the newborn and the progenitors, 1 when all three are the class's own). At full the body stands up.
 func ascension() -> float:
 	if lineage == &"" or BioLineageCatalog.mods_of(lineage).is_empty():
@@ -40,7 +43,7 @@ func ascension() -> float:
 	for id in equipped:
 		if BioGeneCatalog.get_gene(id).requires_lineage == lineage:
 			own += 1
-	return clampf(own / float(SLOTS), 0.0, 1.0)
+	return clampf(own / float(ASCENSION_GENES), 0.0, 1.0)
 
 
 ## What the expressed genes do to one class ability, combined: multipliers multiply, "+name" additions add.

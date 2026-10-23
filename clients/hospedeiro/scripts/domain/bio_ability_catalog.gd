@@ -57,20 +57,20 @@ static func _ensure() -> void:
 	_a(&"netose", &"neutrofilo", "zone", Color(0.8, 1.0, 1.0), 20, 9.0, {"style": "trap", "reach": 2.2, "radius": 2.6, "duration": 3.5, "delay": 1.2, "burst": 34.0})
 	_a(&"degranulacao", &"neutrofilo", "zone", Color(0.8, 1.0, 0.4), 22, 10.0, {"style": "poison", "reach": 0.0, "radius": 2.8, "duration": 3.5, "tick": 7.0, "slow": 0.0})
 	# --- Célula dendrítica, a Cartógrafa ----------------------------------------------------
-	_a(&"apresentar_antigeno", &"dendritica", "mark", violet, 12, 5.0, {"range": 7.0, "mult": 1.4, "seconds": 6.0})
+	_a(&"apresentar_antigeno", &"dendritica", "mark", violet, 12, 5.0, {"range": 7.0, "mult": 1.4, "seconds": 6.0, "mark_kind": "mhc"})
 	_a(&"dendritos_em_chicote", &"dendritica", "cone", violet, 16, 4.0, {"damage": 20.0, "range": 3.3, "half": 50.0})
 	_a(&"chuva_de_esporos", &"dendritica", "zone", Color(0.85, 0.7, 1.0), 18, 12.0, {"style": "spores", "reach": 0.0, "radius": 3.0, "duration": 5.0, "regen_atp": 7.0, "regen_membrane": 2.5})
-	_a(&"mapa_quimico", &"dendritica", "mark_all", Color(0.5, 0.95, 1.0), 24, 15.0, {"radius": 9.0, "mult": 1.25, "seconds": 6.0})
+	_a(&"mapa_quimico", &"dendritica", "mark_all", Color(0.5, 0.95, 1.0), 24, 15.0, {"radius": 9.0, "mult": 1.25, "seconds": 6.0, "mark_kind": "aim"})
 	# --- Linfócito B, o Anticorpomante ------------------------------------------------------
 	_a(&"anticorpo_y", &"linfocito_b", "bolt", antibody, 10, 1.2, {"damage": 14.0, "range": 10.0, "speed": 11.0, "homing": true})
 	_a(&"salva_de_anticorpos", &"linfocito_b", "volley", antibody, 22, 6.0, {"damage": 9.0, "range": 8.0, "speed": 12.0, "count": 5, "spread": 50.0})
-	_a(&"opsonizacao", &"linfocito_b", "mark", antibody, 16, 8.0, {"range": 7.0, "mult": 1.3, "seconds": 5.0, "slow": 0.5})
+	_a(&"opsonizacao", &"linfocito_b", "mark", antibody, 16, 8.0, {"range": 7.0, "mult": 1.3, "seconds": 5.0, "slow": 0.5, "mark_kind": "urchin"})
 	_a(&"explosao_de_plasmocito", &"linfocito_b", "nova", antibody, 32, 14.0, {"damage": 30.0, "radius": 4.5, "knockback": 12.0, "charge": 0.45})
 	# --- Linfócito T citotóxico, o Executor -------------------------------------------------
 	_a(&"perforina", &"t_citotoxico", "pierce", blood, 10, 2.2, {"damage": 18.0, "range": 3.4, "width": 0.9, "execute_below": 0.4, "execute_mult": 2.0})
 	_a(&"golpe_litico", &"t_citotoxico", "dash_strike", blood, 20, 6.0, {"damage": 28.0, "distance": 5.5, "iframes": 0.3})
 	_a(&"apoptose", &"t_citotoxico", "execute", blood, 22, 10.0, {"damage": 8.0, "range": 6.0, "below": 0.35})
-	_a(&"sinal_de_morte", &"t_citotoxico", "mark", blood, 20, 12.0, {"range": 8.0, "mult": 1.8, "seconds": 6.0})
+	_a(&"sinal_de_morte", &"t_citotoxico", "mark", blood, 20, 12.0, {"range": 8.0, "mult": 1.8, "seconds": 6.0, "mark_kind": "cross"})
 	# --- Linfócito T auxiliar, o Maestro das Citocinas --------------------------------------
 	_a(&"citocina_curativa", &"t_auxiliar", "heal", gold, 16, 9.0, {"amount": 36.0, "seconds": 4.0})
 	_a(&"canto_de_citocinas", &"t_auxiliar", "aura", gold, 18, 12.0, {"style": "song", "duration": 6.0, "speed": 1.25, "regen_atp": 6.0})

@@ -11,6 +11,7 @@ var _cards: Array[Label] = []
 var _genes_label: Label
 var _pressure_fill: ColorRect
 var _pressure_width := 240.0
+var _genome: BioGenome
 
 
 func is_offer_visible() -> bool:
@@ -27,7 +28,13 @@ func show_offer(ids: Array, featured: StringName = &"") -> void:
 	for id in ids:
 		var gene := BioGeneCatalog.get_gene(id)
 		var tag := "  (classe)" if gene.requires_lineage != &"" else ""
-		entries.append({"name": gene.display_name + tag, "text": gene.summary().replace(" · ", "\n"), "featured": id == featured})
+		var text := gene.summary().replace(" · ", "
+")
+		if _genome != null and _genome.equipped.size() >= BioGenome.SLOTS and not _genome.has_gene(id):  # say it, never swap silently
+			text += "
+
+Sem espaço: reabsorve %s." % BioGeneCatalog.get_gene(_genome.equipped[0]).display_name
+		entries.append({"name": gene.display_name + tag, "text": text, "featured": id == featured})
 	show_cards("MUTAÇÃO DISPONÍVEL — escolha uma (1 / 2 / 3) ou recuse (X)", entries)
 
 
@@ -66,10 +73,11 @@ func refresh(genome: BioGenome, tracker: BioMutationTracker) -> void:
 
 
 func refresh_values(genome: BioGenome, fraction: float) -> void:
+	_genome = genome
 	var lines: Array[String] = ["GENES  (%d/%d)" % [genome.equipped.size(), BioGenome.SLOTS]]
-	for id in genome.equipped:
+	for id in genome.equipped:  # names only: the details are on the offer cards
 		var gene := BioGeneCatalog.get_gene(id)
-		lines.append("%s  —  %s" % [gene.display_name, gene.summary()])
+		lines.append("◆ %s%s" % [gene.display_name, "  (classe)" if gene.requires_lineage != &"" else ""])
 	if genome.equipped.is_empty():
 		lines.append("nenhum — coma e derrote vírus")
 	_genes_label.text = "\n".join(lines)

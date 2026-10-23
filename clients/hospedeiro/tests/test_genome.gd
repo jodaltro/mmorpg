@@ -19,7 +19,8 @@ func test_stats_multiply_and_add() -> void:
 
 func test_slots_reabsorb_the_oldest_gene() -> void:
 	var genome := BioGenome.new()
-	for id in [&"cilios_ageis", &"cauda_longa", &"enzima_voraz"]:
+	var first_six := [&"cilios_ageis", &"cauda_longa", &"enzima_voraz", &"membrana_espessa", &"peroxissomos", &"nucleo_reativo"]
+	for id in first_six:
 		assert_eq(genome.equip(id), &"", "free slot")
 	assert_eq(genome.equip(&"vesicula_toxica"), &"cilios_ageis", "oldest replaced")
 	assert_eq(genome.equipped.size(), BioGenome.SLOTS)
@@ -122,8 +123,8 @@ func test_save_roundtrip_drops_unknown_genes() -> void:
 	genome.equip(&"enzima_voraz")
 	var restored := BioGenome.from_dict(genome.to_dict())
 	assert_eq(restored.equipped, genome.equipped)
-	var dirty := BioGenome.from_dict({"equipped": ["cilios_ageis", "does_not_exist", "cilios_ageis", "cauda_longa", "enzima_voraz", "membrana_espessa"]})
-	var expected: Array[StringName] = [&"cilios_ageis", &"cauda_longa", &"enzima_voraz"]
+	var dirty := BioGenome.from_dict({"equipped": ["cilios_ageis", "does_not_exist", "cilios_ageis", "cauda_longa", "enzima_voraz", "membrana_espessa", "peroxissomos", "nucleo_reativo", "vesicula_toxica"]})
+	var expected: Array[StringName] = [&"cilios_ageis", &"cauda_longa", &"enzima_voraz", &"membrana_espessa", &"peroxissomos", &"nucleo_reativo"]
 	assert_eq(dirty.equipped, expected, "unknown, duplicated and extra genes dropped")
 
 
@@ -205,10 +206,11 @@ func test_ascension_follows_the_share_of_own_class_mutations() -> void:
 	g.equipped = [&"cilios_ageis"] as Array[StringName]
 	assert_near(g.ascension(), 0.0, 0.001, "generic mutations do not count")
 	g.equip(&"receptor_fas")
-	assert_near(g.ascension(), 1.0 / 3.0, 0.001, "one of three")
+	assert_near(g.ascension(), 1.0 / 4.0, 0.001, "one of four")
 	g.equip(&"granzima_b")
-	g.equip(&"agulha_litica")  # the oldest (generic) one is reabsorbed
-	assert_near(g.ascension(), 1.0, 0.001, "all three slots are the class's own")
+	g.equip(&"agulha_litica")
+	g.equip(&"miosina_de_contracao")
+	assert_near(g.ascension(), 1.0, 0.001, "four of the class's own: the final form")
 
 
 func test_every_form_has_its_own_nucleus_and_ghost_silhouette() -> void:
@@ -263,3 +265,17 @@ func test_a_body_stands_up_only_with_its_class_mutations() -> void:
 	assert_near(body._ascend_target, 0.0, 0.001, "and falls back when the class genes are gone")
 	world.queue_free()
 	await tree.process_frame
+
+
+func test_each_slot_has_its_own_pocket_so_marks_never_overlap() -> void:
+	var rim := PackedVector2Array()
+	for i in 64:
+		rim.append(Vector2.from_angle(i * TAU / 64.0) * 30.0)
+	var spots: Array[Vector2] = []
+	for slot in BioGenome.SLOTS:
+		spots.append(BioOrganelles.pocket_position(rim, slot))
+	for i in spots.size():
+		for j in range(i + 1, spots.size()):
+			assert_true(spots[i].distance_to(spots[j]) > 12.0, "pockets %d and %d are apart" % [i, j])
+	for id in BioGeneCatalog.all_ids():
+		assert_true(not BioGeneCatalog.get_gene(id).mark.is_empty(), "%s has a visible mark" % id)

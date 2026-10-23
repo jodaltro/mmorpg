@@ -1,76 +1,96 @@
 class_name BioOrganelles
 extends RefCounted
-## The visible mark of a mutation (BioGene.mark): a few organelle kinds drawn around the body, each with its own
-## colour, count and size, so two cells of the same class with different mutations read differently at a glance.
-## kinds: orbs (orbiting lights), ring (turning arcs), spikes (spines on the rim), filaments (strands inside),
-## crescents (armour plates on the rim), crystals (diamonds), tendrils (short curled threads), pulses (expanding rings),
-## vacuoles (bubbles inside).
+## The visible mark of a mutation (BioGene.mark): a small organelle in its own POCKET of the body. Every equipped mutation
+## takes one of six fixed places inside the membrane (so they never pile on top of each other), drawn as a little sac
+## with a glyph that is the same shape for the same gene every time. Kinds: orbs, ring, spikes, filaments, crescents,
+## crystals, tendrils, pulses, vacuoles, capsules.
+
+## Where each slot sits: a 3 x 2 grid in the lower part of the body (the top is left for the nucleus or the head), in
+## units of the body radius, so six pockets always fit apart from each other.
+const POCKET_GRID := [Vector2(-0.5, 0.12), Vector2(0.0, 0.12), Vector2(0.5, 0.12), Vector2(-0.5, 0.6), Vector2(0.0, 0.6), Vector2(0.5, 0.6)]
+const POCKET_SIZE := 0.17  # of the body radius
 
 
-static func draw(c: CanvasItem, mark: Dictionary, r: float, t: float, edge: Color) -> void:
+static func body_radius(rim: PackedVector2Array) -> float:
+	if rim.is_empty():
+		return 20.0
+	var total := 0.0
+	for p in rim:
+		total += p.length()
+	return total / rim.size()
+
+
+static func pocket_position(rim: PackedVector2Array, slot: int) -> Vector2:
+	return (POCKET_GRID[slot % POCKET_GRID.size()] as Vector2) * body_radius(rim)
+
+
+static func draw_pocket(c: CanvasItem, mark: Dictionary, at: Vector2, size: float, t: float, slot: int) -> void:
 	var color := Color.html(str(mark.get("color", "#ffffff")))
-	var count := int(mark.get("count", 4))
-	var seed_shift := float(str(mark.get("color", "")).hash() % 100) * 0.1
+	var count := clampi(int(mark.get("count", 3)), 1, 9)
+	var seed_shift := slot * 1.7
+	# the sac: a faint disc and a thin ring, so each mutation reads as its own organelle
+	c.draw_circle(at, size, BioArt.with_alpha(color, 0.07))
+	c.draw_arc(at, size, 0.0, TAU, 20, BioArt.with_alpha(color, 0.4), 1.4, true)
 	match str(mark.get("kind", "")):
 		"orbs":
-			var radius := float(mark.get("radius", 0.7))
 			for k in count:
-				var a := t * (0.5 + 0.08 * (k % 3)) + k * TAU / count + seed_shift
-				var p := Vector2.from_angle(a) * r * (radius + 0.08 * sin(t * 2.0 + k))
-				c.draw_texture_rect(BioArt.glow_texture(), Rect2(p - Vector2.ONE * 9.0, Vector2.ONE * 18.0), false, BioArt.with_alpha(color, 0.3))
-				c.draw_circle(p, 2.6, BioArt.with_alpha(color.lerp(Color.WHITE, 0.2), 0.75))
+				var a := t * 0.9 + k * TAU / count + seed_shift
+				var p := at + Vector2.from_angle(a) * size * 0.5
+				c.draw_circle(p, size * 0.17, BioArt.with_alpha(color.lerp(Color.WHITE, 0.25), 0.85))
 		"ring":
-			for k in count:
-				var rr := r * (0.5 + 0.2 * k)
-				var a0 := t * (0.8 - 0.25 * k) + k + seed_shift
-				c.draw_arc(Vector2.ZERO, rr, a0, a0 + TAU * 0.6, 28, BioArt.with_alpha(color, 0.75), 2.4, true)
-				c.draw_arc(Vector2.ZERO, rr, a0 + PI, a0 + PI + TAU * 0.2, 12, BioArt.with_alpha(color.lerp(Color.WHITE, 0.5), 0.9), 3.2, true)
+			for k in clampi(count, 1, 3):
+				var a0 := t * (0.9 - 0.3 * k) + k + seed_shift
+				c.draw_arc(at, size * (0.78 - 0.24 * k), a0, a0 + TAU * 0.62, 14, BioArt.with_alpha(color, 0.85), 1.8, true)
+			c.draw_circle(at, size * 0.12, BioArt.with_alpha(Color.WHITE, 0.7))
 		"spikes":
-			var length := 13.0 if bool(mark.get("long", false)) else 8.0
 			for k in count:
-				var a := k * TAU / count + seed_shift
-				var base := Vector2.from_angle(a) * r * 0.97
-				var tip := base + Vector2.from_angle(a) * (length + 2.5 * sin(t * 3.0 + k))
-				c.draw_line(base, tip, BioArt.with_alpha(color, 0.9), 2.4, true)
-				c.draw_circle(tip, 1.8, BioArt.with_alpha(Color.WHITE, 0.8))
+				var a := k * TAU / count + seed_shift + sin(t * 1.5 + k) * 0.06
+				c.draw_line(at + Vector2.from_angle(a) * size * 0.18, at + Vector2.from_angle(a) * size * 0.84, BioArt.with_alpha(color, 0.85), 1.6, true)
+			c.draw_circle(at, size * 0.15, BioArt.with_alpha(color.lerp(Color.WHITE, 0.3), 0.8))
 		"filaments":
 			for k in count:
-				var a := k * TAU / count + t * 0.12 + seed_shift
+				var y := lerpf(-size * 0.6, size * 0.6, (k + 0.5) / count)
 				var pts := PackedVector2Array()
 				for i in 7:
 					var f := i / 6.0
-					pts.append(Vector2.from_angle(a + sin(t * 1.5 + f * 4.0 + k) * 0.22) * r * (0.12 + 0.82 * f))
-				c.draw_polyline(pts, BioArt.with_alpha(color, 0.6), 1.8, true)
+					pts.append(at + Vector2(lerpf(-size * 0.75, size * 0.75, f), y + sin(t * 2.0 + f * 5.0 + k) * size * 0.14))
+				c.draw_polyline(pts, BioArt.with_alpha(color, 0.75), 1.5, true)
 		"crescents":
-			for k in count:
-				var a := k * TAU / count + t * 0.2 + seed_shift
-				c.draw_arc(Vector2.ZERO, r * 1.05, a, a + TAU / count * 0.6, 10, BioArt.with_alpha(color, 0.85), 5.0, true)
+			for k in clampi(count, 1, 5):
+				var a := k * TAU / clampi(count, 1, 5) + t * 0.3 + seed_shift
+				c.draw_arc(at, size * 0.62, a, a + TAU / clampi(count, 1, 5) * 0.55, 8, BioArt.with_alpha(color, 0.9), 2.6, true)
 		"crystals":
-			for k in count:
-				var a := -t * 0.3 + k * TAU / count + seed_shift
-				var p := Vector2.from_angle(a) * r * 0.62
-				var s := 6.0 + 1.5 * sin(t * 2.0 + k)
-				var pts := PackedVector2Array([p + Vector2(0, -s * 1.6), p + Vector2(s, 0), p + Vector2(0, s * 1.6), p + Vector2(-s, 0)])
-				c.draw_primitive(pts, PackedColorArray([BioArt.with_alpha(color, 0.35), BioArt.with_alpha(color, 0.35), BioArt.with_alpha(color, 0.35), BioArt.with_alpha(color, 0.35)]), PackedVector2Array())
-				pts.append(pts[0])
-				c.draw_polyline(pts, BioArt.with_alpha(color.lerp(Color.WHITE, 0.4), 0.95), 1.6, true)
+			for k in clampi(count, 1, 4):
+				var a := -t * 0.4 + k * TAU / clampi(count, 1, 4) + seed_shift
+				var p := at + Vector2.from_angle(a) * size * (0.0 if count == 1 else 0.42)
+				var s := size * (0.34 if count <= 2 else 0.24)
+				var pts := PackedVector2Array([p + Vector2(0, -s * 1.5), p + Vector2(s, 0), p + Vector2(0, s * 1.5), p + Vector2(-s, 0), p + Vector2(0, -s * 1.5)])
+				c.draw_polyline(pts, BioArt.with_alpha(color.lerp(Color.WHITE, 0.3), 0.9), 1.6, true)
 		"tendrils":
-			for k in count:
-				var a := k * TAU / count + seed_shift + sin(t * 0.8 + k) * 0.2
+			for k in clampi(count, 1, 4):
+				var a := k * TAU / clampi(count, 1, 4) + seed_shift
 				var pts := PackedVector2Array()
-				for i in 6:
-					var f := i / 5.0
-					pts.append(Vector2.from_angle(a + sin(t * 3.0 + f * 5.0 + k) * 0.35 * f) * r * (0.95 + 0.55 * f))
-				c.draw_polyline(pts, BioArt.with_alpha(color, 0.8), 2.2, true)
-				c.draw_circle(pts[5], 2.4, BioArt.with_alpha(Color.WHITE, 0.85))
+				for i in 8:
+					var f := i / 7.0
+					pts.append(at + Vector2.from_angle(a + f * 2.2 + sin(t * 2.0 + k) * 0.25) * size * 0.8 * f)
+				c.draw_polyline(pts, BioArt.with_alpha(color, 0.85), 1.7, true)
 		"pulses":
-			for k in count:
-				var phase := fmod(t * 0.45 + k / float(count) + seed_shift, 1.0)
-				c.draw_arc(Vector2.ZERO, r * (1.05 + 0.8 * phase), 0.0, TAU, 48, BioArt.with_alpha(color, 0.6 * (1.0 - phase)), 2.4, true)
+			for k in clampi(count, 1, 3):
+				var phase := fmod(t * 0.6 + k / float(clampi(count, 1, 3)) + seed_shift, 1.0)
+				c.draw_arc(at, size * (0.15 + 0.7 * phase), 0.0, TAU, 18, BioArt.with_alpha(color, 0.8 * (1.0 - phase)), 1.6, true)
+			c.draw_circle(at, size * 0.13, BioArt.with_alpha(Color.WHITE, 0.7))
 		"vacuoles":
-			for k in count:
-				var a := t * 0.18 + k * TAU / count + seed_shift
-				var p := Vector2.from_angle(a) * r * 0.5
-				var s := 8.0 + 3.0 * sin(t * 0.9 + k)
-				c.draw_arc(p, s, 0.0, TAU, 20, BioArt.with_alpha(color, 0.85), 2.2, true)
-				c.draw_circle(p, s * 0.5, BioArt.with_alpha(color, 0.3))
+			for k in clampi(count, 1, 4):
+				var a := t * 0.25 + k * TAU / clampi(count, 1, 4) + seed_shift
+				var p := at + Vector2.from_angle(a) * size * (0.0 if count == 1 else 0.38)
+				var s := size * (0.5 if count <= 2 else 0.3) * (1.0 + 0.1 * sin(t * 1.5 + k))
+				c.draw_arc(p, s, 0.0, TAU, 14, BioArt.with_alpha(color, 0.9), 1.6, true)
+				c.draw_circle(p, s * 0.4, BioArt.with_alpha(color, 0.3))
+		"capsules":  # mitochondria: ovals with a fold inside
+			for k in clampi(count, 1, 4):
+				var a := t * 0.2 + k * TAU / clampi(count, 1, 4) + seed_shift
+				var p := at + Vector2.from_angle(a) * size * 0.36
+				c.draw_set_transform(p, a + PI * 0.5, Vector2(1.7, 1.0))
+				c.draw_arc(Vector2.ZERO, size * 0.2, 0.0, TAU, 12, BioArt.with_alpha(color, 0.9), 1.5, true)
+				c.draw_line(Vector2(-size * 0.12, 0), Vector2(size * 0.12, 0), BioArt.with_alpha(color, 0.7), 1.2, true)
+				c.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)

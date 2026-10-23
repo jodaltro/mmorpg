@@ -247,10 +247,11 @@ func _process(delta: float) -> void:
 		if _oval > 0.0:
 			silhouette += _oval * (2.0 * along * along - 1.0)
 		var squash := 1.0 + stretch * along * along - stretch * 0.5 * (1.0 - along * along)
-		var swelling := 1.0
+		var swelling_sum := 0.0
 		for b in _bulges.values():
 			var d := angle_difference(a, float(b[0])) / float(b[2])
-			swelling += float(b[1]) * exp(-d * d)
+			swelling_sum += float(b[1]) * exp(-d * d)
+		var swelling := 1.0 + minf(swelling_sum, 0.5)  # many limbs at once never blow the body up
 		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell * swelling * silhouette * BioGhostForm.radius_mul(form, a, _human, t)
 		if _human > 0.0:  # a floaty lean with the motion, and a slow bob: one body, like a ghost
 			p = p.rotated(BioGhostForm.lean(_smooth_velocity.x, _human)) + Vector2(0.0, sin(t * 1.4) * 2.5 * _human)
@@ -264,7 +265,7 @@ func _process(delta: float) -> void:
 	_neck = PackedVector2Array()
 	_outline = _build_outline() if tail != null and tail_on else PackedVector2Array()
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)
-	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.4)
+	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.4 * (1.0 - 0.6 * _human))
 	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
 	var pull := Vector2.ZERO
 	for b in _bulges.values():
@@ -348,7 +349,8 @@ func _draw_look(t: float, r: float, tail_angle: float, edge_now: Color, core_now
 			draw_texture_rect(BioArt.glow_texture(), Rect2(pos2 - Vector2.ONE * 8.0, Vector2.ONE * 16.0), false, BioArt.with_alpha(Color(0.62, 0.42, 1.0), 0.6))
 
 
-## Organelles and changes of form, one per gene, so the build can be read from the body.
+## What the expressed genes show on the body: a thicker wall (structural), and one small pocket per gene in its own fixed
+## place (see BioOrganelles), so the build reads at a glance and no mutation hides another.
 func _draw_genes(edge_now: Color, core_now: Color) -> void:
 	var t := Time.get_ticks_msec() * 0.001 + _seed
 	var r := radius_units * BioArt.UNIT * _size_mul
@@ -356,50 +358,17 @@ func _draw_genes(edge_now: Color, core_now: Color) -> void:
 	_draw_look(t, r, tail_angle, edge_now, core_now)
 	if genes.is_empty():
 		return
-	for id in genes:  # data-driven marks of the newer mutations
-		var mark: Dictionary = BioGeneCatalog.get_gene(id).mark
-		if not mark.is_empty():
-			BioOrganelles.draw(self, mark, r, t, edge_now)
 	if genes.has(&"membrana_espessa"):  # a second, thicker wall
 		var wall := PackedVector2Array()
 		for p in _rim:
-			wall.append(p * 1.16)
+			wall.append(p * 1.12)
 		wall.append(wall[0])
-		draw_polyline(wall, BioArt.with_alpha(edge_now, 0.55), 4.0, true)
-	if genes.has(&"cilios_ageis"):  # a fringe of beating cilia
-		var count := 36
-		for i in count:
-			var idx := i * RIM / count
-			var base := _rim[idx]
-			if tail != null and absf(angle_difference(base.angle(), tail_angle)) < 0.55:
-				continue
-			var beat := sin(t * 9.0 + i * 0.8) * 0.4
-			var tip := base + base.normalized().rotated(beat) * (11.0 + 3.0 * sin(t * 5.0 + i))
-			draw_line(base, tip, BioArt.with_alpha(BioArt.CYAN.lerp(Color.WHITE, 0.3), 0.85), 2.0, true)
-	if genes.has(&"vesicula_toxica"):  # three glowing toxin sacs
-		for k in 3:
-			var pos := Vector2.from_angle(t * 0.5 + k * TAU / 3.0) * r * 0.62
-			var pulse := 1.0 + 0.2 * sin(t * 3.0 + k)
-			draw_texture_rect(BioArt.glow_texture(), Rect2(pos - Vector2.ONE * 14.0 * pulse, Vector2.ONE * 28.0 * pulse), false, BioArt.with_alpha(BioArt.TOXIN, 0.5))
-			draw_circle(pos, 4.0 * pulse, BioArt.with_alpha(BioArt.TOXIN * 0.75, 0.9))
-	if genes.has(&"mitocondria_avida"):  # amber mitochondria
-		for k in 5:
-			var a := t * 0.35 + k * TAU / 5.0
-			var pos := Vector2.from_angle(a) * r * 0.66
-			draw_set_transform(pos, a + PI * 0.5, Vector2(1.9, 1.0))
-			draw_circle(Vector2.ZERO, 4.5, BioArt.with_alpha(BioArt.AMBER * 0.8, 0.85))
-			draw_circle(Vector2.ZERO, 2.0, BioArt.with_alpha(BioArt.AMBER, 0.9))
-		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	if genes.has(&"enzima_voraz"):  # digestive granules near the wall
-		for k in 8:
-			var a := -t * 0.25 + k * TAU / 8.0
-			var pos := Vector2.from_angle(a) * r * (0.82 + 0.05 * sin(t * 2.0 + k))
-			draw_texture_rect(BioArt.glow_texture(), Rect2(pos - Vector2.ONE * 9.0, Vector2.ONE * 18.0), false, BioArt.with_alpha(BioArt.JADE, 0.5))
-			draw_circle(pos, 2.4, BioArt.with_alpha(BioArt.JADE * 0.8, 0.9))
-	if genes.has(&"nucleo_reativo"):  # a reactive ring around the nucleus
-		var ring := r * 0.46 * (1.0 + 0.08 * sin(t * 6.0))
-		draw_arc(Vector2.ZERO, ring, 0.0, TAU, 40, BioArt.with_alpha(Color.WHITE, 0.55), 2.0, true)
-		draw_arc(Vector2.ZERO, ring * 1.28, t * 2.0, t * 2.0 + PI * 1.2, 24, BioArt.with_alpha(core_now.lerp(Color.WHITE, 0.5), 0.9), 3.0, true)
+		draw_polyline(wall, BioArt.with_alpha(edge_now, 0.5), 3.0, true)
+	var size := maxf(BioOrganelles.body_radius(_rim) * BioOrganelles.POCKET_SIZE, 5.0)
+	for i in genes.size():
+		var mark: Dictionary = BioGeneCatalog.get_gene(genes[i]).mark
+		if not mark.is_empty():
+			BioOrganelles.draw_pocket(self, mark, BioOrganelles.pocket_position(_rim, i), size, t, i)
 
 
 ## Triangle fan from the centre as raw primitives: no triangulation step that could fail on odd shapes.

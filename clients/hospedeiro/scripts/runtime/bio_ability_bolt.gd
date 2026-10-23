@@ -12,6 +12,11 @@ var _color := Color.WHITE
 var _homing := false
 var _traveled := 0.0
 var _trail: CPUParticles2D
+var weave_phase := 0.0  # a salvo braids: neighbours swap sides as they fly
+var weave_amp := 0.0
+var _spin := 0.0
+var _wake: Array = [[], []]  # the two arm tips draw a double thread behind
+var _centre := Vector2.ZERO
 
 
 static func spawn(parent: Node, owner_combatant: BioCombatant, def: BioAttackDef, pos: Vector2, dir: Vector2, speed_units: float, range_units: float, color: Color, homing: bool) -> BioAbilityBolt:
@@ -29,6 +34,7 @@ static func spawn(parent: Node, owner_combatant: BioCombatant, def: BioAttackDef
 
 
 func _ready() -> void:
+	_centre = position
 	collision_layer = 0
 	collision_mask = BioCellActor.LAYER_COMBATANT | BioCellActor.LAYER_WALL
 	z_index = 14
@@ -52,14 +58,28 @@ func _physics_process(delta: float) -> void:
 		if best != null:
 			_dir = _dir.slerp((best.global_position - global_position).normalized(), 1.0 - exp(-7.0 * delta)).normalized()
 	var step := _speed_px * delta
-	position += _dir * step
+	_centre += _dir * step
 	_traveled += step
+	_spin += delta * 12.0
+	var side := _dir.orthogonal() * weave_amp * sin(_traveled / 36.0 + weave_phase)
+	position = _centre + side
+	for w in 2:
+		var tip := Vector2(5.0, -7.0 if w == 0 else 7.0).rotated(_dir.angle())
+		(_wake[w] as Array).append(position + tip)
+		if (_wake[w] as Array).size() > 14:
+			(_wake[w] as Array).pop_front()
 	queue_redraw()
 	if _traveled >= _range_px:
 		_end(false)
 
 
 func _draw() -> void:
+	for w in 2:  # the double thread, in this node's own space
+		var pts := PackedVector2Array()
+		for p in _wake[w]:
+			pts.append((p as Vector2) - position)
+		if pts.size() >= 2:
+			draw_polyline(pts, BioArt.with_alpha(_color.lerp(Color.WHITE, 0.3), 0.45), 1.5, true)
 	var angle := _dir.angle()
 	draw_set_transform(Vector2.ZERO, angle, Vector2.ONE)
 	if _homing or _def.id == &"salva_de_anticorpos":  # the antibody Y
@@ -92,8 +112,8 @@ func _end(hit: bool) -> void:
 	if _owner_combatant == null:
 		return
 	_owner_combatant = null
-	BioPfx.burst(BioFx.root, global_position, _color, 22 if hit else 8, 200.0, 0.5, 12.0)
+	BioPfx.burst(BioFx.root, global_position, _color, 10 if hit else 4, 140.0, 0.4, 8.0)
 	if hit:
-		BioFx.ring(global_position, 0.5, _color)
+		BioSignature.play(&"pincer", global_position, _color, 0.6, {"dir": _dir})
 	BioPfx.stop(_trail)
 	queue_free()

@@ -17,13 +17,13 @@ func _run() -> void:
 	world.virus_count = 0
 	root.add_child(world)
 	await create_timer(0.6).timeout
-	world.camera.zoom = Vector2.ONE * 3.0
+	world.camera.zoom = Vector2.ONE * 2.6
 	for lineage in CLASSES:
 		world.genome.lineage = lineage
 		world.genome.equipped = []
 		var ids := BioGeneCatalog.class_ids(lineage)
-		for i in 3:
-			world.genome.equip(ids[2 + i])
+		for i in ids.size():
+			world.genome.equip(ids[i])
 		world.player.combatant.set_genome(world.genome)
 		await create_timer(1.6).timeout
 		root.get_texture().get_image().save_png("%s/marks_%s.png" % [out_dir, lineage])
