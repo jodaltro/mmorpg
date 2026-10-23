@@ -319,6 +319,10 @@ func _draw_genes(edge_now: Color, core_now: Color) -> void:
 	_draw_look(t, r, tail_angle, edge_now, core_now)
 	if genes.is_empty():
 		return
+	for id in genes:  # data-driven marks of the newer mutations
+		var mark: Dictionary = BioGeneCatalog.get_gene(id).mark
+		if not mark.is_empty():
+			BioOrganelles.draw(self, mark, r, t, edge_now)
 	if genes.has(&"membrana_espessa"):  # a second, thicker wall
 		var wall := PackedVector2Array()
 		for p in _rim:

@@ -132,13 +132,64 @@ func test_every_gene_has_a_benefit_and_a_cost() -> void:
 		var gene := BioGeneCatalog.get_gene(id)
 		var gains := 0
 		var costs := 0
+		gains += gene.perks.size()  # a perk on a class ability is a benefit too
 		for stat in gene.mods:
 			var v: float = gene.mods[stat]
 			var neutral: float = 0.0 if BioGene.is_additive(stat) else 1.0
-			var lower_is_better: bool = stat == BioGene.SPIT_COST or stat == BioGene.DASH_COOLDOWN
+			var lower_is_better: bool = stat in [BioGene.SPIT_COST, BioGene.DASH_COOLDOWN, BioGene.ABILITY_COOLDOWN, BioGene.ABILITY_COST]
 			var good: bool = (v < neutral) if lower_is_better else (v > neutral)
 			if good:
 				gains += 1
 			else:
 				costs += 1
 		assert_true(gains >= 1 and costs >= 1, "%s needs a benefit and a trade-off" % id)
+
+
+func test_every_class_has_six_mutations_that_change_its_own_abilities() -> void:
+	for lineage in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
+		var own := BioGeneCatalog.class_ids(lineage)
+		assert_eq(own.size(), 6, "six mutations for %s" % lineage)
+		var abilities := BioAbilityCatalog.ids_of_class(lineage)
+		var touched := 0
+		for id in own:
+			var gene := BioGeneCatalog.get_gene(id)
+			for ability in gene.perks:
+				assert_true(abilities.has(ability), "%s only touches abilities of its own class (%s)" % [id, ability])
+				var params := BioAbilityCatalog.get_ability(ability)
+				for key in gene.perks[ability]:
+					var k := str(key).trim_prefix("+")
+					assert_true(params.has(k), "%s perk %s exists on %s" % [id, k, ability])
+				touched += 1
+		assert_true(touched >= 4, "most of %s's mutations reshape an ability" % lineage)
+
+
+func test_a_cell_only_meets_generic_and_its_own_class_mutations() -> void:
+	var macro := BioGeneCatalog.ids_for(&"macrofago")
+	assert_true(macro.has(&"fagossomo_profundo"), "own")
+	assert_true(not macro.has(&"granzima_b"), "not another class's")
+	assert_true(macro.has(&"cilios_ageis"), "generic")
+	assert_true(BioGeneCatalog.all_ids().size() >= 48, "a wide pool")
+
+
+func test_perks_change_the_ability_as_the_genome_performs_it() -> void:
+	var genome := BioGenome.new()
+	genome.lineage = &"macrofago"
+	var base := BioAbilityCatalog.get_ability(&"lisossomo_acido")
+	genome.equip(&"vacuolo_digestivo")
+	var tuned := genome.tune(&"lisossomo_acido", base)
+	assert_near(float(tuned["radius"]), float(base["radius"]) * 1.35, 0.001, "radius grows")
+	assert_near(float(tuned["duration"]), float(base["duration"]) * 1.2, 0.001, "lasts longer")
+	var other := genome.tune(&"engolir", BioAbilityCatalog.get_ability(&"engolir"))
+	assert_near(float(other["heal"]), float(BioAbilityCatalog.get_ability(&"engolir")["heal"]), 0.001, "another ability is untouched")
+	genome.equip(&"receptor_de_limpeza")
+	var def := genome.modify(BioAbilityCatalog.attack_def(&"onda_de_pseudopodes"))
+	assert_true(def.damage > BioAbilityCatalog.attack_def(&"onda_de_pseudopodes").damage * 1.3, "damage perk and general power reach the domain definition")
+	var salva := BioGenome.new()
+	salva.equip(&"hipermutacao_somatica")
+	assert_eq(int(salva.tune(&"salva_de_anticorpos", BioAbilityCatalog.get_ability(&"salva_de_anticorpos"))["count"]), 7, "additive perk: +2 antibodies")
+
+
+func test_the_summary_names_the_ability_a_mutation_reshapes() -> void:
+	var text := BioGeneCatalog.get_gene(&"granulos_explosivos").summary()
+	assert_true(text.contains("NETose"), "names NETose")
+	assert_true(text.contains("explosão"), "and what changes")

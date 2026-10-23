@@ -2,6 +2,7 @@ package scenarios
 
 import (
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/jodaltro/mmorpg/engine/core"
@@ -147,5 +148,44 @@ func TestClassMutationsAppearOnlyForTheirClass(t *testing.T) {
 	}
 	if !slices.Contains(a, "pseudopodes-gigantes") && !slices.Contains(a, "lisossomos-acidos") {
 		t.Fatalf("a macrophage should meet its own class mutations, got %v", a)
+	}
+}
+
+// A wide pool: generic mutations for everyone, and six of each class's own, each one reshaping one of that
+// class's abilities (the card says which).
+func TestEveryClassHasSixOwnMutationsThatNameTheirAbility(t *testing.T) {
+	h := load(t, "hospedeiro")
+	own := map[string]int{}
+	generic := 0
+	skillNames := map[string][]string{}
+	for _, k := range h.w.U.Skills {
+		if k.Class != "" {
+			skillNames[k.Class] = append(skillNames[k.Class], k.Name)
+		}
+	}
+	for _, m := range h.w.U.Mutations {
+		if m.Eligible == nil || m.Eligible.Tag == nil || m.Eligible.Tag.K != "lineage" {
+			generic++
+			continue
+		}
+		class := m.Eligible.Tag.V
+		own[class]++
+		named := false
+		for _, n := range skillNames[class] {
+			if strings.Contains(m.Desc, n+":") {
+				named = true
+			}
+		}
+		if !named {
+			t.Errorf("%s (%s) should say which %s ability it reshapes: %q", m.ID, class, class, m.Desc)
+		}
+	}
+	if generic < 12 {
+		t.Fatalf("want at least 12 generic mutations, got %d", generic)
+	}
+	for _, class := range []string{"macrofago", "neutrofilo", "dendritica", "linfocito-b", "t-citotoxico", "t-auxiliar"} {
+		if own[class] != 6 {
+			t.Fatalf("%s should have 6 own mutations, got %d", class, own[class])
+		}
 	}
 }

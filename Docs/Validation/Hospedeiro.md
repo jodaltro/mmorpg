@@ -125,3 +125,11 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 
 **Executado:** Godot 57 testes, 0 falhas (3 novos: o estilo segue a forma, os eixos mudam o membro, o corpo estica e assenta). Capturas com renderizador real: `tests/capture_body.gd` (chicote das 8 formas, sem e com visual feroz/ágil) e `tests/capture_abilities.gd` (as 24 habilidades); ajustei o brilho aditivo que estourava com muitos membros sobrepostos. Não medi desempenho com muitos jogadores nem testei em controle.
 
+### Mutações: pool ampliado e ligado a cada classe (22/10/2026)
+
+**O que mudou:** de 20 para **48 mutações**: 12 genéricas (4 novas: Citoesqueleto Elástico, Receptores de Quimiotaxia, Peroxissomos, Espinhos de Quitina) e **6 por classe** (36, 24 novas). Cada mutação de classe **remodela uma habilidade da própria classe** (um "perk": os números que a habilidade lê), tem uma troca (custo), e uma **marca visível** no corpo (órgão: orbes, anéis, espinhos, filamentos, cristais, crescentes, tentáculos, pulsos, vacúolos, cada um com cor e quantidade próprias). Exemplos: Vacúolo Digestivo faz o Lisossomo Ácido crescer 35%; Granzima B torna a Perforina mais letal contra feridos; Hipermutação Somática acrescenta 2 anticorpos à salva; Pirogênio amplia a Febre Dirigida.
+
+**Como:** uma única tabela (`clients/hospedeiro/tools/gen_mutations.py`) gera o universo do motor (cartas com o efeito escrito) e o catálogo do cliente (`bio_gene_catalog.gd`), então os dois não divergem. Novos estatísticos gerais: poder, recarga, custo e alcance das habilidades. `BioGenome.tune` aplica os perks nos parâmetros da habilidade e `modify` leva dano/custo/recarga à definição validada pelo ator de domínio.
+
+**Executado:** Godot 61 testes, 0 falhas (4 novos: seis por classe e só toca habilidades da própria classe, cada classe só encontra as suas, perks mudam a habilidade e o dano de domínio, o resumo nomeia a habilidade). Go: tudo passa exceto `TestClientPresentationMatchesTheUniverse` (já falhava, arquivo ausente); novo `TestEveryClassHasSixOwnMutationsThatNameTheirAbility`; `worldsim validate` ok. Capturas reais: cada classe com 3 mutações próprias e a carta de oferta (`tests/capture_marks.gd`). Não balanceei os números e a combinação de 3 genes iguais por classe ainda não foi testada em partida longa.
+

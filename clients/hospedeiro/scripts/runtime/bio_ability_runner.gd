@@ -91,6 +91,8 @@ func perform_id(id: StringName) -> int:
 	if id == &"" or not knows(id):
 		return UNKNOWN
 	var a := BioAbilityCatalog.get_ability(id)
+	if _host.combatant.genome != null:
+		a = _host.combatant.genome.tune(id, a)  # the mutations change this ability's numbers
 	var aim: Vector2 = _aim_source.aim if _aim_source != null else Vector2.RIGHT
 	var origin := _host.global_position
 	var me := _host.combatant

@@ -2544,26 +2544,6 @@
    "desc": "+25% de dano do chicote de cauda, -8% de velocidade."
   },
   {
-   "id": "cauda-longa",
-   "name": "Cauda Longa",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "+30% de alcance do chicote, -10% de dano do chicote."
-  },
-  {
-   "id": "vesicula-toxica",
-   "name": "Vesícula Tóxica",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "desc": "+40% de dano da toxina, +30% de custo da toxina."
-  },
-  {
    "id": "cilios-ageis",
    "name": "Cílios Ágeis",
    "rarity": "comum",
@@ -2571,16 +2551,6 @@
     "explore"
    ],
    "desc": "+18% de velocidade, -10% de membrana máxima."
-  },
-  {
-   "id": "nucleo-reativo",
-   "name": "Núcleo Reativo",
-   "rarity": "incomum",
-   "tags": [
-    "endure",
-    "explore"
-   ],
-   "desc": "-35% de recarga do impulso, -8% de membrana máxima."
   },
   {
    "id": "membrana-espessa",
@@ -2601,6 +2571,36 @@
    "desc": "+4 de ATP por segundo, -20% de ATP máximo."
   },
   {
+   "id": "vesicula-toxica",
+   "name": "Vesícula Tóxica",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "desc": "+40% de dano da toxina, +30% de custo da toxina."
+  },
+  {
+   "id": "nucleo-reativo",
+   "name": "Núcleo Reativo",
+   "rarity": "incomum",
+   "tags": [
+    "endure",
+    "explore"
+   ],
+   "desc": "-35% de recarga do impulso, -8% de membrana máxima."
+  },
+  {
+   "id": "cauda-longa",
+   "name": "Cauda Longa",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "desc": "+30% de alcance do chicote, -10% de dano do chicote."
+  },
+  {
    "id": "enzima-voraz",
    "name": "Enzima Voraz",
    "rarity": "comum",
@@ -2610,6 +2610,45 @@
    "desc": "+50% de ganho de nutrientes, -2 de ATP por segundo."
   },
   {
+   "id": "citoesqueleto-elastico",
+   "name": "Citoesqueleto Elástico",
+   "rarity": "comum",
+   "tags": [
+    "explore",
+    "endure"
+   ],
+   "desc": "A rede interna cede e volta. +8% velocidade, +12% alcance do chicote, -5% membrana máx.."
+  },
+  {
+   "id": "receptores-de-quimiotaxia",
+   "name": "Receptores de Quimiotaxia",
+   "rarity": "incomum",
+   "tags": [
+    "explore",
+    "knowledge"
+   ],
+   "desc": "Sente o cheiro do alimento à distância. +25% ganho de nutrientes, +5% velocidade, -8% ATP máx.."
+  },
+  {
+   "id": "peroxissomos",
+   "name": "Peroxissomos",
+   "rarity": "incomum",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "desc": "Pequenas fornalhas que limpam a membrana. +12% membrana máx., +2 ATP/s, -5% velocidade."
+  },
+  {
+   "id": "espinhos-de-quitina",
+   "name": "Espinhos de Quitina",
+   "rarity": "incomum",
+   "tags": [
+    "combat"
+   ],
+   "desc": "Uma couraça de agulhas. +15% dano do chicote, +8% membrana máx., -7% velocidade."
+  },
+  {
    "id": "pseudopodes-gigantes",
    "name": "Pseudópodes Gigantes",
    "rarity": "rara",
@@ -2617,14 +2656,14 @@
     "combat",
     "endure"
    ],
+   "desc": "Lóbulos enormes crescem pelo corpo: +40% de membrana máxima, +20% de dano do chicote, -12% de velocidade. Onda de Pseudópodes: +15% raio, +20% empurrão.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "macrofago"
     }
-   },
-   "desc": "Lóbulos enormes crescem pelo corpo: +40% de membrana máxima, +20% de dano do chicote, -12% de velocidade."
+   }
   },
   {
    "id": "lisossomos-acidos",
@@ -2634,14 +2673,81 @@
     "combat",
     "metabolism"
    ],
+   "desc": "Vacúolos de ácido por dentro: +50% de ganho de nutrientes, +25% de dano da toxina, -10% de ATP máximo. Lisossomo Ácido: +25% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "macrofago"
     }
-   },
-   "desc": "Vacúolos de ácido por dentro: +50% de ganho de nutrientes, +25% de dano da toxina, -10% de ATP máximo."
+   }
+  },
+  {
+   "id": "fagossomo-profundo",
+   "name": "Fagossomo Profundo",
+   "rarity": "rara",
+   "tags": [
+    "combat",
+    "metabolism"
+   ],
+   "desc": "Engole mais fundo e digere melhor. +10% ATP máx., -5% velocidade. Engolir: +50% cura, +10% alcance.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "macrofago"
+    }
+   }
+  },
+  {
+   "id": "citoplasma-esponjoso",
+   "name": "Citoplasma Esponjoso",
+   "rarity": "incomum",
+   "tags": [
+    "endure"
+   ],
+   "desc": "Absorve o impacto como uma esponja. +20% membrana máx., -8% velocidade, +5% recarga das habilidades. Muralha de Carne: +40% duração, -25% dano recebido.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "macrofago"
+    }
+   }
+  },
+  {
+   "id": "vacuolo-digestivo",
+   "name": "Vacúolo Digestivo",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "metabolism"
+   ],
+   "desc": "Um lago de ácido que cresce. +15% ganho de nutrientes, -8% dano do chicote. Lisossomo Ácido: +35% raio, +20% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "macrofago"
+    }
+   }
+  },
+  {
+   "id": "receptor-de-limpeza",
+   "name": "Receptor de Limpeza",
+   "rarity": "epica",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "desc": "O corpo inteiro empurra o que for sujo para longe. +12% poder das habilidades, -7% velocidade. Onda de Pseudópodes: +30% dano, +35% empurrão.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "macrofago"
+    }
+   }
   },
   {
    "id": "rede-de-dna",
@@ -2651,14 +2757,14 @@
     "combat",
     "explore"
    ],
+   "desc": "Filamentos de DNA em teia ao redor do corpo: +35% de alcance do chicote, +15% de velocidade, -15% de membrana máxima. Rede de DNA: +20% raio, +20% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "neutrofilo"
     }
-   },
-   "desc": "Filamentos de DNA em teia ao redor do corpo: +35% de alcance do chicote, +15% de velocidade, -15% de membrana máxima."
+   }
   },
   {
    "id": "nucleo-multilobulado",
@@ -2668,14 +2774,81 @@
     "explore",
     "endure"
    ],
+   "desc": "Um núcleo em vários lóbulos que se espreme por qualquer fresta: -30% de recarga do impulso, +10% de velocidade, -10% de dano do chicote. Explosão Neutrofílica: -15% recarga.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "neutrofilo"
     }
-   },
-   "desc": "Um núcleo em vários lóbulos que se espreme por qualquer fresta: -30% de recarga do impulso, +10% de velocidade, -10% de dano do chicote."
+   }
+  },
+  {
+   "id": "granulos-explosivos",
+   "name": "Grânulos Explosivos",
+   "rarity": "rara",
+   "tags": [
+    "combat"
+   ],
+   "desc": "A armadilha detona com mais força. -10% membrana máx., +8% poder das habilidades. NETose: +40% explosão, +15% raio.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "neutrofilo"
+    }
+   }
+  },
+  {
+   "id": "fibras-pegajosas",
+   "name": "Fibras Pegajosas",
+   "rarity": "incomum",
+   "tags": [
+    "explore",
+    "knowledge"
+   ],
+   "desc": "O que toca a rede não escapa. +5% velocidade, -10% dano do chicote. Rede de DNA: +40% lentidão, +30% dano contínuo.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "neutrofilo"
+    }
+   }
+  },
+  {
+   "id": "flagelo-turbinado",
+   "name": "Flagelo Turbinado",
+   "rarity": "incomum",
+   "tags": [
+    "explore",
+    "combat"
+   ],
+   "desc": "Uma investida mais longa. +8% velocidade, -10% ATP máx.. Explosão Neutrofílica: +30% distância, +10% dano.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "neutrofilo"
+    }
+   }
+  },
+  {
+   "id": "degranulacao-toxica",
+   "name": "Degranulação Tóxica",
+   "rarity": "epica",
+   "tags": [
+    "combat",
+    "metabolism"
+   ],
+   "desc": "As granulações viram veneno denso. -12% membrana máx., +10% custo das habilidades. Degranulação: +50% dano contínuo, +20% raio, +15% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "neutrofilo"
+    }
+   }
   },
   {
    "id": "dendritos-ramificados",
@@ -2685,14 +2858,14 @@
     "knowledge",
     "explore"
    ],
+   "desc": "Braços que se ramificam sem fim: +60% de ganho de nutrientes, +25% de alcance do chicote, -12% de membrana máxima. Dendritos em Chicote: +15% abertura.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "dendritica"
     }
-   },
-   "desc": "Braços que se ramificam sem fim: +60% de ganho de nutrientes, +25% de alcance do chicote, -12% de membrana máxima."
+   }
   },
   {
    "id": "esporos-de-antigeno",
@@ -2702,14 +2875,81 @@
     "knowledge",
     "metabolism"
    ],
+   "desc": "Nuvens de esporos que carregam o rosto do inimigo: +3 de ATP por segundo, +20% de dano da toxina, -10% de velocidade. Chuva de Esporos: +30% ATP/s.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "dendritica"
     }
-   },
-   "desc": "Nuvens de esporos que carregam o rosto do inimigo: +3 de ATP por segundo, +20% de dano da toxina, -10% de velocidade."
+   }
+  },
+  {
+   "id": "receptor-de-mapa",
+   "name": "Receptor de Mapa",
+   "rarity": "rara",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "desc": "Lê o corpo inteiro de uma vez. +5% velocidade, -8% membrana máx.. Mapa Químico: +30% raio, +30% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "dendritica"
+    }
+   }
+  },
+  {
+   "id": "apresentacao-cruzada",
+   "name": "Apresentação Cruzada",
+   "rarity": "rara",
+   "tags": [
+    "knowledge"
+   ],
+   "desc": "Mostra o inimigo a toda a defesa. +8% poder das habilidades, -10% dano do chicote. Apresentar Antígeno: +12% amplificação, +30% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "dendritica"
+    }
+   }
+  },
+  {
+   "id": "dendritos-sensores",
+   "name": "Dendritos Sensores",
+   "rarity": "incomum",
+   "tags": [
+    "explore",
+    "combat"
+   ],
+   "desc": "Fios mais longos e mais finos. +5% recarga das habilidades, -5% membrana máx.. Dendritos em Chicote: +25% alcance, +15% dano.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "dendritica"
+    }
+   }
+  },
+  {
+   "id": "esporulacao-rapida",
+   "name": "Esporulação Rápida",
+   "rarity": "incomum",
+   "tags": [
+    "metabolism",
+    "knowledge"
+   ],
+   "desc": "Os esporos nascem e caem em ondas. -5% velocidade, +1 ATP/s. Chuva de Esporos: +20% raio, +50% reparo, +20% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "dendritica"
+    }
+   }
   },
   {
    "id": "anticorpos-em-y",
@@ -2719,14 +2959,14 @@
     "knowledge",
     "combat"
    ],
+   "desc": "A célula se cobre de anticorpos: +60% de dano da toxina, +20% de custo da toxina, -10% de membrana máxima. Anticorpo Y: +20% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "linfocito-b"
     }
-   },
-   "desc": "A célula se cobre de anticorpos: +60% de dano da toxina, +20% de custo da toxina, -10% de membrana máxima."
+   }
   },
   {
    "id": "plasmocito",
@@ -2736,14 +2976,81 @@
     "knowledge",
     "metabolism"
    ],
+   "desc": "Uma fábrica de anticorpos: +5 de ATP por segundo, +30% de dano da toxina, -25% de velocidade. Explosão de Plasmócito: +15% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "linfocito-b"
     }
-   },
-   "desc": "Uma fábrica de anticorpos: +5 de ATP por segundo, +30% de dano da toxina, -25% de velocidade."
+   }
+  },
+  {
+   "id": "afinidade-aumentada",
+   "name": "Afinidade Aumentada",
+   "rarity": "rara",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "desc": "O anticorpo gruda melhor e voa mais rápido. -8% ATP máx., +5% custo das habilidades. Anticorpo Y: +30% dano, +20% velocidade.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "linfocito-b"
+    }
+   }
+  },
+  {
+   "id": "hipermutacao-somatica",
+   "name": "Hipermutação Somática",
+   "rarity": "epica",
+   "tags": [
+    "knowledge"
+   ],
+   "desc": "Mais variantes por salva. -12% membrana máx., +8% recarga das habilidades. Salva de Anticorpos: +2 unidades, +20% abertura.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "linfocito-b"
+    }
+   }
+  },
+  {
+   "id": "memoria-de-longa-vida",
+   "name": "Memória de Longa Vida",
+   "rarity": "rara",
+   "tags": [
+    "knowledge",
+    "endure"
+   ],
+   "desc": "Reconhece e responde mais depressa. -15% recarga das habilidades, +20% ATP máx., -8% velocidade. Anticorpo Y: -20% recarga.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "linfocito-b"
+    }
+   }
+  },
+  {
+   "id": "ligacao-multivalente",
+   "name": "Ligação Multivalente",
+   "rarity": "incomum",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "desc": "Cada anticorpo prende em vários pontos. -5% velocidade, +10% dano da toxina. Opsonização: +30% lentidão, +10% amplificação, +40% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "linfocito-b"
+    }
+   }
   },
   {
    "id": "granulos-de-perforina",
@@ -2753,14 +3060,14 @@
     "combat",
     "knowledge"
    ],
+   "desc": "Grânulos que furam as membranas dos inimigos: +45% de dano do chicote, +15% de dano da toxina, -15% de membrana máxima. Perforina: +15% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "t-citotoxico"
     }
-   },
-   "desc": "Grânulos que furam as membranas dos inimigos: +45% de dano do chicote, +15% de dano da toxina, -15% de membrana máxima."
+   }
   },
   {
    "id": "agulha-litica",
@@ -2770,14 +3077,81 @@
     "combat",
     "explore"
    ],
+   "desc": "Uma lança fina que cresce no corpo: +50% de alcance do chicote, +30% de dano do chicote, +20% de custo da toxina. Perforina: +20% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "t-citotoxico"
     }
-   },
-   "desc": "Uma lança fina que cresce no corpo: +50% de alcance do chicote, +30% de dano do chicote, +20% de custo da toxina."
+   }
+  },
+  {
+   "id": "receptor-fas",
+   "name": "Receptor Fas",
+   "rarity": "rara",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "desc": "Fareja quem já está condenado. -10% membrana máx., +8% custo das habilidades. Apoptose: +30% limiar, +20% alcance.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-citotoxico"
+    }
+   }
+  },
+  {
+   "id": "sinapse-imunologica",
+   "name": "Sinapse Imunológica",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "desc": "Fica preso ao alvo até o fim. -6% velocidade, +5% recarga das habilidades. Sinal de Morte: +10% amplificação, +30% duração, +15% alcance.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-citotoxico"
+    }
+   }
+  },
+  {
+   "id": "miosina-de-contracao",
+   "name": "Miosina de Contração",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "desc": "O corpo é um músculo carregado. -10% ATP máx., -6% membrana máx.. Golpe Lítico: +20% distância, +20% dano, -10% recarga.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-citotoxico"
+    }
+   }
+  },
+  {
+   "id": "granzima-b",
+   "name": "Granzima B",
+   "rarity": "epica",
+   "tags": [
+    "combat"
+   ],
+   "desc": "Quem está ferido não resiste. +10% recarga das habilidades, -5% velocidade. Perforina: +35% bônus de execução, +25% limiar.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-citotoxico"
+    }
+   }
   },
   {
    "id": "halo-de-citocinas",
@@ -2787,14 +3161,14 @@
     "endure",
     "metabolism"
    ],
+   "desc": "Anéis de sinais ao redor do corpo: +30% de membrana máxima, +4 de ATP por segundo, -15% de dano do chicote. Canto de Citocinas: +20% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "t-auxiliar"
     }
-   },
-   "desc": "Anéis de sinais ao redor do corpo: +30% de membrana máxima, +4 de ATP por segundo, -15% de dano do chicote."
+   }
   },
   {
    "id": "coro-de-interleucinas",
@@ -2804,14 +3178,82 @@
     "endure",
     "knowledge"
    ],
+   "desc": "Partículas que cantam em volta da célula: +40% de ganho de nutrientes, -25% de recarga do impulso, -10% de dano da toxina. Canto de Citocinas: +8% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",
      "k": "lineage",
      "v": "t-auxiliar"
     }
-   },
-   "desc": "Partículas que cantam em volta da célula: +40% de ganho de nutrientes, -25% de recarga do impulso, -10% de dano da toxina."
+   }
+  },
+  {
+   "id": "interferon-gama",
+   "name": "Interferon Gama",
+   "rarity": "rara",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "desc": "A cura chega a quem mais precisa. -8% ATP máx., -10% dano do chicote. Citocina Curativa: +40% cura.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-auxiliar"
+    }
+   }
+  },
+  {
+   "id": "interleucina-2",
+   "name": "Interleucina 2",
+   "rarity": "epica",
+   "tags": [
+    "knowledge",
+    "endure"
+   ],
+   "desc": "A linfa responde em maior número. -7% velocidade, +8% custo das habilidades. Chamado à Linfa: +2 unidades, +30% duração, +20% dano contínuo.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-auxiliar"
+    }
+   }
+  },
+  {
+   "id": "pirogenio",
+   "name": "Pirogênio",
+   "rarity": "incomum",
+   "tags": [
+    "combat",
+    "metabolism"
+   ],
+   "desc": "Provoca febre onde o dedo aponta. -8% membrana máx., +5% recarga das habilidades. Febre Dirigida: +30% dano contínuo, +15% raio, +20% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-auxiliar"
+    }
+   }
+  },
+  {
+   "id": "regulador-de-resposta",
+   "name": "Regulador de Resposta",
+   "rarity": "rara",
+   "tags": [
+    "endure",
+    "knowledge"
+   ],
+   "desc": "O ritmo certo do coro, na hora certa. -4% velocidade, -12% dano do chicote. Canto de Citocinas: +10% velocidade, +50% ATP/s, +30% duração.",
+   "eligible": {
+    "tag": {
+     "e": "$self",
+     "k": "lineage",
+     "v": "t-auxiliar"
+    }
+   }
   }
  ],
  "appearance": {

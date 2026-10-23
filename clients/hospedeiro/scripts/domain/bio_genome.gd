@@ -31,6 +31,50 @@ func stat(key: StringName) -> float:
 	return total
 
 
+## What the expressed genes do to one class ability, combined: multipliers multiply, "+name" additions add.
+func perk(ability: StringName) -> Dictionary:
+	var out := {}
+	for id in equipped:
+		var all: Dictionary = BioGeneCatalog.get_gene(id).perks
+		if not all.has(ability):
+			continue
+		for key in all[ability]:
+			var k := str(key)
+			if k.begins_with("+"):
+				out[k] = float(out.get(k, 0.0)) + float(all[ability][key])
+			else:
+				out[k] = float(out.get(k, 1.0)) * float(all[ability][key])
+	return out
+
+
+## An ability's parameters as THIS genome performs them: its perks, then the general stats on top. Damage, cost and
+## cooldown are not here: they live in the attack definition (see modify) so the domain actor validates them.
+func tune(ability: StringName, params: Dictionary) -> Dictionary:
+	var out := params.duplicate()
+	var perks := perk(ability)
+	var power := stat(BioGene.ABILITY_POWER)
+	var reach := stat(BioGene.ABILITY_RANGE)
+	for key in out:
+		if typeof(out[key]) != TYPE_FLOAT and typeof(out[key]) != TYPE_INT:
+			continue
+		var k := str(key)
+		if k in ["damage", "cooldown", "cost", "cost"]:
+			continue
+		var v := float(out[key])
+		if perks.has(k):
+			v *= float(perks[k])
+		if k in ["tick", "burst", "amount", "heal", "regen_atp", "regen_membrane"]:
+			v *= power
+		elif k in ["radius", "reach", "range", "distance"]:
+			v *= reach
+		out[key] = v if typeof(out[key]) == TYPE_FLOAT else int(roundf(v))
+	for key in perks:
+		var k := str(key)
+		if k.begins_with("+") and out.has(k.substr(1)):
+			out[k.substr(1)] = float(out[k.substr(1)]) + float(perks[key]) if typeof(out[k.substr(1)]) == TYPE_FLOAT else int(out[k.substr(1)]) + int(perks[key])
+	return out
+
+
 ## Adds a gene; when every slot is taken the oldest one is reabsorbed. Returns the replaced id (or &"").
 func equip(id: StringName) -> StringName:
 	if equipped.has(id):
@@ -58,6 +102,13 @@ func modify(def: BioAttackDef) -> BioAttackDef:
 			cost *= stat(BioGene.SPIT_COST)
 		BioAttackCatalog.MEMBRANE_DASH:
 			cooldown *= stat(BioGene.DASH_COOLDOWN)
+		_:
+			if BioAbilityCatalog.has(def.id):  # a class ability: general stats plus this ability's own perks
+				var perks := perk(def.id)
+				damage *= stat(BioGene.ABILITY_POWER) * float(perks.get("damage", 1.0))
+				cost *= stat(BioGene.ABILITY_COST) * float(perks.get("cost", 1.0))
+				cooldown *= stat(BioGene.ABILITY_COOLDOWN) * float(perks.get("cooldown", 1.0))
+				reach *= stat(BioGene.ABILITY_RANGE) * float(perks.get("range", 1.0))
 	return BioAttackDef.new(def.id, cost, damage, cooldown, reach, def.knockback, def.invulnerable_seconds)
 
 
