@@ -26,6 +26,7 @@ static func ensure_actions() -> void:
 	_bind("bio_refuse", [_key(KEY_N)])
 	_bind("bio_interact", [_key(KEY_E)])
 	_bind("bio_leave", [_key(KEY_BACKSPACE)])
+	_bind("bio_map", [_key(KEY_M)])
 	_bind("bio_ab_1", [_key(KEY_Q)])
 	_bind("bio_ab_2", [_key(KEY_F)])
 	_bind("bio_ab_3", [_key(KEY_C)])

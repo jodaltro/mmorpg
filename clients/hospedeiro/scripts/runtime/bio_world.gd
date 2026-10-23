@@ -22,6 +22,9 @@ const FEVER_SLOWDOWN := 0.55
 var player: BioCellActor
 var abilities: BioAbilityRunner
 var dungeon: BioDungeon
+var anatomy: BioAnatomyView
+var atlas: BioAtlas
+var live_regions: Array[StringName] = []
 var fell_in_dungeon := false
 var gate: BioGate
 var hud: BioHud
@@ -74,9 +77,11 @@ func build() -> void:
 	_tint = CanvasModulate.new()
 	add_child(_tint)
 
-	BioFactory.create_body_boundary(self, BioBodyMap.outline_units())
-	_add_motes(BioBodyMap.MEDULA, [BioArt.AMBER, BioArt.MAGENTA, BioArt.JADE])
-	_add_motes(BioBodyMap.SANGUE, [BioArt.CRIMSON, BioArt.MAGENTA, Color(0.6, 0.05, 0.12)])
+	BioBodyMap.seed_value = seed_value
+	anatomy = BioAnatomyView.new()
+	anatomy.name = "Anatomy"
+	add_child(anatomy)
+	anatomy.build(seed_value)  # the whole body, grown from the seed; only the regions around the cell are alive
 
 	player = BioFactory.spawn_player(self, BioBodyMap.center_px(BioBodyMap.MEDULA))
 	abilities = player.get_node("Abilities") as BioAbilityRunner
@@ -120,15 +125,24 @@ func build() -> void:
 		hud.set_dungeon_text("GRANULOMA  ·  sala %d/%d  ·  %s" % [index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
 	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(restart_world)
+	atlas = BioAtlas.new()
+	atlas.name = "Atlas"
+	add_child(atlas)
+	atlas.configure(player, seed_value, "" if save_path.is_empty() else "user://hospedeiro_atlas.json")
+	atlas.discovered.connect(func(id: StringName) -> void:
+		if _built:
+			hud.show_banner(str(BioBodyMap.NAMES.get(id, id)))
+			get_tree().create_timer(2.2).timeout.connect(func() -> void:
+				if is_instance_valid(hud) and hud.banner_text() == str(BioBodyMap.NAMES.get(id, id)):
+					hud.show_banner(""))
+			sync.system.push_feed("Nova região no atlas: %s." % BioBodyMap.NAMES.get(id, id)))
 	panel = BioMutationPanel.new()
 	panel.name = "MutationPanel"
 	add_child(panel)
 	panel.refresh(genome, tracker)
 
-	for i in nutrient_target:
-		_spawn_nutrient(0.0)
-	for i in virus_count:
-		_spawn_virus(12.0)
+	_update_live()
+	_populate(true)
 
 	sync = BioHostSync.new()
 	sync.name = "HostSync"
@@ -301,10 +315,9 @@ func restart_world() -> void:
 	player.combatant.reset_vitals()
 	region = BioBodyMap.MEDULA
 	sync.link.region = String(region)
-	for i in nutrient_target:
-		_spawn_nutrient(0.0)
-	for i in virus_count:
-		_spawn_virus(12.0)
+	_update_live()
+	_populate(true)
+	atlas.forget_all()
 	sync.forget()
 	sync.system.push_feed("O mundo recomeçou. Você é uma esfera outra vez.")
 	hud.show_banner("")
@@ -385,7 +398,12 @@ func _process(delta: float) -> void:
 		var now := BioBodyMap.region_of(player.global_position)
 		if now != region:
 			region = now
+			_update_live()
+			_populate(true)  # the regions that just woke fill up before the cell gets there
+			atlas.set_region(region)
 			region_changed.emit(region)
+	if Input.is_action_just_pressed("bio_map"):
+		atlas.toggle()
 	if dungeon.active:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")
@@ -409,49 +427,86 @@ func _process(delta: float) -> void:
 	if _upkeep_timer > 0.0:
 		return
 	_upkeep_timer = 1.0
-	if nutrient_count() < nutrient_target:
-		_spawn_nutrient(8.0)
-	if viruses().size() < virus_count:
-		_virus_respawn_timer -= 1.0
-		if _virus_respawn_timer <= 0.0:
-			_spawn_virus(14.0)
-			_virus_respawn_timer = 6.0
+	_populate(false)
 
 
-## The blood is a river: cells and nutrients there are carried around the chamber.
+## The blood is a river that beats with the heart: cells and nutrients are carried by the flow of the body (vessels and chambers).
 func _physics_process(delta: float) -> void:
-	for node in get_tree().get_nodes_in_group("cells"):
-		if dungeon != null and dungeon.active:
-			break  # inside the granuloma there is no current
-		var cell := node as BioCellActor
-		if cell != null and cell.is_active():
-			cell.velocity += BioBodyMap.blood_flow_px(cell.global_position, BLOOD_FLOW_UNITS) * delta * 1.5
+	var clock := Time.get_ticks_msec() * 0.001
+	if dungeon == null or not dungeon.active:  # inside the granuloma there is no current
+		for node in get_tree().get_nodes_in_group("cells"):
+			var cell := node as BioCellActor
+			if cell != null and cell.is_active():
+				cell.velocity += BioBodyMap.flow_px(cell.global_position, clock) * delta * 1.5
 	for node in get_tree().get_nodes_in_group("nutrients"):
 		var nutrient := node as Node2D
-		nutrient.global_position += BioBodyMap.blood_flow_px(nutrient.global_position, BLOOD_FLOW_UNITS * 0.6) * delta
+		nutrient.global_position += BioBodyMap.flow_px(nutrient.global_position, clock) * 0.6 * delta
 
 
-func _spawn_nutrient(min_distance_units: float) -> void:
+## Keeps the regions around the cell alive: the one it is in and the ones a vessel away. The rest of the body sleeps.
+func _update_live() -> void:
+	live_regions = BioAnatomy.within(region, BioAnatomyView.LIVE_HOPS)
+	anatomy.set_live(live_regions)
+
+
+## The population of the body, streamed: each live region holds the nutrients and virions its biome calls for (scaled by the
+## exported targets); what lies in sleeping regions is let go, and spawned again when the cell comes near.
+func _populate(fill_all: bool) -> void:
+	var nutrient_scale := float(nutrient_target) / 45.0
+	var virus_scale := float(virus_count) / 6.0
+	var nutrients_in := {}
+	var viruses_in := {}
+	for node in get_tree().get_nodes_in_group("nutrients"):
+		var at := (node as Node2D).global_position
+		if not BioAnatomy.in_body(seed_value, at / BioArt.UNIT):
+			continue  # not the body's: leave it be (the granuloma's drops)
+		var r := BioBodyMap.region_of(at)
+		if not live_regions.has(r):
+			node.queue_free()
+		else:
+			nutrients_in[r] = int(nutrients_in.get(r, 0)) + 1
+	for node in get_tree().get_nodes_in_group("viruses"):
+		var r2 := BioBodyMap.region_of((node as Node2D).global_position)
+		if not live_regions.has(r2):
+			node.queue_free()
+		else:
+			viruses_in[r2] = int(viruses_in.get(r2, 0)) + 1
+	for id in live_regions:
+		var def := BioAnatomy.region_def(id)
+		var want_n := roundi(float(def["nutrients"]) * nutrient_scale)
+		var want_v := roundi(float(def["viruses"]) * virus_scale)
+		var missing_n: int = want_n - int(nutrients_in.get(id, 0))
+		var missing_v: int = want_v - int(viruses_in.get(id, 0))
+		for i in (missing_n if fill_all else mini(missing_n, 3)):
+			_spawn_nutrient_in(id, 0.0 if fill_all else 8.0)
+		for i in (missing_v if fill_all else mini(missing_v, 1)):
+			if fill_all or _virus_respawn_timer <= 0.0:
+				_spawn_virus_in(id, 12.0 if fill_all else 14.0)
+				_virus_respawn_timer = 6.0
+	_virus_respawn_timer -= 1.0
+
+
+func _spawn_nutrient_in(where: StringName, min_distance_units: float) -> void:
 	var kind := BioNutrientRules.Kind.GLUCOSE if _rng.randf() < 0.75 else BioNutrientRules.Kind.LIPID
-	var where := BioBodyMap.MEDULA if _rng.randf() < 0.6 else BioBodyMap.SANGUE
 	BioFactory.spawn_nutrient(self, BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units), kind)
 
 
+func _spawn_nutrient(min_distance_units: float) -> void:
+	_spawn_nutrient_in(BioBodyMap.MEDULA if _rng.randf() < 0.6 else BioBodyMap.SANGUE, min_distance_units)
+
+
 func _spawn_virus(min_distance_units: float) -> void:
-	var pos := BioBodyMap.random_point_px(_rng, BioBodyMap.SANGUE, player.global_position, min_distance_units)
+	_spawn_virus_in(BioBodyMap.SANGUE, min_distance_units)
+
+
+func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
+	var pos := BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
 	var brain := BioFactory.spawn_virus(self, pos, player)
 	var host := brain.get_parent() as BioCellActor
 	host.max_speed_units = _virus_speed()
 	host.combatant.died.connect(func(_who: BioCombatant) -> void:
 		add_pressure(BioMutationTracker.KILL_POINTS)
 		virus_destroyed.emit())
-
-
-func _add_motes(where: StringName, palette: Array) -> void:
-	var motes := BioAmbientMotes.new()
-	motes.position = BioBodyMap.center_px(where)
-	motes.build(70, 9, BioBodyMap.radius_units(where), seed_value + where.length(), palette)
-	add_child(motes)
 
 
 func _add_glow_environment() -> void:

@@ -60,3 +60,7 @@ Cada classe nasce com **1** habilidade; as outras 3 vêm do que você faz: a pro
 ## O Granuloma (primeira masmorra)
 
 Na corrente sanguínea há um granuloma: anéis de macrófagos em volta de um núcleo necrótico. Chegue perto (a coroa de luz acende) e aperte **E** para entrar; só abre para quem já amadureceu e só com o corpo conectado ao motor. O motor prepara a execução, o Jev escolhe o **modificador** (Em febre, Necrose viva, Guarda redobrada, Ar rarefeito ou Quórum ativo) e a câmara se forma longe do corpo: **cinco salas** (guarda de linfócitos, parede de macrófagos, anel interno, núcleo necrótico e o chefe, O Bacilo). Limpar a sala avança; o chefe faz um golpe em onda com um segundo de aviso (o anel no chão cresce) e solta bacilos. **Backspace** desiste. Morrer encerra a execução, e é preciso esperar um pouco para tentar de novo. Fechar o granuloma reduz a carga de infecção no sangue, dá o Selo do Granuloma e, para a primeira célula do mundo, o título Primeiro Selador.
+
+## Atlas do corpo
+
+**M** abre e fecha o atlas: o corpo é uma única membrana contínua; as regiões que a célula já visitou ficam acesas e nomeadas, as outras aparecem só como contorno apagado com um "?". A descoberta é lembrada entre sessões.

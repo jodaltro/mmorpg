@@ -205,7 +205,9 @@ Cada região exige: ficha de bioma, 3 a 5 inimigos novos (com os dados de `BioDu
 
 Cada marco entrega algo **jogável e testado** e termina com a régua de balanceamento e com capturas ou GIFs.
 
-### E0 — Corpo como dados, mapa 10x (a base)
+### E0 — Corpo como dados, mapa 10x (a base) — ENTREGUE em 23/10/2026
+
+> **Como ficou (ajuste pedido pelo usuário):** na escala microscópica não há órgãos para ver. O corpo é **uma única membrana orgânica**: câmaras (nicho da medula, vênula, endocárdio, alvéolos, artéria) e vasos sinuosos são fundidos num campo suave com ruído, e a parede é o contorno desse campo (marching squares), com núcleos de células endoteliais atrás dela. Área ≈ 15 mil u² (≈ 9–10x). Atlas (M) mostra a membrana inteira e acende o que foi visitado. Ver `Docs/Validation/e0_crossing.gif`.
 - `BioAnatomy`: grafo e geração; refatorar `BioBodyMap`; campos de fluxo; streaming; atlas simples.
 - Regiões: **Medula, Veia cava, Coração, Pulmão** e **Aorta/artérias** (cinco, cerca de 16.000 u²).
 - **Pronto quando:** dá para atravessar medula -> veia -> coração -> pulmão -> aorta jogando; 60 fps medidos; testes de geração determinística (mesma semente, mesmo mapa); o que existe hoje (granuloma, missões) continua funcionando.

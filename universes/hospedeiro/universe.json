@@ -99,6 +99,33 @@
    "kind": "celula",
    "name": "Dendra, célula dendrítica",
    "region": "sangue"
+  },
+  {
+   "id": "coracao",
+   "kind": "tecido",
+   "name": "Coração",
+   "num": {
+    "pulso": 70,
+    "pressao": 50
+   }
+  },
+  {
+   "id": "pulmao",
+   "kind": "tecido",
+   "name": "Pulmão",
+   "num": {
+    "oxigenio": 80,
+    "carga": 0
+   }
+  },
+  {
+   "id": "aorta",
+   "kind": "tecido",
+   "name": "Aorta e artérias",
+   "num": {
+    "pressao": 60,
+    "carga": 0
+   }
   }
  ],
  "facts": [
@@ -138,6 +165,54 @@
    "name": "Corrente principal",
    "near": [
     "capilar"
+   ]
+  },
+  {
+   "id": "atrio",
+   "region": "coracao",
+   "name": "Átrio, onde o sangue volta",
+   "near": [
+    "valvula"
+   ]
+  },
+  {
+   "id": "valvula",
+   "region": "coracao",
+   "name": "Válvula, que abre e fecha no ritmo",
+   "near": [
+    "atrio"
+   ]
+  },
+  {
+   "id": "alveolos",
+   "region": "pulmao",
+   "name": "Alvéolos, onde o ar encontra o sangue",
+   "near": [
+    "bronquiolo"
+   ]
+  },
+  {
+   "id": "bronquiolo",
+   "region": "pulmao",
+   "name": "Bronquíolo, a entrada do ar",
+   "near": [
+    "alveolos"
+   ]
+  },
+  {
+   "id": "arco",
+   "region": "aorta",
+   "name": "Arco da aorta",
+   "near": [
+    "braquiocefalica"
+   ]
+  },
+  {
+   "id": "braquiocefalica",
+   "region": "aorta",
+   "name": "Braquiocefálica, a saída para o corpo",
+   "near": [
+    "arco"
    ]
   }
  ],

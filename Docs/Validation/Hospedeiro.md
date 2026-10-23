@@ -187,3 +187,10 @@ Reproduzido com teclado e mouse reais (`tests/e2e_dungeon_input.gd`): a célula 
 
 Régua única (`BioBalance`), números afinados em `data/balance.json`, testes que seguram as faixas (`tests/test_balance.gd`) e um duelo prático (`tests/balance_duel.gd`). Detalhes em `Docs/Hospedeiro/Balance.md`. Antes, o valor por preço das habilidades ia de 0,75 a 3,98; depois, todas ficaram em ±18% da meta de sua classe, e as 48 mutações a cerca de 1 ponto da meta da raridade. No duelo, o tempo para limpar a mesma sala: 15,6 a 20,5 s entre as seis classes (antes 10,1 a 22,7 s). Godot 83 testes, 0 falhas; Go passa, exceto o teste antigo de `presentation.json`; `worldsim validate` ok. Os testes antigos que repetiam números de mutações à mão passaram a ler o catálogo.
 
+
+
+## E0 — corpo como dados, mapa 10x (23/10/2026)
+
+- Godot headless: 94 testes, 0 falhas (inclui `test_anatomy.gd`: determinismo, ~10x de área, membrana única fechada, vasos sinuosos dentro da membrana, fluxo e batimento, atlas persistente; e `test_body_world.gd`: streaming de regiões, paredes, descoberta no atlas e travessia medula→aorta pelos vasos).
+- Travessia medula→aorta com renderizador real (`tests/capture_crossing.gd`): 40/40 waypoints, ~28 s; FPS médio 44,6, pior 25 (sem salvar frames). **Meta de 60 fps ainda não atingida**; otimização pendente.
+- `worldsim validate` do universo com as novas regiões: ok. `go test ./...`: só falha o já existente `TestClientPresentationMatchesTheUniverse`.
