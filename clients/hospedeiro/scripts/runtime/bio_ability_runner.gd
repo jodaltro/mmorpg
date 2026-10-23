@@ -40,6 +40,12 @@ func learn(id: StringName) -> bool:
 	return true
 
 
+## Forgets everything (a restarted world).
+func clear() -> void:
+	slots.clear()
+	learned.emit(&"")  # lets the bar refresh
+
+
 ## Replaces what is known with the engine's list (slots keep their order; new ones append).
 func set_known(ids: Array) -> void:
 	for id in ids:

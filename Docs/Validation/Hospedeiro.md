@@ -110,3 +110,8 @@ Screenshots conferidos à mão: janela do Sistema, menu de ações, residentes (
 - Ponta a ponta contra o motor com Jev ligado: mieloide, classe (neutrófilo), nasceu com Rede de DNA, usou, o corpo foi decidido pelo Jev (Caçador) e uma segunda habilidade (NETose) foi adquirida jogando (~tick 40, recibo `ability:<jogador>:40` no log). Não verifiquei neste registro o `provider` dessa decisão de habilidade.
 
 **Não feito:** aquisição por missão de classe não foi exercitada ao vivo (só em teste do motor); balanceamento dos números; masmorra e multijogador visíveis.
+
+### Botão de reiniciar o mundo (22/10/2026)
+
+`BioHud.press_restart` (duas pressões para confirmar) -> `BioWorld.restart_world` -> `BioEngineLink.reset_world` (`POST /v1/world/reset`, `confirm: new-world`) e zera genoma, classe, habilidades, aparência, vírions e nutrientes. Executado: Godot 54 testes, 0 falhas (2 novos); `tests/e2e_restart.gd` contra o motor com o Jev ligado: tick 369 -> 0, a célula reentrou e voltou sem habilidades nem classe (RESTART OK).
+

@@ -73,6 +73,15 @@ func refresh() -> void:
 		_set_online(false)  # engine gone or world reset: rejoin on the next round
 
 
+## Asks the engine for a brand new world (the old one stays archived on the server). This cell rejoins by itself.
+func reset_world() -> int:
+	var res := await request(HTTPClient.METHOD_POST, "/v1/world/reset", {"version": 1, "confirm": "new-world"})
+	if res.status == 200:
+		view = {}
+		_set_online(false)
+	return res.status
+
+
 func fetch_affordances() -> Array:
 	if not online:
 		return []

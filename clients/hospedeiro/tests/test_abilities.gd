@@ -122,3 +122,28 @@ func test_shield_reduces_damage_taken() -> void:
 	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "shield up")
 	player.receive_hit(virus.combatant, hit)
 	assert_near(start - player.actor.vitals.membrane, plain * 0.3, 0.05, "takes 30%")
+
+
+func test_restart_world_returns_to_a_plain_newborn() -> void:
+	world.abilities.learn(&"engolir")
+	world.genome.equipped = [&"cilios_ageis"] as Array[StringName]
+	world.player.combatant.set_genome(world.genome)
+	world.lineage_id = &"macrofago"
+	world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
+	await world.restart_world()
+	assert_eq(world.abilities.known().size(), 0, "no abilities")
+	assert_eq(world.genome.equipped.size(), 0, "no genes")
+	assert_eq(world.lineage_id, &"", "plain ball again")
+	assert_true(world.player.combatant.actor.vitals.is_alive(), "alive")
+	assert_true(world.player.global_position.distance_to(BioBodyMap.center_px(BioBodyMap.MEDULA)) < 5.0, "back in the marrow")
+	assert_eq(world.viruses().size(), world.virus_count, "fresh virions")
+
+
+func test_restart_button_needs_a_second_press_to_confirm() -> void:
+	var fired := [0]
+	world.hud.restart_requested.disconnect(world.restart_world)
+	world.hud.restart_requested.connect(func() -> void: fired[0] += 1)
+	world.hud.press_restart()
+	assert_eq(fired[0], 0, "first press only arms")
+	world.hud.press_restart()
+	assert_eq(fired[0], 1, "second press confirms")

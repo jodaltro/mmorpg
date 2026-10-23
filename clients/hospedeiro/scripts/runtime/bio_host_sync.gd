@@ -74,6 +74,25 @@ func _ready() -> void:
 			(child as BioAttackExecutor).performed.connect(func(id: StringName, _dir: Vector2) -> void: _used[id] = true)
 
 
+## The world began again: forget the other cells, traces and news of the old one. The next view is history again.
+func forget() -> void:
+	for r in _residents.values():
+		if is_instance_valid(r):
+			r.queue_free()
+	for s in _signs.values():
+		if is_instance_valid(s):
+			s.queue_free()
+	_residents.clear()
+	_signs.clear()
+	_names.clear()
+	_used.clear()
+	_last_seq = -1
+	_announce_abilities = false
+	system.set_active({})
+	system.hide_offer()
+	system.close_menu()
+
+
 func wants_numbers() -> bool:
 	return system.menu_open
 

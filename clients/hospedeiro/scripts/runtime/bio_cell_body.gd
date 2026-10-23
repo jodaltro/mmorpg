@@ -86,6 +86,18 @@ func set_look(axes: Dictionary) -> void:
 			look_now[k] = 0.0  # starts neutral and grows into the look
 
 
+## Back to the plain newborn look (a restarted world).
+func clear_look() -> void:
+	if not look_target.is_empty():
+		core = _base_core
+		edge = _base_edge
+		spikes = _base_spikes
+		if tail != null:
+			tail.set_look(1.0, 1.0)
+	look_target = {}
+	look_now = {}
+
+
 func _axis(id: StringName) -> float:
 	return float(look_now.get(String(id), 0.0)) / 100.0
 

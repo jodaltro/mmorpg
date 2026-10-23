@@ -104,6 +104,7 @@ func build() -> void:
 	add_child(hud)
 	hud.bind(player.combatant)
 	hud.bind_abilities(abilities)
+	hud.restart_requested.connect(restart_world)
 	panel = BioMutationPanel.new()
 	panel.name = "MutationPanel"
 	add_child(panel)
@@ -241,6 +242,57 @@ func release_engine_evolution() -> void:
 	engine_offer = []
 	engine_featured = ""
 	panel.hide_offer()
+
+
+## Starts everything again: a new world in the engine (when linked) and a newborn plain ball here, with no genes,
+## class, abilities or look, in a fresh body of nutrients and virions. The old world stays archived by the engine.
+func restart_world() -> void:
+	hud.show_banner("O mundo recomeça…")
+	if sync != null and sync.link != null and sync.link.online:
+		var status := await sync.link.reset_world()
+		if status != 200:
+			hud.show_banner("Não consegui reiniciar o mundo no motor.")
+			await get_tree().create_timer(2.5).timeout
+			hud.show_banner("")
+			return
+	tracker = BioMutationTracker.new(seed_value)
+	genome = BioGenome.new()
+	player.combatant.set_genome(genome)
+	BioGenomeStore.save(save_path, genome, tracker)
+	panel.hide_offer()
+	panel.refresh(genome, tracker)
+	engine_offer = []
+	engine_featured = ""
+	engine_lineage_offer = []
+	engine_lineage_featured = ""
+	_pending_evolution = {}
+	_engine_fraction = 0.0
+	engine_evolution = false
+	lineage_id = &""
+	look_name = ""
+	panel.set_lineage_text("FORMA: Esfera (indiferenciada)")
+	for child in player.get_children():
+		if child is BioCellBody:
+			(child as BioCellBody).clear_look()
+	abilities.clear()
+	set_fever(false)
+	set_sleeping(false)
+	for node in get_tree().get_nodes_in_group("viruses") + get_tree().get_nodes_in_group("nutrients"):
+		node.queue_free()
+	await get_tree().process_frame
+	player.set_active(true)
+	player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+	player.velocity = Vector2.ZERO
+	player.combatant.reset_vitals()
+	region = BioBodyMap.MEDULA
+	sync.link.region = String(region)
+	for i in nutrient_target:
+		_spawn_nutrient(0.0)
+	for i in virus_count:
+		_spawn_virus(12.0)
+	sync.forget()
+	sync.system.push_feed("O mundo recomeçou. Você é uma esfera outra vez.")
+	hud.show_banner("")
 
 
 func respawn_player() -> void:

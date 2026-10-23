@@ -14,7 +14,13 @@ var _player: BioCombatant
 var _membrane_fill: ColorRect
 var _atp_fill: ColorRect
 var _cooldowns: Array[ColorRect] = []
+signal restart_requested
+
+const CONFIRM_SECONDS := 4.0
+
 var _banner: Label
+var _restart_button: Button
+var _restart_armed_until := 0.0
 var _abilities: BioAbilityRunner
 var _ab_cells: Array[ColorRect] = []
 var _ab_shades: Array[ColorRect] = []
@@ -41,6 +47,18 @@ func _refresh_abilities() -> void:
 —" % keys[i]
 		var c: Color = a.get("color", Color(0.3, 0.4, 0.5))
 		_ab_cells[i].color = Color(c.r * 0.45, c.g * 0.45, c.b * 0.45, 0.9) if id != &"" else Color(0.05, 0.08, 0.12, 0.6)
+
+
+## First press arms it (it wipes the body and the story), the second one within a few seconds confirms.
+func press_restart() -> void:
+	var now := BioClock.now()
+	if now < _restart_armed_until:
+		_restart_armed_until = 0.0
+		_restart_button.text = "REINICIAR MUNDO"
+		restart_requested.emit()
+		return
+	_restart_armed_until = now + CONFIRM_SECONDS
+	_restart_button.text = "CONFIRMAR? apaga tudo"
 
 
 func show_banner(text: String) -> void:
@@ -103,6 +121,16 @@ func _ready() -> void:
 	_banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_banner)
 
+	_restart_button = Button.new()
+	_restart_button.text = "REINICIAR MUNDO"
+	_restart_button.position = Vector2(40, 100)
+	_restart_button.size = Vector2(230, 30)
+	_restart_button.focus_mode = Control.FOCUS_NONE  # keys (space, enter) must never press it
+	_restart_button.add_theme_font_size_override("font_size", 15)
+	_restart_button.add_theme_color_override("font_color", BioArt.with_alpha(BioArt.CRIMSON, 0.9))
+	_restart_button.pressed.connect(press_restart)
+	add_child(_restart_button)
+
 	var title := Label.new()
 	title.text = "HOSPEDEIRO"
 	title.position = Vector2(40, 28)
@@ -112,6 +140,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if _restart_armed_until > 0.0 and BioClock.now() >= _restart_armed_until:
+		_restart_armed_until = 0.0
+		_restart_button.text = "REINICIAR MUNDO"
 	if _player == null or _player.actor == null:
 		return
 	var vitals := _player.actor.vitals
