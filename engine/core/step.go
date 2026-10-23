@@ -184,6 +184,7 @@ func (w *World) join(s *State, c Command) error {
 	w.emit(s, Event{Kind: "join", Actor: c.Actor, Holder: c.Actor, Text: s.Entities[c.Actor].Name})
 	w.findPlace(s, c.Actor, ID(s.Entities[c.Actor].Region))
 	w.apply(s, w.U.OnJoin, Bind{"self": c.Actor}, "join")
+	w.codexTick(s, c.Actor, "join")
 	return nil
 }
 
@@ -214,6 +215,7 @@ func (w *World) move(s *State, c Command, cause string) error {
 	s.Entities[c.Actor] = ent
 	w.count(s, c.Actor, "move")
 	w.findPlace(s, c.Actor, ID(c.Region))
+	w.codexTick(s, c.Actor, cause)
 	w.emit(s, Event{Kind: "moved", Actor: c.Actor, Holder: c.Actor, Text: place.Name, Cause: cause, Data: map[string]string{"region": string(c.Region)}})
 	if ent.Kind == w.U.PlayerKind {
 		w.refreshOffers(s, c.Actor, cause)

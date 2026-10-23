@@ -72,3 +72,7 @@ Uma linha no canto superior direito mostra temperatura, pulso e oxigênio (laran
 ## Explorar
 
 Alguns lugares do corpo escondem **nichos**: bolsas com um gene para quem as achar. Uma seta no canto da tela ("rastro químico · distância") aponta para o nicho mais próximo que você já consegue alcançar; o nicho cintila quando você chega perto, e basta tocá-lo. Os nichos únicos dão o gene só ao primeiro a chegar. Algumas passagens têm uma **membrana alaranjada** que só abre para quem tem o gene certo (o pulmão pede o Citoesqueleto Elástico); ela diz o que pede quando você chega perto. Requer o motor conectado.
+
+## Códice
+
+**B** abre o códice do corpo: lugares, invasores, o corpo e segredos. O que você ainda não aprendeu aparece como `???`. Também lista as regiões a que você se adaptou por viver nelas (a energia volta mais depressa lá). Há nichos-segredo que só existem em certo estado do corpo, e o rastro químico segue o lugar que o Jev apontou para você, quando há um.

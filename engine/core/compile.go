@@ -244,6 +244,9 @@ func Compile(u Universe) (*World, error) {
 			}
 		}
 	}
+	if err := w.compileCodex(v); err != nil {
+		return nil, err
+	}
 	return w, nil
 }
 
@@ -659,7 +662,7 @@ func (v *validator) cond(c Cond, vars map[string]bool, where string) error {
 	if c.Deeds != nil {
 		n++
 		_, isAction := v.w.actions[c.Deeds.Action]
-		if !isAction && !slices.Contains(builtinDeeds, c.Deeds.Action) || !slices.Contains([]string{"<", "<=", "==", "!=", ">=", ">"}, c.Deeds.Op) {
+		if !isAction && !slices.Contains(builtinDeeds, c.Deeds.Action) && !strings.HasPrefix(c.Deeds.Action, "nicho:") || !slices.Contains([]string{"<", "<=", "==", "!=", ">=", ">"}, c.Deeds.Op) {
 			return invalid("%s: deeds %q", where, c.Deeds.Action)
 		}
 		if c.Deeds.E != "" {

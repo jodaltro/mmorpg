@@ -25,6 +25,8 @@ var dungeon: BioDungeon
 var anatomy: BioAnatomyView
 var atlas: BioAtlas
 var exploration: BioExploration
+var codex_panel: BioCodexPanel
+var adapted_regions: Array = []
 var compass_text := ""
 var body := BioBodyState.new()  # the host's vital signs (from the engine) and what they do to the cell
 var vitals_panel: BioVitalsPanel
@@ -129,6 +131,10 @@ func build() -> void:
 		hud.set_dungeon_text("GRANULOMA  ·  sala %d/%d  ·  %s" % [index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
 	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(restart_world)
+	codex_panel = BioCodexPanel.new()
+	codex_panel.name = "CodexPanel"
+	add_child(codex_panel)
+	codex_panel.configure()
 	exploration = BioExploration.new()
 	exploration.name = "Exploration"
 	add_child(exploration)
@@ -354,11 +360,23 @@ func respawn_player() -> void:
 func apply_body(vitals: Array) -> void:
 	body.apply(vitals)
 	player.combatant.environment_speed = body.speed_multiplier()
-	player.combatant.actor.vitals.regen_scale = body.atp_regen_multiplier()
+	_apply_regen()
 	BioNutrientRules.body_multiplier = body.nutrient_multiplier()
 	if body.value("pulso") > 0.0:
 		BioAnatomy.heart_hz = body.value("pulso") / 60.0
 	vitals_panel.refresh()
+
+
+## Energy comes back at the pace the body allows (fever, a lung short of air), faster in a place the cell has adapted to.
+func _apply_regen() -> void:
+	var adapted_here := adapted_regions.has(String(region))
+	player.combatant.actor.vitals.regen_scale = body.atp_regen_multiplier() * (1.15 if adapted_here else 1.0)
+
+
+## The regions the engine says this cell has adapted to by living in them.
+func set_adapted(regions: Array) -> void:
+	adapted_regions = regions
+	_apply_regen()
 
 
 ## Fever (a body state the player knows of): virions slow down.
@@ -425,11 +443,14 @@ func _process(delta: float) -> void:
 			_update_live()
 			_populate(true)  # the regions that just woke fill up before the cell gets there
 			atlas.set_region(region)
+			_apply_regen()
 			region_changed.emit(region)
 	if Input.is_action_just_pressed("bio_map"):
 		atlas.toggle()
 	if Input.is_action_just_pressed("bio_vitals"):
 		vitals_panel.toggle()
+	if Input.is_action_just_pressed("bio_codex"):
+		codex_panel.toggle()
 	if dungeon.active:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")

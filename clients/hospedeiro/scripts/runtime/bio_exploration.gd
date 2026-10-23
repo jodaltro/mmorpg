@@ -9,6 +9,7 @@ signal niche_reached(id: String)
 var player: BioCellActor
 var seed_value := 1337
 var passages: Array = []
+var route_id := ""  # the niche the advisor pointed this player to
 var niches: Array = []
 
 var _gates := {}  # passage id -> BioPassageGate
@@ -31,6 +32,7 @@ func niche_count() -> int:
 func apply(explore: Dictionary) -> void:
 	passages = explore.get("passages", [])
 	niches = explore.get("niches", [])
+	route_id = str(explore.get("route", ""))
 	for p in passages:
 		var id := str(p.get("id", ""))
 		var open := bool(p.get("open", true))
@@ -103,6 +105,8 @@ func compass(position: Vector2, region: StringName) -> Dictionary:
 		var cost := float(steps.size())
 		if steps.size() == 1:
 			cost = position.distance_to(BioBodyMap.niche_px(str(n["id"]), steps[0])) / BioArt.UNIT * 0.001
+		if str(n.get("id", "")) == route_id:
+			cost = -1.0  # the advisor leads
 		if cost < best_cost:
 			best_cost = cost
 			best = {"niche": n, "steps": steps}

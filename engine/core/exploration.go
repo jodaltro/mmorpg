@@ -35,6 +35,8 @@ type NicheDef struct {
 	Gene string `json:"gene"`
 	// Unique niches reward only the first player to find them.
 	Unique bool `json:"unique,omitempty"`
+	// When makes it a secret: the niche exists for a player only while this holds (a niche that shows only in fever, only in sleep).
+	When *Cond `json:"when,omitempty"`
 }
 
 // PassageView and NicheView are what an observer may see of them.
@@ -60,6 +62,8 @@ type NicheView struct {
 type ExploreView struct {
 	Passages []PassageView `json:"passages"`
 	Niches   []NicheView   `json:"niches"`
+	Adapted  []string      `json:"adapted"`
+	Route    string        `json:"route,omitempty"` // the niche the advisor pointed this player to
 }
 
 const worldKey ID = "mundo" // the deeds of the world itself (who claimed a unique niche)
@@ -92,7 +96,7 @@ func (w *World) niche(id string) (NicheDef, bool) {
 func (w *World) findNiche(s *State, origin string, p ID, args map[string]ID, cause string) error {
 	n, ok := w.niche(string(args["niche"]))
 	e := s.Entities[p]
-	if origin != "adapter" || !ok || e.Kind != w.U.PlayerKind || e.Region != n.Region {
+	if origin != "adapter" || !ok || e.Kind != w.U.PlayerKind || e.Region != n.Region || n.When != nil && !w.Holds(s, *n.When, Bind{"self": p}) {
 		return reject("niche")
 	}
 	if s.Deeds[p][nicheDeed(n.ID)] > 0 {
@@ -130,6 +134,7 @@ func (w *World) findNiche(s *State, origin string, p ID, args map[string]ID, cau
 		w.emit(s, Event{Kind: "nicho-reivindicado", Actor: p, Public: true, Text: n.Name + " foi encontrado pela primeira vez.", Cause: cause, Data: map[string]string{"niche": n.ID}})
 	}
 	w.discover(s, p, cause)
+	w.codexTick(s, p, cause)
 	return nil
 }
 
@@ -137,7 +142,11 @@ func (w *World) exploreView(s *State, p ID) *ExploreView {
 	if len(w.U.Passages) == 0 && len(w.U.Niches) == 0 {
 		return nil
 	}
-	v := &ExploreView{Passages: []PassageView{}, Niches: []NicheView{}}
+	pe := s.Entities[p]
+	v := &ExploreView{Passages: []PassageView{}, Niches: []NicheView{}, Adapted: adaptedRegions(pe)}
+	if r := pe.Tag[tagRota]; r != "" && hasOption(w.rotaOptions(s, p), r) {
+		v.Route = r
+	}
 	for _, ps := range w.U.Passages {
 		open := w.passageOpen(s, p, ps)
 		pv := PassageView{ID: ps.ID, From: ps.From, To: ps.To, Name: ps.Name, Open: open}
@@ -148,6 +157,9 @@ func (w *World) exploreView(s *State, p ID) *ExploreView {
 	}
 	for _, n := range w.U.Niches {
 		found := s.Deeds[p][nicheDeed(n.ID)] > 0
+		if !found && n.When != nil && !w.Holds(s, *n.When, Bind{"self": p}) {
+			continue // a secret the body is not showing now
+		}
 		nv := NicheView{ID: n.ID, Region: n.Region, Name: "?", Found: found, Claimed: n.Unique && !found && s.Deeds[worldKey][nicheDeed(n.ID)] > 0}
 		if found {
 			nv.Name = n.Name

@@ -90,3 +90,36 @@ func test_the_atlas_takes_what_the_engine_remembers() -> void:
 	world.atlas.merge(["medula", "sangue", "pulmao", "lugar-que-nao-existe"])
 	assert_true(world.atlas.knows(&"pulmao"), "the engine's memory fills the atlas")
 	assert_true(not world.atlas.knows(&"lugar-que-nao-existe"), "and unknown places are ignored")
+
+
+func test_the_advisors_route_leads_the_compass() -> void:
+	var explore := _explore(true)
+	explore["route"] = "bolsa-da-venula"
+	world.exploration.apply(explore)
+	var trail := world.exploration.compass(BioBodyMap.center_px(&"medula"), &"medula")
+	assert_eq(str(trail["hint"]), "uma dobra da vênula", "even with a closer niche, the route is the advisor's pick")
+	explore["route"] = ""
+	world.exploration.apply(explore)
+	assert_eq(str(world.exploration.compass(BioBodyMap.center_px(&"medula"), &"medula")["hint"]), "brilho de cílios", "without a route, the nearest leads")
+
+
+func test_the_codex_shows_what_is_known_and_hides_the_rest() -> void:
+	var codex := [
+		{"id": "cx-medula", "kind": "regiao", "title": "A medula óssea", "unlocked": true, "text": "A fábrica do sangue."},
+		{"id": "cx-alveolos", "kind": "regiao", "title": "???", "unlocked": false},
+		{"id": "cx-febre", "kind": "corpo", "title": "???", "unlocked": false},
+	]
+	world.codex_panel.set_data(codex, [])
+	assert_eq(world.codex_panel.unlocked_count(), 1, "one entry unlocked")
+	world.codex_panel.toggle()
+	assert_true(world.codex_panel.is_open(), "B opens the codex")
+	world.codex_panel.toggle()
+
+
+func test_adapting_to_a_place_helps_the_cell_only_there() -> void:
+	world.set_adapted(["medula"])
+	assert_near(world.player.combatant.actor.vitals.regen_scale, 1.15, 0.0001, "in the marrow the adapted cell regenerates faster")
+	world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
+	await tree.create_timer(0.5).timeout
+	assert_near(world.player.combatant.actor.vitals.regen_scale, 1.0, 0.0001, "elsewhere it does not")
+	world.set_adapted([])

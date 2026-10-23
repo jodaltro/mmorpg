@@ -21,6 +21,13 @@ func (w *World) profile(s *State, p ID) []string {
 	if e.Region != "" {
 		out = append(out, "location: "+w.name(s, e.Region))
 	}
+	if ad := adaptedRegions(e); len(ad) > 0 {
+		names := make([]string, 0, len(ad))
+		for _, r := range ad {
+			names = append(names, w.name(s, ID(r)))
+		}
+		out = append(out, "body adapted to the places it lived in: "+strings.Join(names, ", "))
+	}
 	if h := w.Hour(s); h >= 0 {
 		out = append(out, "time of day: "+strconv.FormatInt(h, 10)+"h")
 	}

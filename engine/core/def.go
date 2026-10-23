@@ -65,6 +65,9 @@ type Universe struct {
 	// Passages and Niches: exploring the body; see exploration.go.
 	Passages []PassageDef `json:"passages,omitempty"`
 	Niches   []NicheDef   `json:"niches,omitempty"`
+	// Codex, Exploring: the codex of the body, adaptation and the pace of the rota decision; see codex.go.
+	Codex     []CodexDef    `json:"codex,omitempty"`
+	Exploring *ExploringDef `json:"exploring,omitempty"`
 	// Evolution and Mutations: every player evolves; see evolution.go.
 	Evolution *EvolutionDef `json:"evolution,omitempty"`
 	Mutations []MutationDef `json:"mutations,omitempty"`

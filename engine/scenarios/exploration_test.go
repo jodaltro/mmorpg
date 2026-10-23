@@ -121,3 +121,156 @@ func TestHospedeiroDiscoveryAndHints(t *testing.T) {
 		t.Fatal("visiting the heart reveals it and its niche")
 	}
 }
+
+func codexUnlocked(h *harness, p core.ID, id string) bool {
+	v, _ := h.w.View(&h.s, p, 50)
+	for _, c := range v.Codex {
+		if c.ID == id {
+			return c.Unlocked
+		}
+	}
+	return false
+}
+
+func nicheListed(h *harness, p core.ID, id string) bool {
+	v, _ := h.w.View(&h.s, p, 50)
+	for _, n := range v.Explore.Niches {
+		if n.ID == id {
+			return true
+		}
+	}
+	return false
+}
+
+// The codex fills in as the cell sees and does things; locked entries say nothing.
+func TestHospedeiroCodexUnlocksWithWhatTheCellDoes(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.tick(1)
+	if !codexUnlocked(h, "p1", "cx-medula") || codexUnlocked(h, "p1", "cx-endocardio") || codexUnlocked(h, "p1", "cx-nutrientes") {
+		t.Fatal("only the marrow is in the codex at the start")
+	}
+	v, _ := h.w.View(&h.s, "p1", 50)
+	for _, c := range v.Codex {
+		if !c.Unlocked && (c.Text != "" || c.Title != "???") {
+			t.Fatalf("a locked entry leaks: %+v", c)
+		}
+	}
+	h.move("p1", "sangue")
+	h.move("p1", "coracao")
+	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+	h.tick(1)
+	if !codexUnlocked(h, "p1", "cx-endocardio") || !codexUnlocked(h, "p1", "cx-nutrientes") {
+		t.Fatal("going to the heart and eating unlock their entries")
+	}
+	if len(h.events("codice")) < 4 {
+		t.Fatalf("each unlock is told once, got %d events", len(h.events("codice")))
+	}
+	n := len(h.events("codice"))
+	h.tick(5)
+	if len(h.events("codice")) != n {
+		t.Fatal("an entry unlocks only once")
+	}
+}
+
+// Secrets show only while the body is in their state: the marrow's chamber opens only in sleep, the hot alveolus only in fever.
+func TestHospedeiroSecretNichesFollowTheStateOfTheBody(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	sleepNow := func() bool { return h.fact("", "sono", "medula", "") }
+	for i := 0; i < 900 && !sleepNow(); i++ {
+		h.tick(1)
+	}
+	if !sleepNow() {
+		t.Fatal("the body should fall asleep at some point")
+	}
+	if !nicheListed(h, "p1", "sonho-da-medula") {
+		t.Fatal("while the body sleeps the chamber exists")
+	}
+	findNiche(h, "p1", "sonho-da-medula")
+	if !hasGene(h, "p1", "memoria-de-longa-vida") {
+		t.Fatal("the sleeping chamber pays its gene")
+	}
+	if !codexUnlocked(h, "p1", "cx-segredo-sonho") {
+		t.Fatal("and the codex records it")
+	}
+	h2 := load(t, "hospedeiro")
+	h2.join("p2")
+	if nicheListed(h2, "p2", "sonho-da-medula") {
+		t.Fatal("awake, the chamber is not even listed")
+	}
+	if _, err := h2.try(core.Command{Kind: "act", Origin: "adapter", Actor: "p2", Action: "achar-nicho", Args: map[string]core.ID{"niche": "sonho-da-medula"}}); !isRejected(err) {
+		t.Fatalf("a secret cannot be found out of its state, got %v", err)
+	}
+}
+
+// Living somewhere long enough adapts the body to it, and the world remembers.
+func TestHospedeiroLivingInAPlaceAdaptsTheCell(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.tick(25)
+	if v, _ := h.w.View(&h.s, "p1", 50); len(v.Explore.Adapted) != 0 {
+		t.Fatalf("too soon to adapt: %v", v.Explore.Adapted)
+	}
+	h.tick(10)
+	v, _ := h.w.View(&h.s, "p1", 50)
+	if len(v.Explore.Adapted) != 1 || v.Explore.Adapted[0] != "medula" || len(h.events("adaptou")) != 1 {
+		t.Fatalf("the cell adapts to the marrow once: %v", v.Explore.Adapted)
+	}
+}
+
+// The advisor points a player to the next place worth finding; the choice is revalidated and the default is the nearest.
+func TestHospedeiroRotaPointsToAPlaceAndIsRevalidated(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.move("p1", "sangue") // the marrow's and the venule's niches are now both whispered
+	var d core.Decision
+	for i := 0; i < 30 && d.ID == ""; i++ {
+		h.tick(1)
+		for _, x := range h.s.Decisions {
+			if x.Kind == "rota" {
+				d = x
+			}
+		}
+	}
+	if d.ID == "" || len(d.Options) < 2 {
+		t.Fatal("with several places worth finding the advisor is asked")
+	}
+	if d.Default != "bolsa-da-venula" {
+		t.Fatalf("the default is the nearest place (where the cell is), got %s", d.Default)
+	}
+	if _, err := h.try(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "gruta-alveolar"}); !isRejected(err) {
+		t.Fatalf("a place behind a closed passage cannot be chosen, got %v", err)
+	}
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "nicho-estroma", Provider: "test"})
+	v, _ := h.w.View(&h.s, "p1", 50)
+	if v.Explore.Route != "nicho-estroma" {
+		t.Fatalf("the route is the advisor's pick, got %q", v.Explore.Route)
+	}
+	findNiche(h, "p1", "bolsa-da-venula") // the cell finds the other one on its own; the route stays where it was pointed
+	if v, _ = h.w.View(&h.s, "p1", 50); v.Explore.Route != "nicho-estroma" {
+		t.Fatal("finding another niche does not move the route")
+	}
+}
+
+// Without anybody answering, the deadline decides: every player still ends up with a route, and replaying the log gives the same world.
+func TestHospedeiroRotaDefaultsAtDeadlineAndReplays(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.move("p1", "sangue")
+	h.tick(30)
+	v, _ := h.w.View(&h.s, "p1", 50)
+	if v.Explore.Route == "" {
+		t.Fatal("the default should have set a route")
+	}
+	b := load(t, "hospedeiro")
+	for _, c := range h.log {
+		var err error
+		if b.s, _, err = b.w.Step(b.s, c); err != nil {
+			t.Fatalf("replay rejected %+v: %v", c, err)
+		}
+	}
+	if b.s.Digest() != h.s.Digest() {
+		t.Fatal("replay digest differs")
+	}
+}

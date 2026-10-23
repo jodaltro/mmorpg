@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "dungeon-preparing", "dungeon-started", "dungeon-room", "dungeon-cleared", "dungeon-failed", "dungeon-left"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "dungeon-preparing", "dungeon-started", "dungeon-room", "dungeon-cleared", "dungeon-failed", "dungeon-left", "codice", "adaptou", "rota"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -221,6 +221,9 @@ func apply_view(view: Dictionary) -> void:
 	_apply_beliefs(view.get("beliefs", []))
 	if view.get("explore") is Dictionary:
 		_world.exploration.apply(view["explore"])
+		_world.set_adapted(view["explore"].get("adapted", []))
+	if view.get("codex") is Array:
+		_world.codex_panel.set_data(view["codex"], _world.adapted_regions)
 	var visited: Array = []
 	for f in view.get("facts", []):
 		if f.get("p", "") == "visitou":
@@ -388,6 +391,10 @@ func _apply_events(events: Array) -> void:
 				_world.spawn_meal(10)
 			"surto":
 				_world.spawn_outbreak(3)
+			"codice":
+				system.push_feed("Códice: %s" % e.get("text", ""))
+			"adaptou":
+				system.push_feed(str(e.get("text", "")))
 			"nicho":
 				_world.hud.show_banner("NICHO ENCONTRADO
 um gene novo é seu")

@@ -4791,6 +4791,211 @@
    "unique": true,
    "hint": "Atrás das válvulas, a corrente faz um redemoinho que nunca sai do lugar.",
    "text": "No seio da valva, o redemoinho lhe ensina a ser a própria correnteza: o flagelo turbinado."
+  },
+  {
+   "id": "sonho-da-medula",
+   "region": "medula",
+   "name": "Câmara do sono",
+   "gene": "memoria-de-longa-vida",
+   "when": {
+    "fact": {
+     "p": "sono",
+     "s": "medula"
+    }
+   },
+   "hint": "Quando o corpo dorme, uma câmara da medula se abre; só então.",
+   "text": "Com o corpo dormindo, a câmara do sono se abre e a medula lhe confia a memória de longa vida."
+  },
+  {
+   "id": "calor-do-alveolo",
+   "region": "pulmao",
+   "name": "Alvéolo em brasa",
+   "gene": "interferon-gama",
+   "when": {
+    "fact": {
+     "p": "febre",
+     "s": "sangue"
+    }
+   },
+   "hint": "Na febre, os alvéolos mais quentes brilham de outro jeito.",
+   "text": "Na febre, um alvéolo em brasa lhe passa o interferon gama: o sinal que acende as defesas."
+  }
+ ],
+ "exploring": {
+  "adaptAfter": 30,
+  "rotaEvery": 6
+ },
+ "codex": [
+  {
+   "id": "cx-medula",
+   "kind": "regiao",
+   "title": "A medula óssea",
+   "when": {
+    "fact": {
+     "p": "visitou",
+     "s": "$self",
+     "o": "medula",
+     "private": true
+    }
+   },
+   "text": "A medula vermelha é a fábrica do sangue: no nicho, células-tronco se dividem e dão origem às células do sangue e do sistema imune."
+  },
+  {
+   "id": "cx-venula",
+   "kind": "regiao",
+   "title": "A vênula",
+   "when": {
+    "fact": {
+     "p": "visitou",
+     "s": "$self",
+     "o": "sangue",
+     "private": true
+    }
+   },
+   "text": "As vênulas recolhem o sangue dos capilares e o levam de volta ao coração. Suas paredes finas deixam as células imunes saírem para os tecidos."
+  },
+  {
+   "id": "cx-endocardio",
+   "kind": "regiao",
+   "title": "O endocárdio",
+   "when": {
+    "fact": {
+     "p": "visitou",
+     "s": "$self",
+     "o": "coracao",
+     "private": true
+    }
+   },
+   "text": "Por dentro, o coração é forrado por uma camada lisa de células, o endocárdio, que deixa o sangue deslizar a cada batimento."
+  },
+  {
+   "id": "cx-alveolos",
+   "kind": "regiao",
+   "title": "Os alvéolos",
+   "when": {
+    "fact": {
+     "p": "visitou",
+     "s": "$self",
+     "o": "pulmao",
+     "private": true
+    }
+   },
+   "text": "Sacos de ar de parede finíssima: o oxigênio entra no sangue e o gás carbônico sai, a poucos micrômetros de distância."
+  },
+  {
+   "id": "cx-arteria",
+   "kind": "regiao",
+   "title": "A artéria",
+   "when": {
+    "fact": {
+     "p": "visitou",
+     "s": "$self",
+     "o": "aorta",
+     "private": true
+    }
+   },
+   "text": "As artérias têm parede elástica: cedem a cada batimento e devolvem a força ao sangue, empurrando-o adiante."
+  },
+  {
+   "id": "cx-nutrientes",
+   "kind": "corpo",
+   "title": "Glicose e lipídios",
+   "when": {
+    "deeds": {
+     "action": "absorver-nutriente",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "A glicose vira ATP, a moeda de energia da célula; os lipídios reparam a membrana. A insulina decide quanto o corpo guarda."
+  },
+  {
+   "id": "cx-virion",
+   "kind": "patogeno",
+   "title": "O vírion espinhoso",
+   "when": {
+    "deeds": {
+     "action": "derrotar-virus",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "Um vírus não é uma célula: é um pacote de instruções com espinhos que se prendem às células para entrar nelas e copiar a si mesmo."
+  },
+  {
+   "id": "cx-febre",
+   "kind": "corpo",
+   "title": "A febre",
+   "when": {
+    "fact": {
+     "p": "febre",
+     "s": "sangue"
+    }
+   },
+   "text": "O corpo sobe a temperatura de propósito: o calor deixa os patógenos lentos e as defesas mais rápidas, mas cansa as células."
+  },
+  {
+   "id": "cx-sono",
+   "kind": "corpo",
+   "title": "O sono",
+   "when": {
+    "fact": {
+     "p": "sono",
+     "s": "medula"
+    }
+   },
+   "text": "Dormindo, o corpo repara e produz: a medula se recompõe e certas coisas só acontecem em silêncio."
+  },
+  {
+   "id": "cx-infeccao",
+   "kind": "corpo",
+   "title": "Infecção no pulmão",
+   "when": {
+    "fact": {
+     "p": "foco",
+     "s": "pulmao"
+    }
+   },
+   "text": "Bactérias nos alvéolos inflamam o pulmão; as citocinas viajam no sangue, a febre vem, e o ar passa pior até a infecção ceder."
+  },
+  {
+   "id": "cx-segredo-venula",
+   "kind": "segredo",
+   "title": "A dobra da vênula",
+   "when": {
+    "deeds": {
+     "action": "nicho:bolsa-da-venula",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "Quem se espreme por qualquer fresta herdou o citoesqueleto: filamentos de actina que dobram a célula sem rompê-la."
+  },
+  {
+   "id": "cx-segredo-sonho",
+   "kind": "segredo",
+   "title": "O sonho da medula",
+   "when": {
+    "deeds": {
+     "action": "nicho:sonho-da-medula",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "Há câmaras que só se abrem com o corpo dormindo. A memória imune de longa vida nasce em silêncio, na medula."
+  },
+  {
+   "id": "cx-segredo-calor",
+   "kind": "segredo",
+   "title": "O calor dos alvéolos",
+   "when": {
+    "deeds": {
+     "action": "nicho:calor-do-alveolo",
+     "op": ">=",
+     "v": 1
+    }
+   },
+   "text": "Na febre, o interferon gama acende as defesas dos pulmões: é o sinal que diz às células vizinhas para se prepararem."
   }
  ]
 }

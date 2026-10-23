@@ -47,6 +47,11 @@ func (w *World) tick(s *State, cause string) {
 	w.gossip(s, cause)
 	w.stories(s, cause)
 	w.direct(s)
+	w.adaptTick(s, cause)
+	w.rotaTick(s, cause)
+	for _, p := range sortedIDs(s.Entities) {
+		w.codexTick(s, p, cause)
+	}
 	for _, id := range sortedKeys(s.Decisions) {
 		if d := s.Decisions[id]; d.Due <= s.Tick {
 			w.decideDefault(s, d, cause)
