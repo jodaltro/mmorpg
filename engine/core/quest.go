@@ -541,6 +541,10 @@ func (w *World) decide(s *State, d Decision, choice string, meta map[string]stri
 		if err := w.decideRota(s, d, choice, cause); err != nil {
 			return err
 		}
+	case "design":
+		if err := w.decideDesign(s, d, choice, cause); err != nil {
+			return err
+		}
 	}
 	data := map[string]string{"decision": d.ID, "kind": d.Kind, "subject": d.Subject, "choice": choice, "default": d.Default}
 	for k, v := range meta {
@@ -561,7 +565,7 @@ func (w *World) decideDefault(s *State, d Decision, cause string) {
 		w.setBeat(s, d.Subject, d.Options[0].ID)
 		return
 	}
-	if d.Kind == "world" || d.Kind == "evolution" || d.Kind == "appearance" || d.Kind == "lineage" || d.Kind == "ability" || d.Kind == "dungeon" || d.Kind == decisionRota {
+	if d.Kind == "world" || d.Kind == "evolution" || d.Kind == "appearance" || d.Kind == "lineage" || d.Kind == "ability" || d.Kind == "dungeon" || d.Kind == decisionRota || d.Kind == "design" {
 		return // nothing still valid: tried again on a later tick
 	}
 	// The world moved on while the decision was pending: offer the first

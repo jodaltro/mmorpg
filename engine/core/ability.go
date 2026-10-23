@@ -113,7 +113,7 @@ func (w *World) abilityTick(s *State, cause string) {
 			if len(c.Tags) > 0 {
 				desc += " [path: " + strings.Join(c.Tags, ", ") + "]"
 			}
-			opts = append(opts, Option{ID: c.ID, Title: c.Name, Desc: desc + " [fit " + strconv.FormatInt(w.abilityFit(s, p, c), 10) + "]"})
+			opts = append(opts, Option{ID: c.ID, Title: c.Name, Desc: desc})
 		}
 		id := "ability:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
 		ctx := w.profile(s, p)

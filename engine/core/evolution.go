@@ -187,7 +187,6 @@ func (w *World) mutationTick(s *State, cause string) {
 			if len(m.Tags) > 0 {
 				desc += " [path: " + strings.Join(m.Tags, ", ") + "]"
 			}
-			desc += " [fit " + strconv.FormatInt(w.fit(s, p, m), 10) + "]"
 			opts = append(opts, Option{ID: m.ID, Title: m.Name, Desc: desc})
 		}
 		id := "evolution:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)

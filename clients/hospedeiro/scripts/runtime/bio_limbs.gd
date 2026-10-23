@@ -65,13 +65,16 @@ func _spawn(dir: Vector2, length_units: float, grow: float, hold: float, opts: D
 
 
 ## One limb towards `dir` (world direction). `hold < 0` keeps it out until released.
+var signature: StringName = &""  # the flavour Jev designed for this cell's effects (BioEffectSignature)
+
+
 func reach(dir: Vector2, length_units: float, grow: float = 0.12, hold: float = 0.2, opts: Dictionary = {}) -> BioLimb:
-	return _spawn(dir, length_units, grow / maxf(float(style()["speed"]), 0.3), hold, opts)
+	return _spawn(dir, length_units, grow / maxf(float(style()["speed"]), 0.3), hold, BioEffectSignature.sign_options(opts, signature))
 
 
 ## A limb that follows a moving node and stretches to it.
 func reach_node(target: Node2D, max_length_units: float, grow: float = 0.14, hold: float = 0.25, opts: Dictionary = {}) -> BioLimb:
-	var o := opts.duplicate()
+	var o := BioEffectSignature.sign_options(opts, signature)
 	o["follow"] = target
 	return _spawn(target.global_position - _host.global_position, max_length_units, grow, hold, o)
 

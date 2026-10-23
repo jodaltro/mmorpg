@@ -21,6 +21,7 @@ type AppearanceDef struct {
 	MinDeeds int64        `json:"minDeeds"` // new deeds needed since the last decision
 	Axes     []AxisDef    `json:"axes"`
 	Variants []VariantDef `json:"variants"`
+	Traits   []TraitDef   `json:"traits,omitempty"` // the signature the advisor designs (see design.go)
 }
 
 // AxisDef is one body parameter. Signals map a behaviour key to its weight:
@@ -46,10 +47,11 @@ type VariantDef struct {
 
 // Look is a player's current body: the variant and the value of every axis.
 type Look struct {
-	Variant string           `json:"variant"`
-	Name    string           `json:"name"`
-	Axes    map[string]int64 `json:"axes"`
-	At      Tick             `json:"at"`
+	Variant string            `json:"variant"`
+	Name    string            `json:"name"`
+	Axes    map[string]int64  `json:"axes"`
+	Traits  map[string]string `json:"traits,omitempty"`
+	At      Tick              `json:"at"`
 }
 
 func (w *World) compileAppearance() error {
@@ -198,7 +200,7 @@ func (w *World) appearanceTick(s *State, cause string) {
 			if fit > bestFit {
 				best, bestFit = v.ID, fit
 			}
-			opts = append(opts, Option{ID: v.ID, Title: v.Name, Desc: v.Desc + " [fit " + strconv.FormatInt(fit, 10) + "]"})
+			opts = append(opts, Option{ID: v.ID, Title: v.Name, Desc: v.Desc})
 		}
 		id := "appearance:" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
 		ctx := w.profile(s, p)
@@ -237,7 +239,7 @@ func (w *World) decideAppearance(s *State, d Decision, choice, cause string) err
 	if s.Looks == nil {
 		s.Looks = map[ID]Look{}
 	}
-	s.Looks[p] = Look{Variant: v.ID, Name: v.Name, Axes: w.leaned(s, p, v), At: s.Tick}
+	s.Looks[p] = Look{Variant: v.ID, Name: v.Name, Axes: w.leaned(s, p, v), Traits: s.Looks[p].Traits, At: s.Tick}
 	s.Receipts["appearance|"+string(p)] = w.totalDeeds(s, p)
 	w.emit(s, Event{Kind: "appearance", Holder: p, Text: v.Name, Cause: cause, Data: map[string]string{"variant": v.ID}})
 	return nil
@@ -245,9 +247,10 @@ func (w *World) decideAppearance(s *State, d Decision, choice, cause string) err
 
 // LookView is a body as anyone who can see the player sees it.
 type LookView struct {
-	Variant string           `json:"variant"`
-	Name    string           `json:"name"`
-	Axes    map[string]int64 `json:"axes"`
+	Variant string            `json:"variant"`
+	Name    string            `json:"name"`
+	Axes    map[string]int64  `json:"axes"`
+	Traits  map[string]string `json:"traits,omitempty"`
 }
 
 func (w *World) lookOf(s *State, p ID) *LookView {
@@ -255,5 +258,5 @@ func (w *World) lookOf(s *State, p ID) *LookView {
 	if !ok {
 		return nil
 	}
-	return &LookView{Variant: l.Variant, Name: l.Name, Axes: l.Axes}
+	return &LookView{Variant: l.Variant, Name: l.Name, Axes: l.Axes, Traits: l.Traits}
 }

@@ -3992,6 +3992,299 @@
      "misterio": 5
     }
    }
+  ],
+  "traits": [
+   {
+    "id": "nucleo",
+    "name": "Núcleo",
+    "question": "the shape of the nucleus, the heart of the cell, visible through the membrane",
+    "options": [
+     {
+      "id": "feijao",
+      "name": "Feijão",
+      "desc": "A bean: one side indented, the nucleus of a restless wanderer.",
+      "affinity": {
+       "agilidade": 2,
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "rim",
+      "name": "Rim",
+      "desc": "A big kidney with a deep notch: a devourer's nucleus.",
+      "affinity": {
+       "metabolismo": 3,
+       "robustez": 1
+      }
+     },
+     {
+      "id": "flor",
+      "name": "Flor",
+      "desc": "An irregular flower with petals: a nucleus that listens and talks.",
+      "affinity": {
+       "sociabilidade": 3,
+       "misterio": 1
+      }
+     },
+     {
+      "id": "esfera",
+      "name": "Esfera",
+      "desc": "A huge perfect sphere: calm, dense, full of memory.",
+      "affinity": {
+       "misterio": 2,
+       "robustez": 2
+      }
+     },
+     {
+      "id": "hexagono",
+      "name": "Hexágono",
+      "desc": "A compact hexagon: disciplined and exact.",
+      "affinity": {
+       "ferocidade": 2,
+       "robustez": 1
+      }
+     },
+     {
+      "id": "trevo",
+      "name": "Trevo",
+      "desc": "A four-leaf clover: a nucleus that coordinates others.",
+      "affinity": {
+       "sociabilidade": 2,
+       "misterio": 2
+      }
+     },
+     {
+      "id": "lobulos",
+      "name": "Lóbulos",
+      "desc": "A chain of lobes: made to squeeze through anything.",
+      "affinity": {
+       "agilidade": 3
+      }
+     },
+     {
+      "id": "estrela",
+      "name": "Estrela",
+      "desc": "A five-pointed star: sharp, radiant, a little cruel.",
+      "affinity": {
+       "ferocidade": 3,
+       "misterio": 1
+      }
+     }
+    ]
+   },
+   {
+    "id": "membrana",
+    "name": "Membrana",
+    "question": "the texture of the outer membrane, the skin this cell shows the world",
+    "options": [
+     {
+      "id": "lisa",
+      "name": "Lisa",
+      "desc": "A smooth, glossy membrane: nothing to catch on.",
+      "affinity": {
+       "agilidade": 2
+      }
+     },
+     {
+      "id": "ondulada",
+      "name": "Ondulada",
+      "desc": "A rippling membrane that breathes and flows.",
+      "affinity": {
+       "metabolismo": 2,
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "espinhosa",
+      "name": "Espinhosa",
+      "desc": "A ring of short spines: it warns before it strikes.",
+      "affinity": {
+       "ferocidade": 3
+      }
+     },
+     {
+      "id": "contas",
+      "name": "Contas",
+      "desc": "A string of tiny beads along the edge: receptors on display.",
+      "affinity": {
+       "misterio": 2,
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "dupla",
+      "name": "Dupla",
+      "desc": "Two membranes, one inside the other: layered and guarded.",
+      "affinity": {
+       "robustez": 3
+      }
+     }
+    ]
+   },
+   {
+    "id": "organelas",
+    "name": "Organelas",
+    "question": "which organelles dominate the inside of the cell and show through the membrane",
+    "options": [
+     {
+      "id": "mitocondrias",
+      "name": "Mitocôndrias",
+      "desc": "Many bright mitochondria: energy to spare.",
+      "affinity": {
+       "metabolismo": 3
+      }
+     },
+     {
+      "id": "lisossomos",
+      "name": "Lisossomos",
+      "desc": "Green acid sacs: a cell that digests what it finds.",
+      "affinity": {
+       "ferocidade": 2,
+       "metabolismo": 1
+      }
+     },
+     {
+      "id": "vesiculas",
+      "name": "Vesículas",
+      "desc": "Pale vesicles drifting about: messages and cargo.",
+      "affinity": {
+       "sociabilidade": 3
+      }
+     },
+     {
+      "id": "tubulos",
+      "name": "Túbulos",
+      "desc": "A web of fine tubules: a cell that senses and builds paths.",
+      "affinity": {
+       "agilidade": 2,
+       "misterio": 2
+      }
+     },
+     {
+      "id": "vacuolos",
+      "name": "Vacúolos",
+      "desc": "Large clear vacuoles: storage, patience, endurance.",
+      "affinity": {
+       "robustez": 3
+      }
+     },
+     {
+      "id": "granulos",
+      "name": "Grânulos",
+      "desc": "Dense dark granules: loaded, waiting to be released.",
+      "affinity": {
+       "ferocidade": 3
+      }
+     }
+    ]
+   },
+   {
+    "id": "brilho",
+    "name": "Brilho",
+    "question": "the colour of the cell's glow, how it looks in the dark of the body",
+    "options": [
+     {
+      "id": "ambar",
+      "name": "Âmbar",
+      "desc": "A warm amber glow.",
+      "affinity": {
+       "metabolismo": 2,
+       "robustez": 1
+      }
+     },
+     {
+      "id": "jade",
+      "name": "Jade",
+      "desc": "A cool jade glow.",
+      "affinity": {
+       "agilidade": 1,
+       "sociabilidade": 1
+      }
+     },
+     {
+      "id": "magenta",
+      "name": "Magenta",
+      "desc": "A bright magenta glow.",
+      "affinity": {
+       "misterio": 2,
+       "ferocidade": 1
+      }
+     },
+     {
+      "id": "ciano",
+      "name": "Ciano",
+      "desc": "A clean cyan glow.",
+      "affinity": {
+       "agilidade": 2
+      }
+     },
+     {
+      "id": "carmim",
+      "name": "Carmim",
+      "desc": "A deep crimson glow.",
+      "affinity": {
+       "ferocidade": 3
+      }
+     },
+     {
+      "id": "violeta",
+      "name": "Violeta",
+      "desc": "A violet glow, deep and strange.",
+      "affinity": {
+       "misterio": 3
+      }
+     }
+    ]
+   },
+   {
+    "id": "efeito",
+    "name": "Efeito das habilidades",
+    "question": "the flavour of every ability this cell uses: how its effects look and move",
+    "options": [
+     {
+      "id": "chama",
+      "name": "Chama",
+      "desc": "Abilities burn: warm tints, flaring, quick-fading sparks.",
+      "affinity": {
+       "ferocidade": 3
+      }
+     },
+     {
+      "id": "cristal",
+      "name": "Cristal",
+      "desc": "Abilities crystallise: sharp, cold, glittering fragments.",
+      "affinity": {
+       "robustez": 2,
+       "misterio": 1
+      }
+     },
+     {
+      "id": "nevoa",
+      "name": "Névoa",
+      "desc": "Abilities billow: soft, drifting clouds with long tails.",
+      "affinity": {
+       "sociabilidade": 2,
+       "misterio": 2
+      }
+     },
+     {
+      "id": "eletrico",
+      "name": "Elétrico",
+      "desc": "Abilities crackle: jagged, instant, branching arcs.",
+      "affinity": {
+       "agilidade": 3
+      }
+     },
+     {
+      "id": "organico",
+      "name": "Orgânico",
+      "desc": "Abilities grow: wet, pulsing, budding forms.",
+      "affinity": {
+       "metabolismo": 3
+      }
+     }
+    ]
+   }
   ]
  },
  "differentiation": {

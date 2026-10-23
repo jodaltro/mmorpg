@@ -25,6 +25,7 @@ var dungeon: BioDungeon
 var anatomy: BioAnatomyView
 var atlas: BioAtlas
 var exploration: BioExploration
+var design_traits: Dictionary = {}  # what Jev designed for this cell (engine look traits)
 var codex_panel: BioCodexPanel
 var adapted_regions: Array = []
 var compass_text := ""
@@ -244,6 +245,13 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 ## The engine's procedural body for this player, decided from how they play. It arrives in the
 ## background whenever the engine decides, and the body morphs towards it slowly.
 func apply_engine_look(look: Dictionary) -> void:
+	var designed: Dictionary = look.get("traits", {})
+	if designed != design_traits:
+		design_traits = designed.duplicate()
+		abilities.effect_style = StringName(str(design_traits.get("efeito", "")))
+		for child in player.get_children():
+			if child is BioCellBody:
+				(child as BioCellBody).set_traits(design_traits)
 	var axes: Dictionary = look.get("axes", {})
 	if axes.is_empty():
 		return

@@ -37,6 +37,7 @@ var _lobes := 0
 var _front := Vector2.RIGHT
 var look_now := {}  # engine axes (0-100), eased towards look_target so the body morphs slowly
 var look_target := {}
+var traits := {}  # the signature Jev designed (nucleo, membrana, organelas, brilho): see BioDesign
 var _base_core := Color.WHITE
 var _base_edge := Color.WHITE
 var _base_spikes := 0
@@ -117,8 +118,15 @@ func set_look(axes: Dictionary) -> void:
 			look_now[k] = 0.0  # starts neutral and grows into the look
 
 
+## The traits Jev designed for this cell. They only change how the body is drawn.
+func set_traits(designed: Dictionary) -> void:
+	traits = designed.duplicate()
+	queue_redraw()
+
+
 ## Back to the plain newborn look (a restarted world).
 func clear_look() -> void:
+	traits = {}
 	if not look_target.is_empty():
 		core = _base_core
 		edge = _base_edge
@@ -381,6 +389,10 @@ func _draw() -> void:
 		return
 	var edge_now := _edge_now()
 	var core_now := _core_now()
+	var glow := BioDesign.glow(str(traits.get("brilho", "")))
+	if glow.a > 0.0:
+		core_now = core_now.lerp(glow, 0.55)
+		edge_now = edge_now.lerp(glow, 0.35)
 	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
 	var layers := [[1.0, BioArt.with_alpha(edge_now, 0.28)], [0.7, BioArt.with_alpha(core_now, 0.16 + _telegraph * 0.2)], [0.4, BioArt.with_alpha(core_now, 0.2)]]
 	for layer in layers:
@@ -395,9 +407,65 @@ func _draw() -> void:
 	var closed := outline.duplicate()
 	closed.append(outline[0])
 	draw_polyline(closed, BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.35), 0.95), 6.0 if genes.has(&"membrana_espessa") else 3.0, true)
-	BioNucleusShapes.draw(self, form, _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, 6 if genes.has(&"nucleo_multilobulado") else 3)
+	_draw_membrane_trait(closed, edge_now, Time.get_ticks_msec() * 0.001 + _seed)
+	BioNucleusShapes.draw(self, BioDesign.nucleus_form(str(traits.get("nucleo", "")), form), _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, 6 if genes.has(&"nucleo_multilobulado") else 3)
 	_draw_genes(edge_now, core_now)
+	_draw_organelle_trait(radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now)
 	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human, not genes.is_empty())
+
+
+## The membrane texture Jev chose: ripples, spines, beads, a second wall (smooth leaves it plain).
+func _draw_membrane_trait(closed: PackedVector2Array, edge_now: Color, t: float) -> void:
+	var style := str(traits.get("membrana", ""))
+	if style == "" or style == "lisa" or closed.size() < 8:
+		return
+	var n := closed.size() - 1
+	var col := BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.4), 0.85)
+	match style:
+		"ondulada":
+			var wave := PackedVector2Array()
+			for i in n + 1:
+				var p := closed[i % n]
+				wave.append(p + p.normalized() * (4.0 + 3.0 * sin(i * 0.9 + t * 2.4)))
+			draw_polyline(wave, BioArt.with_alpha(col, 0.55), 2.0, true)
+		"espinhosa":
+			for k in 16:
+				var p2 := closed[(k * n / 16) % n]
+				draw_line(p2, p2 + p2.normalized() * (9.0 + 3.0 * sin(t * 3.0 + k)), col, 2.2, true)
+		"contas":
+			for k in 26:
+				draw_circle(closed[(k * n / 26) % n] * 1.04, 2.6, col)
+		"dupla":
+			var outer := PackedVector2Array()
+			for p3 in closed:
+				outer.append(p3 * 1.13)
+			draw_polyline(outer, BioArt.with_alpha(col, 0.6), 2.0, true)
+
+
+## The organelles Jev chose to dominate the inside: a few of one kind drifting under the membrane.
+func _draw_organelle_trait(r: float, t: float, core_now: Color) -> void:
+	var kind := str(traits.get("organelas", ""))
+	if kind == "":
+		return
+	for k in 7:
+		var ang := t * (0.12 + 0.02 * k) + k * 2.399
+		var pos := Vector2.from_angle(ang) * r * (0.3 + 0.38 * fmod(k * 0.37, 1.0))
+		match kind:
+			"mitocondrias":
+				draw_set_transform(pos, ang, Vector2(1.7, 0.8))
+				draw_circle(Vector2.ZERO, 4.0, BioArt.with_alpha(BioArt.AMBER, 0.75))
+				draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+			"lisossomos":
+				draw_circle(pos, 3.6, BioArt.with_alpha(Color(0.45, 1.0, 0.45), 0.7))
+			"vesiculas":
+				draw_arc(pos, 4.4, 0.0, TAU, 14, BioArt.with_alpha(Color(0.85, 0.92, 1.0), 0.7), 1.8, true)
+			"tubulos":
+				draw_line(pos, pos + Vector2.from_angle(ang + 1.0) * 14.0, BioArt.with_alpha(core_now.lerp(Color.WHITE, 0.4), 0.7), 1.6, true)
+			"vacuolos":
+				draw_arc(pos, 6.5, 0.0, TAU, 16, BioArt.with_alpha(Color(0.75, 0.9, 1.0), 0.5), 2.2, true)
+			"granulos":
+				draw_circle(pos, 2.8, BioArt.with_alpha(Color(0.25, 0.08, 0.2), 0.9))
+				draw_circle(pos, 1.4, BioArt.with_alpha(BioArt.CRIMSON, 0.9))
 
 
 ## Marks that come from the procedural body, not from a gene: they scale with how the player plays.

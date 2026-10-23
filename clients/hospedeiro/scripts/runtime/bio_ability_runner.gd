@@ -20,6 +20,7 @@ var slots: Array[StringName] = []
 var _host: BioCellActor
 var _aim_source: BioCellController
 var _limbs: BioLimbs
+var effect_style: StringName = &""  # trait "efeito" designed by Jev
 var _body: BioCellBody
 
 
@@ -109,7 +110,8 @@ func perform_id(id: StringName) -> int:
 	if status != BioActor.AttackStatus.STARTED:
 		return status
 	var def := me.actor.attack_def(id)
-	var color: Color = a["color"]
+	var color: Color = BioEffectSignature.tint(a["color"], effect_style)
+	_limbs.signature = effect_style
 	match kind:
 		"devour":
 			_devour(def, a, aim, color)

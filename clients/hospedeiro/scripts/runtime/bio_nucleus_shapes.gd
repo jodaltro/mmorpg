@@ -23,6 +23,8 @@ static func radius_at(form: StringName, a: float, t: float) -> float:
 			return 0.98 * cos(TAU / 12.0) / cos(sector) * breath
 		&"t_auxiliar":  # a four-leaf clover
 			return (1.0 + 0.34 * absf(cos(2.0 * a))) * 0.88 * breath
+		&"estrela":  # a five-pointed star
+			return (0.62 + 0.5 * pow(absf(cos(2.5 * a)), 1.6)) * breath
 		&"linfoide":
 			return (1.0 + 0.1 * cos(2.0 * a)) * 1.08 * breath
 		_:

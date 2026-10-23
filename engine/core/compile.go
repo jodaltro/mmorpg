@@ -220,6 +220,9 @@ func Compile(u Universe) (*World, error) {
 	if e := w.compileEvolution(v); e != nil {
 		return nil, e
 	}
+	if e := w.compileDesign(); e != nil {
+		return nil, e
+	}
 	if e := w.compileAppearance(); e != nil {
 		return nil, e
 	}
