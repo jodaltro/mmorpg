@@ -30,7 +30,7 @@ func _run() -> void:
 			child.set_process(false)
 	world.genome.lineage = &"linfocito_b"
 	world.player.combatant.set_genome(world.genome)
-	for id in [&"anticorpo_y", &"salva_de_anticorpos"]:
+	for id in [&"anticorpo_y", &"fabrica_de_plasmocito"]:
 		world.abilities.learn(id)
 	world.hud.visible = false
 	var ctrl := world.player.get_node("Controller") as BioCellController

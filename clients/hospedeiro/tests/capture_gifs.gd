@@ -3,12 +3,12 @@ extends SceneTree
 ## godot --path clients/hospedeiro --script res://tests/capture_gifs.gd -- <output_dir> [ability ids...]
 
 const CASES := {
-	&"macrofago": [[&"engolir", 1.6], [&"onda_de_pseudopodes", 2.0], [&"lisossomo_acido", 4.0], [&"muralha_de_carne", 0.0]],
-	&"neutrofilo": [[&"rede_de_dna", 3.2], [&"explosao_neutrofilica", 2.4], [&"netose", 2.4], [&"degranulacao", 1.6]],
-	&"dendritica": [[&"apresentar_antigeno", 3.0], [&"dendritos_em_chicote", 2.2], [&"chuva_de_esporos", 0.0], [&"mapa_quimico", 3.0]],
-	&"linfocito_b": [[&"anticorpo_y", 4.0], [&"salva_de_anticorpos", 4.0], [&"opsonizacao", 3.0], [&"explosao_de_plasmocito", 2.4]],
-	&"t_citotoxico": [[&"perforina", 2.6], [&"golpe_litico", 2.6], [&"apoptose", 3.0], [&"sinal_de_morte", 3.0]],
-	&"t_auxiliar": [[&"citocina_curativa", 0.0], [&"canto_de_citocinas", 0.0], [&"chamado_a_linfa", 0.0], [&"febre_dirigida", 3.4]],
+	&"macrofago": [[&"engolir", 1.6], [&"onda_de_pseudopodes", 2.0], [&"contragolpe", 0.0], [&"polarizacao", 0.0]],
+	&"neutrofilo": [[&"rede_de_dna", 3.2], [&"explosao_neutrofilica", 2.4], [&"diapedese", 1.0], [&"surto_oxidativo", 0.0]],
+	&"dendritica": [[&"varredura", 3.0], [&"dendritos_em_chicote", 2.2], [&"maturacao", 0.0], [&"passagem_linfatica", 0.0]],
+	&"linfocito_b": [[&"anticorpo_y", 4.0], [&"complemento", 3.0], [&"memoria_imunologica", 2.0], [&"fabrica_de_plasmocito", 4.0]],
+	&"t_citotoxico": [[&"perforina", 2.6], [&"salto_letal", 5.5], [&"sinapse_letal", 3.0], [&"lise_em_massa", 4.0]],
+	&"t_auxiliar": [[&"febre_contagiosa", 3.0], [&"chamado_aos_auxiliares", 0.0], [&"segunda_chance", 0.0], [&"transfusao", 0.0]],
 }
 const FRAMES := 44
 const STEP := 0.075
@@ -62,7 +62,7 @@ func _run() -> void:
 					var brain := BioFactory.spawn_virus(world, world.player.global_position + off * BioArt.UNIT, world.player)
 					brain.set_process(false)
 					victims.append(brain.get_parent() as BioCellActor)
-				if id == &"apoptose":
+				if id == &"sinapse_letal":
 					victims[0].combatant.actor.vitals.membrane = 8.0
 			await create_timer(0.15).timeout
 			Engine.time_scale = 0.45

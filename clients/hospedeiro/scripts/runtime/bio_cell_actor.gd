@@ -18,6 +18,7 @@ var _dash_velocity := Vector2.ZERO
 
 ## Rolling (the eosinophil curled into a ball): it keeps its speed, bounces off walls and bodies and can be steered a little.
 signal bumped(collider: Object, normal: Vector2)
+var _ghost_until := 0.0
 var _roll_until := 0.0
 var _roll_velocity := Vector2.ZERO
 var _roll_steer := 0.0
@@ -63,6 +64,15 @@ func end_roll() -> void:
 	_roll_until = 0.0
 
 
+## Passes through bodies (not walls) for `seconds`: it is not there for the other cells, which cannot stop it, push it or hit it.
+func ghost(seconds: float) -> void:
+	_ghost_until = maxf(_ghost_until, BioClock.now() + seconds)
+
+
+func is_ghost() -> bool:
+	return BioClock.now() < _ghost_until
+
+
 ## Stops a dash or a lunge in its tracks.
 func cancel_dash() -> void:
 	_dash_until = 0.0
@@ -102,6 +112,9 @@ func is_active() -> bool:
 
 
 func _physics_process(delta: float) -> void:
+	if is_active():  # a ghost is not there for the other cells: they neither block it nor are pushed by it, nor can they hit it
+		collision_layer = 0 if is_ghost() else LAYER_COMBATANT
+		collision_mask = LAYER_WALL if is_ghost() else (LAYER_COMBATANT | LAYER_WALL)
 	if is_rolling():
 		if intent.length_squared() > 0.01:
 			var turn := _roll_velocity.angle_to(intent)

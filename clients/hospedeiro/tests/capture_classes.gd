@@ -1,11 +1,11 @@
 extends SceneTree
-## The four newer classes, plain and risen (wearing four of their own genes), and each of their sixteen abilities in the middle of its work
+## The ten classes, plain and risen (wearing four of their own genes), and each of their abilities in the middle of its work
 ## (real renderer):  godot --path clients/hospedeiro --script res://tests/capture_classes.gd -- <output_dir>
 
 var world: BioWorld
 var out_dir := "."
 
-const CLASSES := [&"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]
+const CLASSES := [&"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador", &"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]
 
 
 func _initialize() -> void:
@@ -187,6 +187,106 @@ func _cast(lineage: StringName, ability: StringName, step: int) -> void:
 			await _shot(name)
 			await create_timer(1.2).timeout
 			await _shot(name + "_b")
+		&"contragolpe":
+			world.abilities.perform_id(ability)
+			await create_timer(0.3).timeout
+			foes[0].global_position = world.player.global_position + Vector2(1.4, 0.0) * BioArt.UNIT
+			await create_timer(0.1).timeout
+			world.debug_god = false
+			foes[0].combatant.receive_hit(world.player.combatant, BioAttackDef.new(&"capture_blow", 0.0, 30.0, 0.0, 1.0, 0.0, 0.0))
+			await create_timer(0.12).timeout
+			await _shot(name)
+			world.debug_god = true
+		&"polarizacao":
+			world.abilities.perform_id(ability)
+			await create_timer(0.6).timeout
+			await _shot(name)
+			_recharge()
+			world.abilities.perform_id(ability)
+			await create_timer(0.6).timeout
+			await _shot(name + "_b")
+			_recharge()
+			world.abilities.perform_id(ability)
+		&"diapedese":
+			foes[0].global_position = world.player.global_position + Vector2(1.6, 0.0) * BioArt.UNIT
+			world.abilities.perform_id(ability)
+			for k in 22:
+				world.player.set_intent(Vector2.RIGHT)
+				await create_timer(0.02).timeout
+			await _shot(name)
+		&"surto_oxidativo":
+			world.abilities.perform_id(ability)
+			await create_timer(0.9).timeout
+			await _shot(name)
+		&"varredura":
+			world.abilities.perform_id(ability)
+			await create_timer(0.9).timeout
+			await _shot(name)
+		&"maturacao":
+			world.abilities.perform_id(ability)
+			await create_timer(0.6).timeout
+			await _shot(name)
+		&"passagem_linfatica":
+			world.abilities.perform_id(ability)
+			await create_timer(1.0).timeout
+			await _shot(name)
+		&"complemento":
+			world.abilities.perform_id(ability)
+			await create_timer(0.6).timeout
+			_blow(foes[1], 8.0)
+			await create_timer(0.1).timeout
+			await _shot(name)
+			_blow(foes[1], 8.0)
+			_blow(foes[1], 8.0)
+			await create_timer(0.2).timeout
+			await _shot(name + "_b")
+		&"memoria_imunologica":
+			world.abilities.perform_id(&"anticorpo_y")
+			await create_timer(0.7).timeout
+			world.player.combatant.actor._ready_at.clear()
+			world.abilities.perform_id(ability)
+			await create_timer(0.5).timeout
+			await _shot(name)
+		&"fabrica_de_plasmocito":
+			world.abilities.perform_id(ability)
+			await create_timer(1.2).timeout
+			await _shot(name)
+		&"salto_letal":
+			world.abilities.perform_id(ability)
+			await create_timer(0.22).timeout
+			await _shot(name)
+			await create_timer(0.6).timeout
+			await _shot(name + "_b")
+		&"sinapse_letal":
+			world.abilities.perform_id(ability)
+			await create_timer(1.0).timeout
+			await _shot(name)
+		&"lise_em_massa":
+			for f in foes:
+				f.combatant.actor.vitals.membrane = 90.0
+			foes[0].combatant.actor.vitals.membrane = 20.0
+			world.abilities.perform_id(ability)
+			await create_timer(0.55).timeout
+			await _shot(name)
+		&"febre_contagiosa":
+			world.abilities.perform_id(ability)
+			await create_timer(2.2).timeout
+			await _shot(name)
+		&"chamado_aos_auxiliares":
+			world.abilities.perform_id(ability)
+			await create_timer(1.8).timeout
+			await _shot(name)
+		&"segunda_chance":
+			world.abilities.perform_id(ability)
+			await create_timer(0.5).timeout
+			await _shot(name)
+		&"transfusao":
+			world.debug_god = false
+			world.player.combatant.actor.vitals.membrane = 35.0
+			world.abilities.perform_id(ability)
+			await create_timer(0.25).timeout
+			await _shot(name)
+			world.debug_god = true
 		_:
 			world.abilities.perform_id(ability)
 			await create_timer(0.5).timeout
@@ -195,10 +295,11 @@ func _cast(lineage: StringName, ability: StringName, step: int) -> void:
 		if is_instance_valid(f):
 			f.queue_free()
 	for c in world.get_children():
-		if c is BioMine or c is BioGlob or c is BioTether or c is BioSingularity or c is BioSynapse or c is BioAnchor or c is BioHalo or c is BioChargeRing or (c is BioCellActor and c.name == "Decoy"):
+		if c is BioPortalPair or c is BioScanBeam or c is BioMine or c is BioGlob or c is BioTether or c is BioSingularity or c is BioSynapse or c is BioAnchor or c is BioHalo or c is BioChargeRing or (c is BioCellActor and (c.name == "Decoy" or c.name == "Auxiliar")):
 			c.queue_free()
 	world.player.scale = Vector2.ONE
 	world.player.modulate.a = 1.0
+	world.player.combatant.set_stance(&"", 0.0)
 	await create_timer(0.4).timeout
 
 

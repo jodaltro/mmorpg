@@ -71,9 +71,9 @@ func test_devour_damages_and_heals_and_charges_atp() -> void:
 	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.ON_COOLDOWN, "cooldown")
 
 
-func test_mark_without_target_costs_nothing_and_with_target_amplifies_damage() -> void:
+func test_a_targeted_ability_without_target_costs_nothing_and_with_one_marks_it() -> void:
 	await _clear_viruses()
-	world.abilities.learn(&"apresentar_antigeno")
+	world.abilities.learn(&"complemento")
 	var atp := world.player.combatant.actor.vitals.atp
 	assert_eq(world.abilities.perform(0), BioAbilityRunner.NO_TARGET, "no target")
 	assert_near(world.player.combatant.actor.vitals.atp, atp, 0.01, "nothing spent")
@@ -81,25 +81,24 @@ func test_mark_without_target_costs_nothing_and_with_target_amplifies_damage() -
 	await tree.physics_frame
 	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "marked")
 	await tree.create_timer(0.35).timeout  # the limb has to reach the target first
-	assert_true(virus.combatant.is_marked(), "is marked")
+	assert_eq(virus.combatant.complement_hits(), 3, "three blows to go")
 	var lash := BioAttackCatalog.get_def(BioAttackCatalog.FLAGELLUM_LASH)
 	var before := virus.combatant.actor.vitals.membrane
-	virus.combatant.receive_hit(world.player.combatant, lash)
-	assert_near(before - virus.combatant.actor.vitals.membrane, lash.damage * float(BioAbilityCatalog.get_ability(&"apresentar_antigeno")["mult"]), 0.05, "a marked cell takes the mark multiplier")
+	for k in 3:
+		virus.combatant.receive_hit(world.player.combatant, lash)
+	assert_true(before - virus.combatant.actor.vitals.membrane > lash.damage * 3.0, "the third blow burst it, on top of the three")
 
 
-func test_trap_zone_bursts_after_its_delay() -> void:
+func test_the_net_zone_slows_and_wounds_what_is_caught() -> void:
 	await _clear_viruses()
-	var virus := _idle_virus(Vector2(2.2, 0.0) * BioArt.UNIT)
+	var virus := _idle_virus(Vector2(3.5, 0.0) * BioArt.UNIT)
 	await tree.physics_frame
-	world.abilities.learn(&"netose")
+	world.abilities.learn(&"rede_de_dna")
 	(world.player.get_node("Controller") as BioCellController).set_aim(Vector2.RIGHT)
 	var before := virus.combatant.actor.vitals.membrane
-	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "trap laid")
-	await tree.create_timer(0.5).timeout
-	assert_near(virus.combatant.actor.vitals.membrane, before, 0.01, "still armed")
-	await tree.create_timer(1.2).timeout
-	assert_true(virus.combatant.actor.vitals.membrane < before, "burst")
+	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "net thrown")
+	await tree.create_timer(1.5).timeout
+	assert_true(virus.combatant.actor.vitals.membrane < before, "wounded")
 
 
 func test_antibody_bolt_flies_and_hits() -> void:
@@ -114,8 +113,8 @@ func test_antibody_bolt_flies_and_hits() -> void:
 	assert_true(virus.combatant.actor.vitals.membrane < before, "bolt landed")
 
 
-func test_shield_reduces_damage_taken() -> void:
-	world.abilities.learn(&"muralha_de_carne")
+func test_the_counter_lets_part_of_the_blow_through_and_sends_the_rest_back() -> void:
+	world.abilities.learn(&"contragolpe")
 	var player := world.player.combatant
 	var hit := BioAttackCatalog.get_def(BioAttackCatalog.FLAGELLUM_LASH)
 	var virus := _idle_virus(Vector2(8.0, 0.0) * BioArt.UNIT)
@@ -124,9 +123,12 @@ func test_shield_reduces_damage_taken() -> void:
 	var plain := start - player.actor.vitals.membrane
 	player.actor.vitals.membrane = start
 	player.actor.invulnerable_until = 0.0
-	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "shield up")
-	player.receive_hit(virus.combatant, hit)
-	assert_near(start - player.actor.vitals.membrane, plain * float(BioAbilityCatalog.get_ability(&"muralha_de_carne")["taken"]), 0.05, "takes only what the shield lets through")
+	var virus_before := virus.combatant.actor.vitals.membrane
+	assert_eq(world.abilities.perform(0), BioActor.AttackStatus.STARTED, "counter up")
+	var felt := player.receive_hit(virus.combatant, hit).damage_applied
+	assert_near(felt, plain * float(BioAbilityCatalog.get_ability(&"contragolpe")["taken"]), 0.05, "takes only part of the blow")
+	assert_true(virus.combatant.actor.vitals.membrane < virus_before, "and the striker pays")
+	assert_true(virus.combatant.is_stunned() or virus.combatant.actor.vitals.membrane <= 0.0, "and is shaken")
 
 
 func test_restart_world_returns_to_a_plain_newborn() -> void:

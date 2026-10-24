@@ -119,7 +119,7 @@ func _draw() -> void:
 	var angle := _dir.angle()
 	draw_set_transform(Vector2.ZERO, angle, Vector2.ONE * _size)
 	var impact := str(design.get("impact", "simples"))
-	if _homing or _def.id == &"salva_de_anticorpos":  # the antibody Y
+	if _homing:  # the antibody Y
 		var c := BioArt.with_alpha(_color.lerp(Color.WHITE, 0.4), 0.95)
 		draw_line(Vector2(-14, 0), Vector2(0, 0), c, 3.0, true)
 		draw_line(Vector2(0, 0), Vector2(11, -8), c, 3.0, true)

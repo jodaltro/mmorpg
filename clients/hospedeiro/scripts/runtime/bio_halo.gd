@@ -7,6 +7,7 @@ var host: BioCellActor
 var color := Color(1.0, 0.62, 0.2)
 var radius_px := 46.0
 var until := Callable()  # returns true while the halo should stay
+var count_source := Callable()  # optional: how many granules to show (e.g. charges left)
 
 var _age := 0.0
 
@@ -34,8 +35,9 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	var r := radius_px * host.scale.x
-	for k in 9:
-		var a := _age * 1.8 + k * TAU / 9.0
+	var n := int(count_source.call()) if count_source.is_valid() else 9
+	for k in n:
+		var a := _age * 1.8 + k * TAU / float(maxi(n, 1))
 		var wobble := 1.0 + 0.12 * sin(_age * 5.0 + k * 2.0)
 		var p := Vector2.from_angle(a) * r * wobble
 		draw_circle(p, 5.0, BioArt.with_alpha(color, 0.3))

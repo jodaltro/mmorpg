@@ -175,25 +175,25 @@ func test_a_cell_only_meets_generic_and_its_own_class_mutations() -> void:
 func test_perks_change_the_ability_as_the_genome_performs_it() -> void:
 	var genome := BioGenome.new()
 	genome.lineage = &"macrofago"
-	var base := BioAbilityCatalog.get_ability(&"lisossomo_acido")
+	var base := BioAbilityCatalog.get_ability(&"contragolpe")
 	genome.equip(&"vacuolo_digestivo")
-	var tuned := genome.tune(&"lisossomo_acido", base)
-	assert_near(float(tuned["radius"]), float(base["radius"]) * float(BioGeneCatalog.get_gene(&"vacuolo_digestivo").perks[&"lisossomo_acido"]["radius"]), 0.001, "radius grows")
-	assert_near(float(tuned["duration"]), float(base["duration"]) * float(BioGeneCatalog.get_gene(&"vacuolo_digestivo").perks[&"lisossomo_acido"]["duration"]), 0.001, "lasts longer")
+	var tuned := genome.tune(&"contragolpe", base)
+	assert_near(float(tuned["heal"]), float(base["heal"]) * float(BioGeneCatalog.get_gene(&"vacuolo_digestivo").perks[&"contragolpe"]["heal"]), 0.001, "the mending grows")
+	assert_near(float(tuned["seconds"]), float(base["seconds"]) * float(BioGeneCatalog.get_gene(&"vacuolo_digestivo").perks[&"contragolpe"]["seconds"]), 0.001, "lasts longer")
 	var other := genome.tune(&"engolir", BioAbilityCatalog.get_ability(&"engolir"))
 	assert_near(float(other["heal"]), float(BioAbilityCatalog.get_ability(&"engolir")["heal"]), 0.001, "another ability is untouched")
 	genome.equip(&"receptor_de_limpeza")
 	var def := genome.modify(BioAbilityCatalog.attack_def(&"onda_de_pseudopodes"))
 	assert_true(def.damage > BioAbilityCatalog.attack_def(&"onda_de_pseudopodes").damage * 1.3, "damage perk and general power reach the domain definition")
-	var salva := BioGenome.new()
-	salva.equip(&"hipermutacao_somatica")
-	assert_eq(int(salva.tune(&"salva_de_anticorpos", BioAbilityCatalog.get_ability(&"salva_de_anticorpos"))["count"]), 7, "additive perk: +2 antibodies")
+	var helpers := BioGenome.new()
+	helpers.equip(&"interleucina_2")
+	assert_eq(int(helpers.tune(&"chamado_aos_auxiliares", BioAbilityCatalog.get_ability(&"chamado_aos_auxiliares"))["count"]), 3, "additive perk: +1 auxiliary")
 
 
 func test_the_summary_names_the_ability_a_mutation_reshapes() -> void:
 	var text := BioGeneCatalog.get_gene(&"granulos_explosivos").summary()
-	assert_true(text.contains("NETose"), "names NETose")
-	assert_true(text.contains("explosão"), "and what changes")
+	assert_true(text.contains("Diapedese"), "names Diapedese")
+	assert_true(text.contains("dano"), "and what changes")
 
 
 func test_ascension_follows_the_share_of_own_class_mutations() -> void:

@@ -88,15 +88,15 @@ func TestDeedsDiscoverAnAbilityOfTheClass(t *testing.T) {
 	h.becomeClass("p1", "mieloide", "macrofago")
 	h.repeat("adapter", "p1", "estilo-chicote", 30)
 	h.tick(1)
-	if !slices.Contains(h.skillIDs("p1"), "lisossomo-acido") {
-		t.Fatalf("lashing 30 times teaches the acid lysosome, got %v", h.skillIDs("p1"))
+	if !slices.Contains(h.skillIDs("p1"), "contragolpe") {
+		t.Fatalf("lashing 30 times teaches the counter, got %v", h.skillIDs("p1"))
 	}
 	g := load(t, "hospedeiro")
 	g.join("p2")
 	g.becomeClass("p2", "linfoide", "linfocito-b")
 	g.repeat("adapter", "p2", "estilo-chicote", 30)
 	g.tick(1)
-	if slices.Contains(g.skillIDs("p2"), "lisossomo-acido") {
+	if slices.Contains(g.skillIDs("p2"), "contragolpe") {
 		t.Fatal("a B cell must not discover a macrophage's ability")
 	}
 }
@@ -127,8 +127,8 @@ func TestTheAdvisorAwakensAnAbilityOfTheClass(t *testing.T) {
 	if _, err := h.try(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "engolir", Provider: "test"}); err == nil {
 		t.Fatal("an ability outside the options (another class's) is refused")
 	}
-	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "degranulacao", Provider: "test"})
-	if !slices.Contains(h.skillIDs("p1"), "degranulacao") {
+	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "surto-oxidativo", Provider: "test"})
+	if !slices.Contains(h.skillIDs("p1"), "surto-oxidativo") {
 		t.Fatalf("the advisor's pick awakens, got %v", h.skillIDs("p1"))
 	}
 }

@@ -22,7 +22,7 @@ func _run() -> void:
 			child.set_process(false)
 	world.genome.lineage = &"macrofago"
 	world.player.combatant.set_genome(world.genome)
-	for id in [&"engolir", &"onda_de_pseudopodes", &"lisossomo_acido", &"muralha_de_carne"]:
+	for id in [&"engolir", &"onda_de_pseudopodes", &"contragolpe", &"polarizacao"]:
 		world.abilities.learn(id)
 	if style != "":
 		world.apply_design({"efeito": style}, "debug")

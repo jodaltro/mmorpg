@@ -120,7 +120,7 @@ func test_a_harpoon_and_a_suction_pull_prey_in() -> void:
 
 func test_a_double_dash_strikes_again() -> void:
 	var t := _dummy(Vector2(3, 0))
-	_hit(t, &"golpe_litico", "dash_strike", "dupla")
+	_hit(t, &"explosao_neutrofilica", "dash_strike", "dupla")
 	await tree.create_timer(0.7).timeout
 	assert_near(_lost(t), 20.0 * (0.65 + 0.55), 0.05, "the second strike lands a beat later")
 
@@ -128,10 +128,10 @@ func test_a_double_dash_strikes_again() -> void:
 func test_a_wandering_zone_drifts_towards_the_nearest_enemy() -> void:
 	var near := _dummy(Vector2(5, 0))
 	near.combatant.actor.vitals.membrane = 1000.0
-	var params := BioAbilityMode.apply(BioAbilityCatalog.get_ability(&"lisossomo_acido"), "zone", {"zone": "migra"})
+	var params := BioAbilityMode.apply(BioAbilityCatalog.get_ability(&"rede_de_dna"), "zone", {"zone": "migra"})
 	assert_true(float(params["drift"]) > 0.0, "the mode sets a drift")
-	assert_true(float(params["radius"]) < float(BioAbilityCatalog.get_ability(&"lisossomo_acido")["radius"]), "and a smaller zone")
-	var zone := BioAbilityZone.spawn(world, world.player, &"lisossomo_acido", Vector2(1.5, 0.0) * BioArt.UNIT, params)
+	assert_true(float(params["radius"]) < float(BioAbilityCatalog.get_ability(&"rede_de_dna")["radius"]), "and a smaller zone")
+	var zone := BioAbilityZone.spawn(world, world.player, &"rede_de_dna", Vector2(1.5, 0.0) * BioArt.UNIT, params)
 	await tree.create_timer(1.2).timeout
 	assert_true(zone.global_position.x > 1.5 * BioArt.UNIT + 20.0, "it wandered %.0f px towards the enemy" % (zone.global_position.x - 1.5 * BioArt.UNIT))
 	zone.queue_free()
@@ -142,5 +142,5 @@ func test_without_modes_everything_is_as_before() -> void:
 	_hit(t, &"dendritos_em_chicote", "cone", "padrao")
 	await tree.create_timer(0.6).timeout
 	assert_near(_lost(t), 20.0, 0.05, "one blow, full damage")
-	var p := BioAbilityMode.apply(BioAbilityCatalog.get_ability(&"lisossomo_acido"), "zone", {})
+	var p := BioAbilityMode.apply(BioAbilityCatalog.get_ability(&"rede_de_dna"), "zone", {})
 	assert_true(not p.has("drift"), "and no drift")

@@ -4,12 +4,12 @@ extends SceneTree
 
 const ONLY := []
 const SHOTS := [
-	["macrofago", [&"engolir", &"onda_de_pseudopodes", &"lisossomo_acido", &"muralha_de_carne"]],
-	["neutrofilo", [&"rede_de_dna", &"explosao_neutrofilica", &"netose", &"degranulacao"]],
-	["dendritica", [&"apresentar_antigeno", &"dendritos_em_chicote", &"chuva_de_esporos", &"mapa_quimico"]],
-	["linfocito_b", [&"anticorpo_y", &"salva_de_anticorpos", &"opsonizacao", &"explosao_de_plasmocito"]],
-	["t_citotoxico", [&"perforina", &"golpe_litico", &"apoptose", &"sinal_de_morte"]],
-	["t_auxiliar", [&"citocina_curativa", &"canto_de_citocinas", &"chamado_a_linfa", &"febre_dirigida"]],
+	["macrofago", [&"engolir", &"onda_de_pseudopodes", &"contragolpe", &"polarizacao"]],
+	["neutrofilo", [&"rede_de_dna", &"explosao_neutrofilica", &"diapedese", &"surto_oxidativo"]],
+	["dendritica", [&"varredura", &"dendritos_em_chicote", &"maturacao", &"passagem_linfatica"]],
+	["linfocito_b", [&"anticorpo_y", &"complemento", &"memoria_imunologica", &"fabrica_de_plasmocito"]],
+	["t_citotoxico", [&"perforina", &"salto_letal", &"sinapse_letal", &"lise_em_massa"]],
+	["t_auxiliar", [&"febre_contagiosa", &"chamado_aos_auxiliares", &"segunda_chance", &"transfusao"]],
 ]
 
 

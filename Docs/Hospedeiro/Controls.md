@@ -116,6 +116,21 @@ Os órgãos se falam: o ferro reciclado no baço vira hemácia na medula; o inte
 
 As masmorras são **procedurais**: cada corrida abre com uma sala fixa, fecha com o chefe e sorteia, da semente, de 3 a 4 salas entre as dos órgãos (emboscada, pilares, ninho, poças, e as de sempre), cada uma com formato, pilares, poças e elenco próprios. Duas corridas não se parecem.
 
+## As habilidades das seis classes antigas
+
+Sete habilidades ficaram como o "cavalo de batalha" de cada família que o Jev desenha para a célula (devorar, onda, zona, investida, cone, projétil, estocada): Engolir, Onda de Pseudópodes, Rede de DNA, Explosão Neutrofílica, Dendritos em Chicote, Anticorpo Y e Perforina. As outras 17 foram refeitas como verbos que o jogo não tinha, e nenhuma repete outra: no total, as 40 habilidades das 10 classes são de 40 tipos diferentes.
+
+| Classe | Habilidades novas |
+|---|---|
+| **Macrófago** | **Contragolpe** (a membrana endurece: quem bate paga o golpe de volta, fica atordoado, e você se cura), **Polarização M1/M2** (muda de forma: M1 bate forte e queima o que fere, M2 bate fraco, aguenta e se cura) |
+| **Neutrófilo** | **Diapedese** (atravessa os corpos, mais rápido e com metade do dano, ferindo quem cruza), **Surto Oxidativo** (as recargas correm o dobro, e a membrana queima por isso) |
+| **Dendrítica** | **Varredura** (um feixe que segue a mira devagar), **Maturação** (as próximas 3 habilidades saem de graça e mais fortes), **Passagem Linfática** (duas portas no tecido) |
+| **Linfócito B** | **Complemento** (marca: no terceiro golpe, de quem for, o inimigo estoura), **Memória Imunológica** (repete de graça a última habilidade), **Fábrica de Plasmócito** (fica parado atirando anticorpos sem parar) |
+| **T citotóxico** | **Salto Letal** (salta por cima da multidão e cai com um golpe), **Sinapse Letal** (segura um inimigo à frente, apertando mais, e termina o quase morto), **Lise em Massa** (fere a sala e sentencia os quase mortos; o limiar sobe com as mortes recentes) |
+| **T auxiliar** | **Febre Contagiosa** (a febre passa de inimigo em inimigo), **Chamado aos Auxiliares** (duas células que lutam por você), **Segunda Chance** (o próximo golpe mortal não mata), **Transfusão** (troca membrana por energia, ou o contrário) |
+
+O texto de cada uma, e de como funciona, está na janela do Corpo (G), aba Habilidades.
+
 ## As quatro classes novas
 
 Da linhagem **mieloide** saem agora também o Mastócito e o Eosinófilo; da **linfoide**, a Célula NK e o Linfócito T regulador. Cada uma tem 4 habilidades (Q, F, C, V), 6 mutações de classe, um corpo próprio e uma prova que dá a segunda habilidade.

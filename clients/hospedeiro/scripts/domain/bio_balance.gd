@@ -82,31 +82,47 @@ static func ability_value(id: StringName, a: Dictionary) -> float:
 			return dmg * TARGETS + float(a.get("knockback", 0.0)) * 0.6
 		"bolt":
 			return dmg * (0.9 if bool(a.get("homing", false)) else 0.75)
-		"volley":
-			return dmg * float(a["count"]) * 0.5
 		"dash_strike":
 			return dmg * 1.4 + float(a["distance"]) * 1.2 + float(a.get("iframes", 0.0)) * 10.0
-		"mark":
-			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 + float(a.get("slow", 0.0)) * float(a["seconds"]) * 8.0
-		"mark_all":
-			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 * 2.5
-		"execute":
-			return 20.0 + dmg + float(a["below"]) * 10.0
-		"heal":
-			return float(a["amount"])
-		"summon":
-			return float(a["count"]) * float(a["tick"]) * (duration / 0.5) * 0.35
-		"aura":
-			if str(a.get("style", "")) == "shield":
-				return (1.0 - float(a["taken"])) * ENEMY_DPS * duration * 0.8
-			return (float(a["speed"]) - 1.0) * 60.0 * duration * 0.15 + float(a.get("regen_atp", 0.0)) * duration * 0.8
+		"counter":
+			var raw := ENEMY_DPS * float(a["seconds"]) * TARGETS * 0.5
+			return raw * (1.0 - float(a["taken"]) + float(a["reflect"]) + float(a["heal"])) + 10.0
+		"stance":
+			return 40.0 * float(a["power"])
+		"phase":
+			return dmg * float(a["seconds"]) / 0.5 * 0.25 + (1.0 - float(a["taken"])) * ENEMY_DPS * float(a["seconds"]) * 0.8 + (float(a["speed"]) - 1.0) * 60.0 * float(a["seconds"]) * 0.15 + 14.0
+		"frenzy":
+			return (float(a["rate"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 + (float(a["speed"]) - 1.0) * 60.0 * float(a["seconds"]) * 0.15 - float(a["burn"]) * float(a["seconds"]) * 0.6
+		"beam":
+			return dmg * (float(a["seconds"]) / float(a["every"])) * 0.55 * (1.0 + (TARGETS - 1.0) * 0.4)
+		"empower":
+			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["charges"]) * 2.0 * 0.6 + float(a["charges"]) * 6.0
+		"portal":
+			return 40.0 + float(a["seconds"]) * 1.5
+		"complement":
+			return (dmg + minf(float(a["pct"]) * TYPICAL_HP, float(a["cap"]))) * 1.4
+		"replay":
+			return 70.0 * float(a["echo"])
+		"turret":
+			return dmg * (float(a["seconds"]) / float(a["every"])) * 0.5 + (1.0 - float(a["taken"])) * ENEMY_DPS * float(a["seconds"]) * 0.8
+		"leap":
+			return dmg * TARGETS + float(a["knockback"]) * 0.6 + 12.0
+		"hold":
+			var beats := float(a["seconds"]) / 0.25
+			return beats * dmg + float(a["step"]) * beats * (beats + 1.0) / 2.0 + float(a["seconds"]) * ENEMY_DPS * 0.8
+		"massacre":
+			return dmg * TARGETS + (float(a["base"]) + float(a["per_kill"]) * 2.0) * TYPICAL_HP * TARGETS * 1.2
+		"contagion":
+			return dmg * (float(a["seconds"]) / 0.5) * (1.0 + minf(float(a["hops"]), TARGETS) * 0.7)
+		"allies":
+			return float(a["count"]) * dmg * (float(a["seconds"]) / 0.8) * 0.45 + float(a["hp"]) * float(a["count"]) * 0.3
+		"lastchance":
+			return float(a["restore"]) * TYPICAL_MEMBRANE * 1.5 + float(a["seconds"]) * 0.5
+		"convert":
+			return float(a["give"]) * float(a["rate"]) * TYPICAL_MEMBRANE * 1.5 - float(a["give"]) * TYPICAL_MEMBRANE * 0.4
 		"zone":
 			var style := str(a.get("style", ""))
 			var slow_value := float(a.get("slow", 0.0)) * duration * 8.0
-			if style == "trap":
-				return float(a["burst"]) * TARGETS * 0.8
-			if style == "spores":
-				return float(a.get("regen_atp", 0.0)) * duration * 0.8 + float(a.get("regen_membrane", 0.0)) * duration * 0.7
 			return (float(a.get("tick", 0.0)) * (duration / 0.5) * TARGETS * 0.65 + slow_value) * (1.2 if float(a.get("drift", 0.0)) > 0.0 else 1.0)
 	return 0.0
 
@@ -183,7 +199,7 @@ static func primary_keys(a: Dictionary) -> Array:
 	match str(a["kind"]):
 		"devour":
 			return ["damage", "heal"]
-		"cone", "nova", "pierce", "bolt", "volley", "dash_strike", "execute", "mines", "sticky", "cascade", "roll", "blink", "recall", "pull":
+		"cone", "nova", "pierce", "bolt", "dash_strike", "mines", "sticky", "cascade", "roll", "blink", "recall", "pull":
 			return ["damage"]
 		"overload":
 			return ["damage", "per_hp"]
@@ -203,20 +219,32 @@ static func primary_keys(a: Dictionary) -> Array:
 			return ["share"]
 		"decoy":
 			return ["hp"]
-		"mark", "mark_all":
+		"counter":
+			return ["reflect", "heal"]
+		"stance":
+			return ["power"]
+		"phase", "leap", "turret", "beam", "contagion", "allies":
+			return ["damage"]
+		"frenzy":
+			return ["rate"]
+		"empower":
 			return ["mult"]
-		"heal":
-			return ["amount"]
-		"summon":
-			return ["tick"]
-		"aura":
-			return ["taken", "duration"] if str(a.get("style", "")) == "shield" else ["speed", "regen_atp"]
+		"portal":
+			return ["seconds"]
+		"complement":
+			return ["damage", "pct"]
+		"replay":
+			return ["echo"]
+		"hold":
+			return ["damage", "step"]
+		"massacre":
+			return ["damage", "base"]
+		"lastchance":
+			return ["restore"]
+		"convert":
+			return ["give", "rate"]
 		"zone":
 			match str(a.get("style", "")):
-				"trap":
-					return ["burst"]
-				"spores":
-					return ["regen_atp", "regen_membrane"]
 				_:
 					return ["tick"]
 	return []
@@ -230,8 +258,10 @@ static func scaled(a: Dictionary, f: float) -> Dictionary:
 	for k in keys:
 		var v := float(a[k])
 		match k:
-			"mult", "speed", "strike", "wake":
+			"mult", "speed", "strike", "wake", "rate":
 				out[k] = 1.0 + (v - 1.0) * each
+			"restore", "echo":
+				out[k] = clampf(v * each, 0.05, 0.95 if k == &"restore" else 1.6)
 			"taken":
 				out[k] = clampf(1.0 - (1.0 - v) * each, 0.2, 0.9)  # a shield always lets a fifth through
 			"duration":

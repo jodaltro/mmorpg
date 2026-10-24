@@ -31,7 +31,7 @@ func _run() -> void:
 			child.set_process(false)
 	world.genome.lineage = &"t_citotoxico"
 	world.player.combatant.set_genome(world.genome)
-	for id in [&"perforina", &"golpe_litico", &"apoptose", &"sinal_de_morte"]:
+	for id in [&"perforina", &"salto_letal", &"sinapse_letal", &"lise_em_massa"]:
 		world.abilities.learn(id)
 	var ctrl := world.player.get_node("Controller") as BioCellController
 	for pass_name in ["room1", "boss"]:

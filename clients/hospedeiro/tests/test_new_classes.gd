@@ -114,7 +114,7 @@ func test_each_class_has_four_abilities_six_genes_and_a_body_of_its_own() -> voi
 
 func test_all_sixteen_abilities_are_different_verbs_and_carry_what_they_need() -> void:
 	var kinds := {}
-	var older := ["devour", "cone", "pierce", "nova", "dash_strike", "bolt", "volley", "mark", "mark_all", "execute", "zone", "heal", "aura", "summon"]
+	var older := ["devour", "cone", "pierce", "nova", "dash_strike", "bolt", "zone"]
 	for lineage in CLASSES:
 		for id in BioAbilityCatalog.ids_of_class(lineage):
 			var a := BioAbilityCatalog.get_ability(id)
@@ -134,6 +134,7 @@ func test_the_body_window_explains_every_class_and_every_ability() -> void:
 	for lineage in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"] + CLASSES:
 		for id in BioAbilityCatalog.ids_of_class(lineage):
 			assert_true(BioLore.has_ability(id), "%s is explained" % id)
+			assert_true(BioLore.KIND_NAMES.has(str(BioAbilityCatalog.get_ability(id)["kind"])) or BioBodyPanel.KIND_NAMES.has(str(BioAbilityCatalog.get_ability(id)["kind"])), "%s has a readable kind" % id)
 			assert_true(str(BioLore.ability_info(id)["how"]).length() > 20, "%s says how it works" % id)
 	for id in BioAbilityCatalog.ids_of_class(&"mastocito"):
 		assert_true(BioLore.KIND_NAMES.has(str(BioAbilityCatalog.get_ability(id)["kind"])), "%s has a readable kind" % id)

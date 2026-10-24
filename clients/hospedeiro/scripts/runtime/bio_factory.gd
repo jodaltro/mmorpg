@@ -159,6 +159,28 @@ static func spawn_decoy(parent: Node, pos: Vector2, hp: float, color: Color) -> 
 	return actor
 
 
+## An auxiliary called by a T helper cell: it fights on the cell's side for a while (see BioAllyBrain).
+static func spawn_ally(parent: Node, pos: Vector2, owner: BioCellActor, hp: float, def: BioAttackDef, color: Color, seconds: float) -> BioCellActor:
+	var actor := _make_actor(parent, "Auxiliar", pos)
+	actor.remove_from_group("cells")
+	actor.add_to_group("allies")
+	actor.thrust_units = 30.0
+	actor.max_speed_units = 5.2
+	actor.damping = 3.0
+	_virus_counter += 1
+	actor.combatant.configure("ally-%d" % _virus_counter, BioActor.Team.CELL, hp, 0.0, 0.0)
+	var body := BioCellBody.new()
+	body.configure(0.34, color.lerp(Color.WHITE, 0.3), color.darkened(0.25), 0, 0.0, 0.4, 8)
+	actor.add_child(body)
+	var feedback := BioHitFeedback.new()
+	feedback.configure(actor, body, color)
+	actor.add_child(feedback)
+	var brain := BioAllyBrain.new()
+	brain.configure(actor, body, owner, def, color, seconds)
+	actor.add_child(brain)
+	return actor
+
+
 static func _circle(radius_units: float) -> CircleShape2D:
 	var circle := CircleShape2D.new()
 	circle.radius = radius_units * BioArt.UNIT

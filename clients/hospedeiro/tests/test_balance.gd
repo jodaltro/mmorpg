@@ -22,10 +22,10 @@ func test_every_class_ability_sits_in_the_same_worth_band() -> void:
 	assert_eq(count, 40, "all 40 abilities were measured")
 
 
-func test_the_shield_never_makes_the_cell_untouchable() -> void:
-	var a := BioAbilityCatalog.get_ability(&"muralha_de_carne")
-	assert_true(float(a["taken"]) >= 0.2, "a shield lets at least a fifth through")
-	assert_true(float(a["duration"]) <= 9.0, "and does not last forever")
+func test_the_counter_never_makes_the_cell_untouchable() -> void:
+	var a := BioAbilityCatalog.get_ability(&"contragolpe")
+	assert_true(float(a["taken"]) >= 0.2, "a counter lets at least a fifth through")
+	assert_true(float(a["seconds"]) <= 4.0, "and does not last long")
 
 
 func test_every_mutation_is_worth_what_its_rarity_says() -> void:

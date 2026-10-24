@@ -17,9 +17,7 @@ const GENES := 1
 const ABILITIES := 2
 const BUILDS := 3
 const TICK_SECONDS := 4.0  # the engine's tick (universe tickSeconds), only to show how long the body still has to settle
-const KIND_NAMES := {"devour": "devora", "nova": "onda", "cone": "cone", "pierce": "perfura", "bolt": "projétil", "volley": "salva",
-	"dash_strike": "investida", "mark": "marca", "mark_all": "marca em área", "execute": "execução", "zone": "zona", "heal": "cura",
-	"aura": "aura", "summon": "invocação"}
+const KIND_NAMES := {"devour": "devora", "nova": "onda", "cone": "cone", "pierce": "perfura", "bolt": "projétil", "dash_strike": "investida", "zone": "zona"}
 const KEYS := ["Q", "F", "C", "V"]
 
 var tab := FORM

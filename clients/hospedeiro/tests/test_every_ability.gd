@@ -1,17 +1,17 @@
 extends TestCase
-## Plays every one of the 24 class abilities in a real world, with targets: each must start, have its effect on the world and
+## Plays every one of the 24 abilities of the six older classes in a real world, with targets: each must start, have its effect on the world and
 ## clean up after itself (no signature, zone, limb or particle node left behind).
 
 var world: BioWorld
 
 ## ability -> [where the target stands (units to the right), what must happen]
 const CASES := {
-	&"engolir": [1.5, "damage"], &"onda_de_pseudopodes": [2.0, "damage"], &"lisossomo_acido": [4.5, "damage"], &"muralha_de_carne": [0.0, "zone"],
-	&"rede_de_dna": [3.5, "damage"], &"explosao_neutrofilica": [3.0, "damage"], &"netose": [2.5, "damage"], &"degranulacao": [1.5, "damage"],
-	&"apresentar_antigeno": [3.0, "mark"], &"dendritos_em_chicote": [2.0, "damage"], &"chuva_de_esporos": [0.0, "zone"], &"mapa_quimico": [4.0, "mark"],
-	&"anticorpo_y": [5.0, "damage"], &"salva_de_anticorpos": [4.0, "damage"], &"opsonizacao": [3.0, "mark"], &"explosao_de_plasmocito": [2.5, "damage"],
-	&"perforina": [2.5, "damage"], &"golpe_litico": [3.0, "damage"], &"apoptose": [3.0, "kill"], &"sinal_de_morte": [3.0, "mark"],
-	&"citocina_curativa": [0.0, "heal"], &"canto_de_citocinas": [0.0, "haste"], &"chamado_a_linfa": [0.0, "zone"], &"febre_dirigida": [3.5, "damage"],
+	&"engolir": [1.5, "damage"], &"onda_de_pseudopodes": [2.0, "damage"], &"contragolpe": [0.0, "counter"], &"polarizacao": [0.0, "stance"],
+	&"rede_de_dna": [3.5, "damage"], &"explosao_neutrofilica": [3.0, "damage"], &"diapedese": [0.7, "damage"], &"surto_oxidativo": [0.0, "frenzy"],
+	&"varredura": [3.0, "damage"], &"dendritos_em_chicote": [2.0, "damage"], &"maturacao": [0.0, "empower"], &"passagem_linfatica": [0.0, "portal"],
+	&"anticorpo_y": [5.0, "damage"], &"complemento": [3.0, "complement"], &"memoria_imunologica": [2.0, "replay"], &"fabrica_de_plasmocito": [4.0, "damage"],
+	&"perforina": [2.5, "damage"], &"salto_letal": [5.5, "damage"], &"sinapse_letal": [3.0, "damage"], &"lise_em_massa": [4.0, "damage"],
+	&"febre_contagiosa": [3.0, "damage"], &"chamado_aos_auxiliares": [0.0, "allies"], &"segunda_chance": [0.0, "guardian"], &"transfusao": [0.0, "heal"],
 }
 
 
@@ -53,13 +53,16 @@ func _transient_nodes() -> int:
 	return n
 
 
-func test_all_24_abilities_work_and_clean_up() -> void:
+func test_the_older_24_abilities_work_and_clean_up() -> void:
 	var failures_before := failures.size()
 	for id in CASES:
 		var spec: Array = CASES[id]
 		world.player.combatant.reset_vitals()
 		world.abilities.slots.clear()
 		world.abilities.learn(id)
+		if spec[1] == "replay":  # a memory needs something to remember
+			world.abilities.learn(&"onda_de_pseudopodes")
+			world.abilities.perform_id(&"onda_de_pseudopodes")
 		var vitals := world.player.combatant.actor.vitals
 		vitals.membrane = 50.0
 		var victim: BioCellActor = null
@@ -68,26 +71,35 @@ func test_all_24_abilities_work_and_clean_up() -> void:
 			var brain := BioFactory.spawn_virus(world, world.player.global_position + Vector2(float(spec[0]), 0.0) * BioArt.UNIT, world.player)
 			brain.set_process(false)
 			victim = brain.get_parent() as BioCellActor
-			if spec[1] == "kill":
-				victim.combatant.actor.vitals.membrane = 8.0
+			victim.combatant.actor.vitals.membrane = 400.0
 			before = victim.combatant.actor.vitals.membrane
 		await tree.physics_frame
-		var status := world.abilities.perform(0)
+		var status := world.abilities.perform_id(id)
 		assert_eq(status, BioActor.AttackStatus.STARTED, "%s starts" % id)
-		await tree.create_timer(2.3 if id in [&"netose", &"explosao_de_plasmocito", &"apoptose"] else 1.5).timeout
+		await tree.create_timer(2.5 if id in [&"salto_letal", &"sinapse_letal", &"febre_contagiosa"] else 1.5).timeout
 		match str(spec[1]):
 			"damage":
 				assert_true(not is_instance_valid(victim) or victim.combatant.actor.vitals.membrane < before, "%s hurt its target" % id)
-			"kill":
-				assert_true(not is_instance_valid(victim) or not victim.combatant.actor.vitals.is_alive(), "%s executed it" % id)
-			"mark":
-				assert_true(is_instance_valid(victim) and victim.combatant.is_marked(), "%s marked it" % id)
-			"zone":
-				assert_true(_zones() >= 1, "%s raised its zone" % id)
+			"complement":
+				assert_true(is_instance_valid(victim) and victim.combatant.complement_hits() > 0, "%s marked it" % id)
+			"replay":
+				assert_true(is_instance_valid(victim) and before - victim.combatant.actor.vitals.membrane > float(BioAbilityCatalog.get_ability(&"onda_de_pseudopodes")["damage"]) * 0.9, "%s repeated the wave" % id)
+			"counter":
+				assert_true(world.player.combatant.is_countering(), "%s is up" % id)
+			"stance":
+				assert_eq(world.player.combatant.stance_now(), &"m1", "%s changed the form" % id)
+			"frenzy":
+				assert_true(world.player.combatant.is_frenzied(), "%s started" % id)
+			"empower":
+				assert_true(world.player.combatant.empower_charges() > 0, "%s gave charges" % id)
+			"portal":
+				assert_true(is_instance_valid(BioPortalPair.current), "%s opened its doors" % id)
+			"allies":
+				assert_true(tree.get_nodes_in_group("allies").size() >= 1, "%s called someone" % id)
+			"guardian":
+				assert_true(world.player.combatant.has_guardian(), "%s is ready" % id)
 			"heal":
 				assert_true(vitals.membrane > 50.0, "%s healed" % id)
-			"haste":
-				assert_true(world.player.combatant.speed_mult() > 1.0, "%s hastened" % id)
 		if is_instance_valid(victim):
 			victim.queue_free()
 		await tree.create_timer(0.1).timeout

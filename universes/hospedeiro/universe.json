@@ -3555,9 +3555,9 @@
    "giver": "dendra",
    "rank": "C",
    "title": "Prova do Anticorpomante",
-   "desc": "Quem se diferencia aprende com a prática. Salva de Anticorpos espera por você.",
+   "desc": "Quem se diferencia aprende com a prática. Complemento espera por você.",
    "objective": "Dispare 20 vezes: um linfócito B aprende atirando.",
-   "reward": "A habilidade Salva de Anticorpos e pressão evolutiva +5",
+   "reward": "A habilidade Complemento e pressão evolutiva +5",
    "tags": [
     "knowledge",
     "combat"
@@ -3574,7 +3574,7 @@
      {
       "not": {
        "has": {
-        "skill": "salva-de-anticorpos"
+        "skill": "complemento"
        }
       }
      }
@@ -3591,7 +3591,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "salva-de-anticorpos"
+     "v": "complemento"
     },
     {
      "op": "adjust",
@@ -3612,9 +3612,9 @@
    "giver": "neva",
    "rank": "C",
    "title": "Prova do Executor",
-   "desc": "Quem se diferencia aprende com a prática. Golpe Lítico espera por você.",
+   "desc": "Quem se diferencia aprende com a prática. Salto Letal espera por você.",
    "objective": "Chegue a 120 invasores destruídos: um T citotóxico se prova eliminando o que o corpo já marcou.",
-   "reward": "A habilidade Golpe Lítico e pressão evolutiva +5",
+   "reward": "A habilidade Salto Letal e pressão evolutiva +5",
    "tags": [
     "combat",
     "knowledge"
@@ -3631,7 +3631,7 @@
      {
       "not": {
        "has": {
-        "skill": "golpe-litico"
+        "skill": "salto-letal"
        }
       }
      }
@@ -3648,7 +3648,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "golpe-litico"
+     "v": "salto-letal"
     },
     {
      "op": "adjust",
@@ -3669,9 +3669,9 @@
    "giver": "rubra",
    "rank": "C",
    "title": "Prova do Maestro",
-   "desc": "Quem se diferencia aprende com a prática. Canto de Citocinas espera por você.",
+   "desc": "Quem se diferencia aprende com a prática. Chamado aos Auxiliares espera por você.",
    "objective": "Colha 25 nutrientes: o maestro rege o que alimenta.",
-   "reward": "A habilidade Canto de Citocinas e pressão evolutiva +5",
+   "reward": "A habilidade Chamado aos Auxiliares e pressão evolutiva +5",
    "tags": [
     "endure",
     "metabolism"
@@ -3688,7 +3688,7 @@
      {
       "not": {
        "has": {
-        "skill": "canto-de-citocinas"
+        "skill": "chamado-aos-auxiliares"
        }
       }
      }
@@ -3705,7 +3705,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "canto-de-citocinas"
+     "v": "chamado-aos-auxiliares"
     },
     {
      "op": "adjust",
@@ -5286,7 +5286,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "-10% ATP máx., +31% ganho de nutrientes, +15% dano da toxina. Lisossomo Ácido: +15% dano contínuo.",
+   "desc": "O que bate na membrana volta mais ácido. -10% ATP máx., +31% ganho de nutrientes, +15% dano da toxina. Contragolpe: +15% devolução do golpe, +9% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5319,7 +5319,7 @@
    "tags": [
     "endure"
    ],
-   "desc": "Absorve o impacto como uma esponja. +5% recarga das habilidades, +14% membrana máx., -8% velocidade. Muralha de Carne: +28% duração, -17% dano recebido.",
+   "desc": "A forma que escolher dura mais e vai mais fundo. +5% recarga das habilidades, +23% membrana máx., -8% velocidade. Polarização M1/M2: +17% intensidade, +34% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5336,7 +5336,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Um lago de ácido que cresce. -8% dano do chicote, +25% ganho de nutrientes. Lisossomo Ácido: +33% duração, +58% raio.",
+   "desc": "Digere o golpe que recebeu. -8% dano do chicote, +20% ganho de nutrientes. Contragolpe: +52% cura, +26% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5403,7 +5403,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "A armadilha detona com mais força. +6% poder das habilidades, -10% membrana máx.. NETose: +31% explosão, +12% raio.",
+   "desc": "Quem é atravessado sente mais. +8% poder das habilidades, -10% membrana máx.. Diapedese: +41% dano, +15% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5454,7 +5454,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "As granulações viram veneno denso. +10% custo das habilidades, -12% membrana máx.. Degranulação: +21% duração, +29% raio, +71% dano contínuo.",
+   "desc": "O surto dura mais e corre mais. +10% custo das habilidades, -12% membrana máx.. Surto Oxidativo: +25% ritmo, +33% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5488,7 +5488,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "+2 ATP/s, -10% velocidade, +13% dano da toxina. Chuva de Esporos: +19% ATP/s.",
+   "desc": "Mais uma habilidade amadurecida. +1 ATP/s, -10% velocidade, +6% dano da toxina. Maturação: +1 cargas, +9% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5505,7 +5505,7 @@
     "knowledge",
     "explore"
    ],
-   "desc": "Lê o corpo inteiro de uma vez. -8% membrana máx., +7% velocidade. Mapa Químico: +39% raio, +39% duração.",
+   "desc": "O feixe lê mais longe e por mais tempo. -8% membrana máx., +7% velocidade. Varredura: +30% alcance, +37% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5521,7 +5521,7 @@
    "tags": [
     "knowledge"
    ],
-   "desc": "Mostra o inimigo a toda a defesa. +4% poder das habilidades, -10% dano do chicote. Apresentar Antígeno: +7% amplificação, +17% duração.",
+   "desc": "O que amadureceu bate mais forte. +8% poder das habilidades, -10% dano do chicote. Maturação: +14% amplificação.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5555,7 +5555,7 @@
     "metabolism",
     "knowledge"
    ],
-   "desc": "Os esporos nascem e caem em ondas. +1 ATP/s, -5% velocidade. Chuva de Esporos: +16% duração, +16% raio, +40% reparo.",
+   "desc": "As portas duram mais e o feixe aquece. +1 ATP/s, -5% velocidade. Passagem Linfática: +41% duração; Varredura: +10% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5589,7 +5589,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "+6 ATP/s, -25% velocidade, +38% dano da toxina. Explosão de Plasmócito: +19% raio.",
+   "desc": "+4 ATP/s, -25% velocidade, +27% dano da toxina. Fábrica de Plasmócito: +14% dano, +18% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5622,7 +5622,7 @@
    "tags": [
     "knowledge"
    ],
-   "desc": "Mais variantes por salva. +8% recarga das habilidades, -12% membrana máx.. Salva de Anticorpos: +2 unidades, +43% dano, +57% abertura.",
+   "desc": "Cada variante abre mais um poro. +8% recarga das habilidades, -12% membrana máx.. Complemento: +77% dano, +77% fração da vida; Fábrica de Plasmócito: +38% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5656,7 +5656,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "Cada anticorpo prende em vários pontos. -5% velocidade, +4% dano da toxina. Opsonização: +4% amplificação, +17% duração, +13% lentidão.",
+   "desc": "Cada anticorpo prende em vários pontos: o complemento dura. -5% velocidade, +29% dano da toxina. Complemento: +58% dano, +117% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5707,7 +5707,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Fareja quem já está condenado. +4% custo das habilidades, -5% membrana máx.. Apoptose: +90% limiar, -45% recarga, +60% dano, +60% alcance.",
+   "desc": "Fareja quem já está condenado e aperta mais. +4% custo das habilidades, -5% membrana máx.. Sinapse Letal: +60% dano, +60% limiar do fim, +90% aperto.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5724,7 +5724,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Fica preso ao alvo até o fim. +5% recarga das habilidades, -6% velocidade. Sinal de Morte: +9% amplificação, +14% alcance, +28% duração.",
+   "desc": "Fica preso à sala até o fim. +4% recarga das habilidades, -4% velocidade. Lise em Massa: +60% base, +60% por morte.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5741,7 +5741,7 @@
     "combat",
     "explore"
    ],
-   "desc": "O corpo é um músculo carregado. -10% ATP máx., -6% membrana máx.. Golpe Lítico: -21% recarga, +42% dano, +42% distância.",
+   "desc": "O corpo é um músculo carregado. -10% ATP máx., -6% membrana máx.. Salto Letal: -25% recarga, +50% dano, +50% distância.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5774,7 +5774,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "+2 ATP/s, -15% dano do chicote, +15% membrana máx.. Canto de Citocinas: +10% duração.",
+   "desc": "O halo guarda a segunda chance por mais tempo. +2 ATP/s, -15% dano do chicote, +16% membrana máx.. Segunda Chance: +8% recuperação, +16% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5791,7 +5791,7 @@
     "endure",
     "knowledge"
    ],
-   "desc": "-20% recarga do impulso, +33% ganho de nutrientes, -10% dano da toxina. Canto de Citocinas: +7% velocidade.",
+   "desc": "A troca rende mais. -13% recarga do impulso, +21% ganho de nutrientes, -10% dano da toxina. Transfusão: +11% troca, +5% ritmo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5808,7 +5808,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "A cura chega a quem mais precisa. -10% dano do chicote, -8% ATP máx.. Citocina Curativa: +65% cura.",
+   "desc": "A febre queima mais e por mais tempo. -10% dano do chicote, -8% ATP máx.. Febre Contagiosa: +34% dano, +23% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5825,7 +5825,7 @@
     "knowledge",
     "endure"
    ],
-   "desc": "A linfa responde em maior número. +8% custo das habilidades, -7% velocidade. Chamado à Linfa: +2 unidades, +10% duração, +7% dano contínuo.",
+   "desc": "Os auxiliares respondem em maior número. +8% custo das habilidades, -7% velocidade. Chamado aos Auxiliares: +1 unidades, +38% vida do isco, +25% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5842,7 +5842,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Provoca febre onde o dedo aponta. +5% recarga das habilidades, -8% membrana máx.. Febre Dirigida: +25% duração, +19% raio, +37% dano contínuo.",
+   "desc": "A febre pula mais uma vez. +1% recarga das habilidades, -1% membrana máx.. Febre Contagiosa: +1 saltos, +30% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5859,7 +5859,7 @@
     "endure",
     "knowledge"
    ],
-   "desc": "O ritmo certo do coro, na hora certa. -12% dano do chicote, -4% velocidade. Canto de Citocinas: +23% duração, +39% ATP/s, +8% velocidade.",
+   "desc": "O ritmo certo do coro: os auxiliares mordem mais. -12% dano do chicote, -4% velocidade. Chamado aos Auxiliares: +41% dano, +41% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -7367,48 +7367,6 @@
    "offer": true
   },
   {
-   "id": "lisossomo-acido",
-   "name": "Lisossomo Ácido",
-   "rarity": "rara",
-   "desc": "Cospe uma poça de ácido que corrói tudo o que pisa nela.",
-   "class": "macrofago",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "macrofago"
-      }
-     },
-     {
-      "deeds": {
-       "action": "estilo-chicote",
-       "op": ">=",
-       "v": 30
-      }
-     }
-    ]
-   },
-   "offer": true
-  },
-  {
-   "id": "muralha-de-carne",
-   "name": "Muralha de Carne",
-   "rarity": "rara",
-   "desc": "Os pseudópodes se fecham ao redor do corpo e absorvem a maior parte do dano.",
-   "class": "macrofago",
-   "offer": true,
-   "tags": [
-    "combat",
-    "endure"
-   ]
-  },
-  {
    "id": "rede-de-dna",
    "name": "Rede de DNA",
    "rarity": "comum",
@@ -7433,60 +7391,6 @@
    "offer": true
   },
   {
-   "id": "netose",
-   "name": "NETose",
-   "rarity": "rara",
-   "desc": "Planta uma armadilha de DNA que explode depois de um instante.",
-   "class": "neutrofilo",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "neutrofilo"
-      }
-     },
-     {
-      "deeds": {
-       "action": "estilo-impulso",
-       "op": ">=",
-       "v": 20
-      }
-     }
-    ]
-   },
-   "offer": true
-  },
-  {
-   "id": "degranulacao",
-   "name": "Degranulação",
-   "rarity": "rara",
-   "desc": "Libera uma nuvem de grânulos tóxicos ao redor do corpo.",
-   "class": "neutrofilo",
-   "offer": true,
-   "tags": [
-    "combat",
-    "explore"
-   ]
-  },
-  {
-   "id": "apresentar-antigeno",
-   "name": "Apresentar Antígeno",
-   "rarity": "comum",
-   "desc": "Marca um inimigo com o seu rosto: ele passa a sofrer mais dano de todos.",
-   "class": "dendritica",
-   "starter": true,
-   "tags": [
-    "knowledge",
-    "explore"
-   ]
-  },
-  {
    "id": "dendritos-em-chicote",
    "name": "Dendritos em Chicote",
    "rarity": "incomum",
@@ -7499,108 +7403,12 @@
    "offer": true
   },
   {
-   "id": "chuva-de-esporos",
-   "name": "Chuva de Esporos",
-   "rarity": "rara",
-   "desc": "Esporos de memória caem ao redor e restauram a energia de quem está dentro.",
-   "class": "dendritica",
-   "tags": [
-    "knowledge",
-    "explore"
-   ],
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "dendritica"
-      }
-     },
-     {
-      "deeds": {
-       "action": "absorver-nutriente",
-       "op": ">=",
-       "v": 25
-      }
-     }
-    ]
-   },
-   "offer": true
-  },
-  {
-   "id": "mapa-quimico",
-   "name": "Mapa Químico",
-   "rarity": "epica",
-   "desc": "Uma onda de sinais revela e marca todos os inimigos ao redor.",
-   "class": "dendritica",
-   "offer": true,
-   "tags": [
-    "knowledge",
-    "explore"
-   ]
-  },
-  {
    "id": "anticorpo-y",
    "name": "Anticorpo Y",
    "rarity": "comum",
    "desc": "Dispara um anticorpo em Y que persegue o alvo.",
    "class": "linfocito-b",
    "starter": true,
-   "tags": [
-    "knowledge",
-    "combat"
-   ]
-  },
-  {
-   "id": "salva-de-anticorpos",
-   "name": "Salva de Anticorpos",
-   "rarity": "incomum",
-   "desc": "Uma rajada de cinco anticorpos em leque.",
-   "class": "linfocito-b",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "offer": true
-  },
-  {
-   "id": "opsonizacao",
-   "name": "Opsonização",
-   "rarity": "rara",
-   "desc": "Cobre o inimigo de anticorpos: ele fica mais lento e sofre mais dano.",
-   "class": "linfocito-b",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "linfocito-b"
-      }
-     },
-     {
-      "deeds": {
-       "action": "estilo-toxina",
-       "op": ">=",
-       "v": 25
-      }
-     }
-    ]
-   },
-   "offer": true
-  },
-  {
-   "id": "explosao-de-plasmocito",
-   "name": "Explosão de Plasmócito",
-   "rarity": "epica",
-   "desc": "A célula vira uma fábrica e detona uma onda de anticorpos.",
-   "class": "linfocito-b",
-   "offer": true,
    "tags": [
     "knowledge",
     "combat"
@@ -7616,126 +7424,6 @@
    "tags": [
     "combat",
     "knowledge"
-   ]
-  },
-  {
-   "id": "golpe-litico",
-   "name": "Golpe Lítico",
-   "rarity": "incomum",
-   "desc": "Um arranque que atravessa o inimigo com a agulha.",
-   "class": "t-citotoxico",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "offer": true
-  },
-  {
-   "id": "apoptose",
-   "name": "Apoptose",
-   "rarity": "rara",
-   "desc": "Sentencia um inimigo ferido: se estiver quase morto, ele se desfaz.",
-   "class": "t-citotoxico",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-citotoxico"
-      }
-     },
-     {
-      "deeds": {
-       "action": "derrotar-virus",
-       "op": ">=",
-       "v": 18
-      }
-     }
-    ]
-   },
-   "offer": true
-  },
-  {
-   "id": "sinal-de-morte",
-   "name": "Sinal de Morte",
-   "rarity": "epica",
-   "desc": "Marca o alvo: tudo o que o atingir causa muito mais dano.",
-   "class": "t-citotoxico",
-   "offer": true,
-   "tags": [
-    "combat",
-    "knowledge"
-   ]
-  },
-  {
-   "id": "citocina-curativa",
-   "name": "Citocina Curativa",
-   "rarity": "comum",
-   "desc": "Libera sinais que curam a membrana aos poucos.",
-   "class": "t-auxiliar",
-   "starter": true,
-   "tags": [
-    "endure",
-    "metabolism"
-   ]
-  },
-  {
-   "id": "canto-de-citocinas",
-   "name": "Canto de Citocinas",
-   "rarity": "incomum",
-   "desc": "Um coro de sinais que acelera o corpo e o regenera.",
-   "class": "t-auxiliar",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "offer": true
-  },
-  {
-   "id": "chamado-a-linfa",
-   "name": "Chamado à Linfa",
-   "rarity": "rara",
-   "desc": "Chama células auxiliares que orbitam o corpo e ferem quem se aproxima.",
-   "class": "t-auxiliar",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-auxiliar"
-      }
-     },
-     {
-      "deeds": {
-       "action": "absorver-nutriente",
-       "op": ">=",
-       "v": 20
-      }
-     }
-    ]
-   },
-   "offer": true
-  },
-  {
-   "id": "febre-dirigida",
-   "name": "Febre Dirigida",
-   "rarity": "epica",
-   "desc": "Aquece uma região: inimigos ali queimam e ficam lentos.",
-   "class": "t-auxiliar",
-   "offer": true,
-   "tags": [
-    "endure",
-    "metabolism"
    ]
   },
   {
@@ -8059,6 +7747,318 @@
    "tags": [
     "knowledge",
     "endure"
+   ],
+   "offer": true
+  },
+  {
+   "id": "contragolpe",
+   "name": "Contragolpe",
+   "rarity": "rara",
+   "desc": "A membrana endurece: quem bate nela paga o golpe de volta, fica atordoado, e o macrófago se cura com o que aguenta.",
+   "class": "macrofago",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "offer": true,
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "macrofago"
+      }
+     },
+     {
+      "deeds": {
+       "action": "estilo-chicote",
+       "op": ">=",
+       "v": 30
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "polarizacao",
+   "name": "Polarização M1/M2",
+   "rarity": "epica",
+   "desc": "O macrófago muda de forma: M1 bate forte e queima o que fere, M2 bate fraco, aguenta mais e se cura sozinho.",
+   "class": "macrofago",
+   "tags": [
+    "combat",
+    "endure"
+   ],
+   "offer": true
+  },
+  {
+   "id": "diapedese",
+   "name": "Diapedese",
+   "rarity": "rara",
+   "desc": "O neutrófilo se afina e atravessa os corpos no caminho, mais rápido, ferindo quem cruza.",
+   "class": "neutrofilo",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "offer": true,
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "neutrofilo"
+      }
+     },
+     {
+      "deeds": {
+       "action": "estilo-impulso",
+       "op": ">=",
+       "v": 20
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "surto-oxidativo",
+   "name": "Surto Oxidativo",
+   "rarity": "epica",
+   "desc": "Tudo corre o dobro, as recargas também; o neutrófilo queima a própria membrana por isso.",
+   "class": "neutrofilo",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "offer": true
+  },
+  {
+   "id": "varredura",
+   "name": "Varredura",
+   "rarity": "comum",
+   "desc": "Um feixe de luz que sai da célula e segue a mira devagar, queimando o que cruza.",
+   "class": "dendritica",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "starter": true
+  },
+  {
+   "id": "maturacao",
+   "name": "Maturação",
+   "rarity": "rara",
+   "desc": "A célula amadurece: as próximas habilidades não custam nada e batem mais forte.",
+   "class": "dendritica",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "offer": true,
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "dendritica"
+      }
+     },
+     {
+      "deeds": {
+       "action": "absorver-nutriente",
+       "op": ">=",
+       "v": 25
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "passagem-linfatica",
+   "name": "Passagem Linfática",
+   "rarity": "epica",
+   "desc": "Abre duas portas no tecido, uma na mira e outra sob a célula: quem entra numa sai na outra.",
+   "class": "dendritica",
+   "tags": [
+    "knowledge",
+    "explore"
+   ],
+   "offer": true
+  },
+  {
+   "id": "complemento",
+   "name": "Complemento",
+   "rarity": "incomum",
+   "desc": "Marca o inimigo com complemento: no terceiro golpe, de quem for, ele estoura.",
+   "class": "linfocito-b",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "offer": true
+  },
+  {
+   "id": "memoria-imunologica",
+   "name": "Memória Imunológica",
+   "rarity": "rara",
+   "desc": "Repete de graça, e um pouco mais fraca, a última habilidade que a célula usou.",
+   "class": "linfocito-b",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "offer": true,
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "linfocito-b"
+      }
+     },
+     {
+      "deeds": {
+       "action": "estilo-toxina",
+       "op": ">=",
+       "v": 25
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "fabrica-de-plasmocito",
+   "name": "Fábrica de Plasmócito",
+   "rarity": "epica",
+   "desc": "A célula vira uma fábrica parada, que atira anticorpos sem parar no que estiver mais perto.",
+   "class": "linfocito-b",
+   "tags": [
+    "knowledge",
+    "combat"
+   ],
+   "offer": true
+  },
+  {
+   "id": "salto-letal",
+   "name": "Salto Letal",
+   "rarity": "incomum",
+   "desc": "Salta por cima da multidão, sem que nada a pare, e cai com um golpe no chão.",
+   "class": "t-citotoxico",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "offer": true
+  },
+  {
+   "id": "sinapse-letal",
+   "name": "Sinapse Letal",
+   "rarity": "rara",
+   "desc": "Segura um inimigo à frente, sem que ele aja, apertando mais a cada instante; se ainda estiver quase morto no fim, é terminado.",
+   "class": "t-citotoxico",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "offer": true,
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-citotoxico"
+      }
+     },
+     {
+      "deeds": {
+       "action": "derrotar-virus",
+       "op": ">=",
+       "v": 18
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "lise-em-massa",
+   "name": "Lise em Massa",
+   "rarity": "epica",
+   "desc": "Fere todos os inimigos da sala e sentencia os quase mortos: quanto mais mortes recentes, mais perto da morte vale a sentença.",
+   "class": "t-citotoxico",
+   "tags": [
+    "combat",
+    "knowledge"
+   ],
+   "offer": true
+  },
+  {
+   "id": "febre-contagiosa",
+   "name": "Febre Contagiosa",
+   "rarity": "comum",
+   "desc": "Dá febre a um inimigo: ele queima e passa a febre ao vizinho mais próximo, uma vez atrás da outra.",
+   "class": "t-auxiliar",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "starter": true
+  },
+  {
+   "id": "chamado-aos-auxiliares",
+   "name": "Chamado aos Auxiliares",
+   "rarity": "incomum",
+   "desc": "Chama células auxiliares que correm atrás dos inimigos e os mordem por um tempo.",
+   "class": "t-auxiliar",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "offer": true
+  },
+  {
+   "id": "segunda-chance",
+   "name": "Segunda Chance",
+   "rarity": "rara",
+   "desc": "Por um tempo, o golpe que mataria a célula a deixa viva, com parte da membrana de volta.",
+   "class": "t-auxiliar",
+   "tags": [
+    "endure",
+    "metabolism"
+   ],
+   "offer": true,
+   "learn": {
+    "all": [
+     {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-auxiliar"
+      }
+     },
+     {
+      "deeds": {
+       "action": "absorver-nutriente",
+       "op": ">=",
+       "v": 20
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "transfusao",
+   "name": "Transfusão",
+   "rarity": "epica",
+   "desc": "Troca o que sobra pelo que falta: membrana por energia, ou energia por membrana.",
+   "class": "t-auxiliar",
+   "tags": [
+    "endure",
+    "metabolism"
    ],
    "offer": true
   }
