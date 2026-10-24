@@ -15,6 +15,7 @@ func before_each() -> void:
 	tree.root.add_child(world)
 	await tree.physics_frame
 	await tree.physics_frame
+	world.display.preferences_path = ""
 
 
 func after_each() -> void:
@@ -314,3 +315,45 @@ func test_minimap_tap_opens_the_full_atlas() -> void:
 	_touch(world.touch.minimap,0,Vector2(40,40),true)
 	assert_true(world.atlas.is_open())
 	world.atlas.toggle()
+
+
+func test_interface_scale_changes_everything_without_changing_world_coverage() -> void:
+	var display := world.display
+	var coverage := display.logical_size.y/world.camera.zoom.y
+	for value in [0.75,1.0,1.25]:
+		display.set_interface_scale(value)
+		await tree.process_frame
+		await tree.process_frame
+		assert_near(display.logical_size.y/world.camera.zoom.y,coverage,0.1,"UI scale leaves the world field of view unchanged")
+		assert_eq(world.touch.scale_label.text,"Tamanho da interface: %d%%" % roundi(value*100))
+		for view in [Vector2(747,420)/value,Vector2(909,420)/value,Vector2(1024,768)/value]:
+			world.touch.layout(view)
+			var screen := Rect2(Vector2.ZERO,view)
+			var controls: Array[Control] = [world.touch.attack_stick,world.touch.toxin,world.touch.dash,world.touch.interact,world.touch.menu]
+			for button in world.touch.ability_buttons:
+				controls.append(button)
+			for control in controls:
+				assert_true(screen.encloses(Rect2(control.position,control.size)),"all combat buttons fit at %d%%" % roundi(value*100))
+				if control != world.touch.attack_stick:
+					assert_true(not world.touch.toxin.cancel_rect.intersects(Rect2(control.position,control.size)),"cancel target remains separate at each scale")
+	display.set_interface_scale(1.0)
+
+
+func test_interface_scale_persists_and_invalid_preferences_are_clamped() -> void:
+	var path := "user://display_test_%d.cfg" % Time.get_ticks_usec()
+	var display := world.display
+	display.preferences_path = path
+	display.set_interface_scale(1.25)
+	var restored := BioDisplay.new()
+	restored.preferences_path = path
+	restored._load_scale()
+	assert_near(restored.interface_scale,1.25,0.001)
+	var config := ConfigFile.new()
+	config.set_value("interface","scale",8.0)
+	config.save(path)
+	restored._load_scale()
+	assert_near(restored.interface_scale,1.25,0.001,"saved values outside range are limited")
+	display.preferences_path = ""
+	display.set_interface_scale(1.0)
+	restored.free()
+	DirAccess.remove_absolute(path)

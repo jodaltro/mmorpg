@@ -31,6 +31,9 @@ var _menu_back: ColorRect
 var _target: BioCellActor
 var _aim_overlay: Control
 var minimap: BioTouchMinimap
+var scale_slider: HSlider
+var scale_label: Label
+var _settings: Control
 
 var _aim := Vector2.RIGHT
 var _auto_timer := 0.0
@@ -60,11 +63,46 @@ func _ready() -> void:
 	_top.add_child(_menu_back)
 	var help := Label.new()
 	help.position = Vector2(40,90)
-	help.text = "CONTROLES\n\nMova com o polegar esquerdo.\nSegure o ataque para lutar.\n\nHabilidades: toque para usar a mira assistida.\nArraste para mirar e solte para usar.\nLeve o dedo até X para cancelar.\n\nToque no minimapa para abrir o atlas."
+	help.text = "CONTROLES\n\nEsquerda: movimento. Direita: ataque.\nHabilidades: arraste para mirar e solte para usar.\nArraste para X para cancelar.\nToque no minimapa para abrir o atlas."
 	help.add_theme_font_size_override("font_size",13)
 	help.add_theme_color_override("font_color",Color(0.65,0.78,0.85))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_menu_back.add_child(help)
+	_settings = Control.new()
+	_settings.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	_settings.offset_left = 40
+	_settings.offset_right = 450
+	_settings.offset_top = -112
+	_settings.offset_bottom = -20
+	_settings.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_menu_back.add_child(_settings)
+	scale_label = Label.new()
+	scale_label.add_theme_font_size_override("font_size",13)
+	_settings.add_child(scale_label)
+	scale_slider = HSlider.new()
+	scale_slider.name = "InterfaceScale"
+	scale_slider.min_value = 75
+	scale_slider.max_value = 125
+	scale_slider.step = 5
+	scale_slider.position = Vector2(0,30)
+	scale_slider.size = Vector2(250,44)
+	scale_slider.focus_mode = Control.FOCUS_NONE
+	scale_slider.value_changed.connect(func(value: float) -> void:
+		scale_label.text = "Tamanho da interface: %d%%" % roundi(value))
+	scale_slider.drag_ended.connect(func(_changed: bool) -> void:
+		if world != null:
+			world.display.set_interface_scale(scale_slider.value/100.0))
+	_settings.add_child(scale_slider)
+	var reset := Button.new()
+	reset.text = "Restaurar 100%"
+	reset.position = Vector2(270,30)
+	reset.size = Vector2(130,44)
+	reset.focus_mode = Control.FOCUS_NONE
+	reset.add_theme_font_size_override("font_size",12)
+	reset.pressed.connect(func() -> void:
+		if world != null:
+			world.display.set_interface_scale(1.0))
+	_settings.add_child(reset)
 	move_stick = BioTouchStick.new()
 	move_stick.floating = true
 	move_stick.radius = 48.0
@@ -118,6 +156,8 @@ func _ready() -> void:
 
 func configure(p_world: Node) -> void:
 	world = p_world
+	world.display.scale_changed.connect(_show_scale)
+	_show_scale(world.display.interface_scale)
 	minimap = BioTouchMinimap.new()
 	minimap.configure(world)
 	minimap.position = Vector2(24,16)
@@ -144,16 +184,17 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	var side := attack_stick.radius * 2.5
 	attack_stick.size = Vector2.ONE * side
 	attack_stick.position = pad - attack_stick.size * 0.5
-	toxin.position = pad + Vector2(-183,-76) - toxin.size*0.5
-	dash.position = pad + Vector2(-180,0) - dash.size*0.5
+	var room := clampf((view.x-598.0)/149.0,0.0,1.0)
+	toxin.position = pad + Vector2(-152,-92).lerp(Vector2(-183,-76),room) - toxin.size*0.5
+	dash.position = pad + Vector2(-160,12).lerp(Vector2(-180,0),room) - dash.size*0.5
 	var arc := [Vector2(-104,20),Vector2(-110,-48),Vector2(-66,-110),Vector2(12,-140)]
 	for i in 4:
 		ability_buttons[i].position = pad + arc[i] - ability_buttons[i].size*0.5
-		ability_buttons[i].cancel_rect = Rect2(Vector2(view.x-94,60),Vector2(60,60))
-	toxin.cancel_rect = Rect2(Vector2(view.x-94,60),Vector2(60,60))
+		ability_buttons[i].cancel_rect = Rect2(Vector2(view.x*0.72-30,40),Vector2(60,60))
+	toxin.cancel_rect = Rect2(Vector2(view.x*0.72-30,40),Vector2(60,60))
 	move_stick.position = Vector2(0.0, view.y*0.45)
 	move_stick.size = Vector2(view.x*0.4,view.y*0.55)
-	interact.position = pad + Vector2(-180,-143) - interact.size*0.5
+	interact.position = pad + Vector2(-156,-160).lerp(Vector2(-180,-143),room) - interact.size*0.5
 	leave.position = Vector2(view.x * 0.5 - leave.size.x * 0.5, view.y - 210.0)
 	respawn.position = Vector2((view.x - respawn.size.x) * 0.5, view.y * 0.5 + 30.0)
 	menu.position = Vector2(view.x - 86.0, 14.0)
@@ -163,11 +204,11 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	_menu_back.visible = menu_open
 	for i in window_buttons.size():
 		var button := window_buttons[i]
-		button.size = Vector2(116, 48)
-		button.position = Vector2(view.x - 136.0, 72.0 + i * 56.0)
+		button.size = Vector2(116, 44)
+		button.position = Vector2(view.x - 136.0, 64.0 + i * 50.0)
 		button.visible = menu_open
-	fullscreen.position = Vector2(view.x - 260.0, 72.0)
-	fullscreen.size = Vector2(116, 48)
+	fullscreen.position = Vector2(view.x - 136.0, 264.0)
+	fullscreen.size = Vector2(116, 44)
 	fullscreen.visible = menu_open and BioPlatform.fullscreen_available()
 
 
@@ -343,9 +384,14 @@ func _draw_aim() -> void:
 		_aim_overlay.draw_arc(end,10,0,TAU,28,tint,2,true)
 	else:
 		_aim_overlay.draw_arc(origin,28,0,TAU,40,tint,2,true)
-	var cancel := Vector2(get_viewport().get_visible_rect().size.x-64,90)
+	var cancel := Vector2(get_viewport().get_visible_rect().size.x*0.72,70)
 	_aim_overlay.draw_circle(cancel,28,Color(0.08,0.025,0.035,0.9))
 	_aim_overlay.draw_arc(cancel,28,0,TAU,40,tint,2,true)
 	_aim_overlay.draw_line(cancel-Vector2(7,7),cancel+Vector2(7,7),tint,2,true)
 	_aim_overlay.draw_line(cancel-Vector2(-7,7),cancel+Vector2(-7,7),tint,2,true)
 	_aim_overlay.draw_string(ThemeDB.fallback_font,cancel+Vector2(-28,43),"Cancelar",HORIZONTAL_ALIGNMENT_CENTER,56,10,tint)
+
+
+func _show_scale(value: float) -> void:
+	scale_slider.set_value_no_signal(roundi(value*100))
+	scale_label.text = "Tamanho da interface: %d%%" % roundi(value*100)

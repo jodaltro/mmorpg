@@ -38,6 +38,7 @@ func _process(delta: float) -> void:
 		"offer": world.sync != null and world.sync.system.has_offer(),
 		"offerOpen": world.sync != null and world.sync.system.is_offer_visible(),
 		"body": world.body_panel.is_open(),
+		"bodyRect": [world.body_panel._window.position.x,world.body_panel._window.position.y,world.body_panel._window.size.x,world.body_panel._window.size.y],
 		"debugMenu": world.debug_menu.is_open(),
 		"codex": world.codex_panel.is_open() if world.codex_panel.has_method("is_open") else false,
 		"touch": BioPlatform.is_touch(),
@@ -137,4 +138,4 @@ func _touch_state() -> Dictionary:
 	for b in world.touch.ability_buttons:
 		var centre := b.position+b.size*0.5
 		buttons.append({"x":centre.x,"y":centre.y,"glyph":b.glyph,"held":b.is_down(),"cancelled":b.cancelled})
-	return {"buttons":buttons}
+	return {"buttons":buttons,"scale":world.display.interface_scale,"scaleLabel":world.touch.scale_label.text,"cancel":[world.display.logical_size.x*0.72,70]}

@@ -23,7 +23,7 @@ with sync_playwright() as p:
     t.down(x,y)
     time.sleep(0.3)
     check(probe(pg)["lastCast"] == previous, "holding a skill does not cast it")
-    t.move((q["logical"][0]-64)*ratio,90*ratio)
+    t.move(q["moba"]["cancel"][0]*ratio,q["moba"]["cancel"][1]*ratio)
     wait_for(pg, lambda q: q["moba"]["buttons"][3]["cancelled"], "cancel zone")
     shot(pg,"cancel_skill")
     t.up()

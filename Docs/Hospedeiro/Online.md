@@ -24,7 +24,7 @@ A tela de carregamento aguarda a sessão e a primeira visão do motor, aplicada 
 
 Jogar na horizontal. Movimento com o polegar esquerdo. Segurar Atacar usa mira automática; arrastar o dedo a partir do contato assume a direção manual. A mira mantém o alvo enquanto outro não estiver claramente mais próximo. Toxina, impulso e as quatro habilidades conhecidas ficam junto ao ataque, em arco à direita. As habilidades têm ícones por função: tocar e soltar usa a mira assistida; segurar e arrastar mostra a direção, soltar usa e arrastar para X cancela. O minimapa no topo esquerdo abre o atlas. Referências e decisões em `MobileUX.md`.
 
-Menu reúne Corpo, Códice, Mapa, Sinais e tela cheia quando o navegador permitir. Histórico e indicadores secundários ficam recolhidos durante o combate. Abrir menu ou janela solta os controles mantidos. O botão Agir e a tipografia dos controles/painéis foram reduzidos para liberar espaço. Vida e ATP ficam no topo esquerdo, sem sobreposição com conexão e região.
+Menu reúne Corpo, Códice, Mapa, Sinais e tela cheia quando o navegador permitir. Em **Tamanho da interface**, arraste a barra de 75% a 125% e solte para aplicar. A preferência fica salva no navegador/dispositivo; **Restaurar 100%** retorna ao padrão. A escala muda controles, textos e painéis, mantendo o campo de visão do mundo. Histórico e indicadores secundários ficam recolhidos durante o combate. Abrir menu ou janela solta os controles mantidos. O botão Agir e a tipografia dos controles/painéis foram reduzidos para liberar espaço. Vida e ATP ficam no topo esquerdo, sem sobreposição com conexão e região.
 
 ## O que ainda falta
 

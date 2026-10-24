@@ -29,4 +29,4 @@ O minimapa mostra geometria das regiões conhecidas e NPCs já presentes na vis�
 
 ## Próximos refinamentos
 
-Editor de posição, tamanho e opacidade com preferências salvas; teste em aparelhos físicos e com mãos de tamanhos diferentes; tratamento próprio do mapa dentro de masmorras. O minimapa atual é ocultado nas masmorras para não mostrar uma posição enganosa no corpo.
+Tamanho global já configurável de 75% a 125%, com preferência salva. Próximos passos: editor individual de posição e opacidade; teste em aparelhos físicos e com mãos de tamanhos diferentes; tratamento próprio do mapa dentro de masmorras. O minimapa atual é ocultado nas masmorras para não mostrar uma posição enganosa no corpo.

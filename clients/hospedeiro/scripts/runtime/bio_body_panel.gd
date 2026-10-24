@@ -83,7 +83,7 @@ func configure(world: Node) -> void:
 	column.add_child(tabs)
 	for i in TABS.size():
 		var b := BioUi.button(TABS[i], "ghost")
-		b.custom_minimum_size = Vector2(150, 34)
+		b.custom_minimum_size = Vector2(100 if BioPlatform.is_touch() else 150, 34)
 		var index := i
 		b.pressed.connect(func() -> void: show_tab(index))
 		tabs.add_child(b)
@@ -101,6 +101,10 @@ func configure(world: Node) -> void:
 	_footer = BioUi.wrapped("", BioUi.FS_SMALL, BioUi.MUTED)
 	column.add_child(_footer)
 	_dim.visible = false
+	get_viewport().size_changed.connect(func() -> void:
+		if is_open():
+			refresh()
+			_fit.call_deferred())
 
 
 func is_open() -> bool:
@@ -284,7 +288,7 @@ func _gauge_row(left: String, right: String, fraction: float, color: Color) -> C
 func _paint_form() -> void:
 	var lin := _lineage_view()
 	var lineage: StringName = _world.lineage_id
-	var top := HBoxContainer.new()
+	var top := _responsive_row()
 	top.add_theme_constant_override("separation", 16)
 	_content.add_child(top)
 
@@ -338,7 +342,7 @@ func _paint_form() -> void:
 
 ## The cards of the pending offer side by side; each one has its button and its key.
 func _offer_row(lineage_offer: bool) -> Control:
-	var row := HBoxContainer.new()
+	var row := _responsive_row()
 	row.add_theme_constant_override("separation", 10)
 	for i in _world.panel.entries().size():
 		row.add_child(_offer_card(i, lineage_offer))
@@ -446,7 +450,7 @@ func _paint_genes() -> void:
 		head.add_child(refuse)
 		v.add_child(_offer_row(false))
 
-	var split := HBoxContainer.new()
+	var split := _responsive_row()
 	split.add_theme_constant_override("separation", 16)
 	_content.add_child(split)
 	var left := VBoxContainer.new()
@@ -457,7 +461,7 @@ func _paint_genes() -> void:
 	var expressed := _expressed()
 	left.add_child(_section("EXPRESSOS   %d / %d" % [expressed.size(), _slots()]))
 	var grid := GridContainer.new()
-	grid.columns = 2
+	grid.columns = 1 if _narrow() else 2
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 8)
 	left.add_child(grid)
@@ -476,7 +480,7 @@ func _paint_genes() -> void:
 		left.add_child(BioUi.wrapped("Genes silenciados ficam guardados aqui, sem se perder. Quando o corpo ganha um gene e os espaços estão cheios, o mais antigo vai para a biblioteca.", BioUi.FS_SMALL, BioUi.MUTED))
 	else:
 		var lib_grid := GridContainer.new()
-		lib_grid.columns = 2
+		lib_grid.columns = 1 if _narrow() else 2
 		lib_grid.add_theme_constant_override("h_separation", 8)
 		lib_grid.add_theme_constant_override("v_separation", 8)
 		left.add_child(lib_grid)
@@ -612,7 +616,7 @@ func _send(action: String, args: Dictionary) -> void:
 
 func _paint_abilities() -> void:
 	_content.add_child(BioUi.wrapped("As habilidades da sua classe ficam em quatro teclas. Clique em uma e depois em outra para trocá-las de lugar; a ordem fica guardada nesta máquina.", BioUi.FS_BODY, BioUi.MUTED))
-	var row := HBoxContainer.new()
+	var row := _responsive_row()
 	row.add_theme_constant_override("separation", 12)
 	_content.add_child(row)
 	for i in BioAbilityRunner.SLOTS:
@@ -689,7 +693,7 @@ func _paint_builds() -> void:
 	if not _online():
 		_content.add_child(BioUi.wrapped("Sem o motor, o corpo não guarda builds.", BioUi.FS_BODY, BioUi.WARN))
 	_content.add_child(BioUi.wrapped("Uma build guarda os genes que estão expressos agora e a ordem das habilidades. Aplicar uma troca os genes de uma vez, respeitando o descanso do corpo. Clique em uma build para ver o que ela faria.", BioUi.FS_BODY, BioUi.MUTED))
-	var row := HBoxContainer.new()
+	var row := _responsive_row()
 	row.add_theme_constant_override("separation", 12)
 	_content.add_child(row)
 	for slot in range(1, BioBuildStore.SLOTS + 1):
@@ -783,3 +787,11 @@ func apply_build(slot: int) -> void:
 	if not order.is_empty():
 		_world.arrange_abilities(order)
 	_send("aplicar-build", {"slot": str(slot)})
+
+
+func _narrow() -> bool:
+	return BioPlatform.is_touch() and get_viewport().get_visible_rect().size.x < 760.0
+
+
+func _responsive_row() -> BoxContainer:
+	return VBoxContainer.new() if _narrow() else HBoxContainer.new()
