@@ -64,5 +64,5 @@ static func lineage_lines(lineage: StringName) -> Array[String]:
 	var mods := BioLineageCatalog.mods_of(lineage)
 	for key in ORDER:
 		if mods.has(key):
-			out.append("%s %s" % [text_of(key, float(mods[key])), BioGene.LABELS.get(key, "ATP/s")])
+			out.append(text_of(key, float(mods[key])) if BioGene.is_additive(key) else "%s %s" % [text_of(key, float(mods[key])), BioGene.LABELS.get(key, "")])
 	return out

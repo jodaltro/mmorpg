@@ -127,6 +127,26 @@ func test_all_sixteen_abilities_are_different_verbs_and_carry_what_they_need() -
 	assert_eq(kinds.size(), 16, "sixteen abilities, sixteen different kinds")
 
 
+func test_the_body_window_explains_every_class_and_every_ability() -> void:
+	for lineage in [&"mieloide", &"linfoide", &"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"] + CLASSES:
+		assert_true(BioLore.has_class(lineage), "%s has a class text" % lineage)
+		assert_true(str(BioLore.class_info(lineage)["about"]).length() > 40 and str(BioLore.class_info(lineage)["play"]).length() > 20, "%s explains itself" % lineage)
+	for lineage in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"] + CLASSES:
+		for id in BioAbilityCatalog.ids_of_class(lineage):
+			assert_true(BioLore.has_ability(id), "%s is explained" % id)
+			assert_true(str(BioLore.ability_info(id)["how"]).length() > 20, "%s says how it works" % id)
+	for id in BioAbilityCatalog.ids_of_class(&"mastocito"):
+		assert_true(BioLore.KIND_NAMES.has(str(BioAbilityCatalog.get_ability(id)["kind"])), "%s has a readable kind" % id)
+	world.debug_become(&"mastocito")
+	world.body_panel.open(BioBodyPanel.FORM)
+	await tree.process_frame
+	assert_true(world.body_panel.content_text().contains("COMO JOGAR"), "the Form tab tells how to play the class")
+	world.body_panel.show_tab(BioBodyPanel.ABILITIES)
+	await tree.process_frame
+	assert_true(world.body_panel.content_text().contains("COMO FUNCIONA"), "the Abilities tab tells how each one works")
+	world.body_panel.close()
+
+
 func test_a_body_of_each_class_draws_without_trouble() -> void:
 	for lineage in CLASSES:
 		world.debug_become(lineage)

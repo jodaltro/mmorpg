@@ -299,6 +299,12 @@ func _paint_form() -> void:
 	lbox.add_child(_section("FORMA ATUAL"))
 	lbox.add_child(BioUi.label(BioLineageCatalog.display_name(lineage) if lineage != &"" else "Esfera", 26, BioArt.with_alpha(BioArt.AMBER, 0.98)))
 	lbox.add_child(BioUi.wrapped("Indiferenciada: ainda pode se tornar qualquer coisa." if lineage == &"" else "Uma forma é permanente. Muda o corpo todo, não só os números.", BioUi.FS_SMALL, BioUi.MUTED))
+	var lore := BioLore.class_info(lineage if lineage != &"" else &"")
+	if not lore.is_empty():
+		lbox.add_child(_section("SOBRE A CLASSE · " + str(lore["role"]).to_upper()))
+		lbox.add_child(BioUi.wrapped(str(lore["about"]), BioUi.FS_BODY, BioUi.TEXT))
+		lbox.add_child(_section("COMO JOGAR"))
+		lbox.add_child(BioUi.wrapped(str(lore["play"]), BioUi.FS_BODY, BioUi.TEXT))
 	var lines := BioBuildPreview.lineage_lines(lineage)
 	if not lines.is_empty():
 		lbox.add_child(_section("O QUE ELA FAZ COM O CORPO"))
@@ -640,12 +646,19 @@ func _ability_card(slot: int) -> Control:
 		v.add_child(BioUi.label("vazio", BioUi.FS_HEAD, Color(1, 1, 1, 0.3)))
 	else:
 		var a := BioAbilityCatalog.get_ability(id)
-		head.add_child(BioUi.label("  " + str(KIND_NAMES.get(str(a.get("kind", "")), str(a.get("kind", "")))), BioUi.FS_SMALL, BioUi.MUTED))
+		var kind := str(a.get("kind", ""))
+		head.add_child(BioUi.label("  " + str(KIND_NAMES.get(kind, BioLore.KIND_NAMES.get(kind, kind))), BioUi.FS_SMALL, BioUi.MUTED))
 		v.add_child(BioUi.label(str(a.get("name", id)), BioUi.FS_HEAD, color.lightened(0.35)))
 		v.add_child(BioUi.label("custo %d ATP" % int(a.get("cost", 0)), BioUi.FS_SMALL + 1, BioUi.TEXT))
 		v.add_child(BioUi.label("recarga %.1f s" % float(a.get("cooldown", 0)), BioUi.FS_SMALL + 1, BioUi.TEXT))
 		if a.has("damage"):
 			v.add_child(BioUi.label("dano %d" % int(a.get("damage", 0)), BioUi.FS_SMALL + 1, BioUi.TEXT))
+		var info := BioLore.ability_info(id)
+		if not info.is_empty():
+			v.add_child(_section("O QUE FAZ"))
+			v.add_child(BioUi.wrapped(str(info["what"]), BioUi.FS_SMALL, BioUi.TEXT))
+			v.add_child(_section("COMO FUNCIONA"))
+			v.add_child(BioUi.wrapped(str(info["how"]), BioUi.FS_SMALL, BioUi.MUTED))
 	card.gui_input.connect(func(event: InputEvent) -> void:
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			click_ability(slot))
