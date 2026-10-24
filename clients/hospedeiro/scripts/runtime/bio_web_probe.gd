@@ -52,6 +52,8 @@ func _process(delta: float) -> void:
 			"prims": int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)),
 		},
 		"abilities": _ability_ids(),
+		"lastCast": String(world.abilities.last_cast),
+		"moba": _touch_state(),
 		"viruses": world.viruses().size(),
 		"lash": Input.is_action_pressed("bio_lash"),
 		"attackHeld": world.touch != null and world.touch.attack_stick.is_engaged(),
@@ -126,3 +128,13 @@ func _nodes_of(class_name_: String) -> Array[Node]:
 		if (script != null and script.get_global_name() == class_name_) or n.get_class() == class_name_:
 			out.append(n)
 	return out
+
+
+func _touch_state() -> Dictionary:
+	if world.touch == null:
+		return {}
+	var buttons := []
+	for b in world.touch.ability_buttons:
+		var centre := b.position+b.size*0.5
+		buttons.append({"x":centre.x,"y":centre.y,"glyph":b.glyph,"held":b.is_down(),"cancelled":b.cancelled})
+	return {"buttons":buttons}

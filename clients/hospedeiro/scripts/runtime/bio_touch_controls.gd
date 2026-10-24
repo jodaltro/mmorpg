@@ -7,8 +7,6 @@ extends CanvasLayer
 
 const AUTO_AIM_UNITS := 13.0
 const AUTO_AIM_EVERY := 0.1
-const ARC_NEAR := 98.0
-const ARC_FAR := 172.0
 const MARGIN := 30.0
 const COLOR_MOVE := Color(0.35, 0.85, 1.0)
 const COLOR_ATTACK := Color(1.0, 0.45, 0.5)
@@ -31,6 +29,8 @@ var menu: BioTouchButton
 var menu_open := false
 var _menu_back: ColorRect
 var _target: BioCellActor
+var _aim_overlay: Control
+var minimap: BioTouchMinimap
 
 var _aim := Vector2.RIGHT
 var _auto_timer := 0.0
@@ -58,27 +58,43 @@ func _ready() -> void:
 	_menu_back.mouse_filter = Control.MOUSE_FILTER_STOP
 	_menu_back.visible = false
 	_top.add_child(_menu_back)
+	var help := Label.new()
+	help.position = Vector2(40,90)
+	help.text = "CONTROLES\n\nMova com o polegar esquerdo.\nSegure o ataque para lutar.\n\nHabilidades: toque para usar a mira assistida.\nArraste para mirar e solte para usar.\nLeve o dedo até X para cancelar.\n\nToque no minimapa para abrir o atlas."
+	help.add_theme_font_size_override("font_size",13)
+	help.add_theme_color_override("font_color",Color(0.65,0.78,0.85))
+	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_menu_back.add_child(help)
 	move_stick = BioTouchStick.new()
 	move_stick.floating = true
-	move_stick.radius = 62.0
+	move_stick.radius = 48.0
 	move_stick.color = COLOR_MOVE
-	move_stick.label = "MOVER"
+	move_stick.label = ""
 	_root.add_child(move_stick)
 	attack_stick = BioTouchStick.new()
 	attack_stick.floating = false
-	attack_stick.radius = 58.0
+	attack_stick.radius = 46.0
+	attack_stick.attack_style = true
 	attack_stick.dead_zone = 0.3
 	attack_stick.relative_aim = true
 	attack_stick.color = COLOR_ATTACK
-	attack_stick.label = "ATACAR"
+	attack_stick.label = ""
 	attack_stick.engaged_changed.connect(_on_attack_engaged)
 	_root.add_child(attack_stick)
-	toxin = _add(BioTouchButton.round_button(&"bio_spit", "Toxina", COLOR_TOXIN, 33.0))
-	dash = _add(BioTouchButton.round_button(&"bio_dash", "Pulo", COLOR_DASH, 33.0))
+	toxin = _add(BioTouchButton.round_button(&"bio_spit", "Toxina", COLOR_TOXIN, 23.0))
+	dash = _add(BioTouchButton.round_button(&"bio_dash", "Pulo", COLOR_DASH, 23.0))
+	toxin.glyph = "toxin"
+	toxin.tooltip_text = "Toxina"
+	toxin.cast_on_release = true
+	toxin.cast_requested.connect(_cast_toxin)
+	dash.glyph = "dash"
 	for i in 4:
-		var b := _add(BioTouchButton.round_button(StringName("bio_ab_%d" % (i + 1)), "", COLOR_WINDOW, 31.0))
+		var b := _add(BioTouchButton.round_button(StringName("bio_ab_%d" % (i + 1)), "", COLOR_WINDOW, 27.0))
+		b.cast_on_release = true
+		b.cast_requested.connect(func(direction: Vector2) -> void: _cast_skill(i, direction))
 		ability_buttons.append(b)
 	interact = _add(BioTouchButton.round_button(&"bio_interact", "Agir", Color(1.0, 0.8, 0.35), 23.0))
+	interact.glyph = "interact"
 	leave = _add(BioTouchButton.pill(&"bio_leave", "Sair da sala", Color(1.0, 0.6, 0.4), Vector2(120, 38)))
 	respawn = _add(BioTouchButton.pill(&"bio_respawn", "Renascer", Color(1.0, 0.5, 0.55), Vector2(150, 54)))
 	for entry in [["Corpo", &"bio_body"], ["Códice", &"bio_codex"], ["Mapa", &"bio_map"], ["Sinais", &"bio_vitals"]]:
@@ -86,16 +102,26 @@ func _ready() -> void:
 	fullscreen = _add_top(BioTouchButton.pill(&"", "Tela cheia", COLOR_WINDOW, Vector2(96, 36)))
 	fullscreen.tapped.connect(BioPlatform.toggle_fullscreen)
 	fullscreen.visible = false
-	menu = _add_top(BioTouchButton.pill(&"", "Menu", COLOR_WINDOW, Vector2(88, 48)))
+	menu = _add_top(BioTouchButton.round_button(&"", "Menu", COLOR_WINDOW, 22.0))
+	menu.glyph = "menu"
 	menu.tapped.connect(func() -> void:
 		menu_open = not menu_open
 		layout())
+	_aim_overlay = Control.new()
+	_aim_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_aim_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_aim_overlay.draw.connect(_draw_aim)
+	_root.add_child(_aim_overlay)
 	get_viewport().size_changed.connect(func() -> void: layout())
 	layout()
 
 
 func configure(p_world: Node) -> void:
 	world = p_world
+	minimap = BioTouchMinimap.new()
+	minimap.configure(world)
+	minimap.position = Vector2(24,16)
+	_root.add_child(minimap)
 	for child in world.player.get_children():
 		if child is BioPlayerInput:
 			(child as BioPlayerInput).touch = self
@@ -118,18 +144,22 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	var side := attack_stick.radius * 2.5
 	attack_stick.size = Vector2.ONE * side
 	attack_stick.position = pad - attack_stick.size * 0.5
-	_around(toxin, pad, ARC_NEAR, 118.0)
-	_around(dash, pad, ARC_NEAR, 178.0)
+	toxin.position = pad + Vector2(-183,-76) - toxin.size*0.5
+	dash.position = pad + Vector2(-180,0) - dash.size*0.5
+	var arc := [Vector2(-104,20),Vector2(-110,-48),Vector2(-66,-110),Vector2(12,-140)]
 	for i in 4:
-		ability_buttons[i].position = Vector2(view.x * 0.5 - 142.0 + i * 74.0, view.y - 78.0)
-	move_stick.position = Vector2(0.0, view.y * 0.2)
-	move_stick.size = Vector2(view.x * 0.42, view.y * 0.8)
-	interact.position = Vector2(view.x * 0.5 - 23.0, view.y - 142.0)
+		ability_buttons[i].position = pad + arc[i] - ability_buttons[i].size*0.5
+		ability_buttons[i].cancel_rect = Rect2(Vector2(view.x-94,60),Vector2(60,60))
+	toxin.cancel_rect = Rect2(Vector2(view.x-94,60),Vector2(60,60))
+	move_stick.position = Vector2(0.0, view.y*0.45)
+	move_stick.size = Vector2(view.x*0.4,view.y*0.55)
+	interact.position = pad + Vector2(-180,-143) - interact.size*0.5
 	leave.position = Vector2(view.x * 0.5 - leave.size.x * 0.5, view.y - 210.0)
 	respawn.position = Vector2((view.x - respawn.size.x) * 0.5, view.y * 0.5 + 30.0)
-	menu.position = Vector2(view.x - 108.0, 12.0)
+	menu.position = Vector2(view.x - 86.0, 14.0)
 	menu.caption = "Fechar" if menu_open else "Menu"
 	menu.emphasis = menu_open
+	menu.glyph = "close" if menu_open else "menu"
 	_menu_back.visible = menu_open
 	for i in window_buttons.size():
 		var button := window_buttons[i]
@@ -141,15 +171,10 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	fullscreen.visible = menu_open and BioPlatform.fullscreen_available()
 
 
-## A button on a circle around `center`, at an angle (degrees, counter-clockwise from the right, like on paper).
-func _around(button: BioTouchButton, center: Vector2, distance: float, degrees: float) -> void:
-	var dir := Vector2(cos(deg_to_rad(degrees)), -sin(deg_to_rad(degrees)))
-	button.position = center + dir * distance - button.size * 0.5
-
-
 func _process(delta: float) -> void:
 	if world == null or not is_instance_valid(world.player):
 		return
+	_aim_overlay.queue_redraw()
 	var covered := _a_window_is_open() or menu_open
 	world.panel._column.visible = menu_open
 	world.jev_panel._badge.visible = false
@@ -158,6 +183,7 @@ func _process(delta: float) -> void:
 
 	var alive: bool = world.player.is_active() and not covered
 	var in_dungeon: bool = world.dungeon != null and world.dungeon.active
+	minimap.visible = alive and not in_dungeon
 	respawn.visible = not world.player.is_active() and not covered
 	leave.visible = alive and in_dungeon
 	interact.visible = alive
@@ -176,7 +202,11 @@ func _process(delta: float) -> void:
 			var pretty := str(a.get("name", ""))
 			var tint: Color = a.get("color", COLOR_WINDOW)
 			b.color = tint.lerp(Color.WHITE, 0.25)
-			b.caption = str(i + 1)
+			b.glyph = _skill_glyph(str(a.get("kind", "")))
+			b.directional = not ["stance","counter","phase","frenzy","empower","replay","turret","lastchance","convert","grow","cloak","recall","nova","allies","mines","cascade","overload"].has(str(a.get("kind", "")))
+			b.tooltip_text = pretty
+			var def: BioAttackDef = world.player.combatant.actor.attack_def(id)
+			b.seconds = world.player.combatant.actor.cooldown_remaining(id, BioClock.now())
 			b.sub = ""  # full names are in Corpo; keep combat clear
 			b.set_cooldown(runner.cooldown_fraction(i))
 	var now := BioClock.now()
@@ -187,6 +217,7 @@ func _process(delta: float) -> void:
 		var fraction := clampf(remaining / def.cooldown, 0.0, 1.0) if def.cooldown > 0.0 else 0.0
 		if vitals.atp < def.atp_cost:
 			fraction = 1.0
+		(pair[0] as BioTouchButton).seconds = remaining
 		(pair[0] as BioTouchButton).set_cooldown(fraction)
 	for pair in [[window_buttons[0], world.body_panel], [window_buttons[1], world.codex_panel], [window_buttons[2], world.atlas], [window_buttons[3], world.vitals_panel]]:
 		(pair[0] as BioTouchButton).emphasis = pair[1] != null and pair[1].has_method("is_open") and pair[1].is_open()
@@ -246,3 +277,75 @@ func _on_attack_engaged(engaged: bool) -> void:
 		Input.action_press(&"bio_lash")
 	else:
 		Input.action_release(&"bio_lash")
+
+
+func _skill_glyph(kind: String) -> String:
+	match kind:
+		"counter","phase","cloak","lastchance": return "shield"
+		"heal","convert","grow": return "heal"
+		"bolt","pierce","beam","sticky": return "projectile"
+		"dash_strike","leap","roll","blink": return "dash"
+		"devour","cone","execute": return "jaw"
+		"zone","mines","crystal": return "net"
+		"stance","replay","recall","portal": return "cycle"
+		"mark","prey","sleep","decoy": return "eye"
+		"link","tether","hold","complement","allies": return "link"
+	return "burst"
+
+
+func _prepare_cast(direction: Vector2) -> BioCellController:
+	if direction == Vector2.ZERO:
+		_refresh_aim()
+	else:
+		_aim = direction
+	var controller := world.player.get_node("Controller") as BioCellController
+	controller.set_aim(_aim)
+	return controller
+
+
+func _cast_skill(slot: int, direction: Vector2) -> void:
+	if world == null or not world.player.is_active() or _a_window_is_open() or menu_open or BioUi.captures_input():
+		return
+	_prepare_cast(direction if ability_buttons[slot].directional else Vector2.ZERO)
+	world.abilities.perform(slot)
+
+
+func _cast_toxin(direction: Vector2) -> void:
+	if world == null or not world.player.is_active() or _a_window_is_open() or menu_open or BioUi.captures_input():
+		return
+	_prepare_cast(direction).spit()
+
+
+func _draw_aim() -> void:
+	if world == null or menu_open or _a_window_is_open() or not world.player.is_active():
+		return
+	var aiming: BioTouchButton = null
+	for button in ability_buttons + [toxin]:
+		if button.is_down():
+			aiming = button
+	var camera_transform := get_viewport().get_canvas_transform()
+	if aiming == null:
+		if attack_stick.is_engaged() and attack_stick.value() != Vector2.ZERO:
+			var start: Vector2 = camera_transform * world.player.global_position
+			_aim_overlay.draw_line(start,start+attack_stick.value().normalized()*85,Color(0.5,0.95,1,0.7),2,true)
+		if is_instance_valid(_target) and _target.is_active():
+			var at := camera_transform * _target.global_position
+			_aim_overlay.draw_arc(at,18,0,TAU,40,Color(1,0.7,0.35,0.8),1.5,true)
+		return
+	var view := get_viewport().get_visible_rect().size
+	_aim_overlay.draw_string(ThemeDB.fallback_font,Vector2(view.x*0.5-120,28),aiming.tooltip_text,HORIZONTAL_ALIGNMENT_CENTER,240,12,Color(0.8,0.95,1))
+	var origin: Vector2 = camera_transform * world.player.global_position
+	var direction := aiming.aim_direction if aiming.aim_direction != Vector2.ZERO else _aim
+	var tint := Color(1,0.3,0.35) if aiming.cancelled else Color(0.5,0.95,1,0.9)
+	var end: Vector2 = origin + direction * 110.0
+	if aiming.directional:
+		_aim_overlay.draw_line(origin,end,tint,3,true)
+		_aim_overlay.draw_arc(end,10,0,TAU,28,tint,2,true)
+	else:
+		_aim_overlay.draw_arc(origin,28,0,TAU,40,tint,2,true)
+	var cancel := Vector2(get_viewport().get_visible_rect().size.x-64,90)
+	_aim_overlay.draw_circle(cancel,28,Color(0.08,0.025,0.035,0.9))
+	_aim_overlay.draw_arc(cancel,28,0,TAU,40,tint,2,true)
+	_aim_overlay.draw_line(cancel-Vector2(7,7),cancel+Vector2(7,7),tint,2,true)
+	_aim_overlay.draw_line(cancel-Vector2(-7,7),cancel+Vector2(-7,7),tint,2,true)
+	_aim_overlay.draw_string(ThemeDB.fallback_font,cancel+Vector2(-28,43),"Cancelar",HORIZONTAL_ALIGNMENT_CENTER,56,10,tint)

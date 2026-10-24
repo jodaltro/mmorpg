@@ -32,11 +32,11 @@ func set_touch(on: bool) -> void:
 	if not on:
 		return
 	layer = 13
-	_box.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	_box.offset_left = -CHIP_WIDTH * 0.5
-	_box.offset_right = CHIP_WIDTH * 0.5
-	_box.offset_top = 52.0
-	_box.offset_bottom = 52.0
+	_box.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	_box.offset_left = 130
+	_box.offset_right = 326
+	_box.offset_top = 65.0
+	_box.offset_bottom = 65.0
 	_box.grow_vertical = Control.GROW_DIRECTION_END
 	_box.alignment = BoxContainer.ALIGNMENT_BEGIN
 
@@ -50,7 +50,7 @@ func set_call(key: String, kind: String, title: String, detail: String, hint: St
 		_paint(key)
 		return
 	var root := PanelContainer.new()
-	root.custom_minimum_size = Vector2(CHIP_WIDTH, 0)
+	root.custom_minimum_size = Vector2(196 if BioPlatform.is_touch() else CHIP_WIDTH, 0)
 	var color: Color = BioUi.KIND_COLOR.get(kind, BioUi.KIND_COLOR["info"])
 	root.add_theme_stylebox_override("panel", BioUi.style(BioUi.BG, BioArt.with_alpha(color, 0.5), 9, 10))
 	root.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -61,7 +61,7 @@ func set_call(key: String, kind: String, title: String, detail: String, hint: St
 	root.add_child(row)
 	var dot := ColorRect.new()
 	dot.color = color
-	dot.custom_minimum_size = Vector2(4, 34)
+	dot.custom_minimum_size = Vector2(3, 14 if BioPlatform.is_touch() else 34)
 	dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(dot)
 	var texts := VBoxContainer.new()
@@ -72,11 +72,13 @@ func set_call(key: String, kind: String, title: String, detail: String, hint: St
 	var title_label := BioUi.label(title, BioUi.FS_BODY, BioUi.TEXT)
 	if BioPlatform.is_touch():
 		title_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		title_label.custom_minimum_size.x = 230
+		title_label.custom_minimum_size.x = 140
+		title_label.add_theme_font_size_override("font_size", 10)
 
 	texts.add_child(title_label)
 	var detail_label := BioUi.label(detail, BioUi.FS_SMALL, BioUi.MUTED)
 	texts.add_child(detail_label)
+	detail_label.visible = not BioPlatform.is_touch()
 	if not hint.is_empty():
 		row.add_child(BioUi.keycap(hint))
 	root.gui_input.connect(func(event: InputEvent) -> void:

@@ -155,7 +155,7 @@ func set_touch(on: bool) -> void:
 		return
 	_touch = true
 	_status.visible = false
-	_region.position = Vector2(28, 90)
+	_region.position = Vector2(130, 42)
 	_region.add_theme_font_size_override("font_size", 12)
 	_states.offset_top = 14
 	_states.offset_bottom = 36

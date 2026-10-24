@@ -19,6 +19,7 @@ signal restart_requested
 
 const CONFIRM_SECONDS := 4.0
 
+var _title: Label
 var _banner: Label
 var _dungeon_label: Label
 var _guide: Label
@@ -91,17 +92,21 @@ func set_touch(on: bool) -> void:
 		cell.visible = false
 	_guide.add_theme_font_size_override("font_size", 12)
 	_guide.add_theme_constant_override("outline_size", 3)
-	_bar_width = 190.0
+	_title.visible = false
+	_bar_width = 144.0
 	_cluster.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	_cluster.offset_left = 28.0
-	_cluster.offset_top = 40.0
-	_cluster.offset_right = 28.0 + _bar_width
-	_cluster.offset_bottom = 40.0 + 44.0
-	for pair in [[_membrane_fill, 0.0], [_atp_fill, 22.0]]:
+	_cluster.offset_left = 130.0
+	_cluster.offset_top = 18.0
+	_cluster.offset_right = 130.0 + _bar_width
+	_cluster.offset_bottom = 46.0
+	for pair in [[_membrane_fill, 0.0], [_atp_fill, 12.0]]:
 		var back := (pair[0] as Control).get_parent() as Control
 		back.position = Vector2(0.0, pair[1])
-		back.size = Vector2(_bar_width, BAR_SIZE.y)
-		(pair[0] as Control).size = Vector2(_bar_width - 4.0, BAR_SIZE.y - 4.0)
+		back.size = Vector2(_bar_width, 8)
+		for child in back.get_children():
+			if child is Label:
+				child.visible = false
+		(pair[0] as Control).size = Vector2(_bar_width - 4.0, 4)
 	_restart_button.visible = false
 	_banner.add_theme_font_size_override("font_size", 22)
 	_banner.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
@@ -222,6 +227,7 @@ func _ready() -> void:
 	add_child(_dungeon_label)
 
 	var title := Label.new()
+	_title = title
 	title.text = "HOSPEDEIRO"
 	title.position = Vector2(28, 14)
 	title.add_theme_font_size_override("font_size", 14)

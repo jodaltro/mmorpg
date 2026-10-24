@@ -11,6 +11,7 @@ var radius := 64.0
 var dead_zone := 0.16
 var color := Color(0.35, 0.85, 1.0)
 var label := ""
+var attack_style := false
 var held_by_touch := false  # the finger is on it, however little it moved
 
 var _index := -1
@@ -82,10 +83,14 @@ func _update() -> void:
 
 
 func _draw() -> void:
-	var base := _origin if (floating and _index != -1) else (size * 0.5 if not floating else Vector2(radius + 18.0, size.y - radius - 18.0))
+	var base := _origin if (floating and _index != -1) else (size * 0.5 if not floating else Vector2(radius + 56.0, size.y - radius - 30.0))
 	var active := _index != -1
 	draw_circle(base, radius, Color(color.r, color.g, color.b, 0.10 if not active else 0.16))
 	draw_arc(base, radius, 0.0, TAU, 44, Color(color.r, color.g, color.b, 0.55 if active else 0.28), 2.0, true)
+	if attack_style:
+		draw_arc(base,radius-5,0,TAU,48,Color(0.72,0.61,0.36,0.85),2,true)
+		BioTouchGlyph.paint(self,"attack",base,radius*0.38,Color(0.75,0.91,1,0.95))
+		return
 	var knob := base + (_value * radius if active else Vector2.ZERO)
 	draw_circle(knob, radius * 0.42, Color(color.r, color.g, color.b, 0.55 if active else 0.22))
 	draw_arc(knob, radius * 0.42, 0.0, TAU, 28, Color(1, 1, 1, 0.5 if active else 0.2), 1.5, true)

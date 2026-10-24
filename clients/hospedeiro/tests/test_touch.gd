@@ -273,3 +273,44 @@ func test_auto_aim_keeps_target_when_another_enemy_is_only_slightly_closer() -> 
 	await tree.physics_frame
 	world.touch._refresh_aim()
 	assert_true(world.touch.aim_vector().x > 0.95, "a tiny distance change must not flicker the aim")
+
+
+func test_skill_button_aims_then_casts_only_on_release_and_can_cancel() -> void:
+	var b := BioTouchButton.round_button(&"", "", Color.WHITE,27)
+	b.cast_on_release = true
+	b.cancel_rect = Rect2(Vector2(100,0),Vector2(60,60))
+	var casts: Array[Vector2] = []
+	b.cast_requested.connect(func(direction: Vector2) -> void: casts.append(direction))
+	tree.root.add_child(b)
+	_touch(b,0,Vector2(27,27),true)
+	assert_eq(casts.size(),0,"holding previews but never casts")
+	_drag(b,0,Vector2(27,-20))
+	_touch(b,0,Vector2(27,-20),false)
+	assert_eq(casts.size(),1)
+	assert_true(casts[0].y < -0.95,"release uses the dragged direction")
+	_touch(b,0,Vector2(27,27),true)
+	_drag(b,0,Vector2(120,20))
+	assert_true(b.cancelled)
+	_touch(b,0,Vector2(120,20),false)
+	assert_eq(casts.size(),1,"release in the cancel area casts nothing")
+	_touch(b,0,Vector2(27,27),true)
+	b.visible = false
+	assert_eq(casts.size(),1,"opening a window while aiming casts nothing")
+	b.queue_free()
+
+
+func test_combat_cluster_leaves_the_centre_free_at_all_mobile_sizes() -> void:
+	for view in [Vector2(747,420),Vector2(909,420),Vector2(1024,768)]:
+		world.touch.layout(view)
+		var middle := Rect2(Vector2(view.x*0.3,view.y*0.3),Vector2(view.x*0.3,view.y*0.6))
+		var buttons: Array[Control] = [world.touch.toxin,world.touch.dash,world.touch.interact,world.touch.attack_stick]
+		for b in world.touch.ability_buttons:
+			buttons.append(b)
+		for b in buttons:
+			assert_true(not middle.intersects(Rect2(b.position,b.size)),"combat buttons stay outside central visibility")
+
+
+func test_minimap_tap_opens_the_full_atlas() -> void:
+	_touch(world.touch.minimap,0,Vector2(40,40),true)
+	assert_true(world.atlas.is_open())
+	world.atlas.toggle()
