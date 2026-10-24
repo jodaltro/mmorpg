@@ -52,6 +52,12 @@ func _process(delta: float) -> void:
 			"vitalsViewport": _rect(world.vitals_panel._modal.scroll),
 			"bodyTab": world.body_panel.tab,
 			"abilityPick": world.body_panel._ability_pick,
+			"abilitySlots": world.body_panel.ability_slots.map(func(s: BioLoadoutSlot) -> Array: return _rect(s)),
+			"draggingSkill": is_instance_valid(BioLoadoutSlot.active),
+			"abilityDetails": world.body_panel._ability_details,
+			"bodyContent": world.body_panel.content_text() if world.body_panel.is_open() else "",
+			"bodyButtons": _body_buttons(),
+			"buildPick": world.body_panel._build_pick,
 			"codexScroll": world.codex_panel._modal.scroll.scroll_vertical,
 			"vitalsScroll": world.vitals_panel._modal.scroll.scroll_vertical,
 		},
@@ -59,6 +65,7 @@ func _process(delta: float) -> void:
 		"debugMenu": world.debug_menu.is_open(),
 		"codex": world.codex_panel.is_open() if world.codex_panel.has_method("is_open") else false,
 		"touch": BioPlatform.is_touch(),
+		"viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y],
 		"logical": [world.display.logical_size.x, world.display.logical_size.y] if world.display != null else [],
 		"fps": Engine.get_frames_per_second(),
 		"perf": {
@@ -161,3 +168,15 @@ func _touch_state() -> Dictionary:
 func _rect(control: Control) -> Array:
 	var rect := control.get_global_rect()
 	return [rect.position.x, rect.position.y, rect.size.x, rect.size.y]
+
+
+func _body_buttons() -> Array:
+	var result: Array = []
+	var stack: Array[Node] = [world.body_panel._content]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if node is Button and node.is_visible_in_tree():
+			result.append({"text": node.text, "rect": _rect(node)})
+		for child in node.get_children():
+			stack.append(child)
+	return result

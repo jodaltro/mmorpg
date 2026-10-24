@@ -431,3 +431,37 @@ func test_action_menu_selection_closes_and_outside_dismissal_preserves_offer() -
 	assert_true(not world.sync.system.is_offer_visible())
 	assert_true(world.sync.system.has_offer(), "outside means later, not refusing the mission")
 	assert_true(not BioUi.captures_input())
+
+
+func test_skill_hold_starts_drag_but_swipe_and_hidden_window_cancel_it() -> void:
+	world.debug_become(&"macrofago")
+	world.body_panel.open(BioBodyPanel.ABILITIES)
+	await tree.process_frame
+	var slot := world.body_panel.ability_slots[0]
+	_touch(slot, 0, Vector2(20, 20), true)
+	_drag(slot, 0, Vector2(20, 50))
+	slot._down_at = Time.get_ticks_msec() - 400
+	slot._process(0)
+	assert_true(BioLoadoutSlot.active == null, "swiping leaves the scroll container in control")
+	_touch(slot, 0, Vector2(20, 50), false)
+	_touch(slot, 0, Vector2(20, 20), true)
+	slot._down_at = Time.get_ticks_msec() - 400
+	slot._process(0)
+	assert_true(BioLoadoutSlot.active == slot, "holding deliberately picks up the skill")
+	world.body_panel.refresh()
+	assert_true(BioLoadoutSlot.active == slot, "background updates preserve the held skill")
+	world.body_panel.close()
+	assert_true(BioLoadoutSlot.active == null, "closing the window cancels the drag")
+
+func test_skill_drop_is_scoped_to_its_editor_and_empty_slots_reject_it() -> void:
+	var slot := BioLoadoutSlot.new()
+	slot.configure(2, &"engolir", 123, false)
+	assert_true(slot._get_drag_data(Vector2.ZERO) == null, "emulated mouse never bypasses the touch hold")
+	assert_true(slot._can_drop_data(Vector2.ZERO, {"kind": "ability", "scope": 123, "slot": 0}))
+	assert_true(not slot._can_drop_data(Vector2.ZERO, {"kind": "ability", "scope": 456, "slot": 0}))
+	assert_true(not slot._can_drop_data(Vector2.ZERO, {"kind": "ability", "scope": 123, "slot": 2}))
+	slot.free()
+	var empty := BioLoadoutSlot.new()
+	empty.configure(2, &"", 123, false)
+	assert_true(not empty._can_drop_data(Vector2.ZERO, {"kind": "ability", "scope": 123, "slot": 0}))
+	empty.free()

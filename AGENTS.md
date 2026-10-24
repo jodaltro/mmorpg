@@ -26,6 +26,7 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 - Go 1.23+ (validado com 1.27.2 em `D:\tools\go\bin`; pode não estar no PATH). Rodar `gofmt -l .`, `go vet ./...` e `go test ./...` em `engine/` antes de commitar.
 - Todo comportamento novo do motor precisa de teste em `engine/scenarios` (sobre universos reais) ou no pacote correspondente.
 - **Registrar só testes realmente executados**, em `Docs/Validation/`. Nunca declarar como aprovado o que não rodou.
+- **Validação apenas local** (decisão do usuário em 24/10/2026): não executar testes online nem contra o servidor publicado. Evitar repetir verificações já aprovadas sem mudança relevante; economizar tokens e chamadas.
 - Universo novo ou alterado: `worldsim validate` e um `worldsim simulate` para conferir que a história não trava.
 - Preferir contratos pequenos e versionados. Mudança incompatível no contrato HTTP exige nova versão (`/v2`).
 

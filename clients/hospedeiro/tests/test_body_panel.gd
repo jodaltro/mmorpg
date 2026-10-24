@@ -155,12 +155,16 @@ func test_the_builds_tab_shows_the_saved_sets() -> void:
 	world.body_panel.close()
 
 
-func test_two_clicks_swap_the_keys_of_two_abilities() -> void:
+func test_inspection_keeps_the_order_and_explicit_move_swaps_abilities() -> void:
 	world.debug_become(&"macrofago")
 	var first := world.abilities.slot_id(0)
 	var second := world.abilities.slot_id(1)
 	world.body_panel.open(BioBodyPanel.ABILITIES)
 	world.body_panel.click_ability(0)
+	world.body_panel.click_ability(1)
+	assert_eq(world.abilities.slot_id(0), first, "inspection never rearranges the bar")
+	world.body_panel.click_ability(0)
+	world.body_panel._ability_moving = true
 	world.body_panel.click_ability(1)
 	assert_eq(world.abilities.slot_id(0), second, "the second took the first key")
 	assert_eq(world.abilities.slot_id(1), first, "and the first the second key")
@@ -190,3 +194,123 @@ func test_choices_are_not_held_back_by_a_fight() -> void:
 	assert_eq(world.body_panel.lock_reason(), "", "nothing in the way, fight or not")
 	assert_true(world.body_panel.pick(0), "the choice goes to the engine")
 	world.body_panel.close()
+
+
+func test_abilities_show_one_short_inspector_and_details_are_optional() -> void:
+	world.debug_become(&"macrofago")
+	world.body_panel.open(BioBodyPanel.ABILITIES)
+	assert_eq(world.body_panel.ability_slots.size(), 4)
+	assert_true(not world.body_panel.content_text().contains("COMO FUNCIONA"))
+	world.body_panel.click_ability(0)
+	var text := world.body_panel.content_text()
+	assert_true(text.contains("ATP") and not text.contains("COMO FUNCIONA"))
+	world.body_panel._ability_details = true
+	world.body_panel.refresh()
+	assert_true(world.body_panel.content_text().contains("COMO FUNCIONA"))
+	world.body_panel.reorder_abilities(0, 3)
+	assert_eq(world.body_panel._ability_pick, 3)
+
+func test_build_selection_does_not_equip_or_rename_anything() -> void:
+	world.sync.apply_view(_view({"evolution": _evolution()}))
+	world.body_panel.open(BioBodyPanel.BUILDS)
+	world.body_panel.select_build(2)
+	assert_true(world.body_panel.content_text().contains("Preset vazio"))
+	assert_eq(world.body_panel.current_genes().size(), 3)
+	assert_true(not world.body_panel._rename_build)
+	world.body_panel._confirm_save = true
+	world.body_panel.select_build(1)
+	assert_true(not world.body_panel._confirm_save, "changing preset cancels overwrite confirmation")
+
+func test_saved_order_can_differ_even_when_genes_match() -> void:
+	world.debug_become(&"macrofago")
+	var order: Array = world.abilities.known().duplicate()
+	world.build_store.save_order(1, order)
+	assert_true(not world.body_panel._build_order_differs(1))
+	world.body_panel.reorder_abilities(0, 1)
+	assert_true(world.body_panel._build_order_differs(1))
+
+
+class BuildLink extends BioEngineLink:
+	var code := 409
+	var calls := 0
+	func act(_action: String, _args: Dictionary = {}) -> Dictionary:
+		calls += 1
+		await get_tree().process_frame
+		return {"status": code, "body": {"events": []}}
+
+func test_failed_build_requests_preserve_the_active_and_saved_order() -> void:
+	var fake := BuildLink.new()
+	world.add_child(fake)
+	fake.online = true
+	world.sync.link = fake
+	world.sync.apply_view(_view({"evolution": _evolution()}))
+	world.debug_become(&"macrofago")
+	var order: Array = world.abilities.known().duplicate()
+	world.build_store.save_order(1, order)
+	world.body_panel.reorder_abilities(0, 1)
+	var changed: Array = world.abilities.known().duplicate()
+	await world.body_panel.apply_build(1)
+	assert_eq(world.abilities.known(), changed, "failed application cannot rearrange abilities")
+	await world.body_panel.save_build(1)
+	assert_eq(world.build_store.order_of(1), order.map(func(id: Variant) -> String: return str(id)), "failed save keeps the previous preset")
+	fake.code = 200
+	await world.body_panel.apply_build(1)
+	assert_eq(world.abilities.known(), order, "confirmed application restores the saved order")
+	assert_true(not world.body_panel._busy)
+	assert_true(world.body_panel._operation_note.contains("aplicada"))
+	fake.calls = 0
+	world.body_panel.save_build(1)
+	world.body_panel.save_build(1)
+	assert_eq(fake.calls, 1, "two taps while pending send just one request")
+	await tree.process_frame
+	await tree.process_frame
+	assert_true(not world.body_panel._busy)
+
+
+func test_background_refresh_preserves_a_name_being_edited() -> void:
+	world.body_panel.open(BioBodyPanel.BUILDS)
+	world.body_panel._rename_build = true
+	world.body_panel.refresh()
+	await tree.process_frame
+	await tree.process_frame
+	var edit := tree.root.gui_get_focus_owner() as LineEdit
+	assert_true(edit != null)
+	if edit != null:
+		edit.text = "Guardião"
+		world.body_panel.refresh()
+		assert_true(tree.root.gui_get_focus_owner() == edit, "polling does not replace the focused name field")
+		assert_eq(edit.text, "Guardião")
+
+
+func test_submitting_a_build_name_commits_and_closes_the_editor() -> void:
+	world.body_panel.open(BioBodyPanel.BUILDS)
+	world.body_panel._rename_build = true
+	world.body_panel.refresh()
+	await tree.process_frame
+	await tree.process_frame
+	var edit := tree.root.gui_get_focus_owner() as LineEdit
+	if edit == null:
+		assert_true(false, "rename receives keyboard focus")
+		return
+	edit.text_submitted.emit("Exploração")
+	assert_eq(world.build_store.name_of(1), "Exploração")
+	assert_true(not world.body_panel._rename_build)
+	assert_true(not BioUi.typing())
+
+
+func test_dragging_a_saved_preset_changes_only_its_saved_order() -> void:
+	world.debug_become(&"macrofago")
+	var active_order: Array = world.abilities.known().duplicate()
+	world.sync.apply_view(_view({"evolution": _evolution()}))
+	world.build_store.save_order(1, active_order)
+	world.body_panel.open(BioBodyPanel.BUILDS)
+	var preview_slots: Array = tree.get_nodes_in_group("loadout_slots").filter(func(node: Node) -> bool: return node.scope == -world.body_panel.get_instance_id())
+	assert_eq(preview_slots.size(), 4)
+	var target := preview_slots.filter(func(node: Node) -> bool: return node.slot == 3)[0] as BioLoadoutSlot
+	target._drop_data(Vector2.ZERO, {"kind": "ability", "scope": -world.body_panel.get_instance_id(), "slot": 0})
+	assert_eq(world.abilities.known(), active_order, "editing a preset never equips it")
+	assert_eq(world.build_store.order_of(1)[3], String(active_order[0]))
+	assert_eq(world.build_store.order_of(1)[0], String(active_order[3]))
+	var saved: Array = world.build_store.order_of(1).duplicate()
+	world.body_panel.reorder_build_abilities(1, -1, 2)
+	assert_eq(world.build_store.order_of(1), saved, "invalid drops cannot change the preset")

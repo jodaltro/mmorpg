@@ -143,6 +143,9 @@ func test_the_body_window_explains_every_class_and_every_ability() -> void:
 	await tree.process_frame
 	assert_true(world.body_panel.content_text().contains("COMO JOGAR"), "the Form tab tells how to play the class")
 	world.body_panel.show_tab(BioBodyPanel.ABILITIES)
+	world.body_panel.click_ability(0)
+	world.body_panel._ability_details = true
+	world.body_panel.refresh()
 	await tree.process_frame
 	assert_true(world.body_panel.content_text().contains("COMO FUNCIONA"), "the Abilities tab tells how each one works")
 	world.body_panel.close()

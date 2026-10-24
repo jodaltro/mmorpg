@@ -43,3 +43,16 @@ Selecionar uma ficha exige pressionar e soltar sem arrastar. O movimento do dedo
 O componente BioModal centraliza tamanho, cabeçalho, fechamento e fundo. O toque fora só fecha ao soltar, se o gesto começou e terminou fora e não foi um arrasto. Fechar um chamado pelo fundo significa responder depois; a oferta continua disponível.
 
 Referências técnicas: [ScrollContainer](https://docs.godotengine.org/en/stable/classes/class_scrollcontainer.html) e [Control / propagação de input](https://docs.godotengine.org/en/stable/classes/class_control.html). Validação por toque emulado no Edge; aparelhos físicos ainda precisam de avaliação de uso.
+
+
+## Editor de habilidades e presets (24/10/2026)
+
+Referências desta revisão: [barra de habilidades do ESO](https://help.elderscrollsonline.com/app/answers/detail/a_id/2665/~/how-do-i-assign-skills), com arrastar até o espaço desejado, e [templates do Guild Wars 2](https://www.guildwars2.com/en/news/learn-all-about-build-and-equipment-templates/), que agrupam escolhas em presets inspecionáveis. A implementação e os ícones do Hospedeiro continuam originais.
+
+Habilidades passam a ser quatro espaços de 70 unidades de altura, em uma linha. Tocar ou clicar apenas seleciona o inspetor: nome, custo, recarga, dano e efeito curto. A explicação longa fica em Como funciona. A alternativa Trocar posição permite selecionar um destino sem arrastar.
+
+No desktop, arrastar e soltar usa o drag-and-drop do Godot. No toque, segurar por 350 ms permite pegar a habilidade; arrastar sobre outro espaço realça o destino e soltar troca as posições. Soltar fora, cancelar o toque ou fechar a janela abandona a troca. Um deslize de mais de oito unidades antes da espera é rolagem, nunca uma troca. O caminho de mouse emulado fica desativado nesse editor mobile para não ignorar a espera.
+
+Builds mostram três seletores compactos e os detalhes de um único preset, com genes, ordem salva e comparação. Selecionar não equipa; Renomear abre o campo somente por solicitação; Salvar aqui substitui um preset ocupado apenas depois de confirmação; Aplicar envia a intenção ao motor. Nomes são locais e genes continuam validados pelo motor.
+
+Salvar aqui captura os genes e a barra atual; a ordem desse snapshot só é salva ou equipada depois de sucesso HTTP. A ordem de um preset existente também pode ser arrastada diretamente na prévia: essa organização é salva localmente, sem equipar o preset, até o jogador escolher Aplicar. Falhas preservam a ordem anterior e aparecem no próprio painel. Operações pendentes impedem envio duplicado. Atualizações em segundo plano não substituem o campo de nome nem interrompem uma habilidade sendo arrastada. Arrastar muda a organização da barra, sem executar habilidades nem mudar regras de combate.

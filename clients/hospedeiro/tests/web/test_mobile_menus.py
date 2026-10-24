@@ -41,11 +41,17 @@ with sync_playwright() as p:
     rect=q['menus']['tabs'][2]
     tap(rect[0]+rect[2]/2,rect[1]+rect[3]/2)
     wait_for(pg,lambda q:q['menus']['bodyTab']==2,'ability tab')
+    x,y,w,h=probe(pg)['menus']['abilitySlots'][0]
+    tap(x+w/2,y+h/2)
+    wait_for(pg,lambda q:q['menus']['abilityPick']==0,'inspect skill')
+    button=next(b for b in probe(pg)['menus']['bodyButtons'] if b['text']=='Como funciona')
+    x,y,w,h=button['rect'];tap(x+w/2,y+h/2)
+    wait_for(pg,lambda q:q['menus']['abilityDetails'],'expanded details')
     shot(pg,'abilities_before_scroll')
     drag_rect('bodyViewport')
     q=probe(pg)
     check(q['menus']['bodyScroll']>25,'dragging inside an ability card scrolls the body window')
-    check(q['menus']['abilityPick']==-1,'scrolling does not select or swap a skill')
+    check(q['menus']['abilityPick']==0,'scrolling preserves the inspected skill')
     shot(pg,'abilities_scrolled')
     outside()
     wait_for(pg,lambda q:not q['body'],'outside closes body')

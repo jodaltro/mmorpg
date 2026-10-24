@@ -34,6 +34,14 @@ var _content: VBoxContainer
 var _footer: Label
 var _swap_in := ""  # engine id of the library gene chosen to come in
 var _swap_out := ""  # engine id of the expressed gene chosen to leave
+var ability_slots: Array[BioLoadoutSlot] = []
+var _ability_details := false
+var _ability_moving := false
+var _build_ability_pick := -1
+var _rename_build := false
+var _confirm_save := false
+var _operation_note := ""
+var _busy := false
 var _ability_pick := -1
 var _build_pick := 1
 var _last_lock := ""
@@ -136,6 +144,11 @@ func open(wanted: int = -1) -> void:
 	_swap_in = ""
 	_swap_out = ""
 	_ability_pick = -1
+	_ability_moving = false
+	_ability_details = false
+	_rename_build = false
+	_confirm_save = false
+	_operation_note = ""
 	refresh()
 
 
@@ -149,6 +162,11 @@ func close() -> void:
 func show_tab(index: int) -> void:
 	_scroll.scroll_vertical = 0
 	tab = clampi(index, 0, TABS.size() - 1)
+	_ability_details = false
+	_ability_moving = false
+	_rename_build = false
+	_confirm_save = false
+	_fit()
 	_swap_in = ""
 	_swap_out = ""
 	_ability_pick = -1
@@ -165,6 +183,7 @@ func _tab_with_offer() -> int:
 
 
 func _fit() -> void:
+	_dim.max_size.y = 460 if tab == ABILITIES else 540 if tab == BUILDS else 620
 	_dim.fit()
 
 
@@ -215,6 +234,9 @@ func lock_reason(for_rest := true) -> String:
 func refresh() -> void:
 	if _content == null or not is_open():
 		return
+	if (_rename_build and BioUi.typing()) or (is_instance_valid(BioLoadoutSlot.active) and absi(BioLoadoutSlot.active.scope) == get_instance_id()):
+		return  # background world updates must not interrupt editing or a held skill
+	ability_slots.clear()
 	_last_lock = lock_reason()
 	_paint_header()
 	for i in _tab_buttons.size():
@@ -260,7 +282,8 @@ func _paint_header() -> void:
 	var reason := lock_reason()
 	_lock_label.text = reason if not reason.is_empty() else "Pronto para ajustar"
 	_lock_label.add_theme_color_override("font_color", BioUi.WARN if not reason.is_empty() else BioUi.GOOD)
-	_footer.text = ""
+	_footer.text = "Aguarde…" if _busy else _operation_note
+	_footer.visible = not _footer.text.is_empty()
 
 
 func _section(text: String) -> Label:
@@ -601,82 +624,103 @@ func silence_selected() -> void:
 	_send("silenciar", {"gene": _swap_out})
 
 
-func _send(action: String, args: Dictionary) -> void:
+func _send(action: String, args: Dictionary) -> bool:
+	if _busy:
+		return false
+	_busy = true
+	_operation_note = ""
+	refresh()
 	var res: Dictionary = await _world.sync.link.act(action, args)
+	_busy = false
 	if res.get("status", 0) != 200:
+		_operation_note = "A mudança não foi aceita. Tente novamente."
 		_world.sync.system.push_feed("O corpo não aceitou essa mudança agora.")
-		return
+		refresh()
+		return false
+	_operation_note = {"salvar-build": "Preset salvo.", "aplicar-build": "Build aplicada."}.get(action, "Alteração confirmada.")
 	_swap_in = ""
 	_swap_out = ""
 	for e in res.get("body", {}).get("events", []):
 		_world.sync.system.push_feed(str(e.get("text", "")))
 	if is_open():
 		refresh()
+	return true
 
 
 # --- HABILIDADES -----------------------------------------------------------------------------------------------------------------
 
 func _paint_abilities() -> void:
-	_content.add_child(BioUi.wrapped("Selecione duas habilidades para trocar a ordem.", BioUi.FS_BODY, BioUi.MUTED))
-	var row := _responsive_row()
-	row.add_theme_constant_override("separation", 12)
+	_content.add_child(BioUi.wrapped("Segure e arraste para reorganizar. Toque para inspecionar." if BioPlatform.is_touch() else "Arraste para reorganizar. Clique para inspecionar.", BioUi.FS_SMALL, BioUi.MUTED))
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
 	_content.add_child(row)
 	for i in BioAbilityRunner.SLOTS:
-		row.add_child(_ability_card(i))
-	if _world.abilities.slots.is_empty():
-		_content.add_child(BioUi.wrapped("Sua forma ainda não conhece habilidades. Elas chegam ao se diferenciar e ao cumprir chamados.", BioUi.FS_BODY, BioUi.MUTED))
-
-
-func _ability_card(slot: int) -> Control:
-	var id: StringName = _world.abilities.slot_id(slot)
-	var picked := slot == _ability_pick
-	var card := PanelContainer.new()
-	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	card.custom_minimum_size = Vector2(0, 150)
-	card.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	var color := Color(0.3, 0.4, 0.5)
-	if id != &"":
-		color = BioAbilityCatalog.get_ability(id).get("color", color)
-	card.add_theme_stylebox_override("panel", BioUi.style(BioUi.BG_RAISED, BioUi.LINE_STRONG if picked else BioArt.with_alpha(color, 0.35), 10, 14, 2 if picked else 1))
+		var card := BioLoadoutSlot.new()
+		card.configure(i, _world.abilities.slot_id(i), get_instance_id(), i == _ability_pick)
+		card.selected.connect(click_ability)
+		card.reordered.connect(reorder_abilities)
+		row.add_child(card)
+		ability_slots.append(card)
+	if _ability_pick < 0 or _world.abilities.slot_id(_ability_pick) == &"":
+		_content.add_child(BioUi.wrapped("Selecione uma habilidade para ver custo e efeito." if not _world.abilities.slots.is_empty() else "As habilidades chegam ao se diferenciar e cumprir chamados.", BioUi.FS_SMALL, BioUi.MUTED))
+		return
+	var id: StringName = _world.abilities.slot_id(_ability_pick)
+	var a := BioAbilityCatalog.get_ability(id)
+	var info := BioLore.ability_info(id)
+	var detail := _panel(BioUi.BG_SUNK, BioUi.LINE, 10)
+	_content.add_child(detail)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 6)
-	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(v)
-	var head := HBoxContainer.new()
-	head.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	v.add_child(head)
-	head.add_child(BioUi.keycap(KEYS[slot]))
-	if id == &"":
-		v.add_child(BioUi.label("vazio", BioUi.FS_HEAD, Color(1, 1, 1, 0.3)))
-	else:
-		var a := BioAbilityCatalog.get_ability(id)
-		var kind := str(a.get("kind", ""))
-		head.add_child(BioUi.label("  " + str(KIND_NAMES.get(kind, BioLore.KIND_NAMES.get(kind, kind))), BioUi.FS_SMALL, BioUi.MUTED))
-		v.add_child(BioUi.label(str(a.get("name", id)), BioUi.FS_HEAD, color.lightened(0.35)))
-		v.add_child(BioUi.label("custo %d ATP" % int(a.get("cost", 0)), BioUi.FS_SMALL + 1, BioUi.TEXT))
-		v.add_child(BioUi.label("recarga %.1f s" % float(a.get("cooldown", 0)), BioUi.FS_SMALL + 1, BioUi.TEXT))
-		if a.has("damage"):
-			v.add_child(BioUi.label("dano %d" % int(a.get("damage", 0)), BioUi.FS_SMALL + 1, BioUi.TEXT))
-		var info := BioLore.ability_info(id)
-		if not info.is_empty():
-			v.add_child(_section("O QUE FAZ"))
-			v.add_child(BioUi.wrapped(str(info["what"]), BioUi.FS_SMALL, BioUi.TEXT))
-			v.add_child(_section("COMO FUNCIONA"))
-			v.add_child(BioUi.wrapped(str(info["how"]), BioUi.FS_SMALL, BioUi.MUTED))
-	BioUi.bind_tap(card, func() -> void: click_ability(slot))
-	return card
+	detail.add_child(v)
+	v.add_child(BioUi.label(str(a.get("name", id)), BioUi.FS_HEAD, BioUi.ACCENT))
+	var stats := "%d ATP · %.1f s de recarga" % [int(a.get("cost", 0)), float(a.get("cooldown", 0))]
+	if a.has("damage"):
+		stats += " · %d dano" % int(a.damage)
+	v.add_child(BioUi.label(stats, BioUi.FS_SMALL, BioUi.MUTED))
+	v.add_child(BioUi.wrapped(str(info.get("what", "")), BioUi.FS_SMALL))
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", 6)
+	v.add_child(actions)
+	var more := BioUi.button("Menos detalhes" if _ability_details else "Como funciona")
+	more.pressed.connect(func() -> void:
+		_ability_details = not _ability_details
+		refresh())
+	actions.add_child(more)
+	var move := BioUi.button("Cancelar troca" if _ability_moving else "Trocar posição")
+	move.pressed.connect(func() -> void:
+		_ability_moving = not _ability_moving
+		refresh())
+	actions.add_child(move)
+	if _ability_moving:
+		v.add_child(BioUi.wrapped("Escolha o espaço de destino.", BioUi.FS_SMALL, BioUi.ACCENT))
+	if _ability_details:
+		v.add_child(_section("COMO FUNCIONA"))
+		v.add_child(BioUi.wrapped(str(info.get("how", "")), BioUi.FS_SMALL, BioUi.MUTED))
 
 
-## First click picks a slot, the second swaps it with the one clicked (a click on the same one lets go).
+## Inspection never changes the bar. Moving is explicit, or uses a deliberate drag.
 func click_ability(slot: int) -> void:
-	if _ability_pick < 0:
-		if _world.abilities.slot_id(slot) != &"":
-			_ability_pick = slot
-	elif _ability_pick == slot:
-		_ability_pick = -1
-	else:
-		_world.swap_abilities(_ability_pick, slot)
-		_ability_pick = -1
+	if slot < 0 or slot >= BioAbilityRunner.SLOTS:
+		return
+	if _ability_moving and _ability_pick >= 0:
+		if slot == _ability_pick:
+			_ability_moving = false
+			refresh()
+		else:
+			reorder_abilities(_ability_pick, slot)
+		return
+	_ability_pick = slot
+	_ability_details = false
+	refresh()
+
+
+func reorder_abilities(source: int, target: int) -> void:
+	if source < 0 or target < 0 or source >= BioAbilityRunner.SLOTS or target >= BioAbilityRunner.SLOTS or source == target or _world.abilities.slot_id(source) == &"" or _world.abilities.slot_id(target) == &"":
+		return
+	_world.swap_abilities(source, target)
+	_ability_pick = target
+	_ability_details = false
+	_ability_moving = false
 	refresh()
 
 
@@ -690,79 +734,136 @@ func _build_genes(slot: int) -> Array:
 
 
 func _paint_builds() -> void:
-	if not _online():
-		_content.add_child(BioUi.wrapped("Sem o motor, o corpo não guarda builds.", BioUi.FS_BODY, BioUi.WARN))
-	_content.add_child(BioUi.wrapped("Uma build guarda os genes que estão expressos agora e a ordem das habilidades. Aplicar uma troca os genes de uma vez, respeitando o descanso do corpo. Selecione uma build para ver o que ela faria.", BioUi.FS_BODY, BioUi.MUTED))
-	var row := _responsive_row()
-	row.add_theme_constant_override("separation", 12)
-	_content.add_child(row)
+	var presets := HBoxContainer.new()
+	presets.add_theme_constant_override("separation", 6)
+	_content.add_child(presets)
 	for slot in range(1, BioBuildStore.SLOTS + 1):
-		row.add_child(_build_card(slot))
+		var title: String = _world.build_store.name_of(slot)
+		var genes := _build_genes(slot)
+		var button := BioUi.button(title + (" · vazia" if genes.is_empty() else " · %d genes" % genes.size()), "primary" if slot == _build_pick else "ghost")
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.clip_text = true
+		button.pressed.connect(func() -> void: select_build(slot))
+		presets.add_child(button)
+	_content.add_child(_build_card(_build_pick))
 	var saved := _build_genes(_build_pick).map(func(g: Dictionary) -> StringName: return _local_id(str(g.get("id", ""))))
-	_content.add_child(_result_panel(current_genes(), saved, "SE APLICAR A BUILD %d" % _build_pick, "Esta build está vazia ou igual ao que está expresso."))
+	if not saved.is_empty():
+		_content.add_child(_result_panel(current_genes(), saved, "AO APLICAR", "Os genes já são iguais aos atuais."))
+
+
+func select_build(slot: int) -> void:
+	if slot < 1 or slot > BioBuildStore.SLOTS:
+		return
+	_build_pick = slot
+	_build_ability_pick = -1
+	_rename_build = false
+	_confirm_save = false
+	_scroll.scroll_vertical = 0
+	refresh()
 
 
 func _build_card(slot: int) -> Control:
 	var genes := _build_genes(slot)
-	var picked := slot == _build_pick
-	var card := _panel(BioUi.BG_RAISED, BioUi.LINE_STRONG if picked else BioUi.LINE, 14)
-	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	card.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	BioUi.bind_tap(card, func() -> void:
-		if _build_pick != slot:
-			_build_pick = slot
-			refresh())
+	var card := _panel(BioUi.BG_RAISED, BioUi.LINE, 10)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 6)
+	v.add_theme_constant_override("separation", 8)
 	card.add_child(v)
-	var name_row := HBoxContainer.new()
-	v.add_child(name_row)
-	var name_edit := LineEdit.new()
-	name_edit.text = _world.build_store.name_of(slot)
-	name_edit.max_length = 18
-	name_edit.flat = true
-	name_edit.add_theme_font_size_override("font_size", BioUi.FS_HEAD)
-	name_edit.add_theme_color_override("font_color", BioUi.ACCENT)
-	name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_edit.tooltip_text = "Toque para renomear"
-	name_edit.text_submitted.connect(func(text: String) -> void:
-		_world.build_store.set_name(slot, text)
-		name_edit.release_focus())
-	name_edit.focus_exited.connect(func() -> void: _world.build_store.set_name(slot, name_edit.text))
-	name_row.add_child(name_edit)
+	var head := HBoxContainer.new()
+	v.add_child(head)
+	if _rename_build:
+		var edit := LineEdit.new()
+		edit.text = _world.build_store.name_of(slot)
+		edit.max_length = 18
+		edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		head.add_child(edit)
+		edit.focus_entered.connect(func() -> void: edit.select_all.call_deferred())
+		edit.grab_focus.call_deferred()
+		var finish := func(text: String) -> void:
+			_world.build_store.set_name(slot, text)
+			_rename_build = false
+			refresh()
+		edit.text_submitted.connect(finish)
+		var done := BioUi.button("OK")
+		done.pressed.connect(func() -> void: finish.call(edit.text))
+		head.add_child(done)
+	else:
+		var title := BioUi.label(_world.build_store.name_of(slot), BioUi.FS_HEAD, BioUi.ACCENT)
+		title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		head.add_child(title)
+		var rename := BioUi.button("Renomear")
+		rename.pressed.connect(func() -> void:
+			_rename_build = true
+			refresh())
+		head.add_child(rename)
 	if genes.is_empty():
-		v.add_child(BioUi.label("vazia", BioUi.FS_BODY, Color(1, 1, 1, 0.3)))
-	for g in genes:
-		var gene: Dictionary = g
-		var dot_row := HBoxContainer.new()
-		dot_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var dot := ColorRect.new()
-		dot.color = BioUi.rarity_color(str(gene.get("rarity", "")))
-		dot.custom_minimum_size = Vector2(6, 6)
-		dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		dot_row.add_child(dot)
-		dot_row.add_child(BioUi.label("  " + str(gene.get("name", "")), BioUi.FS_SMALL + 1, BioUi.TEXT))
-		v.add_child(dot_row)
-	var order: Array = _world.build_store.order_of(slot)
-	if not order.is_empty():
-		var names: Array = order.map(func(id: Variant) -> String: return str(BioAbilityCatalog.get_ability(StringName(str(id))).get("name", id)))
-		v.add_child(BioUi.wrapped("Teclas: " + ", ".join(names), BioUi.FS_SMALL, BioUi.MUTED))
+		v.add_child(BioUi.wrapped("Preset vazio. Salve os genes e a ordem de habilidades atuais.", BioUi.FS_SMALL, BioUi.MUTED))
+	else:
+		var names: Array = genes.map(func(g: Dictionary) -> String: return str(g.get("name", "")))
+		v.add_child(BioUi.wrapped(" · ".join(names), BioUi.FS_SMALL))
+		var order: Array = _world.build_store.order_of(slot)
+		if not order.is_empty():
+			v.add_child(_section("ORDEM SALVA · segure e arraste" if BioPlatform.is_touch() else "ORDEM SALVA · arraste para editar"))
+			var bar := HBoxContainer.new()
+			bar.add_theme_constant_override("separation", 6)
+			v.add_child(bar)
+			for i in BioAbilityRunner.SLOTS:
+				var icon := BioLoadoutSlot.new()
+				icon.configure(i, StringName(str(order[i])) if i < order.size() else &"", -get_instance_id(), i == _build_ability_pick)
+				icon.reordered.connect(func(source: int, target: int) -> void: reorder_build_abilities(slot, source, target))
+				icon.selected.connect(func(index: int) -> void:
+					_build_ability_pick = index
+					refresh())
+				bar.add_child(icon)
+			if _build_ability_pick >= 0 and _build_ability_pick < order.size():
+				var id := StringName(str(order[_build_ability_pick]))
+				var a := BioAbilityCatalog.get_ability(id)
+				v.add_child(BioUi.wrapped(str(a.get("name", id)) + ": " + str(BioLore.ability_info(id).get("what", "")), BioUi.FS_SMALL, BioUi.MUTED))
 	var buttons := HBoxContainer.new()
-	buttons.add_theme_constant_override("separation", 8)
+	buttons.add_theme_constant_override("separation", 6)
 	v.add_child(buttons)
-	var save := BioUi.button("Salvar aqui", "ghost")
-	save.disabled = not _online() or _expressed().is_empty()
-	save.pressed.connect(func() -> void: save_build(slot))
+	var save := BioUi.button("Confirmar" if _confirm_save else "Salvar aqui")
+	save.disabled = _busy or not _online() or _expressed().is_empty()
+	save.pressed.connect(func() -> void:
+		if not genes.is_empty() and not _confirm_save:
+			_confirm_save = true
+			refresh()
+		else:
+			save_build(slot))
 	buttons.add_child(save)
-	var reason := lock_reason()
 	var apply := BioUi.button("Aplicar", "primary")
-	var saved_local := genes.map(func(g: Dictionary) -> StringName: return _local_id(str(g.get("id", ""))))
-	apply.disabled = genes.is_empty() or not reason.is_empty() or BioBuildPreview.rows(_world.lineage_id, current_genes(), saved_local).is_empty() and _same_genes(saved_local)
-	apply.tooltip_text = reason
+	var saved := genes.map(func(g: Dictionary) -> StringName: return _local_id(str(g.get("id", ""))))
+	apply.disabled = _busy or genes.is_empty() or not lock_reason().is_empty() or (_same_genes(saved) and not _build_order_differs(slot))
 	apply.pressed.connect(func() -> void: apply_build(slot))
 	buttons.add_child(apply)
+	var edit_skills := BioUi.button("Habilidades")
+	edit_skills.pressed.connect(func() -> void: show_tab(ABILITIES))
+	buttons.add_child(edit_skills)
+	if _confirm_save:
+		v.add_child(BioUi.wrapped("Substituirá este preset pelos genes e habilidades atuais.", BioUi.FS_SMALL, BioUi.WARN))
+		var cancel := BioUi.button("Cancelar")
+		cancel.pressed.connect(func() -> void:
+			_confirm_save = false
+			refresh())
+		v.add_child(cancel)
 	return card
+
+
+func reorder_build_abilities(build: int, source: int, target: int) -> void:
+	var order: Array = _world.build_store.order_of(build).duplicate()
+	if _busy or build < 1 or build > BioBuildStore.SLOTS or source < 0 or target < 0 or source >= order.size() or target >= order.size() or source == target:
+		return
+	var previous: Variant = order[source]
+	order[source] = order[target]
+	order[target] = previous
+	_world.build_store.save_order(build, order)
+	_build_ability_pick = target
+	_operation_note = "Ordem do preset salva neste dispositivo. Aplicar equipa a build."
+	refresh()
+
+
+func _build_order_differs(slot: int) -> bool:
+	var order: Array = _world.build_store.order_of(slot)
+	return not order.is_empty() and order != _world.abilities.known().map(func(id: Variant) -> String: return str(id))
 
 
 func _same_genes(ids: Array) -> bool:
@@ -774,19 +875,23 @@ func _same_genes(ids: Array) -> bool:
 
 
 func save_build(slot: int) -> void:
-	if not _online() or _expressed().is_empty():
+	if _busy or not _online() or _expressed().is_empty():
 		return
-	_world.build_store.save_order(slot, _world.abilities.known())
-	_send("salvar-build", {"slot": str(slot)})
+	var order: Array = _world.abilities.known().duplicate()
+	if await _send("salvar-build", {"slot": str(slot)}):
+		_world.build_store.save_order(slot, order)
+		_confirm_save = false
+		refresh()
 
 
 func apply_build(slot: int) -> void:
-	if not lock_reason().is_empty() or _build_genes(slot).is_empty():
+	if _busy or not lock_reason().is_empty() or _build_genes(slot).is_empty():
 		return
-	var order: Array = _world.build_store.order_of(slot)
-	if not order.is_empty():
-		_world.arrange_abilities(order)
-	_send("aplicar-build", {"slot": str(slot)})
+	var order: Array = _world.build_store.order_of(slot).duplicate()
+	if await _send("aplicar-build", {"slot": str(slot)}):
+		if not order.is_empty():
+			_world.arrange_abilities(order)
+		refresh()
 
 
 func _narrow() -> bool:
