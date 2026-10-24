@@ -36,6 +36,8 @@ var design_debug: BioDesignDebug
 var jev_panel: BioJevPanel
 var debug_menu: BioDebugMenu
 var debug_god := false
+var touch: BioTouchControls
+var display: BioDisplay
 
 ## Rooms and classes the test menu goes straight to.
 const DEBUG_ROOMS := [
@@ -85,6 +87,7 @@ var _built := false
 var _upkeep_timer := 0.0
 var _virus_respawn_timer := 0.0
 var _tint: CanvasModulate
+var _flow_owed := 0.0
 
 
 func _ready() -> void:
@@ -103,6 +106,8 @@ func build() -> void:
 	if _built:
 		return
 	_built = true
+	if not engine_url.is_empty():
+		engine_url = BioPlatform.engine_url(engine_url)
 	_rng.seed = seed_value
 	BioFx.root = self
 	RenderingServer.set_default_clear_color(Color(0.006, 0.01, 0.03))
@@ -232,6 +237,31 @@ func build() -> void:
 	sync.name = "HostSync"
 	sync.configure(self)
 	add_child(sync)
+	if BioPlatform.is_touch():
+		_build_for_touch()
+	if BioWebProbe.wanted():
+		var probe := BioWebProbe.new()
+		probe.name = "WebProbe"
+		probe.world = self
+		add_child(probe)
+
+
+## A phone or tablet: the interface sized for a thumb, the on-screen controls, and the HUD rearranged around them.
+func _build_for_touch() -> void:
+	var stride := BioPlatform.query_param("stride")
+	BioCellBody.background_stride = int(stride) if stride.is_valid_int() else 2
+	display = BioDisplay.new()
+	display.name = "Display"
+	display.world = self
+	add_child(display)
+	touch = BioTouchControls.new()
+	touch.name = "Touch"
+	add_child(touch)
+	touch.configure(self)
+	hud.set_touch(true)
+	tray.set_touch(true)
+	panel.set_touch(true)
+	sync.system.set_touch(true)
 
 
 ## Confirmed events (food, kills, evasions) build evolutionary pressure; at the threshold a mutation is offered.
@@ -439,6 +469,8 @@ func debug_cycle(trait_id: String) -> void:
 
 ## Debug keys: F4 cycles the effect style, F5 tries a random design, F6 goes back to the engine's.
 func _debug_keys() -> void:
+	if not BioPlatform.debug_enabled():
+		return
 	if Input.is_action_just_pressed("bio_jev"):
 		jev_panel.toggle()
 	if Input.is_action_just_pressed("bio_menu"):
@@ -524,7 +556,10 @@ func _sync_calls() -> void:
 		body_panel.refresh()
 
 
-func _open_from_chip(_key: String) -> void:
+func _open_from_chip(key: String) -> void:
+	if key == "quest":
+		sync.system.open_offer()
+		return
 	body_panel.open()
 
 
@@ -720,7 +755,7 @@ func _process(delta: float) -> void:
 		player.combatant.actor.vitals.atp = player.combatant.actor.vitals.max_atp
 	if dungeon.active:
 		var left := dungeon.grace_left()
-		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else "WASD move · clique ataca · Q F C V habilidades · Backspace sai")
+		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
 	var guide_gate := _nearest_open_gate()
 	if guide_gate != null and not dungeon.active and player.is_active():
 		var to := guide_gate.global_position - player.global_position
@@ -754,6 +789,12 @@ func _process(delta: float) -> void:
 
 ## The blood is a river that beats with the heart: cells and nutrients are carried by the flow of the body (vessels and chambers).
 func _physics_process(delta: float) -> void:
+	if BioCellBody.background_stride > 1:  # the current is slow: on a phone it is stepped every other tick, with the time it was owed
+		_flow_owed += delta
+		if Engine.get_physics_frames() % 2 == 1:
+			return
+		delta = _flow_owed
+		_flow_owed = 0.0
 	var clock := Time.get_ticks_msec() * 0.001
 	if dungeon == null or not dungeon.active:  # inside the granuloma there is no current
 		for node in get_tree().get_nodes_in_group("cells"):

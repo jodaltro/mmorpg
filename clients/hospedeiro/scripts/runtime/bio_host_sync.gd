@@ -54,7 +54,8 @@ func _ready() -> void:
 	link.name = "EngineLink"
 	if not _world.engine_url.is_empty():
 		var identity := BioEngineLink.local_identity(_world.identity_path)
-		link.configure(_world.engine_url, str(identity["id"]), str(identity["name"]))
+		link.configure(_world.engine_url, identity, _world.identity_path)
+		link.capabilities_changed.connect(func(allowed: bool) -> void: _world.hud.set_restart_allowed(allowed))
 	system.tray = _world.tray
 	system.offer_clicked.connect(func(accepted: bool) -> void:
 		if system.is_offer_visible():

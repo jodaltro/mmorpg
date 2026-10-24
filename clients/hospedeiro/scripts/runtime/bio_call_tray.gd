@@ -27,6 +27,20 @@ func _ready() -> void:
 	add_child(_box)
 
 
+## On a touch screen the corner belongs to the controls: the chips wait at the top, in the middle.
+func set_touch(on: bool) -> void:
+	if not on:
+		return
+	layer = 13
+	_box.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_box.offset_left = -CHIP_WIDTH * 0.5
+	_box.offset_right = CHIP_WIDTH * 0.5
+	_box.offset_top = 52.0
+	_box.offset_bottom = 52.0
+	_box.grow_vertical = Control.GROW_DIRECTION_END
+	_box.alignment = BoxContainer.ALIGNMENT_BEGIN
+
+
 ## Puts a chip up (or updates it). `hint` is the key that opens it; The player opens it when they choose.
 func set_call(key: String, kind: String, title: String, detail: String, hint: String = "") -> void:
 	if _chips.has(key):
@@ -56,6 +70,10 @@ func set_call(key: String, kind: String, title: String, detail: String, hint: St
 	texts.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(texts)
 	var title_label := BioUi.label(title, BioUi.FS_BODY, BioUi.TEXT)
+	if BioPlatform.is_touch():
+		title_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		title_label.custom_minimum_size.x = 230
+
 	texts.add_child(title_label)
 	var detail_label := BioUi.label(detail, BioUi.FS_SMALL, BioUi.MUTED)
 	texts.add_child(detail_label)

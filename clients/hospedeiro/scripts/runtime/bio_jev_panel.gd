@@ -47,6 +47,11 @@ func is_open() -> bool:
 	return _panel.visible
 
 
+## The keys that open the details and the test menu are for the developer.
+func _hint() -> String:
+	return "  ·  F2 detalhes  ·  Esc menu" if BioPlatform.debug_enabled() and not BioPlatform.is_touch() else ""
+
+
 func toggle() -> void:
 	_panel.visible = not _panel.visible
 	refresh()
@@ -107,11 +112,11 @@ func refresh() -> void:
 		return
 	var t := totals()
 	if not online:
-		_badge.text = "JEV: sem motor (offline): nada é decidido pelo Jev  ·  F2 detalhes  ·  Esc menu"
+		_badge.text = "JEV: sem motor (offline): nada é decidido pelo Jev" + _hint()
 		_badge.add_theme_color_override("font_color", Color(1.0, 0.7, 0.4, 0.9))
 	else:
 		var total: int = int(t["jev"]) + int(t["default"]) + int(t["other"])
-		_badge.text = "JEV: %d decisões · %d pelo Jev · %d pelo padrão%s  ·  %d à espera  ·  F2 detalhes  ·  Esc menu" % [total, t["jev"], t["default"], (" · %.0f ms" % t["latency_ms"]) if int(t["jev"]) > 0 else "", pending.size()]
+		_badge.text = "JEV: %d decisões · %d pelo Jev · %d pelo padrão%s  ·  %d à espera%s" % [total, t["jev"], t["default"], (" · %.0f ms" % t["latency_ms"]) if int(t["jev"]) > 0 else "", pending.size(), _hint()]
 		_badge.add_theme_color_override("font_color", Color(0.55, 1.0, 0.75, 0.9) if int(t["jev"]) > 0 else Color(1.0, 0.85, 0.5, 0.9))
 	if not _panel.visible:
 		return

@@ -33,6 +33,10 @@ var _card_reward: Label
 var _offer: Dictionary = {}
 var _caller := ""
 var _feed_box: VBoxContainer
+var _feed_width := 520.0
+var _feed_max := FEED_LINES
+var _touch := false
+var _dim: ColorRect  # touch: the call is answered in a card at the centre, over a dimmed screen
 var _feed_lines: Array[String] = []
 var _feed_born: Array[float] = []
 var _feed_labels: Array[Label] = []
@@ -144,8 +148,63 @@ func _ready() -> void:
 	set_status(false, 0)
 
 
+## On a touch screen the corners belong to the controls: the feed is three short lines between them, and the card of a call sits above
+## them (so its buttons can be pressed where the controls overlap it).
+func set_touch(on: bool) -> void:
+	if not on:
+		return
+	_touch = true
+	_status.visible = false
+	_region.position = Vector2(28, 90)
+	_region.add_theme_font_size_override("font_size", 12)
+	_states.offset_top = 14
+	_states.offset_bottom = 36
+	layer = 13
+	_column.remove_child(_card)  # the card of a call would sit on the attack button: here it is a chip, and opens at the centre
+	var modal := CanvasLayer.new()
+	modal.layer = 24
+	add_child(modal)
+	_dim = ColorRect.new()
+	_dim.color = Color(0, 0, 0, 0.62)
+	_dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_dim.mouse_filter = Control.MOUSE_FILTER_STOP
+	_dim.visible = false
+	_dim.gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventScreenTouch and event.pressed:
+			_show_card(false))  # a tap outside is "later": the chip stays
+	modal.add_child(_dim)
+	var centre := CenterContainer.new()
+	centre.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	centre.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	modal.add_child(centre)
+	_card.custom_minimum_size.x = 420.0
+	centre.add_child(_card)
+	_feed_max = 3
+	_feed_width = 260.0
+	_column.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)  # the mission under the bars, out of the way of the right thumb
+	_column.offset_left = 28.0
+	_column.offset_right = 28.0 + 260.0
+	_column.offset_top = 180.0
+	_feed_box.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	_feed_box.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	get_viewport().size_changed.connect(_layout_touch)
+	_layout_touch()
+
+
+func _layout_touch() -> void:
+	var w := get_viewport().get_visible_rect().size.x
+	_feed_box.offset_left = w * 0.30
+	_feed_box.offset_right = w * 0.30 + _feed_width
+	_feed_box.offset_top = -104.0
+	_feed_box.offset_bottom = -104.0
+
+
 func _process(_delta: float) -> void:
 	_fade_feed()
+	if _touch:
+		var world := get_parent().get_parent() as BioWorld
+		_feed_box.visible = world.touch != null and world.touch.menu_open
+		_column.visible = world.touch != null and world.touch.menu_open
 
 
 func _surface(bg: Color, border: Color) -> PanelContainer:
@@ -203,11 +262,23 @@ func offer_text() -> String:
 	return "%s\n%s\n%s\n%s" % [_card_head.text, _card_title.text, _card_goal.text, _card_reward.text]
 
 
+func _show_card(on: bool) -> void:
+	_card.visible = on
+	if _dim != null:
+		_dim.visible = on
+
+
+## Touch: the chip was tapped, the call opens at the centre.
+func open_offer() -> void:
+	if not offer_key.is_empty():
+		_show_card(true)
+
+
 func _refresh_offer() -> void:
 	if _card == null:
 		return
 	if offer_key.is_empty():
-		_card.visible = false
+		_show_card(false)
 		if tray != null:
 			tray.clear_call("quest")
 		return
@@ -216,6 +287,10 @@ func _refresh_offer() -> void:
 	_card_title.text = str(_offer.get("title", ""))
 	_card_goal.text = str(_offer.get("objective", _offer.get("desc", "")))
 	_card_reward.text = "Recompensa: %s" % str(_offer.get("reward", "-"))
+	if _touch:
+		if tray != null:
+			tray.set_call("quest", "quest", "Chamado: %s" % str(_offer.get("title", "")), "toque para responder")
+		return
 	_card.visible = true
 	if tray != null:
 		tray.clear_call("quest")
@@ -228,12 +303,14 @@ func push_feed(text: String) -> void:
 	_feed_born.append(BioClock.now())
 	var l := BioUi.wrapped(text, BioUi.FS_SMALL + 1, Color(1, 1, 1, 0.85))
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	l.custom_minimum_size.x = 520.0
+	l.custom_minimum_size.x = _feed_width
+	if _touch:
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.75))
 	l.add_theme_constant_override("outline_size", 4)
 	_feed_box.add_child(l)
 	_feed_labels.append(l)
-	while _feed_lines.size() > FEED_LINES:
+	while _feed_lines.size() > _feed_max:
 		_drop_feed(0)
 
 

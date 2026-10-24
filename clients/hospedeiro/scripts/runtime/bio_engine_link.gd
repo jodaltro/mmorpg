@@ -6,6 +6,7 @@ extends Node
 
 signal status_changed(online: bool)
 signal view_changed(view: Dictionary)
+signal capabilities_changed(reset_allowed: bool)
 
 const POLL_SECONDS := 1.0
 const RETRY_SECONDS := 5.0
@@ -13,21 +14,28 @@ const RETRY_SECONDS := 5.0
 var base_url := ""
 var player_id := ""
 var player_name := "Celula"
+var token := ""  # proves this cell is theirs to a public engine; minted by the engine, kept next to the id
+var identity_path := ""
+var reset_allowed := true
 var region := "medula"  # where the player is now, reported on (re)join
 var online := false
 var view: Dictionary = {}
 
 var _counter := 0
+var last_http := {}
+var _web_counter := 0
 
 
-func configure(url: String, id: String, display_name: String) -> void:
+func configure(url: String, identity: Dictionary, path: String = "") -> void:
 	base_url = url
-	player_id = id
-	player_name = display_name
+	player_id = str(identity.get("id", ""))
+	player_name = str(identity.get("name", "Celula"))
+	token = str(identity.get("token", ""))
+	identity_path = path
 
 
 func _ready() -> void:
-	if not base_url.is_empty() and not player_id.is_empty():
+	if not base_url.is_empty():
 		_loop()
 
 
@@ -50,11 +58,47 @@ func _connect() -> void:
 	var health := await request(HTTPClient.METHOD_GET, "/v1/health")
 	if health.status != 200:
 		return
+	if not await _open_session():
+		return
 	var joined := await _command("adapter", "join", {"name": player_name, "region": region})
 	if joined.status != 200 and joined.status != 409:  # 409: this cell already lives in the body
 		return
 	await _command("adapter", "move", {"region": region})
 	_set_online(true)
+
+
+## Asks the engine who this cell is. A new cell gets its id and token here; one the engine does not recognise (the world was
+## replaced, the key changed) is born again rather than stuck.
+func _open_session() -> bool:
+	for attempt in 2:
+		var body := {"version": 1}
+		if not player_id.is_empty():
+			body["id"] = player_id
+			body["token"] = token
+		var res := await request(HTTPClient.METHOD_POST, "/v1/session", body)
+		if res.status == 200:
+			player_id = str(res.body.get("id", player_id))
+			token = str(res.body.get("token", ""))
+			var allowed: bool = bool(res.body.get("capabilities", {}).get("reset", true))
+			if allowed != reset_allowed:
+				reset_allowed = allowed
+				capabilities_changed.emit(reset_allowed)
+			_save_identity()
+			return true
+		if res.status == 401 and not player_id.is_empty():
+			player_id = ""
+			token = ""
+			continue
+		return false
+	return false
+
+
+func _save_identity() -> void:
+	if identity_path.is_empty():
+		return
+	var file := FileAccess.open(identity_path, FileAccess.WRITE)
+	if file != null:
+		file.store_string(JSON.stringify({"id": player_id, "name": player_name, "token": token}))
 
 
 func _set_online(value: bool) -> void:
@@ -69,6 +113,8 @@ func refresh() -> void:
 	if res.status == 200:
 		view = res.body
 		view_changed.emit(view)
+		if BioPlatform.is_web():
+			JavaScriptBridge.eval("window.__hospedeiroReady=true", true)
 	elif res.status == 0 or (res.status == 404 and res.body.get("error", "") == "unknown_observer"):
 		_set_online(false)  # engine gone or world reset: rejoin on the next round
 
@@ -135,21 +181,30 @@ func _command(origin: String, kind: String, extra: Dictionary) -> Dictionary:
 
 
 func request(method: int, path: String, body: Variant = null) -> Dictionary:
+	if BioPlatform.is_web():
+		return await _web_request(method, path, body)
 	var http := HTTPRequest.new()
-	http.timeout = 5.0
+	http.timeout = 15.0 if not online else 5.0
 	add_child(http)
 	var payload := "" if body == null else JSON.stringify(body)
-	if http.request(base_url + path, PackedStringArray(["Content-Type: application/json"]), method, payload) != OK:
+	var headers := PackedStringArray(["Content-Type: application/json"])
+	if not token.is_empty():
+		headers.append("Authorization: Bearer " + token)
+	var started := http.request(base_url + path, headers, method, payload)
+	last_http = {"path": path, "start": started}
+	if started != OK:
 		http.queue_free()
 		return {"status": 0, "body": {}}
 	var r: Array = await http.request_completed
+	last_http = {"path": path, "result": r[0], "status": r[1]}
 	http.queue_free()
 	var text := (r[3] as PackedByteArray).get_string_from_utf8()
 	var parsed: Variant = JSON.parse_string(text) if not text.is_empty() else null
 	return {"status": r[1] if r[0] == HTTPRequest.RESULT_SUCCESS else 0, "body": parsed if parsed is Dictionary else {}}
 
 
-## A stable identity for this machine's cell, so it keeps living in the shared body between sessions.
+## What this machine remembers about its cell, so it keeps living in the shared body between sessions. A cell with no id yet gets
+## one from the engine on its first connection.
 static func local_identity(path: String) -> Dictionary:
 	if FileAccess.file_exists(path):
 		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -157,8 +212,43 @@ static func local_identity(path: String) -> Dictionary:
 			return data
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
-	var identity := {"id": "cel-%06x" % (rng.randi() & 0xFFFFFF), "name": "Celula-tronco %03d" % (rng.randi() % 1000)}
-	var file := FileAccess.open(path, FileAccess.WRITE)
-	if file != null:
-		file.store_string(JSON.stringify(identity))
-	return identity
+	return {"id": "", "name": "Celula-tronco %03d" % (rng.randi() % 1000), "token": ""}
+
+
+## Browser fetch avoids the Web HTTPClient startup stall observed through the HTTPS edge.
+## Native builds keep HTTPRequest. Every request has a deadline and its own response slot.
+func _web_request(method: int, path: String, body: Variant) -> Dictionary:
+	_web_counter += 1
+	var key := "%d:%d" % [get_instance_id(), _web_counter]
+	var timeout := 15.0 if not online else 5.0
+	var headers := {"Content-Type": "application/json"}
+	if not token.is_empty():
+		headers["Authorization"] = "Bearer " + token
+	var options := {"url": base_url + path, "method": "POST" if method == HTTPClient.METHOD_POST else "GET", "headers": headers, "body": JSON.stringify(body) if body != null else null, "timeout": int(timeout * 1000)}
+	JavaScriptBridge.eval("""(function(){
+        const q=%s, key=%s;
+        window.__hostRequests=window.__hostRequests||{};
+        const controller=new AbortController();
+        const timer=setTimeout(()=>controller.abort(),q.timeout);
+        const options={method:q.method,headers:q.headers,signal:controller.signal};
+        if(q.body!==null) options.body=q.body;
+        fetch(q.url,options).then(async r=>{
+            let body={};try{body=await r.json();}catch(e){}
+            window.__hostRequests[key]={status:r.status,body:body};
+        }).catch(()=>{window.__hostRequests[key]={status:0,body:{}};}).finally(()=>clearTimeout(timer));
+    })()""" % [JSON.stringify(options), JSON.stringify(key)], true)
+	last_http = {"path": path, "start": OK}
+	var started := Time.get_ticks_msec()
+	while is_inside_tree():
+		var raw: Variant = JavaScriptBridge.eval("JSON.stringify((window.__hostRequests||{})[%s]||null)" % JSON.stringify(key), true)
+		var parsed: Variant = JSON.parse_string(str(raw)) if raw != null else null
+		if parsed is Dictionary:
+			JavaScriptBridge.eval("delete window.__hostRequests[%s]" % JSON.stringify(key), true)
+			last_http = {"path": path, "status": parsed.get("status", 0)}
+			return parsed
+		if Time.get_ticks_msec() - started > int(timeout * 1000) + 1000:
+			break
+		await get_tree().create_timer(0.05).timeout
+	JavaScriptBridge.eval("delete (window.__hostRequests||{})[%s]" % JSON.stringify(key), true)
+	last_http = {"path": path, "status": 0}
+	return {"status": 0, "body": {}}

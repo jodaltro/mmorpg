@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"path/filepath"
 	"sort"
 	"strconv"
@@ -88,12 +89,24 @@ type errorBody struct {
 	Error   string `json:"error"`
 }
 
-// Handler serves the contract. Origin in the body is trusted, which is only
-// acceptable on loopback for development; a deployment must derive it from
-// authentication (player token vs game-server credential).
-func Handler(r *sim.Runner) http.Handler {
+// Handler serves the contract with development options: the origin in the
+// body is trusted, which is only acceptable on loopback.
+func Handler(r *sim.Runner) http.Handler { return HandlerWith(r, Options{}) }
+
+// HandlerWith serves the contract. With Options.Public every actor-bound call
+// needs the bearer token issued by POST /v1/session for that actor.
+//
+// Honest limit: Hospedeiro is client-authoritative in combat, so the token
+// authorises both "player" and "adapter" origins for the token's OWN actor
+// only. It stops impersonating another player and tampering with someone
+// else's body, but not a player cheating on themselves.
+func HandlerWith(r *sim.Runner, o Options) http.Handler {
+	a := newAuth(o)
 	mux := http.NewServeMux()
 	w := r.World()
+	mux.HandleFunc("POST /v1/session", func(rw http.ResponseWriter, q *http.Request) {
+		a.session(rw, q, r)
+	})
 	mux.HandleFunc("GET /v1/health", func(rw http.ResponseWriter, _ *http.Request) {
 		s := r.Snapshot()
 		reply(rw, 200, map[string]any{"version": Version, "status": "ok", "universe": s.Universe, "tick": s.Tick, "revision": s.Revision})
@@ -103,6 +116,9 @@ func Handler(r *sim.Runner) http.Handler {
 		reply(rw, 200, w.Chronicle(&s, limit(q)))
 	})
 	mux.HandleFunc("GET /v1/views/{id}", func(rw http.ResponseWriter, q *http.Request) {
+		if !a.allow(rw, q, q.PathValue("id"), false) {
+			return
+		}
 		s := r.Snapshot()
 		v, ok := w.View(&s, core.ID(q.PathValue("id")), limit(q))
 		if !ok {
@@ -113,6 +129,9 @@ func Handler(r *sim.Runner) http.Handler {
 	})
 	// What the observer could try now, from what they can tell (no hidden facts).
 	mux.HandleFunc("GET /v1/affordances/{id}", func(rw http.ResponseWriter, q *http.Request) {
+		if !a.allow(rw, q, q.PathValue("id"), false) {
+			return
+		}
 		s := r.Snapshot()
 		id := core.ID(q.PathValue("id"))
 		if _, ok := s.Entities[id]; !ok {
@@ -138,6 +157,10 @@ func Handler(r *sim.Runner) http.Handler {
 		reply(rw, 200, out)
 	})
 	mux.HandleFunc("POST /v1/world/reset", func(rw http.ResponseWriter, q *http.Request) {
+		if o.Public {
+			reply(rw, 403, errorBody{Version, "reset_disabled"})
+			return
+		}
 		var in ResetRequest
 		if !decode(rw, q, &in) {
 			return
@@ -162,6 +185,9 @@ func Handler(r *sim.Runner) http.Handler {
 		if !decode(rw, q, &in) {
 			return
 		}
+		if !a.allow(rw, q, string(in.Actor), false) {
+			return
+		}
 		if in.Version != Version || in.Origin != "player" && in.Origin != "adapter" ||
 			in.Kind != "join" && in.Kind != "move" && in.Kind != "act" && in.Kind != "accept" && in.Kind != "decline" && in.Kind != "abandon" {
 			reply(rw, 400, errorBody{Version, "invalid_contract"})
@@ -181,6 +207,9 @@ func Handler(r *sim.Runner) http.Handler {
 	})
 	mux.HandleFunc("GET /v1/stream/{id}", func(rw http.ResponseWriter, q *http.Request) {
 		id := core.ID(q.PathValue("id"))
+		if !a.allow(rw, q, string(id), true) {
+			return
+		}
 		s := r.Snapshot()
 		v, ok := w.View(&s, id, 50)
 		if !ok {
@@ -216,15 +245,34 @@ func Handler(r *sim.Runner) http.Handler {
 			}
 		}
 	})
-	return guard(mux)
+	var h http.Handler = mux
+	if o.Web != "" {
+		top := http.NewServeMux()
+		top.Handle("/v1/", mux)
+		top.Handle("/", staticHandler(o.Web))
+		h = top
+	}
+	if o.Public {
+		h = a.limited(h)
+	}
+	h = guard(h)
+	if o.Public && o.EdgeSecret != "" {
+		h = edgeOnly(o.EdgeSecret, h)
+	}
+	return h
 }
 
-// guard refuses browser cross-origin calls; native game clients send no Origin.
+// guard refuses browser cross-origin calls: only an Origin whose host is the
+// host being served (the page and the API share one origin) gets through;
+// native game clients send no Origin.
 func guard(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, q *http.Request) {
-		if q.Header.Get("Origin") != "" {
-			reply(rw, 403, errorBody{Version, "cross_origin_refused"})
-			return
+		if origin := q.Header.Get("Origin"); origin != "" {
+			u, err := url.Parse(origin)
+			if err != nil || u.Host == "" || u.Host != q.Host {
+				reply(rw, 403, errorBody{Version, "cross_origin_refused"})
+				return
+			}
 		}
 		next.ServeHTTP(rw, q)
 	})

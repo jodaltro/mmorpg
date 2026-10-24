@@ -38,6 +38,11 @@ static func additive() -> CanvasItemMaterial:
 	return _additive
 
 
+## Whether something is on the screen or close enough to be soon (in pixels of margin): what is far away need not be redrawn.
+static func on_screen(item: CanvasItem, margin: float = 300.0) -> bool:
+	return item.get_viewport_rect().grow(margin).has_point(item.get_global_transform_with_canvas().origin)
+
+
 static func with_alpha(color: Color, alpha: float) -> Color:
 	return Color(color.r, color.g, color.b, alpha)
 

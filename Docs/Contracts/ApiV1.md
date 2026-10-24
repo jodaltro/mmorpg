@@ -87,3 +87,14 @@ A missão em `views/{id}` traz também `rank`, `objective`, `reward`, `penalty`,
 - `GET /v1/views/{id}` traz em `skills` cada habilidade aprendida com `class` e `tags`; as de classe vão para os espaços Q/F/C/V do cliente. O evento `skill-learned` carrega `how` (`starter`, `quest`, `discovered`, `awakened`); a decisão `ability` (`kind: ability`) é a escolha do Jev.
 
 - `GET /v1/views/{id}` traz `dungeon`: `{available: [{id, name, desc, region, rooms, eligible}], run: {dungeon, name, state, seed, modifier, room, rooms}}`. `state` é `preparing` (o modificador está sendo decidido), `active`, `cleared` ou `failed`; `seed` vem do motor para que todos vejam a mesma masmorra. Verbos: `act` com `entrar-masmorra` (`args: {dungeon}`) e `abandonar-masmorra` (origem `player`); `sala-limpa` e `falhar-masmorra` (origem `adapter`). Eventos: `dungeon-preparing`, `dungeon-started`, `dungeon-room`, `dungeon-cleared`, `dungeon-failed`, `dungeon-left` e o público `dungeon-first`; a decisão `dungeon` aparece como `decision` com `kind: dungeon`.
+
+
+## Sessão do protótipo web (`serve -public`)
+
+Extensão opcional: o handler de desenvolvimento mantém o comportamento anterior. No modo público, `POST /v1/session` recebe `{version: 1}` e responde `{version: 1, id, token, capabilities: {reset: false}, public: true}`. Para retomar, enviar `{version: 1, id, token}`; token inválido recebe 401. A criação da sessão não faz join: o cliente o envia em seguida.
+
+Enviar `Authorization: Bearer <token>` em comandos, visão e affordances do próprio ator. O stream aceita também `?token=` para clientes EventSource. Sem credencial válida: 401. Reset público: 403. Limite de chamadas: 429 e cabeçalho Retry-After. O token persiste entre reinícios enquanto a chave `session.key` do diretório de dados for preservada.
+
+Este modo protege a identidade do ator, mas ainda autoriza o protótipo Hospedeiro a enviar acontecimentos adapter de seu próprio ator. Não constitui combate autoritativo nem distingue uma credencial de servidor de uma de jogador. Essa separação permanece pendente para o servidor de jogo; clientes nunca enviam HP, dano ou inventário.
+
+O Worker pode autenticar sua passagem pelo túnel com X-Edge-Secret; essa credencial não faz parte do cliente web. A API continua escutando em loopback.

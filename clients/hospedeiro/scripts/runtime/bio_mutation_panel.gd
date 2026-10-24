@@ -17,6 +17,8 @@ var _pressure_fraction := 0.0
 var _pips: Control
 var _pips_key := ""
 var _genome: BioGenome
+var _keys_hint: Label
+var _column: Control
 
 
 func is_offer_visible() -> bool:
@@ -105,6 +107,7 @@ func _ready() -> void:
 	column.offset_left = -24.0 - WIDTH
 	column.offset_right = -24.0
 	column.offset_top = 18.0
+	_column = column
 	column.add_theme_constant_override("separation", 5)
 	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(column)
@@ -130,9 +133,16 @@ func _ready() -> void:
 	_pips.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_pips.draw.connect(_draw_pips)
 	column.add_child(_pips)
-	var keys := BioUi.label("G corpo  ·  B códice  ·  M mapa  ·  Tab sinais", 11, Color(1, 1, 1, 0.32))
-	keys.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	column.add_child(keys)
+	_keys_hint = BioUi.label("G corpo  ·  B códice  ·  M mapa  ·  Tab sinais", 11, Color(1, 1, 1, 0.32))
+	_keys_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	column.add_child(_keys_hint)
+
+
+## A touch screen has the buttons themselves, so the list of keys goes.
+func set_touch(on: bool) -> void:
+	_keys_hint.visible = not on
+	if on:  # the window buttons take the top row
+		_column.offset_top = 56.0
 
 
 ## One dot per gene slot, lit with the colour of the gene's mark on the body.

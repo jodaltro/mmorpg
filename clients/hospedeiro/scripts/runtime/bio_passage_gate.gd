@@ -33,7 +33,8 @@ func configure(id: String, point: Vector2, dir: Vector2, half_width_units: float
 
 func _process(delta: float) -> void:
 	_t += delta
-	queue_redraw()
+	if BioArt.on_screen(self, 300.0):
+		queue_redraw()
 
 
 func _draw() -> void:

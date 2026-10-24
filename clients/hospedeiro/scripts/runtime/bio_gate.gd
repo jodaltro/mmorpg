@@ -27,6 +27,10 @@ func is_near() -> bool:
 
 func _process(delta: float) -> void:
 	_t += delta
+	if not BioArt.on_screen(self, 420.0):
+		return  # an entrance far from the screen is not drawn: it is the costliest thing in the scene
+	if BioCellBody.background_stride > 1 and Engine.get_process_frames() % 2 == 1:
+		return
 	queue_redraw()
 
 

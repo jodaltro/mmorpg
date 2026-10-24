@@ -34,3 +34,8 @@ playtest/
 
 # The Hospedeiro balance tables are source data (tests read them), not world logs.
 !clients/hospedeiro/data/
+build/
+
+# Interrupted executable builds and Python cache.
+*.exe~
+__pycache__/

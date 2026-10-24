@@ -28,7 +28,8 @@ func _process(delta: float) -> void:
 	if player.global_position.distance_to(global_position) <= REACH_UNITS * BioArt.UNIT:
 		_done = true
 		reached.emit(niche_id)
-	queue_redraw()
+	if BioArt.on_screen(self, 300.0):
+		queue_redraw()
 
 
 func _draw() -> void:

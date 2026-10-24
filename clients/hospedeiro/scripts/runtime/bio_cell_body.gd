@@ -294,7 +294,24 @@ func _ready() -> void:
 	_rim.resize(RIM)
 
 
+## On a phone every polygon of a membrane is a fresh GPU buffer each frame, and the cell of the player is the only one the eye follows:
+## the others are redrawn every `background_stride` frames (with the time they were owed), and not at all while off screen.
+static var background_stride := 1
+var _owed := 0.0
+
+
 func _process(delta: float) -> void:
+	if background_stride > 1:
+		var host_node := get_parent()
+		var mine: Variant = BioFx.root.get("player") if BioFx.root != null else null
+		if host_node != null and host_node != mine:
+			_owed = minf(_owed + delta, 0.12)
+			if not get_viewport_rect().grow(260.0).has_point(get_global_transform_with_canvas().origin):
+				return
+			if (Engine.get_process_frames() + int(get_instance_id() % background_stride)) % background_stride != 0:
+				return
+			delta = _owed
+			_owed = 0.0
 	_flash = move_toward(_flash, 0.0, delta * 6.0)
 	_ease_look(delta)
 	_step_elastic(delta)

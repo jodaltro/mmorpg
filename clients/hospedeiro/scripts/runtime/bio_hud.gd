@@ -26,6 +26,8 @@ var _dungeon_text := ""
 var _restart_button: Button
 var _restart_armed_until := 0.0
 var _abilities: BioAbilityRunner
+var _cluster: Control  # the bars and ability cells, bottom-left on a desktop
+var _bar_width := BAR_SIZE.x
 var _ab_cells: Array[ColorRect] = []
 var _ab_shades: Array[ColorRect] = []
 var _ab_labels: Array[Label] = []
@@ -74,6 +76,46 @@ func set_guide(on: bool, direction: Vector2, text: String) -> void:
 	var scale := minf(half.x / maxf(absf(d.x), 0.001), half.y / maxf(absf(d.y), 0.001))
 	_guide.text = text
 	_guide.position = size * 0.5 + d * scale - _guide.size * 0.5
+	if BioPlatform.is_touch():
+		_guide.position.x = clampf(_guide.position.x, 24.0, maxf(24.0, size.x - _guide.size.x - 24.0))
+		_guide.position.y = clampf(_guide.position.y, 136.0, maxf(136.0, size.y - 200.0))
+
+
+## On a touch screen the on-screen buttons take the place of the ability cells: only the two bars stay, under the title.
+func set_touch(on: bool) -> void:
+	if not on:
+		return
+	for shade in _cooldowns:
+		shade.get_parent().visible = false
+	for cell in _ab_cells:
+		cell.visible = false
+	_guide.add_theme_font_size_override("font_size", 12)
+	_guide.add_theme_constant_override("outline_size", 3)
+	_bar_width = 190.0
+	_cluster.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	_cluster.offset_left = 28.0
+	_cluster.offset_top = 40.0
+	_cluster.offset_right = 28.0 + _bar_width
+	_cluster.offset_bottom = 40.0 + 44.0
+	for pair in [[_membrane_fill, 0.0], [_atp_fill, 22.0]]:
+		var back := (pair[0] as Control).get_parent() as Control
+		back.position = Vector2(0.0, pair[1])
+		back.size = Vector2(_bar_width, BAR_SIZE.y)
+		(pair[0] as Control).size = Vector2(_bar_width - 4.0, BAR_SIZE.y - 4.0)
+	_restart_button.visible = false
+	_banner.add_theme_font_size_override("font_size", 22)
+	_banner.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_banner.offset_left = -220
+	_banner.offset_right = 220
+	_banner.offset_top = 90
+	_banner.offset_bottom = 150
+	_banner.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_dungeon_label.add_theme_font_size_override("font_size", 14)
+
+
+## A public engine does not let anyone wipe the shared body: the button goes away.
+func set_restart_allowed(allowed: bool) -> void:
+	_restart_button.visible = allowed
 
 
 func set_dungeon_text(text: String) -> void:
@@ -98,6 +140,7 @@ func _ready() -> void:
 	_add_vignette()
 
 	var panel := Control.new()
+	_cluster = panel
 	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	panel.offset_left = 40
 	panel.offset_top = -190
@@ -196,8 +239,8 @@ func _process(_delta: float) -> void:
 	var vitals := _player.actor.vitals
 	membrane_fraction = vitals.membrane / vitals.max_membrane
 	atp_fraction = vitals.atp / vitals.max_atp if vitals.max_atp > 0.0 else 0.0
-	_membrane_fill.size.x = (BAR_SIZE.x - 4.0) * clampf(membrane_fraction, 0.0, 1.0)
-	_atp_fill.size.x = (BAR_SIZE.x - 4.0) * clampf(atp_fraction, 0.0, 1.0)
+	_membrane_fill.size.x = (_bar_width - 4.0) * clampf(membrane_fraction, 0.0, 1.0)
+	_atp_fill.size.x = (_bar_width - 4.0) * clampf(atp_fraction, 0.0, 1.0)
 	if _abilities != null:
 		for i in BioAbilityRunner.SLOTS:
 			var f := _abilities.cooldown_fraction(i)

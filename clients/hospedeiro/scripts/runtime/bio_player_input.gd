@@ -1,6 +1,8 @@
 class_name BioPlayerInput
 extends Node
 
+var touch: BioTouchControls  # set when the screen is a finger's: movement and aim come from it, not from the mouse
+
 var _controller: BioCellController
 var _host: Node2D
 
@@ -14,8 +16,9 @@ static func ensure_actions() -> void:
 	_bind("bio_aim_right", [_axis(JOY_AXIS_RIGHT_X, 1.0)])
 	_bind("bio_aim_up", [_axis(JOY_AXIS_RIGHT_Y, -1.0)])
 	_bind("bio_aim_down", [_axis(JOY_AXIS_RIGHT_Y, 1.0)])
-	_bind("bio_lash", [_mouse(MOUSE_BUTTON_LEFT), _key(KEY_J), _button(JOY_BUTTON_X)])
-	_bind("bio_spit", [_mouse(MOUSE_BUTTON_RIGHT), _key(KEY_K), _button(JOY_BUTTON_B)])
+	var with_mouse := not BioPlatform.is_touch()  # on a touch screen a tap that becomes a mouse click is not an attack
+	_bind("bio_lash", ([_mouse(MOUSE_BUTTON_LEFT)] if with_mouse else []) + [_key(KEY_J), _button(JOY_BUTTON_X)])
+	_bind("bio_spit", ([_mouse(MOUSE_BUTTON_RIGHT)] if with_mouse else []) + [_key(KEY_K), _button(JOY_BUTTON_B)])
 	_bind("bio_dash", [_key(KEY_SPACE), _key(KEY_SHIFT), _button(JOY_BUTTON_A)])
 	_bind("bio_respawn", [_key(KEY_R)])
 	_bind("bio_pick_1", [_key(KEY_1)])
@@ -61,10 +64,15 @@ func _process(_delta: float) -> void:
 	if BioUi.typing():  # the keys are letters in a text box
 		_controller.move(Vector2.ZERO)
 		return
-	_controller.move(Input.get_vector("bio_left", "bio_right", "bio_up", "bio_down"))
+	var heading := Input.get_vector("bio_left", "bio_right", "bio_up", "bio_down")
+	if touch != null and touch.move_vector() != Vector2.ZERO:
+		heading = touch.move_vector()
+	_controller.move(heading)
 	var stick := Input.get_vector("bio_aim_left", "bio_aim_right", "bio_aim_up", "bio_aim_down")
 	if stick.length_squared() > 0.2:
 		_controller.set_aim(stick)
+	elif touch != null:
+		_controller.set_aim(touch.aim_vector())
 	else:
 		_controller.set_aim(_host.get_global_mouse_position() - _host.global_position)
 	if BioUi.captures_input():  # a click on a window is not an attack
@@ -80,8 +88,9 @@ func _process(_delta: float) -> void:
 static func _bind(action: StringName, events: Array) -> void:
 	if not InputMap.has_action(action):
 		InputMap.add_action(action, 0.25)
-		for event in events:
-			InputMap.action_add_event(action, event)
+	InputMap.action_erase_events(action)
+	for event in events:
+		InputMap.action_add_event(action, event)
 
 
 static func _key(code: Key) -> InputEventKey:

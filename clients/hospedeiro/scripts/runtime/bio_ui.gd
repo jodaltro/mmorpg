@@ -62,6 +62,8 @@ static func style(bg: Color = BG, border: Color = LINE, radius: int = 10, margin
 
 
 static func label(text: String, size: int = FS_BODY, color: Color = TEXT) -> Label:
+	if BioPlatform.is_touch():
+		size = maxi(10, roundi(size * 0.9))
 	var l := Label.new()
 	l.text = text
 	l.add_theme_font_size_override("font_size", size)

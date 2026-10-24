@@ -1,0 +1,275 @@
+extends TestCase
+## The controls for a finger: the stick's arithmetic, the button's grip on an input action, the layer that joins them to the game (it
+## aims for a thumb that is busy running, hides under windows, and never lets a held button outlive its finger) and the pieces of
+## the platform layer that do not need a browser.
+
+var world: BioWorld
+
+
+func before_each() -> void:
+	BioPlatform.forced_touch = 1
+	world = BioWorld.new()
+	world.save_path = ""
+	world.engine_url = ""
+	world.virus_count = 0
+	tree.root.add_child(world)
+	await tree.physics_frame
+	await tree.physics_frame
+
+
+func after_each() -> void:
+	BioPlatform.forced_touch = -1
+	BioCellBody.background_stride = 1
+	Input.action_release(&"bio_lash")
+	Input.action_release(&"bio_dash")
+	world.queue_free()
+	await tree.process_frame
+
+
+func _touch(control: Control, index: int, at: Vector2, pressed: bool) -> void:
+	var e := InputEventScreenTouch.new()
+	e.index = index
+	e.position = at
+	e.pressed = pressed
+	control._gui_input(e)
+
+
+func _drag(control: Control, index: int, at: Vector2) -> void:
+	var e := InputEventScreenDrag.new()
+	e.index = index
+	e.position = at
+	control._gui_input(e)
+
+
+func test_a_floating_stick_reads_from_where_the_finger_landed() -> void:
+	var stick := BioTouchStick.new()
+	stick.size = Vector2(300, 300)
+	stick.radius = 60.0
+	_touch(stick, 0, Vector2(100, 200), true)
+	assert_true(stick.is_engaged(), "the finger is on the stick")
+	assert_eq(stick.value(), Vector2.ZERO, "landing alone moves nothing")
+	_drag(stick, 0, Vector2(160, 200))
+	assert_near(stick.value().x, 1.0, 0.001, "a full radius to the right")
+	assert_near(stick.value().y, 0.0, 0.001, "and no tilt")
+	_drag(stick, 0, Vector2(100, 170))
+	assert_near(stick.value().y, -0.5, 0.001, "half a radius up")
+	_drag(stick, 0, Vector2(100, 20))
+	assert_near(stick.value().length(), 1.0, 0.001, "pulling past the edge still reads one")
+	_touch(stick, 0, Vector2(100, 20), false)
+	assert_eq(stick.value(), Vector2.ZERO, "letting go stops")
+	assert_true(not stick.is_engaged())
+	stick.free()
+
+
+func test_a_stick_ignores_the_dead_zone_and_other_fingers() -> void:
+	var stick := BioTouchStick.new()
+	stick.size = Vector2(300, 300)
+	stick.radius = 60.0
+	stick.dead_zone = 0.3
+	_touch(stick, 0, Vector2(100, 100), true)
+	_drag(stick, 0, Vector2(110, 100))
+	assert_eq(stick.value(), Vector2.ZERO, "a tremor is not a direction")
+	_drag(stick, 1, Vector2(200, 100))
+	assert_eq(stick.value(), Vector2.ZERO, "another finger's drag is not this one's")
+	_touch(stick, 1, Vector2(200, 100), false)
+	assert_true(stick.is_engaged(), "another finger lifting does not release this one")
+	stick.free()
+
+
+func test_a_fixed_stick_reads_from_its_centre() -> void:
+	var stick := BioTouchStick.new()
+	stick.floating = false
+	stick.size = Vector2(200, 200)
+	stick.radius = 50.0
+	_touch(stick, 0, Vector2(100, 40), true)  # landing off-centre already points
+	assert_true(stick.value().y < -0.9, "landing above the centre points up")
+	stick.free()
+
+
+func test_a_button_holds_its_action_for_as_long_as_the_finger_and_never_less_than_a_frame_or_two() -> void:
+	var button := BioTouchButton.round_button(&"bio_dash", "x", Color.WHITE, 30.0)
+	tree.root.add_child(button)
+	_touch(button, 3, Vector2(30, 30), true)
+	assert_true(Input.is_action_pressed(&"bio_dash"), "pressed while the finger is down")
+	_touch(button, 3, Vector2(30, 30), false)
+	assert_true(Input.is_action_pressed(&"bio_dash"), "a tap shorter than the minimum is stretched, or a poll would miss it")
+	await tree.create_timer(0.2).timeout
+	assert_true(not Input.is_action_pressed(&"bio_dash"), "and then it lets go")
+	button.queue_free()
+
+
+func test_a_button_taken_off_screen_under_a_finger_lets_go() -> void:
+	var button := BioTouchButton.round_button(&"bio_lash", "x", Color.WHITE, 30.0)
+	tree.root.add_child(button)
+	_touch(button, 0, Vector2(30, 30), true)
+	assert_true(Input.is_action_pressed(&"bio_lash"))
+	button.visible = false  # a window opened over it: the release will never arrive
+	assert_true(not Input.is_action_pressed(&"bio_lash"), "a hidden button must not stay pressed")
+	button.queue_free()
+
+
+func test_a_circle_button_is_hit_a_little_beyond_its_edge_and_not_in_the_corner() -> void:
+	var button := BioTouchButton.round_button(&"", "x", Color.WHITE, 30.0)
+	assert_true(button._has_point(Vector2(30, 30)), "centre")
+	assert_true(button._has_point(Vector2(30, 1)), "near the rim")
+	assert_true(not button._has_point(Vector2(2, 2)), "the corner of the square is not the button")
+	button.free()
+
+
+func test_the_world_builds_the_finger_controls_only_on_a_touch_screen() -> void:
+	assert_true(world.touch != null, "touch forced on: controls exist")
+	assert_true(world.display != null, "and so does the display layer")
+	var input: BioPlayerInput
+	for child in world.player.get_children():
+		if child is BioPlayerInput:
+			input = child
+	assert_true(input != null and input.touch == world.touch, "the player's input reads from them")
+	assert_true(not InputMap.action_get_events(&"bio_lash").any(func(e: InputEvent) -> bool: return e is InputEventMouseButton), "a tap that becomes a click is not an attack")
+
+
+func test_the_cell_aims_at_the_nearest_enemy_when_no_thumb_aims() -> void:
+	var near := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(5.0, 0.0) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	var far := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(0.0, 9.0) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	(near as Node).set_process(false)
+	(far as Node).set_process(false)
+	await tree.physics_frame
+	await tree.physics_frame
+	world.touch._refresh_aim()
+	var aim := world.touch.aim_vector()
+	assert_true(aim.x > 0.95, "the closer enemy is to the right: aim %s" % str(aim))
+	# a thumb on the attack button takes over
+	_touch(world.touch.attack_stick, 0, world.touch.attack_stick.size * 0.5, true)
+	_drag(world.touch.attack_stick, 0, world.touch.attack_stick.size * 0.5 + Vector2(0, -40))
+	assert_true(world.touch.aim_vector().y < -0.95, "the thumb points up: %s" % str(world.touch.aim_vector()))
+	_touch(world.touch.attack_stick, 0, Vector2.ZERO, false)
+
+
+func test_holding_the_attack_stick_is_holding_the_lash() -> void:
+	var stick := world.touch.attack_stick
+	_touch(stick, 0, stick.size * 0.5, true)
+	assert_true(Input.is_action_pressed(&"bio_lash"), "touching the attack button attacks")
+	_touch(stick, 0, stick.size * 0.5, false)
+	assert_true(not Input.is_action_pressed(&"bio_lash"), "letting go stops")
+
+
+func test_the_play_controls_step_aside_for_a_window_and_come_back() -> void:
+	await tree.process_frame
+	await tree.process_frame
+	assert_true(world.touch.attack_stick.visible and world.touch.move_stick.visible, "in play they are there")
+	world.body_panel.open()
+	await tree.process_frame
+	await tree.process_frame
+	assert_true(not world.touch.attack_stick.visible and not world.touch.move_stick.visible and not world.touch.dash.visible, "a window covers the screen: no stick under it")
+	assert_true(world.touch.menu.visible, "menu remains available above windows")
+	assert_true(world.touch.window_buttons[0].emphasis, "and the one that opened it is lit")
+	world.body_panel.toggle()
+	await tree.process_frame
+	await tree.process_frame
+	assert_true(world.touch.attack_stick.visible, "closed: back")
+
+
+func test_a_held_attack_is_released_when_a_window_opens_over_it() -> void:
+	var stick := world.touch.attack_stick
+	_touch(stick, 0, stick.size * 0.5, true)
+	assert_true(Input.is_action_pressed(&"bio_lash"))
+	world.body_panel.open()
+	await tree.process_frame
+	await tree.process_frame
+	assert_true(not Input.is_action_pressed(&"bio_lash"), "the cell does not keep attacking behind a window")
+	world.body_panel.toggle()
+
+
+func test_every_control_fits_inside_the_screen_for_each_shape_of_phone_and_tablet() -> void:
+	for view in [Vector2(909, 420), Vector2(747, 420), Vector2(1024, 768), Vector2(820, 600), Vector2(960, 420)]:
+		world.touch.layout(view)
+		var rect := Rect2(Vector2.ZERO, view)
+		var controls: Array[Control] = [world.touch.attack_stick, world.touch.toxin, world.touch.dash, world.touch.interact, world.touch.leave, world.touch.respawn, world.touch.fullscreen]
+		for b in world.touch.ability_buttons:
+			controls.append(b)
+		for b in world.touch.window_buttons:
+			controls.append(b)
+		for c in controls:
+			if c == world.touch.fullscreen and not c.visible:
+				continue
+			var box := Rect2(c.position, c.size)
+			if c == world.touch.attack_stick:
+				box = box.grow(-c.size.x * 0.1)
+			assert_true(rect.encloses(box), "%s inside a %s screen: %s" % [c.name if c.name != &"" else c.get_class(), str(rect.size), str(box)])
+
+
+func test_no_two_buttons_on_the_attack_arc_overlap() -> void:
+	world.touch.layout(Vector2(909, 420))
+	var buttons: Array[BioTouchButton] = [world.touch.toxin, world.touch.dash, world.touch.interact]
+	buttons += world.touch.ability_buttons
+	for i in buttons.size():
+		for j in range(i + 1, buttons.size()):
+			var a := buttons[i]
+			var b := buttons[j]
+			var gap := (a.position + a.size * 0.5).distance_to(b.position + b.size * 0.5) - a.radius - b.radius
+			assert_true(gap >= 0.0, "buttons %d and %d are %.1f apart" % [i, j, gap])
+		var stick := world.touch.attack_stick
+		var to_stick := (buttons[i].position + buttons[i].size * 0.5).distance_to(stick.position + stick.size * 0.5) - buttons[i].radius - stick.radius
+		assert_true(to_stick >= 0.0, "button %d clears the attack stick by %.1f" % [i, to_stick])
+
+
+func test_platform_defaults_on_the_native_client() -> void:
+	assert_true(not BioPlatform.is_web())
+	assert_eq(BioPlatform.engine_url("http://127.0.0.1:8096"), "http://127.0.0.1:8096", "native keeps its own address")
+	assert_true(BioPlatform.debug_enabled(), "the developer's client has the test menu")
+	assert_true(BioPlatform.fullscreen_available())
+
+
+func test_a_new_cell_has_no_id_until_the_engine_gives_one() -> void:
+	var identity := BioEngineLink.local_identity("user://does_not_exist_%d.json" % Time.get_ticks_usec())
+	assert_eq(identity["id"], "", "ids are the engine's to give")
+	assert_eq(identity["token"], "")
+	assert_true(str(identity["name"]).begins_with("Celula-tronco"))
+
+
+func test_a_saved_identity_comes_back_with_its_token() -> void:
+	var path := "user://identity_test_%d.json" % Time.get_ticks_usec()
+	var link := BioEngineLink.new()
+	link.configure("http://127.0.0.1:1", {"id": "cel-abc", "name": "N", "token": "tok"}, path)
+	link._save_identity()
+	var back := BioEngineLink.local_identity(path)
+	assert_eq(back["id"], "cel-abc")
+	assert_eq(back["token"], "tok")
+	link.free()
+	DirAccess.remove_absolute(path)
+
+
+func test_tapping_attack_off_centre_keeps_auto_aim_until_dragged() -> void:
+	var stick := world.touch.attack_stick
+	_touch(stick, 0, stick.size * 0.5 + Vector2(32, 0), true)
+	assert_eq(stick.value(), Vector2.ZERO, "landing near the rim must not override auto aim")
+	_drag(stick, 0, stick.size * 0.5 + Vector2(32, -45))
+	assert_true(stick.value().y < -0.7, "dragging from the contact aims manually")
+	_touch(stick, 0, Vector2.ZERO, false)
+
+
+func test_menu_hides_combat_and_releases_a_held_attack() -> void:
+	_touch(world.touch.attack_stick, 0, world.touch.attack_stick.size * 0.5, true)
+	world.touch.menu.tapped.emit()
+	await tree.process_frame
+	await tree.process_frame
+	assert_true(world.touch.menu_open)
+	assert_true(world.touch.window_buttons[0].visible)
+	assert_true(not world.touch.attack_stick.visible)
+	assert_true(not Input.is_action_pressed(&"bio_lash"))
+	world.touch.menu.tapped.emit()
+	assert_true(not world.touch.window_buttons[0].visible)
+
+
+func test_auto_aim_keeps_target_when_another_enemy_is_only_slightly_closer() -> void:
+	var a := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(5, 0) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	var b := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(0, 6) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	a.set_process(false)
+	b.set_process(false)
+	await tree.physics_frame
+	await tree.physics_frame
+	world.touch._refresh_aim()
+	assert_true(world.touch.aim_vector().x > 0.95)
+	(b.get_parent() as BioCellActor).global_position = world.player.global_position + Vector2(0, 4.8) * BioArt.UNIT
+	await tree.physics_frame
+	world.touch._refresh_aim()
+	assert_true(world.touch.aim_vector().x > 0.95, "a tiny distance change must not flicker the aim")

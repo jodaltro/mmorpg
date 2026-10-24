@@ -2,7 +2,7 @@
 //
 //	worldsim validate <universe.json>
 //	worldsim simulate -universe <file> -ticks 120 -players 3
-//	worldsim serve -universe <file> -data <dir> -listen 127.0.0.1:8095 -tick 1s -advisor none|deterministic|jev
+//	worldsim serve -universe <file> -data <dir> -listen 127.0.0.1:8095 -tick 1s -advisor none|deterministic|jev [-public] [-web <dir>]
 package main
 
 import (
@@ -355,6 +355,9 @@ func serve(args []string) error {
 	envFile := fs.String("env-file", ".env", "local file with OPENROUTER_API_KEY (jev only)")
 	jevTimeout := fs.Duration("jev-timeout", 5*time.Second, "per-call Jev timeout")
 	onChange := fs.String("on-universe-change", "refuse", "refuse | new-world: what to do when the saved world was made with another version of the universe (new-world archives it, nothing is deleted)")
+	edgeSecret := fs.String("edge-secret", os.Getenv("HOSPEDEIRO_EDGE_SECRET"), "public mode: only requests carrying this secret in X-Edge-Secret are served (default: $HOSPEDEIRO_EDGE_SECRET)")
+	public := fs.Bool("public", false, "public mode (behind a tunnel on loopback): bearer tokens required, reset off, rate limits on")
+	web := fs.String("web", "", "directory of static files (the web client) served at /")
 	fs.Parse(args)
 	host, _, err := net.SplitHostPort(*listen)
 	if err != nil || !net.ParseIP(host).IsLoopback() {
@@ -401,7 +404,16 @@ func serve(args []string) error {
 	defer r.Close()
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
-	srv := &http.Server{Addr: *listen, Handler: api.Handler(r), ReadHeaderTimeout: 5 * time.Second}
+	key, err := api.LoadOrCreateKey(*data)
+	if err != nil {
+		return err
+	}
+	if *web != "" {
+		if st, serr := os.Stat(*web); serr != nil || !st.IsDir() {
+			return fmt.Errorf("-web %q is not a directory", *web)
+		}
+	}
+	srv := &http.Server{Addr: *listen, Handler: api.HandlerWith(r, api.Options{Public: *public, Key: key, Web: *web, EdgeSecret: *edgeSecret}), ReadHeaderTimeout: 5 * time.Second}
 	go func() {
 		<-ctx.Done()
 		sctx, c := context.WithTimeout(context.Background(), 3*time.Second)
@@ -409,7 +421,7 @@ func serve(args []string) error {
 		srv.Shutdown(sctx)
 	}()
 	go r.Run(ctx, *every)
-	fmt.Printf("%s at tick %d, serving http://%s (advisor=%s)\n", w.U.Name, r.Snapshot().Tick, *listen, *mode)
+	fmt.Printf("%s at tick %d, serving http://%s (advisor=%s, public=%v, web=%q)\n", w.U.Name, r.Snapshot().Tick, *listen, *mode, *public, *web)
 	if err := srv.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 		return err
 	}
