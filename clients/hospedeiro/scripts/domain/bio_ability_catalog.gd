@@ -5,7 +5,8 @@ extends RefCounted
 ## damage, cost and cooldown reach the domain actor through attack_def(), like every other attack.
 ## Ids use underscores (the engine uses hyphens). Distances are world units.
 ##
-## kind: devour, nova, cone, pierce, bolt, volley, dash_strike, mark, mark_all, execute, zone, heal, aura, summon.
+## kind: devour, nova, cone, pierce, bolt, volley, dash_strike, mark, mark_all, execute, zone, heal, aura, summon; and, done by the
+## kits of the four newer classes (BioKit): mines, sticky, cascade, overload, tether, crystal, grow, roll, blink, prey, cloak, recall, sleep, link, decoy, pull.
 
 static var _defs: Dictionary = {}
 
@@ -76,30 +77,30 @@ static func _ensure() -> void:
 	_a(&"canto_de_citocinas", &"t_auxiliar", "aura", gold, 18, 12.0, {"style": "song", "duration": 6.0, "speed": 1.25, "regen_atp": 6.0})
 	_a(&"chamado_a_linfa", &"t_auxiliar", "summon", gold, 26, 16.0, {"count": 3, "duration": 8.0, "tick": 6.0})
 	_a(&"febre_dirigida", &"t_auxiliar", "zone", Color(1.0, 0.55, 0.25), 24, 12.0, {"style": "heat", "reach": 4.5, "radius": 2.8, "duration": 5.0, "tick": 9.0, "slow": 0.6})
-	# --- Mastócito, o Alarmista ---------------------------------------------------------------
+	# --- Mastócito, o Alarmista: o bombardeiro. Deixa granulos pelo caminho, cola bombas, encadeia mortes e sangra numa explosão. ---
 	var amber := Color(1.0, 0.62, 0.2)
-	_a(&"chuva_de_granulos", &"mastocito", "volley", amber, 12, 2.5, {"damage": 6.0, "range": 5.5, "speed": 9.0, "count": 6, "spread": 70.0})
-	_a(&"edema", &"mastocito", "zone", Color(1.0, 0.5, 0.55), 16, 7.0, {"style": "edema", "reach": 3.5, "radius": 2.6, "duration": 4.5, "tick": 2.0, "slow": 0.55})
-	_a(&"choque_anafilatico", &"mastocito", "nova", Color(1.0, 0.75, 0.35), 30, 12.0, {"style": "granules", "damage": 34.0, "radius": 4.2, "knockback": 12.0, "charge": 0.45})
-	_a(&"alarme_de_mastocito", &"mastocito", "mark_all", Color(1.0, 0.4, 0.25), 22, 13.0, {"radius": 8.0, "mult": 1.35, "seconds": 6.0, "mark_kind": "alarm"})
-	# --- Eosinófilo, o Caça-Colossos ----------------------------------------------------------
+	_a(&"granulos_latentes", &"mastocito", "mines", amber, 14, 7.0, {"damage": 15.0, "radius": 1.6, "duration": 4.5, "every": 0.5, "max": 7, "arm": 0.5, "life": 12.0})
+	_a(&"histamina_instavel", &"mastocito", "sticky", Color(1.0, 0.5, 0.3), 14, 4.0, {"damage": 30.0, "radius": 2.2, "fuse": 2.2, "stack": 0.6, "range": 7.0, "speed": 12.0})
+	_a(&"cascata_de_degranulacao", &"mastocito", "cascade", Color(1.0, 0.75, 0.35), 24, 14.0, {"damage": 22.0, "radius": 2.6, "duration": 8.0})
+	_a(&"anafilaxia", &"mastocito", "overload", Color(1.0, 0.4, 0.25), 18, 16.0, {"damage": 12.0, "per_hp": 1.9, "radius": 5.5, "bleed": 0.14, "max_time": 2.4, "floor": 0.12})
+	# --- Eosinófilo, o Caça-Colossos: prende-se aos grandes, congela monstros em cristal, cresce com cada morte e rola pela sala. ---
 	var coral := Color(1.0, 0.32, 0.32)
-	_a(&"granulo_caustico", &"eosinofilo", "melt", coral, 12, 3.5, {"range": 2.6, "half": 55.0, "damage": 8.0, "pct": 0.14, "cap": 60.0})
-	_a(&"nuvem_de_peroxidase", &"eosinofilo", "zone", Color(1.0, 0.45, 0.35), 22, 11.0, {"style": "poison", "reach": 0.0, "radius": 2.2, "duration": 5.0, "tick": 6.0, "slow": 0.0, "drift": 1.8})
-	_a(&"marca_de_ige", &"eosinofilo", "mark", Color(1.0, 0.55, 0.4), 14, 9.0, {"range": 7.0, "mult": 1.9, "seconds": 5.0, "mark_kind": "urchin"})
-	_a(&"proteina_basica", &"eosinofilo", "nova", Color(1.0, 0.25, 0.3), 26, 10.0, {"damage": 38.0, "radius": 3.4, "knockback": 5.0})
-	# --- Célula NK, o Assassino Natural -------------------------------------------------------
+	_a(&"adesao", &"eosinofilo", "tether", coral, 14, 8.0, {"damage": 3.0, "pct": 0.07, "cap": 26.0, "duration": 4.0, "range": 7.0, "leash": 2.4, "pull": 5.5, "snap": 11.0})
+	_a(&"cristal_de_charcot", &"eosinofilo", "crystal", Color(1.0, 0.45, 0.4), 20, 12.0, {"damage": 10.0, "seconds": 2.8, "bank": 1.3, "radius": 2.8, "range": 6.5})
+	_a(&"hipertrofia", &"eosinofilo", "grow", Color(1.0, 0.55, 0.4), 22, 18.0, {"seconds": 14.0, "stacks": 5, "dmg_per": 0.10, "size_per": 0.09, "heal_per": 0.05})
+	_a(&"rolagem", &"eosinofilo", "roll", Color(1.0, 0.25, 0.3), 24, 14.0, {"damage": 16.0, "seconds": 3.0, "speed": 11.0, "steer": 1.6, "taken": 0.55})
+	# --- Célula NK, o Assassino Natural: aparece atrás da presa, caça um alvo por vez, some da vista e volta no tempo. ---
 	var steel := Color(0.6, 0.82, 1.0)
-	_a(&"golpe_natural", &"celula_nk", "dash_strike", steel, 14, 4.0, {"damage": 22.0, "distance": 4.0, "iframes": 0.25})
-	_a(&"cadeia_letal", &"celula_nk", "chain_strike", Color(0.85, 0.95, 1.0), 24, 9.0, {"damage": 18.0, "count": 4, "range": 6.0})
-	_a(&"ausencia_de_mhc", &"celula_nk", "execute", Color(0.7, 0.7, 1.0), 18, 8.0, {"damage": 8.0, "range": 5.0, "below": 0.4})
-	_a(&"explosao_de_interferon", &"celula_nk", "aura", Color(0.6, 0.9, 1.0), 20, 14.0, {"style": "song", "duration": 5.0, "speed": 1.35, "regen_atp": 4.0})
-	# --- Linfócito T regulador, o Pacificador -------------------------------------------------
+	_a(&"passo_sem_identidade", &"celula_nk", "blink", steel, 14, 5.0, {"damage": 20.0, "backstab": 1.7, "range": 7.5, "behind": 1.4, "iframes": 0.35, "distance": 5.0})
+	_a(&"predar", &"celula_nk", "prey", Color(0.7, 0.9, 1.0), 14, 12.0, {"range": 8.0, "seconds": 8.0, "refund": 1.2, "atp": 3.0, "speed": 1.18})
+	_a(&"camuflagem_de_mhc", &"celula_nk", "cloak", Color(0.7, 0.7, 1.0), 20, 14.0, {"seconds": 4.5, "strike": 2.8, "speed": 1.15})
+	_a(&"ancora_de_vigilancia", &"celula_nk", "recall", Color(0.6, 0.9, 1.0), 22, 16.0, {"delay": 3.2, "damage": 26.0, "width": 1.0, "restore": 0.9, "iframes": 0.4})
+	# --- Linfócito T regulador, o Pacificador: faz dormir, une inimigos pela dor, lança um isco e puxa a sala para um ponto. ---
 	var teal := Color(0.5, 1.0, 0.8)
-	_a(&"supressao_celular", &"t_regulador", "mark", teal, 12, 5.0, {"range": 7.0, "mult": 1.15, "seconds": 6.0, "weaken": 0.55, "mark_kind": "calm"})
-	_a(&"zona_de_tolerancia", &"t_regulador", "zone", teal, 18, 9.0, {"style": "calm", "reach": 3.0, "radius": 3.0, "duration": 6.0, "tick": 0.0, "slow": 0.35, "weaken": 0.6})
-	_a(&"muro_de_tolerancia", &"t_regulador", "barrier", teal, 20, 12.0, {"count": 3, "reach": 2.8, "spacing": 1.7, "size": 0.85, "duration": 6.0})
-	_a(&"silencio_imunologico", &"t_regulador", "mark_all", Color(0.6, 1.0, 0.9), 24, 14.0, {"radius": 7.5, "mult": 1.1, "seconds": 5.0, "weaken": 0.6, "mark_kind": "calm"})
+	_a(&"anergia", &"t_regulador", "sleep", teal, 14, 7.0, {"range": 7.0, "seconds": 3.5, "wake": 1.6, "count": 1})
+	_a(&"sinapse_imunologica", &"t_regulador", "link", Color(0.6, 1.0, 0.9), 18, 10.0, {"range": 7.0, "count": 3, "share": 0.5, "seconds": 6.0})
+	_a(&"autoantigeno", &"t_regulador", "decoy", Color(0.55, 0.95, 0.85), 22, 14.0, {"reach": 4.0, "hp": 80.0, "seconds": 7.0, "lure": 9.0})
+	_a(&"singularidade_de_tolerancia", &"t_regulador", "pull", Color(0.5, 1.0, 0.8), 26, 16.0, {"damage": 20.0, "reach": 4.5, "radius": 5.5, "seconds": 2.2, "pull": 8.0, "core": 2.0})
 	_apply_balance()
 
 
@@ -131,9 +132,9 @@ static func _names() -> Dictionary:
 		&"apresentar_antigeno": "Apresentar Antígeno", &"dendritos_em_chicote": "Dendritos em Chicote", &"chuva_de_esporos": "Chuva de Esporos", &"mapa_quimico": "Mapa Químico",
 		&"anticorpo_y": "Anticorpo Y", &"salva_de_anticorpos": "Salva de Anticorpos", &"opsonizacao": "Opsonização", &"explosao_de_plasmocito": "Explosão de Plasmócito",
 		&"perforina": "Perforina", &"golpe_litico": "Golpe Lítico", &"apoptose": "Apoptose", &"sinal_de_morte": "Sinal de Morte",
-		&"chuva_de_granulos": "Chuva de Grânulos", &"edema": "Edema", &"choque_anafilatico": "Choque Anafilático", &"alarme_de_mastocito": "Alarme de Mastócito",
-		&"granulo_caustico": "Grânulo Cáustico", &"nuvem_de_peroxidase": "Nuvem de Peroxidase", &"marca_de_ige": "Marca de IgE", &"proteina_basica": "Proteína Básica Maior",
-		&"golpe_natural": "Golpe Natural", &"cadeia_letal": "Cadeia Letal", &"ausencia_de_mhc": "Ausência de MHC", &"explosao_de_interferon": "Explosão de Interferon",
-		&"supressao_celular": "Supressão Celular", &"zona_de_tolerancia": "Zona de Tolerância", &"muro_de_tolerancia": "Muro de Tolerância", &"silencio_imunologico": "Silêncio Imunológico",
+		&"granulos_latentes": "Grânulos Latentes", &"histamina_instavel": "Histamina Instável", &"cascata_de_degranulacao": "Cascata de Degranulação", &"anafilaxia": "Anafilaxia",
+		&"adesao": "Adesão", &"cristal_de_charcot": "Cristal de Charcot-Leyden", &"hipertrofia": "Hipertrofia", &"rolagem": "Rolagem",
+		&"passo_sem_identidade": "Passo Sem Identidade", &"predar": "Predar", &"camuflagem_de_mhc": "Camuflagem de MHC", &"ancora_de_vigilancia": "Âncora de Vigilância",
+		&"anergia": "Anergia", &"sinapse_imunologica": "Sinapse Imunológica", &"autoantigeno": "Autoantígeno", &"singularidade_de_tolerancia": "Singularidade de Tolerância",
 		&"citocina_curativa": "Citocina Curativa", &"canto_de_citocinas": "Canto de Citocinas", &"chamado_a_linfa": "Chamado à Linfa", &"febre_dirigida": "Febre Dirigida",
 	}

@@ -43,7 +43,13 @@ func _process(_delta: float) -> void:
 		_body.set_telegraph(0.0)
 		return
 	var now := BioClock.now()
-	var has_prey := is_instance_valid(_prey) and _prey.is_active() and _prey.combatant.actor.vitals.is_alive()
+	if _host.combatant.is_stunned():  # asleep or in a crystal: it does nothing, and what it was winding up is lost
+		_host.set_intent(Vector2.ZERO)
+		_body.set_telegraph(0.0)
+		if state == State.TELEGRAPH or state == State.LUNGE:
+			state = State.CHASE
+		return
+	var has_prey := is_instance_valid(_prey) and _prey.is_active() and _prey.combatant.actor.vitals.is_alive() and not _prey.combatant.is_hidden()
 	var to_prey := _prey.global_position - _host.global_position if has_prey else Vector2.ZERO
 	var dist := to_prey.length() / BioArt.UNIT
 

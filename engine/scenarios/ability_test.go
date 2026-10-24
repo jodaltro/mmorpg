@@ -35,10 +35,10 @@ func TestEachClassIsBornWithItsStarterAbility(t *testing.T) {
 		"neutrofilo":   {"mieloide", "rede-de-dna", "engolir"},
 		"linfocito-b":  {"linfoide", "anticorpo-y", "perforina"},
 		"t-citotoxico": {"linfoide", "perforina", "anticorpo-y"},
-		"mastocito":    {"mieloide", "chuva-de-granulos", "granulo-caustico"},
-		"eosinofilo":   {"mieloide", "granulo-caustico", "chuva-de-granulos"},
-		"celula-nk":    {"linfoide", "golpe-natural", "supressao-celular"},
-		"t-regulador":  {"linfoide", "supressao-celular", "golpe-natural"},
+		"mastocito":    {"mieloide", "granulos-latentes", "adesao"},
+		"eosinofilo":   {"mieloide", "adesao", "granulos-latentes"},
+		"celula-nk":    {"linfoide", "passo-sem-identidade", "anergia"},
+		"t-regulador":  {"linfoide", "anergia", "passo-sem-identidade"},
 	}
 	for class, c := range cases {
 		h := load(t, "hospedeiro")
@@ -139,10 +139,10 @@ func TestTheNewClassesHaveTheirProofQuests(t *testing.T) {
 		progenitor, class, action, grant string
 		n                                int
 	}{
-		{"mieloide", "mastocito", "absorver-nutriente", "edema", 30},
-		{"mieloide", "eosinofilo", "derrotar-virus", "nuvem-de-peroxidase", 120},
-		{"linfoide", "celula-nk", "esquivar", "cadeia-letal", 10},
-		{"linfoide", "t-regulador", "absorver-nutriente", "zona-de-tolerancia", 25},
+		{"mieloide", "mastocito", "absorver-nutriente", "histamina-instavel", 30},
+		{"mieloide", "eosinofilo", "derrotar-virus", "cristal-de-charcot", 120},
+		{"linfoide", "celula-nk", "esquivar", "predar", 10},
+		{"linfoide", "t-regulador", "absorver-nutriente", "sinapse-imunologica", 25},
 	}
 	for _, c := range cases {
 		h := load(t, "hospedeiro")

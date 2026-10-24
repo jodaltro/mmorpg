@@ -76,7 +76,7 @@ const PARAM_LABELS := {"damage": "dano", "radius": "raio", "reach": "alcance", "
 	"slow": "lentidão", "mult": "amplificação", "seconds": "duração", "heal": "cura", "amount": "cura", "count": "unidades", "speed": "velocidade",
 	"distance": "distância", "cooldown": "recarga", "cost": "custo", "burst": "explosão", "regen_atp": "ATP/s", "regen_membrane": "reparo",
 	"execute_below": "limiar", "execute_mult": "bônus de execução", "below": "limiar", "half": "abertura", "width": "largura", "taken": "dano recebido",
-	"knockback": "empurrão", "spread": "abertura", "pct": "fração da vida", "cap": "teto", "drift": "perseguição", "weaken": "enfraquecimento"}
+	"knockback": "empurrão", "spread": "abertura", "pct": "fração da vida", "cap": "teto", "drift": "perseguição", "max": "unidades máx.", "every": "intervalo", "arm": "armação", "life": "vida útil", "fuse": "pavio", "stack": "bônus por pilha", "per_hp": "dano por vida gasta", "bleed": "sangria", "max_time": "tempo máx.", "floor": "piso", "leash": "laço", "pull": "atração", "snap": "ruptura", "bank": "acúmulo", "stacks": "pilhas", "dmg_per": "dano por pilha", "size_per": "crescimento", "heal_per": "cura por morte", "steer": "controle", "backstab": "golpe nas costas", "behind": "distância atrás", "iframes": "invulnerabilidade", "refund": "devolução", "atp": "ATP por golpe", "strike": "emboscada", "delay": "demora", "restore": "recuperação", "wake": "dano ao acordar", "share": "partilha", "hp": "vida do isco", "lure": "alcance do isco", "core": "núcleo"}
 
 
 static func _perk_bits(params: Dictionary) -> String:

@@ -140,6 +140,25 @@ static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dic
 	return brain
 
 
+## A decoy of the cell: a ghostly body that enemies can hit, with a life of its own, that does nothing but stand there.
+static func spawn_decoy(parent: Node, pos: Vector2, hp: float, color: Color) -> BioCellActor:
+	var actor := _make_actor(parent, "Decoy", pos)
+	actor.remove_from_group("cells")  # the current does not carry it away
+	actor.thrust_units = 0.0
+	actor.max_speed_units = 0.01
+	actor.damping = 6.0
+	_virus_counter += 1
+	actor.combatant.configure("decoy-%d" % _virus_counter, BioActor.Team.CELL, hp, 0.0, 0.0)
+	var body := BioCellBody.new()
+	body.configure(0.55, color.lerp(Color.WHITE, 0.3), color.darkened(0.3), 0, 0.0, 0.3, 8)
+	actor.add_child(body)
+	var feedback := BioHitFeedback.new()
+	feedback.configure(actor, body, color)
+	actor.add_child(feedback)
+	actor.modulate.a = 0.7
+	return actor
+
+
 static func _circle(radius_units: float) -> CircleShape2D:
 	var circle := CircleShape2D.new()
 	circle.radius = radius_units * BioArt.UNIT

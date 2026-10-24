@@ -14,38 +14,42 @@ def upsert(items, item):
 
 CLASSES = [
     {"id": "mastocito", "name": "Mastócito", "from": "mieloide", "tags": ["combat", "metabolism"],
-     "desc": "O Alarmista. O bombardeiro do corpo: uma bolsa de grânulos prestes a estourar. Atira histamina em chuva, incha o tecido inimigo e, quando o alarme soa, tudo ao redor sente.",
+     "desc": "O Alarmista. O bombardeiro do corpo: uma bolsa de grânulos prestes a estourar. Semeia minas pelo caminho, cola bombas nos inimigos, faz cada morte explodir e, quando ousa, sangra a própria membrana numa explosão enorme.",
      "skills": [
-         ("chuva-de-granulos", "Chuva de Grânulos", "comum", "Dispara um leque de grânulos de histamina que ferem de perto.", True, None),
-         ("edema", "Edema", "incomum", "Lança uma poça de líquido que incha o tecido e retarda quem a atravessa.", False, None),
-         ("choque-anafilatico", "Choque Anafilático", "epica", "Concentra todos os grânulos e os solta de uma vez numa onda que empurra tudo.", False, None),
-         ("alarme-de-mastocito", "Alarme de Mastócito", "rara", "Todos os inimigos por perto são marcados: a defesa os vê e os fere mais.", False, ("abates", 40)),
-     ], "prova": ("rubra", "nutrientes", 30, "edema", "Prova do Alarmista", "Absorva 30 nutrientes: um mastócito se enche de grânulos comendo.")},
+         ("granulos-latentes", "Grânulos Latentes", "comum", "Por alguns segundos a célula solta um grânulo atrás de si a cada passo. Cada um arma, explode quando um inimigo chega perto e faz explodir os vizinhos.", True, None),
+         ("histamina-instavel", "Histamina Instável", "incomum", "Cola uma bomba no inimigo: ela explode depois de um pavio, e cada bomba a mais no mesmo alvo aumenta a explosão.", False, None),
+         ("cascata-de-degranulacao", "Cascata de Degranulação", "rara", "Por um tempo, tudo o que a célula mata explode em grânulos que ferem os vizinhos, e quem morre da explosão também explode.", False, ("abates", 40)),
+         ("anafilaxia", "Anafilaxia", "epica", "A célula sangra a própria membrana numa onda que cresce; aperte de novo para soltá-la. Quanto mais vida gasta, maior e mais forte o estouro.", False, None),
+     ], "prova": ("rubra", "nutrientes", 30, "histamina-instavel", "Prova do Alarmista", "Absorva 30 nutrientes: um mastócito se enche de grânulos comendo.")},
     {"id": "eosinofilo", "name": "Eosinófilo", "from": "mieloide", "tags": ["combat", "endure"],
-     "desc": "O Caça-Colossos. O especialista em gigantes: grânulos vermelhos de proteína corrosiva que derretem uma fração da vida do alvo, pequeno ou enorme. Lento para começar, devastador no fim.",
+     "desc": "O Caça-Colossos. O especialista em gigantes: prende-se ao que é grande e o corrói por dentro, congela um monstro em cristal para guardar os golpes, cresce a cada morte e, enrolado numa bola, quica pela sala.",
      "skills": [
-         ("granulo-caustico", "Grânulo Cáustico", "comum", "Um golpe curto que derrete uma parte da vida do inimigo, seja ele fraco ou colossal.", True, None),
-         ("nuvem-de-peroxidase", "Nuvem de Peroxidase", "incomum", "Solta uma nuvem corrosiva que anda sozinha atrás dos inimigos.", False, None),
-         ("marca-de-ige", "Marca de IgE", "rara", "Marca um alvo com anticorpos: ele sofre muito mais dano por um tempo.", False, ("abates", 30)),
-         ("proteina-basica", "Proteína Básica Maior", "epica", "Estoura os grânulos ao redor do corpo: uma explosão corrosiva de curto alcance.", False, None),
-     ], "prova": ("neva", "abates", 120, "nuvem-de-peroxidase", "Prova do Caça-Colossos", "Chegue a 120 invasores destruídos: um eosinófilo se prova derretendo o que o ameaça.")},
+         ("adesao", "Adesão", "comum", "Prende-se a um inimigo com uma corda de grânulos: ele é puxado e perde uma fração da própria vida a cada segundo. O colosso paga mais que o miúdo.", True, None),
+         ("cristal-de-charcot", "Cristal de Charcot-Leyden", "incomum", "Prende o inimigo em cristal: ele fica parado e nada o fere. Os golpes ficam guardados e saem todos de uma vez, em explosão, quando o cristal quebra.", False, None),
+         ("hipertrofia", "Hipertrofia", "rara", "A cada morte a célula cresce, bate mais forte e se cura um pouco. Acaba quando o tempo passa.", False, ("abates", 30)),
+         ("rolagem", "Rolagem", "epica", "A célula vira uma bola protegida e veloz: quica nas paredes e nos inimigos, ferindo cada um. O mouse a guia.", False, None),
+     ], "prova": ("neva", "abates", 120, "cristal-de-charcot", "Prova do Caça-Colossos", "Chegue a 120 invasores destruídos: um eosinófilo se prova guardando o que o ameaça.")},
     {"id": "celula-nk", "name": "Célula NK", "from": "linfoide", "tags": ["combat", "explore"],
-     "desc": "O Assassino Natural. A caçadora que não pede licença: ataca o que não se reconhece sem precisar de marca nem de ordem, saltando de alvo em alvo numa cadeia de golpes.",
+     "desc": "O Assassino Natural. A caçadora que não pede licença: aparece atrás da presa, caça um alvo por vez e recupera forças a cada golpe, some da vista dos inimigos e volta no tempo para onde estava.",
      "skills": [
-         ("golpe-natural", "Golpe Natural", "comum", "Um salto curto e rápido que fere tudo o que cruza.", True, None),
-         ("cadeia-letal", "Cadeia Letal", "rara", "Salta de um inimigo para o próximo, ferindo até quatro numa sequência.", False, ("esquivas", 12)),
-         ("ausencia-de-mhc", "Ausência de MHC", "incomum", "Quem perdeu a identidade e já está ferido morre, sem precisar de marca.", False, None),
-         ("explosao-de-interferon", "Explosão de Interferon", "epica", "Um surto de interferon: a célula corre mais e recupera energia por um tempo.", False, None),
-     ], "prova": ("neva", "esquivas", 10, "cadeia-letal", "Prova da Caçadora", "Esquive 10 vezes: uma célula NK vive de chegar antes do golpe.")},
+         ("passo-sem-identidade", "Passo Sem Identidade", "comum", "Aparece atrás do alvo e o golpeia nas costas, com muito mais força. Sem alvo ao alcance, é só um salto curto.", True, None),
+         ("predar", "Predar", "incomum", "Escolhe uma presa. Cada golpe nela devolve recarga e energia às outras habilidades; matá-la devolve todas.", False, None),
+         ("camuflagem-de-mhc", "Camuflagem de MHC", "rara", "A célula some da vista dos inimigos: eles a perdem. O primeiro golpe de dentro da sombra é muito mais forte.", False, ("esquivas", 12)),
+         ("ancora-de-vigilancia", "Âncora de Vigilância", "epica", "Fixa uma âncora com a vida de agora. Pouco depois a célula é puxada de volta a ela em linha reta, ferindo quem estiver no caminho e recuperando parte do que perdeu.", False, None),
+     ], "prova": ("neva", "esquivas", 10, "predar", "Prova da Caçadora", "Esquive 10 vezes: uma célula NK vive de chegar antes do golpe.")},
     {"id": "t-regulador", "name": "Linfócito T regulador", "from": "linfoide", "tags": ["knowledge", "endure"],
-     "desc": "O Pacificador. O diplomata do corpo: não fere, apazigua. Suprime os inimigos, tira a força do que ataca e ergue muros de tolerância onde o caos começa.",
+     "desc": "O Pacificador. O diplomata do corpo: não fere, apazigua. Faz inimigos dormirem, une-os pela dor, lança um isco que os distrai e abre um ponto de tolerância que puxa a sala inteira para o mesmo lugar.",
      "skills": [
-         ("supressao-celular", "Supressão Celular", "comum", "Acalma um inimigo: ele golpeia com muito menos força por um tempo.", True, None),
-         ("zona-de-tolerancia", "Zona de Tolerância", "incomum", "Uma região onde quem entra fica lento e enfraquecido.", False, None),
-         ("muro-de-tolerancia", "Muro de Tolerância", "rara", "Ergue um arco de coágulos que os inimigos não atravessam por alguns segundos.", False, ("nutrientes", 20)),
-         ("silencio-imunologico", "Silêncio Imunológico", "epica", "Todos os inimigos por perto são calados: batem com muito menos força.", False, None),
-     ], "prova": ("rubra", "nutrientes", 25, "zona-de-tolerancia", "Prova do Pacificador", "Absorva 25 nutrientes: um regulador aprende a manter a calma comendo.")},
+         ("anergia", "Anergia", "comum", "O inimigo adormece e só acorda ao ser ferido, e o golpe que o acorda bate mais forte. Os grandes dormem mais leve.", True, None),
+         ("sinapse-imunologica", "Sinapse Imunológica", "incomum", "Une até três inimigos: o que um sofre, os outros sofrem em parte.", False, None),
+         ("autoantigeno", "Autoantígeno", "rara", "Lança um isco de si mesma: os inimigos próximos o atacam em vez de você, até ele cair ou o tempo acabar.", False, ("nutrientes", 20)),
+         ("singularidade-de-tolerancia", "Singularidade de Tolerância", "epica", "Abre um ponto que puxa os inimigos para o centro; quando colapsa, quem ficou no meio leva o golpe.", False, None),
+     ], "prova": ("rubra", "nutrientes", 25, "sinapse-imunologica", "Prova do Pacificador", "Absorva 25 nutrientes: um regulador aprende a manter a calma comendo.")},
 ]
+
+# (the abilities were redesigned: the skills a class had before are dropped, and the new ones written in their place)
+for c in CLASSES:
+    u["skills"] = [x for x in u["skills"] if x.get("class") != c["id"]]
 
 for c in CLASSES:
     upsert(u["lineages"], {"id": c["id"], "name": c["name"], "tier": 2, "from": c["from"], "tags": c["tags"], "desc": c["desc"]})

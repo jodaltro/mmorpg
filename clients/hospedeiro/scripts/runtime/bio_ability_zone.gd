@@ -25,7 +25,6 @@ var heal_total := 0.0  # membrane restored over the duration (to the owner)
 var regen_membrane := 0.0  # per second, while the owner stands inside
 var regen_atp := 0.0
 var sentinels := 0
-var weaken := 1.0  # enemies inside deal this share of their damage (1 = unchanged)
 var drift := 0.0  # units per second towards the nearest enemy (the wandering zone)
 
 var _age := 0.0
@@ -57,7 +56,6 @@ static func spawn(parent: Node, host_cell: BioCellActor, id: StringName, pos: Ve
 	z.regen_atp = float(params.get("regen_atp", 0.0))
 	z.sentinels = int(params.get("count", 0)) if z.style == "sentinels" else 0
 	z.drift = float(params.get("drift", 0.0))
-	z.weaken = float(params.get("weaken", 1.0))
 	z.position = pos
 	parent.add_child(z)
 	return z
@@ -84,9 +82,6 @@ func _ready() -> void:
 		"song", "heal":
 			amount = 6
 			rise = 40.0
-		"edema":
-			amount = 5
-			rise = 18.0
 	if amount > 0:
 		_stream = BioPfx.stream(self, color, amount, 1.2, size, radius_px * 0.8, rise, 22.0)
 
@@ -133,15 +128,13 @@ func _finish() -> void:
 
 ## Half-second pulse: damage and slowing of everything inside.
 func _pulse() -> void:
-	if tick_damage <= 0.0 and slow >= 1.0 and weaken >= 1.0:
+	if tick_damage <= 0.0 and slow >= 1.0:
 		return
 	for e in BioTargeting.enemies(get_world_2d(), global_position, radius_px, owner_combatant.actor.team):
 		if tick_damage > 0.0:
 			e.combatant.receive_hit(owner_combatant, _hit_def)
 		if slow < 1.0:
 			e.slow(slow, 0.8)
-		if weaken < 1.0:
-			e.combatant.weaken(weaken, 0.8)
 		if style == "heat":
 			BioPfx.burst(BioFx.root, e.global_position, Color(1.0, 0.5, 0.2), 3, 50.0, 0.4, 7.0)
 
@@ -201,34 +194,7 @@ func _draw() -> void:
 			_heal(t, fade)
 		"sentinels":
 			_sentinels(t, fade)
-		"edema":
-			_edema(t, r, fade)
-		"calm":
-			_calm(t, r, fade)
 
-
-## The swollen tissue: a cluster of translucent blisters that fill and sag, bobbing, with beads of fluid sliding down.
-func _edema(t: float, r: float, fade: float) -> void:
-	for i in 9:
-		var base := Vector2.from_angle(i * 2.399 + sin(t * 0.4 + i) * 0.2) * r * (0.15 + 0.6 * fmod(i * 0.41, 1.0))
-		var size := (11.0 + 12.0 * fmod(i * 0.57, 1.0)) * (r / maxf(radius_px, 1.0)) * (1.0 + 0.16 * sin(t * 1.8 + i * 1.3))
-		draw_circle(base, size, _c(0.1 * fade))
-		draw_arc(base, size, 0.0, TAU, 20, _c(0.55 * fade, 0.3), 1.8, true)
-		draw_arc(base + Vector2(-size * 0.25, -size * 0.25), size * 0.5, PI * 1.1, PI * 1.6, 8, _c(0.7 * fade, 0.7), 1.4, true)  # the shine on a blister
-		var bead := fmod(t * 0.6 + i * 0.31, 1.0)
-		draw_circle(base + Vector2(size * 0.4, size * (0.2 + 0.9 * bead)), 1.6 * (1.0 - bead) + 0.6, _c(0.8 * (1.0 - bead) * fade, 0.5))
-	draw_arc(Vector2.ZERO, r, 0.0, TAU, 48, _c(0.2 * fade), 1.2, true)
-
-
-## Tolerance: rings that do not spread but fall inward, slow and even, around a still point. Nothing flickers: it is the opposite of an alarm.
-func _calm(t: float, r: float, fade: float) -> void:
-	for k in 4:
-		var phase := fmod(t * 0.22 + k * 0.25, 1.0)
-		draw_arc(Vector2.ZERO, r * (1.0 - 0.85 * phase), 0.0, TAU, 56, _c(0.55 * (1.0 - phase) * fade, 0.2), 2.2, true)
-	draw_circle(Vector2.ZERO, 4.0 + sin(t * 1.1), _c(0.9 * fade, 0.7))
-	for i in 10:  # a handful of motes settling toward the centre
-		var life := fmod(t * 0.25 + i * 0.113, 1.0)
-		draw_circle(Vector2.from_angle(i * 2.399) * r * (1.0 - life), 1.8 * (1.0 - life) + 0.5, _c(0.8 * (1.0 - life) * fade, 0.5))
 
 ## A corrosive puddle: a living irregular outline whose edge erodes a vertex at a time, a honeycomb of hexagons that flicker,
 ## and bubbles that pop with a little cross.

@@ -16,6 +16,12 @@ var _slow_factor := 1.0
 var _dash_until := 0.0
 var _dash_velocity := Vector2.ZERO
 
+## Rolling (the eosinophil curled into a ball): it keeps its speed, bounces off walls and bodies and can be steered a little.
+signal bumped(collider: Object, normal: Vector2)
+var _roll_until := 0.0
+var _roll_velocity := Vector2.ZERO
+var _roll_steer := 0.0
+
 
 func _init() -> void:
 	collision_layer = LAYER_COMBATANT
@@ -36,6 +42,37 @@ func dash(direction: Vector2, distance_units: float, duration: float = 0.18) -> 
 		return
 	_dash_velocity = direction.normalized() * distance_units * BioArt.UNIT / duration
 	_dash_until = BioClock.now() + duration
+
+
+## Curls into a ball for `seconds`: it flies at `speed_units` and bounces; `steer` is how fast the aim can turn it (radians per second).
+func roll(direction: Vector2, speed_units: float, seconds: float, steer: float) -> void:
+	if direction.length_squared() < 1e-4:
+		return
+	_roll_velocity = direction.normalized() * speed_units * BioArt.UNIT
+	_roll_until = BioClock.now() + seconds
+	_roll_steer = steer
+
+
+func is_rolling() -> bool:
+	return BioClock.now() < _roll_until
+
+
+func end_roll() -> void:
+	if is_rolling():
+		velocity = _roll_velocity * 0.35
+	_roll_until = 0.0
+
+
+## Stops a dash or a lunge in its tracks.
+func cancel_dash() -> void:
+	_dash_until = 0.0
+
+
+## Whoever hunts this cell (an enemy's brain) hunts `prey` instead, e.g. a decoy.
+func retarget(prey: BioCellActor) -> void:
+	for child in get_children():
+		if child.has_method("set_prey"):
+			child.call("set_prey", prey)
 
 
 ## Instant velocity change in world units per second.
@@ -65,6 +102,22 @@ func is_active() -> bool:
 
 
 func _physics_process(delta: float) -> void:
+	if is_rolling():
+		if intent.length_squared() > 0.01:
+			var turn := _roll_velocity.angle_to(intent)
+			_roll_velocity = _roll_velocity.rotated(clampf(turn, -_roll_steer * delta, _roll_steer * delta))
+		velocity = _roll_velocity
+		var crash := move_and_collide(velocity * delta)
+		if crash != null:
+			var normal := crash.get_normal()
+			_roll_velocity = _roll_velocity.bounce(normal)
+			bumped.emit(crash.get_collider(), normal)
+		return
+	if combatant != null and combatant.is_stunned():  # asleep or in a crystal: it only drifts to a halt
+		_dash_until = 0.0
+		velocity -= velocity * minf(1.0, damping * 2.0 * delta)
+		move_and_slide()
+		return
 	if is_dashing():
 		velocity = _dash_velocity
 	else:

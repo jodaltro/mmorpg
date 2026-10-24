@@ -37,6 +37,17 @@ func cooldown_remaining(attack_id: StringName, now: float) -> float:
 	return ready - now if ready > now else 0.0
 
 
+## Gives cooldown time back: every attack still cooling is ready `seconds` sooner.
+func refund_cooldowns(now: float, seconds: float) -> void:
+	for key in _ready_at:
+		_ready_at[key] = maxf(now, float(_ready_at[key]) - seconds)
+
+
+## Every attack is ready again.
+func reset_cooldowns() -> void:
+	_ready_at.clear()
+
+
 func is_invulnerable(now: float) -> bool:
 	return now < invulnerable_until
 

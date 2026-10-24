@@ -23,6 +23,8 @@ var _limbs: BioLimbs
 var effect_style: StringName = &""  # trait "efeito" designed by Jev
 var projectile_traits := {}  # traits "trajetoria", "calibre", "impacto" (and "ritmo") designed by Jev: they change the shot itself
 var _body: BioCellBody
+var _kits: Array[BioKit] = []  # the abilities that need more than a hit, by class
+var _kit_for := {}  # kind -> kit
 
 
 func configure(host: BioCellActor, controller: BioCellController, limbs: BioLimbs, body: BioCellBody) -> void:
@@ -30,6 +32,12 @@ func configure(host: BioCellActor, controller: BioCellController, limbs: BioLimb
 	_aim_source = controller
 	_limbs = limbs
 	_body = body
+	for kit in [BioKitMast.new(), BioKitEos.new(), BioKitNk.new(), BioKitTreg.new()]:
+		add_child(kit)
+		kit.configure(host, controller, limbs, body)
+		_kits.append(kit)
+		for kind in kit.kinds():
+			_kit_for[kind] = kit
 
 
 func known() -> Array[StringName]:
@@ -117,6 +125,9 @@ func perform(slot: int) -> int:
 func perform_id(id: StringName) -> int:
 	if id == &"" or not knows(id):
 		return UNKNOWN
+	for held in _kits:  # the same key finishes what a kit is holding (a charge, an anchor)
+		if held.repress(id):
+			return BioActor.AttackStatus.STARTED
 	var a := BioAbilityCatalog.get_ability(id)
 	if _host.combatant.genome != null:
 		a = _host.combatant.genome.tune(id, a)  # the mutations change this ability's numbers
@@ -125,6 +136,12 @@ func perform_id(id: StringName) -> int:
 	var me := _host.combatant
 	var kind: String = a["kind"]
 	a = BioAbilityMode.apply(BioAbilityFocus.apply(a, _host.combatant.focus), BioAbilityMode.family_of(id), _host.combatant.modes)  # the cell's focus: a wide weak reach or a narrow strong one
+	var kit: BioKit = _kit_for.get(kind)
+	var picked: Array = []
+	if kit != null:
+		picked = kit.find(kind, a, origin, aim)
+		if picked.is_empty():
+			return NO_TARGET
 	var target: BioCellActor = null
 	if kind in ["mark", "execute"]:
 		var pool := BioTargeting.enemies(_host.get_world_2d(), origin, float(a["range"]) * BioArt.UNIT, me.actor.team)
@@ -144,12 +161,6 @@ func perform_id(id: StringName) -> int:
 			_devour(def, a, aim, color)
 		"cone":
 			_whips(def, a, aim, color)
-		"melt":
-			_melt(def, a, aim, color)
-		"chain_strike":
-			_chain_strike(def, a, color)
-		"barrier":
-			_barrier(a, origin, aim, color)
 		"pierce":
 			_lance(def, a, aim, color)
 		"nova":
@@ -176,6 +187,9 @@ func perform_id(id: StringName) -> int:
 			_aura(id, a, color)
 		"summon":
 			_summon(id, a, color)
+		_:
+			if kit != null:
+				kit.cast(kind, id, def, a, aim, color, picked)
 	performed.emit(id)
 	return status
 
@@ -189,14 +203,7 @@ func _alive() -> bool:
 
 
 func _hit(target: BioCellActor, def: BioAttackDef, from: Vector2, color: Color) -> BioHitResult:
-	if not BioCombatRules.can_hit(_host.combatant.actor, target.combatant.actor):
-		return null
-	var result := target.combatant.receive_hit(_host.combatant, def)
-	if result.outcome == BioActor.HitOutcome.HIT or result.outcome == BioActor.HitOutcome.KILLED:
-		if def.knockback > 0.0:
-			target.apply_impulse((target.global_position - from).normalized() * def.knockback)
-		BioPfx.burst(BioFx.root, target.global_position, color, 16, 220.0, 0.5, 11.0)
-	return result
+	return BioStrike.land(_host, target, def, from, color)
 
 
 ## Macrophage: three broad scooping arms close in front of the body, which stretches into the bite and swells as it swallows.
@@ -221,65 +228,6 @@ func _whips(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color) -> voi
 	await _wait(0.08)
 	if _alive():
 		_cone(def, a, _host.global_position, aim, color, false)
-
-
-## Eosinophil: a short sweep of corrosive granules that melts a share of the victim's own life, so the colossus pays more than the speck.
-func _melt(def: BioAttackDef, a: Dictionary, aim: Vector2, color: Color) -> void:
-	var reach := float(a["range"])
-	_limbs.fan(aim, 3, float(a["half"]) * 1.2, reach + 0.3, 0.1, 0.22, {"tint": color, "sweep": 0.0, "style": {"tip": &"blob", "base": 20.0, "tip_w": 22.0, "stiffness": 0.4, "bumps": 3}})
-	_body.elastic(aim, 0.25, 0.5, 0.1)
-	await _wait(0.1)
-	if not _alive():
-		return
-	var origin := _host.global_position
-	BioPfx.burst(BioFx.root, origin + aim * reach * 0.5 * BioArt.UNIT, color, 24, 230.0, 0.5, 11.0, aim, float(a["half"]))
-	var inside := BioTargeting.in_cone(BioTargeting.enemies(_host.get_world_2d(), origin, (reach + 0.6) * BioArt.UNIT, _host.combatant.actor.team), origin, aim, reach * BioArt.UNIT, float(a["half"]))
-	for e in inside:
-		var share := minf(e.combatant.actor.vitals.max_membrane * float(a["pct"]), float(a["cap"]))
-		var melt := BioAttackDef.new(def.id, def.atp_cost, def.damage + share, def.cooldown, def.range_units, def.knockback, def.invulnerable_seconds)
-		_hit(e, melt, origin, color)
-		BioSignature.play(&"blebs", e.global_position, color, 0.6, {"radius": 20.0}, e)
-	BioFx.shake(0.12)
-
-
-## NK cell: leaps from one enemy to the next, hitting each, up to `count` of them: the chain ends when nobody is left in reach.
-func _chain_strike(def: BioAttackDef, a: Dictionary, color: Color) -> void:
-	var hit := {}
-	for i in int(a["count"]):
-		if not _alive():
-			return
-		var pool := BioTargeting.enemies(_host.get_world_2d(), _host.global_position, float(a["range"]) * BioArt.UNIT, _host.combatant.actor.team).filter(func(e: BioCellActor) -> bool: return not hit.has(e))
-		var target: BioCellActor = null
-		for e in pool:
-			if target == null or e.global_position.distance_to(_host.global_position) < target.global_position.distance_to(_host.global_position):
-				target = e
-		if target == null:
-			return
-		hit[target] = true
-		var to := target.global_position - _host.global_position
-		_body.elastic(to, 0.3, 0.7, 0.06)
-		_host.dash(to, maxf(to.length() / BioArt.UNIT - 0.6, 0.3), 0.12)
-		await _wait(0.13)
-		if not is_instance_valid(target) or not _alive():
-			return
-		_hit(target, def, _host.global_position - to.normalized() * BioArt.UNIT, color)
-		BioSignature.play(&"scar", target.global_position, color, 0.7, {"dir": to.normalized()}, null)
-		BioFx.shake(0.1)
-
-
-## Regulatory T cell: an arc of clots rises ahead of the cell, solid for a few seconds.
-func _barrier(a: Dictionary, origin: Vector2, aim: Vector2, color: Color) -> void:
-	var count := int(a["count"])
-	var center := origin + aim * float(a["reach"]) * BioArt.UNIT
-	var along := aim.orthogonal()
-	_limbs.reach(aim, float(a["reach"]) + 0.2, 0.12, 0.35, {"tint": color, "sweep": 0.0, "style": {"tip": &"bulb", "base": 14.0, "tip_w": 18.0}})
-	_body.elastic(aim, 0.25, 0.4, 0.08)
-	await _wait(0.12)
-	if not _alive():
-		return
-	for i in count:
-		var spot := center + along * (i - (count - 1) * 0.5) * float(a["spacing"]) * BioArt.UNIT
-		BioClot.spawn(_host.get_parent(), spot, float(a["size"]), float(a["duration"]), color)
 
 
 ## Cytotoxic T cell: the body thrusts a rigid lance.
@@ -308,7 +256,7 @@ func _pierce(def: BioAttackDef, a: Dictionary, origin: Vector2, aim: Vector2, co
 	var reach_px := float(a["range"]) * BioArt.UNIT
 	var tip := origin + aim * reach_px
 	BioPfx.burst(BioFx.root, origin + aim * reach_px * 0.5, color, 14, 260.0, 0.3, 7.0, aim, 4.0)
-	_beam(origin + aim * 0.4 * BioArt.UNIT, tip, color, float(a["width"]) * BioArt.UNIT * 0.5)
+	BioStrike.beam(origin + aim * 0.4 * BioArt.UNIT, tip, color, float(a["width"]) * BioArt.UNIT * 0.5)
 	var width_px := float(a["width"]) * BioArt.UNIT
 	var below := float(a["execute_below"])
 	for e in BioTargeting.enemies(_host.get_world_2d(), origin + aim * reach_px * 0.5, reach_px * 0.6 + width_px, _host.combatant.actor.team):
@@ -323,41 +271,13 @@ func _pierce(def: BioAttackDef, a: Dictionary, origin: Vector2, aim: Vector2, co
 	BioFx.shake(0.12)
 
 
-## A lance of light that thins and fades: a wide soft stroke under a white-hot core.
-func _beam(from: Vector2, to: Vector2, color: Color, width_px: float) -> void:
-	var soft := Line2D.new()
-	soft.points = PackedVector2Array([from, to])
-	soft.width = width_px
-	soft.default_color = BioArt.with_alpha(color, 0.5)
-	soft.begin_cap_mode = Line2D.LINE_CAP_ROUND
-	soft.end_cap_mode = Line2D.LINE_CAP_ROUND
-	soft.material = BioArt.additive()
-	soft.z_index = 16
-	var core := Line2D.new()
-	core.points = soft.points
-	core.width = width_px * 0.3
-	core.default_color = Color(1, 1, 1, 0.95)
-	core.begin_cap_mode = Line2D.LINE_CAP_ROUND
-	core.end_cap_mode = Line2D.LINE_CAP_ROUND
-	soft.add_child(core)
-	BioFx.root.add_child(soft)
-	var tween := soft.create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(soft, "modulate:a", 0.0, 0.35)
-	tween.tween_property(soft, "width", 0.0, 0.35)
-	tween.chain().tween_callback(soft.queue_free)
-
-
 ## The body swells with the charge, then its own limbs burst out in every direction. A plasma cell fills with cisternae and
 ## releases a crescent wall of antibodies; a macrophage's pseudopods leave swirled grooves behind.
 func _nova(id: StringName, def: BioAttackDef, a: Dictionary, color: Color) -> void:
 	var charge := maxf(float(a.get("charge", 0.0)), 0.14)
 	var radius := float(a["radius"])
-	var granules := str(a.get("style", "")) == "granules"
-	var plasma := float(a.get("charge", 0.0)) > 0.0 and not granules
+	var plasma := float(a.get("charge", 0.0)) > 0.0
 	_body.swell(1.35, charge + 0.1)
-	if granules:  # the mast cell fills up, its granules glowing through the membrane
-		BioPfx.burst(BioFx.root, _host.global_position, color, 14, 80.0, charge, 6.0)
 	if plasma:
 		BioSignature.play(&"cartwheel", _host.global_position, color, charge, {"radius": 28.0 * 1.35}, _host)
 	await _wait(charge)
@@ -369,9 +289,6 @@ func _nova(id: StringName, def: BioAttackDef, a: Dictionary, color: Color) -> vo
 	_body.swell(0.82, 0.12)
 	if plasma:
 		BioSignature.play(&"wall", origin, color, 1.6, {"dir": aim, "reach": radius * BioArt.UNIT}, null)
-	elif granules:
-		BioSignature.play(&"bodies", origin, color, 1.6, {}, null)
-		BioPfx.burst(BioFx.root, origin, color, 40, 380.0, 0.6, 12.0)
 	else:
 		BioSignature.play(&"grooves", origin, color, 1.2, {"radius": radius * BioArt.UNIT}, null)
 	for e in BioTargeting.enemies(_host.get_world_2d(), origin, radius * BioArt.UNIT, _host.combatant.actor.team):
@@ -450,8 +367,6 @@ func _reach_and_mark(targets: Array, a: Dictionary, color: Color) -> void:
 
 func _mark(target: BioCellActor, a: Dictionary, color: Color) -> void:
 	target.combatant.mark(float(a["mult"]), float(a["seconds"]))
-	if a.has("weaken"):
-		target.combatant.weaken(float(a["weaken"]), float(a["seconds"]))
 	if a.has("slow"):
 		target.slow(1.0 - float(a["slow"]), float(a["seconds"]))
 	BioMarkGlyph.attach(target, color, float(a["seconds"]), StringName(str(a.get("mark_kind", ""))))

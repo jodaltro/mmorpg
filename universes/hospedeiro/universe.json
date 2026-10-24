@@ -4627,9 +4627,9 @@
    "giver": "rubra",
    "rank": "C",
    "title": "Prova do Alarmista",
-   "desc": "Quem se diferencia aprende com a prática. Edema espera por você.",
+   "desc": "Quem se diferencia aprende com a prática. Histamina Instável espera por você.",
    "objective": "Absorva 30 nutrientes: um mastócito se enche de grânulos comendo.",
-   "reward": "A habilidade Edema e pressão evolutiva +5",
+   "reward": "A habilidade Histamina Instável e pressão evolutiva +5",
    "tags": [
     "combat",
     "metabolism"
@@ -4646,7 +4646,7 @@
      {
       "not": {
        "has": {
-        "skill": "edema"
+        "skill": "histamina-instavel"
        }
       }
      }
@@ -4663,7 +4663,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "edema"
+     "v": "histamina-instavel"
     },
     {
      "op": "adjust",
@@ -4684,9 +4684,9 @@
    "giver": "neva",
    "rank": "C",
    "title": "Prova do Caça-Colossos",
-   "desc": "Quem se diferencia aprende com a prática. Nuvem de Peroxidase espera por você.",
-   "objective": "Chegue a 120 invasores destruídos: um eosinófilo se prova derretendo o que o ameaça.",
-   "reward": "A habilidade Nuvem de Peroxidase e pressão evolutiva +5",
+   "desc": "Quem se diferencia aprende com a prática. Cristal de Charcot-Leyden espera por você.",
+   "objective": "Chegue a 120 invasores destruídos: um eosinófilo se prova guardando o que o ameaça.",
+   "reward": "A habilidade Cristal de Charcot-Leyden e pressão evolutiva +5",
    "tags": [
     "combat",
     "endure"
@@ -4703,7 +4703,7 @@
      {
       "not": {
        "has": {
-        "skill": "nuvem-de-peroxidase"
+        "skill": "cristal-de-charcot"
        }
       }
      }
@@ -4720,7 +4720,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "nuvem-de-peroxidase"
+     "v": "cristal-de-charcot"
     },
     {
      "op": "adjust",
@@ -4741,9 +4741,9 @@
    "giver": "neva",
    "rank": "C",
    "title": "Prova da Caçadora",
-   "desc": "Quem se diferencia aprende com a prática. Cadeia Letal espera por você.",
+   "desc": "Quem se diferencia aprende com a prática. Predar espera por você.",
    "objective": "Esquive 10 vezes: uma célula NK vive de chegar antes do golpe.",
-   "reward": "A habilidade Cadeia Letal e pressão evolutiva +5",
+   "reward": "A habilidade Predar e pressão evolutiva +5",
    "tags": [
     "combat",
     "explore"
@@ -4760,7 +4760,7 @@
      {
       "not": {
        "has": {
-        "skill": "cadeia-letal"
+        "skill": "predar"
        }
       }
      }
@@ -4777,7 +4777,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "cadeia-letal"
+     "v": "predar"
     },
     {
      "op": "adjust",
@@ -4798,9 +4798,9 @@
    "giver": "rubra",
    "rank": "C",
    "title": "Prova do Pacificador",
-   "desc": "Quem se diferencia aprende com a prática. Zona de Tolerância espera por você.",
+   "desc": "Quem se diferencia aprende com a prática. Sinapse Imunológica espera por você.",
    "objective": "Absorva 25 nutrientes: um regulador aprende a manter a calma comendo.",
-   "reward": "A habilidade Zona de Tolerância e pressão evolutiva +5",
+   "reward": "A habilidade Sinapse Imunológica e pressão evolutiva +5",
    "tags": [
     "knowledge",
     "endure"
@@ -4817,7 +4817,7 @@
      {
       "not": {
        "has": {
-        "skill": "zona-de-tolerancia"
+        "skill": "sinapse-imunologica"
        }
       }
      }
@@ -4834,7 +4834,7 @@
    "rewards": [
     {
      "op": "grant",
-     "v": "zona-de-tolerancia"
+     "v": "sinapse-imunologica"
     },
     {
      "op": "adjust",
@@ -5220,7 +5220,7 @@
    "tags": [
     "metabolism"
    ],
-   "desc": "-2 ATP/s, +138% ganho de nutrientes."
+   "desc": "-2 ATP/s, +150% ganho de nutrientes."
   },
   {
    "id": "citoesqueleto-elastico",
@@ -5240,7 +5240,7 @@
     "explore",
     "knowledge"
    ],
-   "desc": "Sente o cheiro do alimento à distância. -8% ATP máx., +49% ganho de nutrientes, +9% velocidade."
+   "desc": "Sente o cheiro do alimento à distância. -8% ATP máx., +47% ganho de nutrientes, +9% velocidade."
   },
   {
    "id": "peroxissomos",
@@ -5286,7 +5286,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "-10% ATP máx., +32% ganho de nutrientes, +15% dano da toxina. Lisossomo Ácido: +15% dano contínuo.",
+   "desc": "-10% ATP máx., +31% ganho de nutrientes, +15% dano da toxina. Lisossomo Ácido: +15% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5303,7 +5303,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Engole mais fundo e digere melhor. +21% ATP máx., -5% velocidade. Engolir: +103% cura, +21% alcance.",
+   "desc": "Engole mais fundo e digere melhor. +21% ATP máx., -5% velocidade. Engolir: +104% cura, +21% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5403,7 +5403,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "A armadilha detona com mais força. +6% poder das habilidades, -10% membrana máx.. NETose: +32% explosão, +12% raio.",
+   "desc": "A armadilha detona com mais força. +6% poder das habilidades, -10% membrana máx.. NETose: +31% explosão, +12% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5437,7 +5437,7 @@
     "explore",
     "combat"
    ],
-   "desc": "Uma investida mais longa. -10% ATP máx., +10% velocidade. Explosão Neutrofílica: +12% dano, +35% distância.",
+   "desc": "Uma investida mais longa. -10% ATP máx., +10% velocidade. Explosão Neutrofílica: +12% dano, +36% distância.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5454,7 +5454,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "As granulações viram veneno denso. +10% custo das habilidades, -12% membrana máx.. Degranulação: +21% duração, +29% raio, +72% dano contínuo.",
+   "desc": "As granulações viram veneno denso. +10% custo das habilidades, -12% membrana máx.. Degranulação: +21% duração, +29% raio, +71% dano contínuo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5488,7 +5488,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "+2 ATP/s, -10% velocidade, +13% dano da toxina. Chuva de Esporos: +18% ATP/s.",
+   "desc": "+2 ATP/s, -10% velocidade, +13% dano da toxina. Chuva de Esporos: +19% ATP/s.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5538,7 +5538,7 @@
     "explore",
     "combat"
    ],
-   "desc": "Fios mais longos e mais finos. +4% recarga das habilidades, -4% membrana máx.. Dendritos em Chicote: +45% dano, +74% alcance.",
+   "desc": "Fios mais longos e mais finos. +4% recarga das habilidades, -4% membrana máx.. Dendritos em Chicote: +45% dano, +75% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5555,7 +5555,7 @@
     "metabolism",
     "knowledge"
    ],
-   "desc": "Os esporos nascem e caem em ondas. +1 ATP/s, -5% velocidade. Chuva de Esporos: +15% duração, +15% raio, +38% reparo.",
+   "desc": "Os esporos nascem e caem em ondas. +1 ATP/s, -5% velocidade. Chuva de Esporos: +16% duração, +16% raio, +40% reparo.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5572,7 +5572,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "-10% membrana máx., +20% custo da toxina, +58% dano da toxina. Anticorpo Y: +20% dano.",
+   "desc": "-10% membrana máx., +20% custo da toxina, +59% dano da toxina. Anticorpo Y: +20% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5589,7 +5589,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "+6 ATP/s, -25% velocidade, +37% dano da toxina. Explosão de Plasmócito: +18% raio.",
+   "desc": "+6 ATP/s, -25% velocidade, +38% dano da toxina. Explosão de Plasmócito: +19% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5707,7 +5707,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Fareja quem já está condenado. +4% custo das habilidades, -5% membrana máx.. Apoptose: +92% limiar, -46% recarga, +62% dano, +62% alcance.",
+   "desc": "Fareja quem já está condenado. +4% custo das habilidades, -5% membrana máx.. Apoptose: +90% limiar, -45% recarga, +60% dano, +60% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5876,7 +5876,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Mais grânulos, e todos prontos. +4% poder das habilidades, -10% membrana máx.. Chuva de Grânulos: +2 unidades, +6% dano.",
+   "desc": "Cada grânulo carrega mais, e há mais deles. +5% poder das habilidades, -10% membrana máx.. Grânulos Latentes: +2 unidades máx., +8% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5893,7 +5893,7 @@
     "metabolism",
     "endure"
    ],
-   "desc": "O líquido que sai dos grânulos incha e demora a secar. +13% ATP máx., -5% velocidade. Edema: +26% duração, +26% raio.",
+   "desc": "O líquido dos grânulos demora a secar: as minas esperam mais. +30% ATP máx., -1% velocidade. Grânulos Latentes: +90% duração, +45% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5910,7 +5910,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "O alarme dispara com muito menos. -5% recarga das habilidades, -8% membrana máx.. Alarme de Mastócito: +5% amplificação, +15% duração.",
+   "desc": "Cada glob se agarra com mais força ao anterior. -16% recarga das habilidades, -8% membrana máx.. Histamina Instável: +16% raio, +49% bônus por pilha.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5926,7 +5926,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Todo o conteúdo de uma vez. +5% custo das habilidades, -7% membrana máx.. Choque Anafilático: +91% dano, +46% raio.",
+   "desc": "Quanto mais se sangra, mais explode. +4% custo das habilidades, -7% membrana máx.. Anafilaxia: +75% dano por vida gasta, +45% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5943,7 +5943,7 @@
     "combat",
     "explore"
    ],
-   "desc": "Os grânulos vão mais longe e mais depressa. -9% dano do chicote, +18% velocidade. Chuva de Grânulos: +74% alcance, +60% velocidade.",
+   "desc": "Os globs vão mais longe e mais depressa. -10% dano do chicote, +9% velocidade. Histamina Instável: +22% dano, +37% alcance, +30% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5960,7 +5960,7 @@
     "knowledge",
     "metabolism"
    ],
-   "desc": "O aviso se espalha e o tecido incha. +2 ATP/s, -7% membrana máx.. Alarme de Mastócito: +24% raio; Edema: +18% lentidão.",
+   "desc": "O aviso se espalha: a cascata alcança mais longe e dura mais. +2 ATP/s, -7% membrana máx.. Cascata de Degranulação: +14% duração, +19% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5977,7 +5977,7 @@
     "combat",
     "endure"
    ],
-   "desc": "Grânulos vermelhos que derretem o que tocam. +23% dano do chicote, -12% membrana máx.. Grânulo Cáustico: +23% dano, +23% fração da vida.",
+   "desc": "Grânulos vermelhos que corroem por dentro. +22% dano do chicote, -12% membrana máx.. Adesão: +22% dano, +28% fração da vida.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5994,7 +5994,7 @@
     "explore",
     "endure"
    ],
-   "desc": "Dois lobos: a nuvem aprende a perseguir. -10% ATP máx., +8% velocidade. Nuvem de Peroxidase: +47% perseguição, +18% duração.",
+   "desc": "Dois lobos: o laço aprende a puxar. -10% ATP máx., +8% velocidade. Adesão: +18% duração, +35% atração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6011,7 +6011,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "Reconhece o parasita de longe. -8% recarga das habilidades, -6% velocidade. Marca de IgE: +12% amplificação, +18% alcance.",
+   "desc": "Reconhece o parasita de longe e o prende por mais tempo. -13% recarga das habilidades, -6% velocidade. Cristal de Charcot-Leyden: +27% alcance, +20% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6028,7 +6028,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "A nuvem fica densa e queima de verdade. +10% custo das habilidades, -14% membrana máx.. Nuvem de Peroxidase: +45% raio, +111% dano contínuo.",
+   "desc": "O cristal guarda mais e estoura mais largo. +8% custo das habilidades, -11% membrana máx.. Cristal de Charcot-Leyden: +75% acúmulo, +60% dano, +45% raio, +30% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6045,7 +6045,7 @@
     "combat",
     "endure"
    ],
-   "desc": "O cristal central dos grânulos explode. +13% dano do chicote, -8% velocidade. Proteína Básica Maior: +25% dano, +13% raio.",
+   "desc": "A bola ganha arestas de cristal. +14% dano do chicote, -8% velocidade. Rolagem: +27% dano, +14% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6062,7 +6062,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "Derrete mais fundo e mais longe. +14% poder das habilidades, -8% ATP máx.. Grânulo Cáustico: +138% teto, +42% alcance.",
+   "desc": "Cada morte alimenta mais o gigante. +8% poder das habilidades, -8% ATP máx.. Hipertrofia: +1 pilhas, +33% dano por pilha.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6079,7 +6079,7 @@
     "explore",
     "combat"
    ],
-   "desc": "Sente o perigo antes de ele chegar. -12% membrana máx., +17% velocidade. Golpe Natural: +22% dano, +29% distância.",
+   "desc": "Sente a presa antes de ela chegar. -12% membrana máx., +20% velocidade. Passo Sem Identidade: +25% dano, +34% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6095,7 +6095,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Quem já está ferido não resiste. +27% dano do chicote, -12% membrana máx.. Ausência de MHC: +22% limiar, +33% dano.",
+   "desc": "A facada nas costas dói mais, e a primeira de dentro da sombra também. +25% dano do chicote, -12% membrana máx.. Camuflagem de MHC: +10% emboscada; Passo Sem Identidade: +20% golpe nas costas.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6105,14 +6105,14 @@
    }
   },
   {
-   "id": "salto-em-cadeia",
-   "name": "Salto em Cadeia",
+   "id": "memoria-de-presa",
+   "name": "Memória de Presa",
    "rarity": "epica",
    "tags": [
     "combat",
     "explore"
    ],
-   "desc": "Mais um elo na sequência. +8% recarga das habilidades, -10% ATP máx., +15% velocidade. Cadeia Letal: +1 unidades, +23% dano, +30% alcance.",
+   "desc": "Quem foi caçado uma vez não se esquece. +6% recarga das habilidades, -7% ATP máx.. Passo Sem Identidade: +45% dano; Predar: +60% ATP por golpe, +75% devolução, +45% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6129,7 +6129,7 @@
     "metabolism",
     "explore"
    ],
-   "desc": "O surto dura mais e rende mais energia. +2 ATP/s, -8% membrana máx.. Explosão de Interferon: +15% duração, +4% velocidade.",
+   "desc": "A sombra dura mais e corre mais. +2 ATP/s, -8% membrana máx.. Camuflagem de MHC: +19% duração, +6% velocidade.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6146,7 +6146,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "Reconhece o que está doente a mais distância. +17% dano do chicote, +50% ganho de nutrientes, -7% velocidade. Ausência de MHC: +17% limiar, +42% alcance.",
+   "desc": "Reconhece o que está doente a mais distância. +79% ganho de nutrientes, -5% velocidade. Predar: +79% ATP por golpe, +66% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6156,14 +6156,14 @@
    }
   },
   {
-   "id": "citotoxicidade-natural",
-   "name": "Citotoxicidade Natural",
+   "id": "fita-de-retorno",
+   "name": "Fita de Retorno",
    "rarity": "incomum",
    "tags": [
     "combat",
     "endure"
    ],
-   "desc": "Cada golpe é mais afiado e volta mais cedo. +5% poder das habilidades, -10% membrana máx.. Cadeia Letal: +18% dano; Golpe Natural: -9% recarga.",
+   "desc": "O fio é mais curto e o puxão, mais forte. +7% poder das habilidades, -10% membrana máx.. Âncora de Vigilância: +28% dano, +42% invulnerabilidade.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6180,7 +6180,7 @@
     "endure",
     "knowledge"
    ],
-   "desc": "O fator que define quem acalma. -15% dano do chicote, +16% membrana máx.. Supressão Celular: +16% duração, -12% enfraquecimento.",
+   "desc": "O fator que define quem acalma: o sono é mais fundo. -15% dano do chicote, +20% membrana máx.. Anergia: +20% duração, +12% dano ao acordar.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6197,7 +6197,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "O sinal que apaga o fogo. +2 ATP/s, -6% velocidade. Zona de Tolerância: +19% duração, +19% raio.",
+   "desc": "O sinal que apaga o fogo: a singularidade abre mais e segura mais. +2 ATP/s, -6% velocidade. Singularidade de Tolerância: +25% raio, +18% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6214,7 +6214,7 @@
     "knowledge",
     "endure"
    ],
-   "desc": "Um freio em cada receptor. -12% recarga das habilidades, -12% dano do chicote. Silêncio Imunológico: +25% raio, -19% enfraquecimento.",
+   "desc": "Um freio em cada receptor: a dor passa mais inteira. -9% recarga das habilidades, -12% dano do chicote. Sinapse Imunológica: +18% duração, +14% partilha.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6230,7 +6230,7 @@
    "tags": [
     "endure"
    ],
-   "desc": "Cicatriza o que o conflito abriu. +2% membrana máx., -8% velocidade. Muro de Tolerância: +1 unidades, +6% duração.",
+   "desc": "Cicatriza o que o conflito abriu: o isco aguenta mais. +10% membrana máx., -8% velocidade. Autoantígeno: +31% vida do isco, +16% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6247,7 +6247,7 @@
     "knowledge",
     "endure"
    ],
-   "desc": "Quem fica perto fica manso. +3% custo das habilidades, -3% ATP máx.. Zona de Tolerância: +90% lentidão, -45% enfraquecimento.",
+   "desc": "Mais um elo na rede. +10% custo das habilidades, -10% ATP máx.. Sinapse Imunológica: +1 unidades, +30% partilha.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6264,7 +6264,7 @@
     "knowledge",
     "explore"
    ],
-   "desc": "O alvo para de responder, de longe. -10% dano do chicote, +33% ganho de nutrientes. Supressão Celular: +11% amplificação, +28% alcance.",
+   "desc": "O alvo para de responder, de mais longe. -10% dano do chicote, +81% ganho de nutrientes. Anergia: +68% alcance, +41% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -7305,7 +7305,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "O Alarmista. O bombardeiro do corpo: uma bolsa de grânulos prestes a estourar. Atira histamina em chuva, incha o tecido inimigo e, quando o alarme soa, tudo ao redor sente."
+   "desc": "O Alarmista. O bombardeiro do corpo: uma bolsa de grânulos prestes a estourar. Semeia minas pelo caminho, cola bombas nos inimigos, faz cada morte explodir e, quando ousa, sangra a própria membrana numa explosão enorme."
   },
   {
    "id": "eosinofilo",
@@ -7316,7 +7316,7 @@
     "combat",
     "endure"
    ],
-   "desc": "O Caça-Colossos. O especialista em gigantes: grânulos vermelhos de proteína corrosiva que derretem uma fração da vida do alvo, pequeno ou enorme. Lento para começar, devastador no fim."
+   "desc": "O Caça-Colossos. O especialista em gigantes: prende-se ao que é grande e o corrói por dentro, congela um monstro em cristal para guardar os golpes, cresce a cada morte e, enrolado numa bola, quica pela sala."
   },
   {
    "id": "celula-nk",
@@ -7327,7 +7327,7 @@
     "combat",
     "explore"
    ],
-   "desc": "O Assassino Natural. A caçadora que não pede licença: ataca o que não se reconhece sem precisar de marca nem de ordem, saltando de alvo em alvo numa cadeia de golpes."
+   "desc": "O Assassino Natural. A caçadora que não pede licença: aparece atrás da presa, caça um alvo por vez e recupera forças a cada golpe, some da vista dos inimigos e volta no tempo para onde estava."
   },
   {
    "id": "t-regulador",
@@ -7338,7 +7338,7 @@
     "knowledge",
     "endure"
    ],
-   "desc": "O Pacificador. O diplomata do corpo: não fere, apazigua. Suprime os inimigos, tira a força do que ataca e ergue muros de tolerância onde o caos começa."
+   "desc": "O Pacificador. O diplomata do corpo: não fere, apazigua. Faz inimigos dormirem, une-os pela dor, lança um isco que os distrai e abre um ponto de tolerância que puxa a sala inteira para o mesmo lugar."
   }
  ],
  "skills": [
@@ -7799,10 +7799,10 @@
    "rarity": "epica"
   },
   {
-   "id": "chuva-de-granulos",
-   "name": "Chuva de Grânulos",
+   "id": "granulos-latentes",
+   "name": "Grânulos Latentes",
    "rarity": "comum",
-   "desc": "Dispara um leque de grânulos de histamina que ferem de perto.",
+   "desc": "Por alguns segundos a célula solta um grânulo atrás de si a cada passo. Cada um arma, explode quando um inimigo chega perto e faz explodir os vizinhos.",
    "class": "mastocito",
    "tags": [
     "combat",
@@ -7811,10 +7811,10 @@
    "starter": true
   },
   {
-   "id": "edema",
-   "name": "Edema",
+   "id": "histamina-instavel",
+   "name": "Histamina Instável",
    "rarity": "incomum",
-   "desc": "Lança uma poça de líquido que incha o tecido e retarda quem a atravessa.",
+   "desc": "Cola uma bomba no inimigo: ela explode depois de um pavio, e cada bomba a mais no mesmo alvo aumenta a explosão.",
    "class": "mastocito",
    "tags": [
     "combat",
@@ -7823,22 +7823,10 @@
    "offer": true
   },
   {
-   "id": "choque-anafilatico",
-   "name": "Choque Anafilático",
-   "rarity": "epica",
-   "desc": "Concentra todos os grânulos e os solta de uma vez numa onda que empurra tudo.",
-   "class": "mastocito",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "offer": true
-  },
-  {
-   "id": "alarme-de-mastocito",
-   "name": "Alarme de Mastócito",
+   "id": "cascata-de-degranulacao",
+   "name": "Cascata de Degranulação",
    "rarity": "rara",
-   "desc": "Todos os inimigos por perto são marcados: a defesa os vê e os fere mais.",
+   "desc": "Por um tempo, tudo o que a célula mata explode em grânulos que ferem os vizinhos, e quem morre da explosão também explode.",
    "class": "mastocito",
    "tags": [
     "combat",
@@ -7865,10 +7853,22 @@
    }
   },
   {
-   "id": "granulo-caustico",
-   "name": "Grânulo Cáustico",
+   "id": "anafilaxia",
+   "name": "Anafilaxia",
+   "rarity": "epica",
+   "desc": "A célula sangra a própria membrana numa onda que cresce; aperte de novo para soltá-la. Quanto mais vida gasta, maior e mais forte o estouro.",
+   "class": "mastocito",
+   "tags": [
+    "combat",
+    "metabolism"
+   ],
+   "offer": true
+  },
+  {
+   "id": "adesao",
+   "name": "Adesão",
    "rarity": "comum",
-   "desc": "Um golpe curto que derrete uma parte da vida do inimigo, seja ele fraco ou colossal.",
+   "desc": "Prende-se a um inimigo com uma corda de grânulos: ele é puxado e perde uma fração da própria vida a cada segundo. O colosso paga mais que o miúdo.",
    "class": "eosinofilo",
    "tags": [
     "combat",
@@ -7877,10 +7877,10 @@
    "starter": true
   },
   {
-   "id": "nuvem-de-peroxidase",
-   "name": "Nuvem de Peroxidase",
+   "id": "cristal-de-charcot",
+   "name": "Cristal de Charcot-Leyden",
    "rarity": "incomum",
-   "desc": "Solta uma nuvem corrosiva que anda sozinha atrás dos inimigos.",
+   "desc": "Prende o inimigo em cristal: ele fica parado e nada o fere. Os golpes ficam guardados e saem todos de uma vez, em explosão, quando o cristal quebra.",
    "class": "eosinofilo",
    "tags": [
     "combat",
@@ -7889,10 +7889,10 @@
    "offer": true
   },
   {
-   "id": "marca-de-ige",
-   "name": "Marca de IgE",
+   "id": "hipertrofia",
+   "name": "Hipertrofia",
    "rarity": "rara",
-   "desc": "Marca um alvo com anticorpos: ele sofre muito mais dano por um tempo.",
+   "desc": "A cada morte a célula cresce, bate mais forte e se cura um pouco. Acaba quando o tempo passa.",
    "class": "eosinofilo",
    "tags": [
     "combat",
@@ -7919,10 +7919,10 @@
    }
   },
   {
-   "id": "proteina-basica",
-   "name": "Proteína Básica Maior",
+   "id": "rolagem",
+   "name": "Rolagem",
    "rarity": "epica",
-   "desc": "Estoura os grânulos ao redor do corpo: uma explosão corrosiva de curto alcance.",
+   "desc": "A célula vira uma bola protegida e veloz: quica nas paredes e nos inimigos, ferindo cada um. O mouse a guia.",
    "class": "eosinofilo",
    "tags": [
     "combat",
@@ -7931,10 +7931,10 @@
    "offer": true
   },
   {
-   "id": "golpe-natural",
-   "name": "Golpe Natural",
+   "id": "passo-sem-identidade",
+   "name": "Passo Sem Identidade",
    "rarity": "comum",
-   "desc": "Um salto curto e rápido que fere tudo o que cruza.",
+   "desc": "Aparece atrás do alvo e o golpeia nas costas, com muito mais força. Sem alvo ao alcance, é só um salto curto.",
    "class": "celula-nk",
    "tags": [
     "combat",
@@ -7943,10 +7943,22 @@
    "starter": true
   },
   {
-   "id": "cadeia-letal",
-   "name": "Cadeia Letal",
+   "id": "predar",
+   "name": "Predar",
+   "rarity": "incomum",
+   "desc": "Escolhe uma presa. Cada golpe nela devolve recarga e energia às outras habilidades; matá-la devolve todas.",
+   "class": "celula-nk",
+   "tags": [
+    "combat",
+    "explore"
+   ],
+   "offer": true
+  },
+  {
+   "id": "camuflagem-de-mhc",
+   "name": "Camuflagem de MHC",
    "rarity": "rara",
-   "desc": "Salta de um inimigo para o próximo, ferindo até quatro numa sequência.",
+   "desc": "A célula some da vista dos inimigos: eles a perdem. O primeiro golpe de dentro da sombra é muito mais forte.",
    "class": "celula-nk",
    "tags": [
     "combat",
@@ -7973,22 +7985,10 @@
    }
   },
   {
-   "id": "ausencia-de-mhc",
-   "name": "Ausência de MHC",
-   "rarity": "incomum",
-   "desc": "Quem perdeu a identidade e já está ferido morre, sem precisar de marca.",
-   "class": "celula-nk",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "offer": true
-  },
-  {
-   "id": "explosao-de-interferon",
-   "name": "Explosão de Interferon",
+   "id": "ancora-de-vigilancia",
+   "name": "Âncora de Vigilância",
    "rarity": "epica",
-   "desc": "Um surto de interferon: a célula corre mais e recupera energia por um tempo.",
+   "desc": "Fixa uma âncora com a vida de agora. Pouco depois a célula é puxada de volta a ela em linha reta, ferindo quem estiver no caminho e recuperando parte do que perdeu.",
    "class": "celula-nk",
    "tags": [
     "combat",
@@ -7997,10 +7997,10 @@
    "offer": true
   },
   {
-   "id": "supressao-celular",
-   "name": "Supressão Celular",
+   "id": "anergia",
+   "name": "Anergia",
    "rarity": "comum",
-   "desc": "Acalma um inimigo: ele golpeia com muito menos força por um tempo.",
+   "desc": "O inimigo adormece e só acorda ao ser ferido, e o golpe que o acorda bate mais forte. Os grandes dormem mais leve.",
    "class": "t-regulador",
    "tags": [
     "knowledge",
@@ -8009,10 +8009,10 @@
    "starter": true
   },
   {
-   "id": "zona-de-tolerancia",
-   "name": "Zona de Tolerância",
+   "id": "sinapse-imunologica",
+   "name": "Sinapse Imunológica",
    "rarity": "incomum",
-   "desc": "Uma região onde quem entra fica lento e enfraquecido.",
+   "desc": "Une até três inimigos: o que um sofre, os outros sofrem em parte.",
    "class": "t-regulador",
    "tags": [
     "knowledge",
@@ -8021,10 +8021,10 @@
    "offer": true
   },
   {
-   "id": "muro-de-tolerancia",
-   "name": "Muro de Tolerância",
+   "id": "autoantigeno",
+   "name": "Autoantígeno",
    "rarity": "rara",
-   "desc": "Ergue um arco de coágulos que os inimigos não atravessam por alguns segundos.",
+   "desc": "Lança um isco de si mesma: os inimigos próximos o atacam em vez de você, até ele cair ou o tempo acabar.",
    "class": "t-regulador",
    "tags": [
     "knowledge",
@@ -8051,10 +8051,10 @@
    }
   },
   {
-   "id": "silencio-imunologico",
-   "name": "Silêncio Imunológico",
+   "id": "singularidade-de-tolerancia",
+   "name": "Singularidade de Tolerância",
    "rarity": "epica",
-   "desc": "Todos os inimigos por perto são calados: batem com muito menos força.",
+   "desc": "Abre um ponto que puxa os inimigos para o centro; quando colapsa, quem ficou no meio leva o golpe.",
    "class": "t-regulador",
    "tags": [
     "knowledge",

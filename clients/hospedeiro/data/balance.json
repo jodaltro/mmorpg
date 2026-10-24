@@ -1,7 +1,18 @@
 {
   "abilities": {
-    "alarme_de_mastocito": {
-      "mult": 1.33
+    "adesao": {
+      "damage": 4.0,
+      "pct": 0.09
+    },
+    "anafilaxia": {
+      "damage": 9.0,
+      "per_hp": 1.46
+    },
+    "ancora_de_vigilancia": {
+      "damage": 33.5
+    },
+    "anergia": {
+      "wake": 1.46
     },
     "anticorpo_y": {
       "cooldown": 1.0,
@@ -15,23 +26,21 @@
     "apresentar_antigeno": {
       "mult": 1.42
     },
-    "ausencia_de_mhc": {
-      "cooldown": 5.0,
-      "cost": 14.5,
-      "damage": 18.0
+    "autoantigeno": {
+      "hp": 77.51
     },
-    "cadeia_letal": {
-      "damage": 24.0
+    "camuflagem_de_mhc": {
+      "strike": 2.68
     },
     "canto_de_citocinas": {
       "regen_atp": 7.0,
       "speed": 1.28
     },
+    "cascata_de_degranulacao": {
+      "damage": 28.5
+    },
     "chamado_a_linfa": {
       "tick": 4.0
-    },
-    "choque_anafilatico": {
-      "damage": 38.0
     },
     "chuva_de_esporos": {
       "cooldown": 7.5,
@@ -39,11 +48,12 @@
       "regen_atp": 9.5,
       "regen_membrane": 3.5
     },
-    "chuva_de_granulos": {
-      "damage": 10.5
-    },
     "citocina_curativa": {
       "amount": 39.5
+    },
+    "cristal_de_charcot": {
+      "bank": 1.37,
+      "damage": 10.5
     },
     "degranulacao": {
       "tick": 8.0
@@ -51,18 +61,9 @@
     "dendritos_em_chicote": {
       "damage": 22.5
     },
-    "edema": {
-      "tick": 2.5
-    },
     "engolir": {
       "damage": 16.5,
       "heal": 0.53
-    },
-    "explosao_de_interferon": {
-      "cooldown": 8.5,
-      "cost": 16.0,
-      "regen_atp": 7.0,
-      "speed": 1.6
     },
     "explosao_de_plasmocito": {
       "damage": 37.5
@@ -78,11 +79,15 @@
     "golpe_litico": {
       "damage": 33.0
     },
-    "golpe_natural": {
-      "damage": 22.5
+    "granulos_latentes": {
+      "damage": 13.0
     },
-    "granulo_caustico": {
-      "damage": 10.0
+    "hipertrofia": {
+      "dmg_per": 0.14,
+      "heal_per": 0.07
+    },
+    "histamina_instavel": {
+      "damage": 16.0
     },
     "lisossomo_acido": {
       "tick": 5.5
@@ -90,23 +95,14 @@
     "mapa_quimico": {
       "mult": 1.39
     },
-    "marca_de_ige": {
-      "mult": 1.72
-    },
     "muralha_de_carne": {
       "cooldown": 8.5,
       "cost": 20.5,
       "duration": 8.0,
       "taken": 0.2
     },
-    "muro_de_tolerancia": {
-      "duration": 5.37
-    },
     "netose": {
       "burst": 41.5
-    },
-    "nuvem_de_peroxidase": {
-      "tick": 4.5
     },
     "onda_de_pseudopodes": {
       "damage": 34.0
@@ -114,38 +110,40 @@
     "opsonizacao": {
       "mult": 1.35
     },
+    "passo_sem_identidade": {
+      "damage": 12.5
+    },
     "perforina": {
       "cooldown": 2.0,
       "damage": 11.5
     },
-    "proteina_basica": {
-      "damage": 37.5
+    "predar": {
+      "atp": 2.69,
+      "cooldown": 9.5,
+      "cost": 12.5,
+      "refund": 1.07
     },
     "rede_de_dna": {
       "cooldown": 4.5,
       "cost": 12.5,
       "tick": 3.5
     },
+    "rolagem": {
+      "damage": 17.5
+    },
     "salva_de_anticorpos": {
       "cooldown": 3.5,
       "cost": 18.0,
       "damage": 16.5
     },
-    "silencio_imunologico": {
-      "mult": 1.09,
-      "weaken": 0.64
-    },
     "sinal_de_morte": {
       "mult": 1.76
     },
-    "supressao_celular": {
-      "cooldown": 6.0,
-      "cost": 13.0,
-      "mult": 1.11,
-      "weaken": 0.66
+    "sinapse_imunologica": {
+      "share": 0.44
     },
-    "zona_de_tolerancia": {
-      "weaken": 0.55
+    "singularidade_de_tolerancia": {
+      "damage": 18.0
     }
   },
   "genes": {
@@ -176,12 +174,12 @@
     "anergia_induzida": {
       "mods": {
         "lash_damage": 0.9,
-        "nutrient_yield": 1.33
+        "nutrient_yield": 1.81
       },
       "perks": {
-        "supressao_celular": {
-          "mult": 1.11,
-          "range": 1.28
+        "anergia": {
+          "range": 1.68,
+          "seconds": 1.41
         }
       }
     },
@@ -189,7 +187,7 @@
       "mods": {
         "max_membrane": 0.9,
         "spit_cost": 1.2,
-        "spit_damage": 1.58
+        "spit_damage": 1.59
       },
       "perks": {
         "anticorpo_y": {
@@ -225,15 +223,13 @@
     },
     "citocinas_de_alarme": {
       "mods": {
-        "atp_regen": 2.5,
+        "atp_regen": 2.0,
         "max_membrane": 0.93
       },
       "perks": {
-        "alarme_de_mastocito": {
-          "radius": 1.24
-        },
-        "edema": {
-          "slow": 1.18
+        "cascata_de_degranulacao": {
+          "duration": 1.14,
+          "radius": 1.19
         }
       }
     },
@@ -258,41 +254,27 @@
         }
       }
     },
-    "citotoxicidade_natural": {
-      "mods": {
-        "ability_power": 1.05,
-        "max_membrane": 0.9
-      },
-      "perks": {
-        "cadeia_letal": {
-          "damage": 1.18
-        },
-        "golpe_natural": {
-          "cooldown": 0.91
-        }
-      }
-    },
     "citotoxina_eosinofilica": {
       "mods": {
-        "ability_power": 1.14,
+        "ability_power": 1.08,
         "max_atp": 0.92
       },
       "perks": {
-        "granulo_caustico": {
-          "cap": 2.38,
-          "range": 1.42
+        "hipertrofia": {
+          "+stacks": 1.0,
+          "dmg_per": 1.33
         }
       }
     },
     "contato_celula_a_celula": {
       "mods": {
-        "ability_cost": 1.03,
-        "max_atp": 0.97
+        "ability_cost": 1.1,
+        "max_atp": 0.9
       },
       "perks": {
-        "zona_de_tolerancia": {
-          "slow": 1.9,
-          "weaken": 0.55
+        "sinapse_imunologica": {
+          "+count": 1.0,
+          "share": 1.3
         }
       }
     },
@@ -310,25 +292,25 @@
     },
     "ctla4": {
       "mods": {
-        "ability_cooldown": 0.88,
+        "ability_cooldown": 0.91,
         "lash_damage": 0.88
       },
       "perks": {
-        "silencio_imunologico": {
-          "radius": 1.25,
-          "weaken": 0.81
+        "sinapse_imunologica": {
+          "seconds": 1.18,
+          "share": 1.14
         }
       }
     },
     "degranulacao_explosiva": {
       "mods": {
-        "ability_cost": 1.05,
+        "ability_cost": 1.04,
         "max_membrane": 0.93
       },
       "perks": {
-        "choque_anafilatico": {
-          "damage": 1.91,
-          "radius": 1.46
+        "anafilaxia": {
+          "per_hp": 1.75,
+          "radius": 1.45
         }
       }
     },
@@ -341,7 +323,7 @@
         "degranulacao": {
           "duration": 1.21,
           "radius": 1.29,
-          "tick": 1.72
+          "tick": 1.71
         }
       }
     },
@@ -365,14 +347,14 @@
       "perks": {
         "dendritos_em_chicote": {
           "damage": 1.45,
-          "range": 1.74
+          "range": 1.75
         }
       }
     },
     "enzima_voraz": {
       "mods": {
         "atp_regen": -1.5,
-        "nutrient_yield": 2.38
+        "nutrient_yield": 2.5
       },
       "perks": {}
     },
@@ -392,7 +374,7 @@
       },
       "perks": {
         "chuva_de_esporos": {
-          "regen_atp": 1.18
+          "regen_atp": 1.19
         }
       }
     },
@@ -403,9 +385,9 @@
       },
       "perks": {
         "chuva_de_esporos": {
-          "duration": 1.15,
-          "radius": 1.15,
-          "regen_membrane": 1.38
+          "duration": 1.16,
+          "radius": 1.16,
+          "regen_membrane": 1.4
         }
       }
     },
@@ -416,7 +398,7 @@
       },
       "perks": {
         "engolir": {
-          "heal": 2.03,
+          "heal": 2.04,
           "range": 1.21
         }
       }
@@ -430,6 +412,18 @@
         "rede_de_dna": {
           "slow": 1.4,
           "tick": 1.3
+        }
+      }
+    },
+    "fita_de_retorno": {
+      "mods": {
+        "ability_power": 1.07,
+        "max_membrane": 0.9
+      },
+      "perks": {
+        "ancora_de_vigilancia": {
+          "damage": 1.28,
+          "iframes": 1.42
         }
       }
     },
@@ -448,43 +442,45 @@
       "perks": {
         "explosao_neutrofilica": {
           "damage": 1.12,
-          "distance": 1.35
+          "distance": 1.36
         }
       }
     },
     "foxp3": {
       "mods": {
         "lash_damage": 0.85,
-        "max_membrane": 1.16
+        "max_membrane": 1.2
       },
       "perks": {
-        "supressao_celular": {
-          "seconds": 1.16,
-          "weaken": 0.88
+        "anergia": {
+          "seconds": 1.2,
+          "wake": 1.12
         }
       }
     },
     "granulos_citoliticos": {
       "mods": {
-        "lash_damage": 1.27,
+        "lash_damage": 1.25,
         "max_membrane": 0.88
       },
       "perks": {
-        "ausencia_de_mhc": {
-          "below": 1.22,
-          "damage": 1.33
+        "camuflagem_de_mhc": {
+          "strike": 1.1
+        },
+        "passo_sem_identidade": {
+          "backstab": 1.2
         }
       }
     },
     "granulos_de_histamina": {
       "mods": {
-        "ability_power": 1.04,
+        "ability_power": 1.05,
         "max_membrane": 0.9
       },
       "perks": {
-        "chuva_de_granulos": {
-          "+count": 2.0,
-          "damage": 1.06
+        "granulos_latentes": {
+          "+max": 2.0,
+          "damage": 1.08
         }
       }
     },
@@ -502,13 +498,13 @@
     },
     "granulos_de_proteina_basica": {
       "mods": {
-        "lash_damage": 1.23,
+        "lash_damage": 1.22,
         "max_membrane": 0.88
       },
       "perks": {
-        "granulo_caustico": {
-          "damage": 1.23,
-          "pct": 1.23
+        "adesao": {
+          "damage": 1.22,
+          "pct": 1.28
         }
       }
     },
@@ -519,7 +515,7 @@
       },
       "perks": {
         "netose": {
-          "burst": 1.32,
+          "burst": 1.31,
           "radius": 1.12
         }
       }
@@ -539,13 +535,13 @@
     },
     "grao_cristalino": {
       "mods": {
-        "lash_damage": 1.13,
+        "lash_damage": 1.14,
         "speed": 0.92
       },
       "perks": {
-        "proteina_basica": {
-          "damage": 1.25,
-          "radius": 1.13
+        "rolagem": {
+          "damage": 1.27,
+          "speed": 1.14
         }
       }
     },
@@ -563,13 +559,13 @@
     },
     "heparina": {
       "mods": {
-        "max_atp": 1.13,
-        "speed": 0.95
+        "max_atp": 1.3,
+        "speed": 0.99
       },
       "perks": {
-        "edema": {
-          "duration": 1.26,
-          "radius": 1.26
+        "granulos_latentes": {
+          "duration": 1.9,
+          "radius": 1.45
         }
       }
     },
@@ -599,25 +595,25 @@
     },
     "interferon_gama_nk": {
       "mods": {
-        "atp_regen": 1.5,
+        "atp_regen": 2.0,
         "max_membrane": 0.92
       },
       "perks": {
-        "explosao_de_interferon": {
-          "duration": 1.15,
-          "speed": 1.04
+        "camuflagem_de_mhc": {
+          "seconds": 1.19,
+          "speed": 1.06
         }
       }
     },
     "interleucina_10": {
       "mods": {
-        "atp_regen": 1.5,
+        "atp_regen": 2.5,
         "speed": 0.94
       },
       "perks": {
-        "zona_de_tolerancia": {
-          "duration": 1.19,
-          "radius": 1.19
+        "singularidade_de_tolerancia": {
+          "radius": 1.25,
+          "seconds": 1.18
         }
       }
     },
@@ -649,21 +645,20 @@
     },
     "ligantes_de_estresse": {
       "mods": {
-        "lash_damage": 1.17,
-        "nutrient_yield": 1.5,
-        "speed": 0.93
+        "nutrient_yield": 1.79,
+        "speed": 0.95
       },
       "perks": {
-        "ausencia_de_mhc": {
-          "below": 1.17,
-          "range": 1.42
+        "predar": {
+          "atp": 1.79,
+          "range": 1.66
         }
       }
     },
     "lisossomos_acidos": {
       "mods": {
         "max_atp": 0.9,
-        "nutrient_yield": 1.32,
+        "nutrient_yield": 1.31,
         "spit_damage": 1.15
       },
       "perks": {
@@ -688,6 +683,22 @@
       "perks": {
         "anticorpo_y": {
           "cooldown": 0.8
+        }
+      }
+    },
+    "memoria_de_presa": {
+      "mods": {
+        "ability_cooldown": 1.06,
+        "max_atp": 0.93
+      },
+      "perks": {
+        "passo_sem_identidade": {
+          "damage": 1.45
+        },
+        "predar": {
+          "atp": 1.6,
+          "refund": 1.75,
+          "seconds": 1.45
         }
       }
     },
@@ -717,9 +728,9 @@
         "speed": 1.08
       },
       "perks": {
-        "nuvem_de_peroxidase": {
-          "drift": 1.47,
-          "duration": 1.18
+        "adesao": {
+          "duration": 1.18,
+          "pull": 1.35
         }
       }
     },
@@ -744,13 +755,15 @@
     },
     "peroxidase_concentrada": {
       "mods": {
-        "ability_cost": 1.1,
-        "max_membrane": 0.86
+        "ability_cost": 1.08,
+        "max_membrane": 0.89
       },
       "perks": {
-        "nuvem_de_peroxidase": {
+        "cristal_de_charcot": {
+          "bank": 1.75,
+          "damage": 1.6,
           "radius": 1.45,
-          "tick": 2.11
+          "seconds": 1.3
         }
       }
     },
@@ -779,11 +792,11 @@
       "mods": {
         "atp_regen": 6.5,
         "speed": 0.75,
-        "spit_damage": 1.37
+        "spit_damage": 1.38
       },
       "perks": {
         "explosao_de_plasmocito": {
-          "radius": 1.18
+          "radius": 1.19
         }
       }
     },
@@ -802,25 +815,25 @@
     },
     "receptor_de_ige": {
       "mods": {
-        "ability_cooldown": 0.95,
+        "ability_cooldown": 0.84,
         "max_membrane": 0.92
       },
       "perks": {
-        "alarme_de_mastocito": {
-          "mult": 1.05,
-          "seconds": 1.15
+        "histamina_instavel": {
+          "radius": 1.16,
+          "stack": 1.49
         }
       }
     },
     "receptor_de_ige_alto": {
       "mods": {
-        "ability_cooldown": 0.92,
+        "ability_cooldown": 0.87,
         "speed": 0.94
       },
       "perks": {
-        "marca_de_ige": {
-          "mult": 1.12,
-          "range": 1.18
+        "cristal_de_charcot": {
+          "range": 1.27,
+          "seconds": 1.2
         }
       }
     },
@@ -855,29 +868,29 @@
       },
       "perks": {
         "apoptose": {
-          "below": 1.92,
-          "cooldown": 0.54,
-          "damage": 1.62,
-          "range": 1.62
+          "below": 1.9,
+          "cooldown": 0.55,
+          "damage": 1.6,
+          "range": 1.6
         }
       }
     },
     "receptores_ativadores": {
       "mods": {
         "max_membrane": 0.88,
-        "speed": 1.17
+        "speed": 1.2
       },
       "perks": {
-        "golpe_natural": {
-          "damage": 1.22,
-          "distance": 1.29
+        "passo_sem_identidade": {
+          "damage": 1.25,
+          "range": 1.34
         }
       }
     },
     "receptores_de_quimiotaxia": {
       "mods": {
         "max_atp": 0.92,
-        "nutrient_yield": 1.49,
+        "nutrient_yield": 1.47,
         "speed": 1.09
       },
       "perks": {}
@@ -908,20 +921,6 @@
         }
       }
     },
-    "salto_em_cadeia": {
-      "mods": {
-        "ability_cooldown": 1.08,
-        "max_atp": 0.9,
-        "speed": 1.15
-      },
-      "perks": {
-        "cadeia_letal": {
-          "+count": 1.0,
-          "damage": 1.23,
-          "range": 1.3
-        }
-      }
-    },
     "sinapse_imunologica": {
       "mods": {
         "ability_cooldown": 1.05,
@@ -937,25 +936,26 @@
     },
     "tgf_beta": {
       "mods": {
-        "max_membrane": 1.02,
+        "max_membrane": 1.1,
         "speed": 0.92
       },
       "perks": {
-        "muro_de_tolerancia": {
-          "+count": 1.0,
-          "duration": 1.06
+        "autoantigeno": {
+          "hp": 1.31,
+          "seconds": 1.16
         }
       }
     },
     "triptase": {
       "mods": {
-        "lash_damage": 0.91,
-        "speed": 1.18
+        "lash_damage": 0.9,
+        "speed": 1.09
       },
       "perks": {
-        "chuva_de_granulos": {
-          "range": 1.74,
-          "speed": 1.6
+        "histamina_instavel": {
+          "damage": 1.22,
+          "range": 1.37,
+          "speed": 1.3
         }
       }
     },

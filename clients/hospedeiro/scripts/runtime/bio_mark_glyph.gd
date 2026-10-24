@@ -46,6 +46,10 @@ func _draw() -> void:
 			_urchin(fade)
 		&"aim":
 			_aim(fade)
+		&"sleep":
+			_sleep(fade)
+		&"prey":
+			_prey(fade)
 		_:
 			_rings(fade)
 
@@ -106,6 +110,31 @@ func _aim(fade: float) -> void:
 		var a := _age * 1.4 + i * TAU / 3.0
 		draw_line(Vector2.from_angle(a) * (radius_px + 2.0), Vector2.from_angle(a) * (radius_px + 8.0), _c(0.9 * fade, 0.4), 2.2, true)
 	draw_arc(Vector2.ZERO, radius_px + 5.0, _age, _age + 1.0, 8, _c(0.5 * fade), 1.4, true)
+
+
+## Three Z's that rise from the sleeper, one after the other, and a slow ring that breathes.
+func _sleep(fade: float) -> void:
+	var breath := 0.5 + 0.5 * sin(_age * 2.0)
+	draw_arc(Vector2.ZERO, radius_px + 3.0 + 3.0 * breath, 0.0, TAU, 28, _c(0.35 * fade), 1.6, true)
+	for k in 3:
+		var f := fposmod(_age * 0.6 + k / 3.0, 1.0)
+		var at := Vector2(radius_px * 0.5 + f * 12.0, -radius_px - f * 26.0)
+		var size := 5.0 + 4.0 * f + 1.5 * k
+		var c := _c((1.0 - f) * 0.9 * fade, 0.5)
+		draw_line(at + Vector2(-size, -size), at + Vector2(size, -size), c, 1.8, true)
+		draw_line(at + Vector2(size, -size), at + Vector2(-size, size), c, 1.8, true)
+		draw_line(at + Vector2(-size, size), at + Vector2(size, size), c, 1.8, true)
+
+
+## A hunter's reticle: a broken ring that closes slowly on the prey, four ticks pointing in, and a dot that does not blink.
+func _prey(fade: float) -> void:
+	var closing := radius_px + 14.0 - 8.0 * minf(_age * 3.0, 1.0)
+	for k in 4:
+		var a := -_age * 1.1 + k * TAU / 4.0
+		draw_arc(Vector2.ZERO, closing, a, a + TAU / 4.0 * 0.55, 8, _c(0.9 * fade, 0.3), 2.2, true)
+		var tick := Vector2.from_angle(k * TAU / 4.0 + PI * 0.25)
+		draw_line(tick * (closing + 3.0), tick * (closing - 8.0), _c(0.95 * fade, 0.6), 2.0, true)
+	draw_circle(Vector2.ZERO, 3.0, _c(0.95 * fade, 0.7))
 
 
 func _rings(fade: float) -> void:

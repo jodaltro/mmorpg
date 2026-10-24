@@ -23,6 +23,10 @@ func _process(_delta: float) -> void:
 	if _host == null or not _host.combatant.actor.vitals.is_alive() or not spawn.is_valid():
 		return
 	var now := BioClock.now()
+	if _host.combatant.is_stunned():  # a sleeping nest lays nothing
+		_next = maxf(_next, now + 0.2)
+		_body.set_telegraph(0.0)
+		return
 	if now < _next - every * 0.3:
 		_body.set_telegraph(0.0)
 	else:

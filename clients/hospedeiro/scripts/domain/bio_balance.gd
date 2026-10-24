@@ -20,6 +20,7 @@ const WORTH_TOLERANCE := 0.18  # +/- around it
 const CLASS_ADJUST := {&"macrofago": 1.3, &"neutrofilo": 1.15, &"dendritica": 1.05, &"linfocito_b": 0.9, &"t_citotoxico": 1.0, &"t_auxiliar": 0.72,
 	&"mastocito": 1.0, &"eosinofilo": 1.1, &"celula_nk": 1.0, &"t_regulador": 0.8}
 const TYPICAL_HP := 90.0  # the life of a typical enemy, for the abilities that take a share of it
+const TYPICAL_MEMBRANE := 100.0  # the cell's own, for the abilities that spend it
 
 
 static func target_worth(lineage: StringName) -> float:
@@ -38,12 +39,43 @@ static func ability_value(id: StringName, a: Dictionary) -> float:
 			return dmg * 2.0 * (1.0 + float(a["heal"]) * 0.8)
 		"cone":
 			return dmg * 2.0
-		"melt":
-			return (dmg + float(a["pct"]) * TYPICAL_HP) * 1.6
-		"chain_strike":
-			return dmg * float(a["count"]) * 0.75
-		"barrier":
-			return float(a["count"]) * duration * ENEMY_DPS * 0.25
+		"mines":
+			return dmg * minf(float(a["max"]), duration / float(a["every"])) * 0.32 * (1.0 + (TARGETS - 1.0) * 0.5)
+		"sticky":
+			return dmg * (1.0 + (TARGETS - 1.0) * 0.7) * (1.0 + float(a["stack"]) * 0.5)
+		"cascade":
+			return dmg * (duration / 3.0) * (TARGETS - 0.2) * 0.55
+		"overload":
+			var spent := float(a["bleed"]) * float(a["max_time"]) * TYPICAL_MEMBRANE
+			return (dmg + float(a["per_hp"]) * spent) * TARGETS * 0.75 - spent * 0.6
+		"tether":
+			return duration / 0.5 * (dmg + minf(float(a["pct"]) * TYPICAL_HP, float(a["cap"])) * 0.5) * 0.8
+		"crystal":
+			var frozen := float(a["seconds"])
+			return (dmg + BASE_DPS * frozen * 0.3 * float(a["bank"])) * (1.0 + (TARGETS - 1.0) * 0.6) * 0.8 + frozen * 5.0
+		"grow":
+			var kills := float(a["seconds"]) / 3.5
+			var stacks := minf(float(a["stacks"]), kills) * 0.6
+			return BASE_DPS * float(a["dmg_per"]) * stacks * float(a["seconds"]) * 0.5 + float(a["heal_per"]) * TYPICAL_MEMBRANE * kills
+		"roll":
+			return dmg * (float(a["seconds"]) / 0.45) * 0.5 * (1.0 + (TARGETS - 1.0) * 0.25) + (1.0 - float(a["taken"])) * ENEMY_DPS * float(a["seconds"]) * 0.8
+		"blink":
+			return dmg * float(a["backstab"]) * 1.1 + float(a["iframes"]) * 10.0 + 14.0
+		"prey":
+			var hits := float(a["seconds"]) / 1.2 * 0.6
+			return hits * (float(a["refund"]) * COOLDOWN_PRICE + float(a["atp"])) + 20.0 + (float(a["speed"]) - 1.0) * 60.0 * float(a["seconds"]) * 0.15
+		"cloak":
+			return (float(a["strike"]) - 1.0) * BASE_DPS * 0.9 + float(a["seconds"]) * 5.0 + (float(a["speed"]) - 1.0) * 60.0 * float(a["seconds"]) * 0.15
+		"recall":
+			return dmg * 1.5 + float(a["restore"]) * 25.0 + float(a["iframes"]) * 10.0 + 8.0
+		"sleep":
+			return float(a["count"]) * float(a["seconds"]) * ENEMY_DPS * 0.4 + (float(a["wake"]) - 1.0) * BASE_DPS * 1.2
+		"link":
+			return (float(a["count"]) - 1.0) * float(a["share"]) * BASE_DPS * float(a["seconds"]) * 0.3
+		"decoy":
+			return minf(float(a["hp"]), ENEMY_DPS * TARGETS * float(a["seconds"]) * 0.5) * 0.55 + float(a["seconds"]) * 3.0
+		"pull":
+			return dmg * TARGETS * 1.2 + TARGETS * float(a["seconds"]) * ENEMY_DPS * 0.15 + float(a["radius"]) * 3.0
 		"pierce":
 			return dmg * 1.8 + 0.25 * dmg * (float(a["execute_mult"]) - 1.0) + float(a["execute_below"]) * 6.0
 		"nova":
@@ -55,9 +87,9 @@ static func ability_value(id: StringName, a: Dictionary) -> float:
 		"dash_strike":
 			return dmg * 1.4 + float(a["distance"]) * 1.2 + float(a.get("iframes", 0.0)) * 10.0
 		"mark":
-			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 + float(a.get("slow", 0.0)) * float(a["seconds"]) * 8.0 + _weaken_value(a, 1.0)
+			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 + float(a.get("slow", 0.0)) * float(a["seconds"]) * 8.0
 		"mark_all":
-			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 * 2.5 + _weaken_value(a, 2.5)
+			return (float(a["mult"]) - 1.0) * BASE_DPS * float(a["seconds"]) * 0.5 * 2.5
 		"execute":
 			return 20.0 + dmg + float(a["below"]) * 10.0
 		"heal":
@@ -75,15 +107,8 @@ static func ability_value(id: StringName, a: Dictionary) -> float:
 				return float(a["burst"]) * TARGETS * 0.8
 			if style == "spores":
 				return float(a.get("regen_atp", 0.0)) * duration * 0.8 + float(a.get("regen_membrane", 0.0)) * duration * 0.7
-			return (float(a.get("tick", 0.0)) * (duration / 0.5) * TARGETS * 0.65 + slow_value) * (1.2 if float(a.get("drift", 0.0)) > 0.0 else 1.0) + _weaken_value(a, 1.0) * duration / maxf(float(a.get("seconds", duration)), 0.1)
+			return (float(a.get("tick", 0.0)) * (duration / 0.5) * TARGETS * 0.65 + slow_value) * (1.2 if float(a.get("drift", 0.0)) > 0.0 else 1.0)
 	return 0.0
-
-
-## What making enemies hit softer is worth: the share of their damage taken away, over the time it lasts, for `targets` of them.
-static func _weaken_value(a: Dictionary, targets: float) -> float:
-	if not a.has("weaken"):
-		return 0.0
-	return (1.0 - float(a["weaken"])) * ENEMY_DPS * float(a.get("seconds", a.get("duration", 0.0))) * 0.8 * targets
 
 
 static func ability_price(a: Dictionary) -> float:
@@ -158,12 +183,28 @@ static func primary_keys(a: Dictionary) -> Array:
 	match str(a["kind"]):
 		"devour":
 			return ["damage", "heal"]
-		"cone", "nova", "pierce", "bolt", "volley", "dash_strike", "execute", "melt", "chain_strike":
+		"cone", "nova", "pierce", "bolt", "volley", "dash_strike", "execute", "mines", "sticky", "cascade", "roll", "blink", "recall", "pull":
 			return ["damage"]
-		"barrier":
-			return ["duration"]
+		"overload":
+			return ["damage", "per_hp"]
+		"tether":
+			return ["damage", "pct"]
+		"crystal":
+			return ["damage", "bank"]
+		"grow":
+			return ["dmg_per", "heal_per"]
+		"prey":
+			return ["refund", "atp"]
+		"cloak":
+			return ["strike"]
+		"sleep":
+			return ["wake"]
+		"link":
+			return ["share"]
+		"decoy":
+			return ["hp"]
 		"mark", "mark_all":
-			return ["mult", "weaken"] if a.has("weaken") else ["mult"]
+			return ["mult"]
 		"heal":
 			return ["amount"]
 		"summon":
@@ -176,8 +217,6 @@ static func primary_keys(a: Dictionary) -> Array:
 					return ["burst"]
 				"spores":
 					return ["regen_atp", "regen_membrane"]
-				"calm":
-					return ["weaken"]
 				_:
 					return ["tick"]
 	return []
@@ -191,10 +230,10 @@ static func scaled(a: Dictionary, f: float) -> Dictionary:
 	for k in keys:
 		var v := float(a[k])
 		match k:
-			"mult", "speed":
+			"mult", "speed", "strike", "wake":
 				out[k] = 1.0 + (v - 1.0) * each
-			"taken", "weaken":
-				out[k] = clampf(1.0 - (1.0 - v) * each, 0.2, 0.9)  # a shield always lets a fifth through; a weakened enemy at least a fifth of its blow
+			"taken":
+				out[k] = clampf(1.0 - (1.0 - v) * each, 0.2, 0.9)  # a shield always lets a fifth through
 			"duration":
 				out[k] = minf(v * each, 8.0)
 			_:
@@ -259,7 +298,7 @@ static func gene_scaled(gene: BioGene, k: float, c: float = 1.0) -> BioGene:
 			var v: float = float(gene.perks[ability][key])
 			if str(key).begins_with("+"):
 				perks[ability][key] = v
-			elif str(key) in ["cooldown", "cost", "taken", "weaken"]:
+			elif str(key) in ["cooldown", "cost", "taken"]:
 				perks[ability][key] = 1.0 - (1.0 - v) * k  # lower is better
 			else:
 				perks[ability][key] = 1.0 + (v - 1.0) * k

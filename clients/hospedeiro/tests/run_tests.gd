@@ -1,5 +1,5 @@
 extends SceneTree
-## Run: godot --headless --path clients/hospedeiro --script res://tests/run_tests.gd
+## Run: godot --headless --path clients/hospedeiro --script res://tests/run_tests.gd [-- part_of_a_suite_name]
 
 const SUITES := [
 	"res://tests/test_domain.gd",
@@ -37,7 +37,10 @@ func _initialize() -> void:
 func _run() -> void:
 	var total := 0
 	var failed := 0
+	var only := OS.get_cmdline_user_args()[0] if OS.get_cmdline_user_args().size() > 0 else ""
 	for path in SUITES:
+		if only != "" and not path.contains(only):
+			continue
 		var suite: TestCase = load(path).new()
 		suite.tree = self
 		for method in suite.get_method_list():
