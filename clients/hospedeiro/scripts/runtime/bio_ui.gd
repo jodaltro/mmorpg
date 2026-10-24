@@ -34,6 +34,50 @@ static func set_modal(window: Object, open: bool) -> void:
 		_modals.erase(window.get_instance_id())
 
 
+## Present one window at a time, including navigation and interaction menus.
+static func present(window: Object) -> void:
+	for id in _modals.keys():
+		var other := instance_from_id(id)
+		if other != null and other != window and other.has_method("close"):
+			other.close()
+	set_modal(window, true)
+
+
+## A card is selected on release; dragging it must leave the scroll container in control.
+static func bind_tap(control: Control, callback: Callable) -> void:
+	control.mouse_filter = Control.MOUSE_FILTER_PASS
+	var gesture := {"down": false, "at": Vector2.ZERO, "moved": false}
+	control.gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseMotion or event is InputEventScreenDrag:
+			if gesture.down and event.position.distance_to(gesture.at) > 8:
+				gesture.moved = true
+			return
+		var pressed: bool
+		var at: Vector2
+		if event is InputEventScreenTouch:
+			pressed = event.pressed
+			at = event.position
+			if event.canceled:
+				gesture.down = false
+				return
+		elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			if BioPlatform.is_touch() and event.device == -1:
+				return
+			pressed = event.pressed
+			at = event.position
+		else:
+			return
+		if pressed:
+			gesture.down = true
+			gesture.at = at
+			gesture.moved = false
+		else:
+			var tapped: bool = gesture.down and not gesture.moved and at.distance_to(gesture.at) < 8
+			gesture.down = false
+			if tapped:
+				callback.call())
+
+
 ## A text box has the focus: the keys are letters now, not commands.
 static func typing() -> bool:
 	var loop := Engine.get_main_loop()
@@ -82,10 +126,11 @@ static func wrapped(text: String, size: int = FS_BODY, color: Color = TEXT) -> L
 ## A button in the house style. kind: "primary", "ghost" or "danger".
 static func button(text: String, kind: String = "ghost") -> Button:
 	var b := Button.new()
-	b.text = text
+	b.text = text.split("   ")[0] if BioPlatform.is_touch() else text
 	b.focus_mode = Control.FOCUS_NONE  # keys (space, enter) must never press it
-	b.add_theme_font_size_override("font_size", FS_BODY)
-	b.custom_minimum_size = Vector2(0, 32)
+	b.custom_minimum_size = Vector2(0, 40 if BioPlatform.is_touch() else 32)
+	b.mouse_filter = Control.MOUSE_FILTER_PASS
+	b.add_theme_font_size_override("font_size", 12 if BioPlatform.is_touch() else FS_BODY)
 	var base := {"primary": Color(0.12, 0.38, 0.55), "ghost": Color(0.08, 0.13, 0.24), "danger": Color(0.4, 0.1, 0.16)}.get(kind, Color(0.08, 0.13, 0.24)) as Color
 	b.add_theme_stylebox_override("normal", style(base, LINE, 7, 10))
 	b.add_theme_stylebox_override("hover", style(base.lightened(0.18), LINE_STRONG, 7, 10))
@@ -99,6 +144,7 @@ static func button(text: String, kind: String = "ghost") -> Button:
 ## A key cap: the key to press, small and boxed ("Y", "G").
 static func keycap(key: String) -> Control:
 	var box := PanelContainer.new()
+	box.visible = not BioPlatform.is_touch()
 	box.add_theme_stylebox_override("panel", style(Color(1, 1, 1, 0.08), Color(1, 1, 1, 0.3), 4, 4))
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.size_flags_vertical = Control.SIZE_SHRINK_CENTER

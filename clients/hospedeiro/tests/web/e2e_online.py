@@ -150,15 +150,12 @@ with sync_playwright() as p:
     mx = (p0["logical"][0] - 64) * ratio
     t.tap(mx, 36 * ratio)
     bx = (p0["logical"][0] - 78) * ratio
-    t.tap(bx, 96 * ratio)
-    t.tap(mx, 36 * ratio)
+    t.tap(bx, 86 * ratio)
     time.sleep(0.6)
     check(probe(pg)["body"], "phone: menu opens the body window")
     shot(pg, "phone_body")
-    t.tap(mx, 36 * ratio)
-    t.tap(bx, 96 * ratio)
-    t.tap(mx, 36 * ratio)
-    check(not probe(pg)["body"], "phone: menu closes the body window")
+    t.tap(3, 195)
+    check(not probe(pg)["body"], "phone: tapping outside closes the body window")
     pg.evaluate("window.__cmd='become:macrofago'")
     time.sleep(2.0)
     check(len([a for a in probe(pg)["abilities"] if a]) == 4, "phone: the class abilities show up as buttons")

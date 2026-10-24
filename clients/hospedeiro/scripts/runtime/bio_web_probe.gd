@@ -38,6 +38,23 @@ func _process(delta: float) -> void:
 		"offer": world.sync != null and world.sync.system.has_offer(),
 		"offerOpen": world.sync != null and world.sync.system.is_offer_visible(),
 		"body": world.body_panel.is_open(),
+		"menus": {
+			"navigation": world.touch != null and world.touch.menu_open,
+			"scaleSlider": _rect(world.touch.scale_slider) if world.touch != null else [],
+			"scaleReset": _rect(world.touch.scale_reset) if world.touch != null else [],
+			"atlas": world.atlas.is_open(),
+			"vitals": world.vitals_panel.is_open(),
+			"actions": world.sync.system.menu_open,
+			"bodyScroll": world.body_panel._scroll.scroll_vertical,
+			"bodyViewport": _rect(world.body_panel._scroll),
+			"tabs": world.body_panel._tab_buttons.map(func(b: Button) -> Array: return _rect(b)),
+			"codexViewport": _rect(world.codex_panel._modal.scroll),
+			"vitalsViewport": _rect(world.vitals_panel._modal.scroll),
+			"bodyTab": world.body_panel.tab,
+			"abilityPick": world.body_panel._ability_pick,
+			"codexScroll": world.codex_panel._modal.scroll.scroll_vertical,
+			"vitalsScroll": world.vitals_panel._modal.scroll.scroll_vertical,
+		},
 		"bodyRect": [world.body_panel._window.position.x,world.body_panel._window.position.y,world.body_panel._window.size.x,world.body_panel._window.size.y],
 		"debugMenu": world.debug_menu.is_open(),
 		"codex": world.codex_panel.is_open() if world.codex_panel.has_method("is_open") else false,
@@ -139,3 +156,8 @@ func _touch_state() -> Dictionary:
 		var centre := b.position+b.size*0.5
 		buttons.append({"x":centre.x,"y":centre.y,"glyph":b.glyph,"held":b.is_down(),"cancelled":b.cancelled})
 	return {"buttons":buttons,"scale":world.display.interface_scale,"scaleLabel":world.touch.scale_label.text,"cancel":[world.display.logical_size.x*0.72,70]}
+
+
+func _rect(control: Control) -> Array:
+	var rect := control.get_global_rect()
+	return [rect.position.x, rect.position.y, rect.size.x, rect.size.y]

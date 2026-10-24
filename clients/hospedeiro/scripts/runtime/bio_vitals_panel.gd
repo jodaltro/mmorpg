@@ -5,7 +5,7 @@ extends CanvasLayer
 
 var _state: BioBodyState
 var _strip: Label
-var _panel: Control
+var _modal: BioModal
 
 
 func configure(state: BioBodyState) -> void:
@@ -21,27 +21,30 @@ func configure(state: BioBodyState) -> void:
 	_strip.add_theme_font_size_override("font_size", 14)
 	_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_strip)
-	_panel = Control.new()
-	_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_panel.visible = false
-	_panel.draw.connect(_paint)
-	var holder: Node = self
-	if BioPlatform.is_touch():  # the full panel is a window of its own: it covers the other windows' neighbours, not their summary line
-		var up := CanvasLayer.new()
-		up.layer = 14
-		add_child(up)
-		holder = up
-	holder.add_child(_panel)
+	_modal = BioModal.new()
+	var holder := CanvasLayer.new()
+	holder.layer = 14
+	add_child(holder)
+	holder.add_child(_modal)
+	_modal.build("SINAIS VITAIS")
+	_modal.dismissed.connect(close)
+
 
 
 func is_open() -> bool:
-	return _panel.visible
+	return _modal.visible
 
 
 func toggle() -> void:
-	_panel.visible = not _panel.visible
-	_panel.queue_redraw()
+	if is_open():
+		close()
+	else:
+		_modal.present(self)
+		_rebuild()
+
+func close() -> void:
+	_modal.hide_modal()
+
 
 
 func strip_text() -> String:
@@ -56,101 +59,50 @@ func refresh() -> void:
 	_strip.text = "%s   ·   %s   ·   O₂ %s" % [_state.display("temperatura"), _state.display("pulso"), _state.display("oxigenio")]
 	var off := _state.is_off("temperatura") or _state.is_off("oxigenio") or _state.is_off("pulso")
 	_strip.add_theme_color_override("font_color", Color(1.0, 0.62, 0.3, 0.95) if off else BioArt.with_alpha(Color.WHITE, 0.6))
-	if _panel.visible:
-		_panel.queue_redraw()
+	if is_open():
+		_update_values()
 
+var _values: Dictionary = {}
+var _gauges: Dictionary = {}
+var _explanations: Label
 
-func _paint() -> void:
-	var size := _panel.size
-	if BioPlatform.is_touch():
-		_paint_touch(size)
-		return
-	var box := Rect2(size.x - 470.0, 200.0, 430.0, 490.0)
-	_panel.draw_style_box(BioUi.style(BioUi.BG, BioUi.LINE_STRONG, 12, 0), box)
-	var font := ThemeDB.fallback_font
-	_panel.draw_string(font, box.position + Vector2(18, 32), "SINAIS VITAIS", HORIZONTAL_ALIGNMENT_LEFT, -1.0, BioUi.FS_HEAD, BioUi.ACCENT)
-	_panel.draw_string(font, box.position + Vector2(18, 32), "Tab fecha", HORIZONTAL_ALIGNMENT_RIGHT, box.size.x - 36.0, BioUi.FS_SMALL, BioUi.MUTED)
-	var y := box.position.y + 56.0
+func _rebuild() -> void:
+	for child in _modal.content.get_children():
+		_modal.content.remove_child(child)
+		child.queue_free()
+	_values.clear()
+	_gauges.clear()
 	for id in _state.order:
-		var r: Dictionary = _state.readings[id]
-		var lo := float(r.get("min", 0))
-		var hi := float(r.get("max", 100))
-		var width := 190.0
-		var bar := Rect2(box.position.x + 150.0, y - 12.0, width, 12.0)
-		_panel.draw_string(font, Vector2(box.position.x + 18.0, y), str(r.get("label", id)), HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, Color(1, 1, 1, 0.85))
-		_panel.draw_rect(bar, Color(1, 1, 1, 0.08))
-		var low := float(r.get("low", 0))
-		var high := float(r.get("high", 0))
-		if low != 0.0 or high != 0.0:
-			var a := bar.position.x + width * clampf((low - lo) / (hi - lo), 0.0, 1.0)
-			var b := bar.position.x + width * clampf((high - lo) / (hi - lo), 0.0, 1.0)
-			_panel.draw_rect(Rect2(a, bar.position.y, b - a, bar.size.y), Color(0.3, 1.0, 0.6, 0.16))
-		var fraction := clampf((float(r.get("value", 0)) - lo) / (hi - lo), 0.0, 1.0)
-		var off := _state.is_off(id)
-		_panel.draw_rect(Rect2(bar.position, Vector2(width * fraction, bar.size.y)), Color(1.0, 0.55, 0.25, 0.9) if off else Color(0.35, 0.9, 1.0, 0.85))
-		_panel.draw_string(font, Vector2(bar.end.x + 12.0, y), _state.display(id), HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, Color(1.0, 0.7, 0.4, 1.0) if off else Color(1, 1, 1, 0.85))
-		y += 25.0
-	y += 14.0
-	for line in _state.explain():
-		for chunk in _wrap(line, 56):
-			_panel.draw_string(font, Vector2(box.position.x + 18.0, y), chunk, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 13, Color(1, 0.92, 0.8, 0.92))
-			y += 18.0
-		y += 6.0
+		var reading: Dictionary = _state.readings[id]
+		var row := HBoxContainer.new()
+		row.mouse_filter = Control.MOUSE_FILTER_PASS
+		row.add_theme_constant_override("separation", 12)
+		row.custom_minimum_size.y = 36
+		_modal.content.add_child(row)
+		var title := BioUi.label(str(reading.get("label", id)))
+		title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(title)
+		var gauge := ProgressBar.new()
+		gauge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		gauge.custom_minimum_size = Vector2(100, 6)
+		gauge.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		gauge.show_percentage = false
+		row.add_child(gauge)
+		_gauges[id] = gauge
+		var value := BioUi.label("")
+		value.custom_minimum_size.x = 92
+		row.add_child(value)
+		_values[id] = value
+	_explanations = BioUi.wrapped("", BioUi.FS_BODY, BioUi.WARN)
+	_modal.content.add_child(_explanations)
+	_update_values()
 
-
-## A phone is wide and short: the bars in two columns across the top, what they mean in lines below, and the window over everything.
-func _paint_touch(size: Vector2) -> void:
-	var w := minf(size.x - 24.0, 860.0)
-	var box := Rect2((size.x - w) * 0.5, 54.0, w, size.y - 54.0 - 10.0)
-	_panel.draw_style_box(BioUi.style(Color(0.02, 0.035, 0.08, 0.99), BioUi.LINE_STRONG, 12, 0), box)
-	var font := ThemeDB.fallback_font
-	_panel.draw_string(font, box.position + Vector2(16, 26), "SINAIS VITAIS", HORIZONTAL_ALIGNMENT_LEFT, -1.0, BioUi.FS_HEAD, BioUi.ACCENT)
-	_panel.draw_string(font, box.position + Vector2(16, 26), "toque em Sinais para fechar", HORIZONTAL_ALIGNMENT_RIGHT, box.size.x - 32.0, BioUi.FS_SMALL, BioUi.MUTED)
-	var rows := _state.order.size()
-	var per_column := ceili(rows / 2.0)
-	var column_width := (box.size.x - 32.0) * 0.5
-	var bar_width := column_width - 232.0
-	var y0 := box.position.y + 50.0
-	for i in rows:
-		var id: String = _state.order[i]
-		var r: Dictionary = _state.readings[id]
-		var lo := float(r.get("min", 0))
-		var hi := float(r.get("max", 100))
-		var x := box.position.x + 16.0 + column_width * float(i / per_column)
-		var y := y0 + 22.0 * float(i % per_column)
-		var bar := Rect2(x + 150.0, y - 10.0, bar_width, 10.0)
-		var off := _state.is_off(id)
-		_panel.draw_string(font, Vector2(x, y), str(r.get("label", id)), HORIZONTAL_ALIGNMENT_LEFT, 146.0, 13, Color(1, 1, 1, 0.85))
-		_panel.draw_rect(bar, Color(1, 1, 1, 0.08))
-		var low := float(r.get("low", 0))
-		var high := float(r.get("high", 0))
-		if low != 0.0 or high != 0.0:
-			var a := bar.position.x + bar_width * clampf((low - lo) / (hi - lo), 0.0, 1.0)
-			var b := bar.position.x + bar_width * clampf((high - lo) / (hi - lo), 0.0, 1.0)
-			_panel.draw_rect(Rect2(a, bar.position.y, b - a, bar.size.y), Color(0.3, 1.0, 0.6, 0.16))
-		var fraction := clampf((float(r.get("value", 0)) - lo) / (hi - lo), 0.0, 1.0)
-		_panel.draw_rect(Rect2(bar.position, Vector2(bar_width * fraction, bar.size.y)), Color(1.0, 0.55, 0.25, 0.9) if off else Color(0.35, 0.9, 1.0, 0.85))
-		_panel.draw_string(font, Vector2(bar.end.x + 8.0, y), _state.display(id), HORIZONTAL_ALIGNMENT_LEFT, 70.0, 13, Color(1.0, 0.7, 0.4, 1.0) if off else Color(1, 1, 1, 0.85))
-	var y := y0 + 22.0 * float(per_column) + 10.0
-	var chars := int((box.size.x - 32.0) / 6.6)
-	for line in _state.explain():
-		for chunk in _wrap(line, chars):
-			if y > box.end.y - 8.0:
-				return
-			_panel.draw_string(font, Vector2(box.position.x + 16.0, y), chunk, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 12, Color(1, 0.92, 0.8, 0.92))
-			y += 16.0
-		y += 3.0
-
-
-func _wrap(text: String, width: int) -> Array[String]:
-	var out: Array[String] = []
-	var current := ""
-	for word in text.split(" "):
-		if current.length() + word.length() + 1 > width and not current.is_empty():
-			out.append(current)
-			current = word
-		else:
-			current = word if current.is_empty() else current + " " + word
-	if not current.is_empty():
-		out.append(current)
-	return out
+func _update_values() -> void:
+	for id in _values:
+		var reading: Dictionary = _state.readings.get(id, {})
+		var lo := float(reading.get("min", 0))
+		var hi := float(reading.get("max", 100))
+		_values[id].text = _state.display(id)
+		_values[id].add_theme_color_override("font_color", BioUi.WARN if _state.is_off(id) else BioUi.TEXT)
+		_gauges[id].value = 100 * clampf((float(reading.get("value", 0)) - lo) / maxf(hi - lo, 0.001), 0, 1)
+	_explanations.text = "\n\n".join(_state.explain())

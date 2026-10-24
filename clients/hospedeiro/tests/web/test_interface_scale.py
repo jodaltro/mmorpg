@@ -14,9 +14,10 @@ with sync_playwright() as p:
         t.tap((q['logical'][0]-64)*r,36*r)
     def select(value):
         q=probe(pg);r=375/q['logical'][1]
-        x=48+(value-75)/50*234
-        t.down(x*r,(q['logical'][1]-60)*r)
-        t.move(x*r,(q['logical'][1]-60)*r)
+        sx,sy,sw,sh=q['menus']['scaleSlider']
+        x=sx+8+(value-75)/50*(sw-16)
+        t.down(x*r,(sy+sh/2)*r)
+        t.move(x*r,(sy+sh/2)*r)
         t.up()
         return wait_for(pg,lambda q:abs(q['moba']['scale']-value/100)<0.01,'scale '+str(value))
     menu()
@@ -25,12 +26,21 @@ with sync_playwright() as p:
     shot(pg,'settings_125')
     q=probe(pg);r=375/q['logical'][1]
     t.tap((q['logical'][0]-78)*r,86*r)
-    menu()
     q=wait_for(pg,lambda q:q['body'],'body window at 125%')
     rect=q['bodyRect']
     check(rect[0]+rect[2]<=q['logical'][0]+1 and rect[1]+rect[3]<=q['logical'][1]+1,'body window fits the smallest phone at 125%')
     shot(pg,'body_125')
-    pg.keyboard.press('g')
+    for i,name in enumerate(['form','genes','abilities','builds']):
+        q=probe(pg);r=375/q['logical'][1]
+        x,y,w,h=q['menus']['tabs'][i]
+        t.tap((x+w/2)*r,(y+h/2)*r)
+        q=wait_for(pg,lambda q:q['menus']['bodyTab']==i,name)
+        x,y,w,h=q['bodyRect']
+        check(x+w<=q['logical'][0]+1 and y+h<=q['logical'][1]+1,name+' fits at 125%')
+        shot(pg,name+'_125')
+    q=probe(pg);r=375/q['logical'][1]
+    x,y,w,h=q['bodyRect']
+    t.tap((x+w-44)*r,(y+32)*r)
     wait_for(pg,lambda q:not q['body'],'body close')
     shot(pg,'play_125')
     pg.reload()
@@ -43,7 +53,8 @@ with sync_playwright() as p:
     shot(pg,'play_75')
     menu()
     q=probe(pg);r=375/q['logical'][1]
-    t.tap(375*r,(q['logical'][1]-60)*r)
+    sx,sy,sw,sh=q['menus']['scaleReset']
+    t.tap((sx+sw/2)*r,(sy+sh/2)*r)
     wait_for(pg,lambda q:abs(q['moba']['scale']-1)<0.01,'reset')
     check(True,'Restore 100% resets the interface')
     clean(logs,'interface settings')

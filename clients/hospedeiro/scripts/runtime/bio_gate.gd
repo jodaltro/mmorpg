@@ -52,7 +52,7 @@ func _draw() -> void:
 	var line := ""
 	if is_near():
 		draw_arc(Vector2.ZERO, r * 1.2, 0.0, TAU, 56, Color(1, 1, 1, 0.5 + 0.3 * pulse), 2.0, true)
-		line = "Aperte E para entrar" if eligible else hint
+		line = ("Toque em Agir para entrar" if BioPlatform.is_touch() else "Aperte E para entrar") if eligible else hint
 	elif eligible:
 		line = "uma masmorra: chegue perto"
 	if line != "":

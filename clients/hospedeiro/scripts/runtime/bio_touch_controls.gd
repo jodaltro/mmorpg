@@ -27,6 +27,8 @@ var window_buttons: Array[BioTouchButton] = []
 var fullscreen: BioTouchButton
 var menu: BioTouchButton
 var menu_open := false
+var _drawer: PanelContainer
+var scale_reset: Button
 var _menu_back: ColorRect
 var _target: BioCellActor
 var _aim_overlay: Control
@@ -56,26 +58,34 @@ func _ready() -> void:
 	_top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_top_layer.add_child(_top)
 	_menu_back = ColorRect.new()
-	_menu_back.color = Color(0.01, 0.025, 0.055, 0.94)
+	_menu_back.color = Color(0.0, 0.005, 0.02, 0.65)
 	_menu_back.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_menu_back.mouse_filter = Control.MOUSE_FILTER_STOP
 	_menu_back.visible = false
 	_top.add_child(_menu_back)
+	BioUi.bind_tap(_menu_back, close)
+	_drawer = PanelContainer.new()
+	_drawer.mouse_filter = Control.MOUSE_FILTER_STOP
+	_drawer.add_theme_stylebox_override("panel", BioUi.style(BioUi.BG, BioUi.LINE_STRONG, 12, 0))
+	_menu_back.add_child(_drawer)
+	var interior := Control.new()
+	interior.mouse_filter = Control.MOUSE_FILTER_PASS
+	_drawer.add_child(interior)
 	var help := Label.new()
-	help.position = Vector2(40,90)
-	help.text = "CONTROLES\n\nEsquerda: movimento. Direita: ataque.\nHabilidades: arraste para mirar e solte para usar.\nArraste para X para cancelar.\nToque no minimapa para abrir o atlas."
+	help.position = Vector2(20,20)
+	help.text = "HOSPEDEIRO\n\nMovimento à esquerda.\nHabilidades: arraste e solte.\nArraste para X para cancelar."
 	help.add_theme_font_size_override("font_size",13)
 	help.add_theme_color_override("font_color",Color(0.65,0.78,0.85))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_menu_back.add_child(help)
+	interior.add_child(help)
 	_settings = Control.new()
 	_settings.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-	_settings.offset_left = 40
-	_settings.offset_right = 450
-	_settings.offset_top = -112
-	_settings.offset_bottom = -20
+	_settings.offset_left = 20
+	_settings.offset_right = 320
+	_settings.offset_top = -100
+	_settings.offset_bottom = -12
 	_settings.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_menu_back.add_child(_settings)
+	interior.add_child(_settings)
 	scale_label = Label.new()
 	scale_label.add_theme_font_size_override("font_size",13)
 	_settings.add_child(scale_label)
@@ -85,7 +95,7 @@ func _ready() -> void:
 	scale_slider.max_value = 125
 	scale_slider.step = 5
 	scale_slider.position = Vector2(0,30)
-	scale_slider.size = Vector2(250,44)
+	scale_slider.size = Vector2(160,44)
 	scale_slider.focus_mode = Control.FOCUS_NONE
 	scale_slider.value_changed.connect(func(value: float) -> void:
 		scale_label.text = "Tamanho da interface: %d%%" % roundi(value))
@@ -93,10 +103,11 @@ func _ready() -> void:
 		if world != null:
 			world.display.set_interface_scale(scale_slider.value/100.0))
 	_settings.add_child(scale_slider)
-	var reset := Button.new()
+	scale_reset = Button.new()
+	var reset := scale_reset
 	reset.text = "Restaurar 100%"
-	reset.position = Vector2(270,30)
-	reset.size = Vector2(130,44)
+	reset.position = Vector2(180,30)
+	reset.size = Vector2(116,44)
 	reset.focus_mode = Control.FOCUS_NONE
 	reset.add_theme_font_size_override("font_size",12)
 	reset.pressed.connect(func() -> void:
@@ -136,15 +147,24 @@ func _ready() -> void:
 	leave = _add(BioTouchButton.pill(&"bio_leave", "Sair da sala", Color(1.0, 0.6, 0.4), Vector2(120, 38)))
 	respawn = _add(BioTouchButton.pill(&"bio_respawn", "Renascer", Color(1.0, 0.5, 0.55), Vector2(150, 54)))
 	for entry in [["Corpo", &"bio_body"], ["Códice", &"bio_codex"], ["Mapa", &"bio_map"], ["Sinais", &"bio_vitals"]]:
-		window_buttons.append(_add_top(BioTouchButton.pill(entry[1], entry[0], COLOR_WINDOW, Vector2(74, 36))))
+		var index := window_buttons.size()
+		var button := _add_top(BioTouchButton.pill(&"", entry[0], COLOR_WINDOW, Vector2(74, 36)))
+		button.tapped.connect(func() -> void: _navigate(index))
+		window_buttons.append(button)
 	fullscreen = _add_top(BioTouchButton.pill(&"", "Tela cheia", COLOR_WINDOW, Vector2(96, 36)))
-	fullscreen.tapped.connect(BioPlatform.toggle_fullscreen)
+	fullscreen.tapped.connect(func() -> void:
+		close()
+		BioPlatform.toggle_fullscreen())
 	fullscreen.visible = false
 	menu = _add_top(BioTouchButton.round_button(&"", "Menu", COLOR_WINDOW, 22.0))
 	menu.glyph = "menu"
 	menu.tapped.connect(func() -> void:
-		menu_open = not menu_open
-		layout())
+		if menu_open:
+			close()
+		else:
+			BioUi.present(self)
+			menu_open = true
+			layout())
 	_aim_overlay = Control.new()
 	_aim_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_aim_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -201,6 +221,8 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	menu.caption = "Fechar" if menu_open else "Menu"
 	menu.emphasis = menu_open
 	menu.glyph = "close" if menu_open else "menu"
+	_drawer.position = Vector2(view.x - 520, 54)
+	_drawer.size = Vector2(500, view.y - 66)
 	_menu_back.visible = menu_open
 	for i in window_buttons.size():
 		var button := window_buttons[i]
@@ -216,7 +238,8 @@ func _process(delta: float) -> void:
 	if world == null or not is_instance_valid(world.player):
 		return
 	_aim_overlay.queue_redraw()
-	var covered := _a_window_is_open() or menu_open
+	menu.visible = menu_open or not BioUi.captures_input()
+	var covered := BioUi.captures_input() or _a_window_is_open() or menu_open
 	world.panel._column.visible = menu_open
 	world.jev_panel._badge.visible = false
 	world.vitals_panel._strip.visible = menu_open
@@ -395,3 +418,14 @@ func _draw_aim() -> void:
 func _show_scale(value: float) -> void:
 	scale_slider.set_value_no_signal(roundi(value*100))
 	scale_label.text = "Tamanho da interface: %d%%" % roundi(value*100)
+
+
+func close() -> void:
+	menu_open = false
+	BioUi.set_modal(self, false)
+	layout()
+
+func _navigate(index: int) -> void:
+	close()
+	var windows := [world.body_panel, world.codex_panel, world.atlas, world.vitals_panel]
+	windows[index].toggle()

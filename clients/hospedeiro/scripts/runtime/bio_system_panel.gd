@@ -36,7 +36,8 @@ var _feed_box: VBoxContainer
 var _feed_width := 520.0
 var _feed_max := FEED_LINES
 var _touch := false
-var _dim: ColorRect  # touch: the call is answered in a card at the centre, over a dimmed screen
+var _action_modal: BioModal
+var _offer_modal: BioModal
 var _feed_lines: Array[String] = []
 var _feed_born: Array[float] = []
 var _feed_labels: Array[Label] = []
@@ -164,21 +165,20 @@ func set_touch(on: bool) -> void:
 	var modal := CanvasLayer.new()
 	modal.layer = 24
 	add_child(modal)
-	_dim = ColorRect.new()
-	_dim.color = Color(0, 0, 0, 0.62)
-	_dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_dim.mouse_filter = Control.MOUSE_FILTER_STOP
-	_dim.visible = false
-	_dim.gui_input.connect(func(event: InputEvent) -> void:
-		if event is InputEventScreenTouch and event.pressed:
-			_show_card(false))  # a tap outside is "later": the chip stays
-	modal.add_child(_dim)
-	var centre := CenterContainer.new()
-	centre.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	centre.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	modal.add_child(centre)
-	_card.custom_minimum_size.x = 420.0
-	centre.add_child(_card)
+	_offer_modal = BioModal.new()
+	_offer_modal.max_size = Vector2(580, 400)
+	modal.add_child(_offer_modal)
+	_offer_modal.build("CHAMADO")
+	_offer_modal.dismissed.connect(func() -> void: _show_card(false))
+	_offer_modal.content.add_child(_card)
+	_card.mouse_filter = Control.MOUSE_FILTER_PASS
+	_card.custom_minimum_size.x = 0
+	_action_modal = BioModal.new()
+	_action_modal.max_size = Vector2(560, 430)
+	modal.add_child(_action_modal)
+	_action_modal.build("O QUE FAZER?")
+	_action_modal.dismissed.connect(close_menu)
+	_menu_rows.reparent(_action_modal.content)
 	_feed_max = 3
 	_feed_width = 260.0
 	_column.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)  # the mission under the bars, out of the way of the right thumb
@@ -263,9 +263,14 @@ func offer_text() -> String:
 
 
 func _show_card(on: bool) -> void:
+	if on and menu_open:
+		close_menu()
 	_card.visible = on
-	if _dim != null:
-		_dim.visible = on
+	if _offer_modal != null:
+		if on:
+			_offer_modal.present(self)
+		else:
+			_offer_modal.hide_modal()
 
 
 ## Touch: the chip was tapped, the call opens at the centre.
@@ -338,24 +343,43 @@ func _fade_feed() -> void:
 
 
 func open_menu(items: Array) -> void:
+	if _touch and is_offer_visible():
+		_show_card(false)
 	menu_items = items.slice(0, MENU_SIZE)
 	for child in _menu_rows.get_children():
+		_menu_rows.remove_child(child)
 		child.queue_free()
 	if menu_items.is_empty():
 		_menu_rows.add_child(BioUi.label("Nada a fazer aqui agora.", BioUi.FS_BODY, BioUi.MUTED))
 	for i in menu_items.size():
 		var b := BioUi.button("%d   %s" % [i + 1, menu_items[i].get("title", menu_items[i].get("action", "?"))], "ghost")
+		if _touch:
+			b.text = str(menu_items[i].get("title", menu_items[i].get("action", "?")))
+		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var index := i
-		b.pressed.connect(func() -> void: menu_chosen.emit(index))
+		b.pressed.connect(func() -> void:
+			menu_chosen.emit(index)
+			close_menu())
 		_menu_rows.add_child(b)
-	_menu_root.visible = true
 	menu_open = true
-	BioUi.set_modal(self, true)
+	if _action_modal != null:
+		_action_modal.present(self)
+		_action_modal.scroll.scroll_vertical = 0
+	else:
+		_menu_root.visible = true
+		BioUi.present(self)
 
 
 func close_menu() -> void:
 	_menu_root.visible = false
 	menu_open = false
 	menu_items = []
+	if _action_modal != null:
+		_action_modal.hide_modal()
 	BioUi.set_modal(self, false)
+
+func close() -> void:
+	close_menu()
+	if _touch:
+		_show_card(false)

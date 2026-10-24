@@ -23,7 +23,7 @@ const KEYS := ["Q", "F", "C", "V"]
 var tab := FORM
 
 var _world: Node
-var _dim: ColorRect
+var _dim: BioModal
 var _window: PanelContainer
 var _title: Label
 var _subtitle: Label
@@ -43,21 +43,14 @@ var _watch := 0.0
 func configure(world: Node) -> void:
 	_world = world
 	layer = 14
-	_dim = ColorRect.new()
-	_dim.color = Color(0, 0.005, 0.02, 0.62)
-	_dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_dim.mouse_filter = Control.MOUSE_FILTER_STOP
-	_dim.visible = false
-	_dim.gui_input.connect(func(event: InputEvent) -> void:
-		if event is InputEventMouseButton and event.pressed:
-			close())
+	_dim = BioModal.new()
+	if not BioPlatform.is_touch():
+		_dim.max_size.x = 1100
+	_dim.dismissed.connect(close)
 	add_child(_dim)
-	_window = PanelContainer.new()
-	_window.add_theme_stylebox_override("panel", BioUi.style(BioUi.BG, BioUi.LINE_STRONG, 14, 20))
-	_window.mouse_filter = Control.MOUSE_FILTER_STOP
-	_dim.add_child(_window)
+	_window = _dim.card
 	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation", 12)
+	column.add_theme_constant_override("separation", 8)
 	_window.add_child(column)
 
 	var head := HBoxContainer.new()
@@ -67,23 +60,35 @@ func configure(world: Node) -> void:
 	names.add_theme_constant_override("separation", 0)
 	names.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(names)
-	_title = BioUi.label("CORPO", BioUi.FS_TITLE, BioUi.ACCENT)
+	_title = BioUi.label("CORPO", BioUi.FS_HEAD if BioPlatform.is_touch() else BioUi.FS_TITLE, BioUi.ACCENT)
 	names.add_child(_title)
 	_subtitle = BioUi.label("", BioUi.FS_SMALL, BioUi.MUTED)
+	_subtitle.clip_text = true
+	_subtitle.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	names.add_child(_subtitle)
 	_lock_label = BioUi.label("", BioUi.FS_SMALL, BioUi.GOOD)
 	_lock_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	head.add_child(_lock_label)
+	_lock_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	column.add_child(_lock_label)
 	var close_button := BioUi.button("Fechar   G", "ghost")
 	close_button.pressed.connect(close)
 	head.add_child(close_button)
 
-	var tabs := HBoxContainer.new()
+	var main := HBoxContainer.new()
+	main.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	main.add_theme_constant_override("separation", 10)
+	column.add_child(main)
+	var tabs: BoxContainer = VBoxContainer.new() if BioPlatform.is_touch() else HBoxContainer.new()
 	tabs.add_theme_constant_override("separation", 6)
-	column.add_child(tabs)
+	if BioPlatform.is_touch():
+		main.add_child(tabs)
+	else:
+		column.add_child(tabs)
+		column.move_child(tabs, main.get_index())
 	for i in TABS.size():
 		var b := BioUi.button(TABS[i], "ghost")
-		b.custom_minimum_size = Vector2(100 if BioPlatform.is_touch() else 150, 34)
+		b.custom_minimum_size = Vector2(110 if BioPlatform.is_touch() else 150, 40)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var index := i
 		b.pressed.connect(func() -> void: show_tab(index))
 		tabs.add_child(b)
@@ -91,8 +96,10 @@ func configure(world: Node) -> void:
 
 	_scroll = ScrollContainer.new()
 	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_scroll.scroll_deadzone = 8
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	column.add_child(_scroll)
+	main.add_child(_scroll)
+	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override("separation", 14)
@@ -100,6 +107,7 @@ func configure(world: Node) -> void:
 
 	_footer = BioUi.wrapped("", BioUi.FS_SMALL, BioUi.MUTED)
 	column.add_child(_footer)
+	column.move_child(_lock_label, column.get_child_count() - 1)
 	_dim.visible = false
 	get_viewport().size_changed.connect(func() -> void:
 		if is_open():
@@ -124,8 +132,7 @@ func open(wanted: int = -1) -> void:
 		wanted = _tab_with_offer()
 	tab = wanted if wanted >= 0 else tab
 	_fit()
-	_dim.visible = true
-	BioUi.set_modal(self, true)
+	_dim.present(self)
 	_swap_in = ""
 	_swap_out = ""
 	_ability_pick = -1
@@ -135,12 +142,12 @@ func open(wanted: int = -1) -> void:
 func close() -> void:
 	if not is_open():
 		return
-	_dim.visible = false
-	BioUi.set_modal(self, false)
+	_dim.hide_modal()
 	closed.emit()
 
 
 func show_tab(index: int) -> void:
+	_scroll.scroll_vertical = 0
 	tab = clampi(index, 0, TABS.size() - 1)
 	_swap_in = ""
 	_swap_out = ""
@@ -158,11 +165,7 @@ func _tab_with_offer() -> int:
 
 
 func _fit() -> void:
-	var viewport := _window.get_viewport().get_visible_rect().size
-	var size := Vector2(minf(1100.0, viewport.x - 48.0), minf(720.0, viewport.y - 48.0))
-	_window.custom_minimum_size = size
-	_window.size = size
-	_window.position = (viewport - size) * 0.5
+	_dim.fit()
 
 
 func _process(delta: float) -> void:
@@ -255,7 +258,7 @@ func _paint_header() -> void:
 	var form := BioLineageCatalog.display_name(lineage) if lineage != &"" else "Esfera indiferenciada"
 	_subtitle.text = form + ("  ·  " + _world.look_name if not str(_world.look_name).is_empty() else "")
 	var reason := lock_reason()
-	_lock_label.text = reason if not reason.is_empty() else "● pronto para ajustar"
+	_lock_label.text = reason if not reason.is_empty() else "Pronto para ajustar"
 	_lock_label.add_theme_color_override("font_color", BioUi.WARN if not reason.is_empty() else BioUi.GOOD)
 	_footer.text = ""
 
@@ -266,6 +269,7 @@ func _section(text: String) -> Label:
 
 func _panel(bg: Color = BioUi.BG_RAISED, border: Color = BioUi.LINE, margin: int = 14) -> PanelContainer:
 	var p := PanelContainer.new()
+	p.mouse_filter = Control.MOUSE_FILTER_PASS
 	p.add_theme_stylebox_override("panel", BioUi.style(bg, border, 10, margin))
 	return p
 
@@ -293,13 +297,13 @@ func _paint_form() -> void:
 	_content.add_child(top)
 
 	var left := _panel()
-	left.custom_minimum_size.x = 340.0
+	left.custom_minimum_size.x = 0 if _narrow() else 340.0
 	top.add_child(left)
 	var lbox := VBoxContainer.new()
 	lbox.add_theme_constant_override("separation", 8)
 	left.add_child(lbox)
 	lbox.add_child(_section("FORMA ATUAL"))
-	lbox.add_child(BioUi.label(BioLineageCatalog.display_name(lineage) if lineage != &"" else "Esfera", 26, BioArt.with_alpha(BioArt.AMBER, 0.98)))
+	lbox.add_child(BioUi.label(BioLineageCatalog.display_name(lineage) if lineage != &"" else "Esfera", 20 if BioPlatform.is_touch() else 26, BioArt.with_alpha(BioArt.AMBER, 0.98)))
 	lbox.add_child(BioUi.wrapped("Indiferenciada: ainda pode se tornar qualquer coisa." if lineage == &"" else "Uma forma é permanente. Muda o corpo todo, não só os números.", BioUi.FS_SMALL, BioUi.MUTED))
 	var lore := BioLore.class_info(lineage if lineage != &"" else &"")
 	if not lore.is_empty():
@@ -461,7 +465,7 @@ func _paint_genes() -> void:
 	var expressed := _expressed()
 	left.add_child(_section("EXPRESSOS   %d / %d" % [expressed.size(), _slots()]))
 	var grid := GridContainer.new()
-	grid.columns = 1 if _narrow() else 2
+	grid.columns = 1 if _scroll.size.x < 540 else 2
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 8)
 	left.add_child(grid)
@@ -480,7 +484,7 @@ func _paint_genes() -> void:
 		left.add_child(BioUi.wrapped("Genes silenciados ficam guardados aqui, sem se perder. Quando o corpo ganha um gene e os espaços estão cheios, o mais antigo vai para a biblioteca.", BioUi.FS_SMALL, BioUi.MUTED))
 	else:
 		var lib_grid := GridContainer.new()
-		lib_grid.columns = 1 if _narrow() else 2
+		lib_grid.columns = 1 if _scroll.size.x < 540 else 2
 		lib_grid.add_theme_constant_override("h_separation", 8)
 		lib_grid.add_theme_constant_override("v_separation", 8)
 		left.add_child(lib_grid)
@@ -539,9 +543,7 @@ func _gene_cell(gene: Dictionary, selected: bool, on_click: Callable) -> Control
 	var s := BioUi.wrapped(summary, BioUi.FS_SMALL, BioUi.MUTED)
 	s.max_lines_visible = 3
 	v.add_child(s)
-	cell.gui_input.connect(func(event: InputEvent) -> void:
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			on_click.call())
+	BioUi.bind_tap(cell, on_click)
 	return cell
 
 
@@ -559,8 +561,8 @@ func _empty_cell(text: String) -> Control:
 ## The comparison table: each stat that is not neutral, now → after, green when it gets better and red when it gets worse.
 func _result_panel(current: Array, previewed: Array, title: String, empty_text: String) -> Control:
 	var box := _panel(BioUi.BG_SUNK, BioUi.LINE, 14)
-	box.custom_minimum_size.x = 340.0
-	box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	box.custom_minimum_size.x = 0 if _narrow() else 340.0
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL if _narrow() else Control.SIZE_SHRINK_BEGIN
 	box.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 6)
@@ -615,7 +617,7 @@ func _send(action: String, args: Dictionary) -> void:
 # --- HABILIDADES -----------------------------------------------------------------------------------------------------------------
 
 func _paint_abilities() -> void:
-	_content.add_child(BioUi.wrapped("As habilidades da sua classe ficam em quatro teclas. Clique em uma e depois em outra para trocá-las de lugar; a ordem fica guardada nesta máquina.", BioUi.FS_BODY, BioUi.MUTED))
+	_content.add_child(BioUi.wrapped("Selecione duas habilidades para trocar a ordem.", BioUi.FS_BODY, BioUi.MUTED))
 	var row := _responsive_row()
 	row.add_theme_constant_override("separation", 12)
 	_content.add_child(row)
@@ -661,9 +663,7 @@ func _ability_card(slot: int) -> Control:
 			v.add_child(BioUi.wrapped(str(info["what"]), BioUi.FS_SMALL, BioUi.TEXT))
 			v.add_child(_section("COMO FUNCIONA"))
 			v.add_child(BioUi.wrapped(str(info["how"]), BioUi.FS_SMALL, BioUi.MUTED))
-	card.gui_input.connect(func(event: InputEvent) -> void:
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			click_ability(slot))
+	BioUi.bind_tap(card, func() -> void: click_ability(slot))
 	return card
 
 
@@ -692,7 +692,7 @@ func _build_genes(slot: int) -> Array:
 func _paint_builds() -> void:
 	if not _online():
 		_content.add_child(BioUi.wrapped("Sem o motor, o corpo não guarda builds.", BioUi.FS_BODY, BioUi.WARN))
-	_content.add_child(BioUi.wrapped("Uma build guarda os genes que estão expressos agora e a ordem das habilidades. Aplicar uma troca os genes de uma vez, respeitando o descanso do corpo. Clique em uma build para ver o que ela faria.", BioUi.FS_BODY, BioUi.MUTED))
+	_content.add_child(BioUi.wrapped("Uma build guarda os genes que estão expressos agora e a ordem das habilidades. Aplicar uma troca os genes de uma vez, respeitando o descanso do corpo. Selecione uma build para ver o que ela faria.", BioUi.FS_BODY, BioUi.MUTED))
 	var row := _responsive_row()
 	row.add_theme_constant_override("separation", 12)
 	_content.add_child(row)
@@ -708,8 +708,8 @@ func _build_card(slot: int) -> Control:
 	var card := _panel(BioUi.BG_RAISED, BioUi.LINE_STRONG if picked else BioUi.LINE, 14)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	card.gui_input.connect(func(event: InputEvent) -> void:
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and _build_pick != slot:
+	BioUi.bind_tap(card, func() -> void:
+		if _build_pick != slot:
 			_build_pick = slot
 			refresh())
 	var v := VBoxContainer.new()
@@ -724,7 +724,7 @@ func _build_card(slot: int) -> Control:
 	name_edit.add_theme_font_size_override("font_size", BioUi.FS_HEAD)
 	name_edit.add_theme_color_override("font_color", BioUi.ACCENT)
 	name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_edit.tooltip_text = "Clique para renomear"
+	name_edit.tooltip_text = "Toque para renomear"
 	name_edit.text_submitted.connect(func(text: String) -> void:
 		_world.build_store.set_name(slot, text)
 		name_edit.release_focus())
@@ -790,7 +790,7 @@ func apply_build(slot: int) -> void:
 
 
 func _narrow() -> bool:
-	return BioPlatform.is_touch() and get_viewport().get_visible_rect().size.x < 760.0
+	return _scroll.size.x < 900.0
 
 
 func _responsive_row() -> BoxContainer:

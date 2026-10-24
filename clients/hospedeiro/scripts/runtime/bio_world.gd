@@ -722,9 +722,9 @@ func _on_player_died(_who: BioCombatant) -> void:
 	player.set_active(false)
 	fell_in_dungeon = dungeon != null and dungeon.active
 	if fell_in_dungeon:
-		hud.show_banner(("Você caiu no granuloma" if dungeon.dungeon_id == "granuloma" else "Você caiu em %s" % dungeon.title.capitalize()) + "\nPressione R para voltar ao portal")
+		hud.show_banner(("Você caiu no granuloma" if dungeon.dungeon_id == "granuloma" else "Você caiu em %s" % dungeon.title.capitalize()) + ("\nToque em Renascer para voltar ao portal" if BioPlatform.is_touch() else "\nPressione R para voltar ao portal"))
 	else:
-		hud.show_banner("A célula se dissolveu no fluido\nPressione R para renascer na medula")
+		hud.show_banner("A célula se dissolveu no fluido\n" + ("Toque em Renascer para voltar à medula" if BioPlatform.is_touch() else "Pressione R para renascer na medula"))
 
 
 func _process(delta: float) -> void:

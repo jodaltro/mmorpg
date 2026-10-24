@@ -30,3 +30,16 @@ O minimapa mostra geometria das regiões conhecidas e NPCs já presentes na vis�
 ## Próximos refinamentos
 
 Tamanho global já configurável de 75% a 125%, com preferência salva. Próximos passos: editor individual de posição e opacidade; teste em aparelhos físicos e com mãos de tamanhos diferentes; tratamento próprio do mapa dentro de masmorras. O minimapa atual é ocultado nas masmorras para não mostrar uma posição enganosa no corpo.
+
+
+## Menus e janelas (24/10/2026)
+
+A navegação abre uma gaveta compacta com destinos e tamanho da interface. Escolher um destino fecha a gaveta antes de mostrar a janela. Apenas uma janela ocupa a tela por vez; tocar fora ou em Fechar retorna ao jogo. O botão flutuante Menu fica oculto enquanto outra janela está aberta para não cobrir o botão Fechar.
+
+O Corpo usa abas laterais no toque. Cabeçalho, abas e estado de ajuste ficam fixos; apenas o conteúdo rola. As colunas consideram a largura real do conteúdo, inclusive quando a interface está em 125%. Códice, Sinais e chamados usam ScrollContainer, em vez de texto desenhado sem interação. O atlas usa marcadores e legenda para evitar nomes sobrepostos.
+
+Selecionar uma ficha exige pressionar e soltar sem arrastar. O movimento do dedo passa para a rolagem, sem selecionar genes, builds ou habilidades. Botões dentro das listas também permitem a propagação do gesto ao ScrollContainer. Não há atalhos de teclado nas janelas mobile. Enquanto uma janela recebe input, o personagem não se move nem ataca.
+
+O componente BioModal centraliza tamanho, cabeçalho, fechamento e fundo. O toque fora só fecha ao soltar, se o gesto começou e terminou fora e não foi um arrasto. Fechar um chamado pelo fundo significa responder depois; a oferta continua disponível.
+
+Referências técnicas: [ScrollContainer](https://docs.godotengine.org/en/stable/classes/class_scrollcontainer.html) e [Control / propagação de input](https://docs.godotengine.org/en/stable/classes/class_control.html). Validação por toque emulado no Edge; aparelhos físicos ainda precisam de avaliação de uso.

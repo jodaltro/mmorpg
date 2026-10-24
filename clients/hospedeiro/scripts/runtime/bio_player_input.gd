@@ -61,7 +61,7 @@ func configure(controller: BioCellController, host: Node2D) -> void:
 func _process(_delta: float) -> void:
 	if _controller == null or not _host.visible:
 		return
-	if BioUi.typing():  # the keys are letters in a text box
+	if BioUi.typing() or BioUi.captures_input():  # a window owns input until dismissed
 		_controller.move(Vector2.ZERO)
 		return
 	var heading := Input.get_vector("bio_left", "bio_right", "bio_up", "bio_down")

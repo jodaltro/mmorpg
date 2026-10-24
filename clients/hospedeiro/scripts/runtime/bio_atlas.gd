@@ -8,6 +8,8 @@ signal discovered(region: StringName)
 var known: Array[StringName] = []
 var persist_path := ""  # empty: nothing is saved
 
+var _modal: BioModal
+var _legend: Label
 var _panel: Control
 var _player: Node2D
 var _region: StringName = &"medula"
@@ -19,24 +21,36 @@ func configure(player: Node2D, body_seed: int, save_path: String) -> void:
 	_seed = body_seed
 	persist_path = save_path
 	layer = 13
+	_modal = BioModal.new()
+	add_child(_modal)
+	_modal.build("ATLAS DO CORPO", false)
+	_modal.dismissed.connect(close)
 	_panel = Control.new()
+	_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_panel.visible = false
 	_panel.draw.connect(_paint)
-	add_child(_panel)
+	_modal.content.add_child(_panel)
+	_legend = BioUi.wrapped("", BioUi.FS_SMALL, BioUi.MUTED)
+	_modal.content.add_child(_legend)
 	_load()
 	for id in [BioBodyMap.MEDULA, BioBodyMap.SANGUE]:
 		discover(id)
 
 
 func is_open() -> bool:
-	return _panel.visible
+	return _modal.visible
 
 
 func toggle() -> void:
-	_panel.visible = not _panel.visible
-	_panel.queue_redraw()
+	if is_open():
+		close()
+	else:
+		_modal.present(self)
+		_panel.queue_redraw()
+
+func close() -> void:
+	_modal.hide_modal()
 
 
 func knows(id: StringName) -> bool:
@@ -78,7 +92,7 @@ func forget_all() -> void:
 
 
 func _process(_delta: float) -> void:
-	if _panel.visible:
+	if is_open():
 		_panel.queue_redraw()
 
 
@@ -106,11 +120,11 @@ func _paint() -> void:
 	_panel.draw_rect(Rect2(Vector2.ZERO, size), Color(0.0, 0.01, 0.03, 0.88))
 	var body := BioAnatomy.build(_seed)
 	var box := BioAnatomy.bounds(_seed).grow(14.0)
-	var frame := Rect2(Vector2(80, 90), size - Vector2(160, 170))
+	var frame := Rect2(Vector2(20, 20), size - Vector2(40, 40))
 	var scale := minf(frame.size.x / box.size.x, frame.size.y / box.size.y)
 	var offset := frame.position + (frame.size - box.size * scale) * 0.5 - box.position * scale
 	var font := ThemeDB.fallback_font
-	_panel.draw_string(font, Vector2(80, 60), "ATLAS DO CORPO   ·   %d de %d regiões   ·   M para fechar" % [known.size(), (body["regions"] as Array).size()], HORIZONTAL_ALIGNMENT_LEFT, -1.0, 22, Color(0.8, 0.95, 1.0, 0.95))
+	_modal.heading.text = "ATLAS · %d/%d regiões" % [known.size(), (body["regions"] as Array).size()]
 	var to_screen := func(p: Vector2) -> Vector2: return p * scale + offset
 	for loop in body["loops"]:  # the whole body is one membrane: its shape is always there, only dim where the cell has not been
 		var shape := PackedVector2Array()
@@ -135,14 +149,20 @@ func _paint() -> void:
 			_panel.draw_polyline(pts, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.3), 0.95), 2.5, true)
 		else:
 			_panel.draw_polyline(pts, Color(0.55, 0.6, 0.7, 0.3), 2.0, true)
-	var index := 0
+	var legends: Array[String] = []
+	var number := 0
 	for region in body["regions"]:
 		var at: Vector2 = to_screen.call(region["center"])
-		var side := -1.0 if index % 2 == 0 else 1.0  # names alternate above and below so neighbours do not collide
-		index += 1
-		var label := str(region["name"]) if known.has(region["id"]) else "?"
-		var text_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15 if known.has(region["id"]) else 26)
-		_panel.draw_string(font, at + Vector2(-text_size.x * 0.5, 6.0 + side * (float(region["radius"]) * scale * 0.55)), label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15 if known.has(region["id"]) else 26, Color(1, 1, 1, 0.92) if known.has(region["id"]) else Color(0.7, 0.75, 0.85, 0.5))
+		var visited := known.has(region["id"])
+		var marker := "?"
+		if visited:
+			number += 1
+			marker = str(number)
+			legends.append("%d · %s" % [number, str(region["name"])])
+		var tint := BioUi.ACCENT if visited else BioUi.MUTED
+		_panel.draw_circle(at, 10, BioUi.BG)
+		_panel.draw_string(font, at + Vector2(-4, 4), marker, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, tint)
+	_legend.text = "    ".join(legends)
 	if is_instance_valid(_player):
 		var at := (_player.global_position / BioArt.UNIT) * scale + offset
 		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)

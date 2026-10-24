@@ -161,7 +161,7 @@ func test_the_play_controls_step_aside_for_a_window_and_come_back() -> void:
 	await tree.process_frame
 	await tree.process_frame
 	assert_true(not world.touch.attack_stick.visible and not world.touch.move_stick.visible and not world.touch.dash.visible, "a window covers the screen: no stick under it")
-	assert_true(world.touch.menu.visible, "menu remains available above windows")
+	assert_true(not world.touch.menu.visible, "navigation does not overlap the window close button")
 	assert_true(world.touch.window_buttons[0].emphasis, "and the one that opened it is lit")
 	world.body_panel.toggle()
 	await tree.process_frame
@@ -357,3 +357,77 @@ func test_interface_scale_persists_and_invalid_preferences_are_clamped() -> void
 	display.set_interface_scale(1.0)
 	restored.free()
 	DirAccess.remove_absolute(path)
+
+
+func test_navigation_closes_after_selecting_and_windows_are_exclusive() -> void:
+	world.touch.menu.tapped.emit()
+	assert_true(world.touch.menu_open)
+	world.touch.window_buttons[0].tapped.emit()
+	assert_true(world.body_panel.is_open())
+	assert_true(not world.touch.menu_open)
+	world.codex_panel.toggle()
+	assert_true(world.codex_panel.is_open())
+	assert_true(not world.body_panel.is_open())
+	world.atlas.toggle()
+	assert_true(world.atlas.is_open())
+	assert_true(not world.codex_panel.is_open())
+	world.vitals_panel.toggle()
+	assert_true(world.vitals_panel.is_open())
+	assert_true(not world.atlas.is_open())
+	world.vitals_panel.close()
+	assert_true(not BioUi.captures_input())
+
+func test_outside_tap_dismisses_but_outside_drag_does_not() -> void:
+	world.body_panel.open()
+	var modal := world.body_panel._dim
+	var event := InputEventScreenTouch.new()
+	event.position = Vector2(2, 2)
+	event.pressed = true
+	modal._outside_input(event)
+	assert_true(world.body_panel.is_open(), "wait for release")
+	event.pressed = false
+	event.position = Vector2(2, 80)
+	modal._outside_input(event)
+	assert_true(world.body_panel.is_open(), "drag does not dismiss")
+	event.position = Vector2(2, 2)
+	event.pressed = true
+	modal._outside_input(event)
+	event.pressed = false
+	modal._outside_input(event)
+	assert_true(not world.body_panel.is_open())
+
+func test_dragging_a_card_never_selects_it_and_tap_waits_for_release() -> void:
+	var card := PanelContainer.new()
+	var clicks: Array = []
+	BioUi.bind_tap(card, func() -> void: clicks.append(true))
+	var press := InputEventScreenTouch.new()
+	press.position = Vector2(20, 20)
+	press.pressed = true
+	card.gui_input.emit(press)
+	assert_eq(clicks.size(), 0)
+	var drag := InputEventScreenDrag.new()
+	drag.position = Vector2(20, 80)
+	card.gui_input.emit(drag)
+	press.pressed = false
+	press.position = Vector2(20, 20)
+	card.gui_input.emit(press)
+	assert_eq(clicks.size(), 0, "even dragging back to the origin is not a tap")
+	press.pressed = true
+	card.gui_input.emit(press)
+	press.pressed = false
+	card.gui_input.emit(press)
+	assert_eq(clicks.size(), 1)
+	card.free()
+
+func test_action_menu_selection_closes_and_outside_dismissal_preserves_offer() -> void:
+	world.sync.system.open_menu([{"title": "Observar", "action": "inspect"}])
+	assert_true(world.sync.system.menu_open)
+	world.sync.system._menu_rows.get_child(0).pressed.emit()
+	assert_true(not world.sync.system.menu_open, "choosing an action closes its menu")
+	world.sync.system.show_offer({"key": "test", "title": "Chamado", "objective": "Observar"}, "Sentinela")
+	world.sync.system.open_offer()
+	assert_true(world.sync.system.is_offer_visible())
+	world.sync.system._offer_modal.dismissed.emit()
+	assert_true(not world.sync.system.is_offer_visible())
+	assert_true(world.sync.system.has_offer(), "outside means later, not refusing the mission")
+	assert_true(not BioUi.captures_input())
