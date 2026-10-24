@@ -23,9 +23,10 @@ import (
 
 // Options turns the development handler into a public one.
 type Options struct {
-	Public bool   // tokens required, reset off, rate limits on
-	Key    []byte // HMAC key for session tokens; empty means an ephemeral random key
-	Web    string // directory of static files served at "/" (empty: none)
+	TestReset bool   // temporary testing: authenticated sessions may reset the shared world
+	Public    bool   // tokens required, reset off, rate limits on
+	Key       []byte // HMAC key for session tokens; empty means an ephemeral random key
+	Web       string // directory of static files served at "/" (empty: none)
 
 	// EdgeSecret, when set in public mode, closes the API to everything but the edge in front of it (the Worker that proxies the
 	// tunnel): a request must carry it in X-Edge-Secret, and only then is X-Client-IP believed.
@@ -57,14 +58,15 @@ func LoadOrCreateKey(dir string) ([]byte, error) {
 }
 
 type auth struct {
-	public   bool
-	key      []byte
-	general  *limiter
-	sessions *limiter
+	public    bool
+	testReset bool
+	key       []byte
+	general   *limiter
+	sessions  *limiter
 }
 
 func newAuth(o Options) *auth {
-	a := &auth{public: o.Public, key: o.Key}
+	a := &auth{public: o.Public, testReset: o.TestReset, key: o.Key}
 	if len(a.key) == 0 {
 		a.key = make([]byte, 32)
 		rand.Read(a.key)
@@ -147,7 +149,7 @@ func (a *auth) session(rw http.ResponseWriter, q *http.Request, r *sim.Runner) {
 		reply(rw, 401, errorBody{Version, "invalid_token"})
 		return
 	}
-	reply(rw, 200, sessionResponse{Version: Version, ID: id, Token: a.token(id), Capabilities: map[string]any{"reset": !a.public}, Public: a.public})
+	reply(rw, 200, sessionResponse{Version: Version, ID: id, Token: a.token(id), Capabilities: map[string]any{"reset": !a.public || a.testReset}, Public: a.public})
 }
 
 // limited applies the per-IP rate limits.

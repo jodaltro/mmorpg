@@ -56,3 +56,12 @@ No desktop, arrastar e soltar usa o drag-and-drop do Godot. No toque, segurar po
 Builds mostram três seletores compactos e os detalhes de um único preset, com genes, ordem salva e comparação. Selecionar não equipa; Renomear abre o campo somente por solicitação; Salvar aqui substitui um preset ocupado apenas depois de confirmação; Aplicar envia a intenção ao motor. Nomes são locais e genes continuam validados pelo motor.
 
 Salvar aqui captura os genes e a barra atual; a ordem desse snapshot só é salva ou equipada depois de sucesso HTTP. A ordem de um preset existente também pode ser arrastada diretamente na prévia: essa organização é salva localmente, sem equipar o preset, até o jogador escolher Aplicar. Falhas preservam a ordem anterior e aparecem no próprio painel. Operações pendentes impedem envio duplicado. Atualizações em segundo plano não substituem o campo de nome nem interrompem uma habilidade sendo arrastada. Arrastar muda a organização da barra, sem executar habilidades nem mudar regras de combate.
+
+
+## Genes, missões e reset de teste (24/10/2026)
+
+Genes usam listas compactas, com espaços vazios resumidos em contador. A descrição aparece no gene selecionado; a comparação só surge ao selecionar algo para expressar, trocar ou silenciar. Ações ficam separadas da instrução, sem texto longo na mesma linha.
+
+O menu oculta fichas e missões do mundo por baixo do fundo. Missões tem uma entrada própria; a missão ativa também aparece como ficha no canto, acionada ao soltar o toque. O diário mostra objetivo e recompensa e abre o chamado pendente. Alterações de objetivo atualizam a janela aberta. Expirar uma oferta não libera os controles do jogo enquanto o diário estiver aberto.
+
+Reiniciar mundo é uma ação de teste, visível quando o servidor anuncia a permissão. Abre confirmação explícita para reiniciar todos os jogadores. Cancelar ou tocar fora não altera progresso. O servidor precisa de -test-reset; o modo público padrão continua recusando reset. Clientes conectados que perderem o personagem após o reset limpam o estado local e se reconectam.

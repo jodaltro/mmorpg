@@ -73,6 +73,7 @@ type PlayersResponse struct {
 // ResetRequest starts a new world. Confirm must be "new-world" so a stray
 // call cannot wipe progress; the old world stays archived on disk.
 type ResetRequest struct {
+	Player  string `json:"player,omitempty"`
 	Version int    `json:"version"`
 	Confirm string `json:"confirm"`
 }
@@ -157,12 +158,15 @@ func HandlerWith(r *sim.Runner, o Options) http.Handler {
 		reply(rw, 200, out)
 	})
 	mux.HandleFunc("POST /v1/world/reset", func(rw http.ResponseWriter, q *http.Request) {
-		if o.Public {
+		if o.Public && !o.TestReset {
 			reply(rw, 403, errorBody{Version, "reset_disabled"})
 			return
 		}
 		var in ResetRequest
 		if !decode(rw, q, &in) {
+			return
+		}
+		if !a.allow(rw, q, in.Player, false) {
 			return
 		}
 		if in.Version != Version || in.Confirm != "new-world" {

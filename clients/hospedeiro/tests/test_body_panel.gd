@@ -314,3 +314,15 @@ func test_dragging_a_saved_preset_changes_only_its_saved_order() -> void:
 	var saved: Array = world.build_store.order_of(1).duplicate()
 	world.body_panel.reorder_build_abilities(1, -1, 2)
 	assert_eq(world.build_store.order_of(1), saved, "invalid drops cannot change the preset")
+
+
+func test_genes_use_compact_choices_without_a_list_of_empty_slots() -> void:
+	world.sync.apply_view(_view({"evolution": _evolution()}))
+	world.body_panel.open(BioBodyPanel.GENES)
+	var text := world.body_panel.content_text()
+	assert_true(text.contains("Flagelo Calejado") and text.contains("Mitocôndria Ávida"))
+	assert_true(not text.contains("RESULTADO DA TROCA"), "comparison is shown only when a gene is selected")
+	assert_true(not text.contains("espaço livre"), "empty slots are summarized, not repeated as giant cards")
+	world.body_panel._swap_out = "cilios-ageis"
+	world.body_panel.refresh()
+	assert_true(world.body_panel.content_text().contains("RESULTADO DA TROCA"))

@@ -81,9 +81,7 @@ func set_call(key: String, kind: String, title: String, detail: String, hint: St
 	detail_label.visible = not BioPlatform.is_touch()
 	if not hint.is_empty():
 		row.add_child(BioUi.keycap(hint))
-	root.gui_input.connect(func(event: InputEvent) -> void:
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			chip_activated.emit(key))
+	BioUi.bind_tap(root, func() -> void: chip_activated.emit(key))
 	_box.add_child(root)
 	_chips[key] = {"root": root, "title": title_label, "detail": detail_label, "detail_text": detail, "kind": kind}
 	_paint(key)

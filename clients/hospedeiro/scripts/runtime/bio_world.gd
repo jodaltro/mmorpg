@@ -64,6 +64,7 @@ var genome: BioGenome
 var tracker: BioMutationTracker
 var panel: BioMutationPanel
 var tray: BioCallTray
+var reset_dialog: BioResetDialog
 var body_panel: BioBodyPanel
 var build_store: BioBuildStore
 var sync: BioHostSync
@@ -179,7 +180,7 @@ func build() -> void:
 	dungeon.room_started.connect(func(index: int, info: Dictionary) -> void:
 		hud.set_dungeon_text("%s  ·  sala %d/%d  ·  %s" % [dungeon.title, index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
 	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
-	hud.restart_requested.connect(restart_world)
+	hud.restart_requested.connect(func() -> void: reset_dialog.open())
 	codex_panel = BioCodexPanel.new()
 	codex_panel.name = "CodexPanel"
 	add_child(codex_panel)
@@ -227,6 +228,9 @@ func build() -> void:
 	body_panel.name = "BodyPanel"
 	add_child(body_panel)
 	body_panel.configure(self)
+	reset_dialog = BioResetDialog.new()
+	add_child(reset_dialog)
+	reset_dialog.configure(self)
 	panel.offer_changed.connect(_sync_calls)
 	tray.chip_activated.connect(_open_from_chip)
 
@@ -557,6 +561,9 @@ func _sync_calls() -> void:
 
 
 func _open_from_chip(key: String) -> void:
+	if key == "active_quest":
+		sync.system.open_missions()
+		return
 	if key == "quest":
 		sync.system.open_offer()
 		return
@@ -589,15 +596,24 @@ func release_engine_evolution() -> void:
 
 ## Starts everything again: a new world in the engine (when linked) and a newborn plain ball here, with no genes,
 ## class, abilities or look, in a fresh body of nutrients and virions. The old world stays archived by the engine.
-func restart_world() -> void:
+func restart_world(reset_engine := true) -> void:
 	hud.show_banner("O mundo recomeça…")
-	if sync != null and sync.link != null and sync.link.online:
+	if reset_engine and sync != null and sync.link != null and sync.link.online:
 		var status := await sync.link.reset_world()
 		if status != 200:
 			hud.show_banner("Não consegui reiniciar o mundo no motor.")
 			await get_tree().create_timer(2.5).timeout
 			hud.show_banner("")
 			return
+	body_panel.close()
+	sync.system.close()
+	reset_dialog.close()
+	dungeon.finish(false)
+	build_store.names.clear()
+	build_store.orders.clear()
+	build_store.current_order.clear()
+	build_store.save()
+	codex_panel.set_data([], [])
 	tracker = BioMutationTracker.new(seed_value)
 	genome = BioGenome.new()
 	player.combatant.set_genome(genome)

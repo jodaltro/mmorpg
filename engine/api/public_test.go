@@ -13,6 +13,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jodaltro/mmorpg/engine/core"
 	"github.com/jodaltro/mmorpg/engine/sim"
 	"github.com/jodaltro/mmorpg/engine/store"
 	"github.com/jodaltro/mmorpg/engine/universe"
@@ -361,5 +362,33 @@ func TestEdgeSecretClosesTheAPIToEverythingElse(t *testing.T) {
 	}
 	if code, _, _ := do(t, "POST", srv.URL+"/v1/session", "", `{"version":1}`, "Cf-Ray", "1-AMS", "X-Edge-Secret", "s3cret", "X-Client-IP", "203.0.113.8"); code != 200 {
 		t.Fatalf("another client: %d", code)
+	}
+}
+
+func TestTemporaryResetRequiresSessionAndConfirmation(t *testing.T) {
+	r, srv := serverWith(t, Options{Public: true, TestReset: true})
+	_, session := session(t, srv.URL, `{"version":1}`)
+	id, token := session["id"].(string), session["token"].(string)
+	if session["capabilities"].(map[string]any)["reset"] != true {
+		t.Fatal("test mode must advertise reset")
+	}
+	if code, _, _ := do(t, "POST", srv.URL+"/v1/commands", token, joinBody(id)); code != 200 {
+		t.Fatalf("join: %d", code)
+	}
+	body := `{"version":1,"confirm":"new-world","player":"` + id + `"}`
+	if code, _, _ := do(t, "POST", srv.URL+"/v1/world/reset", "", body); code != 401 {
+		t.Fatalf("anonymous reset: %d", code)
+	}
+	if code, _, _ := do(t, "POST", srv.URL+"/v1/world/reset", token, `{"version":1,"player":"`+id+`"}`); code != 400 {
+		t.Fatalf("unconfirmed reset: %d", code)
+	}
+	if _, ok := r.Snapshot().Entities[core.ID(id)]; !ok {
+		t.Fatal("refused resets changed the world")
+	}
+	if code, _, _ := do(t, "POST", srv.URL+"/v1/world/reset", token, body); code != 200 {
+		t.Fatalf("confirmed test reset: %d", code)
+	}
+	if _, ok := r.Snapshot().Entities[core.ID(id)]; ok {
+		t.Fatal("shared world did not restart")
 	}
 }

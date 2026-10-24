@@ -51,6 +51,7 @@ Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, comparti
 
 - Universo `universes/hospedeiro/universe.json` (Medula e Sangue). Cliente Godot 4.7 em `clients/hospedeiro/`: conecta ao motor em `127.0.0.1:8096` (porta própria, para não colidir com Valdoria na 8095) e, sem motor, joga em **modo offline**.
 - O usuário só abre o cliente. **O agente mantém o backend do Hospedeiro rodando** (`serve` na 8096, `-advisor jev`, dados em `D:\unity\hospedeiro-data`) e passa comandos em **PowerShell**.
+- Reset global temporário de teste habilitado em 24/10/2026: supervisor com `-TestReset -ReuseTunnel`, executável atual em `D:\unity\hospedeiro-run\worldsim-current.exe`. O botão do jogo exige confirmação. Não acionar reset do mundo real durante validação; usar `httptest`/mundos locais isolados.
 - `scripts/domain`: regras puras (`RefCounted`, sem Node). `scripts/runtime`: Nodes, física, input, apresentação. `tests/`: runner headless próprio.
 - Estética bioluminescente procedural, tom sombrio-onírico. Hitbox lógica separada do corpo deformável. Biologia é base, não lei.
 - Sem níveis nem XP: progressão por diferenciação, genes, epigenética, memória e linhagem.

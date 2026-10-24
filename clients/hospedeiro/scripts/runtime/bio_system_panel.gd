@@ -30,6 +30,8 @@ var _card_head: Label
 var _card_title: Label
 var _card_goal: Label
 var _card_reward: Label
+var _active: Dictionary = {}
+var _missions: BioModal
 var _offer: Dictionary = {}
 var _caller := ""
 var _feed_box: VBoxContainer
@@ -146,6 +148,12 @@ func _ready() -> void:
 	mbox.add_child(_menu_rows)
 	_menu_root.visible = false
 	add_child(_menu_root)
+	_missions = BioModal.new()
+	_missions.max_size = Vector2(620, 480)
+	add_child(_missions)
+	_missions.build("MISSÕES")
+	_missions.dismissed.connect(close_missions)
+	BioUi.bind_tap(_tracker, open_missions)
 	set_status(false, 0)
 
 
@@ -203,8 +211,8 @@ func _process(_delta: float) -> void:
 	_fade_feed()
 	if _touch:
 		var world := get_parent().get_parent() as BioWorld
-		_feed_box.visible = world.touch != null and world.touch.menu_open
-		_column.visible = world.touch != null and world.touch.menu_open
+		_feed_box.visible = false
+		_column.visible = false
 
 
 func _surface(bg: Color, border: Color) -> PanelContainer:
@@ -224,6 +232,15 @@ func set_region(region: StringName) -> void:
 
 
 func set_active(quest: Dictionary) -> void:
+	var changed := _active != quest
+	_active = quest.duplicate(true)
+	if changed and _missions != null and _missions.visible:
+		_render_missions.call_deferred()
+	if _touch and tray != null:
+		if quest.is_empty():
+			tray.clear_call("active_quest")
+		else:
+			tray.set_call("active_quest", "quest", "Missão: " + str(quest.get("title", "")), str(quest.get("objective", "")))
 	_tracker.visible = not quest.is_empty()
 	if quest.is_empty():
 		return
@@ -237,6 +254,9 @@ func set_states(states: Array[String]) -> void:
 
 
 func show_offer(quest: Dictionary, giver_name: String) -> void:
+	var changed := _offer != quest
+	if changed and _missions != null and _missions.visible:
+		_render_missions.call_deferred()
 	offer_key = str(quest.get("key", ""))
 	_offer = quest
 	_caller = "SISTEMA" if giver_name.is_empty() else "%s chama" % giver_name
@@ -244,6 +264,8 @@ func show_offer(quest: Dictionary, giver_name: String) -> void:
 
 
 func hide_offer() -> void:
+	if _missions != null and _missions.visible:
+		_render_missions.call_deferred()
 	offer_key = ""
 	_offer = {}
 	_refresh_offer()
@@ -271,10 +293,12 @@ func _show_card(on: bool) -> void:
 			_offer_modal.present(self)
 		else:
 			_offer_modal.hide_modal()
+			_sync_modal_state()
 
 
 ## Touch: the chip was tapped, the call opens at the centre.
 func open_offer() -> void:
+	close_missions()
 	if not offer_key.is_empty():
 		_show_card(true)
 
@@ -343,6 +367,7 @@ func _fade_feed() -> void:
 
 
 func open_menu(items: Array) -> void:
+	close_missions()
 	if _touch and is_offer_visible():
 		_show_card(false)
 	menu_items = items.slice(0, MENU_SIZE)
@@ -377,9 +402,47 @@ func close_menu() -> void:
 	menu_items = []
 	if _action_modal != null:
 		_action_modal.hide_modal()
-	BioUi.set_modal(self, false)
+	_sync_modal_state()
 
 func close() -> void:
+	close_missions()
 	close_menu()
 	if _touch:
 		_show_card(false)
+
+
+func open_missions() -> void:
+	close()
+	_missions.present(self)
+	_render_missions()
+
+func _render_missions() -> void:
+	if not _missions.visible:
+		return
+	for child in _missions.content.get_children():
+		_missions.content.remove_child(child)
+		child.queue_free()
+	if _active.is_empty():
+		_missions.content.add_child(BioUi.wrapped("Nenhuma missão ativa.", BioUi.FS_BODY, BioUi.MUTED))
+	else:
+		_missions.content.add_child(BioUi.label("EM ANDAMENTO", BioUi.FS_SMALL, BioUi.ACCENT))
+		_missions.content.add_child(BioUi.wrapped(str(_active.get("title", "")), BioUi.FS_HEAD))
+		_missions.content.add_child(BioUi.wrapped(str(_active.get("objective", _active.get("desc", ""))), BioUi.FS_BODY, BioUi.MUTED))
+		_missions.content.add_child(BioUi.wrapped("Recompensa: " + str(_active.get("reward", "—")), BioUi.FS_SMALL, BioUi.GOOD))
+	if has_offer():
+		_missions.content.add_child(BioUi.label("NOVO CHAMADO", BioUi.FS_SMALL, BioUi.WARN))
+		_missions.content.add_child(BioUi.wrapped(str(_offer.get("title", "")), BioUi.FS_HEAD))
+		var respond := BioUi.button("Ver chamado", "primary")
+		respond.pressed.connect(func() -> void:
+			close_missions()
+			open_offer())
+		_missions.content.add_child(respond)
+
+func close_missions() -> void:
+	_missions.hide_modal()
+	_sync_modal_state()
+
+func _sync_modal_state() -> void:
+	var mission_open := _missions != null and _missions.visible
+	var offer_open := _offer_modal != null and _offer_modal.visible
+	BioUi.set_modal(self, menu_open or mission_open or offer_open)

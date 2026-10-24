@@ -369,8 +369,10 @@ func _paint_form() -> void:
 
 ## The cards of the pending offer side by side; each one has its button and its key.
 func _offer_row(lineage_offer: bool) -> Control:
-	var row := _responsive_row()
-	row.add_theme_constant_override("separation", 10)
+	var row: Container = _responsive_row() if lineage_offer else GridContainer.new()
+	if row is GridContainer:
+		row.columns = 2 if _scroll.size.x >= 420 else 1
+	row.add_theme_constant_override("separation", 8)
 	for i in _world.panel.entries().size():
 		row.add_child(_offer_card(i, lineage_offer))
 	return row
@@ -391,11 +393,12 @@ func _offer_card(index: int, lineage_offer: bool) -> Control:
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(name_label)
 	body.add_child(head)
-	for line in str(e.get("text", "")).split("\n"):
-		if not line.strip_edges().is_empty():
-			body.add_child(BioUi.wrapped(line, BioUi.FS_SMALL + 1, BioUi.MUTED))
+	var description := BioUi.wrapped(str(e.get("text", "")), BioUi.FS_SMALL, BioUi.MUTED)
+	if not lineage_offer:
+		description.max_lines_visible = 2
+	body.add_child(description)
 	if e.get("featured", false):
-		body.add_child(BioUi.label("◆ o corpo pende para cá", BioUi.FS_SMALL, BioUi.ACCENT))
+		body.add_child(BioUi.label("Sugerido pelo corpo", BioUi.FS_SMALL, BioUi.ACCENT))
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(spacer)
@@ -488,26 +491,26 @@ func _paint_genes() -> void:
 	var expressed := _expressed()
 	left.add_child(_section("EXPRESSOS   %d / %d" % [expressed.size(), _slots()]))
 	var grid := GridContainer.new()
-	grid.columns = 1 if _scroll.size.x < 540 else 2
+	grid.columns = 1 if _scroll.size.x < 420 else 2
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 8)
 	left.add_child(grid)
-	for i in _slots():
-		if i < expressed.size():
-			var g: Dictionary = expressed[i]
-			grid.add_child(_gene_cell(g, str(g.get("id", "")) == _swap_out, func() -> void:
-				_swap_out = "" if _swap_out == str(g.get("id", "")) else str(g.get("id", ""))
-				refresh()))
-		else:
-			grid.add_child(_empty_cell("espaço livre"))
+	for gene in expressed:
+		var g: Dictionary = gene
+		grid.add_child(_gene_cell(g, str(g.get("id", "")) == _swap_out, func() -> void:
+			_swap_out = "" if _swap_out == str(g.get("id", "")) else str(g.get("id", ""))
+			refresh()))
+	var free := maxi(0, _slots() - expressed.size())
+	if free > 0:
+		left.add_child(BioUi.label("%d espaços livres" % free, BioUi.FS_SMALL, BioUi.MUTED))
 
 	var library := _library()
 	left.add_child(_section("BIBLIOTECA   %d" % library.size()))
 	if library.is_empty():
-		left.add_child(BioUi.wrapped("Genes silenciados ficam guardados aqui, sem se perder. Quando o corpo ganha um gene e os espaços estão cheios, o mais antigo vai para a biblioteca.", BioUi.FS_SMALL, BioUi.MUTED))
+		left.add_child(BioUi.wrapped("Os genes silenciados ficam guardados aqui.", BioUi.FS_SMALL, BioUi.MUTED))
 	else:
 		var lib_grid := GridContainer.new()
-		lib_grid.columns = 1 if _scroll.size.x < 540 else 2
+		lib_grid.columns = 1 if _scroll.size.x < 420 else 2
 		lib_grid.add_theme_constant_override("h_separation", 8)
 		lib_grid.add_theme_constant_override("v_separation", 8)
 		left.add_child(lib_grid)
@@ -524,19 +527,20 @@ func _paint_genes() -> void:
 	var reason := lock_reason()
 	var can_swap := not _swap_in.is_empty() and (not full or not _swap_out.is_empty())
 	var swap := BioUi.button("Trocar" if full else "Expressar", "primary")
-	swap.disabled = not can_swap or not reason.is_empty()
+	swap.disabled = _busy or not can_swap or not reason.is_empty()
 	swap.tooltip_text = reason
 	swap.pressed.connect(express_selected)
 	actions.add_child(swap)
 	var silence := BioUi.button("Silenciar", "ghost")
-	silence.disabled = _swap_out.is_empty() or not _swap_in.is_empty() or not reason.is_empty()
+	silence.disabled = _busy or _swap_out.is_empty() or not _swap_in.is_empty() or not reason.is_empty()
 	silence.tooltip_text = reason
 	silence.pressed.connect(silence_selected)
 	actions.add_child(silence)
 	var hint := "Escolha um gene da biblioteca" + (" e o gene expresso que dá o lugar." if full else ".")
-	actions.add_child(BioUi.label(hint if not can_swap and _swap_out.is_empty() else "", BioUi.FS_SMALL, BioUi.MUTED))
+	left.add_child(BioUi.wrapped(hint if not can_swap and _swap_out.is_empty() else "Confira o resultado antes de confirmar.", BioUi.FS_SMALL, BioUi.MUTED))
 
-	split.add_child(_result_panel(current_genes(), previewed_genes(), "RESULTADO DA TROCA", "Escolha uma troca para ver o que muda."))
+	if not _swap_in.is_empty() or not _swap_out.is_empty():
+		split.add_child(_result_panel(current_genes(), previewed_genes(), "RESULTADO DA TROCA", "Este gene não altera os atributos exibidos."))
 
 
 ## A gene as a clickable cell: name, rarity, what it does.
@@ -544,7 +548,7 @@ func _gene_cell(gene: Dictionary, selected: bool, on_click: Callable) -> Control
 	var cell := PanelContainer.new()
 	var rarity_color := BioUi.rarity_color(str(gene.get("rarity", "")))
 	cell.add_theme_stylebox_override("panel", BioUi.style(Color(0.1, 0.18, 0.3, 0.98) if selected else BioUi.BG_RAISED, BioUi.LINE_STRONG if selected else BioUi.LINE, 9, 10, 2 if selected else 1))
-	cell.custom_minimum_size = Vector2(250, 66)
+	cell.custom_minimum_size = Vector2(0, 40)
 	cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	cell.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	var v := VBoxContainer.new()
@@ -560,12 +564,17 @@ func _gene_cell(gene: Dictionary, selected: bool, on_click: Callable) -> Control
 	dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	head.add_child(dot)
-	head.add_child(BioUi.label("  " + str(gene.get("name", "")), BioUi.FS_BODY, BioUi.TEXT))
+	var title := BioUi.label("  " + str(gene.get("name", "")), BioUi.FS_SMALL, BioUi.TEXT)
+	title.clip_text = true
+	title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title)
 	var local := _local_id(str(gene.get("id", "")))
 	var summary := BioGeneCatalog.get_gene(local).summary() if BioGeneCatalog.all_ids().has(local) else str(gene.get("desc", ""))
-	var s := BioUi.wrapped(summary, BioUi.FS_SMALL, BioUi.MUTED)
-	s.max_lines_visible = 3
-	v.add_child(s)
+	if selected:
+		var summary_label := BioUi.wrapped(summary, BioUi.FS_SMALL, BioUi.MUTED)
+		summary_label.max_lines_visible = 2
+		v.add_child(summary_label)
 	BioUi.bind_tap(cell, on_click)
 	return cell
 
@@ -573,7 +582,7 @@ func _gene_cell(gene: Dictionary, selected: bool, on_click: Callable) -> Control
 func _empty_cell(text: String) -> Control:
 	var cell := PanelContainer.new()
 	cell.add_theme_stylebox_override("panel", BioUi.style(Color(1, 1, 1, 0.02), Color(1, 1, 1, 0.1), 9, 10))
-	cell.custom_minimum_size = Vector2(250, 66)
+	cell.custom_minimum_size = Vector2(0, 40)
 	cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var l := BioUi.label(text, BioUi.FS_SMALL, Color(1, 1, 1, 0.3))
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER

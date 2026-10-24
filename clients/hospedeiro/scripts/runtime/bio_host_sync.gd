@@ -62,6 +62,7 @@ func _ready() -> void:
 			_answer_offer(accepted))
 	system.menu_chosen.connect(choose)
 	link.region = String(_world.region)
+	link.world_reset_detected.connect(func() -> void: _world.restart_world(false))
 	link.status_changed.connect(_on_status)
 	link.view_changed.connect(apply_view)
 	add_child(link)

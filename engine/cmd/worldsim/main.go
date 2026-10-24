@@ -356,6 +356,7 @@ func serve(args []string) error {
 	jevTimeout := fs.Duration("jev-timeout", 5*time.Second, "per-call Jev timeout")
 	onChange := fs.String("on-universe-change", "refuse", "refuse | new-world: what to do when the saved world was made with another version of the universe (new-world archives it, nothing is deleted)")
 	edgeSecret := fs.String("edge-secret", os.Getenv("HOSPEDEIRO_EDGE_SECRET"), "public mode: only requests carrying this secret in X-Edge-Secret are served (default: $HOSPEDEIRO_EDGE_SECRET)")
+	testReset := fs.Bool("test-reset", false, "temporary testing: allow authenticated players to reset the shared world")
 	public := fs.Bool("public", false, "public mode (behind a tunnel on loopback): bearer tokens required, reset off, rate limits on")
 	web := fs.String("web", "", "directory of static files (the web client) served at /")
 	fs.Parse(args)
@@ -413,7 +414,7 @@ func serve(args []string) error {
 			return fmt.Errorf("-web %q is not a directory", *web)
 		}
 	}
-	srv := &http.Server{Addr: *listen, Handler: api.HandlerWith(r, api.Options{Public: *public, Key: key, Web: *web, EdgeSecret: *edgeSecret}), ReadHeaderTimeout: 5 * time.Second}
+	srv := &http.Server{Addr: *listen, Handler: api.HandlerWith(r, api.Options{Public: *public, TestReset: *testReset, Key: key, Web: *web, EdgeSecret: *edgeSecret}), ReadHeaderTimeout: 5 * time.Second}
 	go func() {
 		<-ctx.Done()
 		sctx, c := context.WithTimeout(context.Background(), 3*time.Second)

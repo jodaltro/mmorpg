@@ -34,3 +34,14 @@ Menu reúne Corpo, Códice, Mapa, Sinais e tela cheia quando o navegador permiti
 - Instalação e cache integral offline de PWA: há manifesto, mas não service worker. O modo de jogo offline funciona quando os arquivos carregam e o motor fica indisponível; não promete abrir sem internet.
 
 Resultados realmente executados ficam em `Docs/Validation/2026-10-24-web-mobile.md`.
+
+
+## Reset temporário de teste — 24/10/2026
+
+O menu mobile inclui Reiniciar mundo · teste quando a sessão recebe capabilities.reset=true. A confirmação avisa que o mundo compartilhado, os genes, as missões e a evolução reiniciam para todos. O log anterior fica arquivado pelo motor. Esta opção foi habilitada a pedido do usuário para a fase de testes.
+
+O servidor usa a opção explícita serve -test-reset. A API exige sessão válida, player da sessão e confirm=new-world. Sem a opção, o modo público continua retornando reset_disabled. O contrato v1 recebe apenas o campo opcional player no pedido de reset; o comportamento padrão permanece igual.
+
+Supervisor: scripts/hospedeiro-online.ps1 -TestReset -ReuseTunnel. ReuseTunnel conserva a origem existente; sem TestReset o reset público volta a ser bloqueado. ServerBinary permite escolher o executável; por padrão usa D:/unity/hospedeiro-run/worldsim-current.exe quando existe, com fallback para engine/worldsim.exe. A supervisão verifica a porta e o processo do túnel localmente, sem sondagens do endereço publicado.
+
+A atualização do servidor preserva D:/unity/hospedeiro-data e o túnel. O reset real é acionado pela confirmação no jogo; não faz parte dos testes de publicação.

@@ -28,6 +28,8 @@ var fullscreen: BioTouchButton
 var menu: BioTouchButton
 var menu_open := false
 var _drawer: PanelContainer
+var missions_button: Button
+var restart_button: Button
 var scale_reset: Button
 var _menu_back: ColorRect
 var _target: BioCellActor
@@ -73,11 +75,27 @@ func _ready() -> void:
 	_drawer.add_child(interior)
 	var help := Label.new()
 	help.position = Vector2(20,20)
-	help.text = "HOSPEDEIRO\n\nMovimento à esquerda.\nHabilidades: arraste e solte.\nArraste para X para cancelar."
+	help.text = "HOSPEDEIRO"
 	help.add_theme_font_size_override("font_size",13)
 	help.add_theme_color_override("font_color",Color(0.65,0.78,0.85))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	interior.add_child(help)
+	missions_button = BioUi.button("Missões")
+	var missions := missions_button
+	missions.position = Vector2(20, 62)
+	missions.size = Vector2(296, 40)
+	missions.pressed.connect(func() -> void:
+		close()
+		world.sync.system.open_missions())
+	interior.add_child(missions)
+	restart_button = BioUi.button("Reiniciar mundo · teste", "danger")
+	var restart := restart_button
+	restart.position = Vector2(20, 114)
+	restart.size = Vector2(296, 40)
+	restart.pressed.connect(func() -> void:
+		close()
+		world.reset_dialog.open())
+	interior.add_child(restart)
 	_settings = Control.new()
 	_settings.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	_settings.offset_left = 20
@@ -224,6 +242,8 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	_drawer.position = Vector2(view.x - 520, 54)
 	_drawer.size = Vector2(500, view.y - 66)
 	_menu_back.visible = menu_open
+	if world != null:
+		world.tray._box.visible = not BioUi.captures_input()
 	for i in window_buttons.size():
 		var button := window_buttons[i]
 		button.size = Vector2(116, 44)
@@ -238,11 +258,12 @@ func _process(delta: float) -> void:
 	if world == null or not is_instance_valid(world.player):
 		return
 	_aim_overlay.queue_redraw()
+	restart_button.visible = world.engine_url.is_empty() or (world.sync.link.online and world.sync.link.reset_allowed)
 	menu.visible = menu_open or not BioUi.captures_input()
 	var covered := BioUi.captures_input() or _a_window_is_open() or menu_open
-	world.panel._column.visible = menu_open
+	world.panel._column.visible = false
 	world.jev_panel._badge.visible = false
-	world.vitals_panel._strip.visible = menu_open
+	world.vitals_panel._strip.visible = false
 	world.tray._box.visible = not covered
 
 	var alive: bool = world.player.is_active() and not covered

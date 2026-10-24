@@ -4,6 +4,7 @@ extends Node
 ## player: it confirms what really happened in combat (adapter) and sends the player's intentions
 ## (player). It never sends damage or health. With no engine it stays offline and keeps retrying.
 
+signal world_reset_detected
 signal status_changed(online: bool)
 signal view_changed(view: Dictionary)
 signal capabilities_changed(reset_allowed: bool)
@@ -116,12 +117,15 @@ func refresh() -> void:
 		if BioPlatform.is_web():
 			JavaScriptBridge.eval("window.__hospedeiroReady=true", true)
 	elif res.status == 0 or (res.status == 404 and res.body.get("error", "") == "unknown_observer"):
+		var reset: bool = online and res.status == 404
 		_set_online(false)  # engine gone or world reset: rejoin on the next round
+		if reset:
+			world_reset_detected.emit()
 
 
 ## Asks the engine for a brand new world (the old one stays archived on the server). This cell rejoins by itself.
 func reset_world() -> int:
-	var res := await request(HTTPClient.METHOD_POST, "/v1/world/reset", {"version": 1, "confirm": "new-world"})
+	var res := await request(HTTPClient.METHOD_POST, "/v1/world/reset", {"version": 1, "confirm": "new-world", "player": player_id})
 	if res.status == 200:
 		view = {}
 		_set_online(false)
