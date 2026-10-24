@@ -76,7 +76,7 @@ const PARAM_LABELS := {"damage": "dano", "radius": "raio", "reach": "alcance", "
 	"slow": "lentidão", "mult": "amplificação", "seconds": "duração", "heal": "cura", "amount": "cura", "count": "unidades", "speed": "velocidade",
 	"distance": "distância", "cooldown": "recarga", "cost": "custo", "burst": "explosão", "regen_atp": "ATP/s", "regen_membrane": "reparo",
 	"execute_below": "limiar", "execute_mult": "bônus de execução", "below": "limiar", "half": "abertura", "width": "largura", "taken": "dano recebido",
-	"knockback": "empurrão", "spread": "abertura"}
+	"knockback": "empurrão", "spread": "abertura", "pct": "fração da vida", "cap": "teto", "drift": "perseguição", "weaken": "enfraquecimento"}
 
 
 static func _perk_bits(params: Dictionary) -> String:

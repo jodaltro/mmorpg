@@ -40,6 +40,10 @@ static func _ensure() -> void:
 	_add(&"linfocito_b", "Linfócito B", {BioGene.SPIT_DAMAGE: 1.5, BioGene.SPIT_COST: 0.9, BioGene.MAX_MEMBRANE: 0.9})
 	_add(&"t_citotoxico", "Linfócito T citotóxico", {BioGene.LASH_DAMAGE: 1.4, BioGene.SPEED: 1.05})
 	_add(&"t_auxiliar", "Linfócito T auxiliar", {BioGene.ATP_REGEN: 4.0, BioGene.MAX_MEMBRANE: 1.1, BioGene.DASH_COOLDOWN: 0.85})
+	_add(&"mastocito", "Mastócito", {BioGene.MAX_MEMBRANE: 0.9, BioGene.ABILITY_POWER: 1.2, BioGene.ATP_REGEN: 2.0})
+	_add(&"eosinofilo", "Eosinófilo", {BioGene.MAX_MEMBRANE: 1.25, BioGene.LASH_DAMAGE: 1.15, BioGene.SPEED: 0.9})
+	_add(&"celula_nk", "Célula NK", {BioGene.SPEED: 1.2, BioGene.LASH_DAMAGE: 1.2, BioGene.MAX_MEMBRANE: 0.88})
+	_add(&"t_regulador", "Linfócito T regulador", {BioGene.MAX_MEMBRANE: 1.2, BioGene.ATP_REGEN: 3.0, BioGene.ABILITY_COOLDOWN: 0.9})
 
 
 static func _add(id: StringName, display: String, mods: Dictionary) -> void:

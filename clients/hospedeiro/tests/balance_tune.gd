@@ -17,7 +17,7 @@ func _run() -> void:
 		data = JSON.parse_string(FileAccess.get_file_as_string(PATH))
 	if stage == "abilities":
 		var out := {}
-		for lineage in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
+		for lineage in [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar", &"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]:
 			for id in BioAbilityCatalog.ids_of_class(lineage):
 				var changed := BioBalance.tune_ability(id)
 				if not changed.is_empty():

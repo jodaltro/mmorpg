@@ -21,6 +21,8 @@ static func ensure_actions() -> void:
 	_bind("bio_pick_1", [_key(KEY_1)])
 	_bind("bio_pick_2", [_key(KEY_2)])
 	_bind("bio_pick_3", [_key(KEY_3)])
+	_bind("bio_pick_4", [_key(KEY_4)])
+	_bind("bio_pick_5", [_key(KEY_5)])
 	_bind("bio_decline", [_key(KEY_X)])
 	_bind("bio_accept", [_key(KEY_Y)])
 	_bind("bio_refuse", [_key(KEY_N)])

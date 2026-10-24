@@ -17,6 +17,8 @@ var _max_atp := 100.0
 var _atp_regen := 6.0
 
 ## Temporary states from abilities. Marks and guards scale the damage taken; haste speeds the cell and feeds ATP.
+var _weak_until := 0.0
+var _weak_mult := 1.0
 var _marked_until := 0.0
 var _marked_mult := 1.0
 var _guard_until := 0.0
@@ -122,6 +124,16 @@ func mark(mult: float, seconds: float) -> void:
 	_marked_mult = mult
 
 
+## The one hit by this is weakened: for a while everything it deals is multiplied by `mult` (< 1).
+func weaken(mult: float, seconds: float) -> void:
+	_weak_until = BioClock.now() + seconds
+	_weak_mult = mult
+
+
+func dealing_mult(now: float) -> float:
+	return _weak_mult if now < _weak_until else 1.0
+
+
 func is_marked() -> bool:
 	return BioClock.now() < _marked_until
 
@@ -146,7 +158,7 @@ func speed_mult() -> float:
 
 func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
 	var now := BioClock.now()
-	var factor := (_marked_mult if now < _marked_until else 1.0) * (_guard_mult if now < _guard_until else 1.0) * attacker.damage_dealt_mult
+	var factor := (_marked_mult if now < _marked_until else 1.0) * (_guard_mult if now < _guard_until else 1.0) * attacker.damage_dealt_mult * attacker.dealing_mult(now)
 	if now < _brittle_until:
 		factor *= BioEffectPhysics.BRITTLE_MULT
 	if BioAbilityFocus.applies_to(hit_def.id) and not attacker._chaining:

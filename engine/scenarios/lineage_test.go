@@ -97,8 +97,8 @@ func TestSecondTierOffersTheClassesOfTheProgenitor(t *testing.T) {
 		got = append(got, o.ID)
 	}
 	slices.Sort(got)
-	if want := []string{"dendritica", "macrofago", "neutrofilo"}; !slices.Equal(got, want) {
-		t.Fatalf("a myeloid cell becomes a macrophage, neutrophil or dendritic cell, got %v", got)
+	if want := []string{"dendritica", "eosinofilo", "macrofago", "mastocito", "neutrofilo"}; !slices.Equal(got, want) {
+		t.Fatalf("a myeloid cell becomes a macrophage, neutrophil, dendritic cell, mast cell or eosinophil, got %v", got)
 	}
 	h.mustAct("player", "p1", "diferenciar", map[string]core.ID{"lineage": "macrofago"})
 	if v := h.lineageView("p1"); v.Current != "macrofago" || v.Tier != 2 || v.Next != 0 {
@@ -183,7 +183,7 @@ func TestEveryClassHasSixOwnMutationsThatNameTheirAbility(t *testing.T) {
 	if generic < 12 {
 		t.Fatalf("want at least 12 generic mutations, got %d", generic)
 	}
-	for _, class := range []string{"macrofago", "neutrofilo", "dendritica", "linfocito-b", "t-citotoxico", "t-auxiliar"} {
+	for _, class := range []string{"macrofago", "neutrofilo", "dendritica", "linfocito-b", "t-citotoxico", "t-auxiliar", "mastocito", "eosinofilo", "celula-nk", "t-regulador"} {
 		if own[class] != 6 {
 			t.Fatalf("%s should have 6 own mutations, got %d", class, own[class])
 		}

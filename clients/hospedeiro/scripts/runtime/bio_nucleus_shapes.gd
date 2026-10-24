@@ -23,6 +23,14 @@ static func radius_at(form: StringName, a: float, t: float) -> float:
 			return 0.98 * cos(TAU / 12.0) / cos(sector) * breath
 		&"t_auxiliar":  # a four-leaf clover
 			return (1.0 + 0.34 * absf(cos(2.0 * a))) * 0.88 * breath
+		&"mastocito":  # small and round, with eight faint bumps like the granules around it
+			return (1.0 + 0.06 * cos(8.0 * a)) * 0.82 * breath
+		&"eosinofilo":  # two lobes joined by a thin bridge
+			return (0.52 + 0.62 * pow(absf(cos(a)), 1.3)) * breath
+		&"celula_nk":  # a large, slightly indented round nucleus
+			return (1.0 - 0.15 * exp(-pow(angle_difference(a, PI * 0.5) / 0.7, 2.0))) * 1.15 * breath
+		&"t_regulador":  # a calm rounded triangle
+			return (1.0 + 0.12 * cos(3.0 * a)) * 0.95 * breath
 		&"estrela":  # a five-pointed star
 			return (0.62 + 0.5 * pow(absf(cos(2.5 * a)), 1.6)) * breath
 		&"linfoide":
@@ -58,6 +66,18 @@ static func draw(c: CanvasItem, form: StringName, pos: Vector2, rn: float, rot: 
 		&"dendritica":
 			for k in 5:
 				c.draw_circle(pos + Vector2.from_angle(rot + k * TAU / 5.0 + t * 0.1) * rn * 0.5, rn * 0.09, BioArt.with_alpha(Color.WHITE, 0.7))
+		&"mastocito":  # a ring of dots: the granules press on the nucleus
+			for k in 8:
+				c.draw_circle(pos + Vector2.from_angle(rot + k * TAU / 8.0) * rn * 0.62, rn * 0.08, BioArt.with_alpha(Color(1.0, 0.8, 0.5), 0.8))
+		&"eosinofilo":  # a bright point in each lobe
+			for side in [-1.0, 1.0]:
+				c.draw_circle(pos + Vector2.from_angle(rot) * rn * 0.5 * side, rn * 0.13, BioArt.with_alpha(Color(1.0, 0.85, 0.85), 0.85))
+		&"celula_nk":  # a cluster of dense points, ready to be thrown
+			for k in 4:
+				c.draw_circle(pos + Vector2.from_angle(rot + 0.5 + k * 1.3) * rn * 0.3, rn * 0.08, BioArt.with_alpha(Color(0.85, 0.95, 1.0), 0.9))
+		&"t_regulador":  # a still ring around a quiet glow
+			c.draw_circle(pos, rn * 0.2, BioArt.with_alpha(Color(0.85, 1.0, 0.95), 0.8))
+			c.draw_arc(pos, rn * 0.55, 0.0, TAU, 28, BioArt.with_alpha(core.lerp(Color.WHITE, 0.4), 0.6), 1.6, true)
 		&"macrofago", &"mieloide":
 			c.draw_circle(pos + Vector2.from_angle(rot - 0.5) * rn * 0.25, rn * 0.14, BioArt.with_alpha(Color.WHITE, 0.6))
 		_:

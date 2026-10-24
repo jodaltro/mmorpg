@@ -345,7 +345,7 @@ func _offer_card(index: int, lineage_offer: bool) -> Control:
 	var e: Dictionary = _world.panel.entries()[index]
 	var card := _panel(BioUi.BG_RAISED, BioUi.LINE_STRONG if e.get("featured", false) else BioUi.LINE, 12)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	card.custom_minimum_size.x = 200.0
+	card.custom_minimum_size.x = 170.0
 	var body := VBoxContainer.new()
 	body.add_theme_constant_override("separation", 4)
 	card.add_child(body)

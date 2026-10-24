@@ -23,6 +23,14 @@ static func bumps(form: StringName) -> Array:
 			return [[0.0, 0.24, 0.85], [1.15, 0.3, 0.42], [-1.15, 0.3, 0.42], [PI, 0.3, 0.5], [0.45, 0.16, -0.22], [-0.45, 0.16, -0.22], [1.75, 0.35, -0.3], [-1.75, 0.35, -0.3]]
 		&"t_auxiliar":  # serene: a round head, soft shoulders, flowing robe
 			return [[0.0, 0.5, 0.6], [1.0, 0.45, 0.22], [-1.0, 0.45, 0.22], [PI, 0.9, 0.6], [1.85, 0.3, 0.2], [-1.85, 0.3, 0.2], [0.55, 0.2, -0.2], [-0.55, 0.2, -0.2]]
+		&"mastocito":  # a round bundle, lumpy with granules, a big head over a puffed body
+			return [[0.0, 0.5, 0.55], [1.2, 0.5, 0.35], [-1.2, 0.5, 0.35], [2.3, 0.45, 0.35], [-2.3, 0.45, 0.35], [PI, 0.8, 0.3], [0.65, 0.2, -0.2], [-0.65, 0.2, -0.2]]
+		&"eosinofilo":  # a two-lobed head, a deep notch between, a broad chest
+			return [[0.4, 0.28, 0.55], [-0.4, 0.28, 0.55], [0.0, 0.14, -0.3], [1.1, 0.4, 0.45], [-1.1, 0.4, 0.45], [PI, 0.7, 0.35], [1.8, 0.3, -0.2], [-1.8, 0.3, -0.2]]
+		&"celula_nk":  # a crest over a lean, forward body that trails a thin wisp
+			return [[-0.1, 0.2, 0.95], [0.9, 0.3, 0.3], [-0.9, 0.3, 0.2], [PI, 0.22, 0.85], [0.45, 0.18, -0.2], [-0.45, 0.18, -0.2], [1.6, 0.35, -0.28], [-1.6, 0.35, -0.28]]
+		&"t_regulador":  # veiled: a wide soft hood and long sleeves hanging down
+			return [[0.0, 0.55, 0.55], [0.9, 0.5, 0.28], [-0.9, 0.5, 0.28], [2.6, 0.3, 0.7], [-2.6, 0.3, 0.7], [PI, 1.0, 0.35], [0.5, 0.2, -0.15], [-0.5, 0.2, -0.15]]
 	return []
 
 

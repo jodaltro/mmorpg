@@ -45,7 +45,7 @@ const DEBUG_ROOMS := [
 	{"id": "nucleo-necrotico", "name": "O núcleo necrótico", "kind": "core"},
 	{"id": "bacilo", "name": "O bacilo (chefe)", "kind": "boss"},
 ]
-const DEBUG_CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]
+const DEBUG_CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar", &"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]
 var codex_panel: BioCodexPanel
 var adapted_regions: Array = []
 var compass_text := ""
@@ -736,7 +736,7 @@ func _process(delta: float) -> void:
 	else:
 		hud.set_guide(false, Vector2.ZERO, "")
 	if body_panel.is_open() and not sync.wants_numbers() and not BioUi.typing():  # offers are chosen in the Body window, when calm
-		for i in 3:
+		for i in 5:
 			if Input.is_action_just_pressed("bio_pick_%d" % (i + 1)):
 				body_panel.pick(i)
 		if Input.is_action_just_pressed("bio_decline"):

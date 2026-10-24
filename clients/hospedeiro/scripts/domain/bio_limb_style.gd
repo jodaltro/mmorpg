@@ -73,4 +73,12 @@ static func _base(form: StringName) -> Dictionary:
 			s.merge({"tip": &"spear", "length": 1.15, "base": 12.0, "tip_w": 2.0, "barbs": 2, "wave": 0.03, "stiffness": 0.97, "speed": 1.5, "half_angle": 24.0}, true)
 		&"t_auxiliar":  # a soft glowing tendril
 			s.merge({"tip": &"bulb", "base": 10.0, "tip_w": 13.0, "wave": 0.6, "stiffness": 0.3, "motes": true, "half_angle": 55.0, "sweep": 40.0}, true)
+		&"mastocito":  # short blunt stubs, packed with granules
+			s.merge({"tip": &"bulb", "length": 0.85, "base": 14.0, "tip_w": 17.0, "bumps": 3, "wave": 0.35, "stiffness": 0.3, "half_angle": 70.0, "count": 3, "sweep": 30.0}, true)
+		&"eosinofilo":  # one thick cup of an arm that melts what it holds
+			s.merge({"tip": &"cup", "length": 0.95, "base": 22.0, "tip_w": 24.0, "bumps": 2, "wave": 0.15, "stiffness": 0.5, "half_angle": 65.0, "sweep": 55.0, "speed": 0.9}, true)
+		&"celula_nk":  # a thin, quick, rigid needle
+			s.merge({"tip": &"spear", "length": 1.2, "base": 7.0, "tip_w": 3.0, "barbs": 1, "wave": 0.12, "stiffness": 0.8, "speed": 1.6, "half_angle": 35.0}, true)
+		&"t_regulador":  # a soft, slow tendril that calms what it touches
+			s.merge({"tip": &"bulb", "base": 9.0, "tip_w": 11.0, "wave": 0.5, "stiffness": 0.22, "motes": true, "half_angle": 50.0, "count": 2, "sweep": 30.0}, true)
 	return s

@@ -3,7 +3,7 @@ extends TestCase
 ## per second of cooldown, and every mutation is worth what its rarity says. If someone edits a number and breaks the band, this
 ## fails and says which one. Re-tune with tests/balance_tune.gd and tools/gen_mutations.py (see Docs/Hospedeiro/Balance.md).
 
-const CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]
+const CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar", &"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]
 
 
 func test_every_class_ability_sits_in_the_same_worth_band() -> void:
@@ -19,7 +19,7 @@ func test_every_class_ability_sits_in_the_same_worth_band() -> void:
 			assert_true(absf(w - goal) <= goal * BioBalance.WORTH_TOLERANCE, "%s is worth %.2f, its class band is %.2f +/- %d%%" % [id, w, goal, int(BioBalance.WORTH_TOLERANCE * 100.0)])
 			assert_true(w > lash_worth * 0.85, "%s must not be worse than the basic lash (%.2f)" % [id, lash_worth])
 			assert_true(float(a["cooldown"]) >= 1.0, "%s has a real cooldown" % id)
-	assert_eq(count, 24, "all 24 abilities were measured")
+	assert_eq(count, 40, "all 40 abilities were measured")
 
 
 func test_the_shield_never_makes_the_cell_untouchable() -> void:

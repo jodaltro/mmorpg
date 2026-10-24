@@ -115,3 +115,16 @@ Da artéria saem os caminhos para o **fígado**, o **baço**, o **intestino** e 
 Os órgãos se falam: o ferro reciclado no baço vira hemácia na medula; o intestino despeja nutrientes **e toxinas** no fígado; a toxina que o fígado não filtra vira ureia no rim; e um rim que não dá conta sobe a pressão da artéria e inflama o corpo.
 
 As masmorras são **procedurais**: cada corrida abre com uma sala fixa, fecha com o chefe e sorteia, da semente, de 3 a 4 salas entre as dos órgãos (emboscada, pilares, ninho, poças, e as de sempre), cada uma com formato, pilares, poças e elenco próprios. Duas corridas não se parecem.
+
+## As quatro classes novas
+
+Da linhagem **mieloide** saem agora também o Mastócito e o Eosinófilo; da **linfoide**, a Célula NK e o Linfócito T regulador. Cada uma tem 4 habilidades (Q, F, C, V), 6 mutações de classe, um corpo próprio e uma prova que dá a segunda habilidade.
+
+| Classe | Papel | Habilidades | O que tem de único |
+|---|---|---|---|
+| **Mastócito**, o Alarmista | bombardeiro | Chuva de Grânulos (leque), Edema (poça que incha e retarda), Choque Anafilático (carrega e estoura), Alarme de Mastócito (marca todos por perto) | muito poder de habilidade, pouca membrana |
+| **Eosinófilo**, o Caça-Colossos | tanque que derrete | Grânulo Cáustico (**tira uma fração da vida do alvo**: o colosso paga mais que o miúdo), Nuvem de Peroxidase (**anda sozinha** atrás dos inimigos), Marca de IgE, Proteína Básica Maior | o dano escala com o tamanho do inimigo |
+| **Célula NK**, o Assassino Natural | caçadora veloz | Golpe Natural (salto), Cadeia Letal (**salta de inimigo em inimigo**, até 4), Ausência de MHC (executa os feridos, sem marca), Explosão de Interferon (corre e recupera energia) | rápida, sem precisar marcar |
+| **T regulador**, o Pacificador | controlador | Supressão Celular e Silêncio Imunológico (**o inimigo golpeia com menos força**), Zona de Tolerância (lentidão e enfraquecimento), Muro de Tolerância (**um arco de coágulos que ninguém atravessa**) | não fere: apazigua |
+
+A prova de cada uma: Mastócito e T regulador absorvem nutrientes; Eosinófilo chega a 120 invasores destruídos; Célula NK esquiva 10 vezes. (A prova do T citotóxico também subiu para 120: pedia 12, e quando a classe é escolhida a célula já passou disso, então a missão nunca era oferecida.)

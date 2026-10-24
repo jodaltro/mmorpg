@@ -28,6 +28,14 @@ static func params(form: StringName, genes: Array[StringName]) -> Dictionary:
 			p.merge({"size": 0.95, "wobble": 0.015, "spikes": 6, "spike_len": 0.2, "nucleus": 1.1, "poly": 6, "poly_amp": 0.11}, true)
 		&"t_auxiliar":
 			p.merge({"size": 1.05, "wobble": 0.045, "nucleus": 1.0, "poly": 4, "poly_amp": 0.07}, true)
+		&"mastocito":  # plump and full of granules
+			p.merge({"size": 1.12, "wobble": 0.035, "nucleus": 0.7}, true)
+		&"eosinofilo":  # broad and a little oval
+			p.merge({"size": 1.2, "wobble": 0.04, "nucleus": 1.0, "oval": 0.1}, true)
+		&"celula_nk":  # sleek
+			p.merge({"size": 0.92, "wobble": 0.02, "nucleus": 1.2, "oval": 0.18}, true)
+		&"t_regulador":  # composed: five soft corners
+			p.merge({"size": 1.0, "wobble": 0.03, "nucleus": 1.1, "poly": 5, "poly_amp": 0.05}, true)
 	if genes.has(&"pseudopodes_gigantes"):
 		p["lobes"] += 3
 		p["lobe_amp"] += 0.18
@@ -41,7 +49,7 @@ static func params(form: StringName, genes: Array[StringName]) -> Dictionary:
 ## Draws the organelles and appendages of a form around the origin of the cell's canvas.
 static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: float, t: float, core: Color, edge: Color, front: Vector2, human: float = 0.0, pockets: bool = false) -> void:
 	# With mutations in their pockets the body keeps a clean inside: the form's own granules and vacuoles stay out of the way.
-	if human > 0.35 and form in [&"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar"]:
+	if human > 0.35 and form in [&"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar", &"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]:
 		return  # a risen cell wears its gear (BioHumanoid) instead of the radial appendages
 	match form:
 		&"mieloide":
@@ -74,6 +82,20 @@ static func draw(c: CanvasItem, form: StringName, genes: Array[StringName], r: f
 		&"t_auxiliar":
 			_rings(c, r, t, 2 + (2 if genes.has(&"halo_de_citocinas") else 0), core)
 			_spores(c, r * 0.9, t, Color(1.0, 0.9, 0.5), 3 + (6 if genes.has(&"coro_de_interleucinas") else 0))
+		&"mastocito":  # the cytoplasm packed with big amber granules, a few bursting out
+			_granules(c, r, t, 24 if genes.has(&"granulos_de_histamina") else 16, Color(1.0, 0.62, 0.2), 0.3)
+			_spores(c, r * 0.8, t, Color(1.0, 0.8, 0.4), 4 + (5 if genes.has(&"degranulacao_explosiva") else 0))
+		&"eosinofilo":  # coarse red granules, and a rim of them at the membrane
+			_granules(c, r, t, 14 if genes.has(&"granulos_de_proteina_basica") else 9, Color(1.0, 0.3, 0.3), 0.4)
+			_granules(c, r * 1.35, t * -1.0, 6, Color(1.0, 0.55, 0.45), 0.55)
+		&"celula_nk":  # a few large lytic granules and short receptors, and a streak behind
+			_granules(c, r, t, 6, Color(0.6, 0.85, 1.0), 0.45)
+			_receptors(c, r, t, 7, 8.0, Color(0.75, 0.9, 1.0))
+		&"t_regulador":  # rings that fall inward, and a faint shell
+			for k in 3:
+				var phase := fmod(t * 0.2 + k / 3.0, 1.0)
+				c.draw_arc(Vector2.ZERO, r * (1.9 - 0.9 * phase), 0.0, TAU, 56, BioArt.with_alpha(Color(0.5, 1.0, 0.8), 0.5 * (1.0 - phase)), 2.0, true)
+			c.draw_arc(Vector2.ZERO, r * 1.25, t * 0.15, t * 0.15 + TAU * 0.8, 40, BioArt.with_alpha(Color(0.6, 1.0, 0.85), 0.35), 2.0, true)
 
 
 static func _granules(c: CanvasItem, r: float, t: float, count: int, color: Color, spread: float) -> void:

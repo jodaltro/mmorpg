@@ -35,6 +35,10 @@ func TestEachClassIsBornWithItsStarterAbility(t *testing.T) {
 		"neutrofilo":   {"mieloide", "rede-de-dna", "engolir"},
 		"linfocito-b":  {"linfoide", "anticorpo-y", "perforina"},
 		"t-citotoxico": {"linfoide", "perforina", "anticorpo-y"},
+		"mastocito":    {"mieloide", "chuva-de-granulos", "granulo-caustico"},
+		"eosinofilo":   {"mieloide", "granulo-caustico", "chuva-de-granulos"},
+		"celula-nk":    {"linfoide", "golpe-natural", "supressao-celular"},
+		"t-regulador":  {"linfoide", "supressao-celular", "golpe-natural"},
 	}
 	for class, c := range cases {
 		h := load(t, "hospedeiro")
@@ -126,5 +130,39 @@ func TestTheAdvisorAwakensAnAbilityOfTheClass(t *testing.T) {
 	h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: "degranulacao", Provider: "test"})
 	if !slices.Contains(h.skillIDs("p1"), "degranulacao") {
 		t.Fatalf("the advisor's pick awakens, got %v", h.skillIDs("p1"))
+	}
+}
+
+// The four newer classes each have a proof quest that closes on its own deed and grants its second ability.
+func TestTheNewClassesHaveTheirProofQuests(t *testing.T) {
+	cases := []struct {
+		progenitor, class, action, grant string
+		n                                int
+	}{
+		{"mieloide", "mastocito", "absorver-nutriente", "edema", 30},
+		{"mieloide", "eosinofilo", "derrotar-virus", "nuvem-de-peroxidase", 120},
+		{"linfoide", "celula-nk", "esquivar", "cadeia-letal", 10},
+		{"linfoide", "t-regulador", "absorver-nutriente", "zona-de-tolerancia", 25},
+	}
+	for _, c := range cases {
+		h := load(t, "hospedeiro")
+		h.join("p1")
+		h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+		h.move("p1", "sangue")
+		h.mustAct("adapter", "p1", "absorver-nutriente", nil)
+		h.tick(8)
+		h.becomeClass("p1", c.progenitor, c.class)
+		q := h.steer("p1", "prova-"+c.class)
+		h.accept("p1", q)
+		for i := 0; i < c.n+2; i++ {
+			h.mustAct("adapter", "p1", c.action, nil)
+		}
+		h.tick(2)
+		if got, _ := h.quest("p1", "prova-"+c.class); got.State != "done" {
+			t.Fatalf("%s: the proof quest should close, state %q", c.class, got.State)
+		}
+		if !slices.Contains(h.skillIDs("p1"), c.grant) {
+			t.Fatalf("%s: the proof should grant %s, got %v", c.class, c.grant, h.skillIDs("p1"))
+		}
 	}
 }
