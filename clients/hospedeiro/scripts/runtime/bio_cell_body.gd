@@ -16,6 +16,16 @@ var spin := 0.5
 var _seed := randf() * 10.0
 var _flash := 0.0
 var _telegraph := 0.0
+var _telegraph_target := 0.0
+var _hit_serial := 0
+var _attack_serial := 0
+var _attack_kind := ""
+var _attack_dir := Vector2.RIGHT
+var _attack_left := 0.0
+var _impact_left := 0.0
+var _impact_dir := Vector2.RIGHT
+var _remote_hit := -1
+var _remote_attack := -1
 var _smooth_velocity := Vector2.ZERO
 var _nucleus: Sprite2D
 var _rim := PackedVector2Array()
@@ -211,8 +221,44 @@ func flash() -> void:
 	_flash = 1.0
 
 
+## Presentation only: the membrane reacts without moving the logical hitbox.
+func hit_reaction(direction: Vector2 = Vector2.RIGHT) -> void:
+	_hit_serial += 1
+	_impact_dir = direction.normalized() if direction.length_squared() > 0.001 else Vector2.RIGHT
+	_impact_left = 0.24
+	flash()
+	elastic(_impact_dir, 0.10, 0.18, 0.025)
+
+
+func attack_gesture(kind: StringName, direction: Vector2) -> void:
+	_attack_serial += 1
+	_attack_kind = str(kind)
+	_attack_dir = direction.normalized() if direction.length_squared() > 0.001 else Vector2.RIGHT
+	_attack_left = 0.38
+	var recoil := kind == BioAttackCatalog.ENEMY_SPIT
+	elastic(-_attack_dir if recoil else _attack_dir, 0.12, 0.26 if recoil else 0.45, 0.075)
+	swell(1.10, 0.10)
+
+
+## Cumulative counters survive snapshot coalescing. First appearance never replays old blows.
+func combat_visual_state() -> Array:
+	return [_hit_serial, _attack_serial, snappedf(_telegraph_target, 0.01), _attack_kind, snappedf(_attack_dir.x, 0.01), snappedf(_attack_dir.y, 0.01)]
+
+
+func apply_combat_visual(state: Array) -> void:
+	if state.size() != 6: return
+	var hits := int(state[0])
+	var attacks := int(state[1])
+	if _remote_hit >= 0 and hits > _remote_hit: hit_reaction(-_smooth_velocity)
+	if _remote_attack >= 0 and attacks > _remote_attack:
+		attack_gesture(StringName(str(state[3])), Vector2(float(state[4]), float(state[5])))
+	_remote_hit = hits
+	_remote_attack = attacks
+	set_telegraph(float(state[2]))
+
+
 func set_telegraph(amount: float) -> void:
-	_telegraph = clampf(amount, 0.0, 1.0)
+	_telegraph_target = clampf(amount, 0.0, 1.0)
 
 
 func rim() -> PackedVector2Array:
@@ -301,7 +347,7 @@ var _owed := 0.0
 
 
 func _process(delta: float) -> void:
-	if background_stride > 1:
+	if background_stride > 1 and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
 		var host_node := get_parent()
 		var mine: Variant = BioFx.root.get("player") if BioFx.root != null else null
 		if host_node != null and host_node != mine:
@@ -312,7 +358,11 @@ func _process(delta: float) -> void:
 				return
 			delta = _owed
 			_owed = 0.0
-	_flash = move_toward(_flash, 0.0, delta * 6.0)
+	_flash = move_toward(_flash, 0.0, delta * 4.5)
+	_telegraph = lerpf(_telegraph, _telegraph_target, 1.0 - exp(-14.0 * delta))
+	_attack_left = maxf(0.0, _attack_left - delta)
+	_impact_left = maxf(0.0, _impact_left - delta)
+	position = _impact_dir * sin((0.24 - _impact_left) * 65.0) * 3.0 * (_impact_left / 0.24)
 	_ease_look(delta)
 	_step_elastic(delta)
 	var host := get_parent() as CharacterBody2D
@@ -411,6 +461,13 @@ func _draw() -> void:
 		core_now = core_now.lerp(glow, 0.55)
 		edge_now = edge_now.lerp(glow, 0.35)
 	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
+	if _impact_left > 0.0:
+		var progress := 1.0 - _impact_left / 0.24
+		draw_arc(Vector2.ZERO, r_px * (1.05 + progress * 0.55), 0, TAU, 32, Color(1.0, 0.86, 0.72, (1.0-progress)*0.8), 2.0, true)
+	if _attack_left > 0.0:
+		var progress := 1.0 - _attack_left / 0.38
+		var angle := _attack_dir.angle()
+		draw_arc(Vector2.ZERO, r_px * (1.0 + sin(progress*PI)*0.45), angle-0.65, angle+0.65, 16, BioArt.with_alpha(BioArt.AMBER, sin(progress*PI)*0.7), 2.5, true)
 	var layers := [[1.0, BioArt.with_alpha(edge_now, 0.28)], [0.7, BioArt.with_alpha(core_now, 0.16 + _telegraph * 0.2)], [0.4, BioArt.with_alpha(core_now, 0.2)]]
 	for layer in layers:
 		var scaled := PackedVector2Array()

@@ -1,5 +1,7 @@
 # Hospedagem e latência — 24/10/2026
 
+Decisão posterior do usuário em 24/10: **manter o servidor de jogo local**. As alternativas abaixo ficam como referência, sem contratação ou migração de processamento pendente. O Supabase brasileiro já configurado permanece; não foi solicitado revertê-lo.
+
 Meta solicitada: até 100 ms de ida e volta do jogo para jogadores no Brasil. É uma meta, ainda sem medição em dispositivos/redes reais. Todos os testes desta mudança foram locais. Previsão de movimento reduz a espera visual, não a distância da rede.
 
 ## Situação

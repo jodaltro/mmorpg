@@ -99,3 +99,30 @@ func test_snapshots_include_server_projectiles_and_ground_effects() -> void:
 	BioSignature.play(&"bite", a.global_position, Color.CYAN, 1, {"dir":Vector2.RIGHT}, a)
 	server._snapshot()
 	assert_eq(server._serial, 1, "projectiles, zones, mines and procedural signatures serialize successfully")
+
+
+func test_enemy_attack_and_damage_visuals_are_driven_by_authority() -> void:
+	var a: BioCellActor = server.players.alpha.cell
+	var brain := BioFactory.spawn_virus(server.arena, a.global_position + Vector2.RIGHT * 100, a)
+	brain.set_process(false)
+	var enemy := brain.get_parent() as BioCellActor
+	var body: BioCellBody
+	var executor: BioAttackExecutor
+	for child in enemy.get_children():
+		if child is BioCellBody: body = child
+		if child is BioAttackExecutor: executor = child
+	var hp := enemy.combatant.actor.vitals.membrane
+	executor.perform(BioAttackCatalog.VIRAL_LUNGE, Vector2.LEFT)
+	assert_eq(body._attack_serial, 1, "real enemy attack starts its visual gesture")
+	enemy.combatant.receive_hit(a.combatant, BioAttackDef.new(&"test", 0, 4, 0, 1, 0, 0))
+	assert_true(body._hit_serial > 0, "real damage reaches visual feedback")
+	var remaining := enemy.combatant.actor.vitals.membrane
+	assert_true(remaining < hp)
+	var replica := BioCellBody.new()
+	replica.apply_combat_visual([0,0,0,"",1,0])
+	replica.apply_combat_visual(body.combat_visual_state())
+	assert_true(replica._flash > 0, "snapshot reproduces impact on the replica")
+	assert_true(replica._attack_left > 0, "snapshot reproduces enemy attack")
+	assert_eq(enemy.combatant.actor.vitals.membrane, remaining, "playing visuals never deals extra damage")
+	server._snapshot()
+	replica.free()

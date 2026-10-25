@@ -18,7 +18,12 @@ func _on_hit(_who: BioCombatant, result: BioHitResult) -> void:
 	if result.outcome == BioActor.HitOutcome.EVADED:
 		BioFx.ring(_host.global_position, 0.7, Color.WHITE)
 		return
-	_body.flash()
+	if result.damage_applied <= 0.0: return
+	var direction := -_host.velocity
+	var attacker := _host.combatant._last_attacker
+	if is_instance_valid(attacker) and attacker.get_parent() is Node2D:
+		direction = _host.global_position - (attacker.get_parent() as Node2D).global_position
+	_body.hit_reaction(direction)
 	BioFx.burst(_host.global_position, _color, 7, 3.5)
 
 

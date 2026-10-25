@@ -341,6 +341,9 @@ func _apply_actor(cell: BioCellActor, data: Dictionary) -> void:
 	v.max_atp = float(data.get("max_atp", 100))
 	v.membrane = float(data.get("hp", 0))
 	v.atp = float(data.get("atp", 0))
+	if data.get("combat_visual") is Array:
+		for child in cell.get_children():
+			if child is BioCellBody: (child as BioCellBody).apply_combat_visual(data.combat_visual)
 	var alive := v.membrane > 0
 	if cell == world.player and cell.is_active() and not alive: world._on_player_died(cell.combatant)
 	elif cell.is_active() != alive: cell.set_active(alive)

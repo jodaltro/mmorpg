@@ -58,6 +58,7 @@ func _slam() -> void:
 	if boss.actor.try_begin_attack(BioAttackCatalog.BACILLUS_SLAM, BioClock.now()) != BioActor.AttackStatus.STARTED:
 		return
 	var reach := SLAM_RADIUS_UNITS * BioArt.UNIT
+	if _body != null: _body.attack_gesture(BioAttackCatalog.BACILLUS_SLAM, Vector2.DOWN)
 	BioFx.shake(0.3)
 	BioPfx.ring_burst(BioFx.root, _host.global_position, Color(0.8, 1.0, 0.3), reach * 0.8, 70, 0.7, 13.0)
 	BioFx.ring(_host.global_position, SLAM_RADIUS_UNITS, Color(0.8, 1.0, 0.3))

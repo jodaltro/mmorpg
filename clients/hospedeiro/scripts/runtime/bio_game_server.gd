@@ -340,6 +340,8 @@ func _snapshot() -> void:
 				d["axes"] = players[uid].view.get("look", {}).get("axes", {})
 			else:
 				d["enemy_kind"] = str(cell.get_meta("kind", "virion"))
+				for child in cell.get_children():
+					if child is BioCellBody: d["combat_visual"] = (child as BioCellBody).combat_visual_state()
 		elif n is BioNutrient: d.merge({"kind": "nutrient", "type": (n as BioNutrient).kind})
 		elif n is BioMote: d.merge({"kind": "mote", "type": str((n as BioMote).kind)})
 		elif n is BioToxin: d["kind"] = "toxin"

@@ -80,6 +80,7 @@ static func spawn_virus(parent: Node, pos: Vector2, prey: BioCellActor) -> BioVi
 	actor.add_child(executor)
 	var brain := BioVirusBrain.new()
 	brain.configure(actor, executor, body, prey)
+	executor.performed.connect(body.attack_gesture)
 	actor.add_child(brain)
 	var feedback := BioHitFeedback.new()
 	feedback.configure(actor, body, BioArt.CRIMSON)
@@ -136,6 +137,7 @@ static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dic
 	actor.add_child(brain)
 	var feedback := BioHitFeedback.new()
 	feedback.configure(actor, body, def["edge"])
+	executor.performed.connect(body.attack_gesture)
 	actor.add_child(feedback)
 	return brain
 
