@@ -43,15 +43,17 @@ var requires_lineage: StringName = &""  # class mutation: only offered to that l
 var perks: Dictionary = {}
 ## How it shows on the body: {kind, color, count...} drawn by BioOrganelles. Empty: drawn by hand elsewhere.
 var mark: Dictionary = {}
+var transformation: Dictionary = {}
 
 
-func _init(p_id: StringName, p_display_name: String, p_mods: Dictionary, p_requires_lineage: StringName = &"", p_perks: Dictionary = {}, p_mark: Dictionary = {}) -> void:
+func _init(p_id: StringName, p_display_name: String, p_mods: Dictionary, p_requires_lineage: StringName = &"", p_perks: Dictionary = {}, p_mark: Dictionary = {}, p_transformation: Dictionary = {}) -> void:
 	id = p_id
 	display_name = p_display_name
 	mods = p_mods
 	requires_lineage = p_requires_lineage
 	perks = p_perks
 	mark = p_mark
+	transformation = p_transformation
 
 
 static func is_additive(stat: StringName) -> bool:
@@ -61,6 +63,8 @@ static func is_additive(stat: StringName) -> bool:
 ## Human readable trade-off, e.g. "+25% dano do chicote · -8% velocidade".
 func summary() -> String:
 	var parts: Array[String] = []
+	if not transformation.is_empty():
+		parts.append(str(transformation.get("description", "")))
 	for stat in mods:
 		var value: float = mods[stat]
 		if is_additive(stat):

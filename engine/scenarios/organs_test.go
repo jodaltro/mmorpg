@@ -16,9 +16,9 @@ type organ struct {
 }
 
 var organs = []organ{
-	{"baco", "centro-germinativo", "centro-germinativo-oculto", "nucleo-reativo", map[string]string{"reciclar-hemacia": "hemacias", "capturar-antigeno": "antigenos"}, 54, "selo-do-baco", "primeira-selecao"},
-	{"intestino", "criptas-profundas", "cripta-de-lieberkuhn", "enzima-voraz", map[string]string{"nutrir-microbiota": "microbiota", "repelir-invasor": "microbiota"}, 60, "selo-do-intestino", "primeira-muralha"},
-	{"rim", "nefrons", "glomerulo-oculto", "membrana-espessa", map[string]string{"filtrar-ureia": "ureia", "equilibrar-sal": "sodio"}, 66, "selo-do-rim", "primeiro-calculo"},
+	{"baco", "centro-germinativo", "centro-germinativo-oculto", "nucleo-reativo", map[string]string{"reciclar-hemacia": "hemacias", "capturar-antigeno": "antigenos"}, 18 * pace, "selo-do-baco", "primeira-selecao"},
+	{"intestino", "criptas-profundas", "cripta-de-lieberkuhn", "enzima-voraz", map[string]string{"nutrir-microbiota": "microbiota", "repelir-invasor": "microbiota"}, 20 * pace, "selo-do-intestino", "primeira-muralha"},
+	{"rim", "nefrons", "glomerulo-oculto", "membrana-espessa", map[string]string{"filtrar-ureia": "ureia", "equilibrar-sal": "sodio"}, 22 * pace, "selo-do-rim", "primeiro-calculo"},
 }
 
 // intoOrgan walks p to the organ the way the world asks for: the venule's niche gives the key to the aorta, and every organ opens from it.

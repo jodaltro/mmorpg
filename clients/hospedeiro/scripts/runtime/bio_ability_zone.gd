@@ -48,6 +48,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not is_instance_valid(owner_combatant):
+		_finish()
+		return
 	_age += delta
 	if drift > 0.0 and is_instance_valid(owner_combatant.get_parent()):
 		var near := BioTargeting.enemies(get_world_2d(), global_position, 7.0 * BioArt.UNIT, owner_combatant.actor.team)
@@ -90,6 +93,15 @@ func _draw() -> void:
 	var grow := clampf(_age / 0.25, 0.0, 1.0)
 	var fade := clampf((duration - _age) / 0.5, 0.0, 1.0)
 	var r := radius_px * grow
+	if style == "acid":
+		draw_circle(Vector2.ZERO, r, _c(0.08 * fade))
+		for i in 4:
+			var rr := r * (0.3 + 0.18 * i)
+			draw_arc(Vector2.ZERO, rr, t * (0.3 + i * 0.1), t * (0.3 + i * 0.1) + TAU * 0.8, 32, _c(0.5 * fade), 2, true)
+		for i in 9:
+			var at := Vector2.from_angle(i * TAU / 9 + t * 0.2) * r * (0.3 + 0.5 * absf(sin(i + t)))
+			draw_circle(at, 2 + sin(t * 3 + i), _c(0.7 * fade, 0.3))
+		return
 	_net(t, r, fade)
 
 

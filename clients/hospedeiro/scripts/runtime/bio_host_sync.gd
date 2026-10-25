@@ -303,6 +303,7 @@ func _apply_dungeon(d: Dictionary) -> void:
 			else:
 				system.push_feed("%s abriram para você: siga a seta e aperte E." % door.title.capitalize())
 		door.eligible = open
+		door.details = str(o.get("desc", ""))
 		door.hint = "" if open else str(hints.get(door.dungeon_id, "%s pede um corpo mais maduro, dentro do órgão." % door.title.capitalize()))
 	var run_name := str((d.get("run", {}) as Dictionary).get("name", "Granuloma")) if d.get("run") is Dictionary else "Granuloma"
 	var is_gr := (str((d.get("run", {}) as Dictionary).get("dungeon", "granuloma")) if d.get("run") is Dictionary else "granuloma") == "granuloma"
@@ -424,6 +425,9 @@ func _apply_events(events: Array) -> void:
 		if first_view:
 			continue  # history before this session: shown, not replayed
 		match kind:
+			"gene-acquired":
+				_world.tray.set_call("gene-reward", "mutation", "Gene conquistado", str(e.get("text", "")))
+				BioSignature.play(&"cartwheel", _world.player.global_position, BioArt.AMBER, 1.0, {"radius":48.0}, _world.player)
 			"refeicao":
 				_world.spawn_meal(10)
 			"surto":

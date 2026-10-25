@@ -7,6 +7,7 @@ const REACH_UNITS := 3.2
 
 var eligible := false
 var hint := ""
+var details := ""
 var dungeon_id := "granuloma"
 var title := "GRANULOMA"
 var ring_color := Color(1.0, 0.45, 0.62)

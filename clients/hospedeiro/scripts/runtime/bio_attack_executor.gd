@@ -53,6 +53,7 @@ func perform(id: StringName, aim: Vector2) -> int:
 			_contact_def = def
 			_contact_until = BioClock.now() + 0.32
 			_contact_hits.clear()
+	BioGeneEffects.apply(_host, id, aim, def)
 	visual_performed.emit(id, aim)
 	performed.emit(id, aim)
 	return status

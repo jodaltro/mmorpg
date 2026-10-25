@@ -19,7 +19,7 @@ func (h *harness) evolutionDecision(p core.ID) (core.Decision, bool) {
 
 // pace is how many times slower the body evolves than the first numbers the tests were written with (see tools/tune_pacing.py):
 // fight(p, n) is n "old" kills' worth of growth, so the tests keep reading as before.
-const pace = 3
+const pace = 12
 
 // fight confirms n virions' worth of kills by p (3 pressure and a combat deed each), at the world's pace.
 func (h *harness) fight(p core.ID, n int) {

@@ -302,7 +302,7 @@ type BeatCmp struct {
 
 // Effect is one of a closed set of operations. Universes cannot inject code.
 type Effect struct {
-	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate relate grant
+	Op      string   `json:"op"` // assert retract adjust set observe inform schedule emit relocate relate grant acquire-gene
 	Fact    *Pattern `json:"fact,omitempty"`
 	E       string   `json:"e,omitempty"`
 	K       string   `json:"k,omitempty"`

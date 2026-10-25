@@ -223,7 +223,7 @@ func _paint() -> void:
 		_panel.draw_circle(at, 5.0, Color(0.7, 1.0, 1.0, 0.95))
 
 static func dungeon_description(gate: BioGate) -> String:
-	return "Desafio opcional em uma instância pessoal, com salas de combate e um chefe. Aproxime-se da entrada e use Agir para consultar as ações.\n" + ("Entrada disponível. Prepare genes e habilidades em Corpo antes de entrar." if gate.eligible else "Entrada indisponível: " + (gate.hint if not gate.hint.is_empty() else "consulte os requisitos em Agir quando estiver perto."))
+	return "Desafio opcional em uma instância pessoal, com salas de combate e um chefe. Aproxime-se da entrada e use Agir para consultar as ações.\n" + ("Entrada disponível. Prepare genes e habilidades em Corpo antes de entrar." if gate.eligible else "Entrada indisponível: " + (gate.hint if not gate.hint.is_empty() else "consulte os requisitos em Agir quando estiver perto.")) + ("\n\n" + gate.details if not gate.details.is_empty() else "")
 
 static func place_title(region: Dictionary) -> String:
 	if region["id"] == BioBodyMap.MEDULA: return "MEDULA · REFÚGIO"

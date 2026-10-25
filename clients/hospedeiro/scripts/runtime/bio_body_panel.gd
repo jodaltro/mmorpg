@@ -45,6 +45,7 @@ var _busy := false
 var _ability_pick := -1
 var _build_pick := 1
 var _last_lock := ""
+var _mutation_preview := ""
 var _watch := 0.0
 
 
@@ -402,13 +403,56 @@ func _offer_card(index: int, lineage_offer: bool) -> Control:
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(spacer)
-	var choose := BioUi.button("Tornar-se" if lineage_offer else "Expressar", "primary")
+	var choose := BioUi.button("Tornar-se" if lineage_offer else "Ver mudança", "primary")
 	var reason := lock_reason(false)
-	choose.disabled = not reason.is_empty()
+	choose.disabled = lineage_offer and not reason.is_empty()
 	choose.tooltip_text = reason
-	choose.pressed.connect(func() -> void: pick(index))
+	choose.pressed.connect(func() -> void:
+		if lineage_offer: pick(index)
+		else: preview_mutation(index))
 	body.add_child(choose)
 	return card
+
+func preview_mutation(index: int) -> void:
+	if _offer_kind() != "mutation" or index < 0 or index >= _world.panel.entries().size(): return
+	_mutation_preview = str(_world.panel.entries()[index].get("id", ""))
+	_scroll.scroll_vertical = 0
+	refresh()
+
+func _paint_mutation_preview() -> bool:
+	if _offer_kind() != "mutation" or _mutation_preview.is_empty(): return false
+	var index := -1
+	var entries: Array = _world.panel.entries()
+	for i in entries.size():
+		if str(entries[i].get("id", "")) == _mutation_preview: index = i
+	if index < 0:
+		_mutation_preview = ""
+		return false
+	var entry: Dictionary = entries[index]
+	var back := BioUi.button("← Voltar às opções")
+	back.pressed.connect(func() -> void: _mutation_preview = ""; refresh())
+	_content.add_child(back)
+	_content.add_child(BioUi.wrapped(str(entry.get("name", "")), BioUi.FS_HEAD, BioUi.ACCENT))
+	_content.add_child(BioUi.wrapped(str(entry.get("text", "")), BioUi.FS_SMALL))
+	var current := current_genes()
+	var after := current.duplicate()
+	var gene := _local_id(_mutation_preview)
+	if not after.has(gene):
+		if after.size() >= _slots(): after.pop_front()
+		after.append(gene)
+	_content.add_child(_result_panel(current, after, "SEU CORPO · AGORA → DEPOIS", "A mudança está no efeito da habilidade.", false))
+	var confirm := BioUi.button("Expressar este gene", "primary")
+	confirm.disabled = not lock_reason(false).is_empty()
+	var choice_id := str(entry.get("id", ""))
+	confirm.pressed.connect(func() -> void:
+		var latest: Array = _world.panel.entries()
+		for i in latest.size():
+			if str(latest[i].get("id", "")) == choice_id:
+				if pick(i): _mutation_preview = ""
+				return
+		refresh())
+	_content.add_child(confirm)
+	return true
 
 
 ## Chooses card `index` of the pending offer (the keys 1, 2, 3 and the buttons).
@@ -462,6 +506,7 @@ func current_genes() -> Array:
 
 
 func _paint_genes() -> void:
+	if _paint_mutation_preview(): return
 	var kind := _offer_kind()
 	if kind == "mutation":
 		var box := _panel(BioUi.BG_RAISED, BioArt.with_alpha(BioUi.KIND_COLOR["mutation"], 0.6), 14)
@@ -591,7 +636,7 @@ func _empty_cell(text: String) -> Control:
 
 
 ## The comparison table: each stat that is not neutral, now → after, green when it gets better and red when it gets worse.
-func _result_panel(current: Array, previewed: Array, title: String, empty_text: String) -> Control:
+func _result_panel(current: Array, previewed: Array, title: String, empty_text: String, show_effects := true) -> Control:
 	var box := _panel(BioUi.BG_SUNK, BioUi.LINE, 14)
 	box.custom_minimum_size.x = 0 if _narrow() else 340.0
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL if _narrow() else Control.SIZE_SHRINK_BEGIN
@@ -600,10 +645,25 @@ func _result_panel(current: Array, previewed: Array, title: String, empty_text: 
 	v.add_theme_constant_override("separation", 6)
 	box.add_child(v)
 	v.add_child(_section(title))
+	for id in previewed:
+		if not show_effects: break
+		if current.has(id): continue
+		if not BioGeneCatalog.all_ids().has(StringName(str(id))): continue
+		var gene := BioGeneCatalog.get_gene(StringName(str(id)))
+		if not gene.transformation.is_empty():
+			v.add_child(BioUi.wrapped("NOVO EFEITO · " + str(gene.transformation.description), BioUi.FS_SMALL, BioUi.GOOD))
+	for id in current:
+		if not show_effects: break
+		if previewed.has(id): continue
+		if not BioGeneCatalog.all_ids().has(StringName(str(id))): continue
+		var gene := BioGeneCatalog.get_gene(StringName(str(id)))
+		if not gene.transformation.is_empty():
+			v.add_child(BioUi.wrapped("PERDE EFEITO · " + str(gene.transformation.description), BioUi.FS_SMALL, BioUi.WARN))
 	var rows := BioBuildPreview.rows(_world.lineage_id, current, previewed)
-	if rows.is_empty():
-		v.add_child(BioUi.wrapped(empty_text, BioUi.FS_SMALL, BioUi.MUTED))
+	var changes := 0
 	for r in rows:
+		if str(r["now"]) == str(r["then"]): continue
+		changes += 1
 		var row := HBoxContainer.new()
 		var name_label := BioUi.label(str(r["label"]), BioUi.FS_SMALL + 1, BioUi.TEXT)
 		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -613,6 +673,8 @@ func _result_panel(current: Array, previewed: Array, title: String, empty_text: 
 		var text := str(r["then"]) if str(r["now"]) == str(r["then"]) else "%s  →  %s" % [r["now"], r["then"]]
 		row.add_child(BioUi.label(text, BioUi.FS_SMALL + 1, color))
 		v.add_child(row)
+	if changes == 0:
+		v.add_child(BioUi.wrapped(empty_text, BioUi.FS_SMALL, BioUi.MUTED))
 	return box
 
 
@@ -674,7 +736,7 @@ func _paint_abilities() -> void:
 		_content.add_child(BioUi.wrapped("Selecione uma habilidade para ver custo e efeito." if not _world.abilities.slots.is_empty() else "As habilidades chegam ao se diferenciar e cumprir chamados.", BioUi.FS_SMALL, BioUi.MUTED))
 		return
 	var id: StringName = _world.abilities.slot_id(_ability_pick)
-	var a := BioAbilityCatalog.get_ability(id)
+	var a: Dictionary = _world.genome.tune(id, BioAbilityCatalog.get_ability(id))
 	var info := BioLore.ability_info(id)
 	var detail := _panel(BioUi.BG_SUNK, BioUi.LINE, 10)
 	_content.add_child(detail)
@@ -682,11 +744,14 @@ func _paint_abilities() -> void:
 	v.add_theme_constant_override("separation", 6)
 	detail.add_child(v)
 	v.add_child(BioUi.label(str(a.get("name", id)), BioUi.FS_HEAD, BioUi.ACCENT))
-	var stats := "%d ATP · %.1f s de recarga" % [int(a.get("cost", 0)), float(a.get("cooldown", 0))]
+	var definition := _world.player.combatant.actor.attack_def(id) as BioAttackDef
+	var stats := "%d ATP · %.1f s de recarga" % [int(definition.atp_cost), definition.cooldown]
 	if a.has("damage"):
-		stats += " · %d dano" % int(a.damage)
+		stats += " · %d dano" % int(definition.damage)
 	v.add_child(BioUi.label(stats, BioUi.FS_SMALL, BioUi.MUTED))
 	v.add_child(BioUi.wrapped(str(info.get("what", "")), BioUi.FS_SMALL))
+	for effect in _world.genome.transformations(id):
+		v.add_child(BioUi.wrapped("GENE ATIVO · " + str(effect.description), BioUi.FS_SMALL, BioUi.GOOD))
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", 6)
 	v.add_child(actions)

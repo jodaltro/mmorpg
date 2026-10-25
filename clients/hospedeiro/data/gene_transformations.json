@@ -1,0 +1,20 @@
+{
+ "flagelo_calejado": {"ability":"flagellum_lash","kind":"nova","power":0.45,"radius":2.2,"cooldown":4.0,"color":"#ffc15a","description":"Chicote libera uma onda circular: acerta também invasores ao redor. Uma onda a cada 4 s."},
+ "vesicula_toxica": {"ability":"toxin_spit","kind":"volley","power":0.45,"count":2,"color":"#b6ff3a","description":"Toxina dispara mais dois projéteis em leque, cada um com 45% do dano do disparo principal."},
+ "nucleo_reativo": {"ability":"membrane_dash","kind":"guard","duration":2.0,"cooldown":8.0,"taken":0.65,"color":"#8fe9ff","description":"Impulso cria um escudo: reduz dano recebido em 35% por 2 s. Escudo disponível a cada 8 s."},
+ "fagossomo_profundo": {"ability":"engolir","kind":"pool","power":0.18,"radius":2.5,"duration":3.0,"slow":0.2,"color":"#b6ff3a","description":"Engolir deixa uma poça ácida à frente: causa dano contínuo e retarda invasores por 3 s."},
+ "degranulacao_toxica": {"ability":"rede_de_dna","kind":"aura","power":0.3,"radius":2.4,"duration":4.0,"color":"#d4ff55","description":"Rede de DNA envolve também seu corpo em uma nuvem tóxica móvel por 4 s."},
+ "dendritos_sensores": {"ability":"dendritos_em_chicote","kind":"chain","power":0.45,"radius":5.0,"count":3,"color":"#7ff0ff","description":"Dendritos em Chicote descarrega um arco que salta entre até três invasores próximos."},
+ "anticorpos_em_y": {"ability":"anticorpo_y","kind":"volley","power":0.5,"count":2,"color":"#ffb8f0","description":"Anticorpo Y ganha dois anticorpos laterais teleguiados, cada um com 50% do dano principal."},
+ "granzima_b": {"ability":"perforina","kind":"rupture","power":0.7,"radius":2.4,"duration":0.45,"color":"#ff3b4e","description":"Perforina marca uma ruptura à frente: após 0,45 s ela explode em área, com 70% do dano da habilidade."},
+ "interleucina_2": {"ability":"chamado_aos_auxiliares","kind":"mend","heal":24.0,"radius":3.5,"color":"#ffe08a","description":"Chamado aos Auxiliares emite um pulso que repara 24 de membrana sua e de aliados próximos."},
+ "degranulacao_explosiva": {"ability":"histamina_instavel","kind":"rupture","power":1.0,"radius":3.0,"duration":0.7,"color":"#ff9a3a","description":"Histamina Instável deixa uma segunda detonação no chão após 0,7 s: afaste-se e atraia invasores para ela."},
+ "peroxidase_concentrada": {"ability":"cristal_de_charcot","kind":"pool","power":0.25,"radius":3.0,"duration":4.0,"slow":0.45,"color":"#ff6a4a","description":"Cristal de Charcot cria um campo corrosivo à frente: retarda em 45% e causa dano contínuo por 4 s."},
+ "memoria_de_presa": {"ability":"predar","kind":"chain","power":0.6,"radius":5.0,"count":2,"color":"#9fd8ff","description":"Predar lança uma descarga entre dois invasores próximos, além de marcar sua presa."},
+ "interleucina_10": {"ability":"sinapse_imunologica","kind":"mend","heal":32.0,"radius":4.5,"color":"#a0ffe0","description":"Sinapse Imunológica libera um pulso reparador: restaura 32 de membrana sua e de aliados próximos."},
+ "espinhos_de_quitina": {"ability":"flagellum_lash","kind":"chain","power":0.4,"count":3,"radius":3.5,"cooldown":5.0,"color":"#ffd2a0","description":"Chicote projeta espinhos entre até três invasores próximos. Uma descarga a cada 5 s."},
+ "mitocondria_avida": {"ability":"*","kind":"mend","heal":10.0,"radius":2.5,"cooldown":8.0,"color":"#ffb347","description":"Usar uma habilidade de classe libera um pulso de reparo: recupera 10 de membrana sua e de aliados próximos, a cada 8 s."},
+ "citoesqueleto_elastico": {"ability":"membrane_dash","kind":"nova","power":1.0,"radius":2.5,"cooldown":5.0,"color":"#9fe8ff","description":"Impulso emite uma onda de impacto no ponto de partida, atingindo invasores ao redor. Uma onda a cada 5 s."},
+ "enzima_voraz": {"ability":"*","kind":"pool","power":0.15,"radius":2.0,"duration":3.0,"cooldown":6.0,"color":"#5cffa0","description":"Usar uma habilidade de classe deixa uma poça digestiva à frente por 3 s. Uma poça a cada 6 s."},
+ "peroxissomos": {"ability":"*","kind":"guard","taken":0.75,"duration":2.0,"cooldown":8.0,"color":"#ffb347","description":"Usar uma habilidade de classe cria um escudo: reduz dano recebido em 25% por 2 s, a cada 8 s."}
+}

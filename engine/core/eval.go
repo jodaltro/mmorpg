@@ -271,6 +271,12 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 				mine.Source, mine.From, mine.At = "communication", self, s.Tick
 				s.believe(to, mine)
 			}
+		case "acquire-gene":
+			who := self
+			if e.E != "" {
+				who = resolve(e.E, b)
+			}
+			w.acquireGene(s, who, e.V, cause)
 		case "grant":
 			who := self
 			if e.E != "" {

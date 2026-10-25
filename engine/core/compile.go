@@ -748,6 +748,17 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 			if err := v.ref(e.E, vars, where); err != nil {
 				return err
 			}
+		case "acquire-gene":
+			if v.w.U.Evolution == nil || !slices.ContainsFunc(v.w.U.Mutations, func(m MutationDef) bool { return m.ID == e.V }) {
+				return invalid("%s: acquire unknown gene %q", where, e.V)
+			}
+			if e.E != "" {
+				if err := v.ref(e.E, vars, where); err != nil {
+					return err
+				}
+			} else if !vars["self"] {
+				return invalid("%s: acquire-gene without $self", where)
+			}
 		case "grant":
 			if !slices.ContainsFunc(v.w.U.Skills, func(k SkillDef) bool { return k.ID == e.V }) {
 				return invalid("%s: grant unknown skill %q", where, e.V)

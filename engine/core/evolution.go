@@ -88,6 +88,25 @@ func (w *World) geneSlots() int {
 	return 3
 }
 
+// Reward acquisition never overwrites an expressed build. The gene is permanent
+// in the library and expressing it remains a validated player intention.
+func (w *World) acquireGene(s *State, p ID, id, cause string) {
+	if s.Entities[p].Kind != w.U.PlayerKind {
+		return
+	}
+	m, ok := w.mutation(id)
+	if !ok {
+		return
+	}
+	g := s.Genomes[p]
+	if slices.Contains(g.Genes, id) || slices.Contains(g.Library, id) {
+		return
+	}
+	g.Library = append(slices.Clone(g.Library), id)
+	s.Genomes[p] = g
+	w.emit(s, Event{Kind: "gene-acquired", Actor: p, Holder: p, Text: m.Name + " conquistado: disponível em Corpo → Genes", Cause: cause, Data: map[string]string{"gene": id}})
+}
+
 func (w *World) mutation(id string) (MutationDef, bool) {
 	i := slices.IndexFunc(w.U.Mutations, func(m MutationDef) bool { return m.ID == id })
 	if i < 0 {

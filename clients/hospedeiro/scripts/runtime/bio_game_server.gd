@@ -427,7 +427,7 @@ func _snapshot() -> void:
 			d.merge({"kind": "projectile", "color": bolt._color.to_html(),"v":BioNetProtocol.xy(bolt._dir * bolt._speed_px)})
 		elif n is BioAbilityZone:
 			var z := n as BioAbilityZone
-			d.merge({"kind":"zone","color":z.color.to_html(),"radius":z.radius_px,"age":z._age,"duration":z.duration})
+			d.merge({"kind":"zone","style":z.style,"color":z.color.to_html(),"radius":z.radius_px,"age":z._age,"duration":z.duration})
 		elif n is BioMine:
 			var m := n as BioMine
 			d.merge({"kind":"mine","color":m.color.to_html(),"radius":m.radius_px,"age":m._age})
@@ -469,7 +469,7 @@ func _snapshot() -> void:
 static func compact_entities(entities: Array, cache: Dictionary, full: bool) -> Array:
 	var result: Array = []
 	var wanted := {}
-	const FIELDS := ["name","lineage","genes","traits","axes","enemy_kind","type","color","radius","duration","data","max_hp","max_atp"]
+	const FIELDS := ["name","lineage","genes","traits","axes","enemy_kind","type","style","color","radius","duration","data","max_hp","max_atp"]
 	for entity in entities:
 		var id := str(entity.id)
 		wanted[id] = true

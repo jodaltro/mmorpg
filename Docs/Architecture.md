@@ -55,6 +55,8 @@ Baseada na literatura listada em [Research.md](Research.md): modelo do jogador (
 
 O motor conta o que cada jogador faz (`Deeds`), descobre habilidades quando a condição `learn` vale (`discover`, avaliado em `completeFor`), concede por efeito `grant`, anuncia com `skill-learned` (raridade, descrição, como foi obtida) e transforma as raras em `fame` pública. O Jev recebe as habilidades no perfil do jogador; a visão traz `skills`.
 
+Recompensas também podem usar `acquire-gene` com `v` apontando para uma mutação declarada. O gene entra na biblioteca privada, sem substituir a expressão atual. A aquisição é idempotente e emite `gene-acquired`; expressar continua sendo uma intenção separada e validada. Valores e efeitos de combate pertencem ao adaptador do jogo.
+
 ## Um comando = um passo puro
 
 `World.Step(state, command) -> (state', delta, err)` trabalha sobre uma cópia. Comando recusado não tem efeito. Repetir o mesmo log a partir de `NewState` reproduz o mesmo `Digest` (SHA-256 do estado canônico).

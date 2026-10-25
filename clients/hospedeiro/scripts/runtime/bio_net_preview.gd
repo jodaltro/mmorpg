@@ -12,6 +12,7 @@ func play(id: StringName, aim: Vector2, token: int) -> void:
 	var color := BioArt.TOXIN
 	var body := runner._body
 	var definition := cell.combatant.actor.attack_def(id)
+	BioGeneEffects.preview(cell, id, aim)
 	if id == BioAttackCatalog.FLAGELLUM_LASH:
 		for target in _targets():
 			var to := target.global_position - cell.global_position

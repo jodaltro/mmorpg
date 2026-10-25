@@ -116,7 +116,7 @@ func waypoint(at: Vector2) -> Dictionary:
 func _process(delta: float) -> void:
 	_age += delta
 	var available := world.tutorial != null and world.tutorial.completed and not world.tutorial.active and world.player.is_active() and not world.dungeon.active
-	_card.visible = available and not BioUi.captures_input()
+	_card.visible = available and not BioUi.captures_input() and not world.tray._chips.has("gene-reward")
 	_ink.visible = _card.visible
 	if not available or not _card.visible:
 		has_target = false

@@ -1586,6 +1586,71 @@
      "op": "emit",
      "event": "nutriente",
      "text": "{self} absorve um nutriente."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-macrofago-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "macrofago"
+      }
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-dendritica-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "dendritica"
+      }
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-t-auxiliar-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-auxiliar"
+      }
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-mastocito-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "mastocito"
+      }
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-t-regulador-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-regulador"
+      }
+     }
     }
    ],
    "tags": [
@@ -1699,6 +1764,32 @@
      "op": "emit",
      "event": "abate",
      "text": "{self} destroi um vírion espinhoso."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-t-citotoxico-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "t-citotoxico"
+      }
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-eosinofilo-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "eosinofilo"
+      }
+     }
     }
    ],
    "tags": [
@@ -1738,6 +1829,32 @@
      "op": "emit",
      "event": "esquiva",
      "text": "{self} escapa de um golpe no último instante."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-neutrofilo-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "neutrofilo"
+      }
+     }
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-celula-nk-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "celula-nk"
+      }
+     }
     }
    ]
   },
@@ -2013,6 +2130,19 @@
      "e": "$self",
      "k": "uso-toxina",
      "d": 1
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "prova-linfocito-b-feitos",
+     "d": 1,
+     "if": {
+      "tag": {
+       "e": "$self",
+       "k": "lineage",
+       "v": "linfocito-b"
+      }
+     }
     }
    ]
   },
@@ -2677,7 +2807,7 @@
    "title": "O primeiro mergulho",
    "desc": "Osteia acha que você está pronta para deixar o nicho.",
    "objective": "Atravesse a sinusoide e entre na corrente sanguínea.",
-   "reward": "Pressão evolutiva +4 e uma chuva de nutrientes",
+   "reward": "Pressão evolutiva +4 e uma chuva de nutrientes · Gene permanente: Núcleo Reativo (Corpo → Genes)",
    "eligible": {
     "all": [
      {
@@ -2733,6 +2863,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 4
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "nucleo-reativo"
     }
    ],
    "tags": [
@@ -2876,7 +3011,7 @@
    "title": "Caça no capilar",
    "desc": "Neva precisa de mais células que saibam lutar.",
    "objective": "Destrua 5 vírions no sangue.",
-   "reward": "Pressão evolutiva +5 e reparo da célula",
+   "reward": "Pressão evolutiva +5 e reparo da célula · Gene permanente: Vesícula Tóxica (Corpo → Genes)",
    "tags": [
     "combat"
    ],
@@ -2931,6 +3066,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "vesicula-toxica"
     }
    ]
   },
@@ -3008,7 +3148,7 @@
    "title": "Conter a infecção",
    "desc": "O foco está crescendo. Neva precisa de quem lute.",
    "objective": "Destrua vírions no sangue até a carga viral cair abaixo de 10.",
-   "reward": "Pressão evolutiva +6 e reparo da célula",
+   "reward": "Pressão evolutiva +6 e reparo da célula · Gene permanente: Flagelo Calejado (Corpo → Genes)",
    "eligible": {
     "all": [
      {
@@ -3060,6 +3200,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 6
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "flagelo-calejado"
     }
    ],
    "tags": [
@@ -3385,8 +3530,8 @@
    "rank": "C",
    "title": "Prova do Devorador",
    "desc": "Quem se diferencia aprende com a prática. Onda de Pseudópodes espera por você.",
-   "objective": "Absorva 40 nutrientes: um macrófago se prova comendo.",
-   "reward": "A habilidade Onda de Pseudópodes e pressão evolutiva +5",
+   "objective": "Após a diferenciação, absorva 40 nutrientes: um macrófago se prova comendo.",
+   "reward": "A habilidade Onda de Pseudópodes e pressão evolutiva +5 · Gene permanente: Fagossomo Profundo (Corpo → Genes)",
    "tags": [
     "combat",
     "endure"
@@ -3412,7 +3557,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "nutrientes",
+     "k": "prova-macrofago-feitos",
      "op": ">=",
      "v": 40
     }
@@ -3433,6 +3578,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "fagossomo-profundo"
     }
    ]
   },
@@ -3442,8 +3592,8 @@
    "rank": "C",
    "title": "Prova do Armadilheiro",
    "desc": "Quem se diferencia aprende com a prática. Explosão Neutrofílica espera por você.",
-   "objective": "Esquive de 8 golpes: o neutrófilo vive de não ser atingido.",
-   "reward": "A habilidade Explosão Neutrofílica e pressão evolutiva +5",
+   "objective": "Após a diferenciação, esquive de 8 golpes: o neutrófilo vive de não ser atingido.",
+   "reward": "A habilidade Explosão Neutrofílica e pressão evolutiva +5 · Gene permanente: Degranulação Tóxica (Corpo → Genes)",
    "tags": [
     "combat",
     "explore"
@@ -3469,7 +3619,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "esquivas",
+     "k": "prova-neutrofilo-feitos",
      "op": ">=",
      "v": 8
     }
@@ -3490,6 +3640,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "degranulacao-toxica"
     }
    ]
   },
@@ -3499,8 +3654,8 @@
    "rank": "C",
    "title": "Prova da Cartógrafa",
    "desc": "Quem se diferencia aprende com a prática. Dendritos em Chicote espera por você.",
-   "objective": "Colha 30 nutrientes: a dendrítica aprende o que prova.",
-   "reward": "A habilidade Dendritos em Chicote e pressão evolutiva +5",
+   "objective": "Após a diferenciação, colha 30 nutrientes: a dendrítica aprende o que prova.",
+   "reward": "A habilidade Dendritos em Chicote e pressão evolutiva +5 · Gene permanente: Dendritos Sensores (Corpo → Genes)",
    "tags": [
     "knowledge",
     "explore"
@@ -3526,7 +3681,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "nutrientes",
+     "k": "prova-dendritica-feitos",
      "op": ">=",
      "v": 30
     }
@@ -3547,6 +3702,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "dendritos-sensores"
     }
    ]
   },
@@ -3556,8 +3716,8 @@
    "rank": "C",
    "title": "Prova do Anticorpomante",
    "desc": "Quem se diferencia aprende com a prática. Complemento espera por você.",
-   "objective": "Dispare 20 vezes: um linfócito B aprende atirando.",
-   "reward": "A habilidade Complemento e pressão evolutiva +5",
+   "objective": "Após a diferenciação, dispare 20 vezes: um linfócito B aprende atirando.",
+   "reward": "A habilidade Complemento e pressão evolutiva +5 · Gene permanente: Anticorpos em Y (Corpo → Genes)",
    "tags": [
     "knowledge",
     "combat"
@@ -3604,6 +3764,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "anticorpos-em-y"
     }
    ]
   },
@@ -3613,8 +3778,8 @@
    "rank": "C",
    "title": "Prova do Executor",
    "desc": "Quem se diferencia aprende com a prática. Salto Letal espera por você.",
-   "objective": "Chegue a 120 invasores destruídos: um T citotóxico se prova eliminando o que o corpo já marcou.",
-   "reward": "A habilidade Salto Letal e pressão evolutiva +5",
+   "objective": "Após a diferenciação, chegue a 120 invasores destruídos: um T citotóxico se prova eliminando o que o corpo já marcou.",
+   "reward": "A habilidade Salto Letal e pressão evolutiva +5 · Gene permanente: Granzima B (Corpo → Genes)",
    "tags": [
     "combat",
     "knowledge"
@@ -3640,7 +3805,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "abates",
+     "k": "prova-t-citotoxico-feitos",
      "op": ">=",
      "v": 120
     }
@@ -3661,6 +3826,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "granzima-b"
     }
    ]
   },
@@ -3670,8 +3840,8 @@
    "rank": "C",
    "title": "Prova do Maestro",
    "desc": "Quem se diferencia aprende com a prática. Chamado aos Auxiliares espera por você.",
-   "objective": "Colha 25 nutrientes: o maestro rege o que alimenta.",
-   "reward": "A habilidade Chamado aos Auxiliares e pressão evolutiva +5",
+   "objective": "Após a diferenciação, colha 25 nutrientes: o maestro rege o que alimenta.",
+   "reward": "A habilidade Chamado aos Auxiliares e pressão evolutiva +5 · Gene permanente: Interleucina 2 (Corpo → Genes)",
    "tags": [
     "endure",
     "metabolism"
@@ -3697,7 +3867,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "nutrientes",
+     "k": "prova-t-auxiliar-feitos",
      "op": ">=",
      "v": 25
     }
@@ -3718,6 +3888,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "interleucina-2"
     }
    ]
   },
@@ -4628,8 +4803,8 @@
    "rank": "C",
    "title": "Prova do Alarmista",
    "desc": "Quem se diferencia aprende com a prática. Histamina Instável espera por você.",
-   "objective": "Absorva 30 nutrientes: um mastócito se enche de grânulos comendo.",
-   "reward": "A habilidade Histamina Instável e pressão evolutiva +5",
+   "objective": "Após a diferenciação, absorva 30 nutrientes: um mastócito se enche de grânulos comendo.",
+   "reward": "A habilidade Histamina Instável e pressão evolutiva +5 · Gene permanente: Degranulação Explosiva (Corpo → Genes)",
    "tags": [
     "combat",
     "metabolism"
@@ -4655,7 +4830,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "nutrientes",
+     "k": "prova-mastocito-feitos",
      "op": ">=",
      "v": 30
     }
@@ -4676,6 +4851,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "degranulacao-explosiva"
     }
    ]
   },
@@ -4685,8 +4865,8 @@
    "rank": "C",
    "title": "Prova do Caça-Colossos",
    "desc": "Quem se diferencia aprende com a prática. Cristal de Charcot-Leyden espera por você.",
-   "objective": "Chegue a 120 invasores destruídos: um eosinófilo se prova guardando o que o ameaça.",
-   "reward": "A habilidade Cristal de Charcot-Leyden e pressão evolutiva +5",
+   "objective": "Após a diferenciação, chegue a 120 invasores destruídos: um eosinófilo se prova guardando o que o ameaça.",
+   "reward": "A habilidade Cristal de Charcot-Leyden e pressão evolutiva +5 · Gene permanente: Peroxidase Concentrada (Corpo → Genes)",
    "tags": [
     "combat",
     "endure"
@@ -4712,7 +4892,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "abates",
+     "k": "prova-eosinofilo-feitos",
      "op": ">=",
      "v": 120
     }
@@ -4733,6 +4913,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "peroxidase-concentrada"
     }
    ]
   },
@@ -4742,8 +4927,8 @@
    "rank": "C",
    "title": "Prova da Caçadora",
    "desc": "Quem se diferencia aprende com a prática. Predar espera por você.",
-   "objective": "Esquive 10 vezes: uma célula NK vive de chegar antes do golpe.",
-   "reward": "A habilidade Predar e pressão evolutiva +5",
+   "objective": "Após a diferenciação, esquive 10 vezes: uma célula NK vive de chegar antes do golpe.",
+   "reward": "A habilidade Predar e pressão evolutiva +5 · Gene permanente: Memória de Presa (Corpo → Genes)",
    "tags": [
     "combat",
     "explore"
@@ -4769,7 +4954,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "esquivas",
+     "k": "prova-celula-nk-feitos",
      "op": ">=",
      "v": 10
     }
@@ -4790,6 +4975,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "memoria-de-presa"
     }
    ]
   },
@@ -4799,8 +4989,8 @@
    "rank": "C",
    "title": "Prova do Pacificador",
    "desc": "Quem se diferencia aprende com a prática. Sinapse Imunológica espera por você.",
-   "objective": "Absorva 25 nutrientes: um regulador aprende a manter a calma comendo.",
-   "reward": "A habilidade Sinapse Imunológica e pressão evolutiva +5",
+   "objective": "Após a diferenciação, absorva 25 nutrientes: um regulador aprende a manter a calma comendo.",
+   "reward": "A habilidade Sinapse Imunológica e pressão evolutiva +5 · Gene permanente: Interleucina 10 (Corpo → Genes)",
    "tags": [
     "knowledge",
     "endure"
@@ -4826,7 +5016,7 @@
    "goal": {
     "num": {
      "e": "$self",
-     "k": "nutrientes",
+     "k": "prova-t-regulador-feitos",
      "op": ">=",
      "v": 25
     }
@@ -4847,6 +5037,11 @@
      "e": "$self",
      "k": "maturidade",
      "d": 5
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "interleucina-10"
     }
    ]
   }
@@ -5140,7 +5335,7 @@
  },
  "evolution": {
   "pressure": "pressao",
-  "threshold": 30,
+  "threshold": 120,
   "offer": 3,
   "slots": 6,
   "builds": 3,
@@ -5154,7 +5349,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "+27% dano do chicote, -8% velocidade."
+   "desc": "Chicote libera uma onda circular: acerta também invasores ao redor. Uma onda a cada 4 s. +27% dano do chicote, -8% velocidade."
   },
   {
    "id": "cilios-ageis",
@@ -5181,7 +5376,7 @@
    "tags": [
     "metabolism"
    ],
-   "desc": "+4 ATP/s, -20% ATP máx.."
+   "desc": "Usar uma habilidade de classe libera um pulso de reparo: recupera 10 de membrana sua e de aliados próximos, a cada 8 s. +4 ATP/s, -20% ATP máx.."
   },
   {
    "id": "vesicula-toxica",
@@ -5191,7 +5386,7 @@
     "combat",
     "knowledge"
    ],
-   "desc": "+30% custo da toxina, +50% dano da toxina."
+   "desc": "Toxina dispara mais dois projéteis em leque, cada um com 45% do dano do disparo principal. +30% custo da toxina, +50% dano da toxina."
   },
   {
    "id": "nucleo-reativo",
@@ -5201,7 +5396,7 @@
     "endure",
     "explore"
    ],
-   "desc": "-50% recarga do impulso, -8% membrana máx.."
+   "desc": "Impulso cria um escudo: reduz dano recebido em 35% por 2 s. Escudo disponível a cada 8 s. -50% recarga do impulso, -8% membrana máx.."
   },
   {
    "id": "cauda-longa",
@@ -5220,7 +5415,7 @@
    "tags": [
     "metabolism"
    ],
-   "desc": "-2 ATP/s, +150% ganho de nutrientes."
+   "desc": "Usar uma habilidade de classe deixa uma poça digestiva à frente por 3 s. Uma poça a cada 6 s. -2 ATP/s, +150% ganho de nutrientes."
   },
   {
    "id": "citoesqueleto-elastico",
@@ -5230,7 +5425,7 @@
     "explore",
     "endure"
    ],
-   "desc": "A rede interna cede e volta. +11% alcance do chicote, -5% membrana máx., +7% velocidade."
+   "desc": "Impulso emite uma onda de impacto no ponto de partida, atingindo invasores ao redor. Uma onda a cada 5 s. +11% alcance do chicote, -5% membrana máx., +7% velocidade."
   },
   {
    "id": "receptores-de-quimiotaxia",
@@ -5250,7 +5445,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "Pequenas fornalhas que limpam a membrana. +2 ATP/s, +9% membrana máx., -5% velocidade."
+   "desc": "Usar uma habilidade de classe cria um escudo: reduz dano recebido em 25% por 2 s, a cada 8 s. +2 ATP/s, +9% membrana máx., -5% velocidade."
   },
   {
    "id": "espinhos-de-quitina",
@@ -5259,7 +5454,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Uma couraça de agulhas. +16% dano do chicote, +9% membrana máx., -7% velocidade."
+   "desc": "Chicote projeta espinhos entre até três invasores próximos. Uma descarga a cada 5 s. +16% dano do chicote, +9% membrana máx., -7% velocidade."
   },
   {
    "id": "pseudopodes-gigantes",
@@ -5303,7 +5498,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "Engole mais fundo e digere melhor. +21% ATP máx., -5% velocidade. Engolir: +104% cura, +21% alcance.",
+   "desc": "Engolir deixa uma poça ácida à frente: causa dano contínuo e retarda invasores por 3 s. +21% ATP máx., -5% velocidade. Engolir: +104% cura, +21% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5454,7 +5649,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "O surto dura mais e corre mais. +10% custo das habilidades, -12% membrana máx.. Surto Oxidativo: +25% ritmo, +33% duração.",
+   "desc": "Rede de DNA envolve também seu corpo em uma nuvem tóxica móvel por 4 s. +10% custo das habilidades, -12% membrana máx.. Surto Oxidativo: +25% ritmo, +33% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5538,7 +5733,7 @@
     "explore",
     "combat"
    ],
-   "desc": "Fios mais longos e mais finos. +4% recarga das habilidades, -4% membrana máx.. Dendritos em Chicote: +45% dano, +75% alcance.",
+   "desc": "Dendritos em Chicote descarrega um arco que salta entre até três invasores próximos. +4% recarga das habilidades, -4% membrana máx.. Dendritos em Chicote: +45% dano, +75% alcance.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5572,7 +5767,7 @@
     "knowledge",
     "combat"
    ],
-   "desc": "-10% membrana máx., +20% custo da toxina, +59% dano da toxina. Anticorpo Y: +20% dano.",
+   "desc": "Anticorpo Y ganha dois anticorpos laterais teleguiados, cada um com 50% do dano principal. -10% membrana máx., +20% custo da toxina, +59% dano da toxina. Anticorpo Y: +20% dano.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5757,7 +5952,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Quem está ferido não resiste. +2% recarga das habilidades, -1% velocidade. Perforina: +30% dano, +75% limiar, +105% bônus de execução.",
+   "desc": "Perforina marca uma ruptura à frente: após 0,45 s ela explode em área, com 70% do dano da habilidade. +2% recarga das habilidades, -1% velocidade. Perforina: +30% dano, +75% limiar, +105% bônus de execução.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5825,7 +6020,7 @@
     "knowledge",
     "endure"
    ],
-   "desc": "Os auxiliares respondem em maior número. +8% custo das habilidades, -7% velocidade. Chamado aos Auxiliares: +1 unidades, +38% vida do isco, +25% duração.",
+   "desc": "Chamado aos Auxiliares emite um pulso que repara 24 de membrana sua e de aliados próximos. +8% custo das habilidades, -7% velocidade. Chamado aos Auxiliares: +1 unidades, +38% vida do isco, +25% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -5926,7 +6121,7 @@
    "tags": [
     "combat"
    ],
-   "desc": "Quanto mais se sangra, mais explode. +4% custo das habilidades, -7% membrana máx.. Anafilaxia: +75% dano por vida gasta, +45% raio.",
+   "desc": "Histamina Instável deixa uma segunda detonação no chão após 0,7 s: afaste-se e atraia invasores para ela. +4% custo das habilidades, -7% membrana máx.. Anafilaxia: +75% dano por vida gasta, +45% raio.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6028,7 +6223,7 @@
     "combat",
     "metabolism"
    ],
-   "desc": "O cristal guarda mais e estoura mais largo. +8% custo das habilidades, -11% membrana máx.. Cristal de Charcot-Leyden: +75% acúmulo, +60% dano, +45% raio, +30% duração.",
+   "desc": "Cristal de Charcot cria um campo corrosivo à frente: retarda em 45% e causa dano contínuo por 4 s. +8% custo das habilidades, -11% membrana máx.. Cristal de Charcot-Leyden: +75% acúmulo, +60% dano, +45% raio, +30% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6112,7 +6307,7 @@
     "combat",
     "explore"
    ],
-   "desc": "Quem foi caçado uma vez não se esquece. +6% recarga das habilidades, -7% ATP máx.. Passo Sem Identidade: +45% dano; Predar: +60% ATP por golpe, +75% devolução, +45% duração.",
+   "desc": "Predar lança uma descarga entre dois invasores próximos, além de marcar sua presa. +6% recarga das habilidades, -7% ATP máx.. Passo Sem Identidade: +45% dano; Predar: +60% ATP por golpe, +75% devolução, +45% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -6197,7 +6392,7 @@
     "endure",
     "metabolism"
    ],
-   "desc": "O sinal que apaga o fogo: a singularidade abre mais e segura mais. +2 ATP/s, -6% velocidade. Singularidade de Tolerância: +25% raio, +18% duração.",
+   "desc": "Sinapse Imunológica libera um pulso reparador: restaura 32 de membrana sua e de aliados próximos. +2 ATP/s, -6% velocidade. Singularidade de Tolerância: +25% raio, +18% duração.",
    "eligible": {
     "tag": {
      "e": "$self",
@@ -7204,8 +7399,8 @@
  "differentiation": {
   "maturity": "maturidade",
   "tiers": [
-   42,
-   120
+   168,
+   480
   ]
  },
  "lineages": [
@@ -8071,14 +8266,14 @@
   {
    "id": "granuloma",
    "name": "O Granuloma",
-   "desc": "Macrófagos se fecharam em anéis ao redor de um núcleo necrótico onde uma bactéria resiste. Uma guarda de linfócitos vigia por fora. Se ninguém entrar, ele pode romper.",
+   "desc": "Macrófagos se fecharam em anéis ao redor de um núcleo necrótico onde uma bactéria resiste. Uma guarda de linfócitos vigia por fora. Se ninguém entrar, ele pode romper.\nRecompensa permanente: Espinhos de Quitina. Chicote projeta espinhos entre até três invasores próximos. Uma descarga a cada 5 s. +16% dano do chicote, +9% membrana máx., -7% velocidade.",
    "region": "sangue",
    "eligible": {
     "num": {
      "e": "$self",
      "k": "maturidade",
      "op": ">=",
-     "v": 42
+     "v": 168
     }
    },
    "rooms": [
@@ -8170,6 +8365,11 @@
      "op": "emit",
      "event": "granuloma-selado",
      "text": "O granuloma foi selado: a carga de infecção no sangue cai."
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "espinhos-de-quitina"
     }
    ],
    "firstClear": [
@@ -8232,14 +8432,14 @@
   {
    "id": "cordoes-hepaticos",
    "name": "Os Cordões Hepáticos",
-   "desc": "Entre os cordões de hepatócitos, uma lesão crônica se fechou: células estreladas fizeram cicatriz, hepatócitos adoeceram e gordura e toxina se acumulam ao redor de um nódulo duro. Se ninguém entrar, o fígado perde a função.",
+   "desc": "Entre os cordões de hepatócitos, uma lesão crônica se fechou: células estreladas fizeram cicatriz, hepatócitos adoeceram e gordura e toxina se acumulam ao redor de um nódulo duro. Se ninguém entrar, o fígado perde a função.\nRecompensa permanente: Mitocôndria Ávida. Usar uma habilidade de classe libera um pulso de reparo: recupera 10 de membrana sua e de aliados próximos, a cada 8 s. +4 ATP/s, -20% ATP máx..",
    "region": "figado",
    "eligible": {
     "num": {
      "e": "$self",
      "k": "maturidade",
      "op": ">=",
-     "v": 48
+     "v": 192
     }
    },
    "rooms": [
@@ -8369,6 +8569,11 @@
      "op": "emit",
      "event": "cordoes-limpos",
      "text": "Os cordões hepáticos foram limpos: o fígado respira, a toxina cai."
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "mitocondria-avida"
     }
    ],
    "firstClear": [
@@ -8431,14 +8636,14 @@
   {
    "id": "centro-germinativo",
    "name": "O Centro Germinativo",
-   "desc": "Um folículo perdeu a seleção: linfócitos que deveriam morrer se multiplicam, e um clone maligno os comanda. Se ninguém entrar, o baço vira um tumor.",
+   "desc": "Um folículo perdeu a seleção: linfócitos que deveriam morrer se multiplicam, e um clone maligno os comanda. Se ninguém entrar, o baço vira um tumor.\nRecompensa permanente: Citoesqueleto Elástico. Impulso emite uma onda de impacto no ponto de partida, atingindo invasores ao redor. Uma onda a cada 5 s. +11% alcance do chicote, -5% membrana máx., +7% velocidade.",
    "region": "baco",
    "eligible": {
     "num": {
      "e": "$self",
      "k": "maturidade",
      "op": ">=",
-     "v": 54
+     "v": 216
     }
    },
    "rooms": [
@@ -8611,6 +8816,11 @@
      "event": "centro-limpo",
      "public": true,
      "text": "O centro germinativo foi limpo: o baço volta a ensinar a defesa."
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "citoesqueleto-elastico"
     }
    ],
    "firstClear": [
@@ -8625,14 +8835,14 @@
   {
    "id": "criptas-profundas",
    "name": "As Criptas Profundas",
-   "desc": "A microbiota perdeu o equilíbrio: um biofilme tomou as criptas, bactérias e parasitas fundaram ninhos e uma colônia mãe sufoca a parede. Se ninguém entrar, o intestino adoece.",
+   "desc": "A microbiota perdeu o equilíbrio: um biofilme tomou as criptas, bactérias e parasitas fundaram ninhos e uma colônia mãe sufoca a parede. Se ninguém entrar, o intestino adoece.\nRecompensa permanente: Enzima Voraz. Usar uma habilidade de classe deixa uma poça digestiva à frente por 3 s. Uma poça a cada 6 s. -2 ATP/s, +150% ganho de nutrientes.",
    "region": "intestino",
    "eligible": {
     "num": {
      "e": "$self",
      "k": "maturidade",
      "op": ">=",
-     "v": 60
+     "v": 240
     }
    },
    "rooms": [
@@ -8804,6 +9014,11 @@
      "event": "criptas-limpas",
      "public": true,
      "text": "As criptas foram limpas: a microbiota volta a se reequilibrar."
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "enzima-voraz"
     }
    ],
    "firstClear": [
@@ -8818,14 +9033,14 @@
   {
    "id": "nefrons",
    "name": "Os Néfrons",
-   "desc": "Cristais se acumularam nos túbulos e uma pedra coraliforme bloqueia o rim por dentro. Se ninguém entrar, a pressão do corpo não volta ao normal.",
+   "desc": "Cristais se acumularam nos túbulos e uma pedra coraliforme bloqueia o rim por dentro. Se ninguém entrar, a pressão do corpo não volta ao normal.\nRecompensa permanente: Peroxissomos. Usar uma habilidade de classe cria um escudo: reduz dano recebido em 25% por 2 s, a cada 8 s. +2 ATP/s, +9% membrana máx., -5% velocidade.",
    "region": "rim",
    "eligible": {
     "num": {
      "e": "$self",
      "k": "maturidade",
      "op": ">=",
-     "v": 66
+     "v": 264
     }
    },
    "rooms": [
@@ -9005,6 +9220,11 @@
      "event": "nefrons-limpos",
      "public": true,
      "text": "Os néfrons foram limpos: o rim volta a filtrar e a pressão cai."
+    },
+    {
+     "op": "acquire-gene",
+     "e": "$self",
+     "v": "peroxissomos"
     }
    ],
    "firstClear": [

@@ -416,6 +416,7 @@ func _spawn(data: Dictionary) -> Node2D:
 		var z := BioAbilityZone.new()
 		z.position = at
 		z.color = Color(str(data.get("color", "ffffff")))
+		z.style = str(data.get("style", ""))
 		z.radius_px = float(data.get("radius", 100))
 		z.duration = float(data.get("duration", 4))
 		world.add_child(z)

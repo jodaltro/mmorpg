@@ -4,6 +4,8 @@ Plano de 22/10/2026. Nada aqui está implementado, exceto o que está marcado co
 
 > **Exploração, mapa 10x e mecânicas do corpo:** o plano detalhado está em [ExplorationPlan.md](ExplorationPlan.md) (marcos E0 a E7).
 
+> **Progressão revisada em 25/10/2026:** ritmo mais espaçado, genes que transformam habilidades, recompensas permanentes e comparação antes de expressar estão descritos em [Progression.md](Progression.md). Esse documento registra os valores e o comportamento atual dessa revisão.
+
 ## Resumo
 
 **Decisão de 24/10/2026:** adotar Nakama para entrada de convidados e transporte em tempo real. Godot headless continua sendo a autoridade de combate, reutilizando as regras do cliente; o motor Go mantém mundo e progressão. A primeira entrega compartilha o mundo aberto e usa masmorras pessoais isoladas no servidor. Grupos e masmorras cooperativas ainda fazem parte do destino F2, e a partição por órgão continua futura. Implementação e limites em [Nakama.md](Nakama.md).

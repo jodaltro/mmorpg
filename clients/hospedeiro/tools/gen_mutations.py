@@ -271,6 +271,11 @@ def apply_balance():
 
 def main():
     apply_balance()
+    transformations = json.loads((ROOT / "clients/hospedeiro/data/gene_transformations.json").read_text(encoding="utf-8"))
+    for gene in G:
+        gene["transformation"] = transformations.get(gene["id"], {})
+        if gene["transformation"]:
+            gene["flavour"] = gene["transformation"]["description"]
     (ROOT / "clients/hospedeiro/data").mkdir(exist_ok=True)
     (ROOT / "clients/hospedeiro/data/gene_rarity.json").write_text(json.dumps({gene["id"]: gene["rarity"] for gene in G}, indent=1), encoding="utf-8")
     raw = UNIVERSE.read_text(encoding="utf-8")
@@ -330,12 +335,12 @@ def main():
         mods = ", ".join("BioGene.%s: %s" % (GD_STAT[k], gd_value(float(v))) for k, v in gene["stats"].items())
         perks = gd_dict(gene["perks"]) if gene["perks"] else "{}"
         mark = gd_dict(gene["mark"]) if gene["mark"] else "{}"
-        lines.append('\t_add(&"%s", "%s", {%s}, &"%s", %s, %s)' % (gene["id"], gene["name"], mods, gene["lineage"], perks, mark))
+        lines.append('\t_add(&"%s", "%s", {%s}, &"%s", %s, %s, %s)' % (gene["id"], gene["name"], mods, gene["lineage"], perks, mark, gd_dict(gene["transformation"])))
     lines += [
         "",
         "",
-        "static func _add(id: StringName, display_name: String, mods: Dictionary, requires_lineage: StringName = &\"\", perks: Dictionary = {}, mark: Dictionary = {}) -> void:",
-        "\t_genes[id] = BioGene.new(id, display_name, mods, requires_lineage, perks, mark)",
+        "static func _add(id: StringName, display_name: String, mods: Dictionary, requires_lineage: StringName = &\"\", perks: Dictionary = {}, mark: Dictionary = {}, transformation: Dictionary = {}) -> void:",
+        "\t_genes[id] = BioGene.new(id, display_name, mods, requires_lineage, perks, mark, transformation)",
         "",
     ]
     CATALOG.write_text("\n".join(lines), encoding="utf-8")

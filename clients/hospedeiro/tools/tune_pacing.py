@@ -1,9 +1,9 @@
-"""Pacing: how fast the body evolves. Everything that gates growth scales together (PACE x the first values), so a mutation takes
-about three times the kills it used to, and the first class about three times the maturity. Idempotent; PACE is the only knob."""
+"""Pacing: growth gates scale from the original baseline by PACE.
+PACE 12 is four times the previous cadence (3). Idempotent; rewards are tuned separately."""
 import json
 from pathlib import Path
 
-PACE = 3
+PACE = 12
 BASE = {"threshold": 10, "tiers": [14, 40], "granuloma": 14, "cordoes-hepaticos": 16,
         "centro-germinativo": 18, "criptas-profundas": 20, "nefrons": 22}
 

@@ -184,6 +184,8 @@ func _perform(id: StringName, free: bool) -> int:
 				kit.cast(kind, id, def, a, aim, color, picked)
 	if kind != "replay":
 		last_cast = id
+	if not free:
+		BioGeneEffects.apply(_host, id, aim, def)
 	performed.emit(id)
 	return status
 

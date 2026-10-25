@@ -5,10 +5,11 @@
 #   powershell -File scripts\hospedeiro-online.ps1 -ReuseTunnel -TestReset # preserva o tunel existente
 #   powershell -File scripts\hospedeiro-online.ps1 -Stop      # derruba tudo
 # Pre-requisitos: engine\.env com as chaves, engine\worldsim.exe compilado, cloudflared instalado, `pip install requests boto3`.
-param([switch]$Fresh, [switch]$Stop, [switch]$TestReset, [switch]$ReuseTunnel, [string]$ServerBinary = "", [string]$PythonDependencies = "D:\tools\hospedeiro-python")
+param([switch]$Fresh, [switch]$Stop, [switch]$TestReset, [switch]$ReuseTunnel, [switch]$ReuseServer, [string]$UniversePath = "", [string]$ServerBinary = "", [string]$PythonDependencies = "D:\tools\hospedeiro-python")
 $ErrorActionPreference = "Stop"
 if (Test-Path $PythonDependencies) { $env:PYTHONPATH = $PythonDependencies }
 $root = Split-Path $PSScriptRoot -Parent
+if (-not $UniversePath) { $UniversePath = Join-Path $root "universes\hospedeiro\universe.json" }
 $run = "D:\unity\hospedeiro-run"
 $data = "D:\unity\hospedeiro-data"
 if (-not $ServerBinary) {
@@ -62,7 +63,7 @@ function Start-Server {
     $resetArguments = @()
     if ($TestReset) { $resetArguments = @("-test-reset") }
     Start-Process -FilePath $ServerBinary -WindowStyle Hidden `
-        -ArgumentList (@("serve", "-public", "-universe", (Join-Path $root "universes\hospedeiro\universe.json"), "-data", $data, "-listen", "127.0.0.1:$port", "-advisor", "jev", "-env-file", $envFile, "-on-universe-change", "new-world", "-nakama", "http://127.0.0.1:7350") + $resetArguments) `
+        -ArgumentList (@("serve", "-public", "-universe", $UniversePath, "-data", $data, "-listen", "127.0.0.1:$port", "-advisor", "jev", "-env-file", $envFile, "-on-universe-change", "refuse", "-nakama", "http://127.0.0.1:7350") + $resetArguments) `
         -RedirectStandardOutput (Join-Path $run "server.log") -RedirectStandardError (Join-Path $run "server.err.log")
     for ($i = 0; $i -lt 30; $i++) { if (Healthy "http://127.0.0.1:$port/v1/health") { return }; Start-Sleep 1 }
     throw "o servidor nao respondeu (veja $run\server.err.log)"
@@ -97,7 +98,7 @@ if ($Fresh -and (Test-Path $data)) {
     Write-Host "mundo antigo guardado em hospedeiro-data-old-$stamp"
 }
 
-Start-Server
+if (-not ($ReuseServer -and (Healthy "http://127.0.0.1:$port/v1/health"))) { Start-Server }
 if ($ReuseTunnel) {
     $tunnelText = Get-Content (Join-Path $run "tunnel.log") -Raw
     $existingOrigin = [regex]::Match($tunnelText, "https://[a-z0-9-]+\.trycloudflare\.com")

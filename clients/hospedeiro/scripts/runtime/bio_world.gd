@@ -592,6 +592,10 @@ func _sync_calls() -> void:
 
 
 func _open_from_chip(key: String) -> void:
+	if key == "gene-reward":
+		tray.clear_call(key)
+		body_panel.open(BioBodyPanel.GENES)
+		return
 	if key == "active_quest":
 		sync.system.open_missions()
 		return
@@ -641,6 +645,8 @@ func restart_world(reset_engine := true) -> void:
 	body_panel.close()
 	sync.system.close()
 	reset_dialog.close()
+	tray.clear_call("gene-reward")
+	if player.has_meta("gene_ready_at"): player.remove_meta("gene_ready_at")
 	dungeon.finish(false)
 	build_store.names.clear()
 	build_store.orders.clear()

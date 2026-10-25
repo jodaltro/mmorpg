@@ -67,6 +67,18 @@ func perk(ability: StringName) -> Dictionary:
 				out[k] = float(out.get(k, 1.0)) * float(all[ability][key])
 	return out
 
+func transformations(ability: StringName) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for id in equipped:
+		var gene := _gene(id)
+		if gene.requires_lineage != &"" and gene.requires_lineage != lineage: continue
+		var trigger := str(gene.transformation.get("ability", ""))
+		if trigger == String(ability) or (trigger == "*" and BioAbilityCatalog.has(ability)):
+			var effect := gene.transformation.duplicate(true)
+			effect["gene"] = String(id)
+			out.append(effect)
+	return out
+
 
 ## An ability's parameters as THIS genome performs them: its perks, then the general stats on top. Damage, cost and
 ## cooldown are not here: they live in the attack definition (see modify) so the domain actor validates them.
