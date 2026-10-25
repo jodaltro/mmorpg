@@ -65,6 +65,7 @@ func _packet(code: int, data: Dictionary) -> void:
 		if input.is_empty():
 			return
 		p.seq = input.seq
+		p["compact"] = raw.get("compact", 0) == 1
 		p.last_input = Time.get_ticks_msec()
 		var cell: BioCellActor = p.cell
 		var controller := cell.get_node("Controller") as BioCellController
@@ -104,7 +105,7 @@ func _join(id: String, player_name: String) -> void:
 	var link := BioEngineLink.new()
 	link.request_headers = {"X-Adapter-Key": adapter_key, "X-Edge-Secret": edge_secret}
 	link.configure(engine_url, {"id": "nk-"+id, "name": player_name})
-	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "viewport": null, "dungeon": null, "dungeon_seed": -1, "used": {}, "travel": 0.0, "last_pos": cell.global_position}
+	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "viewport": null, "dungeon": null, "dungeon_seed": -1, "used": {}, "travel": 0.0, "last_pos": cell.global_position, "compact": false, "metadata": {}}
 	link.view_changed.connect(func(view: Dictionary) -> void: _apply_view(id, view))
 	link.world_reset_detected.connect(func() -> void: _reset_cell(id))
 	add_child(link)
@@ -269,7 +270,7 @@ func _process(delta: float) -> void:
 		_upkeep_in = 1.0
 		_upkeep()
 	if _snapshot_in <= 0.0 and transport.connected:
-		_snapshot_in = 0.05
+		_snapshot_in = 1.0 if players.is_empty() else 0.05
 		_snapshot()
 
 
@@ -367,6 +368,34 @@ func _snapshot() -> void:
 		var cooldowns := {}
 		for key in cell.combatant.actor._ready_at:
 			cooldowns[str(key)] = cell.combatant.actor.cooldown_remaining(key, BioClock.now())
-		transport.send_data(2, {"target": id, "body": {"version": 1, "seq": _serial, "entities": near, "events": _events, "cooldowns": cooldowns, "reset_allowed": (p.link as BioEngineLink).reset_allowed}})
+		var speed := cell.combatant.actor.stat(BioGene.SPEED) * cell.combatant.speed_mult()
+		if BioClock.now() < cell._slow_until: speed *= cell._slow_factor
+		var motion := {"speed":speed,"thrust":cell.thrust_units,"maximum":cell.max_speed_units,"damping":cell.damping,"unit":BioArt.UNIT,
+			"stunned":cell.combatant.is_stunned(),"ballistic":cell.is_dashing() or cell.is_rolling(),"velocity":BioNetProtocol.xy(cell.velocity)}
+		var outgoing := near
+		if bool(p.compact):
+			outgoing = compact_entities(near, p.metadata, _serial % 20 == 0)
+		transport.send_data(2, {"target": id, "body": {"version": 1, "seq": _serial, "ack":p.seq, "motion":motion,"entities": outgoing, "events": _events, "cooldowns": cooldowns, "reset_allowed": (p.link as BioEngineLink).reset_allowed}})
 	_serial += 1
 	_events.clear()
+
+
+static func compact_entities(entities: Array, cache: Dictionary, full: bool) -> Array:
+	var result: Array = []
+	var wanted := {}
+	const FIELDS := ["name","lineage","genes","traits","axes","enemy_kind","type","color","radius","duration","data","max_hp","max_atp"]
+	for entity in entities:
+		var id := str(entity.id)
+		wanted[id] = true
+		var meta := {}
+		for key in FIELDS:
+			if entity.has(key): meta[key] = entity[key]
+		var item: Dictionary = entity.duplicate()
+		if not full and cache.get(id) == meta:
+			for key in FIELDS: item.erase(key)
+		else:
+			cache[id] = meta.duplicate(true)
+		result.append(item)
+	for id in cache.keys():
+		if not wanted.has(id): cache.erase(id)
+	return result

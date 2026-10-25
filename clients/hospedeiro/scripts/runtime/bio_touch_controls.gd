@@ -38,6 +38,7 @@ var minimap: BioTouchMinimap
 var scale_slider: HSlider
 var scale_label: Label
 var _settings: Control
+var ping_label: Label
 
 var _aim := Vector2.RIGHT
 var _auto_timer := 0.0
@@ -59,6 +60,15 @@ func _ready() -> void:
 	_top.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_top_layer.add_child(_top)
+	ping_label = Label.new()
+	ping_label.name = "NetworkLatency"
+	ping_label.text = "— ms"
+	ping_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	ping_label.add_theme_font_size_override("font_size", 12)
+	ping_label.add_theme_color_override("font_outline_color", Color(0.005,0.01,0.02,0.95))
+	ping_label.add_theme_constant_override("outline_size", 3)
+	ping_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_top.add_child(ping_label)
 	_menu_back = ColorRect.new()
 	_menu_back.color = Color(0.0, 0.005, 0.02, 0.65)
 	_menu_back.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -236,6 +246,8 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	leave.position = Vector2(view.x * 0.5 - leave.size.x * 0.5, view.y - 210.0)
 	respawn.position = Vector2((view.x - respawn.size.x) * 0.5, view.y * 0.5 + 30.0)
 	menu.position = Vector2(view.x - 86.0, 14.0)
+	ping_label.position = Vector2(view.x - 158.0, 25.0)
+	ping_label.size = Vector2(64.0, 22.0)
 	menu.caption = "Fechar" if menu_open else "Menu"
 	menu.emphasis = menu_open
 	menu.glyph = "close" if menu_open else "menu"
@@ -261,6 +273,7 @@ func _process(delta: float) -> void:
 	restart_button.visible = world.engine_url.is_empty() or (world.sync.link.online and world.sync.link.reset_allowed)
 	menu.visible = menu_open or not BioUi.captures_input()
 	var covered := BioUi.captures_input() or _a_window_is_open() or menu_open
+	_update_ping(covered)
 	world.panel._column.visible = false
 	world.jev_panel._badge.visible = false
 	world.vitals_panel._strip.visible = false
@@ -376,6 +389,20 @@ func _skill_glyph(kind: String) -> String:
 		"mark","prey","sleep","decoy": return "eye"
 		"link","tether","hold","complement","allies": return "link"
 	return "burst"
+
+
+func _update_ping(covered: bool) -> void:
+	ping_label.visible = not covered
+	if world.online_client == null:
+		ping_label.text = "Offline"
+		ping_label.add_theme_color_override("font_color", Color(0.55,0.66,0.72))
+		return
+	var net: BioOnlineClient = world.online_client
+	var ms := net.transport.stats.current_ms(Time.get_ticks_msec()) if net.transport.connected else -1
+	ping_label.text = "%d ms" % ms if ms >= 0 else "— ms"
+	var color := Color(0.45,0.9,0.72) if ms >= 0 and ms < 100 else Color(0.95,0.8,0.4) if ms >= 0 and ms < 200 else Color(1.0,0.5,0.4) if ms >= 200 else Color(0.55,0.66,0.72)
+	ping_label.add_theme_color_override("font_color", color)
+	ping_label.tooltip_text = "Tempo de ida e volta da sua entrada até a confirmação do servidor"
 
 
 func _prepare_cast(direction: Vector2) -> BioCellController:

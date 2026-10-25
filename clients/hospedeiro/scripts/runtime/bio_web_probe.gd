@@ -30,6 +30,12 @@ func _process(delta: float) -> void:
 		"membrane": snappedf(p.combatant.actor.vitals.membrane, 0.1),
 		"online": link != null and link.online,
 		"network": {
+			"ping": world.online_client.transport.stats.current_ms(Time.get_ticks_msec()) if world.online_client != null else -1,
+			"socketMs": world.online_client.transport.stats.socket_ms if world.online_client != null else -1,
+			"predictionFrames": world.online_client.prediction.frames.size() if world.online_client != null else 0,
+			"pingLabel": world.touch.ping_label.text if world.touch != null else "",
+			"authorityX": world.online_client.authoritative_position.x if world.online_client != null else 0,
+			"authorityY": world.online_client.authoritative_position.y if world.online_client != null else 0,
 			"ready": world.online_client != null and world.online_client.is_ready,
 			"entities": world.online_client._entities.size() if world.online_client != null else 0,
 			"players": world.online_client._entities.values().filter(func(n: Node) -> bool: return n is BioCellActor and not str(n.get_meta("net_uid", "")).is_empty()).size() if world.online_client != null else 0,

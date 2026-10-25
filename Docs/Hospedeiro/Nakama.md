@@ -47,6 +47,12 @@ Scripts de teste em `clients/hospedeiro/tests/web/test_nakama_local.py` e `test_
 
 ## Limites atuais
 
-O mundo continua hospedado neste PC, portanto suspensão/desligamento interrompe as partidas. A sala é única, sem distribuição por órgãos; 64 é um limite de admissão inicial, não capacidade medida. Posição e vitais de combate recomeçam na medula ao reconectar, enquanto progressão e missões permanecem no motor. Não há grupos, recuperação de convidado nem migração automática dos antigos IDs `cel-*` para os novos `nk-*`; os dados antigos são conservados. O transporte usa estado autoritativo suavizado, sem previsão/reconciliação de movimento no cliente. Ainda falta testar dispositivos físicos e carga.
+O mundo continua hospedado neste PC, portanto suspensão/desligamento interrompe as partidas. A sala é única, sem distribuição por órgãos; 64 é um limite de admissão inicial, não capacidade medida. Posição e vitais de combate recomeçam na medula ao reconectar, enquanto progressão e missões permanecem no motor. Não há grupos, recuperação de convidado nem migração automática dos antigos IDs `cel-*` para os novos `nk-*`; os dados antigos são conservados. Movimento local tem previsão e reconciliação contra os snapshots; dano, vitais e recompensas continuam autoritativos. A previsão não reduz o RTT físico da conexão. Ainda falta testar dispositivos físicos e carga.
 
 Referências oficiais: [Godot/Nakama](https://heroiclabs.com/docs/nakama/client-libraries/godot/), [partidas autoritativas](https://heroiclabs.com/docs/nakama/concepts/multiplayer/authoritative/), [match handlers Lua](https://heroiclabs.com/docs/nakama/server-framework/lua-runtime/function-reference/match-handler/), [instalação Windows](https://heroiclabs.com/docs/nakama/getting-started/install/windows/).
+
+## Latência e hospedagem
+
+Entradas a até 30 Hz, relay Lua a 60 Hz e snapshots a 20 Hz. Metadados visuais só são repetidos quando mudam, na primeira aparição e em uma atualização completa por segundo; vitais e posições permanecem em cada estado. O cliente descarta snapshots intermediários na mesma leitura, conservando metadados e eventos. A autoridade vazia envia heartbeat a 1 Hz. Clientes antigos continuam recebendo estado completo.
+
+O mobile mostra RTT medido até a confirmação da entrada, com fallback para ping do socket. Leituras antigas expiram e reconexão não inventa 0 ms. Veja o plano e os limites em [CloudHosting.md](CloudHosting.md).

@@ -135,9 +135,5 @@ func _physics_process(delta: float) -> void:
 		velocity = _dash_velocity
 	else:
 		var speed_stat := combatant.actor.stat(BioGene.SPEED) * combatant.speed_mult() * (_slow_factor if BioClock.now() < _slow_until else 1.0)
-		velocity += intent * thrust_units * speed_stat * BioArt.UNIT * delta
-		velocity -= velocity * minf(1.0, damping * delta)
-		var cap := max_speed_units * speed_stat * BioArt.UNIT
-		if velocity.length() > cap:
-			velocity = velocity.move_toward(velocity.normalized() * cap, 60.0 * BioArt.UNIT * delta)
+		velocity = BioMovementModel.step(velocity, intent, delta, thrust_units, max_speed_units, damping, speed_stat, BioArt.UNIT)
 	move_and_slide()

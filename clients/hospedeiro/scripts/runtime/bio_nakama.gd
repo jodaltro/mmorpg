@@ -12,6 +12,8 @@ var user_id := ""
 var match_id := ""
 var connected := false
 var display_name := ""
+var stats := BioNetStats.new()
+var coalesce_snapshots := false
 var _socket := WebSocketPeer.new()
 var _http: BioEngineLink
 var _cid := 0
@@ -32,6 +34,7 @@ func open(player_name: String, device_id: String, host_key: String = "") -> bool
 	_opening = true
 	_socket.close()
 	connected = false
+	stats.clear()
 	_host_key = host_key
 	display_name = player_name.strip_edges().left(24)
 	_http.base_url = base_url
@@ -91,12 +94,16 @@ func call_rpc(id: String, body: Dictionary) -> Dictionary:
 
 func send_data(code: int, body: Dictionary) -> void:
 	if connected:
+		if code == 1 and body.has("seq"):
+			stats.sent_input(int(body.seq), Time.get_ticks_msec())
 		_send({"match_data_send": {"match_id": match_id, "op_code": code, "data": Marshalls.utf8_to_base64(JSON.stringify(body)), "reliable": true}})
 
 
 func _send(body: Dictionary) -> void:
 	_cid += 1
 	body["cid"] = str(_cid)
+	if body.has("ping"):
+		stats.sent_ping(str(_cid), Time.get_ticks_msec())
 	_socket.send_text(JSON.stringify(body))
 
 
@@ -108,14 +115,17 @@ func close() -> void:
 func _process(delta: float) -> void:
 	_socket.poll()
 	if _socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		var newest_snapshot := {}
 		_ping_in -= delta
 		if _ping_in <= 0:
-			_ping_in = 5.0
+			_ping_in = 2.0
 			_send({"ping": {}})
 		while _socket.get_available_packet_count() > 0:
 			var value: Variant = JSON.parse_string(_socket.get_packet().get_string_from_utf8())
 			if not value is Dictionary:
 				continue
+			if value.has("pong"):
+				stats.pong(str(value.get("cid", "")), Time.get_ticks_msec())
 			if value.has("match"):
 				connected = true
 				_last_packet = Time.get_ticks_msec()
@@ -127,7 +137,12 @@ func _process(delta: float) -> void:
 				var data: Dictionary = value.match_data
 				var decoded: Variant = JSON.parse_string(Marshalls.base64_to_utf8(str(data.get("data", ""))))
 				if decoded is Dictionary:
-					packet.emit(int(data.get("op_code", 0)), decoded)
+					var code := int(data.get("op_code", 0))
+					if code == 2 and coalesce_snapshots:
+						newest_snapshot = BioNetProtocol.coalesce_snapshot(newest_snapshot, decoded)
+					else:
+						packet.emit(code, decoded)
+		if not newest_snapshot.is_empty(): packet.emit(2, newest_snapshot)
 	elif connected:
 		connected = false
 		disconnected.emit()

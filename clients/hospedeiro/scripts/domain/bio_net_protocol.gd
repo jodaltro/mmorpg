@@ -32,6 +32,22 @@ static func xy(value: Vector2) -> Array:
 	return [snappedf(value.x, 0.1), snappedf(value.y, 0.1)]
 
 
+static func coalesce_snapshot(previous: Dictionary, next: Dictionary) -> Dictionary:
+	if previous.is_empty(): return next
+	if int(next.get("seq",-1)) <= int(previous.get("seq",-1)): return previous
+	var older := {}
+	for entity in previous.get("entities", []): older[str(entity.id)] = entity
+	var entities: Array = []
+	for entity in next.get("entities", []):
+		var merged: Dictionary = older.get(str(entity.id), {}).duplicate()
+		merged.merge(entity, true)
+		entities.append(merged)
+	var result := next.duplicate()
+	result["entities"] = entities
+	result["events"] = previous.get("events", []) + next.get("events", [])
+	return result
+
+
 static func visual(value: Variant, decode := false) -> Variant:
 	if not decode:
 		if value is Vector2: return {"v2": [value.x, value.y]}

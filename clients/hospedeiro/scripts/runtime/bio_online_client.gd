@@ -20,6 +20,10 @@ var _field: LineEdit
 var _button: Button
 var _retrying := false
 var _snapshot_ready := false
+var prediction := BioNetPrediction.new()
+var _motion: Dictionary = {}
+var _metadata: Dictionary = {}
+var authoritative_position := Vector2.ZERO
 const IDENTITY_PATH := "user://hospedeiro_guest.json"
 
 
@@ -32,6 +36,7 @@ static func wanted(engine: String) -> bool:
 func _ready() -> void:
 	_identity = BioNakama.guest_identity(IDENTITY_PATH)
 	transport = BioNakama.new()
+	transport.coalesce_snapshots = true
 	transport.base_url = BioPlatform.query_param("nakama")
 	if transport.base_url.is_empty():
 		transport.base_url = world.engine_url + "/nakama" if BioPlatform.is_web() else "http://127.0.0.1:7350"
@@ -129,6 +134,7 @@ func _process(delta: float) -> void:
 	for id in _targets:
 		if is_instance_valid(_entities.get(id)):
 			var n := _entities[id] as Node2D
+			if n == world.player: continue
 			var target: Vector2 = _targets[id]
 			n.global_position = n.global_position.lerp(target, 1.0 - exp(-22.0 * delta)) if n.global_position.distance_to(target) < 12.0*BioArt.UNIT else target
 	if is_ready and Time.get_ticks_msec() - _last_received > 5000:
@@ -136,16 +142,53 @@ func _process(delta: float) -> void:
 		transport.close()
 	_send_in -= delta
 	if _send_in <= 0.0 and transport.connected:
-		_send_in = 0.05
+		_send_in = 1.0/30.0
 		_seq += 1
 		var controller := world.player.get_node("Controller") as BioCellController
-		transport.send_data(1, {"seq": _seq, "move": BioNetProtocol.xy(world.player.intent), "aim": BioNetProtocol.xy(controller.aim), "actions": _actions})
+		transport.send_data(1, {"seq": _seq, "compact":1, "move": BioNetProtocol.xy(world.player.intent), "aim": BioNetProtocol.xy(controller.aim), "actions": _actions})
 		_actions = []
+
+
+func _physics_process(delta: float) -> void:
+	if not is_ready or not world.player.is_active() or not _motion.has("speed"): return
+	var cell := world.player
+	var dt := minf(delta, 0.05)
+	prediction.remember(_seq+1, dt, cell.intent)
+	cell.velocity = BioNetPrediction.velocity(cell.velocity, cell.intent, dt, _motion)
+	cell.collision_layer = 0
+	cell.collision_mask = BioCellActor.LAYER_WALL
+	cell.move_and_slide()
+
+
+func _reconcile(data: Dictionary, ack: int) -> void:
+	var cell := world.player
+	var pos: Array = data.get("p", [0,0])
+	var authoritative := Vector2(float(pos[0]),float(pos[1]))
+	authoritative_position = authoritative
+	var v: Array = data.get("v", [0,0])
+	var velocity := Vector2(float(v[0]),float(v[1]))
+	var previous := cell.global_position
+	prediction.acknowledge(ack)
+	var teleport := ack < 0 or not is_ready or previous.distance_to(authoritative) > 12.0*BioArt.UNIT or float(data.get("hp",0)) <= 0
+	if teleport: prediction.clear()
+	cell.collision_layer = 0
+	cell.collision_mask = BioCellActor.LAYER_WALL
+	cell.global_position = authoritative
+	for frame in prediction.frames:
+		velocity = BioNetPrediction.velocity(velocity,frame.intent,float(frame.dt),_motion)
+		cell.move_and_collide(velocity*float(frame.dt))
+	var reconciled := cell.global_position
+	if not teleport:
+		cell.global_position = previous
+		cell.move_and_collide((reconciled-previous)*0.35)
+	cell.velocity = velocity
 
 
 func _disconnected() -> void:
 	is_ready = false
 	_snapshot_ready = false
+	prediction.clear()
+	_metadata.clear()
 	_last_snapshot = -1
 	world.player.set_intent(Vector2.ZERO)
 	world.sync.link._set_online(false)
@@ -166,11 +209,19 @@ func _packet(code: int, body: Dictionary) -> void:
 	if seq <= _last_snapshot: return
 	_last_snapshot = seq
 	_last_received = Time.get_ticks_msec()
+	var ack := int(body.get("ack", -1))
+	transport.stats.acknowledge(ack, _last_received)
+	_motion = body.get("motion", {})
 	world.sync.link.reset_allowed = bool(body.get("reset_allowed", false))
 	world.hud.set_restart_allowed(world.sync.link.reset_allowed)
 	var wanted := {}
-	for data in body.get("entities", []):
+	for received in body.get("entities", []):
+		var data: Dictionary = received
 		var id := str(data.get("id", ""))
+		var cached: Dictionary = _metadata.get(id, {})
+		cached.merge(data, true)
+		_metadata[id] = cached
+		data = cached
 		wanted[id] = true
 		var mine: bool = str(data.get("uid", "")) == transport.user_id
 		if not is_instance_valid(_entities.get(id)):
@@ -181,6 +232,7 @@ func _packet(code: int, body: Dictionary) -> void:
 		_targets[id] = Vector2(float(pos[0]), float(pos[1]))
 		if n is BioCellActor:
 			_apply_actor(n as BioCellActor, data)
+			if mine: _reconcile(data, ack)
 			if mine and not is_ready:
 				n.global_position = _targets[id]
 				_snapshot_ready = true
@@ -198,6 +250,7 @@ func _packet(code: int, body: Dictionary) -> void:
 			if is_instance_valid(_entities[id]) and _entities[id] != world.player: (_entities[id] as Node).queue_free()
 			_entities.erase(id)
 			_targets.erase(id)
+			_metadata.erase(id)
 	var now := BioClock.now()
 	for key in body.get("cooldowns", {}):
 		world.player.combatant.actor._ready_at[StringName(key)] = now + float(body.cooldowns[key])
@@ -293,9 +346,9 @@ func _apply_actor(cell: BioCellActor, data: Dictionary) -> void:
 	elif cell.is_active() != alive: cell.set_active(alive)
 	cell.set_physics_process(false)
 	cell.collision_layer = 0
-	cell.collision_mask = 0
+	cell.collision_mask = BioCellActor.LAYER_WALL if cell == world.player else 0
 	var vel: Array = data.get("v", [0,0])
-	cell.velocity = Vector2(float(vel[0]), float(vel[1]))
+	if cell != world.player: cell.velocity = Vector2(float(vel[0]), float(vel[1]))
 	cell.set_meta("net_uid", str(data.get("uid", "")))
 	if cell != world.player:
 		var lineage := StringName(str(data.get("lineage", "")))

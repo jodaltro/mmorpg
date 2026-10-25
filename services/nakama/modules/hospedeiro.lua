@@ -41,14 +41,14 @@ local function world(ctx, raw)
   return nk.json_encode({status=code, body=decode(response)})
 end
 function M.match_init(ctx, params)
-  return {players={}, host=nil, last={}, names={}, host_tick=0}, 20, LABEL
+  return {players={}, host=nil, last={}, names={}, host_tick=0}, 60, LABEL
 end
 function M.match_join_attempt(ctx, dispatcher, tick, state, presence, metadata)
   if host(ctx, metadata.host_key) then
     if state.host and state.host.session_id ~= presence.session_id then return state, false, 'server already connected' end
     return state, true
   end
-  if not state.host or tick-state.host_tick > 200 then return state, false, 'server unavailable' end
+  if not state.host or tick-state.host_tick > 600 then return state, false, 'server unavailable' end
   local count=0
   for _, _ in pairs(state.players) do count=count+1 end
   if count >= 64 then return state, false, 'body full' end

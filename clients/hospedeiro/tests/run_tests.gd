@@ -2,6 +2,7 @@ extends SceneTree
 ## Run: godot --headless --path clients/hospedeiro --script res://tests/run_tests.gd [-- part_of_a_suite_name]
 
 const SUITES := [
+	"res://tests/test_latency.gd",
 	"res://tests/test_net_protocol.gd",
 	"res://tests/test_network_server.gd",
 	"res://tests/test_domain.gd",

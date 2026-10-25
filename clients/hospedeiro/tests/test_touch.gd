@@ -27,6 +27,16 @@ func after_each() -> void:
 	await tree.process_frame
 
 
+func test_mobile_ping_is_small_visible_and_does_not_capture_taps() -> void:
+	world.touch.layout(Vector2(667,375))
+	world.touch._update_ping(false)
+	assert_eq(world.touch.ping_label.text,"Offline","offline is explicit")
+	assert_eq(world.touch.ping_label.mouse_filter,Control.MOUSE_FILTER_IGNORE,"ping never blocks controls")
+	assert_true(world.touch.ping_label.position.x+world.touch.ping_label.size.x<=world.touch.menu.position.x,"ping stays beside menu")
+	world.touch._update_ping(true)
+	assert_true(not world.touch.ping_label.visible,"modal windows hide the combat HUD")
+
+
 func _touch(control: Control, index: int, at: Vector2, pressed: bool) -> void:
 	var e := InputEventScreenTouch.new()
 	e.index = index
