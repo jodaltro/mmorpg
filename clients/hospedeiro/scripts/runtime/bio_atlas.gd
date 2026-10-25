@@ -192,7 +192,6 @@ func _paint() -> void:
 			_panel.draw_polyline(pts, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.3), 0.95), 2.5, true)
 		else:
 			_panel.draw_polyline(pts, Color(0.55, 0.6, 0.7, 0.3), 2.0, true)
-	var legends: Array[String] = []
 	var number := 0
 	for region in body["regions"]:
 		var at: Vector2 = to_screen.call(region["center"])
@@ -201,7 +200,6 @@ func _paint() -> void:
 		if visited:
 			number += 1
 			marker = str(number)
-			legends.append("%d · %s" % [number, place_title(region)])
 		var tint := BioUi.ACCENT if visited else BioUi.MUTED
 		_panel.draw_circle(at, 10, BioUi.BG)
 		_panel.draw_string(font, at + Vector2(-4, 4), marker, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, tint)
@@ -209,13 +207,24 @@ func _paint() -> void:
 			_hits.append({"screen": at, "at": region["center"] * BioArt.UNIT, "title": place_title(region), "detail": "Medula · refúgio sem invasores. Treine e conheça Estroma, o NPC dourado." if region["id"] == BioBodyMap.MEDULA else "Sangue · primeira área de combate. Ataque vírions e absorva nutrientes para evoluir." if region["id"] == BioBodyMap.SANGUE else str(region["name"]) + " · região do corpo. Siga os vasos para chegar; membranas podem exigir adaptação."})
 	var world := _player.get_parent() as BioWorld if is_instance_valid(_player) else null
 	if world != null:
+		if world.journey != null and world.journey.has_target:
+			var gps := PackedVector2Array()
+			for point in world.journey.navigation_path(): gps.append(to_screen.call(point / BioArt.UNIT))
+			if gps.size() > 1:
+				_panel.draw_polyline(gps, Color(0.01, 0.04, 0.08, 0.95), 7, true)
+				_panel.draw_polyline(gps, Color(0.35, 1, 1, 0.95), 3, true)
+			var end: Vector2 = to_screen.call(world.journey.goal / BioArt.UNIT)
+			_panel.draw_circle(end, 7, BioUi.BG)
+			_panel.draw_arc(end, 7, 0, TAU, 32, BioUi.ACCENT, 2, true)
 		for gate in world.gates.values():
 			if not knows(BioBodyMap.region_of(gate.global_position)): continue
 			var at: Vector2 = to_screen.call(gate.global_position / BioArt.UNIT)
 			var diamond := PackedVector2Array([at + Vector2(0,-7), at + Vector2(7,0), at + Vector2(0,7), at + Vector2(-7,0), at + Vector2(0,-7)])
 			_panel.draw_polyline(diamond, BioUi.GOOD if gate.eligible else BioUi.MUTED, 2, true)
 			_hits.append({"screen": at, "at": gate.global_position, "title": "Masmorra: " + gate.title.capitalize(), "detail": dungeon_description(gate)})
-	_legend.text = "    ".join(legends) + "\n● Você: azul pulsante · ○ Região · ◇ Masmorra · Linhas: vasos"
+	_legend.text = "● Você · ○ Região · ◇ Masmorra · Linha azul: GPS\nToque em um local para ver detalhes e marcar destino."
+	if world != null and world.journey != null and world.journey.navigation_state != "none":
+		_legend.text += "\nGPS · " + world.journey.gps_label()
 	if is_instance_valid(_player):
 		var at := (_player.global_position / BioArt.UNIT) * scale + offset
 		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)

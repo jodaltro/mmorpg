@@ -4,6 +4,7 @@ extends Control
 var world: BioWorld
 var _body := {}
 var _age := 0.0
+var _last_route_active := false
 
 func configure(value: BioWorld) -> void:
 	world = value
@@ -18,9 +19,20 @@ func _gui_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	_age += delta
-	if _age > 0.2:
+	var active := world != null and world.journey != null and world.journey.has_target
+	if _age > 0.2 or active != _last_route_active:
 		_age = 0
+		_last_route_active = active
 		queue_redraw()
+
+func route_segments(frame: Rect2, factor: float, offset: Vector2) -> Array[PackedVector2Array]:
+	var out: Array[PackedVector2Array] = []
+	if world.journey == null: return out
+	var path := world.journey.navigation_path()
+	for i in range(1, path.size()):
+		var segment := BioNavigationRoute.clip_segment(path[i - 1] / BioArt.UNIT * factor + offset, path[i] / BioArt.UNIT * factor + offset, frame)
+		if segment.size() == 2: out.append(segment)
+	return out
 
 func _draw() -> void:
 	if world == null:
@@ -37,8 +49,18 @@ func _draw() -> void:
 		for i in range(1,points.size()):
 			var a: Vector2 = points[i-1]*factor+offset
 			var b: Vector2 = points[i]*factor+offset
-			if frame.has_point(a) and frame.has_point(b):
-				draw_line(a,b,Color(0.3,0.65,0.75,0.65),1,true)
+			var visible_segment := BioNavigationRoute.clip_segment(a, b, frame)
+			if visible_segment.size() == 2:
+				draw_line(visible_segment[0], visible_segment[1], Color(0.3,0.65,0.75,0.65),1,true)
+	for segment in route_segments(frame, factor, offset):
+		draw_polyline(segment, Color(0.01, 0.05, 0.1, 0.9), 5, true)
+		draw_polyline(segment, Color(0.35, 1, 1, 0.95), 2, true)
+	if world.journey != null and world.journey.has_target:
+		var ahead := world.journey.target / BioArt.UNIT * factor + offset
+		var center := size * 0.5
+		var direction := center.direction_to(ahead)
+		var arrow := center + direction * minf(22, center.distance_to(ahead))
+		draw_polyline(PackedVector2Array([arrow - direction * 5 + direction.orthogonal() * 3, arrow, arrow - direction * 5 - direction.orthogonal() * 3]), Color(0.75, 1, 1), 2, true)
 	for resident in world.sync._residents.values():
 		if is_instance_valid(resident):
 			var at: Vector2 = resident.global_position/BioArt.UNIT*factor+offset

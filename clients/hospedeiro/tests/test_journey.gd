@@ -76,12 +76,26 @@ func test_atlas_lists_known_dungeons_with_large_buttons_and_routes_selection() -
 	assert_eq(world.journey._pinned.get("at"), world.gate.global_position)
 	assert_true(not world.atlas.is_open(), "marking a route closes the map")
 
-func test_marked_destination_clears_on_arrival_and_dungeon_hides_guide() -> void:
+func test_arrival_hides_world_and_map_arrows_without_restarting_the_route() -> void:
 	world.tutorial.completed = true
 	world.journey.pin(Vector2.ZERO, "Refúgio")
 	world.player.position = Vector2.ZERO
 	world.journey._process(0)
-	assert_true(world.journey._pinned.is_empty())
+	assert_eq(world.journey.navigation_state, "arrived")
+	assert_true(not world.journey.has_target)
+	assert_true(world.journey.navigation_path().is_empty(), "atlas and minimap receive no arrows after arrival")
+	assert_true(world.journey.gps_label().begins_with("Chegou"))
+	for i in 40:
+		world.player.position = Vector2(0.3 * sin(i), 0.3 * cos(i)) * BioArt.UNIT
+		world.journey._process(0.05)
+		assert_true(not world.journey.has_target and world.journey.navigation_path().is_empty(), "idle jitter cannot reactivate guidance")
+	world.player.position = Vector2(2.1, 0) * BioArt.UNIT
+	world.exploration.passages = [{"from":"medula", "to":"sangue", "open":true}]
+	world.journey._process(0.21)
+	assert_true(not world.journey.has_target, "arrival hysteresis survives a fresh passage snapshot")
+	world._build_for_touch()
+	var segments := world.touch.minimap.route_segments(Rect2(7,7,78,78), 1.5, Vector2(46,46))
+	assert_true(segments.is_empty(), "the actual minimap renderer receives no route after arrival")
 	world.dungeon.active = true
 	world.journey._process(0)
 	assert_true(not world.journey._card.visible and not world.journey.has_target)
@@ -89,6 +103,66 @@ func test_marked_destination_clears_on_arrival_and_dungeon_hides_guide() -> void
 	world.player.set_active(false)
 	world.journey._process(0)
 	assert_true(not world.journey._card.visible and not world.journey.has_target, "death hides guidance")
+
+func test_gps_stays_on_one_full_route_across_region_boundaries_and_notifications() -> void:
+	world.tutorial.completed = true
+	var guide := world.journey
+	var goal := BioBodyMap.center_px(BioBodyMap.CORACAO)
+	guide.pin(goal, "Coração")
+	guide._process(0)
+	assert_true(guide.has_target)
+	var original := guide.route.points.duplicate()
+	var last_remaining := INF
+	for point in original:
+		world.player.position = point
+		world.region = BioBodyMap.region_of(point)
+		guide._process(0.21)
+		if point.distance_to(goal) > 2 * BioArt.UNIT:
+			assert_true(guide.has_target, "arrows persist through vessel and region transitions")
+			assert_true(not guide.navigation_path().is_empty())
+		assert_true(guide.route.remaining <= last_remaining + 0.1)
+		last_remaining = guide.route.remaining
+		assert_eq(guide.route.points, original, "region labels must not rebuild and flip the route")
+	assert_eq(guide.navigation_state, "arrived")
+	assert_true(not guide.has_target and guide.navigation_path().is_empty())
+
+func test_route_persists_when_an_evolution_notice_has_no_location() -> void:
+	world.tutorial.completed = true
+	world.journey._process(0)
+	assert_true(world.journey.has_target, "the accepted mission starts with a route")
+	var original := world.journey.goal
+	world.engine_offer = ["test"]
+	world.journey._process(0.21)
+	assert_true(world.journey.has_target)
+	assert_eq(world.journey.goal, original)
+	assert_true(world.journey._card.visible)
+
+func test_explicit_map_destination_works_before_finishing_the_tutorial() -> void:
+	world.tutorial.start(true)
+	world.journey.pin(BioBodyMap.center_px(BioBodyMap.SANGUE), "Sangue")
+	world.journey._process(0)
+	assert_true(world.journey.has_target and not world.journey.navigation_path().is_empty())
+	world.player.position = world.journey.goal
+	world.journey._process(0.016)
+	assert_true(not world.journey.has_target and world.journey.navigation_path().is_empty())
+	assert_eq(world.journey.navigation_state, "arrived")
+
+func test_confirmed_mission_completion_ends_old_route_before_showing_next_objective() -> void:
+	world.tutorial.completed = true
+	world.sync.system.set_active({"key":"dive|p1", "def":"primeiro-mergulho", "title":"Entre no Sangue"})
+	world.journey._process(0)
+	assert_true(world.journey.has_target)
+	world.region = BioBodyMap.SANGUE
+	world.player.position = BioBodyMap.center_px(world.region) - Vector2(8,0) * BioArt.UNIT
+	world.sync.link.view = {"quests":[{"key":"dive|p1", "state":"done"}]}
+	world.sync.system.set_active({})
+	BioFactory.spawn_virus(world, world.player.position + Vector2(150,0), world.player)
+	for i in 10:
+		world.journey._process(0.1)
+		assert_true(not world.journey.has_target and world.journey.navigation_path().is_empty(), "confirmed completion hides arrows immediately, including between GPS refreshes")
+	assert_eq(world.journey.navigation_state, "arrived", "server completion is an arrival even before the old region-center marker")
+	world.journey._process(3)
+	assert_true(world.journey.has_target, "a distinct next objective begins after the arrival notice")
 
 func test_first_blood_objectives_use_confirmed_counts() -> void:
 	world.region = BioBodyMap.SANGUE

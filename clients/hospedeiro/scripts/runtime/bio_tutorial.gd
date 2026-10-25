@@ -257,6 +257,7 @@ func _draw_gesture(center: Vector2) -> void:
 	_ink.draw_arc(finger, 10 + phase * 18, 0, TAU, 32, Color(0.4, 1, 0.85, alpha * (1 - phase)), 2, true)
 
 func _draw_trail(destination: Vector2) -> void:
+	if world.journey != null and world.journey.has_manual_destination(): return
 	var origin := world.player.get_global_transform_with_canvas().origin
 	if origin.distance_to(destination) < 70: return
 	var end := origin.lerp(destination, minf(1, 450.0 / origin.distance_to(destination)))

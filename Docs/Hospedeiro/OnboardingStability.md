@@ -6,3 +6,5 @@
 - A trilha mantém seu destino enquanto menus a encobrem, reaparece ao fechar e continua sob avisos de genes conquistados. Ofertas de abertura preservam a direção para o Sangue ou capilar. A orientação usa pontos adiante no vaso e uma seta estável perto da célula, evitando intervalos sem desenho nos trechos curtos.
 
 Nenhuma mudança de universo, recompensa, progressão ou mundo salvo é necessária para esta correção. A confirmação é uma intenção registrada, com replay determinístico.
+
+A orientação foi posteriormente substituída pelo [GPS celular](CellGPS.md): rota completa compartilhada entre cenário, atlas e minimapa, distância restante e chegada que encerra as setas. Essa revisão substitui o antigo desenho de setas curtas por fase de animação.
