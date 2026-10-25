@@ -96,6 +96,7 @@ func send_data(code: int, body: Dictionary) -> void:
 	if connected:
 		if code == 1 and body.has("seq"):
 			stats.sent_input(int(body.seq), Time.get_ticks_msec())
+			for frame in body.get("frames", []): stats.sent_input(int(frame.seq), Time.get_ticks_msec())
 		_send({"match_data_send": {"match_id": match_id, "op_code": code, "data": Marshalls.utf8_to_base64(JSON.stringify(body)), "reliable": true}})
 
 

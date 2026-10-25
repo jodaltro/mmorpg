@@ -37,6 +37,13 @@ func _process(delta: float) -> void:
 			"authorityX": world.online_client.authoritative_position.x if world.online_client != null else 0,
 			"authorityY": world.online_client.authoritative_position.y if world.online_client != null else 0,
 			"ready": world.online_client != null and world.online_client.is_ready,
+			"predictedCasts": world.online_client.preview.visual_count if world.online_client != null and world.online_client.preview != null else 0,
+			"pendingCasts": world.online_client.actions.pending.size() if world.online_client != null else 0,
+			"correctionPx": world.online_client._visual_offset.length() if world.online_client != null else 0,
+			"bufferedInputs": world.online_client._frames_to_send.size() if world.online_client != null else 0,
+			"inputSeq": world.online_client._seq if world.online_client != null else 0,
+			"inputAck": world.online_client.transport.stats.last_ack if world.online_client != null else 0,
+			"missingInputs": world.online_client._missing_inputs if world.online_client != null else [],
 			"entities": world.online_client._entities.size() if world.online_client != null else 0,
 			"players": world.online_client._entities.values().filter(func(n: Node) -> bool: return n is BioCellActor and not str(n.get_meta("net_uid", "")).is_empty()).size() if world.online_client != null else 0,
 		},
@@ -126,6 +133,8 @@ func _run(cmd: String) -> void:
 		return
 	var parts := cmd.split(":")
 	match parts[0]:
+		"tutorial":
+			if parts.size() > 1 and parts[1] == "pause": world.tutorial.stop()
 		"become":
 			world.debug_become(StringName(parts[1]))
 		"god":

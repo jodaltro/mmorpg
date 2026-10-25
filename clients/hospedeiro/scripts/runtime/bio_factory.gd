@@ -35,7 +35,7 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	executor.configure(actor.combatant, actor)
 	actor.add_child(executor)
 	executor.half_angle_source = limbs.lash_half_angle
-	executor.performed.connect(func(id: StringName, dir: Vector2) -> void:
+	executor.visual_performed.connect(func(id: StringName, dir: Vector2) -> void:
 		if id == BioAttackCatalog.FLAGELLUM_LASH:
 			var reach := actor.combatant.actor.attack_def(id).range_units
 			if tail.is_active():
@@ -195,6 +195,8 @@ static func spawn_projectile(parent: Node, owner_combatant: BioCombatant, def: B
 	var projectile := BioProjectile.new()
 	projectile.name = "ToxinSpit"
 	projectile.position = pos
+	projectile.set_meta("action_token", def.presentation_token)
+	projectile.set_meta("action_owner", def.presentation_owner)
 	projectile.launch(owner_combatant, def, direction)
 	parent.add_child(projectile)
 	return projectile

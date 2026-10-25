@@ -14,6 +14,7 @@ var _events: Array = []
 var _serial := 0
 var _last_reset := -10000
 var _report_in := 3.0
+var lag_history := BioNetLagHistory.new()
 
 
 func _ready() -> void:
@@ -62,6 +63,16 @@ func _packet(code: int, data: Dictionary) -> void:
 		var p: Dictionary = players[id]
 		var raw: Variant = data.get("input", {})
 		if not raw is Dictionary: return
+		if raw.get("frames") is Array:
+			var result_ack: Variant = raw.get("result_ack", 0)
+			if (result_ack is int or result_ack is float) and is_finite(float(result_ack)):
+				p.results = (p.results as Array).filter(func(result: Dictionary) -> bool: return int(result.token) > int(result_ack))
+			p["sequenced"] = true
+			p["compact"] = raw.get("compact", 0) == 1
+			p.last_input = Time.get_ticks_msec()
+			(p.inputs as BioNetInputBuffer).push(raw.frames)
+			(p.cell as BioCellActor).set_physics_process(false)
+			return
 		var input := BioNetProtocol.input(raw, int(p.seq))
 		if input.is_empty():
 			return
@@ -72,22 +83,79 @@ func _packet(code: int, data: Dictionary) -> void:
 		var controller := cell.get_node("Controller") as BioCellController
 		controller.move(input.move)
 		controller.set_aim(input.aim)
-		if not (p.link as BioEngineLink).online:
+		if not (p.link as BioEngineLink).online and (p.view as Dictionary).is_empty():
 			controller.move(Vector2.ZERO)
 			return
-		for action in input.actions:
-			match action:
-				"lash": controller.lash()
-				"spit": controller.spit()
-				"dash": controller.dash()
-				"respawn":
-					if not cell.combatant.actor.vitals.is_alive():
-						cell.combatant.reset_vitals()
-						cell.set_active(true)
-						cell.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
-				_:
-					if action.begins_with("ability:"):
-						(cell.get_node("Abilities") as BioAbilityRunner).perform_id(StringName(action.trim_prefix("ability:")))
+		_execute_actions(p, input)
+
+
+func _execute_actions(p: Dictionary, input: Dictionary) -> void:
+	var cell: BioCellActor = p.cell
+	var controller := cell.get_node("Controller") as BioCellController
+	for i in input.actions.size():
+		p.action_token = int(input.tokens[i])
+		cell.set_meta("action_token", p.action_token)
+		var action: String = input.actions[i]
+		var status := BioActor.AttackStatus.STARTED
+		match action:
+			"lash":
+				var executor: BioAttackExecutor
+				for child in cell.get_children():
+					if child is BioAttackExecutor: executor = child
+				var now := Time.get_ticks_msec()/1000.0
+				var requested := float(input.get("view_time", now))
+				if requested <= 0: requested = now
+				executor.historical_position = func(target: BioCellActor) -> Vector2: return lag_history.point(target.get_instance_id(), requested, now, target.global_position)
+				executor.historical_candidates = func(origin: Vector2, radius: float) -> Array:
+					var found: Array = []
+					for node in get_tree().get_nodes_in_group("cells"):
+						if node is BioCellActor and node != cell and node.is_active() and node.get_world_2d() == cell.get_world_2d() and (executor.historical_position.call(node) as Vector2).distance_to(origin) <= radius:
+							found.append(node)
+					return found
+				status = controller.lash()
+				executor.historical_candidates = Callable()
+				executor.historical_position = Callable()
+			"spit": status = controller.spit()
+			"dash": status = controller.dash()
+			"respawn":
+				if not cell.combatant.actor.vitals.is_alive():
+					cell.combatant.reset_vitals()
+					cell.set_active(true)
+					cell.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+			_:
+				if action.begins_with("ability:"):
+					status = (cell.get_node("Abilities") as BioAbilityRunner).perform_id(StringName(action.trim_prefix("ability:")))
+		if int(p.action_token) > 0:
+			var attack_id := BioAttackCatalog.FLAGELLUM_LASH if action == "lash" else BioAttackCatalog.TOXIN_SPIT if action == "spit" else BioAttackCatalog.MEMBRANE_DASH if action == "dash" else StringName(action.trim_prefix("ability:"))
+			p.results.append({"token":p.action_token,"status":status,"action":action,"attack_id":str(attack_id),"time":Time.get_ticks_msec()/1000.0,"cooldown":cell.combatant.actor.cooldown_remaining(attack_id,BioClock.now())})
+			while p.results.size() > 32: p.results.pop_front()
+	p.action_token = 0
+
+
+func _physics_process(delta: float) -> void:
+	var live: Array[int] = []
+	for node in get_tree().get_nodes_in_group("cells"):
+		if node is BioCellActor and node.is_active():
+			live.append(node.get_instance_id())
+			lag_history.record(node.get_instance_id(), Time.get_ticks_msec()/1000.0, node.global_position)
+	lag_history.prune(live)
+	for id in players:
+		var p: Dictionary = players[id]
+		if not bool(p.sequenced): continue
+		var cell: BioCellActor = p.cell
+		var input_buffer := p.inputs as BioNetInputBuffer
+		for frame in input_buffer.take(delta):
+			p.seq = int(frame.seq)
+			var controller := cell.get_node("Controller") as BioCellController
+			controller.move(frame.move)
+			controller.set_aim(frame.aim)
+			if (p.link as BioEngineLink).online or not (p.view as Dictionary).is_empty():
+				_execute_actions(p, frame)
+			else: controller.move(Vector2.ZERO)
+			if cell.is_active(): cell._physics_process(BioNetInputBuffer.STEP)
+		if Time.get_ticks_msec() - int(p.last_input) > 500 and cell.is_active():
+			cell.set_intent(Vector2.ZERO)
+			cell.velocity = Vector2.ZERO
 
 
 func _join(id: String, player_name: String) -> void:
@@ -102,11 +170,13 @@ func _join(id: String, player_name: String) -> void:
 			child.set_process(false)
 	(cell.get_node("Abilities") as BioAbilityRunner).set_process(false)
 	(cell.get_node("Abilities") as BioAbilityRunner).performed.connect(func(ability: StringName) -> void:
-		_events.append({"id": id, "ability": str(ability), "aim": BioNetProtocol.xy((cell.get_node("Controller") as BioCellController).aim)}))
+		_events.append({"id": id, "token":players[id].action_token,"ability": str(ability), "aim": BioNetProtocol.xy((cell.get_node("Controller") as BioCellController).aim)}))
 	var link := BioEngineLink.new()
 	link.request_headers = {"X-Adapter-Key": adapter_key, "X-Edge-Secret": edge_secret}
 	link.configure(engine_url, {"id": "nk-"+id, "name": player_name})
 	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "viewport": null, "dungeon": null, "dungeon_seed": -1, "used": {}, "travel": 0.0, "last_pos": cell.global_position, "compact": false, "metadata": {}}
+	players[id].merge({"sequenced":false,"inputs":BioNetInputBuffer.new(),"action_token":0,"results":[]})
+	(players[id].inputs as BioNetInputBuffer).next_sequence = 1
 	link.view_changed.connect(func(view: Dictionary) -> void: _apply_view(id, view))
 	link.world_reset_detected.connect(func() -> void: _reset_cell(id))
 	add_child(link)
@@ -125,7 +195,7 @@ func _join(id: String, player_name: String) -> void:
 	for child in cell.get_children():
 		if child is BioAttackExecutor:
 			(child as BioAttackExecutor).performed.connect(func(attack: StringName, aim: Vector2) -> void:
-				_events.append({"id": id, "attack": str(attack), "aim": BioNetProtocol.xy(aim)})
+				_events.append({"id": id, "token":players[id].action_token,"attack": str(attack), "aim": BioNetProtocol.xy(aim)})
 				if players.has(id): players[id].used[str(attack)] = true)
 	var exploration := BioExploration.new()
 	arena.add_child(exploration)
@@ -349,9 +419,12 @@ func _snapshot() -> void:
 		elif n is BioNutrient: d.merge({"kind": "nutrient", "type": (n as BioNutrient).kind})
 		elif n is BioMote: d.merge({"kind": "mote", "type": str((n as BioMote).kind)})
 		elif n is BioToxin: d["kind"] = "toxin"
-		elif n is BioProjectile: d["kind"] = "projectile"
+		elif n is BioProjectile:
+			var shot := n as BioProjectile
+			d.merge({"kind":"projectile","v":BioNetProtocol.xy(shot._direction * shot.speed_units * BioArt.UNIT),"action_token":int(shot.get_meta("action_token",0)),"action_owner":str(shot.get_meta("action_owner",""))})
 		elif n is BioAbilityBolt:
-			d.merge({"kind": "projectile", "color": (n as BioAbilityBolt)._color.to_html()})
+			var bolt := n as BioAbilityBolt
+			d.merge({"kind": "projectile", "color": bolt._color.to_html(),"v":BioNetProtocol.xy(bolt._dir * bolt._speed_px)})
 		elif n is BioAbilityZone:
 			var z := n as BioAbilityZone
 			d.merge({"kind":"zone","color":z.color.to_html(),"radius":z.radius_px,"age":z._age,"duration":z.duration})
@@ -384,11 +457,11 @@ func _snapshot() -> void:
 		var speed := cell.combatant.actor.stat(BioGene.SPEED) * cell.combatant.speed_mult()
 		if BioClock.now() < cell._slow_until: speed *= cell._slow_factor
 		var motion := {"speed":speed,"thrust":cell.thrust_units,"maximum":cell.max_speed_units,"damping":cell.damping,"unit":BioArt.UNIT,
-			"stunned":cell.combatant.is_stunned(),"ballistic":cell.is_dashing() or cell.is_rolling(),"velocity":BioNetProtocol.xy(cell.velocity)}
+			"stunned":cell.combatant.is_stunned(),"ballistic":cell.is_dashing() or cell.is_rolling(),"ballistic_seconds":maxf(0,maxf(cell._dash_until,cell._roll_until)-BioClock.now()),"velocity":BioNetProtocol.xy(cell.velocity)}
 		var outgoing := near
 		if bool(p.compact):
 			outgoing = compact_entities(near, p.metadata, _serial % 20 == 0)
-		transport.send_data(2, {"target": id, "body": {"version": 1, "seq": _serial, "ack":p.seq, "motion":motion,"entities": outgoing, "events": _events, "cooldowns": cooldowns, "reset_allowed": (p.link as BioEngineLink).reset_allowed}})
+		transport.send_data(2, {"target": id, "body": {"version": 1, "seq": _serial, "time":Time.get_ticks_msec()/1000.0,"ack":p.seq,"missing_inputs":(p.inputs as BioNetInputBuffer).missing(),"results":p.results,"motion":motion,"entities": outgoing, "events": _events, "cooldowns": cooldowns, "reset_allowed": (p.link as BioEngineLink).reset_allowed}})
 	_serial += 1
 	_events.clear()
 

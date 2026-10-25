@@ -23,7 +23,7 @@ func pong(id: String, now: int) -> void:
 	last_sample = now
 
 func sent_input(seq: int, now: int) -> void:
-	_inputs[seq] = now
+	if not _inputs.has(seq): _inputs[seq] = now  # retries must not turn a long RTT into a false short sample
 	_prune(_inputs, now)
 
 func acknowledge(seq: int, now: int) -> void:

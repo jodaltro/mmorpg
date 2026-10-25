@@ -3,12 +3,15 @@ extends Node
 ## Turns an attack intent into physics queries. Cost, cooldown and damage are validated by the domain actor.
 
 signal performed(attack_id: StringName, direction: Vector2)
+signal visual_performed(attack_id: StringName, direction: Vector2)
 
 ## Default arc of the basic lash; the player's body narrows or widens it (a lance, a macrophage's arm).
 const LASH_HALF_ANGLE := 75.0
 
 var lash_half_angle := LASH_HALF_ANGLE
 var half_angle_source: Callable  # optional: asks the body how wide its lash is
+var historical_candidates: Callable
+var historical_position: Callable
 
 var _combatant: BioCombatant
 var _host: BioCellActor
@@ -32,6 +35,8 @@ func perform(id: StringName, aim: Vector2) -> int:
 	if id == BioAttackCatalog.FLAGELLUM_LASH and half_angle_source.is_valid():
 		lash_half_angle = half_angle_source.call()
 	var def := _combatant.actor.attack_def(id)
+	if _host.has_meta("net_id"):
+		def = def.with_presentation(str(_host.get_meta("net_id")), int(_host.get_meta("action_token", 0)))
 	var origin := _host.global_position
 	match id:
 		BioAttackCatalog.FLAGELLUM_LASH:
@@ -48,6 +53,7 @@ func perform(id: StringName, aim: Vector2) -> int:
 			_contact_def = def
 			_contact_until = BioClock.now() + 0.32
 			_contact_hits.clear()
+	visual_performed.emit(id, aim)
 	performed.emit(id, aim)
 	return status
 
@@ -62,7 +68,8 @@ func _physics_process(_delta: float) -> void:
 func _do_lash(def: BioAttackDef, origin: Vector2, aim: Vector2) -> void:
 	var seen := {}
 	for collider in _overlap(origin, (def.range_units + 0.6) * BioArt.UNIT):
-		var to: Vector2 = collider.global_position - origin
+		var point: Vector2 = historical_position.call(collider) if historical_position.is_valid() else collider.global_position
+		var to: Vector2 = point - origin
 		var reach := to.length() - 0.5 * BioArt.UNIT
 		if reach > def.range_units * BioArt.UNIT:
 			continue
@@ -72,6 +79,7 @@ func _do_lash(def: BioAttackDef, origin: Vector2, aim: Vector2) -> void:
 
 
 func _overlap(point: Vector2, radius: float) -> Array:
+	if historical_candidates.is_valid(): return historical_candidates.call(point, radius)
 	var shape := CircleShape2D.new()
 	shape.radius = radius
 	var query := PhysicsShapeQueryParameters2D.new()

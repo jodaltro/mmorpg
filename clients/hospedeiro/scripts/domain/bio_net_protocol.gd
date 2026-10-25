@@ -25,7 +25,13 @@ static func input(packet: Dictionary, last_sequence: int) -> Dictionary:
 			var s := str(value)
 			if s in ["lash", "spit", "dash", "respawn"] or (s.begins_with("ability:") and s.length() <= 80):
 				actions.append(s)
-	return {"seq": seq, "move": vector(packet.get("move")), "aim": vector(packet.get("aim"), Vector2.RIGHT), "actions": actions}
+	var tokens: Array[int] = []
+	var raw_tokens: Variant = packet.get("tokens", [])
+	for i in actions.size():
+		var token: Variant = raw_tokens[i] if raw_tokens is Array and i < raw_tokens.size() else 0
+		tokens.append(int(token) if (token is int or token is float) and is_finite(float(token)) and float(token) > 0 and float(token) < 2147483647 else 0)
+	var view: Variant = packet.get("view_time", 0)
+	return {"seq": seq, "move": vector(packet.get("move")), "aim": vector(packet.get("aim"), Vector2.RIGHT), "actions": actions, "tokens":tokens,"view_time":float(view) if (view is int or view is float) and is_finite(float(view)) else 0.0}
 
 
 static func xy(value: Vector2) -> Array:

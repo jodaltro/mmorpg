@@ -17,6 +17,53 @@ class LocalAuthority extends BioGameServer:
 
 var server: BioGameServer
 
+func test_sequenced_input_acknowledges_simulation_not_packet_receipt() -> void:
+	var cell: BioCellActor = server.players.alpha.cell
+	var start := cell.position
+	server._packet(1, {"id":"alpha","input":{"compact":1,"frames":[{"seq":1,"move":[1,0],"aim":[1,0],"dt":999,"hp":99999}]}})
+	assert_eq(server.players.alpha.seq, -1, "receiving a packet does not discard client prediction")
+	assert_eq(cell.position, start)
+	server._physics_process(1.0/60)
+	assert_eq(server.players.alpha.seq, 1)
+	assert_true(cell.position.x > start.x)
+	assert_true(cell.position.x - start.x < BioArt.UNIT, "untrusted dt cannot speed up the cell")
+	assert_true(cell.combatant.actor.vitals.membrane <= 100)
+
+func test_action_results_identify_the_accepted_or_rejected_prediction() -> void:
+	server._packet(1, {"id":"alpha","input":{"frames":[{"seq":1,"move":[0,0],"aim":[1,0],"actions":["spit"],"tokens":[42]}]}})
+	server._physics_process(1.0/60)
+	assert_eq(server.players.alpha.results[0].token, 42)
+	assert_eq(server.players.alpha.results[0].status, BioActor.AttackStatus.STARTED)
+	server._packet(1, {"id":"alpha","input":{"frames":[{"seq":2,"move":[0,0],"aim":[1,0],"actions":["spit"],"tokens":[43]}]}})
+	server._physics_process(1.0/60)
+	assert_eq(server.players.alpha.results[1].status, BioActor.AttackStatus.ON_COOLDOWN)
+	assert_eq(server.players.alpha.results[1].token, 43)
+	server._packet(1, {"id":"alpha","input":{"frames":[{"seq":3,"move":[0,0]}],"result_ack":43}})
+	assert_eq(server.players.alpha.results.size(), 0, "confirmed results are not resent forever in every snapshot")
+
+func test_temporary_world_api_loss_does_not_stop_an_initialized_combat_session() -> void:
+	var p: Dictionary = server.players.alpha
+	p.view = {"observer":"nk-alpha"}
+	(p.link as BioEngineLink)._set_online(false)
+	var cell: BioCellActor = p.cell
+	var start := cell.position
+	server._packet(1, {"id":"alpha","input":{"frames":[{"seq":1,"move":[1,0],"aim":[1,0],"actions":["spit"],"tokens":[51]}]}})
+	server._physics_process(1.0/60)
+	assert_true(cell.position.x > start.x, "movement uses the last validated character instead of waiting on HTTP")
+	assert_eq(p.results[0].status, BioActor.AttackStatus.STARTED)
+
+func test_melee_checks_recent_geometry_without_moving_or_reviving_the_target() -> void:
+	var cell: BioCellActor = server.players.alpha.cell
+	var enemy := BioFactory.spawn_virus(server.arena, cell.position + Vector2.RIGHT * BioArt.UNIT, cell).get_parent() as BioCellActor
+	var now := Time.get_ticks_msec()/1000.0
+	server.lag_history.record(enemy.get_instance_id(), now - 0.2, enemy.position)
+	server.lag_history.record(enemy.get_instance_id(), now - 0.1, enemy.position)
+	enemy.position += Vector2.RIGHT * BioArt.UNIT * 6
+	var current := enemy.position
+	server._packet(1, {"id":"alpha","input":{"seq":1,"view_time":now-0.15,"move":[0,0],"aim":[1,0],"actions":["lash"]}})
+	assert_true(enemy.combatant.actor.vitals.membrane < 40, "the server recognizes the recently visible target")
+	assert_eq(enemy.position, current, "compensation never teleports the shared entity")
+
 func before_each() -> void:
 	server = LocalAuthority.new()
 	tree.root.add_child(server)

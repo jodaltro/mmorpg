@@ -410,6 +410,10 @@ func _update_ping(covered: bool) -> void:
 		ping_label.add_theme_color_override("font_color", Color(0.55,0.66,0.72))
 		return
 	var net: BioOnlineClient = world.online_client
+	if net.reconnecting:
+		ping_label.text = "Sem rede"
+		ping_label.add_theme_color_override("font_color", Color(1.0,0.6,0.35))
+		return
 	var ms := net.transport.stats.current_ms(Time.get_ticks_msec()) if net.transport.connected else -1
 	ping_label.text = "%d ms" % ms if ms >= 0 else "— ms"
 	var color := Color(0.45,0.9,0.72) if ms >= 0 and ms < 100 else Color(0.95,0.8,0.4) if ms >= 0 and ms < 200 else Color(1.0,0.5,0.4) if ms >= 200 else Color(0.55,0.66,0.72)
