@@ -14,6 +14,7 @@ const GRACE_SECONDS := 3.5  # enemies hold still while the cell gets its bearing
 const CLEAR_HEAL := 0.4  # share of the membrane given back when a room is cleared
 
 var active := false
+var briefing := false
 var replica_mode := false  # online client: draws the chamber; only the trusted host spawns and clears it
 var room_index := -1
 var seed_value := 0
@@ -60,6 +61,11 @@ func enemies() -> Array:
 
 func start(run: Dictionary) -> void:
 	if active:
+		if briefing and str(run.get("state", "")) == "active":
+			briefing = false
+			_player.set_meta("dungeon_briefing", false)
+			_player.combatant.actor.vitals.atp_regen_per_second = _saved_regen * float(_rule["regen_mult"])
+			advance(int(run.get("room", 0)))
 		return
 	active = true
 	seed_value = int(run.get("seed", 1))
@@ -74,6 +80,19 @@ func start(run: Dictionary) -> void:
 	var vitals := _player.combatant.actor.vitals
 	_saved_regen = vitals.atp_regen_per_second
 	vitals.atp_regen_per_second = _saved_regen * float(_rule["regen_mult"])
+	if str(run.get("state", "")) == "ready":
+		vitals.atp_regen_per_second = _saved_regen
+		briefing = true
+		_player.set_meta("dungeon_briefing", true)
+		global_position = CENTER
+		room_index = -1
+		chamber_radius = 8.0
+		shape = {"kind":"round"}
+		_build_walls()
+		_player.global_position = CENTER
+		_player.velocity = Vector2.ZERO
+		queue_redraw()
+		return
 	advance(int(run.get("room", 0)))
 
 
@@ -236,6 +255,8 @@ func finish(cleared: bool) -> void:
 	if not active:
 		return
 	active = false
+	briefing = false
+	if is_instance_valid(_player): _player.set_meta("dungeon_briefing", false)
 	_free_room()
 	if is_instance_valid(_player):
 		_player.combatant.actor.vitals.atp_regen_per_second = _saved_regen
@@ -252,6 +273,9 @@ func _process(delta: float) -> void:
 		return
 	_t += delta
 	if not active:
+		return
+	if briefing:
+		queue_redraw()
 		return
 	var vitals := _player.combatant.actor.vitals
 	if float(_rule["drain"]) > 0.0 and vitals.is_alive():

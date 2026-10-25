@@ -17,6 +17,28 @@ class LocalAuthority extends BioGameServer:
 
 var server: BioGameServer
 
+func test_dungeon_briefing_is_an_isolated_safe_room_until_player_confirms() -> void:
+	var rooms := [{"id":"guarda","name":"Guarda","kind":"guard"},{"id":"chefe","name":"Chefe","kind":"boss"}]
+	var run := {"state":"ready","dungeon":"granuloma","name":"Granuloma","seed":817,"room":0,"rooms":rooms}
+	var cell: BioCellActor = server.players.alpha.cell
+	var body_position := cell.global_position
+	server._apply_view("alpha", {"dungeon":{"run":run}})
+	var dungeon := server.players.alpha.dungeon as BioDungeon
+	assert_true(dungeon.briefing)
+	assert_true(cell.get_world_2d() != server.arena.get_world_2d())
+	assert_true(dungeon.enemies().is_empty())
+	var atp := cell.combatant.actor.vitals.atp
+	server._packet(1, {"id":"alpha","input":{"seq":1,"move":[0,0],"aim":[1,0],"actions":["spit"]}})
+	assert_eq(cell.combatant.actor.vitals.atp, atp, "cannot preload attacks while briefing")
+	run.state = "active"
+	server._apply_view("alpha", {"dungeon":{"run":run}})
+	assert_true(not dungeon.briefing)
+	assert_true(not dungeon.enemies().is_empty())
+	run.state = "failed"
+	server._apply_view("alpha", {"dungeon":{"run":run}})
+	assert_true(cell.get_world_2d() == server.arena.get_world_2d())
+	assert_eq(cell.global_position, body_position)
+
 func test_sequenced_input_acknowledges_simulation_not_packet_receipt() -> void:
 	var cell: BioCellActor = server.players.alpha.cell
 	var start := cell.position

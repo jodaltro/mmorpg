@@ -174,6 +174,9 @@ func (h *harness) clearRun(p core.ID) {
 	for i := 0; i < len(run.Rooms); i++ {
 		h.mustAct("adapter", p, "sala-limpa", nil)
 	}
+	if got := h.dungeonView(p).Run; got.Preview != nil && len(got.Preview.Choices) > 0 && got.RewardClaimed == "" {
+		h.mustAct("player", p, "resgatar-masmorra", map[string]core.ID{"gene": core.ID(got.Preview.Choices[0].ID)})
+	}
 }
 
 // Procedural dungeons: the opening and the boss are fixed, the rooms between them are drawn from the pool by the seed of the run, so

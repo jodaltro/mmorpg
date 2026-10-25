@@ -136,6 +136,7 @@ func perform_free(id: StringName) -> int:
 
 
 func _perform(id: StringName, free: bool) -> int:
+	if bool(_host.get_meta("dungeon_briefing", false)): return BioActor.AttackStatus.ON_COOLDOWN
 	if id == &"" or not knows(id):
 		return UNKNOWN
 	if not free:

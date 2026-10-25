@@ -263,7 +263,7 @@ func _apply_view(id: String, view: Dictionary) -> void:
 	cell.combatant.environment_speed = body.speed_multiplier()
 	cell.combatant.actor.vitals.regen_scale = body.atp_regen_multiplier() * (1.15 if view.get("explore", {}).get("adapted", []).has(players[id].region) else 1.0)
 	var run: Variant = view.get("dungeon", {}).get("run")
-	if run is Dictionary and run.get("state", "") == "active":
+	if run is Dictionary and run.get("state", "") in ["ready", "active"]:
 		_dungeon(id, run)
 	elif players[id].dungeon != null:
 		_end_dungeon(id)
@@ -292,7 +292,9 @@ func _dungeon(id: String, run: Dictionary) -> void:
 		dungeon.start(run)
 	else:
 		var dungeon := p.dungeon as BioDungeon
-		if dungeon.active and int(run.get("room", 0)) > dungeon.room_index:
+		if dungeon.briefing and run.get("state", "") == "active":
+			dungeon.start(run)
+		elif not dungeon.briefing and dungeon.active and int(run.get("room", 0)) > dungeon.room_index:
 			dungeon.advance(int(run.room))
 
 

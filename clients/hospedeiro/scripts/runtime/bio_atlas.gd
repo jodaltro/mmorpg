@@ -255,6 +255,14 @@ func _show_selected() -> void:
 	_go.visible = true
 	_modal.hide_modal()
 	_info.present(self)
+	var world := _player.get_parent() as BioWorld
+	if world == null: return
+	for gate in world.gates.values():
+		if gate.global_position != _selected.at: continue
+		var preview := BioUi.button("Ver expedição e prêmios", "primary")
+		preview.pressed.connect(func() -> void: close(); world.dungeon_panel.open_gate(gate))
+		_info.content.add_child(preview)
+		break
 
 func _clear_place_buttons() -> void:
 	for child in _info.content.get_children():

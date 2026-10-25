@@ -8,6 +8,7 @@ const REACH_UNITS := 3.2
 var eligible := false
 var hint := ""
 var details := ""
+var expedition: Dictionary = {}
 var dungeon_id := "granuloma"
 var title := "GRANULOMA"
 var ring_color := Color(1.0, 0.45, 0.62)
@@ -53,7 +54,7 @@ func _draw() -> void:
 	var line := ""
 	if is_near():
 		draw_arc(Vector2.ZERO, r * 1.2, 0.0, TAU, 56, Color(1, 1, 1, 0.5 + 0.3 * pulse), 2.0, true)
-		line = ("Desafio em salas · Agir para entrar" if BioPlatform.is_touch() else "Desafio em salas · E para entrar") if eligible else (hint if not hint.is_empty() else "Indisponível · consulte Agir")
+		line = ("Agir · ver expedição e prêmios" if BioPlatform.is_touch() else "E · ver expedição e prêmios") if eligible else (hint if not hint.is_empty() else "Indisponível · consulte Agir")
 	elif eligible:
 		line = "uma masmorra: chegue perto"
 	if line != "":

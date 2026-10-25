@@ -133,7 +133,7 @@ func _process(delta: float) -> void:
 		_answer_offer(false)
 	if Input.is_action_just_pressed("bio_leave") and _world.dungeon.active and link.online:
 		link.act("abandonar-masmorra")
-	if Input.is_action_just_pressed("bio_interact") and not _world.body_panel.is_open() and not BioUi.typing():
+	if Input.is_action_just_pressed("bio_interact") and not _world.body_panel.is_open() and not BioUi.typing() and (not BioUi.captures_input() or system.menu_open):
 		var near_gate := _near_gate()
 		if near_gate != null and not _world.dungeon.active:
 			enter_dungeon(near_gate)
@@ -183,9 +183,7 @@ func enter_dungeon(at: BioGate = null) -> void:
 	if not door.eligible:
 		system.push_feed(door.hint if not door.hint.is_empty() else "%s ainda não está ao seu alcance." % name)
 		return
-	var res := await link.act("entrar-masmorra", {"dungeon": door.dungeon_id})
-	if res.status != 200:
-		system.push_feed("%s recusou a entrada agora." % name)
+	_world.dungeon_panel.open_gate(door)
 
 
 ## The entrance the cell is standing at, if any.
@@ -218,6 +216,10 @@ func choose(index: int) -> void:
 		return
 	var item: Dictionary = system.menu_items[index]
 	system.close_menu()
+	if str(item.get("action", "")) == "entrar-masmorra":
+		var door: BioGate = _world.gates.get(str(item.get("args", {}).get("dungeon", "")))
+		if door != null: _world.dungeon_panel.open_gate(door)
+		return
 	var res := await link.act(str(item.get("action", "")), item.get("args", {}))
 	if res.status != 200:
 		system.push_feed("Não deu certo: o corpo não reagiu a isso agora.")
@@ -304,23 +306,30 @@ func _apply_dungeon(d: Dictionary) -> void:
 				system.push_feed("%s abriram para você: siga a seta e aperte E." % door.title.capitalize())
 		door.eligible = open
 		door.details = str(o.get("desc", ""))
+		door.expedition = o.duplicate(true)
 		door.hint = "" if open else str(hints.get(door.dungeon_id, "%s pede um corpo mais maduro, dentro do órgão." % door.title.capitalize()))
 	var run_name := str((d.get("run", {}) as Dictionary).get("name", "Granuloma")) if d.get("run") is Dictionary else "Granuloma"
 	var is_gr := (str((d.get("run", {}) as Dictionary).get("dungeon", "granuloma")) if d.get("run") is Dictionary else "granuloma") == "granuloma"
 	var run: Variant = d.get("run")
 	if not (run is Dictionary):
+		_world.dungeon_panel.apply(d)
 		return
 	var state := str(run.get("state", ""))
 	var seed_value := int(run.get("seed", 0))
 	var mod: Variant = run.get("modifier")
 	if state != "preparing" and _world.hud.banner_text().begins_with("Entrando"):
 		_world.hud.show_banner("")
-	if state == "preparing":
+	if state == "ready":
+		_world.dungeon.start(run)
+		_world.hud.show_banner("")
+	elif state == "preparing":
 		_world.hud.show_banner("Entrando no granuloma…  o Jev escolhe o desafio desta vez" if is_gr else "Entrando em %s…  o Jev escolhe o desafio desta vez" % run_name)
 		if _dungeon_state != "preparing":
 			system.push_feed("O granuloma se prepara…" if is_gr else "%s se prepara…" % run_name)
 	elif state == "active":
-		if not _world.dungeon.active and (_dungeon_state != "active" or seed_value != _dungeon_seed):
+		if _world.dungeon.briefing:
+			_world.dungeon.start(run)
+		elif not _world.dungeon.active and (_dungeon_state != "active" or seed_value != _dungeon_seed):
 			_world.dungeon.start(run)
 			if mod is Dictionary:
 				system.push_feed("%s, %s: %s" % ["Granuloma" if is_gr else run_name, mod.get("name", ""), mod.get("desc", "")])
@@ -330,10 +339,11 @@ func _apply_dungeon(d: Dictionary) -> void:
 		_world.dungeon.finish(true)
 		system.push_feed("O granuloma foi selado. A carga de infecção no sangue cai." if is_gr else "%s: limpo. O órgão respira." % run_name)
 	elif state == "failed" and _world.dungeon.active and seed_value == _world.dungeon.seed_value:
-		_world.dungeon.finish(false)
+		_world.dungeon.finish(_world.player.is_active())
 		system.push_feed("Você deixou o granuloma. Ele continua lá." if is_gr else "Você deixou %s. Eles continuam lá." % run_name)
 	_dungeon_state = state
 	_dungeon_seed = seed_value
+	_world.dungeon_panel.apply(d)
 
 
 func _apply_quests(quests: Array) -> void:

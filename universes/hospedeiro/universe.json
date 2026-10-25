@@ -2837,7 +2837,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 4
+     "d": 4,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "emit",
@@ -2862,7 +2863,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 4
+     "d": 4,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -2916,7 +2918,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "emit",
@@ -2935,7 +2938,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -2978,7 +2982,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "emit",
@@ -2997,7 +3002,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ],
    "tags": [
@@ -3046,7 +3052,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "emit",
@@ -3065,7 +3072,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3118,7 +3126,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 4
+     "d": 4,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "emit",
@@ -3137,7 +3146,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 4
+     "d": 4,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -3180,7 +3190,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 6
+     "d": 6,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "emit",
@@ -3199,7 +3210,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3250,7 +3262,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 6
+     "d": 6,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -3264,7 +3277,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ],
    "tags": [
@@ -3315,7 +3329,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 6
+     "d": 6,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -3329,7 +3344,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -3377,7 +3393,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "set",
@@ -3402,7 +3419,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 10
+     "d": 10,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -3447,7 +3465,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "set",
@@ -3467,7 +3486,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 10
+     "d": 10,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -3514,13 +3534,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -3571,13 +3593,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3633,13 +3657,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3695,13 +3721,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3757,13 +3785,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3819,13 +3849,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3881,13 +3913,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -3937,7 +3971,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -3951,7 +3986,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -3996,7 +4032,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -4010,7 +4047,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -4055,7 +4093,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -4069,7 +4108,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -4114,7 +4154,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -4128,7 +4169,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -4173,7 +4215,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -4187,7 +4230,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -4232,7 +4276,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -4246,7 +4291,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -4291,7 +4337,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 2
+     "d": 2,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "relate",
@@ -4305,7 +4352,8 @@
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 2
+     "d": 2,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     }
    ]
   },
@@ -4352,13 +4400,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4413,13 +4463,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4474,13 +4526,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4535,13 +4589,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4596,13 +4652,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4657,13 +4715,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4718,13 +4778,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4779,13 +4841,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 3
+     "d": 3,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 3
+     "d": 3,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "relate",
@@ -4844,13 +4908,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -4906,13 +4972,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -4968,13 +5036,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -5030,13 +5100,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 5
+     "d": 5,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 5
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "acquire-gene",
@@ -8266,7 +8338,7 @@
   {
    "id": "granuloma",
    "name": "O Granuloma",
-   "desc": "Macrófagos se fecharam em anéis ao redor de um núcleo necrótico onde uma bactéria resiste. Uma guarda de linfócitos vigia por fora. Se ninguém entrar, ele pode romper.\nRecompensa permanente: Espinhos de Quitina. Chicote projeta espinhos entre até três invasores próximos. Uma descarga a cada 5 s. +16% dano do chicote, +9% membrana máx., -7% velocidade.",
+   "desc": "Macrófagos se fecharam em anéis ao redor de um núcleo necrótico onde uma bactéria resiste. Uma guarda de linfócitos vigia por fora. Se ninguém entrar, ele pode romper.",
    "region": "sangue",
    "eligible": {
     "num": {
@@ -8342,13 +8414,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 8
+     "d": 8,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "adjust",
@@ -8365,11 +8439,6 @@
      "op": "emit",
      "event": "granuloma-selado",
      "text": "O granuloma foi selado: a carga de infecção no sangue cai."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "espinhos-de-quitina"
     }
    ],
    "firstClear": [
@@ -8427,12 +8496,40 @@
    "depth": [
     3,
     4
+   ],
+   "rewardPools": [
+    {
+     "genes": [
+      "fagossomo-profundo",
+      "degranulacao-toxica",
+      "dendritos-sensores",
+      "anticorpos-em-y",
+      "granzima-b",
+      "interleucina-2",
+      "degranulacao-explosiva",
+      "peroxidase-concentrada",
+      "memoria-de-presa",
+      "interleucina-10"
+     ],
+     "take": 1
+    },
+    {
+     "genes": [
+      "espinhos-de-quitina",
+      "flagelo-calejado",
+      "nucleo-reativo",
+      "vesicula-toxica",
+      "enzima-voraz",
+      "peroxissomos"
+     ],
+     "take": 3
+    }
    ]
   },
   {
    "id": "cordoes-hepaticos",
    "name": "Os Cordões Hepáticos",
-   "desc": "Entre os cordões de hepatócitos, uma lesão crônica se fechou: células estreladas fizeram cicatriz, hepatócitos adoeceram e gordura e toxina se acumulam ao redor de um nódulo duro. Se ninguém entrar, o fígado perde a função.\nRecompensa permanente: Mitocôndria Ávida. Usar uma habilidade de classe libera um pulso de reparo: recupera 10 de membrana sua e de aliados próximos, a cada 8 s. +4 ATP/s, -20% ATP máx..",
+   "desc": "Entre os cordões de hepatócitos, uma lesão crônica se fechou: células estreladas fizeram cicatriz, hepatócitos adoeceram e gordura e toxina se acumulam ao redor de um nódulo duro. Se ninguém entrar, o fígado perde a função.",
    "region": "figado",
    "eligible": {
     "num": {
@@ -8532,13 +8629,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "adjust",
@@ -8569,11 +8668,6 @@
      "op": "emit",
      "event": "cordoes-limpos",
      "text": "Os cordões hepáticos foram limpos: o fígado respira, a toxina cai."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "mitocondria-avida"
     }
    ],
    "firstClear": [
@@ -8631,12 +8725,40 @@
    "depth": [
     3,
     4
+   ],
+   "rewardPools": [
+    {
+     "genes": [
+      "fagossomo-profundo",
+      "degranulacao-toxica",
+      "dendritos-sensores",
+      "anticorpos-em-y",
+      "granzima-b",
+      "interleucina-2",
+      "degranulacao-explosiva",
+      "peroxidase-concentrada",
+      "memoria-de-presa",
+      "interleucina-10"
+     ],
+     "take": 1
+    },
+    {
+     "genes": [
+      "mitocondria-avida",
+      "peroxissomos",
+      "enzima-voraz",
+      "citoesqueleto-elastico",
+      "nucleo-reativo",
+      "vesicula-toxica"
+     ],
+     "take": 3
+    }
    ]
   },
   {
    "id": "centro-germinativo",
    "name": "O Centro Germinativo",
-   "desc": "Um folículo perdeu a seleção: linfócitos que deveriam morrer se multiplicam, e um clone maligno os comanda. Se ninguém entrar, o baço vira um tumor.\nRecompensa permanente: Citoesqueleto Elástico. Impulso emite uma onda de impacto no ponto de partida, atingindo invasores ao redor. Uma onda a cada 5 s. +11% alcance do chicote, -5% membrana máx., +7% velocidade.",
+   "desc": "Um folículo perdeu a seleção: linfócitos que deveriam morrer se multiplicam, e um clone maligno os comanda. Se ninguém entrar, o baço vira um tumor.",
    "region": "baco",
    "eligible": {
     "num": {
@@ -8778,13 +8900,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "adjust",
@@ -8816,11 +8940,6 @@
      "event": "centro-limpo",
      "public": true,
      "text": "O centro germinativo foi limpo: o baço volta a ensinar a defesa."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "citoesqueleto-elastico"
     }
    ],
    "firstClear": [
@@ -8830,12 +8949,40 @@
     }
    ],
    "firstText": "foi a primeira a limpar o Centro Germinativo.",
-   "retry": 6
+   "retry": 6,
+   "rewardPools": [
+    {
+     "genes": [
+      "fagossomo-profundo",
+      "degranulacao-toxica",
+      "dendritos-sensores",
+      "anticorpos-em-y",
+      "granzima-b",
+      "interleucina-2",
+      "degranulacao-explosiva",
+      "peroxidase-concentrada",
+      "memoria-de-presa",
+      "interleucina-10"
+     ],
+     "take": 1
+    },
+    {
+     "genes": [
+      "citoesqueleto-elastico",
+      "vesicula-toxica",
+      "nucleo-reativo",
+      "mitocondria-avida",
+      "flagelo-calejado",
+      "espinhos-de-quitina"
+     ],
+     "take": 3
+    }
+   ]
   },
   {
    "id": "criptas-profundas",
    "name": "As Criptas Profundas",
-   "desc": "A microbiota perdeu o equilíbrio: um biofilme tomou as criptas, bactérias e parasitas fundaram ninhos e uma colônia mãe sufoca a parede. Se ninguém entrar, o intestino adoece.\nRecompensa permanente: Enzima Voraz. Usar uma habilidade de classe deixa uma poça digestiva à frente por 3 s. Uma poça a cada 6 s. -2 ATP/s, +150% ganho de nutrientes.",
+   "desc": "A microbiota perdeu o equilíbrio: um biofilme tomou as criptas, bactérias e parasitas fundaram ninhos e uma colônia mãe sufoca a parede. Se ninguém entrar, o intestino adoece.",
    "region": "intestino",
    "eligible": {
     "num": {
@@ -8976,13 +9123,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "adjust",
@@ -9014,11 +9163,6 @@
      "event": "criptas-limpas",
      "public": true,
      "text": "As criptas foram limpas: a microbiota volta a se reequilibrar."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "enzima-voraz"
     }
    ],
    "firstClear": [
@@ -9028,12 +9172,40 @@
     }
    ],
    "firstText": "foi a primeira a limpar as Criptas Profundas.",
-   "retry": 6
+   "retry": 6,
+   "rewardPools": [
+    {
+     "genes": [
+      "fagossomo-profundo",
+      "degranulacao-toxica",
+      "dendritos-sensores",
+      "anticorpos-em-y",
+      "granzima-b",
+      "interleucina-2",
+      "degranulacao-explosiva",
+      "peroxidase-concentrada",
+      "memoria-de-presa",
+      "interleucina-10"
+     ],
+     "take": 1
+    },
+    {
+     "genes": [
+      "enzima-voraz",
+      "vesicula-toxica",
+      "peroxissomos",
+      "espinhos-de-quitina",
+      "mitocondria-avida",
+      "flagelo-calejado"
+     ],
+     "take": 3
+    }
+   ]
   },
   {
    "id": "nefrons",
    "name": "Os Néfrons",
-   "desc": "Cristais se acumularam nos túbulos e uma pedra coraliforme bloqueia o rim por dentro. Se ninguém entrar, a pressão do corpo não volta ao normal.\nRecompensa permanente: Peroxissomos. Usar uma habilidade de classe cria um escudo: reduz dano recebido em 25% por 2 s, a cada 8 s. +2 ATP/s, +9% membrana máx., -5% velocidade.",
+   "desc": "Cristais se acumularam nos túbulos e uma pedra coraliforme bloqueia o rim por dentro. Se ninguém entrar, a pressão do corpo não volta ao normal.",
    "region": "rim",
    "eligible": {
     "num": {
@@ -9182,13 +9354,15 @@
      "op": "adjust",
      "e": "$self",
      "k": "pressao",
-     "d": 10
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
     },
     {
      "op": "adjust",
      "e": "$self",
      "k": "maturidade",
-     "d": 6
+     "d": 6,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
     },
     {
      "op": "adjust",
@@ -9220,11 +9394,6 @@
      "event": "nefrons-limpos",
      "public": true,
      "text": "Os néfrons foram limpos: o rim volta a filtrar e a pressão cai."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "peroxissomos"
     }
    ],
    "firstClear": [
@@ -9234,7 +9403,35 @@
     }
    ],
    "firstText": "foi a primeira a limpar os Néfrons.",
-   "retry": 6
+   "retry": 6,
+   "rewardPools": [
+    {
+     "genes": [
+      "fagossomo-profundo",
+      "degranulacao-toxica",
+      "dendritos-sensores",
+      "anticorpos-em-y",
+      "granzima-b",
+      "interleucina-2",
+      "degranulacao-explosiva",
+      "peroxidase-concentrada",
+      "memoria-de-presa",
+      "interleucina-10"
+     ],
+     "take": 1
+    },
+    {
+     "genes": [
+      "peroxissomos",
+      "nucleo-reativo",
+      "mitocondria-avida",
+      "citoesqueleto-elastico",
+      "enzima-voraz",
+      "espinhos-de-quitina"
+     ],
+     "take": 3
+    }
+   ]
   }
  ],
  "vitals": [

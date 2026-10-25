@@ -26,6 +26,7 @@ func configure(combatant: BioCombatant, host: BioCellActor) -> void:
 
 
 func perform(id: StringName, aim: Vector2) -> int:
+	if bool(_host.get_meta("dungeon_briefing", false)): return BioActor.AttackStatus.ON_COOLDOWN
 	if aim.length_squared() < 1e-4:
 		aim = Vector2.RIGHT
 	aim = aim.normalized()

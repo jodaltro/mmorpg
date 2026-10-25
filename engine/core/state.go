@@ -90,12 +90,13 @@ type Quest struct {
 	Title  string `json:"title"`
 	Desc   string `json:"desc,omitempty"`
 
-	Rank      string `json:"rank,omitempty"`
-	Objective string `json:"objective,omitempty"`
-	Reward    string `json:"reward,omitempty"`
-	Penalty   string `json:"penalty,omitempty"`
-	Stage     string `json:"stage,omitempty"`
-	Deadline  Tick   `json:"deadline,omitempty"`
+	Rank          string       `json:"rank,omitempty"`
+	Objective     string       `json:"objective,omitempty"`
+	Reward        string       `json:"reward,omitempty"`
+	RewardDetails []RewardInfo `json:"rewardDetails,omitempty"`
+	Penalty       string       `json:"penalty,omitempty"`
+	Stage         string       `json:"stage,omitempty"`
+	Deadline      Tick         `json:"deadline,omitempty"`
 }
 
 type Option struct {

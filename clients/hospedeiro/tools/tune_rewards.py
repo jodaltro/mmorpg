@@ -15,6 +15,13 @@ quests = {
 }
 dungeons = {"granuloma": "espinhos-de-quitina", "cordoes-hepaticos": "mitocondria-avida",
             "centro-germinativo": "citoesqueleto-elastico", "criptas-profundas": "enzima-voraz", "nefrons": "peroxissomos"}
+themes = {
+    "granuloma": ["espinhos-de-quitina", "flagelo-calejado", "nucleo-reativo", "vesicula-toxica", "enzima-voraz", "peroxissomos"],
+    "cordoes-hepaticos": ["mitocondria-avida", "peroxissomos", "enzima-voraz", "citoesqueleto-elastico", "nucleo-reativo", "vesicula-toxica"],
+    "centro-germinativo": ["citoesqueleto-elastico", "vesicula-toxica", "nucleo-reativo", "mitocondria-avida", "flagelo-calejado", "espinhos-de-quitina"],
+    "criptas-profundas": ["enzima-voraz", "vesicula-toxica", "peroxissomos", "espinhos-de-quitina", "mitocondria-avida", "flagelo-calejado"],
+    "nefrons": ["peroxissomos", "nucleo-reativo", "mitocondria-avida", "citoesqueleto-elastico", "enzima-voraz", "espinhos-de-quitina"],
+}
 genes = {g["id"]: g for g in u["mutations"]}
 proof_actions = {
     "macrofago": ("absorver-nutriente", "nutrientes"), "neutrofilo": ("esquivar", "esquivas"),
@@ -51,10 +58,18 @@ for collection, rewards in [(u["quests"], quests), (u["dungeons"], dungeons)]:
             continue
         effects = entry.setdefault("rewards", [])
         effects[:] = [e for e in effects if e.get("op") != "acquire-gene"]
-        effects.append({"op": "acquire-gene", "e": "$self", "v": gene})
+        if entry["id"] not in dungeons:
+            effects.append({"op": "acquire-gene", "e": "$self", "v": gene})
         if "reward" in entry:
             entry["reward"] = entry["reward"].split(" · Gene permanente:")[0] + " · Gene permanente: " + genes[gene]["name"] + " (Corpo → Genes)"
         else:
-            entry["desc"] = entry["desc"].split("\nRecompensa permanente:")[0] + "\nRecompensa permanente: " + genes[gene]["name"] + ". " + genes[gene]["desc"]
+            entry["desc"] = entry["desc"].split("\nRecompensa permanente:")[0]
+            entry["rewardPools"] = [{"genes":[value for key,value in quests.items() if key.startswith("prova-")],"take":1}, {"genes":themes[entry["id"]],"take":3}]
+for entry in u["quests"] + u["dungeons"]:
+    for effect in entry.get("rewards", []):
+        if effect.get("op") == "adjust" and effect.get("e") == "$self":
+            hint = {"pressao":"Preenche a barra que libera uma escolha de gene.", "maturidade":"Conta para os requisitos de diferenciação; não é um nível."}.get(effect.get("k"))
+            if hint:
+                effect["text"] = hint
 path.write_text(json.dumps(u, ensure_ascii=False, indent=1), encoding="utf-8")
-print("permanent gene rewards:", len(quests), "quests,", len(dungeons), "dungeons")
+print("rewards:", len(quests), "permanent quest genes,", len(dungeons), "procedural expedition pools")

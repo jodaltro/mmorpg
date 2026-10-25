@@ -16,7 +16,7 @@ As dez provas de classe contam os feitos **depois da diferenciação**. Feitos d
 
 ## Recompensas concretas
 
-Treze missões, incluindo a primeira travessia e as dez provas de classe, concedem genes permanentes, além das recompensas existentes. Cada uma das cinco masmorras também possui um gene garantido, com descrição visível no atlas. Repetir a conquista de um gene já possuído não duplica o gene ou seu aviso; as demais recompensas existentes continuam sendo aplicadas.
+Treze missões, incluindo a primeira travessia e as dez provas de classe, concedem genes permanentes, além das recompensas existentes. Nas cinco masmorras, cada expedição gera até três genes elegíveis ainda não conquistados: vencer permite escolher um deles. A entrada e a sala segura mostram os mesmos prêmios, seus efeitos e como ativá-los. Quando o conjunto se esgota, a interface informa que restam apenas os recursos. Ver [Masmorras e recompensas](DungeonRewards.md).
 
 A recompensa entra na **biblioteca**. Não substitui automaticamente um gene expresso e não abre uma escolha que interrompa o combate. O aviso **Gene conquistado** leva diretamente a Corpo → Genes. Expressar, trocar ou silenciar continua sendo uma intenção validada pelo motor, respeitando os bloqueios de reconfiguração.
 

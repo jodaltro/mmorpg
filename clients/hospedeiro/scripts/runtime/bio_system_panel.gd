@@ -315,7 +315,7 @@ func _refresh_offer() -> void:
 	_card_head.text = "%s  ·  rank %s" % [_caller, rank]
 	_card_title.text = str(_offer.get("title", ""))
 	_card_goal.text = str(_offer.get("objective", _offer.get("desc", "")))
-	_card_reward.text = "Recompensa: %s" % str(_offer.get("reward", "-"))
+	_card_reward.text = "VOCÊ GANHA\n" + BioRewardUi.summary(_offer.get("rewardDetails", []), str(_offer.get("reward", "-")))
 	if _touch:
 		if tray != null:
 			tray.set_call("quest", "quest", "Chamado: %s" % str(_offer.get("title", "")), "toque para responder")
@@ -428,7 +428,8 @@ func _render_missions() -> void:
 		_missions.content.add_child(BioUi.label("EM ANDAMENTO", BioUi.FS_SMALL, BioUi.ACCENT))
 		_missions.content.add_child(BioUi.wrapped(str(_active.get("title", "")), BioUi.FS_HEAD))
 		_missions.content.add_child(BioUi.wrapped(str(_active.get("objective", _active.get("desc", ""))), BioUi.FS_BODY, BioUi.MUTED))
-		_missions.content.add_child(BioUi.wrapped("Recompensa: " + str(_active.get("reward", "—")), BioUi.FS_SMALL, BioUi.GOOD))
+		_missions.content.add_child(BioUi.label("AO CONCLUIR VOCÊ GANHA", BioUi.FS_SMALL, BioUi.GOOD))
+		BioRewardUi.add_rewards(_missions.content, _active.get("rewardDetails", []), str(_active.get("reward", "—")))
 	if has_offer():
 		_missions.content.add_child(BioUi.label("NOVO CHAMADO", BioUi.FS_SMALL, BioUi.WARN))
 		_missions.content.add_child(BioUi.wrapped(str(_offer.get("title", "")), BioUi.FS_HEAD))

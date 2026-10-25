@@ -144,6 +144,7 @@ func _connect() -> void:
 
 
 func queue_action(action: String) -> int:
+	if world.dungeon.briefing: return BioActor.AttackStatus.ON_COOLDOWN
 	if not is_ready and not _has_started: return BioActor.AttackStatus.DEAD
 	if action == "respawn":
 		if is_ready and not _actions.has(action):

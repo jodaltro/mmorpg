@@ -53,7 +53,7 @@ func (w *World) reconfigurable(s *State, origin string, p ID) error {
 	if origin != "player" || w.U.Evolution == nil || s.Entities[p].Kind != w.U.PlayerKind {
 		return reject("build")
 	}
-	if run, has := s.Delves[p]; has && (run.State == "preparing" || run.State == "active") {
+	if run, has := s.Delves[p]; has && (run.State == "preparing" || run.State == "ready" || run.State == "active") {
 		return reject("build: not inside a dungeon run")
 	}
 	if s.Tick < s.Genomes[p].RestUntil {

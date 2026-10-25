@@ -93,6 +93,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 	}
 	for _, k := range sortedKeys(s.Quests) {
 		if q := s.Quests[k]; q.Holder == observer {
+			q.RewardDetails = w.rewardInfo(s, observer, w.quests[q.Def].Rewards)
 			v.Quests = append(v.Quests, q)
 		}
 	}

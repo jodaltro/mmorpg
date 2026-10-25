@@ -80,11 +80,7 @@ func TestSlowerEvolutionAndEveryDungeonHasConcreteGeneReward(t *testing.T) {
 		t.Fatal("progression no longer follows the calibrated fourfold cadence")
 	}
 	for _, dungeon := range h.w.U.Dungeons {
-		found := false
-		for _, reward := range dungeon.Rewards {
-			found = found || reward.Op == "acquire-gene"
-		}
-		if !found {
+		if len(dungeon.RewardPools) == 0 {
 			t.Fatalf("%s lacks a permanent combat reward", dungeon.ID)
 		}
 	}

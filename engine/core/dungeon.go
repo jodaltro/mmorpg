@@ -19,23 +19,26 @@ const (
 	actClearRoom    = "sala-limpa"         // adapter: the current room was cleared
 	actFailDungeon  = "falhar-masmorra"    // adapter: the run failed (the cell died)
 	actLeaveDungeon = "abandonar-masmorra" // player: leaves a run
+	actStartDungeon = "iniciar-masmorra"
+	actClaimDungeon = "resgatar-masmorra"
 )
 
 // DungeonDef is a kind of dungeon.
 type DungeonDef struct {
-	ID         string        `json:"id"`
-	Name       string        `json:"name"`
-	Desc       string        `json:"desc"`
-	Region     string        `json:"region"`             // where its entrance is
-	Eligible   *Cond         `json:"eligible,omitempty"` // $self is the player
-	Rooms      []RoomDef     `json:"rooms"`
-	Pool       []RoomDef     `json:"pool,omitempty"`  // procedural dungeon: the first of Rooms opens it, the last closes it (the boss) and a run draws the rooms between them from here
-	Depth      []int         `json:"depth,omitempty"` // with a pool: [min, max] rooms drawn between the opening and the boss
-	Modifiers  []ModifierDef `json:"modifiers,omitempty"`
-	Rewards    []Effect      `json:"rewards,omitempty"`    // every clear, $self is the player
-	FirstClear []Effect      `json:"firstClear,omitempty"` // only the first clear in the world: a unique scenario
-	FirstText  string        `json:"firstText,omitempty"`  // public chronicle line for it
-	Retry      Tick          `json:"retry,omitempty"`      // ticks before the same player may enter again
+	ID          string        `json:"id"`
+	Name        string        `json:"name"`
+	Desc        string        `json:"desc"`
+	Region      string        `json:"region"`             // where its entrance is
+	Eligible    *Cond         `json:"eligible,omitempty"` // $self is the player
+	Rooms       []RoomDef     `json:"rooms"`
+	Pool        []RoomDef     `json:"pool,omitempty"`  // procedural dungeon: the first of Rooms opens it, the last closes it (the boss) and a run draws the rooms between them from here
+	Depth       []int         `json:"depth,omitempty"` // with a pool: [min, max] rooms drawn between the opening and the boss
+	Modifiers   []ModifierDef `json:"modifiers,omitempty"`
+	Rewards     []Effect      `json:"rewards,omitempty"`    // every clear, $self is the player
+	FirstClear  []Effect      `json:"firstClear,omitempty"` // only the first clear in the world: a unique scenario
+	FirstText   string        `json:"firstText,omitempty"`  // public chronicle line for it
+	Retry       Tick          `json:"retry,omitempty"`      // ticks before the same player may enter again
+	RewardPools []RewardPool  `json:"rewardPools,omitempty"`
 }
 
 // RoomDef is one room: kind is a hint for the game server (guard, wall, core, boss).
@@ -57,13 +60,16 @@ type ModifierDef struct {
 
 // Delve is a player's run: preparing (the modifier is being decided), active, cleared or failed.
 type Delve struct {
-	Dungeon  string    `json:"dungeon"`
-	State    string    `json:"state"`
-	Seed     int64     `json:"seed"`
-	Modifier string    `json:"modifier,omitempty"`
-	Room     int       `json:"room"`
-	Started  Tick      `json:"started"`
-	Rooms    []RoomDef `json:"rooms,omitempty"` // the rooms of this run when the dungeon is procedural (drawn from the seed)
+	Dungeon       string    `json:"dungeon"`
+	State         string    `json:"state"`
+	Seed          int64     `json:"seed"`
+	Modifier      string    `json:"modifier,omitempty"`
+	Room          int       `json:"room"`
+	Started       Tick      `json:"started"`
+	Rooms         []RoomDef `json:"rooms,omitempty"` // the rooms of this run when the dungeon is procedural (drawn from the seed)
+	Briefing      bool      `json:"briefing,omitempty"`
+	RewardGenes   []string  `json:"rewardGenes,omitempty"`
+	RewardClaimed string    `json:"rewardClaimed,omitempty"`
 }
 
 // DungeonView is what a player sees of the dungeons.
@@ -73,22 +79,25 @@ type DungeonView struct {
 }
 
 type DungeonOption struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Desc     string `json:"desc"`
-	Region   string `json:"region"`
-	Rooms    int    `json:"rooms"`
-	Eligible bool   `json:"eligible"` // true when this player may enter now
+	ID       string             `json:"id"`
+	Name     string             `json:"name"`
+	Desc     string             `json:"desc"`
+	Region   string             `json:"region"`
+	Rooms    int                `json:"rooms"`
+	Eligible bool               `json:"eligible"` // true when this player may enter now
+	Preview  *ExpeditionPreview `json:"preview,omitempty"`
 }
 
 type RunView struct {
-	Dungeon  string     `json:"dungeon"`
-	Name     string     `json:"name"`
-	State    string     `json:"state"`
-	Seed     int64      `json:"seed"`
-	Modifier *RunMod    `json:"modifier,omitempty"`
-	Room     int        `json:"room"`
-	Rooms    []RoomView `json:"rooms"`
+	Dungeon       string             `json:"dungeon"`
+	Name          string             `json:"name"`
+	State         string             `json:"state"`
+	Seed          int64              `json:"seed"`
+	Modifier      *RunMod            `json:"modifier,omitempty"`
+	Room          int                `json:"room"`
+	Rooms         []RoomView         `json:"rooms"`
+	Preview       *ExpeditionPreview `json:"preview,omitempty"`
+	RewardClaimed string             `json:"rewardClaimed,omitempty"`
 }
 
 type RunMod struct {
@@ -119,6 +128,18 @@ func (w *World) compileDungeons(v *validator) error {
 			return invalid("dungeon %q", d.ID)
 		}
 		seen[d.ID] = true
+		for _, pool := range d.RewardPools {
+			if pool.Take < 1 || pool.Take > 3 || len(pool.Genes) == 0 {
+				return invalid("dungeon %s: reward pool", d.ID)
+			}
+			ids := map[string]bool{}
+			for _, id := range pool.Genes {
+				if _, ok := w.mutation(id); !ok || ids[id] {
+					return invalid("dungeon %s: reward gene %s", d.ID, id)
+				}
+				ids[id] = true
+			}
+		}
 		rooms := map[string]bool{}
 		if len(d.Pool) > 0 {
 			if len(d.Rooms) < 2 || len(d.Depth) != 2 || d.Depth[0] < 1 || d.Depth[1] < d.Depth[0] || d.Depth[1] > len(d.Pool) {
@@ -156,7 +177,7 @@ func (w *World) compileDungeons(v *validator) error {
 		}
 	}
 	if len(w.U.Dungeons) > 0 {
-		for _, reserved := range []string{actEnterDungeon, actClearRoom, actFailDungeon, actLeaveDungeon} {
+		for _, reserved := range []string{actEnterDungeon, actClearRoom, actFailDungeon, actLeaveDungeon, actStartDungeon, actClaimDungeon} {
 			if _, taken := w.actions[reserved]; taken {
 				return invalid("action id %q is reserved by the engine", reserved)
 			}
@@ -212,7 +233,7 @@ func (w *World) mayEnter(s *State, p ID, d DungeonDef) bool {
 	if !ok || e.Kind != w.U.PlayerKind || string(e.Region) != d.Region {
 		return false
 	}
-	if run, has := s.Delves[p]; has && (run.State == "preparing" || run.State == "active") {
+	if run, has := s.Delves[p]; has && (run.State == "preparing" || run.State == "ready" || run.State == "active" || (run.State == "cleared" && len(run.RewardGenes) > 0 && run.RewardClaimed == "")) {
 		return false
 	}
 	if end, has := s.Receipts["delve-end|"+string(p)]; has && s.Tick < Tick(end)+d.Retry {
@@ -230,7 +251,14 @@ func (w *World) enterDungeon(s *State, origin string, p ID, args map[string]ID, 
 	if s.Delves == nil {
 		s.Delves = map[ID]Delve{}
 	}
-	s.Delves[p] = Delve{Dungeon: d.ID, State: "preparing", Seed: w.seedOf(s, p, d.ID), Started: s.Tick}
+	seed, genes := w.seedOf(s, p, d.ID), []string(nil)
+	if len(d.RewardPools) > 0 {
+		seed, genes = w.rewardDraft(s, p, d)
+	}
+	if token := string(args["preview"]); token != "" && token != expeditionToken(seed, genes) {
+		return reject("expedition changed; review the prizes again")
+	}
+	s.Delves[p] = Delve{Dungeon: d.ID, State: "preparing", Seed: seed, Started: s.Tick, Briefing: args["briefing"] == "yes", RewardGenes: genes}
 	w.count(s, p, actEnterDungeon)
 	mods := w.runModifiers(s, p, d)
 	switch len(mods) {
@@ -277,9 +305,16 @@ func (w *World) beginRun(s *State, p ID, modifier, cause string) {
 	run := s.Delves[p]
 	def, _ := w.dungeon(run.Dungeon)
 	run.State, run.Modifier, run.Room = "active", modifier, 0
+	if run.Briefing {
+		run.State = "ready"
+	}
 	run.Rooms = composeRooms(def, run.Seed)
 	s.Delves[p] = run
-	w.emit(s, Event{Kind: "dungeon-started", Holder: p, Text: def.Name, Cause: cause,
+	kind := "dungeon-started"
+	if run.Briefing {
+		kind = "dungeon-ready"
+	}
+	w.emit(s, Event{Kind: kind, Holder: p, Text: def.Name, Cause: cause,
 		Data: map[string]string{"dungeon": run.Dungeon, "seed": strconv.FormatInt(run.Seed, 10), "modifier": modifier, "rooms": strconv.Itoa(len(run.Rooms))}})
 }
 
@@ -325,9 +360,19 @@ func (w *World) clearRoom(s *State, origin string, p ID, cause string) error {
 	run.State = "cleared"
 	s.Delves[p] = run
 	s.Receipts["delve-end|"+string(p)] = int64(s.Tick)
+	if len(def.RewardPools) > 0 {
+		s.Receipts["loot-cycle|"+string(p)+"|"+def.ID]++
+	}
 	w.count(s, p, actClearRoom)
 	b := Bind{"self": p}
 	w.apply(s, def.Rewards, b, cause)
+	// Clients opt into the briefing/choice flow. Direct legacy entry retains
+	// automatic delivery, so an older client cannot get stuck behind a claim UI.
+	if !run.Briefing && len(run.RewardGenes) > 0 {
+		w.acquireGene(s, p, run.RewardGenes[0], cause)
+		run.RewardClaimed = run.RewardGenes[0]
+		s.Delves[p] = run
+	}
 	if first := "dungeon-first|" + def.ID; s.Receipts[first] == 0 {
 		s.Receipts[first] = 1
 		w.apply(s, def.FirstClear, b, cause)
@@ -357,7 +402,7 @@ func (w *World) failRun(s *State, origin string, p ID, cause string) error {
 // leaveRun is the player giving up a run.
 func (w *World) leaveRun(s *State, origin string, p ID, cause string) error {
 	run, has := s.Delves[p]
-	if origin != "player" || !has || (run.State != "active" && run.State != "preparing") {
+	if origin != "player" || !has || (run.State != "active" && run.State != "preparing" && run.State != "ready") {
 		return reject("run")
 	}
 	for k, d := range s.Decisions {
@@ -378,11 +423,22 @@ func (w *World) dungeonView(s *State, p ID) *DungeonView {
 	}
 	v := &DungeonView{Available: []DungeonOption{}}
 	for _, d := range w.U.Dungeons {
-		v.Available = append(v.Available, DungeonOption{ID: d.ID, Name: d.Name, Desc: d.Desc, Region: d.Region, Rooms: len(d.Rooms) + maxDepth(d), Eligible: w.mayEnter(s, p, d)})
+		o := DungeonOption{ID: d.ID, Name: d.Name, Desc: d.Desc, Region: d.Region, Rooms: len(d.Rooms) + maxDepth(d), Eligible: w.mayEnter(s, p, d)}
+		if len(d.RewardPools) > 0 {
+			seed, genes := w.rewardDraft(s, p, d)
+			preview := w.expeditionPreview(s, p, d, seed, genes)
+			o.Preview = &preview
+		}
+		v.Available = append(v.Available, o)
 	}
 	if run, has := s.Delves[p]; has {
 		def, _ := w.dungeon(run.Dungeon)
 		rv := &RunView{Dungeon: run.Dungeon, Name: def.Name, State: run.State, Seed: run.Seed, Room: run.Room, Rooms: []RoomView{}}
+		if len(def.RewardPools) > 0 {
+			preview := w.expeditionPreview(s, p, def, run.Seed, run.RewardGenes)
+			rv.Preview = &preview
+			rv.RewardClaimed = run.RewardClaimed
+		}
 		if len(run.Rooms) == 0 {
 			run.Rooms = def.Rooms
 		}

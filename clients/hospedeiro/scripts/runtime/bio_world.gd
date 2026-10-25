@@ -3,6 +3,7 @@ extends Node2D
 
 var tutorial: BioTutorial
 var journey: BioJourney
+var dungeon_panel: BioDungeonPanel
 ## Composition root: the marrow and the blood, camera, glow, player, HUD, population upkeep, the
 ## mutation loop and the link to the engine (BioHostSync). Plays offline when the engine is absent.
 
@@ -261,6 +262,9 @@ func build() -> void:
 	journey = BioJourney.new()
 	journey.world = self
 	add_child(journey)
+	dungeon_panel = BioDungeonPanel.new()
+	dungeon_panel.world = self
+	add_child(dungeon_panel)
 	if BioWebProbe.wanted():
 		var probe := BioWebProbe.new()
 		probe.name = "WebProbe"
@@ -592,6 +596,9 @@ func _sync_calls() -> void:
 
 
 func _open_from_chip(key: String) -> void:
+	if key in ["dungeon-ready", "dungeon-reward"]:
+		dungeon_panel.open_run()
+		return
 	if key == "gene-reward":
 		tray.clear_call(key)
 		body_panel.open(BioBodyPanel.GENES)
@@ -643,6 +650,10 @@ func restart_world(reset_engine := true) -> void:
 			hud.show_banner("")
 			return
 	body_panel.close()
+	dungeon_panel.close()
+	dungeon_panel._last_run_key = ""
+	tray.clear_call("dungeon-ready")
+	tray.clear_call("dungeon-reward")
 	sync.system.close()
 	reset_dialog.close()
 	tray.clear_call("gene-reward")
@@ -813,7 +824,7 @@ func _process(delta: float) -> void:
 		player.combatant.actor.vitals.atp = player.combatant.actor.vitals.max_atp
 	if dungeon.active:
 		var left := dungeon.grace_left()
-		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
+		hud.set_dungeon_extra("Sala segura · abra Expedição pronta para começar" if dungeon.briefing else "Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
 	var guide_gate := _nearest_open_gate()
 	if journey != null and journey.has_target:
 		hud.set_guide(true, journey.target - player.global_position, "➤ " + journey.destination)
