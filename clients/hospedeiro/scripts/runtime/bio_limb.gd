@@ -26,6 +26,9 @@ var sweep_from := 0.0
 var sweep_to := 0.0
 var sweep_time := 0.0
 var follow: Node2D
+var has_target_point := false
+var target_point := Vector2.ZERO
+var root_angle_offset := 0.0 # distinct emergence points when several whips converge
 var intensity := 1.0  # dimmed when many limbs stack, so additive light does not burn out
 
 var _age := 0.0
@@ -72,6 +75,9 @@ func extension() -> float:
 
 
 func _current_aim() -> Vector2:
+	if has_target_point:
+		if global_position.distance_squared_to(target_point) > 0.001: return global_position.direction_to(target_point)
+		return aim
 	if is_instance_valid(follow):
 		var to := follow.global_position - global_position
 		if to.length() > 1.0:
@@ -92,6 +98,8 @@ func _process(delta: float) -> void:
 		_retracting = true
 	var dir := _current_aim()
 	var length_now := length_px
+	if has_target_point:
+		length_now = clampf(target_point.distance_to(global_position) - body_radius_px * 0.55, 0.0, length_px)
 	if is_instance_valid(follow):
 		length_now = clampf(follow.global_position.distance_to(global_position) - body_radius_px * 0.3, 20.0, length_px)
 	var ext_target := 0.0 if _retracting else 1.0
@@ -110,7 +118,7 @@ func _process(delta: float) -> void:
 		_reached_sent = true
 		reached.emit()
 	var stiff := float(style.get("stiffness", 0.5))
-	var anchor := dir * body_radius_px * 0.55
+	var anchor := dir.rotated(root_angle_offset) * body_radius_px * 0.55
 	var tip_target := dir * (body_radius_px * 0.55 + length_now * _ext)
 	var perp := dir.orthogonal()
 	var vel := (host as CharacterBody2D).velocity if host is CharacterBody2D else Vector2.ZERO
@@ -121,7 +129,7 @@ func _process(delta: float) -> void:
 	_pts[0] = anchor
 	if body != null and is_instance_valid(body):
 		var root_w := float(style.get("base", 15.0)) * 1.6
-		body.set_bulge(get_instance_id(), dir.angle(), clampf(_ext, 0.0, 1.0) * clampf(root_w / maxf(body_radius_px, 1.0), 0.0, 1.0) * 0.95, 0.5 + root_w / maxf(body_radius_px, 1.0) * 0.5)
+		body.set_bulge(get_instance_id(), dir.angle() + root_angle_offset, clampf(_ext, 0.0, 1.0) * clampf(root_w / maxf(body_radius_px, 1.0), 0.0, 1.0) * 0.95, 0.5 + root_w / maxf(body_radius_px, 1.0) * 0.5)
 	for i in range(1, POINTS):
 		var f := i / float(POINTS - 1)
 		var wanted := anchor.lerp(tip_target, f)

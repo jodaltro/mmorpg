@@ -78,7 +78,7 @@ func _process(_delta: float) -> void:
 	if stick.length_squared() > 0.2:
 		_controller.set_aim(stick)
 	elif touch != null:
-		_controller.set_aim(touch.aim_vector())
+		_controller.set_aim(touch.aim_vector(), touch.attack_stick.value() != Vector2.ZERO)
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Time.get_ticks_msec() < _mouse_aim_until:
 		_controller.set_aim(_host.get_global_mouse_position() - _host.global_position)
 	else:

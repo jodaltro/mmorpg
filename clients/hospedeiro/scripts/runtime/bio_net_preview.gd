@@ -16,7 +16,7 @@ func play(id: StringName, aim: Vector2, token: int) -> void:
 	if id == BioAttackCatalog.FLAGELLUM_LASH:
 		for target in _targets():
 			var to := target.global_position - cell.global_position
-			if to.length() < (definition.range_units + 0.5) * BioArt.UNIT and absf(aim.angle_to(to)) < deg_to_rad(75): _impact(target)
+			if to.length() < (definition.range_units + 0.5) * BioArt.UNIT and absf(aim.angle_to(to)) < deg_to_rad(runner._limbs.lash_half_angle()): _impact(target)
 	elif id == BioAttackCatalog.TOXIN_SPIT:
 		shot(cell.global_position + aim * 0.7 * BioArt.UNIT, aim, 14, definition.range_units, color, token)
 		body.elastic(-aim, 0.1, 0.2, 0.04)

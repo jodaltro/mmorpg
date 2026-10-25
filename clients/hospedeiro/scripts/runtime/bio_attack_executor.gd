@@ -12,6 +12,7 @@ var lash_half_angle := LASH_HALF_ANGLE
 var half_angle_source: Callable  # optional: asks the body how wide its lash is
 var historical_candidates: Callable
 var historical_position: Callable
+var lash_points: Array[Vector2] = [] # valid contacts captured before damage/knockback, presentation only
 
 var _combatant: BioCombatant
 var _host: BioCellActor
@@ -56,6 +57,7 @@ func perform(id: StringName, aim: Vector2) -> int:
 			_contact_hits.clear()
 	BioGeneEffects.apply(_host, id, aim, def)
 	visual_performed.emit(id, aim)
+	lash_points.clear()
 	performed.emit(id, aim)
 	return status
 
@@ -69,7 +71,11 @@ func _physics_process(_delta: float) -> void:
 
 func _do_lash(def: BioAttackDef, origin: Vector2, aim: Vector2) -> void:
 	var seen := {}
+	lash_points.clear()
+	var contacts: Array = []
 	for collider in _overlap(origin, (def.range_units + 0.6) * BioArt.UNIT):
+		if not collider is BioCellActor or collider == _host or not collider.is_active() or collider.is_queued_for_deletion(): continue
+		if not BioCombatRules.can_hit(_combatant.actor, collider.combatant.actor): continue
 		var point: Vector2 = historical_position.call(collider) if historical_position.is_valid() else collider.global_position
 		var to: Vector2 = point - origin
 		var reach := to.length() - 0.5 * BioArt.UNIT
@@ -77,6 +83,10 @@ func _do_lash(def: BioAttackDef, origin: Vector2, aim: Vector2) -> void:
 			continue
 		if rad_to_deg(absf(aim.angle_to(to))) > lash_half_angle:
 			continue
+		if contacts.has(collider): continue
+		contacts.append(collider)
+		lash_points.append(point)
+	for collider in contacts:
 		_try_hit(collider, def, origin, seen)
 
 

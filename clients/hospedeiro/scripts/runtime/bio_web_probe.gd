@@ -27,6 +27,8 @@ func _process(delta: float) -> void:
 		"x": snappedf(p.global_position.x, 0.1),
 		"y": snappedf(p.global_position.y, 0.1),
 		"alive": p.is_active(),
+		"enemyWear": _wear_facts(),
+		"lashTargets": get_tree().get_nodes_in_group("limbs").filter(func(n: Node) -> bool: return n.get_parent() == world.player).map(func(n: BioLimb) -> Dictionary: return {"aimed":n.has_target_point,"target":BioNetProtocol.xy(n.target_point),"extension":n.extension()}),
 		"pvpResult": world.hud.pvp_result_text,
 		"pvpVisible": world.hud._pvp_result != null and world.hud._pvp_result.modulate.a > 0.5,
 		"membrane": snappedf(p.combatant.actor.vitals.membrane, 0.1),
@@ -178,6 +180,52 @@ func _run(cmd: String) -> void:
 				var host := node as BioPersonalHost
 				if host.players.has("guest"):
 					(host.players.guest.cell as BioCellActor).combatant.receive_hit(world.player.combatant, BioAttackDef.new(&"probe",0,1000,0,1,0,0))
+		"combat-showcase":
+			for target in get_tree().get_nodes_in_group("training_targets"): target.queue_free()
+			for child in world.player.get_children():
+				if child is BioPlayerInput: child.set_process(false)
+			world.sync.set_process(false)
+			world.sync.link.set_process(false)
+			world.player.set_intent(Vector2.ZERO)
+			for enemy in world.viruses(): enemy.queue_free()
+			for i in 3:
+				var brain := BioFactory.spawn_virus(world, world.player.global_position + Vector2((i-1)*2.8,-2.2)*BioArt.UNIT, world.player)
+				brain.set_process(false)
+				var enemy := brain.get_parent() as BioCellActor
+				enemy.set_physics_process(false)
+				enemy.set_meta("wear_probe", i)
+				enemy.combatant.actor.vitals.max_membrane = 100
+				enemy.combatant.actor.vitals.membrane = 100
+		"combat-damage":
+			for enemy in world.viruses():
+				if not enemy.has_meta("wear_probe"): continue
+				var index := int(enemy.get_meta("wear_probe"))
+				if index > 0:
+					enemy.combatant.receive_hit(world.player.combatant, BioAttackDef.new(&"probe",0,45 if index == 1 else 85,0,1,0,0))
+		"combat-lash":
+			world.genome.lineage = &"dendritica"
+			world.player.combatant.set_genome(world.genome)
+			for enemy in world.viruses():
+				if not enemy.has_meta("wear_probe"): continue
+				var index := int(enemy.get_meta("wear_probe"))
+				enemy.combatant.reset_vitals()
+				enemy.global_position = world.player.global_position + ([Vector2(1.5,-0.6),Vector2(1.5,0.6),Vector2(-1.5,0)][index] as Vector2)*BioArt.UNIT
+			await get_tree().physics_frame
+			await get_tree().physics_frame # let physics index the fixture's teleported colliders
+			var controller := world.player.get_node("Controller") as BioCellController
+			controller.set_aim(Vector2.RIGHT)
+			controller.lash()
+
+
+func _wear_facts() -> Array:
+	var result: Array = []
+	for enemy in world.viruses():
+		if not enemy.has_meta("wear_probe"): continue
+		for child in enemy.get_children():
+			if child is BioCellBody:
+				result.append({"id":int(enemy.get_meta("wear_probe")),"health":enemy.combatant.actor.vitals.membrane,"integrity":child.integrity,"size":child.wear_size(),"position":BioNetProtocol.xy(enemy.global_position)})
+	result.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a.id) < int(b.id))
+	return result
 
 
 ## Which scripts the running scene is made of, and which of them think every frame: where a slow device spends its time.

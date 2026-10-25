@@ -6,6 +6,7 @@ const MAGNET_RADIUS_UNITS := 2.6
 
 var aim := Vector2.RIGHT
 var auto_target: BioCellActor
+var manual_aim := false
 var network_attack: Callable
 
 var _host: BioCellActor
@@ -21,9 +22,10 @@ func move(direction: Vector2) -> void:
 	_host.set_intent(direction if _host.combatant.actor.vitals.is_alive() else Vector2.ZERO)
 
 
-func set_aim(direction: Vector2) -> void:
+func set_aim(direction: Vector2, manual: bool = true) -> void:
 	if direction.length_squared() > 0.01:
 		aim = direction.normalized()
+		manual_aim = manual
 
 
 func auto_aim(radius_units: float = 13.0) -> Vector2:
@@ -39,17 +41,22 @@ func auto_aim(radius_units: float = 13.0) -> Vector2:
 				best = distance
 				auto_target = candidate
 	if auto_target != null:
-		set_aim(_host.global_position.direction_to(auto_target.global_position))
+		set_aim(_host.global_position.direction_to(auto_target.global_position), false)
 	elif _host.intent != Vector2.ZERO:
-		set_aim(_host.intent)
+		set_aim(_host.intent, false)
+	manual_aim = false
 	return aim
 
 
 func _valid_target(candidate: BioCellActor, radius_squared: float) -> bool:
-	return is_instance_valid(candidate) and not candidate.is_queued_for_deletion() and candidate != _host and candidate.is_active() and candidate.get_world_2d() == _host.get_world_2d() and candidate.combatant.team() != _host.combatant.team() and _host.global_position.distance_squared_to(candidate.global_position) <= radius_squared
+	return is_instance_valid(candidate) and not candidate.is_queued_for_deletion() and candidate != _host and candidate.is_active() and candidate.get_world_2d() == _host.get_world_2d() and BioCombatRules.can_hit(_host.combatant.actor, candidate.combatant.actor) and _host.global_position.distance_squared_to(candidate.global_position) <= radius_squared
 
 
 func lash() -> int:
+	if not manual_aim:
+		var previous := aim
+		auto_aim(_host.combatant.actor.attack_def(BioAttackCatalog.FLAGELLUM_LASH).range_units + 0.5)
+		if auto_target == null: aim = previous
 	if network_attack.is_valid():
 		return network_attack.call("lash")
 	return _executor.perform(BioAttackCatalog.FLAGELLUM_LASH, aim)

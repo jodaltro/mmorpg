@@ -358,6 +358,12 @@ func _refresh_aim() -> void:
 		return
 	var controller := world.player.get_node("Controller") as BioCellController
 	controller.auto_target = _target if is_instance_valid(_target) else null
+	if attack_stick.is_engaged():
+		var reach: float = world.player.combatant.actor.attack_def(BioAttackCatalog.FLAGELLUM_LASH).range_units + 0.5
+		_aim = controller.auto_aim(reach)
+		if controller.auto_target != null:
+			_target = controller.auto_target
+			return
 	_aim = controller.auto_aim(AUTO_AIM_UNITS)
 	_target = controller.auto_target
 
@@ -417,7 +423,7 @@ func _prepare_cast(direction: Vector2) -> BioCellController:
 	else:
 		_aim = direction
 	var controller := world.player.get_node("Controller") as BioCellController
-	controller.set_aim(_aim)
+	controller.set_aim(_aim, direction != Vector2.ZERO or attack_stick.value() != Vector2.ZERO)
 	return controller
 
 

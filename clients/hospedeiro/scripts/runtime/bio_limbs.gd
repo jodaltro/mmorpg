@@ -108,14 +108,42 @@ func radial(count: int, length_units: float, grow: float = 0.12, hold: float = 0
 
 ## The basic lash, as this body would do it. The cone that damages is decided by the executor and the domain;
 ## this is what the body does while it happens.
-func lash(dir: Vector2, reach_units: float) -> void:
+func lash(dir: Vector2, reach_units: float, confirmed: Array[Vector2] = [], tail: BioFlagellum = null) -> void:
 	var s := style()
 	var length := reach_units + 0.25
 	var half := float(s["half_angle"])
 	var count := int(s["count"])
-	if count > 1:
-		fan(dir, count, half * 1.6, length, 0.1, 0.1, {"sweep": float(s["sweep"]) * 0.25})
-	else:
-		reach(dir, length, 0.09, 0.09, {"sweep": float(s["sweep"])})
+	var points := confirmed.duplicate()
+	if points.is_empty(): # previews and remote events use the visible, still living targets
+		for node in get_tree().get_nodes_in_group("cells"):
+			var target := node as BioCellActor
+			if target == null or target == _host or not target.is_active() or target.is_queued_for_deletion(): continue
+			if target.get_world_2d() != _host.get_world_2d() or not BioCombatRules.can_hit(_host.combatant.actor, target.combatant.actor): continue
+			var to := target.global_position - _host.global_position
+			if to.length() > (reach_units + 0.5) * BioArt.UNIT or absf(rad_to_deg(dir.angle_to(to))) > half: continue
+			points.append(target.global_position)
+	points.sort_custom(func(a: Vector2, b: Vector2) -> bool:
+		var da := a - _host.global_position
+		var db := b - _host.global_position
+		return absf(dir.angle_to(da)) + da.length()/maxf(1,reach_units*BioArt.UNIT)*0.15 < absf(dir.angle_to(db)) + db.length()/maxf(1,reach_units*BioArt.UNIT)*0.15)
+	for i in count:
+		var heading := dir
+		var target_point := Vector2.ZERO
+		var aimed := not points.is_empty()
+		if aimed:
+			target_point = points[i % points.size()]
+			heading = _host.global_position.direction_to(target_point)
+			if heading.length_squared() < 0.001: heading = dir
+		if i == 0 and tail != null:
+			var tail_reach := minf(reach_units, _host.global_position.distance_to(target_point)/BioArt.UNIT) if aimed else reach_units
+			tail.lash(heading, maxf(0, tail_reach - 0.35) if aimed else tail_reach, 0.0 if aimed else minf(half, 25.0))
+			continue
+		var limb := reach(heading, length, 0.09, 0.12, {"sweep":0.0})
+		if limb == null: continue
+		limb._bend = -1.0 if i % 2 == 0 else 1.0
+		limb.root_angle_offset = (float(i)/maxi(1,count-1)-0.5)*0.8 if count > 1 else 0.0
+		limb.intensity = clampf(sqrt(2.0/count), 0.5, 1.0)
+		limb.has_target_point = aimed
+		limb.target_point = target_point
 	var rigid := float(s["stiffness"])
 	_body.elastic(dir, 0.1 + 0.1 * (1.0 - rigid), 0.22 + 0.25 * (1.0 - rigid), 0.07)

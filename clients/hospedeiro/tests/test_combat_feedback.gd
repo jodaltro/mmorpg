@@ -1,5 +1,64 @@
 extends TestCase
 
+func test_enemy_damage_retracts_spikes_smoothly_and_healing_restores_the_silhouette() -> void:
+	var body := BioCellBody.new()
+	body.wear_enabled = true
+	body.spikes = 9
+	body.set_integrity(1)
+	body.set_integrity(0.2)
+	assert_eq(body.integrity, 1.0, "damage must ease into the silhouette")
+	body._step_wear(1.0/60)
+	assert_true(body.integrity > 0.2 and body.integrity < 1)
+	for i in 60: body._step_wear(1.0/60)
+	var spikes_left := 0.0
+	for i in 9: spikes_left += body._spike_health(i,9,body.integrity)
+	assert_true(spikes_left < 4, "low health loses most spikes without changing their angular frequency")
+	assert_true(body.wear_size() < 0.9 and body.wear_size() >= 0.84)
+	assert_true(body._shed.is_empty(), "fragments expire without allocating Nodes")
+	body.set_integrity(1)
+	for i in 60: body._step_wear(1.0/60)
+	assert_near(body.wear_size(), 1, 0.001)
+	body.free()
+
+func test_injured_first_appearance_and_repeated_snapshots_do_not_shed_again() -> void:
+	var body := BioCellBody.new()
+	body.wear_enabled = true
+	body.spikes = 12
+	body.set_integrity(0.5)
+	assert_eq(body.integrity, 0.5)
+	assert_eq(body._shed.size(), 0)
+	body.set_integrity(0.15)
+	var count := body._shed.size()
+	assert_true(count > 0 and count <= 12)
+	for i in 20: body.set_integrity(0.15)
+	assert_eq(body._shed.size(), count)
+	body.free()
+
+func test_enemy_wear_reads_real_health_without_changing_hitbox_or_player_shape() -> void:
+	var root := Node2D.new()
+	tree.root.add_child(root)
+	var player := BioFactory.spawn_player(root, Vector2.ZERO)
+	var brain := BioFactory.spawn_virus(root, Vector2(100,0), player)
+	brain.set_process(false)
+	var enemy := brain.get_parent() as BioCellActor
+	var body: BioCellBody
+	for child in enemy.get_children():
+		if child is BioCellBody: body = child
+	var collider := enemy.get_child(0) as CollisionShape2D
+	var radius := (collider.shape as CircleShape2D).radius
+	body._process(0.016)
+	enemy.combatant.actor.vitals.membrane = 8.0
+	for i in 40: body._process(0.016)
+	assert_true(body.integrity < 0.21)
+	assert_eq((collider.shape as CircleShape2D).radius, radius)
+	assert_eq(enemy.combatant.actor.vitals.membrane, 8.0)
+	for child in player.get_children():
+		if child is BioCellBody:
+			child.set_integrity(0.1)
+			assert_eq(child.wear_size(), 1.0)
+	root.queue_free()
+	await tree.process_frame
+
 func test_replica_plays_confirmed_hits_once_without_changing_health() -> void:
 	var host := BioCellBody.new()
 	var replica := BioCellBody.new()

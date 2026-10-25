@@ -12,6 +12,12 @@ var wobble := 0.06
 var spikes := 0
 var spike_length := 0.0
 var spin := 0.5
+var wear_enabled := false # enemies only; never changes the logical collider or combat stats
+var integrity := 1.0
+var _integrity_target := 1.0
+var _integrity_initialized := false
+var _wear_host: BioCellActor
+var _shed: Array[Dictionary] = [] # bounded, local draw particles; no extra Nodes or packets
 
 var _seed := randf() * 10.0
 var _flash := 0.0
@@ -297,6 +303,38 @@ func set_telegraph(amount: float) -> void:
 	_telegraph_target = clampf(amount, 0.0, 1.0)
 
 
+func set_integrity(fraction: float) -> void:
+	if not wear_enabled: return
+	var next := clampf(fraction, 0.0, 1.0)
+	if not _integrity_initialized:
+		_integrity_initialized = true
+		integrity = next # first sight of an injured replica is not a new hit
+	elif next < _integrity_target:
+		var count := mini(32, spikes) if spikes > 0 else 6
+		for i in count:
+			if _spike_health(i, count, _integrity_target) > 0.5 and _spike_health(i, count, next) <= 0.5 and _shed.size() < 12:
+				var angle := i * TAU/count - (Time.get_ticks_msec()*0.001+_seed)*spin
+				_shed.append({"angle":angle,"age":0.0,"size":3.0 + float(i%3)})
+	_integrity_target = next
+
+
+static func _spike_health(index: int, count: int, health: float) -> float:
+	if health <= 0: return 0
+	var threshold := (fposmod(index * 0.61803398875, 1.0) + 0.5/maxi(1,count))*0.85
+	return smoothstep(threshold - 0.07, threshold + 0.07, health)
+
+
+func wear_size() -> float:
+	return lerpf(0.84, 1.0, integrity) if wear_enabled else 1.0
+
+
+func _step_wear(delta: float) -> void:
+	integrity = lerpf(integrity, _integrity_target, 1.0-exp(-9.0*delta))
+	if not _shed.is_empty():
+		for bit in _shed: bit.age = float(bit.age) + delta
+		_shed = _shed.filter(func(bit: Dictionary) -> bool: return float(bit.age) < 0.7)
+
+
 func rim() -> PackedVector2Array:
 	return _rim
 
@@ -367,6 +405,7 @@ func _step_organelles(delta: float) -> void:
 
 func _ready() -> void:
 	material = BioArt.additive()
+	_wear_host = get_parent() as BioCellActor
 	_pocket_layer = BioPocketLayer.new()
 	_pocket_layer.body = self
 	_pocket_layer.name = "Pockets"
@@ -383,8 +422,11 @@ var _owed := 0.0
 
 
 func _process(delta: float) -> void:
+	if wear_enabled and is_instance_valid(_wear_host):
+		var vitals := _wear_host.combatant.actor.vitals
+		set_integrity(vitals.membrane / maxf(1.0, vitals.max_membrane))
 	if not _evolution_hold: evolution_white = move_toward(evolution_white, 0.0, delta * 1.8)
-	if background_stride > 1 and evolution_white <= 0 and not _evolution_hold and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
+	if background_stride > 1 and absf(integrity-_integrity_target) < 0.002 and _shed.is_empty() and evolution_white <= 0 and not _evolution_hold and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
 		var host_node := get_parent()
 		var mine: Variant = BioFx.root.get("player") if BioFx.root != null else null
 		if host_node != null and host_node != mine:
@@ -395,6 +437,7 @@ func _process(delta: float) -> void:
 				return
 			delta = _owed
 			_owed = 0.0
+	_step_wear(delta)
 	_flash = move_toward(_flash, 0.0, delta * 4.5)
 	_telegraph = lerpf(_telegraph, _telegraph_target, 1.0 - exp(-14.0 * delta))
 	_attack_left = maxf(0.0, _attack_left - delta)
@@ -425,6 +468,9 @@ func _process(delta: float) -> void:
 		var spike := 0.0
 		if spikes > 0:
 			spike = spike_length * pow(maxf(0.0, cos((a + t * spin) * spikes)), 6.0)
+			if wear_enabled:
+				var index := posmod(roundi((a+t*spin)*spikes/TAU), spikes)
+				spike *= _spike_health(index, spikes, integrity)
 		var lobe := 0.0
 		if _lobes > 0:  # pseudopods: lobes that slowly crawl around the body
 			lobe = _lobe_amp_now * pow(maxf(0.0, cos((a - t * 0.25) * _lobes)), 2.0) * (1.0 - 0.8 * _human)  # the pseudopod lobes melt into the figure
@@ -440,7 +486,7 @@ func _process(delta: float) -> void:
 			var d := angle_difference(a, float(b[0])) / float(b[2])
 			swelling_sum += float(b[1]) * exp(-d * d)
 		var swelling := 1.0 + minf(swelling_sum, 0.5)  # many limbs at once never blow the body up
-		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * _swell * swelling * silhouette * BioGhostForm.radius_mul(form, a, _human, t)
+		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * wear_size() * _swell * swelling * silhouette * BioGhostForm.radius_mul(form, a, _human, t)
 		if _human > 0.0:  # a floaty lean with the motion, and a slow bob: one body, like a ghost
 			p = p.rotated(BioGhostForm.lean(_smooth_velocity.x, _human)) + Vector2(0.0, sin(t * 1.4) * 2.5 * _human)
 		if absf(_stretch) > 0.002:  # volume-preserving rubber stretch, with the leading side bulging further
@@ -455,7 +501,7 @@ func _process(delta: float) -> void:
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)
 	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.4 * (1.0 - 0.6 * _human))
 	_nucleus.modulate = _nucleus.modulate.lerp(Color.WHITE, evolution_white)
-	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
+	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now * wear_size()
 	var pull := Vector2.ZERO
 	for b in _bulges.values():
 		pull += Vector2.from_angle(float(b[0])) * float(b[1])
@@ -482,7 +528,7 @@ func _process(delta: float) -> void:
 
 
 func _core_now() -> Color:
-	return core.lerp(Color.WHITE, _flash * 0.8)
+	return (core.lerp(Color(0.46,0.36,0.5), (1.0-integrity)*0.45) if wear_enabled else core).lerp(Color.WHITE, _flash * 0.8)
 
 
 func _edge_now() -> Color:
@@ -498,7 +544,7 @@ func _draw() -> void:
 	if glow.a > 0.0:
 		core_now = core_now.lerp(glow, 0.55)
 		edge_now = edge_now.lerp(glow, 0.35)
-	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
+	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now * wear_size()
 	if _impact_left > 0.0:
 		var progress := 1.0 - _impact_left / 0.24
 		draw_arc(Vector2.ZERO, r_px * (1.05 + progress * 0.55), 0, TAU, 32, Color(1.0, 0.86, 0.72, (1.0-progress)*0.8), 2.0, true)
@@ -520,13 +566,14 @@ func _draw() -> void:
 	closed.append(outline[0])
 	draw_polyline(closed, BioArt.with_alpha(edge_now.lerp(Color.WHITE, 0.35), 0.95), 6.0 if genes.has(&"membrana_espessa") else 3.0, true)
 	_draw_membrane_trait(closed, edge_now, Time.get_ticks_msec() * 0.001 + _seed)
+	if wear_enabled: _draw_wear(r_px, edge_now)
 	if str(traits.get("nucleo", "")) == "composto":
 		BioNucleusShapes.draw_composite(self, _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, int(BioDesign.LOBES.get(str(traits.get("lobulacao", "")), 5)), str(traits.get("recorte", "liso")), str(traits.get("nucleolo", "nenhum")))
 	else:
 		BioNucleusShapes.draw(self, BioDesign.nucleus_form(str(traits.get("nucleo", "")), form), _nuc_pos, _nuc_r, _nuc_rot, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, 6 if genes.has(&"nucleo_multilobulado") else 3)
 	_draw_genes(edge_now, core_now)
-	_draw_organelle_trait(radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now)
-	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human, not genes.is_empty())
+	_draw_organelle_trait(radius_units * BioArt.UNIT * _size_mul * _size_now * wear_size(), Time.get_ticks_msec() * 0.001 + _seed, core_now)
+	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now * wear_size(), Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human, not genes.is_empty())
 	if evolution_white > 0:
 		_fill_fan(_rim, Color(1, 1, 1, evolution_white))
 		draw_arc(Vector2.ZERO, r_px * 1.28, 0, TAU, 48, Color(0.7, 0.94, 1.0, evolution_white*0.6), 3.0, true)
@@ -539,6 +586,25 @@ func _draw() -> void:
 				var phase := fmod(orbit * 0.6 + i * 0.1, 1.0)
 				var at := Vector2.from_angle(i * TAU / 10 + orbit * 0.25) * r_px * lerpf(2.6,1.1,phase)
 				draw_circle(at, 1.2, Color(0.7,0.95,1.0,sin(phase*PI)*0.8))
+
+
+## Persistent wounds and short-lived flakes, drawn in the same bounded canvas pass.
+func _draw_wear(radius: float, tint: Color) -> void:
+	var worn := clampf((0.8-integrity)/0.8, 0, 1)
+	var t := Time.get_ticks_msec()*0.001 + _seed
+	for i in (3 if worn > 0.01 else 0):
+		var dir := Vector2.from_angle(_seed + i*TAU/3)
+		var seam := PackedVector2Array([dir*radius*0.30, dir.rotated(0.15)*radius*0.50, dir.rotated(-0.08)*radius*0.68, dir*radius*0.9])
+		draw_polyline(seam, Color(1.0,0.68,0.72,worn*0.85), 1.5, true)
+	if integrity < 0.3:
+		draw_arc(_nuc_pos, _nuc_r*1.25, 0, TAU, 24, Color(1,0.65,0.35,(0.3-integrity)*(1.5+0.7*sin(t*5))), 1.7, true)
+	for bit in _shed:
+		var age := float(bit.age)
+		var dir := Vector2.from_angle(float(bit.angle))
+		var p := dir*radius*(1.0+age*2.6) + dir.orthogonal()*sin(age*5)*radius*0.2
+		var size := float(bit.size)*(1.0-age/0.7)
+		var axis := dir.rotated(age*4.0)
+		draw_colored_polygon(PackedVector2Array([p+axis*size*2, p-axis*size+axis.orthogonal()*size, p-axis*size-axis.orthogonal()*size]), BioArt.with_alpha(tint, 1.0-age/0.7))
 
 
 ## The membrane texture Jev chose: ripples, spines, beads, a second wall (smooth leaves it plain).

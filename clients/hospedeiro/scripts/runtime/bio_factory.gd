@@ -38,11 +38,7 @@ static func spawn_player(parent: Node, pos: Vector2) -> BioCellActor:
 	executor.visual_performed.connect(func(id: StringName, dir: Vector2) -> void:
 		if id == BioAttackCatalog.FLAGELLUM_LASH:
 			var reach := actor.combatant.actor.attack_def(id).range_units
-			if tail.is_active():
-				tail.lash(dir, reach, executor.lash_half_angle)
-				body.elastic(dir, 0.08, 0.15, 0.06)
-			else:  # no tail: the body lashes with whatever limb its form and look grow
-				limbs.lash(dir, reach)
+			limbs.lash(dir, reach, executor.lash_points, tail if tail.is_active() else null)
 		elif id == BioAttackCatalog.MEMBRANE_DASH:
 			tail.whip(1.0))
 
@@ -74,6 +70,7 @@ static func spawn_virus(parent: Node, pos: Vector2, prey: BioCellActor) -> BioVi
 
 	var body := BioCellBody.new()
 	body.configure(0.6, BioArt.MAGENTA, BioArt.CRIMSON, 9, 0.34, 0.5, 8)
+	body.wear_enabled = true
 	actor.add_child(body)
 	var executor := BioAttackExecutor.new()
 	executor.configure(actor.combatant, actor)
@@ -104,6 +101,7 @@ static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dic
 	(actor.get_child(0) as CollisionShape2D).shape = _circle(size * 0.9)
 	var body := BioCellBody.new()
 	body.configure(size, def["core"], def["edge"], int(def["spikes"]), float(def.get("spike_len", 0.3 if int(def["spikes"]) > 0 else 0.0)), float(def.get("spin", 0.5)), 8)
+	body.wear_enabled = true
 	actor.add_child(body)
 	var executor := BioAttackExecutor.new()
 	executor.configure(actor.combatant, actor)
