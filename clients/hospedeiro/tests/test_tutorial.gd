@@ -1,5 +1,41 @@
 extends TestCase
 
+func test_waiting_card_stays_bounded_with_stale_wrapped_text_and_footer_visible() -> void:
+	world._build_for_touch()
+	var guide := world.tutorial
+	guide.start()
+	guide._enter(1)
+	world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
+	guide._text.text = "Texto do tutorial durante mudança de tamanho.\n".repeat(80)
+	guide._card.size.y = 1500 # reproduce the oversized layout retained by the old waiting branch
+	for i in 4:
+		guide._process(0.016)
+		await tree.process_frame
+	var view := world.get_viewport().get_visible_rect().size
+	assert_true(guide._card.size.y <= view.y*0.58+1)
+	assert_true(guide._card.get_global_rect().end.y <= view.y-5)
+	assert_true(guide._card.get_global_rect().encloses(guide._next.get_global_rect()), "footer never scrolls away")
+	assert_true(not guide._scroll.is_ancestor_of(guide._next))
+	assert_true(not BioUi.captures_input(), "movement remains usable while waiting")
+
+func test_outside_refuge_can_request_a_route_without_resetting_or_skipping_lesson() -> void:
+	var guide := world.tutorial
+	world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
+	guide.start()
+	guide._enter(1)
+	guide._process(0)
+	assert_true(guide._waiting and not guide._next.disabled)
+	assert_eq(guide._next.text, "Ver caminho")
+	guide._next_pressed()
+	assert_true(not guide.active and world.journey.has_manual_destination())
+	assert_eq(guide.step, 1)
+	guide.start()
+	guide._process(0)
+	world.player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+	guide._process(0)
+	assert_true(not guide._waiting and not guide._fulfilled, "travel outside the refuge cannot count as its movement exercise")
+	assert_eq(guide._next.text, "Continuar")
+
 var world: BioWorld
 
 func before_each() -> void:

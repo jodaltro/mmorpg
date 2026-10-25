@@ -46,6 +46,10 @@ var _step_age := 0.0
 var _success_age := -1.0
 var _focus := Rect2()
 var _closing: Tween
+var _scroll: ScrollContainer
+var _content: VBoxContainer
+var _buttons: HBoxContainer
+var _can_guide_back := false
 
 func _ready() -> void:
 	layer = 31
@@ -71,32 +75,42 @@ func _ready() -> void:
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 6)
 	_card.add_child(column)
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_scroll.scroll_deadzone = 8
+	column.add_child(_scroll)
+	_content = VBoxContainer.new()
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content.add_theme_constant_override("separation", 6)
+	_scroll.add_child(_content)
 	_progress = ProgressBar.new()
 	_progress.custom_minimum_size.y = 3
 	_progress.show_percentage = false
 	_progress.max_value = STEPS.size()
 	_progress.add_theme_stylebox_override("background", BioUi.style(BioUi.LINE, Color.TRANSPARENT, 2, 0, 0))
 	_progress.add_theme_stylebox_override("fill", BioUi.style(BioUi.ACCENT, Color.TRANSPARENT, 2, 0, 0))
-	column.add_child(_progress)
+	_content.add_child(_progress)
 	_heading = BioUi.label("", 15, BioUi.ACCENT)
 	_heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	column.add_child(_heading)
+	_content.add_child(_heading)
 	_text = BioUi.wrapped("", 12, BioUi.TEXT)
-	column.add_child(_text)
+	_content.add_child(_text)
 	_status = BioUi.wrapped("", 11, BioUi.MUTED)
-	column.add_child(_status)
-	var row := HBoxContainer.new()
-	column.add_child(row)
-	_back = BioUi.button("Voltar")
+	_content.add_child(_status)
+	_buttons = HBoxContainer.new()
+	column.add_child(_buttons)
+	_back = BioUi.button("Anterior")
 	_back.pressed.connect(func() -> void: _enter(maxi(0, step - 1)))
-	row.add_child(_back)
+	_buttons.add_child(_back)
 	var pause := BioUi.button("Pausar")
 	pause.pressed.connect(stop)
-	row.add_child(pause)
+	_buttons.add_child(pause)
 	_next = BioUi.button("Continuar")
+	_next.clip_text = true
 	_next.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_next.pressed.connect(advance)
-	row.add_child(_next)
+	_next.pressed.connect(_next_pressed)
+	_buttons.add_child(_next)
 	var replay := BioUi.button("Tutorial")
 	replay.position = Vector2(16, 94)
 	replay.pressed.connect(func() -> void: start(completed))
@@ -144,10 +158,20 @@ func advance() -> void:
 	else:
 		_enter(step + 1)
 
+
+func _next_pressed() -> void:
+	if _waiting:
+		if not _can_guide_back: return
+		world.journey.pin(BioBodyMap.center_px(BioBodyMap.MEDULA), "Medula · retomar tutorial")
+		stop() # keep the current lesson saved; movement and GPS remain available
+		return
+	advance()
+
 func _enter(index: int) -> void:
 	step = clampi(index, 0, STEPS.size() - 1)
 	_step_age = 0
 	_success_age = -1
+	_scroll.scroll_vertical = 0
 	_progress.value = step + 1
 	_fulfilled = false
 	_origin = world.player.global_position
@@ -165,13 +189,19 @@ func _layout() -> void:
 	if _card == null: return
 	var view := get_viewport().get_visible_rect().size
 	var width := minf(350, view.x - 24)
-	_card.custom_minimum_size.x = width
-	_card.size = Vector2(width, _card.get_combined_minimum_size().y)
+	_card.custom_minimum_size = Vector2(width, 0)
+	# Wrapped labels may report their old narrow-width height during resize. A
+	# scroll viewport prevents that transient minimum from growing the whole card.
+	var top := 56.0 if view.x > view.y else 96.0
+	var cap := minf(view.y * 0.58, view.y-top-12)
+	var desired := _content.get_combined_minimum_size().y + _buttons.get_combined_minimum_size().y + 30
+	_card.size = Vector2(width, clampf(desired, 96, maxf(96,cap)))
 	var x := (view.x - width) * 0.5
 	if world.touch != null and world.touch.menu_open: x = 12
-	_card.position = Vector2(x, 12 if view.x > view.y else 96)
+	_card.position = Vector2(x, top)
 	if world.touch != null and world.touch.menu_open and x + width + 12 > world.touch._drawer.position.x:
 		_card.position.y = view.y - _card.size.y - 12
+	_card.position.y = clampf(_card.position.y, 6, maxf(6,view.y-_card.size.y-6))
 
 func _process(delta: float) -> void:
 	var ready_to_play := world.online_client == null or world.online_client.is_ready
@@ -179,14 +209,22 @@ func _process(delta: float) -> void:
 	if not active: return
 	_step_age += delta
 	if _success_age >= 0: _success_age += delta
+	var was_waiting := _waiting
 	_waiting = not ready_to_play or not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT) or world.dungeon.active
+	if was_waiting and not _waiting and step == 1 and not _fulfilled: _origin = world.player.global_position
+	_can_guide_back = ready_to_play and not world.dungeon.active and world.player.is_active() and not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT)
+	_next.text = "Começar" if step == 0 else "Concluir" if step == STEPS.size() - 1 else "Continuar"
 	_root.visible = true
 	_card.visible = not ((step == 9 and world.sync.system._missions.visible) or (step == 10 and world.body_panel.is_open()) or (step == 8 and world.sync.system.menu_open))
 	_veil.visible = _card.visible
 	_ink.visible = _card.visible
 	if _waiting:
 		_status.text = "Aguardando o mundo carregar…" if not ready_to_play else "Volte à Medula para continuar com segurança."
-		_next.disabled = true
+		if ready_to_play and world.dungeon.active: _status.text = "Saia da masmorra e volte à Medula para retomar o tutorial."
+		_status.modulate = Color.WHITE
+		if _can_guide_back: _next.text = "Ver caminho"
+		_next.disabled = not _can_guide_back
+		_layout() # waiting outside the refuge must also shrink/reposition after rotation
 		_highlight = Rect2()
 		_material.set_shader_parameter("opacity", 0.25)
 		_material.set_shader_parameter("hole_count", 0)

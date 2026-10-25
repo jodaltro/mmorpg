@@ -96,6 +96,9 @@ func _process(delta: float) -> void:
 		"tutorial": {
 			"active": world.tutorial.active,
 			"step": world.tutorial.step,
+			"waiting": world.tutorial._waiting,
+			"nextLabel": world.tutorial._next.text,
+			"pausedRoute": world.journey.has_manual_destination(),
 			"fulfilled": world.tutorial._fulfilled,
 			"next": _rect(world.tutorial._next),
 			"card": _rect(world.tutorial._card),
@@ -141,6 +144,15 @@ func _run(cmd: String) -> void:
 	match parts[0]:
 		"tutorial":
 			if parts.size() > 1 and parts[1] == "pause": world.tutorial.stop()
+			elif parts.size() > 1 and str(parts[1]).is_valid_int():
+				world.tutorial.start()
+				world.tutorial._enter(int(parts[1]))
+		"tutorial-outside":
+			world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
+			world.tutorial.start()
+			world.tutorial._enter(1)
+		"ui-scale":
+			world.display.set_interface_scale(float(parts[1]))
 		"become":
 			world.debug_become(StringName(parts[1]))
 		"god":
