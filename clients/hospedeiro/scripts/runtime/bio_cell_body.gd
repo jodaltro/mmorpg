@@ -26,6 +26,32 @@ var _impact_left := 0.0
 var _impact_dir := Vector2.RIGHT
 var _remote_hit := -1
 var _remote_attack := -1
+var evolution_white := 0.0
+var _evolution_hold := false
+var _held_genome: BioGenome
+var _held_traits := {}
+var _held_axes := {}
+var _has_held_traits := false
+
+func begin_evolution() -> void:
+	_evolution_hold = true
+	_held_genome = null
+	_held_traits = {}
+	_held_axes = {}
+	_has_held_traits = false
+
+func finish_evolution() -> void:
+	_evolution_hold = false
+	if _held_genome != null: apply_genome(_held_genome)
+	if _has_held_traits: set_traits(_held_traits)
+	if not _held_axes.is_empty(): set_look(_held_axes)
+	_held_genome = null
+	_has_held_traits = false
+	_held_traits = {}
+	_held_axes = {}
+	_size_now = float(_form["size"])
+	_lobe_amp_now = float(_form["lobe_amp"])
+	_nucleus_now = float(_form["nucleus"])
 var _smooth_velocity := Vector2.ZERO
 var _nucleus: Sprite2D
 var _rim := PackedVector2Array()
@@ -92,6 +118,9 @@ func configure(radius: float, core_color: Color, edge_color: Color, spike_count:
 
 ## Each expressed gene leaves a visible mark on the body (see _draw_genes).
 func apply_genome(genome: BioGenome) -> void:
+	if _evolution_hold:
+		_held_genome = genome
+		return
 	genes = genome.equipped.duplicate()
 	_gene_size = 1.1 if genes.has(&"membrana_espessa") else 1.0
 	_size_mul = _gene_size * (1.0 + 0.25 * _axis(&"robustez"))
@@ -118,6 +147,9 @@ func _refresh_form() -> void:
 ## The procedural body: axes decided by the engine from how this player plays (0-100 each).
 ## Nothing snaps: the body eases towards the new values over many seconds, in the background.
 func set_look(axes: Dictionary) -> void:
+	if _evolution_hold:
+		_held_axes = axes.duplicate()
+		return
 	if look_target.is_empty():
 		_base_core = core
 		_base_edge = edge
@@ -130,6 +162,10 @@ func set_look(axes: Dictionary) -> void:
 
 ## The traits Jev designed for this cell. They only change how the body is drawn.
 func set_traits(designed: Dictionary) -> void:
+	if _evolution_hold:
+		_held_traits = designed.duplicate()
+		_has_held_traits = true
+		return
 	traits = designed.duplicate()
 	queue_redraw()
 
@@ -347,7 +383,8 @@ var _owed := 0.0
 
 
 func _process(delta: float) -> void:
-	if background_stride > 1 and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
+	if not _evolution_hold: evolution_white = move_toward(evolution_white, 0.0, delta * 1.8)
+	if background_stride > 1 and evolution_white <= 0 and not _evolution_hold and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
 		var host_node := get_parent()
 		var mine: Variant = BioFx.root.get("player") if BioFx.root != null else null
 		if host_node != null and host_node != mine:
@@ -417,6 +454,7 @@ func _process(delta: float) -> void:
 	_outline = _build_outline() if tail != null and tail_on else PackedVector2Array()
 	var pulse := 1.0 + 0.12 * sin(t * 2.3)
 	_nucleus.modulate = BioArt.with_alpha(_core_now().lerp(BioArt.CRIMSON, _telegraph), 0.4 * (1.0 - 0.6 * _human))
+	_nucleus.modulate = _nucleus.modulate.lerp(Color.WHITE, evolution_white)
 	var r_px := radius_units * BioArt.UNIT * _size_mul * _size_now
 	var pull := Vector2.ZERO
 	for b in _bulges.values():
@@ -489,6 +527,18 @@ func _draw() -> void:
 	_draw_genes(edge_now, core_now)
 	_draw_organelle_trait(radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now)
 	BioCellForms.draw(self, form, genes, radius_units * BioArt.UNIT * _size_mul * _size_now, Time.get_ticks_msec() * 0.001 + _seed, core_now, edge_now, _front, _human, not genes.is_empty())
+	if evolution_white > 0:
+		_fill_fan(_rim, Color(1, 1, 1, evolution_white))
+		draw_arc(Vector2.ZERO, r_px * 1.28, 0, TAU, 48, Color(0.7, 0.94, 1.0, evolution_white*0.6), 3.0, true)
+		if _evolution_hold:
+			var orbit := Time.get_ticks_msec() * 0.001
+			for i in 3:
+				var angle := orbit * 0.7 + i * TAU / 3
+				draw_arc(Vector2.ZERO, r_px * 1.7, angle, angle + 0.85, 16, Color(0.55,0.9,1.0,0.5), 1.5, true)
+			for i in 10:
+				var phase := fmod(orbit * 0.6 + i * 0.1, 1.0)
+				var at := Vector2.from_angle(i * TAU / 10 + orbit * 0.25) * r_px * lerpf(2.6,1.1,phase)
+				draw_circle(at, 1.2, Color(0.7,0.95,1.0,sin(phase*PI)*0.8))
 
 
 ## The membrane texture Jev chose: ripples, spines, beads, a second wall (smooth leaves it plain).

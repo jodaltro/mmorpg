@@ -2,7 +2,7 @@ class_name BioMutationPanel
 extends CanvasLayer
 ## The body's growth, in the corner of the screen and without getting in the way: the form (class), a thin pressure gauge and one dot per
 ## gene slot. It also keeps the pending offer (a mutation to choose, or a differentiation) as data: the offer is chosen in the Body
-## window (BioBodyPanel), never in the middle of the screen, and a chip in the call tray says that it is waiting.
+## window (BioBodyPanel). A differentiation also opens centrally while safe, through BioEvolutionPresentation.
 
 signal offer_changed
 

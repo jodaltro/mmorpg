@@ -119,31 +119,56 @@ func (w *World) designTick(s *State, cause string) {
 		} else if s.Tick%a.Every != 0 || total < max(a.MinDeeds, 1) || total-s.Receipts[key] < a.MinDeeds {
 			continue
 		}
-		base := w.profile(s, p)
-		base = append(base, w.genomeText(s, p), w.behaviourText(s, p))
-		if now := s.Looks[p]; len(now.Traits) > 0 {
-			keys := sortedKeys(now.Traits)
-			cur := make([]string, 0, len(keys))
-			for _, k := range keys {
-				cur = append(cur, k+"="+now.Traits[k])
-			}
-			base = append(base, "current design (change it only if their life changed): "+strings.Join(cur, ", "))
-		}
-		for _, t := range a.Traits {
-			opts := make([]Option, 0, len(t.Options))
-			for _, o := range t.Options {
-				opts = append(opts, Option{ID: o.ID, Title: o.Name, Desc: o.Desc})
-			}
-			id := "design:" + t.ID + ":" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
-			ctx := append([]string{"trait being designed: " + t.Name + " - " + t.Question}, base...)
-			if worn := w.wornBy(s, p, t); worn != "" {
-				ctx = append(ctx, "options other players already wear for this trait (make this cell recognisable and different): "+worn)
-			}
-			s.Decisions[id] = Decision{ID: id, Kind: "design", Subject: string(p), Options: opts, Default: w.designDefault(s, p, t),
-				Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
-		}
-		s.Receipts[key] = total
+		w.requestDesign(s, p, cause, false)
 	}
+}
+
+// requestDesign queues validated choices; no advisor work runs inside Step.
+func (w *World) requestDesign(s *State, p ID, cause string, fresh bool) {
+	a := w.U.Appearance
+	if a == nil || len(a.Traits) == 0 {
+		return
+	}
+	if fresh {
+		for id, d := range s.Decisions {
+			if d.Kind == "design" && d.Subject == string(p) {
+				delete(s.Decisions, id)
+			}
+		}
+		s.Receipts["design-request|"+string(p)] = s.Revision + 1
+	}
+	base := w.profile(s, p)
+	base = append(base, w.genomeText(s, p), w.behaviourText(s, p))
+	if fresh {
+		if lineage, ok := w.lineageDef(s.Entities[p].Tag["lineage"]); ok {
+			base = append(base, "new lineage: "+lineage.Name+" - "+lineage.Desc)
+		}
+	}
+	if now := s.Looks[p]; len(now.Traits) > 0 {
+		keys := sortedKeys(now.Traits)
+		cur := make([]string, 0, len(keys))
+		for _, k := range keys {
+			cur = append(cur, k+"="+now.Traits[k])
+		}
+		base = append(base, "current design (change it only if their life changed): "+strings.Join(cur, ", "))
+	}
+	for _, t := range a.Traits {
+		opts := make([]Option, 0, len(t.Options))
+		for _, o := range t.Options {
+			opts = append(opts, Option{ID: o.ID, Title: o.Name, Desc: o.Desc})
+		}
+		id := "design:" + t.ID + ":" + string(p) + ":" + strconv.FormatInt(int64(s.Tick), 10)
+		if fresh {
+			id += ":" + strconv.FormatInt(s.Revision+1, 10)
+		}
+		ctx := append([]string{"trait being designed: " + t.Name + " - " + t.Question}, base...)
+		if worn := w.wornBy(s, p, t); worn != "" {
+			ctx = append(ctx, "options other players already wear for this trait (make this cell recognisable and different): "+worn)
+		}
+		s.Decisions[id] = Decision{ID: id, Kind: "design", Subject: string(p), Options: opts, Default: w.designDefault(s, p, t),
+			Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout, Context: ctx}
+	}
+	s.Receipts["design|"+string(p)] = w.totalDeeds(s, p)
 }
 
 // decideDesign keeps the advisor's option for one trait after revalidating it.

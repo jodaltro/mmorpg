@@ -247,16 +247,18 @@ func (w *World) decideAppearance(s *State, d Decision, choice, cause string) err
 
 // LookView is a body as anyone who can see the player sees it.
 type LookView struct {
-	Variant string            `json:"variant"`
-	Name    string            `json:"name"`
-	Axes    map[string]int64  `json:"axes"`
-	Traits  map[string]string `json:"traits,omitempty"`
+	DesignPending  bool              `json:"designPending"`
+	DesignRevision int64             `json:"designRevision"`
+	Variant        string            `json:"variant"`
+	Name           string            `json:"name"`
+	Axes           map[string]int64  `json:"axes"`
+	Traits         map[string]string `json:"traits,omitempty"`
 }
 
 func (w *World) lookOf(s *State, p ID) *LookView {
 	l, ok := s.Looks[p]
-	if !ok {
+	if !ok && !w.pendingDesign(s, p) && s.Receipts["design-request|"+string(p)] == 0 {
 		return nil
 	}
-	return &LookView{Variant: l.Variant, Name: l.Name, Axes: l.Axes, Traits: l.Traits}
+	return &LookView{DesignPending: w.pendingDesign(s, p), DesignRevision: s.Receipts["design-request|"+string(p)], Variant: l.Variant, Name: l.Name, Axes: l.Axes, Traits: l.Traits}
 }

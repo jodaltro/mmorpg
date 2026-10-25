@@ -126,6 +126,7 @@ func _connect() -> void:
 
 func queue_action(action: String) -> int:
 	if is_ready and not _actions.has(action) and _actions.size() < 4:
+		if world.evolution_presentation != null: world.evolution_presentation.note_combat()
 		_actions.append(action)
 	return BioActor.AttackStatus.STARTED
 
@@ -339,7 +340,10 @@ func _apply_actor(cell: BioCellActor, data: Dictionary) -> void:
 	var v := cell.combatant.actor.vitals
 	v.max_membrane = float(data.get("max_hp", 100))
 	v.max_atp = float(data.get("max_atp", 100))
-	v.membrane = float(data.get("hp", 0))
+	var next_hp := float(data.get("hp", 0))
+	if cell == world.player and next_hp < v.membrane and world.evolution_presentation != null:
+		world.evolution_presentation.note_combat()
+	v.membrane = next_hp
 	v.atp = float(data.get("atp", 0))
 	if data.get("combat_visual") is Array:
 		for child in cell.get_children():

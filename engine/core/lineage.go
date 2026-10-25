@@ -15,7 +15,7 @@ import (
 // stats and the mutations that may appear. The current lineage is a tag on the
 // player ("lineage", "tier"), so conditions and the client can read it.
 
-const actDifferentiate = "diferenciar" // args: lineage
+const actDifferentiate = "diferenciar" // args: lineage; optional design=refresh
 
 // DifferentiationDef sets the maturity each tier needs (ascending).
 type DifferentiationDef struct {
@@ -243,6 +243,9 @@ func (w *World) differentiate(s *State, origin string, p ID, args map[string]ID,
 		Data: map[string]string{"lineage": l.ID, "tier": strconv.Itoa(l.Tier)}})
 	w.grantStarters(s, p, l.ID, cause)
 	w.discover(s, p, cause)
+	if args["design"] == "refresh" {
+		w.requestDesign(s, p, cause, true)
+	}
 	return nil
 }
 

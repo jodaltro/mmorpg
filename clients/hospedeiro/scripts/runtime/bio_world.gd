@@ -74,6 +74,7 @@ var fever := false
 var sleeping := false
 ## Online, the engine owns the genome, the pressure and the offer (the advisor reads how the player lives).
 var engine_evolution := false
+var evolution_presentation: BioEvolutionPresentation
 var engine_offer: Array[String] = []  # engine gene ids of the pending offer
 var engine_featured := ""
 var engine_lineage_offer: Array[Dictionary] = []  # pending differentiation offer (engine)
@@ -229,6 +230,9 @@ func build() -> void:
 	body_panel.name = "BodyPanel"
 	add_child(body_panel)
 	body_panel.configure(self)
+	evolution_presentation = BioEvolutionPresentation.new()
+	add_child(evolution_presentation)
+	evolution_presentation.configure(self)
 	reset_dialog = BioResetDialog.new()
 	add_child(reset_dialog)
 	reset_dialog.configure(self)
@@ -285,8 +289,12 @@ func add_pressure(points: int) -> void:
 func pick_mutation(index: int) -> void:
 	if not engine_lineage_offer.is_empty():  # differentiating comes first and is permanent
 		if index >= 0 and index < engine_lineage_offer.size():
-			sync.link.act("diferenciar", {"lineage": str(engine_lineage_offer[index].get("id", ""))})
-			panel.hide_offer()
+			var option: Dictionary = engine_lineage_offer[index]
+			if not evolution_presentation.begin(option): return
+			var run := evolution_presentation._run
+			var result := await sync.link.act("diferenciar", {"lineage": str(option.get("id", "")), "design":"refresh"})
+			evolution_presentation.request_finished(int(result.get("status", 0)), run)
+			if int(result.get("status", 0)) == 200: panel.hide_offer()
 		return
 	if engine_evolution:
 		if index >= 0 and index < engine_offer.size():
@@ -352,6 +360,7 @@ func apply_engine_evolution(ev: Dictionary) -> void:
 ## The engine's procedural body for this player, decided from how they play. It arrives in the
 ## background whenever the engine decides, and the body morphs towards it slowly.
 func apply_engine_look(look: Dictionary) -> void:
+	if evolution_presentation != null: evolution_presentation.observe(look)
 	var designed: Dictionary = look["traits"] if look.get("traits") is Dictionary else {}
 	var changed := designed != engine_traits
 	engine_traits = designed.duplicate()
@@ -604,6 +613,8 @@ func release_engine_evolution() -> void:
 ## Starts everything again: a new world in the engine (when linked) and a newborn plain ball here, with no genes,
 ## class, abilities or look, in a fresh body of nutrients and virions. The old world stays archived by the engine.
 func restart_world(reset_engine := true) -> void:
+	if evolution_presentation != null:
+		evolution_presentation.reset()
 	hud.show_banner("O mundo recomeça…")
 	if reset_engine and sync != null and sync.link != null and sync.link.online:
 		var status := await sync.link.reset_world()

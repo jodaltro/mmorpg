@@ -1,6 +1,7 @@
 package scenarios
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -143,5 +144,71 @@ func TestAdvisorViewShowsWhoAnsweredWhat(t *testing.T) {
 		if r.Detail == "nucleo" && r.Choice == "trevo" {
 			t.Fatal("another player does not see this player's decisions")
 		}
+	}
+}
+
+// An explicit visual refresh keeps historical differentiation commands unchanged.
+func TestDifferentiationRefreshWaitsForEveryDesignChoiceAndReplays(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.fight("p1", 7)
+	offer := h.waitLineageOffer("p1")
+	for i := 0; len(designDecisions(h, "p1")) == 0 && i < 8; i++ {
+		h.tick(1)
+	}
+	old := designDecisions(h, "p1")
+	if len(old) == 0 {
+		t.Fatal("expected an earlier pending design to replace")
+	}
+	h.mustAct("player", "p1", "diferenciar", map[string]core.ID{"lineage": core.ID(offer.Featured), "design": "refresh"})
+	ds := designDecisions(h, "p1")
+	v, _ := h.w.View(&h.s, "p1", 1)
+	if len(ds) != 19 || v.Look == nil || !v.Look.DesignPending || v.Look.DesignRevision == 0 {
+		t.Fatalf("missing pending design state: %+v", v.Look)
+	}
+	for _, d := range old {
+		if _, err := h.try(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: d.Default}); err == nil {
+			t.Fatal("old design response accepted after class change")
+		}
+	}
+	remaining := len(ds)
+	// Sorted decision order keeps the replay fixture independent of map iteration.
+	ids := []string{}
+	for id := range ds {
+		ids = append(ids, id)
+	}
+	slices.Sort(ids)
+	for _, id := range ids {
+		d := ds[id]
+		h.do(core.Command{Kind: "resolve", Origin: "advisor", Decision: d.ID, Choice: d.Default, Provider: "test"})
+		remaining--
+		v, _ = h.w.View(&h.s, "p1", 1)
+		if v.Look.DesignPending != (remaining > 0) {
+			t.Fatal("visual became ready before every trait resolved")
+		}
+	}
+	b := load(t, "hospedeiro")
+	for _, c := range h.log {
+		var err error
+		b.s, _, err = b.w.Step(b.s, c)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	if b.s.Digest() != h.s.Digest() {
+		t.Fatal("evolution design replay diverged")
+	}
+}
+
+func TestDifferentiationRefreshFallsBackAtDeadline(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	h.fight("p1", 7)
+	offer := h.waitLineageOffer("p1")
+	h.mustAct("player", "p1", "diferenciar", map[string]core.ID{"lineage": core.ID(offer.Featured), "design": "refresh"})
+	h.tick(int(h.w.U.Limits.DecisionTimeout) + 1)
+	v, _ := h.w.View(&h.s, "p1", 1)
+	if v.Look == nil || v.Look.DesignPending || len(v.Look.Traits) != 19 {
+		t.Fatalf("default must finish the evolution: %+v", v.Look)
 	}
 }
