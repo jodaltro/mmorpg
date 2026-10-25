@@ -56,7 +56,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var screen := get_viewport().get_visible_rect().size
-	JavaScriptBridge.eval("window.HospPersonal.canInvite=%s" % ("true" if world.player.is_active() and not world.dungeon.active else "false"), true)
+	JavaScriptBridge.eval("window.HospPersonal.canInvite=%s;window.HospPersonal.inCombat=%s" % ["true" if world.player.is_active() and not world.dungeon.active else "false", "true" if world.evolution_presentation.in_combat() else "false"], true)
 	_button.position = Vector2(screen.x * 0.5 - 60, 6)
 	var modal := bool(JavaScriptBridge.eval("window.HospPersonal.partyModal", true))
 	if modal != _was_modal:
@@ -121,7 +121,7 @@ func _visitor_packet(code: int, body: Dictionary) -> void:
 		await link.confirm_host_deed(str(body.get("action", "")), body.get("args", {}))
 	elif code == 23:
 		if body.has("region"): (world.sync.link as BioPersonalLink).confirm_host_region(str(body.region))
-		if body.has("notice"): world.hud.show_banner(str(body.notice))
+		if body.has("notice"): world.hud.show_pvp_result(int(body.get("result", 0)), str(body.notice))
 
 
 func _exit_tree() -> void:

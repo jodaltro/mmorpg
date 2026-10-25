@@ -386,6 +386,12 @@ func _skill_glyph(kind: String) -> String:
 
 func _update_ping(covered: bool) -> void:
 	ping_label.visible = not covered
+	if BioPersonalLink.wanted():
+		var peer_ms := int(JavaScriptBridge.eval("window.HospPersonal.partyNetworkRTT >= 0 ? window.HospPersonal.partyNetworkRTT : window.HospPersonal.partyRTT", true))
+		ping_label.text = "P2P %d ms" % peer_ms if peer_ms >= 0 else "Local"
+		ping_label.tooltip_text = "Ida e volta entre aparelhos. Mundo / amigos mostra a rota e a resposta do jogo."
+		ping_label.add_theme_color_override("font_color", Color(0.45,0.9,0.72) if peer_ms < 100 else Color(0.95,0.8,0.4))
+		return
 	if world.online_client == null:
 		ping_label.text = "Local" if BioPersonalLink.wanted() else "Offline"
 		if BioPersonalLink.wanted():

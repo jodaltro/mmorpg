@@ -5,6 +5,7 @@
   let pc, channel, reliable, room='', role='', after=0, polling=false, outbox=Promise.resolve(), opened=false, pingTime=0;
   const queue=[], candidates=[], fragments=new Map();
   P.partyStatus='Sozinho · mundo pessoal'; P.partyRTT=-1; P.partyModal=false;
+  P.partyNetworkRTT=-1; P.partyRoute='';
   const sendSignal=message=>{const target=room;outbox=outbox.then(async()=>{const r=await P.rpc({op:'room-send',room:target,message});if(r.status!==200)throw Error('Convite expirou');}).catch(err=>{P.partyStatus=err.message;});return outbox;};
   const enqueue=(code,body)=>{if(queue.length<512)queue.push({code,body});};
   P.partyTake=()=>JSON.stringify(queue.splice(0,64));
@@ -39,6 +40,7 @@
   async function connect(nextRole,nextRoom) {
     P.partyClose(false);role=nextRole;room=nextRoom;after=0;opened=false;
     P.partyStatus='Procurando conexão direta…';P.partyRTT=-1;
+    P.partyNetworkRTT=-1;P.partyRoute='';
     // A local test can explicitly disable external STUN. Optional TURN configuration comes from trusted hosting configuration.
     const iceServers=new URLSearchParams(location.search).get('localIce')==='1'?[]:[{urls:'stun:stun.cloudflare.com:3478'}];
     if(Array.isArray(window.HOSPEDEIRO_ICE_SERVERS))iceServers.push(...window.HOSPEDEIRO_ICE_SERVERS);
@@ -94,6 +96,7 @@
     if(notify&&room)P.rpc({op:role==='host'?'room-close':'room-send',room,message:{type:'leave'}}).catch(()=>{});
     if(opened)enqueue(10,{event:'leave',id:'guest'});
     opened=false;P.peer=null;pc?.close();pc=null;channel=null;reliable=null;room='';candidates.length=0;fragments.clear();
+    P.partyRTT=-1;P.partyNetworkRTT=-1;P.partyRoute='';
   };
   let partSerial=0;
   P.partySend=(code,body)=>{
@@ -106,6 +109,23 @@
   };
   setInterval(()=>{
     if(opened&&reliable?.readyState==='open'){pingTime=performance.now();reliable.send(JSON.stringify({ping:pingTime}));}
+  },2000);
+  // Browser transport RTT excludes render/physics scheduling. Keep application
+  // ping separately so a busy phone is not mistaken for a distant network route.
+  let readingStats=false;
+  setInterval(async()=>{
+    if(!opened||!pc||readingStats)return;
+    const active=pc;readingStats=true;
+    try{
+      const report=await active.getStats();if(pc!==active)return;
+      let pair;
+      report.forEach(s=>{if(s.type==='transport'&&s.selectedCandidatePairId)pair=report.get(s.selectedCandidatePairId);});
+      if(!pair)report.forEach(s=>{if(s.type==='candidate-pair'&&s.state==='succeeded'&&s.nominated)pair=s;});
+      if(!pair)return;
+      if(Number.isFinite(pair.currentRoundTripTime))P.partyNetworkRTT=Math.round(pair.currentRoundTripTime*1000);
+      const local=report.get(pair.localCandidateId),remote=report.get(pair.remoteCandidateId);
+      P.partyRoute=[local?.candidateType,remote?.candidateType].includes('relay')?'Relay':local?.candidateType==='host'&&remote?.candidateType==='host'?'P2P local':'P2P direto';
+    }catch{}finally{readingStats=false;}
   },2000);
   P.partyOpen=()=>{
     if(P.partyModal)return;P.partyModal=true;
@@ -124,12 +144,13 @@
     button('Copiar convite',async()=>{await navigator.clipboard.writeText(link.value);});
     button('Sair da visita / fechar convite',()=>{P.partyClose();P.partyStatus='Sozinho · mundo pessoal';});
     button('Baixar backup do meu mundo',P.backup);
+    button('Sincronizar save agora',P.syncCloud);
     button('Restaurar meu save da nuvem',P.restore);
     const escape=event=>{if(event.key==='Escape')close();};
     const close=()=>{overlay.remove();P.partyModal=false;clearInterval(timer);document.removeEventListener('keydown',escape);document.getElementById('canvas')?.focus();};
     const dismiss=document.createElement('button');dismiss.textContent='×';dismiss.setAttribute('aria-label','Fechar mundo e amigos');dismiss.style.cssText='width:36px;height:36px;border:1px solid #347082;border-radius:8px;background:#123d4c;color:#d6f5ff;font-size:22px;cursor:pointer';dismiss.onclick=close;header.append(dismiss);
     button('Voltar ao jogo',close);overlay.onclick=e=>{if(e.target===overlay)close();};
-    const timer=setInterval(()=>{status.textContent=P.cloud+' · '+P.partyStatus+(P.partyRTT>=0?' · '+P.partyRTT+' ms':'');},500);
+    const timer=setInterval(()=>{status.textContent=P.cloud+' · '+P.partyStatus+(P.partyRoute?' · '+P.partyRoute:'')+(P.partyNetworkRTT>=0?' · rede '+P.partyNetworkRTT+' ms':'')+(P.partyRTT>=0?' · resposta do jogo '+P.partyRTT+' ms':'');},500);
     document.body.append(overlay);
     document.addEventListener('keydown',escape);
   };

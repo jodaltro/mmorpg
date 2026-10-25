@@ -200,7 +200,9 @@ func _process(delta: float) -> void:
 	world.camera.network_offset = _visual_offset
 	for child in world.player.get_children():
 		if child is Node2D and not child is CollisionShape2D: child.position = _visual_offset
-	var desired_time := _server_time + (Time.get_ticks_msec()/1000.0 - _server_arrival) - clampf(0.06 + transport.stats.jitter_ms/1000.0 * 1.5, 0.06, 0.16)
+	var delay := clampf(0.06 + transport.stats.jitter_ms/1000.0 * 1.5, 0.06, 0.16)
+	if personal_peer != null: delay = clampf(1.0/30.0 + transport.stats.jitter_ms/1000.0, 1.0/30.0, 0.10)
+	var desired_time := _server_time + (Time.get_ticks_msec()/1000.0 - _server_arrival) - delay
 	_remote_time = maxf(_remote_time, desired_time)
 	for id in _targets:
 		if is_instance_valid(_entities.get(id)):
@@ -210,11 +212,15 @@ func _process(delta: float) -> void:
 	if is_ready and Time.get_ticks_msec() - _last_received > 5000:
 		_disconnected()
 		transport.close()
+	if personal_peer == null: _flush_inputs(delta)
+
+
+func _flush_inputs(delta: float) -> void:
 	_send_in -= delta
 	var sends := 0
 	while _send_in <= 0.0 and transport.connected and not _frames_to_send.is_empty() and sends < 3:
 		sends += 1
-		_send_in = maxf(_send_in + 1.0/30.0, -0.1)
+		_send_in = maxf(_send_in + (1.0/60.0 if personal_peer != null else 1.0/30.0), -0.1)
 		var batch := _frames_to_send.slice(0, 4 if _frames_to_send.size() > 4 else 2)
 		_frames_to_send = _frames_to_send.slice(batch.size())
 		var latest := int(batch.back().seq)
@@ -246,6 +252,7 @@ func _physics_process(delta: float) -> void:
 		_tokens.clear()
 		while _frames_to_send.size() > 90: _frames_to_send.pop_front()
 	_dash_for_frame = Vector2.ZERO
+	if personal_peer != null: _flush_inputs(delta) # send the predicted tick immediately, without a render-frame queue
 	if not cell.is_active(): return
 	cell.combatant.actor.vitals.tick(delta)
 	cell.velocity = BioNetPrediction.velocity(cell.velocity, cell.intent, dt, _motion)

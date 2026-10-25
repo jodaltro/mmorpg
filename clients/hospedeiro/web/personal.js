@@ -89,16 +89,17 @@
     P.identity=identity; P.ready=true; P.cloud='Local · aguardando sincronização';
     await persist([],opened.checkpoint);
     // Cloud restoration is offered explicitly after local play starts. Never rewind a running world.
-    sync(); setInterval(sync,10000);
+    sync(); setInterval(sync,60000);
     window.addEventListener('pagehide',()=>persist());
     window.addEventListener('online',sync);
   };
   async function sync() {
     if (cloudBusy || conflicted || !P.ready || P.restoring) return;
+    if(P.inCombat && !document.hidden){P.cloud='Salvo neste aparelho · nuvem após combate';return;}
     cloudBusy=true;
     try {
       await durable;
-      const remote=await rpc({op:'load',offset:0});
+      const remote=await rpc({op:'head'});
       const count=remote.meta.count||0;
       if (count!==cloudCount || remote.version!==cloudVersion) {
         // A write may have succeeded even when its HTTP response was lost. Verify
@@ -119,7 +120,7 @@
         }
       }
       // Bounded work: at most four batches per pass; play never waits on these requests.
-      for(let n=0;n<4 && cloudCount<journal.length;n++) {
+      for(let n=0;n<4 && cloudCount<journal.length && (!P.inCombat || document.hidden);n++) {
         const commands=journal.slice(cloudCount,cloudCount+128);
         const saved=await rpc({op:'save',base:cloudCount,version:cloudVersion,request:identity.id+':'+cloudCount,commands,player:P.player,identity,universe:universe.id,definition:cloudCount===0?JSON.stringify(universe):undefined});
         if(saved.status!==200) {conflicted=true;P.cloud='Conflito de save · escolha em Mundo';return;}
@@ -165,4 +166,5 @@
   P.incoming=incoming||'';
   P.rpc=rpc;
   P.getCloudCount=()=>cloudCount;
+  P.syncCloud=sync;
 })();

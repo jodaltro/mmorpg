@@ -6,6 +6,7 @@ import base64
 import copy
 import hashlib
 import json
+import sys
 import threading
 import time
 import uuid
@@ -91,6 +92,9 @@ def test_rpc():
     assert rpc('alice', base)['status'] == 200, 'lost response must be idempotent'
     assert rpc('alice', dict(base, commands=[{'version': 2}]))['status'] == 409
     assert rpc('bob', {'op': 'load'})['meta']['count'] == 0, 'save privacy'
+    head = rpc('alice', {'op': 'head'})
+    assert head['meta']['count'] == 1 and head['version'] == saved['version']
+    assert 'definition' not in head and 'segment' not in head, 'save checks must not download the world'
     assert rpc('alice', dict(base, request='different'))['status'] == 409
     assert all(r['permission_read'] == 0 and r['permission_write'] == 0 for r in rows.values())
     room = rpc('alice', {'op': 'room-create'})['room']
@@ -170,6 +174,9 @@ def browser_test(base):
         guest.evaluate('(url)=>window.HospPersonal.partyJoin(url)', invite)
         guest.wait_for_function('window.__probe?.network.ready && window.__probe.network.players===2', timeout=60000)
         host.wait_for_function('window.HospPersonal.peer?.role === "host"', timeout=10000)
+        guest.wait_for_function('window.HospPersonal.partyNetworkRTT>=0 && window.HospPersonal.partyRoute==="P2P local"', timeout=15000)
+        host.wait_for_function('window.HospPersonal.partyNetworkRTT>=0', timeout=15000)
+        print('INFO Local WebRTC:', [p.evaluate('({route:HospPersonal.partyRoute,networkMs:HospPersonal.partyNetworkRTT,applicationMs:HospPersonal.partyRTT,gameMs:window.__probe.network.ping})') for p in pages], flush=True)
         print('PASS Browser: two full game clients, direct WebRTC, both players replicated', flush=True)
         guest.screenshot(path=str(ROOT / 'build/personal-pvp.png'))
         assert guest.evaluate('window.__probe.linkURL') == 'local://personal'
@@ -179,7 +186,32 @@ def browser_test(base):
         host.evaluate("window.__cmd='party-pvp'")
         host.wait_for_function('!window.__probe.alive', timeout=10000)
         guest.wait_for_timeout(1200)
+        for page in pages:
+            page.wait_for_function('window.__probe.pvpVisible && window.__probe.pvpResult.startsWith("Visitante venceu")', timeout=5000)
         assert guest.evaluate('window.__probe.personalProgress.abates') == 1, 'PvP advanced monster progression'
+        host.locator('#canvas').focus()
+        host.keyboard.press('r')
+        host.wait_for_function('window.__probe.alive', timeout=10000)
+        host.wait_for_timeout(2200) # respawn invulnerability
+        host.evaluate("window.__cmd='party-host-win'")
+        guest.wait_for_function('!window.__probe.alive', timeout=10000)
+        for page in pages:
+            page.wait_for_function('window.__probe.pvpVisible && window.__probe.pvpResult.startsWith("Anfitrião venceu")', timeout=5000)
+        guest.screenshot(path=str(ROOT / 'build/personal-host-victory.png'))
+        if '--victory-only' in sys.argv:
+            assert not errors, '\n'.join(errors[:20])
+            print('PASS Browser: both PvP outcomes stay visible after death snapshots', flush=True)
+            browser.close()
+            return
+        guest.evaluate('window.HospPersonal.inCombat=true')
+        guest.evaluate('window.HospPersonal.syncCloud()')
+        assert guest.evaluate('window.HospPersonal.cloud').endswith('nuvem após combate'), 'combat must defer cloud work'
+        guest.locator('#canvas').focus()
+        guest.keyboard.press('r')
+        guest.wait_for_function('window.__probe.alive', timeout=10000)
+        guest.wait_for_timeout(6000)
+        for _ in range(2):
+            guest.evaluate('window.HospPersonal.syncCloud()')
         guest.wait_for_function('window.HospPersonal.getCloudCount()>0', timeout=20000)
         assert lost_ack[0], 'lost save receipt was not exercised'
         print('PASS Browser: visitor progresses independently; player defeats give no progression; real Lua cloud save', flush=True)
@@ -206,6 +238,7 @@ def browser_test(base):
         print('PASS Browser: fully offline reload preserves visitor progression and local journal', flush=True)
         contexts[1].set_offline(False)
         guest.unroute('**/nakama/**')
+        guest.evaluate('window.HospPersonal.syncCloud()')
         guest.wait_for_function("""async () => {
           let offset=0, first=await window.HospPersonal.rpc({op:'load',offset:0});
           while(offset<first.meta.count){

@@ -27,6 +27,8 @@ func _process(delta: float) -> void:
 		"x": snappedf(p.global_position.x, 0.1),
 		"y": snappedf(p.global_position.y, 0.1),
 		"alive": p.is_active(),
+		"pvpResult": world.hud.pvp_result_text,
+		"pvpVisible": world.hud._pvp_result != null and world.hud._pvp_result.modulate.a > 0.5,
 		"membrane": snappedf(p.combatant.actor.vitals.membrane, 0.1),
 		"online": link != null and link.online,
 		"personalProgress": link.view.get("self", {}).get("num", {}) if link is BioPersonalLink else {},
@@ -171,6 +173,11 @@ func _run(cmd: String) -> void:
 				var host := node as BioPersonalHost
 				if host.players.has("guest"):
 					world.player.combatant.receive_hit((host.players.guest.cell as BioCellActor).combatant, BioAttackDef.new(&"probe",0,1000,0,1,0,0))
+		"party-host-win":
+			for node in _nodes_of("BioPersonalHost"):
+				var host := node as BioPersonalHost
+				if host.players.has("guest"):
+					(host.players.guest.cell as BioCellActor).combatant.receive_hit(world.player.combatant, BioAttackDef.new(&"probe",0,1000,0,1,0,0))
 
 
 ## Which scripts the running scene is made of, and which of them think every frame: where a slow device spends its time.

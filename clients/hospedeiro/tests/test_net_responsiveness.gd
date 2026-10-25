@@ -138,6 +138,21 @@ func test_send_clock_never_accumulates_a_movement_backlog_at_60_20_or_10_fps() -
 			assert_true(client._frames_to_send.size() < 5, "render rate must never slow the simulation input stream")
 	for packet in transport.sent: assert_true(packet.frames.size() <= 4, "redundancy stays within the relay's message budget")
 
+func test_personal_peer_sends_each_input_in_its_physics_tick_without_rendering() -> void:
+	client.transport.free()
+	var transport := RecordingTransport.new()
+	client.transport = transport
+	transport.connected = true
+	client.personal_peer = BioPeerTransport.new()
+	world.player.set_intent(Vector2.RIGHT)
+	for i in 6:
+		client._physics_process(1.0/60.0)
+		assert_eq(transport.sent.size(), i + 1, "no render or 30 Hz batch is needed to send local input")
+		assert_eq(client._frames_to_send.size(), 0)
+		assert_true(transport.sent.back().frames.any(func(frame: Dictionary) -> bool: return int(frame.seq) == i + 1))
+	client.personal_peer.free()
+	client.personal_peer = null
+
 func test_selective_retransmission_uses_json_numeric_ids_and_preserves_missing_actions() -> void:
 	client.transport.free()
 	var transport := RecordingTransport.new()

@@ -89,3 +89,43 @@ func test_visitor_build_only_contains_catalogue_choices_and_no_dungeon_or_hp() -
 	var exploration := BioPartyBuild.clean(own).explore as Dictionary
 	assert_eq(exploration.niches.size(), 1, "visitor can discover personal niches on the host")
 	assert_eq(exploration.adapted, ["sangue"])
+
+
+func test_host_victory_survives_death_and_mission_banners_and_is_not_repeated() -> void:
+	var guest: BioCellActor = host.players.guest.cell
+	guest.combatant.actor.invulnerable_until = 0
+	peer.sent.clear()
+	guest.combatant.receive_hit(world.player.combatant, BioAttackDef.new(&"test",0,1000,0,1,0,0))
+	assert_true(world.hud.pvp_result_text.begins_with("Anfitrião venceu"))
+	assert_eq(peer.sent.filter(func(e: Dictionary) -> bool: return e.code == 23).size(), 1)
+	world.hud.show_banner("Missão recebida")
+	world._on_player_died(world.player.combatant)
+	assert_true(world.hud._pvp_result.text.begins_with("Anfitrião venceu"), "a later death snapshot must not erase the result")
+	host._defeated("guest", guest.combatant)
+	assert_eq(peer.sent.filter(func(e: Dictionary) -> bool: return e.code == 23).size(), 1, "one result per defeated life")
+	world.hud.show_pvp_result(-1, "resultado antigo")
+	assert_true(world.hud.pvp_result_text.begins_with("Anfitrião venceu"))
+
+
+func test_visitor_victory_and_next_life_have_separate_results() -> void:
+	var guest: BioCellActor = host.players.guest.cell
+	world.player.combatant.died.connect(func(victim: BioCombatant) -> void: host._defeated("host", victim))
+	world.player.combatant.actor.invulnerable_until = 0
+	world.player.combatant.receive_hit(guest.combatant, BioAttackDef.new(&"test",0,1000,0,1,0,0))
+	assert_true(world.hud.pvp_result_text.begins_with("Visitante venceu"))
+	var first_id := world.hud._pvp_result_id
+	world.player.combatant.reset_vitals()
+	world.player.set_active(true)
+	host._physics_process(1.0/60.0)
+	world.player.combatant.actor.invulnerable_until = 0
+	world.player.combatant.receive_hit(guest.combatant, BioAttackDef.new(&"test",0,1000,0,1,0,0))
+	assert_true(world.hud._pvp_result_id > first_id, "respawning allows another result")
+
+
+func test_peer_snapshots_run_after_physics_at_thirty_hz_without_render() -> void:
+	peer.sent.clear()
+	for i in 6: host._physics_process(1.0/60.0)
+	assert_eq(peer.sent.filter(func(e: Dictionary) -> bool: return e.code == 2).size(), 3)
+	peer.sent.clear()
+	host._process(0.02)
+	assert_true(not peer.sent.any(func(e: Dictionary) -> bool: return e.code == 2), "render must not create a second snapshot clock")

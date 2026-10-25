@@ -3,6 +3,10 @@ extends BioGameServer
 ## Listen host: the owner's existing world continues running locally. Only the
 ## visitor's inputs pass through the shared combat adapter.
 
+var _peer_snapshot_in := 0.0
+var _result_serial := Time.get_ticks_msec()
+var _defeated_lives: Dictionary = {}
+
 
 func _ready() -> void:
 	transport.packet.connect(_packet)
@@ -58,14 +62,30 @@ func _packet(code: int, data: Dictionary) -> void:
 
 func _defeated(id: String, victim: BioCombatant) -> void:
 	if not is_instance_valid(victim._last_attacker) or not victim._last_attacker.has_meta("party_player"): return
+	if str(victim._last_attacker.get_meta("party_owner", "")) == id: return
+	if _defeated_lives.has(id): return
+	_defeated_lives[id] = true
+	_result_serial += 1
 	var winner := "Visitante" if id == "host" else "Anfitrião"
-	arena.hud.show_banner(winner + " venceu o confronto · sem recompensas")
-	transport.send_data(23, {"notice":winner + " venceu o confronto · sem recompensas"})
+	var notice := winner + " venceu o confronto · sem recompensas"
+	arena.hud.show_pvp_result(_result_serial, notice)
+	transport.send_data(23, {"result":_result_serial,"notice":notice})
+
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	for id in players:
+		if (players[id].cell as BioCellActor).is_active(): _defeated_lives.erase(id)
+	_peer_snapshot_in -= delta
+	if _peer_snapshot_in <= 0.0 and transport.connected:
+		_peer_snapshot_in = 1.0/30.0
+		_snapshot() # after input simulation, never before the next render pass
 
 
 func _process(delta: float) -> void:
 	players.host.region = str(arena.region)
 	players.host.view = arena.sync.link.view
+	_snapshot_in = 1.0 # personal snapshots have their own physics clock
 	super._process(delta)
 
 

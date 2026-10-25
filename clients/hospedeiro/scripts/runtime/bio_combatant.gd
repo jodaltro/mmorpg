@@ -491,6 +491,7 @@ func _counter_back(attacker: BioCombatant, raw: float) -> void:
 	actor.vitals.repair(raw * _counter_heal)
 	attacker.stun(0.5)
 	var taken := attacker.actor.vitals.take_damage(raw * _counter_reflect)
+	if taken > 0.0: attacker._last_attacker = self
 	var host := attacker.get_parent() as Node2D
 	if host != null:
 		BioPfx.burst(BioFx.root, host.global_position, Color(1.0, 0.7, 0.5), 10, 200.0, 0.4, 9.0)
@@ -511,6 +512,7 @@ func _complement_step(attacker: BioCombatant) -> void:
 	_compl_until = 0.0
 	var amount := _compl_damage + minf(actor.vitals.max_membrane * _compl_pct, _compl_cap)
 	var taken := actor.vitals.take_damage(amount)
+	if taken > 0.0: _last_attacker = attacker
 	var host := get_parent() as Node2D
 	if host != null:
 		BioPfx.ring_burst(BioFx.root, host.global_position, Color(0.9, 0.6, 1.0), 60.0, 30, 0.5, 10.0)
@@ -556,6 +558,7 @@ func _share_with_link(dealt: float, attacker: BioCombatant) -> void:
 		if mate == null or mate == self or not is_instance_valid(mate) or not mate.actor.vitals.is_alive():
 			continue
 		var taken := mate.actor.vitals.take_damage(dealt * _link_share)
+		if taken > 0.0: mate._last_attacker = attacker
 		var host := mate.get_parent() as Node2D
 		if host != null:
 			BioPfx.burst(BioFx.root, host.global_position, Color(0.5, 1.0, 0.85), 6, 120.0, 0.3, 8.0)

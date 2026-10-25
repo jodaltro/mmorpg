@@ -14,7 +14,11 @@ local function rpc(ctx, raw)
   if #raw > 524288 then error('payload too large') end
   local p = nk.json_decode(raw)
   local uid = ctx.user_id
-  if p.op == 'load' then
+  if p.op == 'head' then
+    -- The frequent save check needs one cursor read, never a universe/journal download.
+    local meta = read('personal_meta_v1','world',uid)
+    return nk.json_encode({status=200,meta={count=meta and meta.value.count or 0},version=meta and meta.version or '*'})
+  elseif p.op == 'load' then
     local meta = read('personal_meta_v1','world',uid)
     local offset = math.max(0, math.floor(tonumber(p.offset) or 0))
     local segment = read('personal_journal_v1',tostring(offset),uid)

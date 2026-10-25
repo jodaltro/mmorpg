@@ -6,11 +6,17 @@ var host := false
 
 
 func _ready() -> void:
+	process_physics_priority = -100 # receive intentions before the host simulates this tick
 	connected = true
 	user_id = "host" if host else "guest"
 
 
 func _process(_delta: float) -> void:
+	pass
+
+
+func _physics_process(_delta: float) -> void:
+	if not BioPlatform.is_web(): return
 	var raw: Variant = JavaScriptBridge.eval("window.HospPersonal.partyTake()", true)
 	var packets: Variant = JSON.parse_string(str(raw))
 	if packets is Array:

@@ -32,6 +32,10 @@ var _bar_width := BAR_SIZE.x
 var _ab_cells: Array[ColorRect] = []
 var _ab_shades: Array[ColorRect] = []
 var _ab_labels: Array[Label] = []
+var pvp_result_text := ""
+var _pvp_result_id := -1
+var _pvp_result: Label
+var _pvp_tween: Tween
 
 
 func bind(combatant: BioCombatant) -> void:
@@ -138,6 +142,40 @@ func show_banner(text: String) -> void:
 
 func banner_text() -> String:
 	return _banner.text
+
+
+## Independent of mission/death banners: unordered snapshots must not erase a victory.
+func show_pvp_result(id: int, text: String) -> void:
+	if id <= _pvp_result_id: return
+	_pvp_result_id = id
+	pvp_result_text = text
+	if _pvp_result == null:
+		_pvp_result = Label.new()
+		_pvp_result.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+		_pvp_result.position = Vector2(-175, 175)
+		_pvp_result.size = Vector2(350, 70)
+		_pvp_result.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_pvp_result.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_pvp_result.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_pvp_result.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_pvp_result.add_theme_font_size_override("font_size", 18)
+		_pvp_result.add_theme_color_override("font_shadow_color", Color.BLACK)
+		_pvp_result.add_theme_constant_override("shadow_outline_size", 8)
+		var backdrop := StyleBoxFlat.new()
+		backdrop.bg_color = Color(0.025, 0.09, 0.12, 0.96)
+		backdrop.border_color = Color(0.3, 0.8, 0.65, 0.8)
+		backdrop.set_border_width_all(1)
+		backdrop.set_corner_radius_all(12)
+		_pvp_result.add_theme_stylebox_override("normal", backdrop)
+		add_child(_pvp_result)
+	if _pvp_tween != null: _pvp_tween.kill()
+	_pvp_result.text = text.replace(" · ", "\n")
+	_pvp_result.modulate = Color(0.65, 1.0, 0.85, 0.0)
+	_pvp_result.show()
+	_pvp_tween = create_tween()
+	_pvp_tween.tween_property(_pvp_result, "modulate:a", 1.0, 0.2)
+	_pvp_tween.tween_interval(6.0)
+	_pvp_tween.tween_property(_pvp_result, "modulate:a", 0.0, 0.5)
 
 
 func _ready() -> void:
