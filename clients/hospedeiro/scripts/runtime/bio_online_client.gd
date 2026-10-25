@@ -76,8 +76,9 @@ func _ready() -> void:
 	world.abilities.network_cast = func(id: StringName) -> int: return queue_action("ability:" + str(id))
 	for kit in world.abilities._kits:
 		kit.process_mode = Node.PROCESS_MODE_DISABLED
-	for group in ["viruses", "nutrients", "motes", "toxins"]:
-		for n in get_tree().get_nodes_in_group(group): n.queue_free()
+	for group in ["viruses", "nutrients", "motes", "toxins", "training_targets"]:
+		for n in get_tree().get_nodes_in_group(group):
+			if n.get_parent() == world: n.queue_free()
 	_join_ui()
 	var name := str(_identity.get("name", ""))
 	if BioPlatform.is_web():
@@ -330,14 +331,21 @@ func _packet(code: int, body: Dictionary) -> void:
 		_metadata[id] = cached
 		data = cached
 		wanted[id] = true
-		var mine: bool = str(data.get("uid", "")) == transport.user_id
+		# Empty NPC identities must never alias an uninitialized local identity.
+		var mine: bool = data.get("kind", "") == "player" and not transport.user_id.is_empty() and str(data.get("uid", "")) == transport.user_id
+		if mine and _entities.get(id) != world.player:
+			if is_instance_valid(_entities.get(id)): (_entities[id] as Node).queue_free()
+			_entities[id] = world.player
 		if not is_instance_valid(_entities.get(id)):
 			_entities[id] = world.player if mine else _spawn(data)
 		var n := _entities[id] as Node2D
 		if n == null: continue
 		var pos: Array = data.get("p", [0,0])
 		_targets[id] = Vector2(float(pos[0]), float(pos[1]))
-		if not mine:
+		if data.get("kind", "") == "training":
+			n.global_position = _targets[id]
+			_tracks.erase(id)  # a fixed practice instrument has no remote movement to predict
+		elif not mine:
 			if not _tracks.has(id): _tracks[id] = BioNetInterpolation.new()
 			var velocity: Array = data.get("v", [0, 0])
 			(_tracks[id] as BioNetInterpolation).push(_server_time, _targets[id], Vector2(float(velocity[0]), float(velocity[1])))
@@ -393,7 +401,9 @@ func _unlock() -> void:
 		_repress_until.clear()
 		_dash_for_frame = Vector2.ZERO
 		world.player.combatant.actor.vitals.atp = _confirmed_atp
-		if preview != null: preview.shots.clear()
+		if preview != null:
+			preview.shots.clear()
+			preview.queue_redraw()
 	is_ready = true
 	_has_started = true
 	reconnecting = false

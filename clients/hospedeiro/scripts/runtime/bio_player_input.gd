@@ -5,6 +5,7 @@ var touch: BioTouchControls  # set when the screen is a finger's: movement and a
 
 var _controller: BioCellController
 var _host: Node2D
+var _mouse_aim_until := 0
 
 
 static func ensure_actions() -> void:
@@ -58,6 +59,11 @@ func configure(controller: BioCellController, host: Node2D) -> void:
 	ensure_actions()
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and (event as InputEventMouseMotion).relative.length_squared() > 1:
+		_mouse_aim_until = Time.get_ticks_msec() + 2000
+
+
 func _process(_delta: float) -> void:
 	if _controller == null or not _host.visible:
 		return
@@ -73,8 +79,10 @@ func _process(_delta: float) -> void:
 		_controller.set_aim(stick)
 	elif touch != null:
 		_controller.set_aim(touch.aim_vector())
-	else:
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Time.get_ticks_msec() < _mouse_aim_until:
 		_controller.set_aim(_host.get_global_mouse_position() - _host.global_position)
+	else:
+		_controller.auto_aim()
 	if BioUi.captures_input():  # a click on a window is not an attack
 		return
 	var world := _host.get_parent() as BioWorld

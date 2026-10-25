@@ -3,7 +3,7 @@ extends CanvasLayer
 ## The controls for a finger: a stick on the left to move, a big attack button on the right that also aims when dragged, the toxin
 ## and the dash around it, the four class abilities on an arc above, and a row of windows at the top. Nothing here knows the game's
 ## rules: it presses the same input actions the keyboard does and reports where to move and aim. With no stick on the aim the cell
-## aims at the nearest enemy, because a thumb that is busy running cannot also point.
+## acquires the nearest enemy and keeps it until invalid, because a thumb busy running cannot also point.
 
 const AUTO_AIM_UNITS := 13.0
 const AUTO_AIM_EVERY := 0.1
@@ -345,7 +345,7 @@ func move_vector() -> Vector2:
 	return move_stick.value()
 
 
-## Where the cell aims: where the thumb drags the attack button, else at the nearest enemy, else where it last aimed.
+## Drag overrides the locked enemy; releasing returns to that target while it remains valid.
 func aim_vector() -> Vector2:
 	var manual := attack_stick.value()
 	if manual != Vector2.ZERO:
@@ -356,29 +356,10 @@ func aim_vector() -> Vector2:
 func _refresh_aim() -> void:
 	if attack_stick.value() != Vector2.ZERO:
 		return
-	var player: BioCellActor = world.player
-	var near := BioTargeting.enemies(player.get_world_2d(), player.global_position, AUTO_AIM_UNITS * BioArt.UNIT, player.combatant.actor.team)
-	# Replicas have no combat collision; aiming is presentation, validated again by the host.
-	if world.online_client != null:
-		for node in get_tree().get_nodes_in_group("cells"):
-			if node is BioCellActor and node != player and node.get_world_2d() == player.get_world_2d() and node.combatant.team() != player.combatant.team() and node.is_active() and node.global_position.distance_to(player.global_position) <= AUTO_AIM_UNITS * BioArt.UNIT and not near.has(node):
-				near.append(node)
-	var nearest: BioCellActor = null
-	var best := INF
-	# Keep a valid target until another is substantially closer.
-	if is_instance_valid(_target) and near.has(_target) and _target.is_active():
-		nearest = _target
-		best = _target.global_position.distance_squared_to(player.global_position) * 0.64
-	for e in near:
-		var d := e.global_position.distance_squared_to(player.global_position)
-		if e.is_active() and d < best:
-			best = d
-			nearest = e
-	_target = nearest
-	if nearest != null:
-		_aim = (nearest.global_position - player.global_position).normalized()
-	elif move_stick.value() != Vector2.ZERO:
-		_aim = move_stick.value().normalized()
+	var controller := world.player.get_node("Controller") as BioCellController
+	controller.auto_target = _target if is_instance_valid(_target) else null
+	_aim = controller.auto_aim(AUTO_AIM_UNITS)
+	_target = controller.auto_target
 
 
 func _on_attack_engaged(engaged: bool) -> void:

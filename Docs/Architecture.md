@@ -91,6 +91,12 @@ Idempotência por `requestId` (janela de 4096 revisões), guarda opcional `expec
 6. Num cenário único, quem tinha a missão do capítulo **ou** cumpria o critério `contender` recebe os efeitos de rival e uma continuação própria.
 7. O jogador aceita ou recusa. Aceita, a missão precisa ser concluída antes da próxima (se o universo não permitir abandono). Se deixar de fazer sentido, ela é encerrada como `obsolete` e libera a vaga.
 
+### Confirmação de recebimento — 25/10/2026
+
+O cliente pode enviar a intenção aditiva `act: acknowledge-quest`, com `args.quest` apontando para sua própria oferta ou missão ativa. Ela grava `Quest.acknowledged` no log. Uma missão recebida deixa de expirar por silêncio, de ser retirada por mudança dos requisitos de oferta ou de se tornar obsoleta só por sair da região. O jogador pode aceitar depois de alcançar o objetivo; nesse caso a conclusão normal é avaliada ao aceitar. Continua havendo apenas uma proposta pendente e, no Hospedeiro, uma missão ativa.
+
+Conclusão, recusa, abandono permitido, falhas explícitas, prazo de execução e disputas de cenários únicos continuam válidos. A confirmação não aceita a missão nem entrega recompensas. O cliente do Hospedeiro confirma o recebimento ao apresentar a oferta/objetivo; em falha de rede, tenta novamente nas próximas visões. Universos e históricos sem essa intenção mantêm o comportamento anterior, permitindo atualizar o mundo existente sem reset nem alteração de fingerprint.
+
 ## Cenários únicos e histórias dinâmicas
 
 1. Um capítulo único abre silenciosamente. Os jogadores o descobrem pelas missões oferecidas a eles.

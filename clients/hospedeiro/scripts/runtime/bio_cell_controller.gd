@@ -5,6 +5,7 @@ extends Node
 const MAGNET_RADIUS_UNITS := 2.6
 
 var aim := Vector2.RIGHT
+var auto_target: BioCellActor
 var network_attack: Callable
 
 var _host: BioCellActor
@@ -23,6 +24,29 @@ func move(direction: Vector2) -> void:
 func set_aim(direction: Vector2) -> void:
 	if direction.length_squared() > 0.01:
 		aim = direction.normalized()
+
+
+func auto_aim(radius_units: float = 13.0) -> Vector2:
+	var radius_squared := pow(radius_units * BioArt.UNIT, 2)
+	if not is_instance_valid(auto_target) or not _valid_target(auto_target, radius_squared):
+		auto_target = null
+		var best := INF
+		for node in get_tree().get_nodes_in_group("cells"):
+			var candidate := node as BioCellActor
+			if not _valid_target(candidate, radius_squared): continue
+			var distance := _host.global_position.distance_squared_to(candidate.global_position)
+			if distance < best:
+				best = distance
+				auto_target = candidate
+	if auto_target != null:
+		set_aim(_host.global_position.direction_to(auto_target.global_position))
+	elif _host.intent != Vector2.ZERO:
+		set_aim(_host.intent)
+	return aim
+
+
+func _valid_target(candidate: BioCellActor, radius_squared: float) -> bool:
+	return is_instance_valid(candidate) and not candidate.is_queued_for_deletion() and candidate != _host and candidate.is_active() and candidate.get_world_2d() == _host.get_world_2d() and candidate.combatant.team() != _host.combatant.team() and _host.global_position.distance_squared_to(candidate.global_position) <= radius_squared
 
 
 func lash() -> int:

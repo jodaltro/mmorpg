@@ -284,6 +284,22 @@ func test_auto_aim_keeps_target_when_another_enemy_is_only_slightly_closer() -> 
 	await tree.physics_frame
 	world.touch._refresh_aim()
 	assert_true(world.touch.aim_vector().x > 0.95, "a tiny distance change must not flicker the aim")
+	(b.get_parent() as BioCellActor).global_position = world.player.global_position + Vector2(0, 1) * BioArt.UNIT
+	world.touch._refresh_aim()
+	assert_eq(world.touch._target, a.get_parent(), "keep the first target even when a different enemy becomes much closer")
+	(a.get_parent() as BioCellActor).set_active(false)
+	world.touch._refresh_aim()
+	assert_eq(world.touch._target, b.get_parent(), "reacquire only after the locked target becomes invalid")
+	_touch(world.touch.attack_stick, 0, world.touch.attack_stick.size * 0.5, true)
+	_drag(world.touch.attack_stick, 0, world.touch.attack_stick.size * 0.5 + Vector2(-70, 0))
+	assert_true(world.touch.aim_vector().x < -0.95, "explicit drag overrides the locked target")
+	_touch(world.touch.attack_stick, 0, Vector2.ZERO, false)
+	world.touch._refresh_aim()
+	assert_true(world.touch.aim_vector().y > 0.95, "releasing manual aim returns to the same valid target")
+	(b.get_parent() as BioCellActor).queue_free()
+	await tree.process_frame
+	world.touch._refresh_aim()
+	assert_true(not is_instance_valid(world.touch._target), "destroyed targets are discarded without passing freed objects to typed helpers")
 
 
 func test_skill_button_aims_then_casts_only_on_release_and_can_cancel() -> void:

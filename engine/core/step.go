@@ -227,6 +227,8 @@ func (w *World) move(s *State, c Command, cause string) error {
 
 func (w *World) act(s *State, origin string, actor ID, action string, args map[string]ID, cause string) error {
 	switch action { // the engine's own verbs for learning
+	case actAcknowledgeQuest:
+		return w.acknowledgeQuest(s, origin, actor, args)
 	case actExamine:
 		return w.examine(s, origin, actor, args, cause)
 	case actTell:

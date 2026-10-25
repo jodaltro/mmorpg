@@ -763,12 +763,14 @@ func set_sleeping(on: bool) -> void:
 
 ## The host ate: glucose floods the blood.
 func spawn_meal(count: int) -> void:
+	if online_client != null: return  # the authority already includes these in its snapshots
 	for i in count:
 		BioFactory.spawn_nutrient(self, BioBodyMap.random_point_px(_rng, BioBodyMap.SANGUE, player.global_position, 3.0), BioNutrientRules.Kind.GLUCOSE)
 
 
 ## A new outbreak: more virions in the blood.
 func spawn_outbreak(count: int) -> void:
+	if online_client != null: return
 	for i in count:
 		_spawn_virus(10.0)
 

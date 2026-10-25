@@ -177,6 +177,10 @@ func accept(quest_key: String) -> Dictionary:
 	return await _command("player", "accept", {"quest": quest_key})
 
 
+func acknowledge_quest(quest_key: String) -> Dictionary:
+	return await act("acknowledge-quest", {"quest":quest_key})
+
+
 func decline(quest_key: String) -> Dictionary:
 	return await _command("player", "decline", {"quest": quest_key})
 

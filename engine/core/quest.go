@@ -14,6 +14,20 @@ type candidate struct {
 	bind Bind
 }
 
+const actAcknowledgeQuest = "acknowledge-quest"
+
+// Receipt is a logged intention, not a change to historical universe rules.
+// Explicit failure, deadlines and unique story claims still resolve the quest.
+func (w *World) acknowledgeQuest(s *State, origin string, p ID, args map[string]ID) error {
+	q, ok := s.Quests[string(args["quest"])]
+	if origin != "player" || !ok || q.Holder != p || q.State != "offered" && q.State != "active" {
+		return reject("quest receipt")
+	}
+	q.Acknowledged = true
+	s.Quests[q.Key] = q
+	return nil
+}
+
 func questKey(def string, holder ID, params []QuestParam, b Bind) string {
 	parts := []string{def, string(holder)}
 	for _, p := range params {
@@ -47,7 +61,7 @@ func (w *World) local(s *State, def QuestDef, b Bind) bool {
 func (w *World) refreshOffers(s *State, p ID, cause string) {
 	for _, k := range sortedKeys(s.Quests) {
 		q := s.Quests[k]
-		if q.State != "offered" || p != "" && q.Holder != p {
+		if q.State != "offered" || q.Acknowledged || p != "" && q.Holder != p {
 			continue
 		}
 		def := w.quests[q.Def]
@@ -81,7 +95,7 @@ func (w *World) questTick(s *State, cause string) {
 			w.evolve(s, k, cause)
 			q = s.Quests[k]
 		}
-		if q.State == "active" && w.quests[q.Def].Arc == "" && !w.Holds(s, w.quests[q.Def].Eligible, Bind{"self": q.Holder}) {
+		if q.State == "active" && !q.Acknowledged && w.quests[q.Def].Arc == "" && !w.Holds(s, w.quests[q.Def].Eligible, Bind{"self": q.Holder}) {
 			// The world moved on (the caravan left, the well is clean):
 			// the quest no longer makes sense and frees the active slot.
 			q.State = "obsolete"
@@ -90,7 +104,7 @@ func (w *World) questTick(s *State, cause string) {
 			w.emit(s, Event{Kind: "quest-obsolete", Holder: q.Holder, Text: q.Title, Cause: cause})
 			continue
 		}
-		if q.State == "offered" && s.Tick-q.At >= l.OfferExpiry {
+		if q.State == "offered" && !q.Acknowledged && s.Tick-q.At >= l.OfferExpiry {
 			q.State = "expired"
 			s.Quests[k] = q
 			s.Declined[k] = s.Tick

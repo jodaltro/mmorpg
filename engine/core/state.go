@@ -97,6 +97,7 @@ type Quest struct {
 	Penalty       string       `json:"penalty,omitempty"`
 	Stage         string       `json:"stage,omitempty"`
 	Deadline      Tick         `json:"deadline,omitempty"`
+	Acknowledged  bool         `json:"acknowledged,omitempty"` // a delivered quest remains until answered or explicitly resolved
 }
 
 type Option struct {

@@ -40,6 +40,7 @@ func shot(origin: Vector2, direction: Vector2, speed: float, reach: float, tint:
 
 func cancel(token: int) -> void:
 	shots = shots.filter(func(item: Dictionary) -> bool: return int(item.token) != token)
+	queue_redraw()
 
 func _process(delta: float) -> void:
 	if shots.is_empty(): return

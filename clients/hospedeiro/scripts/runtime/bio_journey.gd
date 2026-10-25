@@ -64,7 +64,11 @@ func recommendation() -> Dictionary:
 			"investigar-inflamacao": result["at"] = BioBodyMap.spot_px("capilar")
 		return result
 	if system.has_offer():
-		return {"title": "Responda ao chamado", "detail": "Há uma missão disponível: %s. Abra Missões para ler o objetivo e aceitar o chamado." % str(system._offer.get("title", "Novo chamado"))}
+		var next := {"title": "Responda ao chamado", "detail": "Há uma missão disponível: %s. Abra Missões para ler o objetivo e aceitar o chamado." % str(system._offer.get("title", "Novo chamado"))}
+		match str(system._offer.get("def", "")):
+			"primeiro-mergulho", "vigilia", "caca-no-capilar": next["at"] = BioBodyMap.center_px(BioBodyMap.SANGUE)
+			"investigar-inflamacao": next["at"] = BioBodyMap.spot_px("capilar")
+		return next
 	if not world.engine_offer.is_empty() or not world.engine_lineage_offer.is_empty():
 		return {"title": "Escolha sua evolução", "detail": "Você já pode desenvolver sua célula. Abra Corpo para escolher genes ou uma classe. Faça isso em segurança, fora de combate."}
 	if world.region == BioBodyMap.MEDULA:
@@ -111,14 +115,17 @@ func waypoint(at: Vector2) -> Dictionary:
 	var nearest := 0
 	for i in route.size():
 		if world.player.global_position.distance_to(route[i] * BioArt.UNIT) < world.player.global_position.distance_to(route[nearest] * BioArt.UNIT): nearest = i
-	return {"at": route[mini(nearest + 1, route.size() - 1)] * BioArt.UNIT}
+	var ahead := mini(nearest + 1, route.size() - 1)
+	while ahead < route.size() - 1 and world.player.global_position.distance_to(route[ahead] * BioArt.UNIT) < 4 * BioArt.UNIT:
+		ahead += 1
+	return {"at": route[ahead] * BioArt.UNIT}
 
 func _process(delta: float) -> void:
 	_age += delta
 	var available := world.tutorial != null and world.tutorial.completed and not world.tutorial.active and world.player.is_active() and not world.dungeon.active
 	_card.visible = available and not BioUi.captures_input() and not world.tray._chips.has("gene-reward")
-	_ink.visible = _card.visible
-	if not available or not _card.visible:
+	_ink.visible = available and not BioUi.captures_input()
+	if not available:
 		has_target = false
 		_refresh_in = 0
 		return
@@ -140,7 +147,7 @@ func _process(delta: float) -> void:
 		var point := waypoint(next.at)
 		if not point.is_empty():
 			target = point.at
-			has_target = _card.visible
+			has_target = true
 	_ink.queue_redraw()
 
 func open() -> void:
@@ -176,6 +183,9 @@ func _draw_trail() -> void:
 	var end := transform * target
 	var direction := origin.direction_to(end)
 	var length := minf(origin.distance_to(end), 150)
+	if length > 8:
+		var marker := origin + direction * minf(length, 32)
+		_ink.draw_polyline(PackedVector2Array([marker - direction * 6 + direction.orthogonal() * 5, marker, marker - direction * 6 - direction.orthogonal() * 5]), Color(0.35, 0.95, 1, 0.8), 2, true)
 	for i in 5:
 		var distance := fmod(_age * 30 + i * 28, 140.0) + 24
 		if distance > length: continue

@@ -26,7 +26,7 @@ func test_tutorial_handoff_and_menu_suppress_trail() -> void:
 	assert_true(guide._card.text.contains("Sangue"))
 	guide.open()
 	guide._process(0)
-	assert_true(not guide._card.visible and not guide.has_target, "menus suppress navigation ink")
+	assert_true(not guide._card.visible and not guide._ink.visible and guide.has_target, "menus hide ink without forgetting the route")
 	guide.close()
 	assert_true(guide.blocks_pointer(), "closing the coach cannot leak a click into combat")
 	world.tutorial.start(true)
@@ -102,3 +102,14 @@ func test_first_blood_objectives_use_confirmed_counts() -> void:
 	assert_true(next.title.contains("2/5"))
 	world.sync.link.view.self.num.nutrientes = 5
 	assert_true(not world.journey.recommendation().title.contains("/5"))
+
+func test_pending_opening_offer_and_gene_notification_keep_the_trail() -> void:
+	world.tutorial.completed = true
+	world.sync.system.show_offer({"key":"first", "def":"primeiro-mergulho", "title":"Primeira travessia"}, "")
+	world.tray.set_call("gene-reward", "mutation", "Gene conquistado", "biblioteca")
+	world.journey._process(0)
+	assert_true(world.journey.has_target and world.journey._ink.visible, "a notification cannot erase the route")
+	assert_eq(world.journey.recommendation().at, BioBodyMap.center_px(BioBodyMap.SANGUE))
+	world.tray.clear_call("gene-reward")
+	world.journey._process(0)
+	assert_true(world.journey._card.visible and world.journey.has_target)

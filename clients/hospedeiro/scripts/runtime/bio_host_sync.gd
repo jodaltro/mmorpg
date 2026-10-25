@@ -31,6 +31,8 @@ var _last_seq := -1
 var _announce_abilities := false  # the first view is history, not news
 var _dungeon_state := ""  # the run state we last reacted to
 var _dungeon_seed := 0
+var _quest_receipts: Dictionary = {}
+var _answering_offer := false
 
 ## Behaviour the engine reads to shape the body. It is reported in batches, in the background:
 ## one confirmation per kind per interval, so combat never waits on the network.
@@ -229,15 +231,19 @@ func choose(index: int) -> void:
 
 
 func _answer_offer(accepted: bool) -> void:
+	if _answering_offer or system.offer_key.is_empty(): return
+	_answering_offer = true
 	var key := system.offer_key
-	system.hide_offer()
 	var res: Dictionary
 	if accepted:
 		res = await link.accept(key)
 	else:
 		res = await link.decline(key)
+	_answering_offer = false
 	if res.status != 200:
-		system.push_feed("O chamado já não estava de pé.")
+		system.push_feed("Não foi possível confirmar sua resposta. O chamado continua aqui; tente novamente.")
+	elif system.offer_key == key:
+		system.hide_offer()
 
 
 ## Applies one view from the engine. Public so tests can feed a view without a network.
@@ -350,6 +356,8 @@ func _apply_quests(quests: Array) -> void:
 	var offered: Dictionary = {}
 	var active: Dictionary = {}
 	for q in quests:
+		if q.get("state", "") in ["offered", "active"] and not bool(q.get("acknowledged", false)):
+			_acknowledge_quest(q)
 		match q.get("state", ""):
 			"offered":
 				offered = q
@@ -361,6 +369,14 @@ func _apply_quests(quests: Array) -> void:
 	elif str(offered.get("key", "")) != system.offer_key:
 		var giver := str(offered.get("giver", ""))
 		system.show_offer(offered, str(_names.get(giver, giver.capitalize())) if not giver.is_empty() else "")
+
+
+func _acknowledge_quest(quest: Dictionary) -> void:
+	var key := str(quest.get("key", ""))
+	if not link.online or key.is_empty() or _quest_receipts.has(key): return
+	_quest_receipts[key] = true
+	await link.acknowledge_quest(key)
+	_quest_receipts.erase(key)  # the next authoritative view confirms receipt; failures retry on polling
 
 
 func _apply_residents(others: Array) -> void:
@@ -430,6 +446,12 @@ func _apply_events(events: Array) -> void:
 		var kind := str(e.get("kind", ""))
 		if kind == "quest-done":
 			system.push_feed("Missão concluída: %s" % e.get("text", ""))
+		elif kind == "quest-failed":
+			system.push_feed("Missão encerrada por falha ou prazo: %s" % e.get("text", ""))
+		elif kind == "beat-lost":
+			system.push_feed("Outro jogador concluiu este cenário único. Veja os próximos chamados: %s" % e.get("text", ""))
+		elif kind in ["quest-expired", "quest-obsolete", "quest-withdrawn"]:
+			system.push_feed("O contexto deste chamado mudou antes da confirmação: %s" % e.get("text", ""))
 		elif not QUIET_EVENTS.has(kind):
 			system.push_feed(str(e.get("text", "")))
 		if first_view:

@@ -63,6 +63,31 @@ func _snapshot(serial: int, ack: int, atp: float, events: Array) -> Dictionary:
 	return {"version":1,"seq":serial,"ack":ack,"time":serial*0.05,"motion":MOTION.duplicate(),"events":events,
 		"entities":[{"id":"me","uid":"local","kind":"player","p":[0,0],"v":[0,0],"hp":100,"atp":atp,"max_hp":100,"max_atp":100}]}
 
+func test_training_snapshot_never_hijacks_player_during_identity_initialization() -> void:
+	client.transport.user_id = ""
+	var original := world.player.global_position
+	var target := {"id":"practice","uid":"","kind":"training","p":[144,-48],"v":[0,0],"hp":100,"atp":100,"practice":{}}
+	for serial in 3:
+		client._packet(2, {"version":1,"seq":serial,"time":serial * 0.05,"motion":MOTION.duplicate(),"entities":[target]})
+		client._remote_time = 100
+		client._process(0)
+		assert_eq(world.player.global_position, original, "NPC identity cannot teleport the local cell")
+		assert_true(client._entities.practice != world.player)
+		assert_eq((client._entities.practice as Node2D).global_position, Vector2(144,-48))
+	assert_true(not client._tracks.has("practice"), "stationary training has no extrapolation")
+	var count := 0
+	for node in tree.get_nodes_in_group("training_targets"):
+		if node.get_parent() == world: count += 1
+	assert_eq(count, 1, "repeated packets keep exactly one training replica")
+
+func test_world_events_do_not_spawn_local_ghost_enemies_or_resources_online() -> void:
+	var enemies := tree.get_nodes_in_group("viruses").size()
+	var food := tree.get_nodes_in_group("nutrients").size()
+	world.sync._last_seq = 0
+	world.sync._apply_events([{"seq":1,"kind":"surto","text":"Surto"}, {"seq":2,"kind":"refeicao","text":"Refeição"}])
+	assert_eq(tree.get_nodes_in_group("viruses").size(), enemies, "world events cannot add a second local simulation")
+	assert_eq(tree.get_nodes_in_group("nutrients").size(), food)
+
 func test_zero_ack_during_first_round_trip_does_not_cancel_predicted_movement() -> void:
 	world.player.set_intent(Vector2.RIGHT)
 	for i in 10: client._physics_process(1.0/60)

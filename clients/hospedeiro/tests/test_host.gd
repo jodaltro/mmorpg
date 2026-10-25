@@ -3,6 +3,32 @@ extends TestCase
 
 var world: BioWorld
 
+class QuestReceiptLink extends BioEngineLink:
+	var receipts: Array[String] = []
+	func acknowledge_quest(key: String) -> Dictionary:
+		receipts.append(key)
+		return {"status":200}
+	func accept(_key: String) -> Dictionary:
+		return {"status":0}
+
+func test_presented_quest_is_acknowledged_and_failed_answer_keeps_the_offer() -> void:
+	var original := world.sync.link
+	var recording := QuestReceiptLink.new()
+	world.sync.add_child(recording)
+	recording.online = true
+	world.sync.link = recording
+	var offer := {"key":"first|p1", "state":"offered", "title":"Travessia", "def":"primeiro-mergulho"}
+	world.sync._apply_quests([offer])
+	assert_eq(recording.receipts, ["first|p1"] as Array[String])
+	world.sync._answer_offer(true)
+	assert_true(world.sync.system.has_offer(), "a network failure cannot dismiss the mission")
+	assert_true(world.sync.system.feed_text().contains("tente novamente"))
+	offer["acknowledged"] = true
+	world.sync._apply_quests([offer])
+	assert_eq(recording.receipts.size(), 1, "confirmed receipts need no more requests")
+	world.sync.link = original
+	recording.queue_free()
+
 
 func before_each() -> void:
 	world = BioWorld.new()
