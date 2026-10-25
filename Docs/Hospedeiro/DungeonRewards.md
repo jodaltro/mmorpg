@@ -1,8 +1,8 @@
 # Masmorras e recompensas — 25/10/2026
 
-O fluxo no cliente é **ver expedição → entrar e preparar → iniciar combate → vencer → escolher um gene**. A entrada e o atlas abrem a prévia sem iniciar combate. Ela explica o objetivo, a dificuldade, as opções de gene, os recursos garantidos e a conquista única de primeira conclusão, quando ainda disponível. Os cartões explicam a mudança funcional e indicam Corpo → Genes para expressar a recompensa conquistada.
+O fluxo no cliente é **aproximar-se de um portal liberado → entrada e preparação automáticas → início automático → vencer → escolher um gene**. O atlas conserva a prévia para consultar objetivo, dificuldade, opções de gene, recursos garantidos e conquista única de primeira conclusão, quando ainda disponível. Os cartões explicam a mudança funcional e indicam Corpo → Genes para expressar a recompensa conquistada.
 
-Depois da preparação assíncrona do modificador, o jogador chega a uma sala segura com a prévia preservada, o modificador e a quantidade efetiva de salas. O botão Iniciar combate é uma intenção separada. O servidor Godot mantém essa preparação em uma instância física privada; ataques e habilidades ficam bloqueados, inclusive antes de pagar seus custos. Os botões principais ficam fora da rolagem para permanecer acessíveis no celular.
+Depois da preparação assíncrona do modificador, o cliente envia automaticamente a intenção separada `iniciar-masmorra`, uma vez por expedição, sem abrir confirmação. O servidor Godot mantém a preparação em uma instância física privada até validar essa intenção; ataques e habilidades ficam bloqueados, inclusive antes de pagar seus custos. Falhas reais de conexão/validação mostram a causa e permitem tentar novamente. A entrada por aproximação tem uma trava até o jogador se afastar: retornar da masmorra não inicia outra automaticamente. Requisitos de progressão, localização, prévia e isolamento de visitas continuam validados.
 
 ## Geração procedural
 

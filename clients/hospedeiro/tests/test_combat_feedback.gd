@@ -1,5 +1,28 @@
 extends TestCase
 
+func test_smooth_enemies_have_wounds_contraction_and_membrane_particles() -> void:
+	var root := Node2D.new()
+	tree.root.add_child(root)
+	var player := BioFactory.spawn_player(root, Vector2.ZERO)
+	for kind in [&"linfocito", &"macrofago_guarda", &"hepatocito_doente", &"gota_de_gordura"]:
+		var brain := BioFactory.spawn_enemy(root, Vector2(100,0), player, BioDungeonPlan.enemy(kind))
+		brain.set_process(false)
+		var cell := brain.get_parent() as BioCellActor
+		var body: BioCellBody
+		for child in cell.get_children():
+			if child is BioCellBody: body = child
+		assert_true(body.wear_enabled, str(kind))
+		assert_eq(body.spikes, 0)
+		body._process(0.016)
+		cell.combatant.actor.vitals.membrane *= 0.15
+		body._process(0.016)
+		assert_true(not body._shed.is_empty(), "smooth membranes shed round droplets")
+		for i in 40: body._process(0.016)
+		assert_true(body.wear_size() < 0.9 and body.wound_strength() > 0.8, str(kind))
+		cell.queue_free()
+	root.queue_free()
+	await tree.process_frame
+
 func test_enemy_damage_retracts_spikes_smoothly_and_healing_restores_the_silhouette() -> void:
 	var body := BioCellBody.new()
 	body.wear_enabled = true

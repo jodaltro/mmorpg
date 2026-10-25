@@ -4,6 +4,8 @@
 
 Invasores comuns e inimigos de masmorras leem a fração de membrana real, inclusive nas réplicas recebidas por snapshot. A apresentação suaviza essa fração: os espinhos retraem individualmente em posições estáveis, o corpo contrai até 16%, surgem fissuras e o núcleo pulsa em estado crítico. Fragmentos curtos acompanham as perdas de espinhos; não são entidades físicas, usam no máximo 12 desenhos por corpo e expiram em 0,7 s. Cura recompõe gradualmente a silhueta. Aparecer pela primeira vez já ferido não reproduz impactos antigos.
 
+Modelos sem espinhos também mostram todo o desgaste: fissuras começam desde os primeiros danos, a membrana desenvolve reentrâncias progressivas e solta partículas arredondadas. Isso vale para linfócitos de guarda, macrófagos, hepatócitos, gotas de gordura e os demais modelos construídos pela mesma fábrica, incluindo chefes, atiradores e ninhos.
+
 O efeito não modifica raio de colisão, alcance, velocidade, HP, dano ou recompensas. Personagens e bonecos de treinamento conservam sua apresentação anterior. Não há texturas novas, partículas em rede nem requisições ao Jev para animar dano.
 
 ## Pontas dirigidas aos contatos

@@ -27,6 +27,7 @@ func _process(delta: float) -> void:
 		"x": snappedf(p.global_position.x, 0.1),
 		"y": snappedf(p.global_position.y, 0.1),
 		"alive": p.is_active(),
+		"dungeon": {"active":world.dungeon.active,"briefing":world.dungeon.briefing,"state":world.sync.link.view.get("dungeon", {}).get("run", {}).get("state", ""),"menu":world.dungeon_panel.modal.visible},
 		"enemyWear": _wear_facts(),
 		"lashTargets": get_tree().get_nodes_in_group("limbs").filter(func(n: Node) -> bool: return n.get_parent() == world.player).map(func(n: BioLimb) -> Dictionary: return {"aimed":n.has_target_point,"target":BioNetProtocol.xy(n.target_point),"extension":n.extension()}),
 		"pvpResult": world.hud.pvp_result_text,
@@ -189,7 +190,8 @@ func _run(cmd: String) -> void:
 			world.player.set_intent(Vector2.ZERO)
 			for enemy in world.viruses(): enemy.queue_free()
 			for i in 3:
-				var brain := BioFactory.spawn_virus(world, world.player.global_position + Vector2((i-1)*2.8,-2.2)*BioArt.UNIT, world.player)
+				var at := world.player.global_position + Vector2((i-1)*2.8,-2.2)*BioArt.UNIT
+				var brain: Node = BioFactory.spawn_enemy(world, at, world.player, BioDungeonPlan.enemy(&"macrofago_guarda"), 1.0, "viruses") if parts.size() > 1 and parts[1] == "smooth" else BioFactory.spawn_virus(world, at, world.player)
 				brain.set_process(false)
 				var enemy := brain.get_parent() as BioCellActor
 				enemy.set_physics_process(false)
@@ -215,6 +217,14 @@ func _run(cmd: String) -> void:
 			var controller := world.player.get_node("Controller") as BioCellController
 			controller.set_aim(Vector2.RIGHT)
 			controller.lash()
+		"goto-gate":
+			world.tutorial.stop()
+			world.evolution_presentation.close()
+			world.evolution_presentation.set_process(false)
+			world.sync.system.hide_offer()
+			world.debug_god = true
+			var gate: BioGate = world.gates.get(parts[1])
+			if gate != null: world.player.global_position = gate.global_position
 
 
 func _wear_facts() -> Array:

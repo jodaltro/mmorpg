@@ -328,6 +328,10 @@ func wear_size() -> float:
 	return lerpf(0.84, 1.0, integrity) if wear_enabled else 1.0
 
 
+func wound_strength() -> float:
+	return pow(clampf(1.0-integrity, 0, 1), 0.7) if wear_enabled else 0.0
+
+
 func _step_wear(delta: float) -> void:
 	integrity = lerpf(integrity, _integrity_target, 1.0-exp(-9.0*delta))
 	if not _shed.is_empty():
@@ -486,6 +490,8 @@ func _process(delta: float) -> void:
 			var d := angle_difference(a, float(b[0])) / float(b[2])
 			swelling_sum += float(b[1]) * exp(-d * d)
 		var swelling := 1.0 + minf(swelling_sum, 0.5)  # many limbs at once never blow the body up
+		if wear_enabled and integrity < 0.999:
+			silhouette *= 1.0 - (1.0-integrity)*0.16*pow(maxf(0.0, cos(a*3.0+_seed)), 4.0)
 		var p := n * radius_units * BioArt.UNIT * (w + spike + lobe) * squash * breath * _size_mul * _size_now * wear_size() * _swell * swelling * silhouette * BioGhostForm.radius_mul(form, a, _human, t)
 		if _human > 0.0:  # a floaty lean with the motion, and a slow bob: one body, like a ghost
 			p = p.rotated(BioGhostForm.lean(_smooth_velocity.x, _human)) + Vector2(0.0, sin(t * 1.4) * 2.5 * _human)
@@ -590,7 +596,7 @@ func _draw() -> void:
 
 ## Persistent wounds and short-lived flakes, drawn in the same bounded canvas pass.
 func _draw_wear(radius: float, tint: Color) -> void:
-	var worn := clampf((0.8-integrity)/0.8, 0, 1)
+	var worn := wound_strength()
 	var t := Time.get_ticks_msec()*0.001 + _seed
 	for i in (3 if worn > 0.01 else 0):
 		var dir := Vector2.from_angle(_seed + i*TAU/3)
@@ -604,7 +610,10 @@ func _draw_wear(radius: float, tint: Color) -> void:
 		var p := dir*radius*(1.0+age*2.6) + dir.orthogonal()*sin(age*5)*radius*0.2
 		var size := float(bit.size)*(1.0-age/0.7)
 		var axis := dir.rotated(age*4.0)
-		draw_colored_polygon(PackedVector2Array([p+axis*size*2, p-axis*size+axis.orthogonal()*size, p-axis*size-axis.orthogonal()*size]), BioArt.with_alpha(tint, 1.0-age/0.7))
+		if spikes == 0:
+			draw_circle(p, size, BioArt.with_alpha(tint, 1.0-age/0.7))
+		else:
+			draw_colored_polygon(PackedVector2Array([p+axis*size*2, p-axis*size+axis.orthogonal()*size, p-axis*size-axis.orthogonal()*size]), BioArt.with_alpha(tint, 1.0-age/0.7))
 
 
 ## The membrane texture Jev chose: ripples, spines, beads, a second wall (smooth leaves it plain).

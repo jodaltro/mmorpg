@@ -1,6 +1,15 @@
 extends TestCase
 var world: BioWorld
 
+class DungeonLink extends BioEngineLink:
+	var actions: Array[Dictionary] = []
+	var status := 200
+	func act(action: String, args: Dictionary = {}) -> Dictionary:
+		actions.append({"action":action,"args":args.duplicate(true)})
+		return {"status":status,"body":{}}
+
+var recording: DungeonLink
+
 func before_each() -> void:
 	world = BioWorld.new()
 	world.engine_url = ""
@@ -9,6 +18,11 @@ func before_each() -> void:
 	world.nutrient_target = 0
 	tree.root.add_child(world)
 	await tree.physics_frame
+	world.sync.set_process(false)
+	recording = DungeonLink.new()
+	recording.online = true
+	world.sync.add_child(recording)
+	world.sync.link = recording
 
 func after_each() -> void:
 	world.queue_free()
@@ -61,16 +75,18 @@ func test_ready_room_has_no_enemies_damage_or_automatic_clear() -> void:
 	assert_eq(world.dungeon.room_index, 0)
 	assert_true(not world.dungeon.enemies().is_empty())
 
-func test_ready_preview_can_be_reopened_without_auto_start_and_claim_is_after_victory() -> void:
+func test_ready_starts_once_without_confirmation_and_claim_is_after_victory() -> void:
 	var run := _run("ready")
 	world.dungeon_panel.apply({"run":run})
-	assert_eq(world.dungeon_panel.mode, "ready")
-	assert_true(_text(world.dungeon_panel.modal).contains("Iniciar combate"))
-	world.dungeon_panel.close()
+	assert_true(not world.dungeon_panel.modal.visible)
+	await tree.process_frame
+	assert_eq(recording.actions.size(), 1)
+	assert_eq(recording.actions[0].action, "iniciar-masmorra")
+	assert_eq(recording.actions[0].args.preview, "test-draft")
 	world.dungeon_panel.apply({"run":run})
-	assert_true(not world.dungeon_panel.modal.visible, "polling does not reopen a dismissed briefing")
-	world._open_from_chip("dungeon-ready")
-	assert_true(world.dungeon_panel.modal.visible)
+	await tree.process_frame
+	assert_eq(recording.actions.size(), 1, "polling never repeats the automatic authorization")
+	assert_true(not world.dungeon_panel.modal.visible)
 	run.state = "active"
 	world.dungeon_panel.apply({"run":run})
 	assert_true(not world.dungeon_panel.modal.visible)
@@ -82,6 +98,54 @@ func test_ready_preview_can_be_reopened_without_auto_start_and_claim_is_after_vi
 	run["rewardClaimed"] = "vesicula-toxica"
 	world.dungeon_panel.apply({"run":run})
 	assert_true(not world.tray._chips.has("dungeon-reward"))
+
+func test_gate_automatically_enters_once_and_returning_does_not_reenter() -> void:
+	world.gate.eligible = true
+	world.gate.expedition = {"preview":_preview()}
+	world.player.global_position = world.gate.global_position
+	world.sync._auto_enter_gate()
+	assert_eq(recording.actions.size(), 1)
+	assert_eq(recording.actions[0].action, "entrar-masmorra")
+	assert_eq(recording.actions[0].args.briefing, "yes", "keep explicit reward choice after victory")
+	assert_true(not world.dungeon_panel.modal.visible)
+	world.sync._auto_enter_gate()
+	assert_eq(recording.actions.size(), 1)
+	world.sync._dungeon_state = "preparing"
+	world.player.global_position = Vector2.ZERO
+	world.sync._auto_enter_gate()
+	world.sync._dungeon_state = "cleared"
+	world.player.global_position = world.gate.global_position
+	world.sync._auto_enter_gate()
+	assert_eq(recording.actions.size(), 1, "return from a run must not automatically enter again")
+	world.player.global_position = Vector2.ZERO
+	world.sync._auto_enter_gate()
+	world.player.global_position = world.gate.global_position
+	world.sync._auto_enter_gate()
+	assert_eq(recording.actions.size(), 2, "leaving and approaching again allows another run")
+
+func test_locked_gate_or_distant_preview_never_auto_enters() -> void:
+	world.gate.expedition = {"preview":_preview()}
+	world.player.global_position = world.gate.global_position
+	world.sync._auto_enter_gate()
+	assert_true(recording.actions.is_empty())
+	world.gate.eligible = true
+	world.player.global_position = Vector2.ZERO
+	world.sync._auto_enter_gate()
+	assert_true(recording.actions.is_empty())
+
+func test_failed_automatic_start_shows_retry_instead_of_silently_blocking() -> void:
+	recording.status = 0
+	world.dungeon_panel.apply({"run":_run("ready")})
+	await tree.process_frame
+	assert_true(world.dungeon_panel.modal.visible)
+	assert_true(_text(world.dungeon_panel.modal).contains("Tentar novamente"))
+	world.dungeon_panel.apply({"run":_run("ready")})
+	await tree.process_frame
+	assert_eq(recording.actions.size(), 1, "a failed automatic request must not flood the engine")
+	recording.status = 200
+	(world.dungeon_panel._actions.get_child(0) as Button).pressed.emit()
+	assert_eq(recording.actions.size(), 2)
+	assert_true(not world.dungeon_panel.modal.visible)
 
 func test_reward_copy_explains_the_effect_instead_of_only_naming_the_gene() -> void:
 	var reward: Dictionary = _preview().choices[0]

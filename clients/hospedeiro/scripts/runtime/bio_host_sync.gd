@@ -33,6 +33,7 @@ var _dungeon_state := ""  # the run state we last reacted to
 var _dungeon_seed := 0
 var _quest_receipts: Dictionary = {}
 var _answering_offer := false
+var _auto_gate := ""
 
 ## Behaviour the engine reads to shape the body. It is reported in batches, in the background:
 ## one confirmation per kind per interval, so combat never waits on the network.
@@ -105,6 +106,7 @@ func _ready() -> void:
 
 ## The world began again: forget the other cells, traces and news of the old one. The next view is history again.
 func forget() -> void:
+	_auto_gate = ""
 	for r in _residents.values():
 		if is_instance_valid(r):
 			r.queue_free()
@@ -128,6 +130,7 @@ func wants_numbers() -> bool:
 
 func _process(delta: float) -> void:
 	_track_behaviour(delta)
+	_auto_enter_gate()
 	var calling := system.is_offer_visible() and not BioUi.typing()
 	if Input.is_action_just_pressed("bio_accept") and calling:
 		_answer_offer(true)
@@ -185,7 +188,21 @@ func enter_dungeon(at: BioGate = null) -> void:
 	if not door.eligible:
 		system.push_feed(door.hint if not door.hint.is_empty() else "%s ainda não está ao seu alcance." % name)
 		return
-	_world.dungeon_panel.open_gate(door)
+	_auto_gate = door.dungeon_id
+	_world.dungeon_panel.enter_gate(door)
+
+
+## One attempt per approach. Keep the latch while inside so returning cannot re-enter.
+func _auto_enter_gate() -> void:
+	if _world.dungeon.active or _dungeon_state in ["preparing", "ready"]: return
+	var door := _near_gate()
+	if door == null:
+		_auto_gate = ""
+		return
+	if not link.online or not door.eligible or door.dungeon_id == _auto_gate: return
+	if BioUi.captures_input() or _world.dungeon_panel._busy: return
+	if (door.expedition.get("preview", {}) as Dictionary).is_empty(): return
+	enter_dungeon(door)
 
 
 ## The entrance the cell is standing at, if any.
@@ -220,7 +237,7 @@ func choose(index: int) -> void:
 	system.close_menu()
 	if str(item.get("action", "")) == "entrar-masmorra":
 		var door: BioGate = _world.gates.get(str(item.get("args", {}).get("dungeon", "")))
-		if door != null: _world.dungeon_panel.open_gate(door)
+		if door != null: enter_dungeon(door)
 		return
 	var res := await link.act(str(item.get("action", "")), item.get("args", {}))
 	if res.status != 200:
@@ -307,9 +324,9 @@ func _apply_dungeon(d: Dictionary) -> void:
 		var open := bool(o.get("eligible", false))
 		if open and not door.eligible:
 			if door.dungeon_id == "granuloma":
-				system.push_feed("O Granuloma abriu para você: siga a seta até os anéis na corrente sanguínea e aperte E.")
+				system.push_feed("O Granuloma abriu para você: siga a seta até os anéis na corrente sanguínea. A entrada é automática.")
 			else:
-				system.push_feed("%s abriram para você: siga a seta e aperte E." % door.title.capitalize())
+				system.push_feed("%s abriram para você: siga a seta. A entrada é automática." % door.title.capitalize())
 		door.eligible = open
 		door.details = str(o.get("desc", ""))
 		door.expedition = o.duplicate(true)

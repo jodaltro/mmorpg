@@ -1,5 +1,6 @@
 """Local rendered combat QA. Reuses the in-memory RPC fixture; no external requests."""
 import threading
+import sys
 from functools import partial
 from test_personal_web import Handler, ROOT, ThreadingHTTPServer, sync_playwright
 
@@ -19,21 +20,23 @@ def run(base):
         assert not errors, '\n'.join(errors[:20])
         page.evaluate("window.__cmd='tutorial:pause'")
         page.wait_for_timeout(300)
-        page.evaluate("window.__cmd='combat-showcase'")
+        smooth = '--smooth' in sys.argv
+        prefix = 'combat-smooth' if smooth else 'combat'
+        page.evaluate("window.__cmd='combat-showcase:smooth'" if smooth else "window.__cmd='combat-showcase'")
         page.wait_for_function('window.__probe.enemyWear.length===3', timeout=10000)
-        page.screenshot(path=str(ROOT / 'build/combat-healthy.png'))
+        page.screenshot(path=str(ROOT / ('build/' + prefix + '-healthy.png')))
         page.evaluate("window.__cmd='combat-damage'")
         page.wait_for_function('window.__probe.enemyWear[2].integrity<0.17', timeout=10000)
         facts = page.evaluate('window.__probe.enemyWear')
         assert [enemy['health'] for enemy in facts] == [100, 55, 15]
         assert facts[0]['size'] > facts[1]['size'] > facts[2]['size']
-        page.screenshot(path=str(ROOT / 'build/combat-wounded.png'))
+        page.screenshot(path=str(ROOT / ('build/' + prefix + '-wounded.png')))
         page.evaluate("window.__cmd='combat-lash'")
         page.wait_for_function('window.__probe.lashTargets.length===3 && window.__probe.lashTargets.every(w=>w.extension>0.45)', timeout=10000, polling=20)
         targets = page.evaluate('window.__probe.lashTargets')
         assert all(whip['aimed'] for whip in targets)
         assert len({tuple(whip['target']) for whip in targets}) == 2, str(targets)
-        page.screenshot(path=str(ROOT / 'build/combat-targeted-lash.png'))
+        page.screenshot(path=str(ROOT / ('build/' + prefix + '-targeted-lash.png')))
         assert not errors, '\n'.join(errors[:20])
         print('PASS Browser: real health drives enemy wear; three whips aim at two contacts; no script errors', flush=True)
         browser.close()

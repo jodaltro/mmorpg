@@ -835,7 +835,7 @@ func _process(delta: float) -> void:
 		player.combatant.actor.vitals.atp = player.combatant.actor.vitals.max_atp
 	if dungeon.active:
 		var left := dungeon.grace_left()
-		hud.set_dungeon_extra("Sala segura · abra Expedição pronta para começar" if dungeon.briefing else "Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
+		hud.set_dungeon_extra("Preparando · início automático" if dungeon.briefing else "Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
 	var guide_gate := _nearest_open_gate()
 	if journey != null and (journey.navigation_state != "none" or tutorial.completed):
 		hud.set_guide(false, Vector2.ZERO, "")
