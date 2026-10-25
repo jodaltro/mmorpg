@@ -28,6 +28,11 @@ if (!(Test-Path $keysFile)) {
 $keys = Get-Content $keysFile -Raw | ConvertFrom-Json
 $databaseUrl = ''
 $migrationUrl = ''
+if (!$LocalTest -and !$DatabaseEnv) {
+    foreach ($line in Get-Content (Join-Path $root 'engine\.env')) {
+        if ($line -match '^HOSPEDEIRO_NAKAMA_DATABASE_ENV=(.+)$') { $DatabaseEnv = $Matches[1].Trim('"',"'") }
+    }
+}
 if ($DatabaseEnv) {
     foreach ($line in Get-Content -LiteralPath $DatabaseEnv) {
         if ($line -match '^HOSPEDEIRO_NAKAMA_DATABASE_URL=(.+)$') { $databaseUrl = $Matches[1].Trim() }

@@ -20,7 +20,8 @@ Decisão e primeira integração: 24/10/2026. A instrução atual do usuário su
 | Mundo Go + proxy Nakama | loopback 8096; dados `D:/unity/hospedeiro-data` |
 | Nakama 3.41.0 | loopback HTTP/WS 7350, gRPC 7349 |
 | Console Nakama | somente loopback HTTP 7370, gRPC 7367 |
-| PostgreSQL 17.6 | somente loopback 55432; `D:/unity/hospedeiro-nakama-db` |
+| PostgreSQL do Nakama | Supabase em São Paulo (`sa-east-1`), schema privado e role de execução com DML |
+| PostgreSQL local de QA/legado | somente loopback 55432; `D:/unity/hospedeiro-nakama-db` |
 | Configuração/chaves/logs Nakama | `D:/unity/hospedeiro-nakama` |
 | Binários portáteis | `D:/tools/hospedeiro-online` |
 | Cliente web | Cloudflare Worker/R2; `/nakama/` aceita WebSocket |
@@ -47,7 +48,7 @@ Scripts de teste em `clients/hospedeiro/tests/web/test_nakama_local.py` e `test_
 
 ## Limites atuais
 
-O mundo continua hospedado neste PC, portanto suspensão/desligamento interrompe as partidas. A sala é única, sem distribuição por órgãos; 64 é um limite de admissão inicial, não capacidade medida. Posição e vitais de combate recomeçam na medula ao reconectar, enquanto progressão e missões permanecem no motor. Não há grupos, recuperação de convidado nem migração automática dos antigos IDs `cel-*` para os novos `nk-*`; os dados antigos são conservados. Movimento local tem previsão e reconciliação contra os snapshots; dano, vitais e recompensas continuam autoritativos. A previsão não reduz o RTT físico da conexão. Ainda falta testar dispositivos físicos e carga.
+O servidor de jogo e o motor continuam hospedados neste PC, portanto suspensão/desligamento interrompe as partidas; o PostgreSQL do Nakama já está no Supabase de São Paulo. A sala é única, sem distribuição por órgãos; 64 é um limite de admissão inicial, não capacidade medida. Posição e vitais de combate recomeçam na medula ao reconectar, enquanto progressão e missões permanecem no motor. Não há grupos, recuperação de convidado nem migração automática dos antigos IDs `cel-*` para os novos `nk-*`; os dados antigos são conservados. Movimento local tem previsão e reconciliação contra os snapshots; dano, vitais e recompensas continuam autoritativos. A previsão não reduz o RTT físico da conexão. Ainda falta testar dispositivos físicos e carga.
 
 Referências oficiais: [Godot/Nakama](https://heroiclabs.com/docs/nakama/client-libraries/godot/), [partidas autoritativas](https://heroiclabs.com/docs/nakama/concepts/multiplayer/authoritative/), [match handlers Lua](https://heroiclabs.com/docs/nakama/server-framework/lua-runtime/function-reference/match-handler/), [instalação Windows](https://heroiclabs.com/docs/nakama/getting-started/install/windows/).
 

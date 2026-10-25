@@ -8,7 +8,7 @@ Cliente já publicado no Worker/R2. Nakama, Godot autoritativo e motor Go ainda 
 
 A conta Cloudflare já tem Workers Paid, R2 e acesso a Containers. Nenhum recurso de outro projeto foi modificado. Workers comuns não executam os binários Go/Godot/Nakama; precisam de um container ou servidor de origem.
 
-O Supabase arquivado foi retomado pelo usuário. A região `us-east-1` foi inferida pelo DNS e pelas faixas oficiais de IP da AWS, depois confirmada no painel do projeto `mmorpg`. A preparação oficial do Nakama foi aplicada ao schema privado desse projeto, mas **o jogo não foi apontado para esse banco dos EUA**. Para a meta brasileira, usar um novo projeto em São Paulo (`sa-east-1`). O projeto antigo foi pausado para liberar uma das duas vagas gratuitas; o painel confirmou a pausa. O formulário `hospedeiro-brasil` ficou preparado em São Paulo, com Data API desligada, aguardando o usuário definir a senha e concluir a criação. Não alterar outros projetos da organização.
+O Supabase arquivado foi retomado pelo usuário. A região `us-east-1` foi inferida pelo DNS e pelas faixas oficiais de IP da AWS, depois confirmada no painel do projeto `mmorpg`. A preparação oficial do Nakama foi aplicada ao schema privado desse projeto, mas **o jogo não foi apontado para esse banco dos EUA**. Para a meta brasileira, usar um novo projeto em São Paulo (`sa-east-1`). O projeto antigo foi pausado para liberar uma das duas vagas gratuitas; o painel confirmou a pausa. O usuário criou `hospedeiro-brasil` em São Paulo, com Data API desligada, e forneceu a senha pelo `.env`. O painel confirmou `Healthy` e `sa-east-1`. As migrações oficiais foram aplicadas e o Nakama atual já usa esse banco brasileiro com a role de execução. Não alterar outros projetos da organização.
 
 ## Opção de menor custo previsível
 
@@ -24,7 +24,7 @@ Estimativa adicional para uma instância `basic` de 1 GiB/0,25 vCPU/4 GB sempre 
 
 Antes do corte faltam:
 
-- Banco em `sa-east-1` e credenciais de execução privadas.
+- Banco em `sa-east-1` e credenciais de execução privadas: concluído. Conexão direta atual usa IPv6; na origem futura, manter IPv6 ou configurar session pooler brasileiro corretamente, sem contratar IPv4 por suposição.
 - Persistência durável do log de comandos Go: o `FileLog` atual não pode ficar no disco efêmero de Containers. Snapshots de filesystem/R2 não substituem a confirmação durável de cada comando.
 - Imagem Linux versionada com Go, Godot e Nakama; supervisor, encerramento ordenado e recuperação da autoridade. Este ambiente ainda não tem Docker/WSL Linux pronto para construir/validar essa imagem.
 - Publicação da origem e corte do Worker, conservando chaves e a autoridade única. Não foi feita migração do servidor de jogo para cloud nesta mudança.
@@ -37,7 +37,9 @@ Antes do corte faltam:
 
 A preparação usa as migrações oficiais do Nakama 3.41.0, `pg_trgm` em `extensions`, schema privado `nakama`, role de migração dona do schema e role de execução com DML/uso de sequências, sem CREATE no schema. Revoga acesso de `PUBLIC`, `anon` e `authenticated`. Não expor o schema pela Data API. Os clientes usam Nakama, sem receber URL PostgreSQL ou senha.
 
-O supervisor aceita `-DatabaseEnv <arquivo>` com `HOSPEDEIRO_NAKAMA_DATABASE_URL` e `HOSPEDEIRO_NAKAMA_MIGRATION_URL`. Sem essa opção, conserva o PostgreSQL local. Usar conexão direta; pooler exige revisão do nome de usuário e modo de sessão. Não usar transaction pooler por suposição.
+As conexões administrativas ficam em `engine/.env.supabase-brasil` (ignorado), a partir de `SUPABASE_PASSWORD` em `engine/.env`. URLs de execução/migração ficam em `D:/unity/hospedeiro-nakama/supabase-brasil.env`, fora do checkout. O supervisor lê a referência `HOSPEDEIRO_NAKAMA_DATABASE_ENV` de `engine/.env`; `-LocalTest` ignora essa configuração real.
+
+O supervisor aceita `-DatabaseEnv <arquivo>` com `HOSPEDEIRO_NAKAMA_DATABASE_URL` e `HOSPEDEIRO_NAKAMA_MIGRATION_URL`. Sem arquivo explícito nem referência no `.env`, conserva o PostgreSQL local. Usar conexão direta; pooler exige revisão do nome de usuário e modo de sessão. Não usar transaction pooler por suposição.
 
 ## Referências oficiais
 
