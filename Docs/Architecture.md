@@ -28,6 +28,8 @@ flowchart LR
 
 Regra de dependência: `core` importa só a biblioteca padrão (verificado por `TestCoreHasNoInfrastructureImports`). Não conhece rede, banco, engine gráfica, combate ou gênero. Tudo o que é específico de um jogo está no universo JSON.
 
+O experimento de [mundos pessoais do Hospedeiro](Hospedeiro/PersonalWorlds.md) reutiliza o core em WASM, fora da thread gráfica. `personal` é um adaptador privado de journal/checkpoints, sem alterar a autoridade da API compartilhada. Seus saves usam storage e RPC próprios no Nakama; visitas usam o cliente anfitrião como autoridade de combate via WebRTC. Nenhum acontecimento ou journal desse modo entra no runner do MMORPG.
+
 ## Conceitos do núcleo
 
 | Conceito | No motor |

@@ -135,6 +135,7 @@ func _send(action: String, args: Dictionary) -> void:
 	_busy = false
 	if int(result.get("status", 0)) != 200:
 		_note = "A expedição mudou ou a ação não foi aceita. Confira a conexão e revise os prêmios antes de tentar novamente."
+		if result.get("body", {}).get("note") is String: _note = result.body.note
 		_render()
 		return
 	if action == "resgatar-masmorra":

@@ -52,7 +52,7 @@ func _ready() -> void:
 	system = BioSystemPanel.new()
 	system.name = "SystemPanel"
 	add_child(system)
-	link = BioEngineLink.new()
+	link = BioPersonalLink.new() if BioPersonalLink.wanted() else BioEngineLink.new()
 	link.name = "EngineLink"
 	if not _world.engine_url.is_empty():
 		var identity := BioEngineLink.local_identity(_world.identity_path)

@@ -29,6 +29,7 @@ func _process(delta: float) -> void:
 		"alive": p.is_active(),
 		"membrane": snappedf(p.combatant.actor.vitals.membrane, 0.1),
 		"online": link != null and link.online,
+		"personalProgress": link.view.get("self", {}).get("num", {}) if link is BioPersonalLink else {},
 		"network": {
 			"ping": world.online_client.transport.stats.current_ms(Time.get_ticks_msec()) if world.online_client != null else -1,
 			"socketMs": world.online_client.transport.stats.socket_ms if world.online_client != null else -1,
@@ -155,6 +156,21 @@ func _run(cmd: String) -> void:
 			_census()
 		"pos":
 			world.player.global_position = Vector2(float(parts[1]), float(parts[2])) * BioArt.UNIT
+		"party-monster":
+			for node in _nodes_of("BioPersonalHost"):
+				var host := node as BioPersonalHost
+				if not host.players.has("guest"): continue
+				var guest := host.players.guest.cell as BioCellActor
+				var at := BioBodyMap.center_px(BioBodyMap.SANGUE)
+				world._spawn_virus_at(at)
+				for enemy in world.viruses():
+					if enemy.global_position.distance_to(at) < 1:
+						(enemy as BioCellActor).combatant.receive_hit(guest.combatant, BioAttackDef.new(&"probe",0,1000,0,1,0,0))
+		"party-pvp":
+			for node in _nodes_of("BioPersonalHost"):
+				var host := node as BioPersonalHost
+				if host.players.has("guest"):
+					world.player.combatant.receive_hit((host.players.guest.cell as BioCellActor).combatant, BioAttackDef.new(&"probe",0,1000,0,1,0,0))
 
 
 ## Which scripts the running scene is made of, and which of them think every frame: where a slow device spends its time.

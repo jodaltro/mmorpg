@@ -119,4 +119,5 @@ function M.match_terminate(ctx, dispatcher, tick, state, grace) return state end
 function M.match_signal(ctx, dispatcher, tick, state, data) return state, '' end
 nk.register_rpc(lobby, 'hosp_lobby')
 nk.register_rpc(world, 'hosp_world')
+require('personal')
 return M

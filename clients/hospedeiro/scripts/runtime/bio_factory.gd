@@ -170,7 +170,9 @@ static func spawn_ally(parent: Node, pos: Vector2, owner: BioCellActor, hp: floa
 	actor.max_speed_units = 5.2
 	actor.damping = 3.0
 	_virus_counter += 1
-	actor.combatant.configure("ally-%d" % _virus_counter, BioActor.Team.CELL, hp, 0.0, 0.0)
+	actor.combatant.configure("ally-%d" % _virus_counter, owner.combatant.actor.team, hp, 0.0, 0.0)
+	if owner.combatant.has_meta("party_player"): actor.combatant.set_meta("party_player", true)
+	if owner.combatant.has_meta("party_owner"): actor.combatant.set_meta("party_owner", owner.combatant.get_meta("party_owner"))
 	actor.combatant.enemy_defeated.connect(func(victim: BioCombatant) -> void:
 		if is_instance_valid(owner): owner.combatant.enemy_defeated.emit(victim))
 	var body := BioCellBody.new()

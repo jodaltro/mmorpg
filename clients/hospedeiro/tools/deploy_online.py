@@ -71,10 +71,14 @@ def content_type(name: str) -> str:
 def upload_web(env):
     s3 = boto3.client("s3", endpoint_url=env["CLOUDFLARE_S3_ENDPOINT"], aws_access_key_id=env["CLOUDFLARE_ACCESS_KEY_ID"],
                       aws_secret_access_key=env["CLOUDFLARE_SECRET_ACCESS_KEY"], region_name="auto")
-    local = {f.name: f for f in BUILD.iterdir() if f.is_file()}
+    local = {f.relative_to(BUILD).as_posix(): f for f in BUILD.rglob('*') if f.is_file()}
     if "index.html" not in local or "index.wasm" not in local:
         sys.exit("build/web is empty: run python tools/build_web.py first")
-    for name, f in sorted(local.items()):
+    # Entry points go last, after every dependency of the new export exists.
+    def publish_order(item):
+        name = item[0]
+        return (2 if name.startswith('personal-sw.js') else 1 if name.startswith('index.html') else 0, name)
+    for name, f in sorted(local.items(), key=publish_order):
         s3.upload_file(str(f), BUCKET, name, ExtraArgs={"ContentType": content_type(name)})
         print("uploaded %-28s %8.2f MB" % (name, f.stat().st_size / 1e6))
     remote = [o["Key"] for o in s3.list_objects_v2(Bucket=BUCKET).get("Contents", [])]

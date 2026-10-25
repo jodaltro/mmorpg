@@ -387,7 +387,10 @@ func _skill_glyph(kind: String) -> String:
 func _update_ping(covered: bool) -> void:
 	ping_label.visible = not covered
 	if world.online_client == null:
-		ping_label.text = "Offline"
+		ping_label.text = "Local" if BioPersonalLink.wanted() else "Offline"
+		if BioPersonalLink.wanted():
+			var peer_ms := int(JavaScriptBridge.eval("window.HospPersonal.partyRTT", true))
+			if peer_ms >= 0: ping_label.text = "%d ms" % peer_ms
 		ping_label.add_theme_color_override("font_color", Color(0.55,0.66,0.72))
 		return
 	var net: BioOnlineClient = world.online_client

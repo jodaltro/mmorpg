@@ -104,6 +104,9 @@
 			<div>Gire o aparelho para jogar<br><small style="color:#7f97b3">O Hospedeiro é jogado na horizontal.</small></div>
 		</div>
 
+		<script src="qrcode.js"></script>
+		<script src="personal.js"></script>
+		<script src="personal-party.js"></script>
 		<script src="$GODOT_URL"></script>
 		<script>
 // A phone's screen has three physical pixels per CSS pixel; the game's glow fills it edge to edge, so those extra pixels cost far
@@ -159,6 +162,12 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 	async function guestName() {
 		if (new URLSearchParams(location.search).get('engine') === 'off') return;
+		try {
+			const name=localStorage.getItem('hospedeiro.guestName') || '';
+			if(sessionStorage.getItem('hospedeiro.autoContinue')==='1' && name.length>=2) {
+				sessionStorage.removeItem('hospedeiro.autoContinue');window.__hospedeiroGuestName=name;return;
+			}
+		} catch(e) {}
 		hint.textContent = 'Qual é o nome da sua célula?';
 		const form = document.createElement('form');
 		form.style.cssText = 'display:flex;flex-direction:column;gap:12px;width:min(280px,80vw)';
@@ -167,9 +176,15 @@ const engine = new Engine(GODOT_CONFIG);
 		input.placeholder = 'Seu nome'; input.setAttribute('aria-label', 'Nome da célula');
 		try { input.value = localStorage.getItem('hospedeiro.guestName') || ''; } catch(e) {}
 		input.style.cssText = 'font:inherit;font-size:16px;padding:12px;border:1px solid #3e7188;border-radius:8px;background:#0a1c30;color:#e0f8ff';
+		const mode = document.createElement('select');
+		mode.setAttribute('aria-label','Modo de jogo');
+		mode.innerHTML = '<option value="personal">Meu mundo · jogo local</option><option value="shared">Mundo MMORPG compartilhado</option>';
+		mode.value = window.HospPersonal.enabled ? 'personal' : 'shared';
+		mode.style.cssText = input.style.cssText;
+		mode.onchange = () => { const url=new URL(location.href);url.searchParams.set('mode',mode.value);location.href=url.href; };
 		const button = document.createElement('button'); button.textContent = 'Entrar no corpo';
 		button.style.cssText = 'font:inherit;padding:12px;border:1px solid #3e7188;border-radius:8px;background:#123b4d;color:#cfe7ff;cursor:pointer';
-		form.append(input,button); loader.append(form);
+		form.append(input,mode,button); loader.append(form);
 		await new Promise(resolve => form.addEventListener('submit', e => {
 			e.preventDefault(); const name = input.value.trim();
 			if (name.length < 2) { input.focus(); return; }
@@ -178,7 +193,7 @@ const engine = new Engine(GODOT_CONFIG);
 			form.remove(); hint.textContent = 'Preparando sua célula e o mundo compartilhado…'; resolve();
 		}));
 	}
-	guestName().then(() => engine.startGame({
+	guestName().then(() => window.HospPersonal.start()).then(() => engine.startGame({
 		onProgress(current, total) {
 			if (current > 0 && total > 0) {
 				fill.style.width = Math.min(100, Math.round(100 * current / total)) + '%';
@@ -194,6 +209,7 @@ const engine = new Engine(GODOT_CONFIG);
             if (window.__hospedeiroReady) {
                 clearInterval(ready);
                 loader.remove();
+                if ('serviceWorker' in navigator) navigator.serviceWorker.register('personal-sw.js').catch(() => {});
             } else if (Date.now() - started > 20000 && !offeredOffline) {
                 offeredOffline = true;
                 hint.textContent = 'O mundo está demorando para responder. Você pode tentar novamente ou abrir uma sessão offline.';

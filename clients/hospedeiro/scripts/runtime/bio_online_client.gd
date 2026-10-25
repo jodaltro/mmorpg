@@ -4,6 +4,7 @@ extends Node
 
 var world: BioWorld
 var transport: BioNakama
+var personal_peer: BioPeerTransport
 var is_ready := false
 var _identity: Dictionary
 var _entities: Dictionary = {}
@@ -47,6 +48,7 @@ const IDENTITY_PATH := "user://hospedeiro_guest.json"
 
 
 static func wanted(engine: String) -> bool:
+	if BioPersonalLink.wanted(): return false
 	if engine.is_empty(): return false
 	if BioPlatform.is_web(): return BioPlatform.query_param("multiplayer") != "off"
 	return DisplayServer.get_name() != "headless" or OS.get_cmdline_user_args().has("--online")
@@ -54,13 +56,13 @@ static func wanted(engine: String) -> bool:
 
 func _ready() -> void:
 	_identity = BioNakama.guest_identity(IDENTITY_PATH)
-	transport = BioNakama.new()
+	transport = personal_peer if personal_peer != null else BioNakama.new()
 	transport.coalesce_snapshots = true
 	transport.base_url = BioPlatform.query_param("nakama")
 	if transport.base_url.is_empty():
 		transport.base_url = world.engine_url + "/nakama" if BioPlatform.is_web() else "http://127.0.0.1:7350"
 	add_child(transport)
-	world.sync.link.nakama = transport
+	if personal_peer == null: world.sync.link.nakama = transport
 	world.sync.link.identity_path = ""  # Nakama owns identity; don't overwrite the old offline save.
 	world.sync.link.view_changed.connect(func(_view: Dictionary) -> void: _unlock())
 	transport.packet.connect(_packet)
@@ -80,6 +82,9 @@ func _ready() -> void:
 		for n in get_tree().get_nodes_in_group(group):
 			if n.get_parent() == world: n.queue_free()
 	_join_ui()
+	if personal_peer != null:
+		_status.text = "Entrando no mundo do amigo…"
+		return
 	var name := str(_identity.get("name", ""))
 	if BioPlatform.is_web():
 		var entered: Variant = JavaScriptBridge.eval("window.__hospedeiroGuestName || ''", true)
@@ -275,6 +280,9 @@ func _reconcile(data: Dictionary, ack: int) -> void:
 
 
 func _disconnected() -> void:
+	if personal_peer != null:
+		JavaScriptBridge.eval("window.HospPersonal.returnHome()", true)
+		return
 	is_ready = false
 	reconnecting = true
 	_snapshot_ready = false
@@ -447,6 +455,7 @@ func _spawn(data: Dictionary) -> Node2D:
 			cell = BioFactory.spawn_training_target(world, at)
 		elif kind == "player":
 			cell = BioFactory.spawn_player(world, at)
+			if personal_peer != null: BioPartyHealth.attach(cell, str(data.get("name", "Célula")))
 			var label := Label.new()
 			label.text = str(data.get("name", "Célula"))
 			label.position = Vector2(-70, -48)
@@ -454,6 +463,7 @@ func _spawn(data: Dictionary) -> Node2D:
 			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			label.add_theme_font_size_override("font_size", 12)
 			cell.add_child(label)
+			if personal_peer != null: label.hide()
 		else:
 			var enemy_kind := StringName(str(data.get("enemy_kind", "virion")))
 			if enemy_kind == &"virion":
@@ -478,6 +488,7 @@ func _spawn(data: Dictionary) -> Node2D:
 
 
 func _apply_actor(cell: BioCellActor, data: Dictionary) -> void:
+	if personal_peer != null: cell.combatant.actor.team = int(data.get("team", cell.combatant.actor.team))
 	if cell.has_meta("training"):
 		(cell.combatant as BioTrainingCombatant).practice = data.get("practice", {})
 	var v := cell.combatant.actor.vitals

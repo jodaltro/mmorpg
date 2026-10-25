@@ -158,6 +158,10 @@ func _physics_process(delta: float) -> void:
 			cell.velocity = Vector2.ZERO
 
 
+func _new_player_link() -> BioEngineLink:
+	return BioEngineLink.new()
+
+
 func _join(id: String, player_name: String) -> void:
 	if players.has(id):
 		return
@@ -171,7 +175,7 @@ func _join(id: String, player_name: String) -> void:
 	(cell.get_node("Abilities") as BioAbilityRunner).set_process(false)
 	(cell.get_node("Abilities") as BioAbilityRunner).performed.connect(func(ability: StringName) -> void:
 		_events.append({"id": id, "token":players[id].action_token,"ability": str(ability), "aim": BioNetProtocol.xy((cell.get_node("Controller") as BioCellController).aim)}))
-	var link := BioEngineLink.new()
+	var link := _new_player_link()
 	link.request_headers = {"X-Adapter-Key": adapter_key, "X-Edge-Secret": edge_secret}
 	link.configure(engine_url, {"id": "nk-"+id, "name": player_name})
 	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "viewport": null, "dungeon": null, "dungeon_seed": -1, "used": {}, "travel": 0.0, "last_pos": cell.global_position, "compact": false, "metadata": {}}
@@ -190,7 +194,7 @@ func _join(id: String, player_name: String) -> void:
 		if r == BioBodyMap.BACO: link.occur("capturar-antigeno")
 		elif r == BioBodyMap.INTESTINO: link.occur("repelir-invasor"))
 	cell.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
-		if result.outcome == BioActor.HitOutcome.EVADED: link.occur("esquivar"))
+		if result.outcome == BioActor.HitOutcome.EVADED and not cell.combatant.last_hit_was_pvp: link.occur("esquivar"))
 	cell.combatant.died.connect(func(_who: BioCombatant) -> void: cell.set_active(false))
 	for child in cell.get_children():
 		if child is BioAttackExecutor:
@@ -318,6 +322,7 @@ func _process(delta: float) -> void:
 	for id in players:
 		var p: Dictionary = players[id]
 		var cell: BioCellActor = p.cell
+		if bool(p.get("local", false)): continue
 		var moved: float = cell.global_position.distance_to(p.last_pos) / BioArt.UNIT
 		if moved < 20.0: p.travel += moved
 		p.last_pos = cell.global_position
@@ -333,6 +338,7 @@ func _process(delta: float) -> void:
 		for id in players:
 			var p: Dictionary = players[id]
 			var styles := {String(BioAttackCatalog.FLAGELLUM_LASH): "estilo-chicote", String(BioAttackCatalog.TOXIN_SPIT): "estilo-toxina", String(BioAttackCatalog.MEMBRANE_DASH): "estilo-impulso"}
+			if bool(p.get("local", false)): continue
 			for attack in styles:
 				if p.used.has(attack): (p.link as BioEngineLink).occur(styles[attack])
 			p.used.clear()
@@ -396,14 +402,14 @@ func _snapshot() -> void:
 		if players[id].viewport != null:
 			nodes.append_array((players[id].viewport as Node).get_child(0).get_children())
 	for n in nodes:
-		if not n is Node2D or n == arena.player or n.is_queued_for_deletion(): continue
+		if not n is Node2D or (n == arena.player and not n.has_meta("net_id")) or n.is_queued_for_deletion(): continue
 		var d := {"id": str(n.get_instance_id()), "p": BioNetProtocol.xy((n as Node2D).global_position), "realm": str((n as Node2D).get_world_2d().get_instance_id())}
 		if n is BioCellActor:
 			var cell := n as BioCellActor
 			var actor := cell.combatant.actor
 			var uid := str(cell.get_meta("net_id", ""))
 			d.merge({"kind": "player" if not uid.is_empty() else "enemy", "uid": uid,
-				"hp": actor.vitals.membrane, "max_hp": actor.vitals.max_membrane,
+				"team": actor.team, "hp": actor.vitals.membrane, "max_hp": actor.vitals.max_membrane,
 				"atp": actor.vitals.atp, "max_atp": actor.vitals.max_atp,
 				"v": BioNetProtocol.xy(cell.velocity), "lineage": str(cell.combatant.genome.lineage)})
 			if players.has(uid):
@@ -443,6 +449,7 @@ func _snapshot() -> void:
 	for id in players:
 		var p: Dictionary = players[id]
 		var cell: BioCellActor = p.cell
+		if bool(p.get("local", false)): continue
 		var near: Array = entities.filter(func(e: Dictionary) -> bool:
 			var pos := Vector2(float(e.p[0]), float(e.p[1]))
 			return e.realm == str(cell.get_world_2d().get_instance_id()) and pos.distance_squared_to(cell.global_position) < pow(100.0 * BioArt.UNIT, 2))

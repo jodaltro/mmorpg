@@ -10,6 +10,7 @@ signal enemy_defeated(victim: BioCombatant)
 
 var actor: BioActor
 var genome := BioGenome.new()
+var last_hit_was_pvp := false
 
 var _id := "cell"
 var _team: int = BioActor.Team.CELL
@@ -422,7 +423,8 @@ func speed_mult() -> float:
 
 
 func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
-	if actor.team == BioActor.Team.CELL and is_instance_valid(attacker.get_parent()) and attacker.get_parent().has_meta("sanctuary_bound") and get_parent() is Node2D and BioSanctuary.contains(BioBodyMap.seed_value, (get_parent() as Node2D).global_position / BioArt.UNIT):
+	last_hit_was_pvp = has_meta("party_player") and attacker.has_meta("party_player")
+	if actor.team != BioActor.Team.VIRUS and is_instance_valid(attacker.get_parent()) and attacker.get_parent().has_meta("sanctuary_bound") and get_parent() is Node2D and BioSanctuary.contains(BioBodyMap.seed_value, (get_parent() as Node2D).global_position / BioArt.UNIT):
 		return BioHitResult.new(BioActor.HitOutcome.IGNORED, 0)
 	var now := BioClock.now()
 	var factor := (_guard_mult if now < _guard_until else 1.0) * attacker.damage_dealt_mult * attacker.dealing_mult(now)
@@ -533,7 +535,8 @@ func _after_blow(victim: BioCombatant, result: BioHitResult) -> void:
 			actor.refund_cooldowns(now, _hunt_refund)
 			actor.vitals.add_atp(_hunt_atp)
 	if killed:
-		enemy_defeated.emit(victim)
+		# Player defeats are unranked: never turn them into monster deeds or genes.
+		if not victim.has_meta("party_player"): enemy_defeated.emit(victim)
 		_kills.append(now)
 		_kills = _kills.filter(func(t: float) -> bool: return now - t <= 30.0)
 	elif now < _stance_until and stance == &"m1":  # M1 sets what it hits alight

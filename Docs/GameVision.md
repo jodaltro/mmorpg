@@ -4,6 +4,8 @@ Atualizada em 19/10/2026, quando o projeto foi refeito a partir do motor.
 
 ## Produto
 
+**Experimento autorizado em 25/10/2026:** o Hospedeiro web também oferece mundos pessoais com simulação local, save em segundo plano, visitas P2P e PvP aberto sem recompensas. O visitante mantém a própria progressão. Este modo tem autoridade privada do anfitrião e não transfere journals para o MMORPG; detalhes e limites em [PersonalWorlds.md](Hospedeiro/PersonalWorlds.md).
+
 1. Um **MMORPG de mundo vivo**. Tudo o que um jogador faz pode mudar o mundo, e o mundo continua evoluindo sem ninguém conectado.
 2. **O motor é independente da interface.** O mesmo mundo pode ser jogado por clientes 2D ou 3D, em Unity, Unreal, Godot, web ou outro qualquer. Os clientes apresentam; o motor decide.
 3. **História fixa do mundo, destino dinâmico.** O mundo tem arcos narrativos escritos (ex.: *A Maldição do Selo*). Cada arco é uma sequência de capítulos com ramificações.

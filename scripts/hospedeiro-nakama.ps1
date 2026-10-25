@@ -74,7 +74,7 @@ if (!$databaseUrl) {
 $config = @{
     name='hospedeiro'; data_dir=$run
     database=@{address=@($databaseUrl);max_open_conns=5;max_idle_conns=2}
-    socket=@{address='127.0.0.1';port=$port;server_key='hospedeiro';max_message_size_bytes=262144}
+    socket=@{address='127.0.0.1';port=$port;server_key='hospedeiro';max_message_size_bytes=262144;max_request_size_bytes=1048576}
     session=@{encryption_key=$keys.session;refresh_encryption_key=$keys.refresh;token_expiry_sec=3600;refresh_token_expiry_sec=86400}
     console=@{address='127.0.0.1';port=($port+20);username='admin';password=$keys.console;signing_key=$keys.console}
     runtime=@{path=(Join-Path $root 'services\nakama\modules');http_key=$keys.http;env=@("HOSPEDEIRO_GAME_KEY=$($keys.game)","HOSPEDEIRO_ADAPTER_KEY=$($keys.adapter)","HOSPEDEIRO_ENGINE_URL=$env:HOSPEDEIRO_ENGINE_URL","HOSPEDEIRO_EDGE_SECRET=$env:HOSPEDEIRO_EDGE_SECRET")}

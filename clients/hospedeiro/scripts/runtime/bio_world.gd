@@ -113,6 +113,10 @@ func build() -> void:
 	if _built:
 		return
 	_built = true
+	if BioPersonalLink.wanted():
+		save_path = "user://hospedeiro_personal_genome.json"
+		identity_path = "user://hospedeiro_personal_identity.json"
+		BioPersonalWorld.restore_files()
 	if not engine_url.is_empty():
 		engine_url = BioPlatform.engine_url(engine_url)
 	_rng.seed = seed_value
@@ -152,7 +156,7 @@ func build() -> void:
 		elif region == BioBodyMap.RIM:
 			organ_deed.emit("equilibrar-sal"))  # in the kidney it is salt to be balanced
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
-		if result.outcome == BioActor.HitOutcome.EVADED:
+		if result.outcome == BioActor.HitOutcome.EVADED and not player.combatant.last_hit_was_pvp:
 			add_pressure(BioMutationTracker.EVADE_POINTS)
 			evaded.emit())
 
@@ -214,7 +218,7 @@ func build() -> void:
 	atlas = BioAtlas.new()
 	atlas.name = "Atlas"
 	add_child(atlas)
-	atlas.configure(player, seed_value, "" if save_path.is_empty() else "user://hospedeiro_atlas.json")
+	atlas.configure(player, seed_value, "" if save_path.is_empty() else "user://hospedeiro_personal_atlas.json" if BioPersonalLink.wanted() else "user://hospedeiro_atlas.json")
 	atlas.discovered.connect(func(id: StringName) -> void:
 		if _built:
 			hud.show_banner(str(BioBodyMap.NAMES.get(id, id)))
@@ -226,7 +230,7 @@ func build() -> void:
 	panel.name = "MutationPanel"
 	add_child(panel)
 	panel.refresh(genome, tracker)
-	build_store = BioBuildStore.new("" if save_path.is_empty() else "user://hospedeiro_builds.json")
+	build_store = BioBuildStore.new("" if save_path.is_empty() else "user://hospedeiro_personal_builds.json" if BioPersonalLink.wanted() else "user://hospedeiro_builds.json")
 	tray = BioCallTray.new()
 	tray.name = "CallTray"
 	add_child(tray)
@@ -258,6 +262,7 @@ func build() -> void:
 		_build_for_touch()
 	tutorial = BioTutorial.new()
 	tutorial.world = self
+	if BioPersonalLink.wanted(): tutorial.persistence_path = "user://hospedeiro_personal_tutorial.json"
 	add_child(tutorial)
 	journey = BioJourney.new()
 	journey.world = self
@@ -265,6 +270,10 @@ func build() -> void:
 	dungeon_panel = BioDungeonPanel.new()
 	dungeon_panel.world = self
 	add_child(dungeon_panel)
+	if BioPersonalLink.wanted():
+		var personal := BioPersonalWorld.new()
+		personal.world = self
+		add_child(personal)
 	if BioWebProbe.wanted():
 		var probe := BioWebProbe.new()
 		probe.name = "WebProbe"
@@ -1024,7 +1033,8 @@ func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
 
 
 ## A wild thing died: pressure and the confirmed kill, and in the spleen and the intestine the verb of the organ too.
-func _on_wild_kill(at: Vector2) -> void:
+func _on_wild_kill(at: Vector2, victim: BioCombatant = null) -> void:
+	if victim != null and is_instance_valid(victim._last_attacker) and victim._last_attacker.get_meta("party_owner", "") == "guest": return
 	add_pressure(BioMutationTracker.KILL_POINTS)
 	virus_destroyed.emit()
 	match BioBodyMap.region_of(at):
@@ -1047,7 +1057,7 @@ func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
 		host.set_meta("kind", str(kind))
 		host.set_meta("base_speed", float(def["speed"]))
 		host.combatant.died.connect(func(_who: BioCombatant) -> void:
-			_on_wild_kill(host.global_position)
+			_on_wild_kill(host.global_position, _who)
 			var split: Variant = def.get("split")
 			if split is Dictionary:
 				for k in int((split as Dictionary)["count"]):
@@ -1060,7 +1070,7 @@ func _spawn_virus_at(pos: Vector2) -> void:
 	var host := brain.get_parent() as BioCellActor
 	host.set_meta("sanctuary_bound", true)
 	host.max_speed_units = _virus_speed()
-	host.combatant.died.connect(func(_who: BioCombatant) -> void: _on_wild_kill(host.global_position))
+	host.combatant.died.connect(func(_who: BioCombatant) -> void: _on_wild_kill(host.global_position, _who))
 
 
 func _add_glow_environment() -> void:

@@ -8,6 +8,8 @@ Plano de 22/10/2026. Nada aqui está implementado, exceto o que está marcado co
 
 ## Resumo
 
+**Direção adicional em 25/10/2026:** [mundos pessoais](PersonalWorlds.md) executam o jogo localmente e salvam na nuvem em segundo plano. Visitas para dois jogadores usam WebRTC, permitem evolução do visitante e PvP em todo o mapa junto dos monstros, sem recompensas por abates de jogadores. O modo MMORPG anterior continua separado e selecionável.
+
 **Decisão de 24/10/2026:** adotar Nakama para entrada de convidados e transporte em tempo real. Godot headless continua sendo a autoridade de combate, reutilizando as regras do cliente; o motor Go mantém mundo e progressão. A primeira entrega compartilha o mundo aberto e usa masmorras pessoais isoladas no servidor. Grupos e masmorras cooperativas ainda fazem parte do destino F2, e a partição por órgão continua futura. Implementação e limites em [Nakama.md](Nakama.md).
 
 1. O Hospedeiro vira **um universo do World Simulation Engine** deste repositório (`engine/`, Go). O motor guarda a verdade do mundo, as crenças, as missões, a história, as habilidades e as decisões do Jev. Não vamos construir outro backend.

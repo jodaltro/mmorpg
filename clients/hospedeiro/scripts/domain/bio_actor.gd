@@ -1,7 +1,7 @@
 class_name BioActor
 extends RefCounted
 
-enum Team { CELL, VIRUS }
+enum Team { CELL, VIRUS, VISITOR }
 enum AttackStatus { STARTED, DEAD, ON_COOLDOWN, NOT_ENOUGH_ATP }
 enum HitOutcome { IGNORED, EVADED, HIT, KILLED }
 
