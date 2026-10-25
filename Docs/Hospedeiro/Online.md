@@ -8,7 +8,7 @@ O Worker e o bucket R2 já existiam e o mundo respondia pelo túnel da Cloudflar
 
 ## Operação
 
-O Worker serve os arquivos de `build/web` do bucket `hospedeiro-web` e encaminha `/v1/` ao servidor na porta 8096. O servidor continua em loopback, com Jev e dados em `D:/unity/hospedeiro-data`. As credenciais ficam em `engine/.env`; nunca vão ao bundle web.
+O Worker serve os arquivos de `build/web` do bucket `hospedeiro-web` e encaminha `/v1/` e `/nakama/` ao servidor na porta 8096, incluindo upgrade WebSocket. O Go encaminha `/nakama/` à porta 7350. O servidor continua em loopback, com Jev e dados em `D:/unity/hospedeiro-data`. As credenciais do motor ficam em `engine/.env`; as novas chaves de serviço em `D:/unity/hospedeiro-nakama/keys.json`. Nunca vão ao bundle web. Ver [Nakama.md](Nakama.md).
 
 O processo `scripts/hospedeiro-online.ps1` mantém servidor e túnel e atualiza o destino do Worker após reconexão. Iniciar com PowerShell, oculto ao executar em segundo plano. Não usar `-Fresh` para atualizações normais: essa opção arquiva o mundo atual e inicia outro. Logs ficam em `D:/unity/hospedeiro-run`.
 
@@ -18,7 +18,7 @@ Exportar com `python clients/hospedeiro/tools/build_web.py`. São necessários G
 
 ## Carregamento inicial
 
-A tela de carregamento aguarda a sessão e a primeira visão do motor, aplicada aos NPCs, missões e estado do corpo. Só então libera o jogo. Depois disso, consultas e reconexões ocorrem em segundo plano. Após 20 segundos sem a visão inicial, oferece tentar novamente ou jogar offline; não libera silenciosamente um mundo incompleto. `?engine=off` entra offline explicitamente.
+A entrada pede somente o nome da célula. A tela de carregamento aguarda a sessão Nakama, o primeiro estado compartilhado do Godot e a primeira visão privada do motor, aplicada aos NPCs, missões e estado do corpo. Só então libera o jogo. Depois disso, consultas ocorrem em segundo plano; uma desconexão pausa os controles e tenta reconectar. Após 20 segundos sem a visão inicial, oferece tentar novamente ou abrir uma sessão offline separada. `?engine=off` entra offline explicitamente.
 
 ## Mobile
 
@@ -30,7 +30,7 @@ Menu reúne Corpo, Códice, Mapa, Sinais e tela cheia quando o navegador permiti
 
 - Servidor em infraestrutura permanente: hoje desligar ou suspender este computador interrompe o mundo compartilhado. O túnel é temporário; o supervisor precisa permanecer ativo.
 - Testes em aparelhos físicos, especialmente Safari/iPhone, teclado virtual, recortes de tela e desempenho térmico. Emulação de navegador não substitui hardware real.
-- Combate autoritativo e cooperativo: o protótipo ainda informa acontecimentos pelo cliente; o token protege a identidade, mas não impede um jogador de falsificar seus próprios feitos. Não há sincronização de combate entre jogadores.
+- Grupos e masmorras cooperativas: o mundo aberto já compartilha jogadores, inimigos e coleta com combate autoritativo, mas as masmorras desta entrega são pessoais. Ainda faltam grupos, persistência de posição/vitais entre reconexões e partição por órgão. O limite inicial de 64 convidados por sala não foi validado por teste de carga.
 - Instalação e cache integral offline de PWA: há manifesto, mas não service worker. O modo de jogo offline funciona quando os arquivos carregam e o motor fica indisponível; não promete abrir sem internet.
 
 Resultados realmente executados ficam em `Docs/Validation/2026-10-24-web-mobile.md`.
@@ -42,6 +42,6 @@ O menu mobile inclui Reiniciar mundo · teste quando a sessão recebe capabiliti
 
 O servidor usa a opção explícita serve -test-reset. A API exige sessão válida, player da sessão e confirm=new-world. Sem a opção, o modo público continua retornando reset_disabled. O contrato v1 recebe apenas o campo opcional player no pedido de reset; o comportamento padrão permanece igual.
 
-Supervisor: scripts/hospedeiro-online.ps1 -TestReset -ReuseTunnel. ReuseTunnel conserva a origem existente; sem TestReset o reset público volta a ser bloqueado. ServerBinary permite escolher o executável; por padrão usa D:/unity/hospedeiro-run/worldsim-current.exe quando existe, com fallback para engine/worldsim.exe. A supervisão verifica a porta e o processo do túnel localmente, sem sondagens do endereço publicado.
+Supervisor: scripts/hospedeiro-online.ps1 -TestReset -ReuseTunnel. ReuseTunnel conserva a origem existente; sem TestReset o reset público volta a ser bloqueado. ServerBinary permite escolher o executável; por padrão prefere D:/unity/hospedeiro-run/worldsim-nakama-v2.exe, depois worldsim-current.exe e engine/worldsim.exe. Uma compilação com suporte a -nakama é necessária para esta implantação. A supervisão verifica a porta e o processo do túnel localmente, sem sondagens do endereço publicado.
 
 A atualização do servidor preserva D:/unity/hospedeiro-data e o túnel. O reset real é acionado pela confirmação no jogo; não faz parte dos testes de publicação.

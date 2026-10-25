@@ -5,6 +5,7 @@ var kind: int = BioNutrientRules.Kind.GLUCOSE
 
 var _glow: Sprite2D
 var _seed := randf() * 10.0
+var _consumed := false
 
 
 static func color_of(nutrient_kind: int) -> Color:
@@ -45,9 +46,12 @@ func attract(target: Vector2, delta: float) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
+	if _consumed:
+		return
 	var eater := body as BioCellActor
 	if eater == null or eater.combatant.actor.team != BioActor.Team.CELL or not eater.combatant.actor.vitals.is_alive():
 		return
+	_consumed = true
 	BioNutrientRules.consume(eater.combatant.actor, kind)
 	eater.combatant.nutrient_consumed.emit(kind)
 	BioFx.burst(global_position, color_of(kind), 5, 1.8, 0.22, 0.35)

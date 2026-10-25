@@ -97,13 +97,15 @@ func Handler(r *sim.Runner) http.Handler { return HandlerWith(r, Options{}) }
 // HandlerWith serves the contract. With Options.Public every actor-bound call
 // needs the bearer token issued by POST /v1/session for that actor.
 //
-// Honest limit: Hospedeiro is client-authoritative in combat, so the token
-// authorises both "player" and "adapter" origins for the token's OWN actor
-// only. It stops impersonating another player and tampering with someone
-// else's body, but not a player cheating on themselves.
+// AdapterKey enables server-authoritative play: only the trusted game server
+// can confirm adapter commands. Without it, the legacy prototype still allows
+// both origins for the bearer token's own actor.
 func HandlerWith(r *sim.Runner, o Options) http.Handler {
 	a := newAuth(o)
 	mux := http.NewServeMux()
+	if o.NakamaURL != "" {
+		mux.Handle("/nakama/", nakamaProxy(o.NakamaURL))
+	}
 	w := r.World()
 	mux.HandleFunc("POST /v1/session", func(rw http.ResponseWriter, q *http.Request) {
 		a.session(rw, q, r)
@@ -192,6 +194,10 @@ func HandlerWith(r *sim.Runner, o Options) http.Handler {
 		if !a.allow(rw, q, string(in.Actor), false) {
 			return
 		}
+		if in.Origin == "adapter" && a.adapterKey != "" && !a.isAdapter(q) {
+			reply(rw, 403, errorBody{Version, "server_authority"})
+			return
+		}
 		if in.Version != Version || in.Origin != "player" && in.Origin != "adapter" ||
 			in.Kind != "join" && in.Kind != "move" && in.Kind != "act" && in.Kind != "accept" && in.Kind != "decline" && in.Kind != "abandon" {
 			reply(rw, 400, errorBody{Version, "invalid_contract"})
@@ -253,6 +259,9 @@ func HandlerWith(r *sim.Runner, o Options) http.Handler {
 	if o.Web != "" {
 		top := http.NewServeMux()
 		top.Handle("/v1/", mux)
+		if o.NakamaURL != "" {
+			top.Handle("/nakama/", mux)
+		}
 		top.Handle("/", staticHandler(o.Web))
 		h = top
 	}

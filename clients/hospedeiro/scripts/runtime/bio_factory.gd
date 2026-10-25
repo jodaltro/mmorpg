@@ -169,6 +169,8 @@ static func spawn_ally(parent: Node, pos: Vector2, owner: BioCellActor, hp: floa
 	actor.damping = 3.0
 	_virus_counter += 1
 	actor.combatant.configure("ally-%d" % _virus_counter, BioActor.Team.CELL, hp, 0.0, 0.0)
+	actor.combatant.enemy_defeated.connect(func(victim: BioCombatant) -> void:
+		if is_instance_valid(owner): owner.combatant.enemy_defeated.emit(victim))
 	var body := BioCellBody.new()
 	body.configure(0.34, color.lerp(Color.WHITE, 0.3), color.darkened(0.25), 0, 0.0, 0.4, 8)
 	actor.add_child(body)

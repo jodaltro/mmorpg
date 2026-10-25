@@ -6,6 +6,8 @@ Plano de 22/10/2026. Nada aqui está implementado, exceto o que está marcado co
 
 ## Resumo
 
+**Decisão de 24/10/2026:** adotar Nakama para entrada de convidados e transporte em tempo real. Godot headless continua sendo a autoridade de combate, reutilizando as regras do cliente; o motor Go mantém mundo e progressão. A primeira entrega compartilha o mundo aberto e usa masmorras pessoais isoladas no servidor. Grupos e masmorras cooperativas ainda fazem parte do destino F2, e a partição por órgão continua futura. Implementação e limites em [Nakama.md](Nakama.md).
+
 1. O Hospedeiro vira **um universo do World Simulation Engine** deste repositório (`engine/`, Go). O motor guarda a verdade do mundo, as crenças, as missões, a história, as habilidades e as decisões do Jev. Não vamos construir outro backend.
 2. O **Godot** faz dois papéis com o mesmo código: o **cliente** (o visual orgânico procedural que já temos) e o **servidor de jogo** (o combate em tempo real que já roda no protótipo). O servidor confirma acontecimentos ao motor (`adapter`); o motor nunca recebe dano.
 3. **Progressão sem níveis**, em cinco eixos ancorados em biologia: diferenciação (linhagem celular), genoma (DNA), epigenética (quais genes estão ligados), memória (conhecimento dos inimigos) e linhagem (morrer e renascer herdando).

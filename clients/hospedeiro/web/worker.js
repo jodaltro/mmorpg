@@ -12,7 +12,7 @@ const SECURITY = {
 export default {
 	async fetch(request, env) {
 		const url = new URL(request.url);
-		if (url.pathname.startsWith("/v1/")) {
+		if (url.pathname.startsWith("/v1/") || url.pathname.startsWith("/nakama/")) {
 			return proxy(request, env, url);
 		}
 		return assets(request, env, url);
@@ -35,6 +35,7 @@ async function proxy(request, env, url) {
 	headers.set("X-Client-IP", request.headers.get("CF-Connecting-IP") || "");
 	headers.delete("Origin"); // the edge is the one browsers talk to; the server only trusts the edge
 	headers.delete("Referer");
+	headers.delete("X-Adapter-Key");
 	const hasBody = request.method !== "GET" && request.method !== "HEAD";
 	try {
 		const res = await fetch(new URL(url.pathname + url.search, env.ORIGIN), {
@@ -42,8 +43,9 @@ async function proxy(request, env, url) {
 			headers,
 			body: hasBody ? request.body : undefined,
 			redirect: "manual",
-			signal: AbortSignal.timeout(9000),
+			signal: request.headers.get("Upgrade")?.toLowerCase() === "websocket" ? undefined : AbortSignal.timeout(9000),
 		});
+		if (res.status === 101) return res;
 		const out = new Headers(res.headers);
 		out.set("Cache-Control", "no-store");
 		for (const [k, v] of Object.entries(SECURITY)) out.set(k, v);

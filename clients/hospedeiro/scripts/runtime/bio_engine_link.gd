@@ -16,6 +16,8 @@ var base_url := ""
 var player_id := ""
 var player_name := "Celula"
 var token := ""  # proves this cell is theirs to a public engine; minted by the engine, kept next to the id
+var request_headers: Dictionary = {}
+var nakama: BioNakama  # online clients send only player intentions through the Nakama gateway
 var identity_path := ""
 var reset_allowed := true
 var region := "medula"  # where the player is now, reported on (re)join
@@ -56,6 +58,14 @@ func _loop() -> void:
 
 
 func _connect() -> void:
+	if nakama != null:
+		if not nakama.connected:
+			return
+		player_id = "nk-" + nakama.user_id
+		var res := await request(HTTPClient.METHOD_GET, "/v1/views/" + player_id)
+		if res.status == 200:
+			_set_online(true)
+		return
 	var health := await request(HTTPClient.METHOD_GET, "/v1/health")
 	if health.status != 200:
 		return
@@ -114,7 +124,7 @@ func refresh() -> void:
 	if res.status == 200:
 		view = res.body
 		view_changed.emit(view)
-		if BioPlatform.is_web():
+		if BioPlatform.is_web() and nakama == null:
 			JavaScriptBridge.eval("window.__hospedeiroReady=true", true)
 	elif res.status == 0 or (res.status == 404 and res.body.get("error", "") == "unknown_observer"):
 		var reset: bool = online and res.status == 404
@@ -141,6 +151,8 @@ func fetch_affordances() -> Array:
 
 ## The game server confirms something that happened (a virion destroyed, a nutrient absorbed).
 func occur(action: String, args: Dictionary = {}) -> Dictionary:
+	if nakama != null:
+		return {"status": 403, "body": {"error": "server_authority"}}
 	var extra := {"action": action}
 	if not args.is_empty():
 		extra["args"] = args
@@ -157,7 +169,7 @@ func act(action: String, args: Dictionary = {}) -> Dictionary:
 
 func move_region(new_region: String) -> void:
 	region = new_region
-	if online:
+	if online and nakama == null:
 		await _command("adapter", "move", {"region": new_region})
 
 
@@ -185,6 +197,22 @@ func _command(origin: String, kind: String, extra: Dictionary) -> Dictionary:
 
 
 func request(method: int, path: String, body: Variant = null) -> Dictionary:
+	if nakama != null:
+		if not nakama.connected:
+			return {"status": 0, "body": {}}
+		var operation := ""
+		if path.begins_with("/v1/views/"):
+			operation = "view"
+		elif path.begins_with("/v1/affordances/"):
+			operation = "affordances"
+		elif path == "/v1/commands":
+			operation = "command"
+		elif path == "/v1/world/reset":
+			operation = "reset"
+		if operation.is_empty():
+			return {"status": 403, "body": {}}
+		var response := await nakama.call_rpc("hosp_world", {"op": operation, "body": body, "confirm": "new-world" if operation == "reset" and body != null and body.get("confirm", "") == "new-world" else ""})
+		return response if response.has("status") else {"status": 0, "body": {}}
 	if BioPlatform.is_web():
 		return await _web_request(method, path, body)
 	var http := HTTPRequest.new()
@@ -192,6 +220,8 @@ func request(method: int, path: String, body: Variant = null) -> Dictionary:
 	add_child(http)
 	var payload := "" if body == null else JSON.stringify(body)
 	var headers := PackedStringArray(["Content-Type: application/json"])
+	for key in request_headers:
+		headers.append(str(key) + ": " + str(request_headers[key]))
 	if not token.is_empty():
 		headers.append("Authorization: Bearer " + token)
 	var started := http.request(base_url + path, headers, method, payload)
@@ -226,6 +256,7 @@ func _web_request(method: int, path: String, body: Variant) -> Dictionary:
 	var key := "%d:%d" % [get_instance_id(), _web_counter]
 	var timeout := 15.0 if not online else 5.0
 	var headers := {"Content-Type": "application/json"}
+	headers.merge(request_headers, true)
 	if not token.is_empty():
 		headers["Authorization"] = "Bearer " + token
 	var options := {"url": base_url + path, "method": "POST" if method == HTTPClient.METHOD_POST else "GET", "headers": headers, "body": JSON.stringify(body) if body != null else null, "timeout": int(timeout * 1000)}

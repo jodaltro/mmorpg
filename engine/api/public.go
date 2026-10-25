@@ -23,10 +23,12 @@ import (
 
 // Options turns the development handler into a public one.
 type Options struct {
-	TestReset bool   // temporary testing: authenticated sessions may reset the shared world
-	Public    bool   // tokens required, reset off, rate limits on
-	Key       []byte // HMAC key for session tokens; empty means an ephemeral random key
-	Web       string // directory of static files served at "/" (empty: none)
+	AdapterKey string // when configured, adapter commands require this server-only credential
+	NakamaURL  string // optional internal Nakama HTTP/WebSocket endpoint, exposed only under /nakama/
+	TestReset  bool   // temporary testing: authenticated sessions may reset the shared world
+	Public     bool   // tokens required, reset off, rate limits on
+	Key        []byte // HMAC key for session tokens; empty means an ephemeral random key
+	Web        string // directory of static files served at "/" (empty: none)
 
 	// EdgeSecret, when set in public mode, closes the API to everything but the edge in front of it (the Worker that proxies the
 	// tunnel): a request must carry it in X-Edge-Secret, and only then is X-Client-IP believed.
@@ -58,15 +60,16 @@ func LoadOrCreateKey(dir string) ([]byte, error) {
 }
 
 type auth struct {
-	public    bool
-	testReset bool
-	key       []byte
-	general   *limiter
-	sessions  *limiter
+	adapterKey string
+	public     bool
+	testReset  bool
+	key        []byte
+	general    *limiter
+	sessions   *limiter
 }
 
 func newAuth(o Options) *auth {
-	a := &auth{public: o.Public, testReset: o.TestReset, key: o.Key}
+	a := &auth{public: o.Public, testReset: o.TestReset, key: o.Key, adapterKey: o.AdapterKey}
 	if len(a.key) == 0 {
 		a.key = make([]byte, 32)
 		rand.Read(a.key)
@@ -91,6 +94,9 @@ func (a *auth) valid(id, token string) bool {
 // allow checks the bearer token for id (public mode only). On failure it has
 // already written the 401.
 func (a *auth) allow(rw http.ResponseWriter, q *http.Request, id string, queryToken bool) bool {
+	if a.isAdapter(q) {
+		return true
+	}
 	if !a.public {
 		return true
 	}
@@ -105,6 +111,10 @@ func (a *auth) allow(rw http.ResponseWriter, q *http.Request, id string, queryTo
 		return false
 	}
 	return true
+}
+
+func (a *auth) isAdapter(q *http.Request) bool {
+	return a.adapterKey != "" && hmac.Equal([]byte(a.adapterKey), []byte(q.Header.Get("X-Adapter-Key")))
 }
 
 type sessionRequest struct {
@@ -145,7 +155,7 @@ func (a *auth) session(rw http.ResponseWriter, q *http.Request, r *sim.Runner) {
 				break
 			}
 		}
-	} else if a.public && !a.valid(id, in.Token) {
+	} else if a.public && !a.valid(id, in.Token) && !a.isAdapter(q) {
 		reply(rw, 401, errorBody{Version, "invalid_token"})
 		return
 	}
@@ -155,6 +165,10 @@ func (a *auth) session(rw http.ResponseWriter, q *http.Request, r *sim.Runner) {
 // limited applies the per-IP rate limits.
 func (a *auth) limited(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, q *http.Request) {
+		if a.isAdapter(q) {
+			next.ServeHTTP(rw, q)
+			return
+		}
 		ip := clientIP(q)
 		lim := a.general
 		if q.Method == http.MethodPost && q.URL.Path == "/v1/session" {

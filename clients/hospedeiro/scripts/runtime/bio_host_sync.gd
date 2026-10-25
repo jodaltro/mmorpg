@@ -289,6 +289,7 @@ func _apply_skills(skills: Array) -> void:
 ## The granuloma: whether the entrance is open to this cell, and the run, step by step. The engine owns the run; this only
 ## builds what it says (the chamber, the enemies) and confirms what happened in it.
 func _apply_dungeon(d: Dictionary) -> void:
+	_world.dungeon.replica_mode = _world.online_client != null
 	var hints := {"granuloma": "Entre no Granuloma na corrente sanguínea quando seu corpo estiver mais maduro.",
 		"cordoes-hepaticos": "Os Cordões Hepáticos pedem um corpo mais maduro, dentro do fígado."}
 	for o in d.get("available", []):

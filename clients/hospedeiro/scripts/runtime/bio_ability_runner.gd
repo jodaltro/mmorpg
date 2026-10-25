@@ -26,6 +26,7 @@ var _body: BioCellBody
 var _kits: Array[BioKit] = []  # the abilities that need more than a hit, by class
 var _kit_for := {}  # kind -> kit
 var last_cast: StringName = &""  # the last ability cast: the B cell's immune memory repeats it
+var network_cast: Callable
 
 
 func configure(host: BioCellActor, controller: BioCellController, limbs: BioLimbs, body: BioCellBody) -> void:
@@ -124,6 +125,8 @@ func perform(slot: int) -> int:
 
 
 func perform_id(id: StringName) -> int:
+	if network_cast.is_valid():
+		return network_cast.call(id)
 	return _perform(id, false)
 
 

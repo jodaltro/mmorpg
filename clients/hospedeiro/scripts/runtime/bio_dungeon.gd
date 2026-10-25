@@ -14,6 +14,7 @@ const GRACE_SECONDS := 3.5  # enemies hold still while the cell gets its bearing
 const CLEAR_HEAL := 0.4  # share of the membrane given back when a room is cleared
 
 var active := false
+var replica_mode := false  # online client: draws the chamber; only the trusted host spawns and clears it
 var room_index := -1
 var seed_value := 0
 var modifier := ""
@@ -54,7 +55,7 @@ func bind(player: BioCellActor, return_to: Vector2) -> void:
 
 
 func enemies() -> Array:
-	return get_tree().get_nodes_in_group("dungeon_enemies")
+	return get_tree().get_nodes_in_group("dungeon_enemies").filter(func(n: Node2D) -> bool: return n.get_world_2d() == get_world_2d())
 
 
 func start(run: Dictionary) -> void:
@@ -90,11 +91,12 @@ func advance(index: int) -> void:
 	global_position = CENTER
 	_plan_obstacles(plan)
 	_build_walls()
-	_plan_hazards(plan)
+	if not replica_mode:
+		_plan_hazards(plan)
 	_player.global_position = CENTER + Vector2(0.0, wall_at(PI * 0.5) * 0.8 * BioArt.UNIT)
 	_player.velocity = Vector2.ZERO
 	var speed := float(_rule["speed_mult"])
-	for e in plan["enemies"]:
+	for e in ([] if replica_mode else plan["enemies"]):
 		var angle := float(e["angle"])
 		var reach := minf(float(e["radius"]) * chamber_radius, 0.88 * wall_at(angle))
 		_spawn(StringName(e["type"]), CENTER + Vector2.from_angle(angle) * reach * BioArt.UNIT, speed)
@@ -222,8 +224,9 @@ func _free_room() -> void:
 			h.queue_free()
 	_hazards.clear()
 	obstacles = []
-	for e in enemies():
-		e.queue_free()
+	if not replica_mode:
+		for e in enemies():
+			e.queue_free()
 	if is_instance_valid(_walls):
 		_walls.queue_free()
 		_walls = null
@@ -245,6 +248,8 @@ func finish(cleared: bool) -> void:
 
 
 func _process(delta: float) -> void:
+	if replica_mode:
+		return
 	_t += delta
 	if not active:
 		return

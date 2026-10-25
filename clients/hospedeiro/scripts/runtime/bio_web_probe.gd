@@ -29,6 +29,11 @@ func _process(delta: float) -> void:
 		"alive": p.is_active(),
 		"membrane": snappedf(p.combatant.actor.vitals.membrane, 0.1),
 		"online": link != null and link.online,
+		"network": {
+			"ready": world.online_client != null and world.online_client.is_ready,
+			"entities": world.online_client._entities.size() if world.online_client != null else 0,
+			"players": world.online_client._entities.values().filter(func(n: Node) -> bool: return n is BioCellActor and not str(n.get_meta("net_uid", "")).is_empty()).size() if world.online_client != null else 0,
+		},
 		"engineURL": world.engine_url,
 		"linkURL": link.base_url if link != null else "missing",
 		"http": link.last_http if link != null else {},

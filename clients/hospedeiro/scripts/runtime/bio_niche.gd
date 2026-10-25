@@ -23,7 +23,7 @@ func configure(id: String, who: BioCellActor) -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
-	if _done or player == null or not player.is_active():
+	if _done or player == null or not player.is_active() or player.get_world_2d() != get_world_2d():
 		return
 	if player.global_position.distance_to(global_position) <= REACH_UNITS * BioArt.UNIT:
 		_done = true

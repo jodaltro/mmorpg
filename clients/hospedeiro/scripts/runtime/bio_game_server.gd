@@ -1,0 +1,372 @@
+class_name BioGameServer
+extends Node
+## Trusted Godot host: the existing combat rules run once for everyone. Nakama routes inputs and private snapshots.
+
+var transport: BioNakama
+var arena: BioWorld
+var players: Dictionary = {}
+var engine_url := "http://127.0.0.1:8096"
+var adapter_key := ""
+var edge_secret := ""
+var _snapshot_in := 0.0
+var _upkeep_in := 0.0
+var _events: Array = []
+var _serial := 0
+var _last_reset := -10000
+var _report_in := 3.0
+
+
+func _ready() -> void:
+	adapter_key = OS.get_environment("HOSPEDEIRO_ADAPTER_KEY")
+	edge_secret = OS.get_environment("HOSPEDEIRO_EDGE_SECRET")
+	if not OS.get_environment("HOSPEDEIRO_ENGINE_URL").is_empty():
+		engine_url = OS.get_environment("HOSPEDEIRO_ENGINE_URL")
+	arena = BioWorld.new()
+	arena.engine_url = ""
+	arena.save_path = ""
+	arena.identity_path = ""
+	add_child(arena)
+	arena.set_process(false)
+	arena.player.set_active(false)
+	for n in arena.get_children():
+		if n is CanvasLayer:
+			n.process_mode = Node.PROCESS_MODE_DISABLED
+	transport = BioNakama.new()
+	transport.base_url = OS.get_environment("HOSPEDEIRO_NAKAMA_URL")
+	if transport.base_url.is_empty():
+		transport.base_url = "http://127.0.0.1:7350"
+	add_child(transport)
+	transport.packet.connect(_packet)
+	transport.disconnected.connect(_reconnect)
+	transport.failed.connect(func(message: String) -> void: print("[nakama] ", message))
+	_reconnect()
+
+
+func _reconnect() -> void:
+	while is_inside_tree() and not transport.connected:
+		if await transport.open("Hospedeiro servidor", "hosp-host-" + OS.get_environment("HOSPEDEIRO_GAME_KEY").sha256_text(), OS.get_environment("HOSPEDEIRO_GAME_KEY")):
+			print("[nakama] game server ready ", transport.match_id)
+			return
+		await get_tree().create_timer(3.0).timeout
+
+
+func _packet(code: int, data: Dictionary) -> void:
+	var id := str(data.get("id", ""))
+	if code == 10:
+		if data.get("event") == "join":
+			_join(id, str(data.get("name", "Célula")).strip_edges().left(24))
+		elif data.get("event") == "leave":
+			_leave(id)
+	elif code == 1 and players.has(id):
+		var p: Dictionary = players[id]
+		var raw: Variant = data.get("input", {})
+		if not raw is Dictionary: return
+		var input := BioNetProtocol.input(raw, int(p.seq))
+		if input.is_empty():
+			return
+		p.seq = input.seq
+		p.last_input = Time.get_ticks_msec()
+		var cell: BioCellActor = p.cell
+		var controller := cell.get_node("Controller") as BioCellController
+		controller.move(input.move)
+		controller.set_aim(input.aim)
+		if not (p.link as BioEngineLink).online:
+			controller.move(Vector2.ZERO)
+			return
+		for action in input.actions:
+			match action:
+				"lash": controller.lash()
+				"spit": controller.spit()
+				"dash": controller.dash()
+				"respawn":
+					if not cell.combatant.actor.vitals.is_alive():
+						cell.combatant.reset_vitals()
+						cell.set_active(true)
+						cell.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+				_:
+					if action.begins_with("ability:"):
+						(cell.get_node("Abilities") as BioAbilityRunner).perform_id(StringName(action.trim_prefix("ability:")))
+
+
+func _join(id: String, player_name: String) -> void:
+	if players.has(id):
+		return
+	var cell := BioFactory.spawn_player(arena, BioBodyMap.center_px(BioBodyMap.MEDULA) + Vector2.from_angle(randf()*TAU)*BioArt.UNIT)
+	cell.combatant._id = "nk-" + id
+	cell.combatant.actor.id = "nk-" + id
+	cell.set_meta("net_id", id)
+	for child in cell.get_children():
+		if child is BioPlayerInput:
+			child.set_process(false)
+	(cell.get_node("Abilities") as BioAbilityRunner).set_process(false)
+	(cell.get_node("Abilities") as BioAbilityRunner).performed.connect(func(ability: StringName) -> void:
+		_events.append({"id": id, "ability": str(ability), "aim": BioNetProtocol.xy((cell.get_node("Controller") as BioCellController).aim)}))
+	var link := BioEngineLink.new()
+	link.request_headers = {"X-Adapter-Key": adapter_key, "X-Edge-Secret": edge_secret}
+	link.configure(engine_url, {"id": "nk-"+id, "name": player_name})
+	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "viewport": null, "dungeon": null, "dungeon_seed": -1, "used": {}, "travel": 0.0, "last_pos": cell.global_position}
+	link.view_changed.connect(func(view: Dictionary) -> void: _apply_view(id, view))
+	link.world_reset_detected.connect(func() -> void: _reset_cell(id))
+	add_child(link)
+	cell.combatant.nutrient_consumed.connect(func(_kind: int) -> void:
+		link.occur("absorver-nutriente")
+		if str(players.get(id, {}).get("region", "")) == "figado": link.occur("guardar-glicogenio")
+		elif str(players.get(id, {}).get("region", "")) == "rim": link.occur("equilibrar-sal"))
+	cell.combatant.enemy_defeated.connect(func(victim: BioCombatant) -> void:
+		link.occur("derrotar-virus")
+		var r := BioBodyMap.region_of((victim.get_parent() as Node2D).global_position)
+		if r == BioBodyMap.BACO: link.occur("capturar-antigeno")
+		elif r == BioBodyMap.INTESTINO: link.occur("repelir-invasor"))
+	cell.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
+		if result.outcome == BioActor.HitOutcome.EVADED: link.occur("esquivar"))
+	cell.combatant.died.connect(func(_who: BioCombatant) -> void: cell.set_active(false))
+	for child in cell.get_children():
+		if child is BioAttackExecutor:
+			(child as BioAttackExecutor).performed.connect(func(attack: StringName, aim: Vector2) -> void:
+				_events.append({"id": id, "attack": str(attack), "aim": BioNetProtocol.xy(aim)})
+				if players.has(id): players[id].used[str(attack)] = true)
+	var exploration := BioExploration.new()
+	arena.add_child(exploration)
+	exploration.configure(cell, arena.seed_value)
+	exploration.niche_reached.connect(func(niche: String) -> void: link.occur("achar-nicho", {"niche": niche}))
+	players[id]["exploration"] = exploration
+	print("[nakama] joined ", player_name)
+
+
+func _leave(id: String) -> void:
+	if not players.has(id): return
+	var p: Dictionary = players[id]
+	(p.cell as Node).queue_free()
+	(p.link as Node).queue_free()
+	(p.exploration as Node).queue_free()
+	if p.viewport != null: (p.viewport as Node).queue_free()
+	players.erase(id)
+
+
+func _reset_cell(id: String) -> void:
+	if not players.has(id): return
+	_end_dungeon(id)
+	if Time.get_ticks_msec() - _last_reset > 3000:
+		_last_reset = Time.get_ticks_msec()
+		for group in ["viruses", "nutrients", "motes", "toxins"]:
+			for n in get_tree().get_nodes_in_group(group):
+				if n is Node2D and (n as Node2D).get_world_2d() == arena.get_world_2d(): n.queue_free()
+	var cell: BioCellActor = players[id].cell
+	cell.combatant.set_genome(BioGenome.new())
+	cell.combatant.reset_vitals()
+	cell.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+	cell.velocity = Vector2.ZERO
+	cell.set_active(true)
+	(cell.get_node("Abilities") as BioAbilityRunner).clear()
+
+
+func _apply_view(id: String, view: Dictionary) -> void:
+	if not players.has(id): return
+	players[id].view = view
+	var cell: BioCellActor = players[id].cell
+	var genome := BioGenome.new()
+	genome.lineage = BioLineageCatalog.normalise(str(view.get("lineage", {}).get("current", "")))
+	for gene in view.get("evolution", {}).get("genes", []):
+		var key := StringName(str(gene.get("id", "")).replace("-", "_"))
+		if BioGeneCatalog.all_ids().has(key): genome.equipped.append(key)
+	cell.combatant.set_genome(genome)
+	var abilities := cell.get_node("Abilities") as BioAbilityRunner
+	abilities.set_known(view.get("skills", []).map(func(s: Dictionary) -> String: return str(s.get("id", ""))))
+	var raw_traits: Variant = view.get("look", {}).get("traits", {})
+	var traits: Dictionary = raw_traits if raw_traits is Dictionary else {}
+	abilities.effect_style = StringName(str(traits.get("efeito", "")))
+	abilities.projectile_traits = traits
+	cell.combatant.effect_style = abilities.effect_style if BioEffectPhysics.has_style(abilities.effect_style) else &""
+	cell.combatant.focus = BioAbilityFocus.params(traits)
+	cell.combatant.modes = BioAbilityMode.from_traits(traits)
+	var raw_axes: Variant = view.get("look", {}).get("axes", {})
+	for child in cell.get_children():
+		if child is BioCellBody:
+			if (child as BioCellBody).traits != traits: (child as BioCellBody).set_traits(traits)
+			if raw_axes is Dictionary and not raw_axes.is_empty(): (child as BioCellBody).set_look(raw_axes)
+	(players[id].exploration as BioExploration).apply(view.get("explore", {}))
+	_gate_exceptions()
+	var body := BioBodyState.new()
+	body.apply(view.get("vitals", []))
+	cell.combatant.environment_speed = body.speed_multiplier()
+	cell.combatant.actor.vitals.regen_scale = body.atp_regen_multiplier() * (1.15 if view.get("explore", {}).get("adapted", []).has(players[id].region) else 1.0)
+	var run: Variant = view.get("dungeon", {}).get("run")
+	if run is Dictionary and run.get("state", "") == "active":
+		_dungeon(id, run)
+	elif players[id].dungeon != null:
+		_end_dungeon(id)
+
+
+func _dungeon(id: String, run: Dictionary) -> void:
+	var p: Dictionary = players[id]
+	if p.dungeon == null:
+		var viewport := SubViewport.new()
+		viewport.world_2d = World2D.new()
+		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+		add_child(viewport)
+		var realm := Node2D.new()
+		viewport.add_child(realm)
+		var cell: BioCellActor = p.cell
+		p["return_to"] = cell.global_position
+		cell.reparent(realm)
+		var dungeon := BioDungeon.new()
+		realm.add_child(dungeon)
+		dungeon.bind(cell, p.return_to)
+		dungeon.room_cleared.connect(func(_room: int) -> void: (p.link as BioEngineLink).occur("sala-limpa"))
+		dungeon.run_failed.connect(func() -> void: (p.link as BioEngineLink).occur("falhar-masmorra"))
+		p.viewport = viewport
+		p.dungeon = dungeon
+		p.dungeon_seed = int(run.get("seed", 0))
+		dungeon.start(run)
+	else:
+		var dungeon := p.dungeon as BioDungeon
+		if dungeon.active and int(run.get("room", 0)) > dungeon.room_index:
+			dungeon.advance(int(run.room))
+
+
+func _end_dungeon(id: String) -> void:
+	var p: Dictionary = players[id]
+	if p.dungeon == null: return
+	var dungeon := p.dungeon as BioDungeon
+	dungeon.finish(true)
+	var cell: BioCellActor = p.cell
+	cell.reparent(arena)
+	cell.global_position = p.get("return_to", BioBodyMap.center_px(BioBodyMap.MEDULA))
+	(p.viewport as Node).queue_free()
+	p.viewport = null
+	p.dungeon = null
+
+
+func _process(delta: float) -> void:
+	_snapshot_in -= delta
+	_upkeep_in -= delta
+	_report_in -= delta
+	for id in players:
+		var p: Dictionary = players[id]
+		var cell: BioCellActor = p.cell
+		var moved: float = cell.global_position.distance_to(p.last_pos) / BioArt.UNIT
+		if moved < 20.0: p.travel += moved
+		p.last_pos = cell.global_position
+		if Time.get_ticks_msec() - int(p.last_input) > 500 or not transport.connected:
+			cell.set_intent(Vector2.ZERO)
+		if p.dungeon != null: continue
+		var r := String(BioBodyMap.region_of(cell.global_position))
+		if r != p.region:
+			p.region = r
+			(p.link as BioEngineLink).move_region(r)
+	if _report_in <= 0.0:
+		_report_in = 3.0
+		for id in players:
+			var p: Dictionary = players[id]
+			var styles := {String(BioAttackCatalog.FLAGELLUM_LASH): "estilo-chicote", String(BioAttackCatalog.TOXIN_SPIT): "estilo-toxina", String(BioAttackCatalog.MEMBRANE_DASH): "estilo-impulso"}
+			for attack in styles:
+				if p.used.has(attack): (p.link as BioEngineLink).occur(styles[attack])
+			p.used.clear()
+			if float(p.travel) >= BioHostSync.EXPLORE_UNITS:
+				p.travel = 0.0
+				(p.link as BioEngineLink).occur("estilo-explorar")
+	if _upkeep_in <= 0.0:
+		_upkeep_in = 1.0
+		_upkeep()
+	if _snapshot_in <= 0.0 and transport.connected:
+		_snapshot_in = 0.05
+		_snapshot()
+
+
+func _upkeep() -> void:
+	var live: Array[StringName] = []
+	for id in players:
+		if players[id].dungeon != null: continue
+		for r in BioAnatomy.within(StringName(players[id].region), 1):
+			if not live.has(r): live.append(r)
+	arena.live_regions = live
+	arena._populate(false)
+	_gate_exceptions()
+	for enemy in arena.viruses():
+		var target: BioCellActor = null
+		for id in players:
+			var cell: BioCellActor = players[id].cell
+			if players[id].dungeon == null and cell.is_active() and (target == null or cell.global_position.distance_squared_to(enemy.global_position) < target.global_position.distance_squared_to(enemy.global_position)):
+				target = cell
+		if target != null: (enemy as BioCellActor).retarget(target)
+	for mote in get_tree().get_nodes_in_group("motes"):
+		if not mote.has_meta("net_bound"):
+			mote.set_meta("net_bound", true)
+			(mote as BioMote).collected.connect(func(cell: BioCellActor) -> void:
+				var id := str(cell.get_meta("net_id", ""))
+				if players.has(id): (players[id].link as BioEngineLink).occur(str(BioMoteRules.kind((mote as BioMote).kind)["action"])))
+	for toxin in get_tree().get_nodes_in_group("toxins"):
+		(toxin as BioToxin).resistant_check = Callable()
+		if not toxin.has_meta("net_bound"):
+			toxin.set_meta("net_bound", true)
+			(toxin as BioToxin).filtered_by.connect(func(cell: BioCellActor) -> void:
+				var id := str(cell.get_meta("net_id", ""))
+				if players.has(id): (players[id].link as BioEngineLink).occur("filtrar-toxina"))
+
+
+func _gate_exceptions() -> void:
+	for id in players:
+		var exploration := players[id].exploration as BioExploration
+		for gate in exploration._gates.values():
+			for n in arena.get_children():
+				if n is BioCellActor and n != gate.player:
+					(gate as BioPassageGate).add_collision_exception_with(n)
+
+
+func _snapshot() -> void:
+	if players.is_empty():
+		transport.send_data(2, {"target": "", "body": {}})  # keep the host lease alive even in an empty world
+	var entities: Array = []
+	var nodes: Array[Node] = arena.get_children()
+	for id in players:
+		if players[id].viewport != null:
+			nodes.append_array((players[id].viewport as Node).get_child(0).get_children())
+	for n in nodes:
+		if not n is Node2D or n == arena.player or n.is_queued_for_deletion(): continue
+		var d := {"id": str(n.get_instance_id()), "p": BioNetProtocol.xy((n as Node2D).global_position), "realm": str((n as Node2D).get_world_2d().get_instance_id())}
+		if n is BioCellActor:
+			var cell := n as BioCellActor
+			var actor := cell.combatant.actor
+			var uid := str(cell.get_meta("net_id", ""))
+			d.merge({"kind": "player" if not uid.is_empty() else "enemy", "uid": uid,
+				"hp": actor.vitals.membrane, "max_hp": actor.vitals.max_membrane,
+				"atp": actor.vitals.atp, "max_atp": actor.vitals.max_atp,
+				"v": BioNetProtocol.xy(cell.velocity), "lineage": str(cell.combatant.genome.lineage)})
+			if players.has(uid):
+				d["name"] = players[uid].name
+				d["genes"] = cell.combatant.genome.equipped
+				d["traits"] = players[uid].view.get("look", {}).get("traits", {})
+				d["axes"] = players[uid].view.get("look", {}).get("axes", {})
+			else:
+				d["enemy_kind"] = str(cell.get_meta("kind", "virion"))
+		elif n is BioNutrient: d.merge({"kind": "nutrient", "type": (n as BioNutrient).kind})
+		elif n is BioMote: d.merge({"kind": "mote", "type": str((n as BioMote).kind)})
+		elif n is BioToxin: d["kind"] = "toxin"
+		elif n is BioProjectile: d["kind"] = "projectile"
+		elif n is BioAbilityBolt:
+			d.merge({"kind": "projectile", "color": (n as BioAbilityBolt)._color.to_html()})
+		elif n is BioAbilityZone:
+			var z := n as BioAbilityZone
+			d.merge({"kind":"zone","color":z.color.to_html(),"radius":z.radius_px,"age":z._age,"duration":z.duration})
+		elif n is BioMine:
+			var m := n as BioMine
+			d.merge({"kind":"mine","color":m.color.to_html(),"radius":m.radius_px,"age":m._age})
+		elif n is BioSignature:
+			var s := n as BioSignature
+			d.merge({"kind":"signature","type":str(s.kind),"color":s.color.to_html(),"age":s._age,"duration":s.dur,"data":BioNetProtocol.visual(s.data)})
+			if is_instance_valid(s.follow):
+				d["realm"] = str(s.follow.get_world_2d().get_instance_id())
+		else: continue
+		entities.append(d)
+	for id in players:
+		var p: Dictionary = players[id]
+		var cell: BioCellActor = p.cell
+		var near: Array = entities.filter(func(e: Dictionary) -> bool:
+			var pos := Vector2(float(e.p[0]), float(e.p[1]))
+			return e.realm == str(cell.get_world_2d().get_instance_id()) and pos.distance_squared_to(cell.global_position) < pow(100.0 * BioArt.UNIT, 2))
+		var cooldowns := {}
+		for key in cell.combatant.actor._ready_at:
+			cooldowns[str(key)] = cell.combatant.actor.cooldown_remaining(key, BioClock.now())
+		transport.send_data(2, {"target": id, "body": {"version": 1, "seq": _serial, "entities": near, "events": _events, "cooldowns": cooldowns, "reset_allowed": (p.link as BioEngineLink).reset_allowed}})
+	_serial += 1
+	_events.clear()

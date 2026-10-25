@@ -38,6 +38,7 @@ var debug_menu: BioDebugMenu
 var debug_god := false
 var touch: BioTouchControls
 var display: BioDisplay
+var online_client: BioOnlineClient
 
 ## Rooms and classes the test menu goes straight to.
 const DEBUG_ROOMS := [
@@ -241,6 +242,10 @@ func build() -> void:
 	sync.name = "HostSync"
 	sync.configure(self)
 	add_child(sync)
+	if BioOnlineClient.wanted(engine_url):
+		online_client = BioOnlineClient.new()
+		online_client.world = self
+		add_child(online_client)
 	if BioPlatform.is_touch():
 		_build_for_touch()
 	if BioWebProbe.wanted():
@@ -473,6 +478,8 @@ func debug_cycle(trait_id: String) -> void:
 
 ## Debug keys: F4 cycles the effect style, F5 tries a random design, F6 goes back to the engine's.
 func _debug_keys() -> void:
+	if online_client != null:
+		return
 	if not BioPlatform.debug_enabled():
 		return
 	if Input.is_action_just_pressed("bio_jev"):
@@ -654,6 +661,9 @@ func restart_world(reset_engine := true) -> void:
 
 
 func respawn_player() -> void:
+	if online_client != null:
+		online_client.queue_action("respawn")
+		return
 	if player.combatant.actor.vitals.is_alive():
 		return
 	player.set_active(true)
@@ -805,6 +815,8 @@ func _process(delta: float) -> void:
 
 ## The blood is a river that beats with the heart: cells and nutrients are carried by the flow of the body (vessels and chambers).
 func _physics_process(delta: float) -> void:
+	if online_client != null:
+		return
 	if BioCellBody.background_stride > 1:  # the current is slow: on a phone it is stepped every other tick, with the time it was owed
 		_flow_owed += delta
 		if Engine.get_physics_frames() % 2 == 1:
@@ -863,6 +875,8 @@ func _update_live() -> void:
 ## The population of the body, streamed: each live region holds the nutrients and virions its biome calls for (scaled by the
 ## exported targets); what lies in sleeping regions is let go, and spawned again when the cell comes near.
 func _populate(fill_all: bool) -> void:
+	if online_client != null:
+		return
 	var nutrient_scale := float(nutrient_target) / 45.0
 	var virus_scale := float(virus_count) / 6.0
 	var nutrients_in := {}
@@ -980,6 +994,7 @@ func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
 		var at := pos + Vector2.from_angle(randf() * TAU) * (0.8 * BioArt.UNIT if i > 0 else 0.0)
 		var brain := BioFactory.spawn_enemy(self, at, player, def, FEVER_SLOWDOWN if fever else 1.0, "viruses")
 		var host := brain.get_parent() as BioCellActor
+		host.set_meta("kind", str(kind))
 		host.set_meta("base_speed", float(def["speed"]))
 		host.combatant.died.connect(func(_who: BioCombatant) -> void:
 			_on_wild_kill(host.global_position)

@@ -34,7 +34,7 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 
 - Nunca versionar segredos, `.env`, logs de mundo (`data/`), executáveis ou caches. A chave do Jev fica em `engine/.env` (ignorado) ou na variável `OPENROUTER_API_KEY`.
 - **Chamadas ao Jev estão liberadas** (decisão do usuário em 19/10/2026: o Jev é um dos corações do sistema e precisa ser validado de verdade). Os testes automáticos usam `httptest`; os ao vivo rodam com `JEV_LIVE=1` ou `simulate -advisor jev`. Registrar latência, custo e taxa de resolução no prazo em `Docs/Validation/`.
-- **Autenticação e publicação online ficam para depois**, por decisão do usuário. Não priorizar agora.
+- **Hospedeiro online com Nakama autorizado em 24/10/2026.** Entrada de convidado só pelo nome; sessão técnica automática por dispositivo, sem senha/cadastro. Nakama cuida de sessões/transporte, Godot headless executa combate compartilhado e só o servidor confirma acontecimentos no motor. Ver `Docs/Hospedeiro/Nakama.md`.
 - O `serve` de desenvolvimento só escuta em loopback, porque a origem ainda vem no corpo. Antes de expor em rede: autenticação que derive `player`/`adapter` da credencial.
 - Segredos e materiais do projeto antigo estão fora do repositório, em `D:\unity\Mmorpg-archive-2026-10-19` (inclui `secrets/`). Não apagar sem pedido do usuário.
 - Respeitar licenças de assets e bases de engine; não redistribuir conteúdo com licença restritiva neste repositório público.
@@ -51,7 +51,8 @@ Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, comparti
 
 - Universo `universes/hospedeiro/universe.json` (Medula e Sangue). Cliente Godot 4.7 em `clients/hospedeiro/`: conecta ao motor em `127.0.0.1:8096` (porta própria, para não colidir com Valdoria na 8095) e, sem motor, joga em **modo offline**.
 - O usuário só abre o cliente. **O agente mantém o backend do Hospedeiro rodando** (`serve` na 8096, `-advisor jev`, dados em `D:\unity\hospedeiro-data`) e passa comandos em **PowerShell**.
-- Reset global temporário de teste habilitado em 24/10/2026: supervisor com `-TestReset -ReuseTunnel`, executável atual em `D:\unity\hospedeiro-run\worldsim-current.exe`. O botão do jogo exige confirmação. Não acionar reset do mundo real durante validação; usar `httptest`/mundos locais isolados.
+- O supervisor online também inicia `scripts/hospedeiro-nakama.ps1`: Nakama HTTP/WS 7350, Godot headless e PostgreSQL local 55432. Chaves/configuração em `D:\unity\hospedeiro-nakama`, banco em `D:\unity\hospedeiro-nakama-db`. `-LocalTest` usa Nakama 7352, motor 8198 e banco/mundo QA separados. Não usar o reset da instância real em testes.
+- Reset global temporário de teste habilitado em 24/10/2026: supervisor com `-TestReset -ReuseTunnel`, executável atual em `D:\unity\hospedeiro-run\worldsim-nakama-v2.exe`. O botão do jogo exige confirmação. Não acionar reset do mundo real durante validação; usar `httptest`/mundos locais isolados.
 - `scripts/domain`: regras puras (`RefCounted`, sem Node). `scripts/runtime`: Nodes, física, input, apresentação. `tests/`: runner headless próprio.
 - Estética bioluminescente procedural, tom sombrio-onírico. Hitbox lógica separada do corpo deformável. Biologia é base, não lei.
 - Sem níveis nem XP: progressão por diferenciação, genes, epigenética, memória e linhagem.

@@ -12,7 +12,8 @@ $root = Split-Path $PSScriptRoot -Parent
 $run = "D:\unity\hospedeiro-run"
 $data = "D:\unity\hospedeiro-data"
 if (-not $ServerBinary) {
-    $ServerBinary = Join-Path $run "worldsim-current.exe"
+    $ServerBinary = Join-Path $run "worldsim-nakama-v2.exe"
+    if (-not (Test-Path $ServerBinary)) { $ServerBinary = Join-Path $run "worldsim-current.exe" }
     if (-not (Test-Path $ServerBinary)) { $ServerBinary = Join-Path $root "engine\worldsim.exe" }
 }
 $port = 8096
@@ -29,19 +30,39 @@ function Healthy($url, $headers = @{}) {
     try { (Invoke-WebRequest -UseBasicParsing -TimeoutSec 6 -Uri $url -Headers $headers).StatusCode -eq 200 } catch { $false }
 }
 
-if ($Stop) { Stop-Tunnel; Stop-Port $port; Write-Host "parado"; exit 0 }
+$supervisorPidPath = Join-Path $run 'supervisor.pid'
+if ($Stop) {
+    if (Test-Path $supervisorPidPath) {
+        $previousSupervisor = [int](Get-Content $supervisorPidPath)
+        if ($previousSupervisor -ne $PID) { Stop-Process -Id $previousSupervisor -ErrorAction SilentlyContinue }
+    }
+    & (Join-Path $PSScriptRoot 'hospedeiro-nakama.ps1') -Stop
+    Stop-Tunnel; Stop-Port $port; Write-Host "parado"; exit 0
+}
+$PID | Set-Content $supervisorPidPath
 
 $envFile = Join-Path $root "engine\.env"
 $secret = (Get-Content $envFile | Where-Object { $_ -like "HOSPEDEIRO_EDGE_SECRET=*" } | Select-Object -First 1)
 if (-not $secret) { throw "HOSPEDEIRO_EDGE_SECRET nao esta em engine\.env: rode antes tools\deploy_online.py web" }
 $env:HOSPEDEIRO_EDGE_SECRET = $secret.Substring("HOSPEDEIRO_EDGE_SECRET=".Length)
 
+# The shared game server uses Nakama; its credentials stay outside the repository and the browser.
+$nakamaRun = 'D:\unity\hospedeiro-nakama'
+if (!(Get-NetTCPConnection -LocalPort 7350 -State Listen -ErrorAction SilentlyContinue)) {
+    Start-Process -FilePath powershell.exe -WindowStyle Hidden -ArgumentList @('-NoProfile','-File',(Join-Path $PSScriptRoot 'hospedeiro-nakama.ps1')) -RedirectStandardOutput (Join-Path $run 'nakama-supervisor.log') -RedirectStandardError (Join-Path $run 'nakama-supervisor.err.log')
+}
+$nakamaKeysPath = Join-Path $nakamaRun 'keys.json'
+for ($i=0; $i -lt 20 -and !(Test-Path $nakamaKeysPath); $i++) { Start-Sleep 1 }
+if (!(Test-Path $nakamaKeysPath)) { throw 'Nakama credentials were not prepared; see nakama-supervisor.err.log' }
+$nakamaKeys = Get-Content $nakamaKeysPath -Raw | ConvertFrom-Json
+$env:HOSPEDEIRO_ADAPTER_KEY = $nakamaKeys.adapter
+
 function Start-Server {
     Stop-Port $port
     $resetArguments = @()
     if ($TestReset) { $resetArguments = @("-test-reset") }
     Start-Process -FilePath $ServerBinary -WindowStyle Hidden `
-        -ArgumentList (@("serve", "-public", "-universe", (Join-Path $root "universes\hospedeiro\universe.json"), "-data", $data, "-listen", "127.0.0.1:$port", "-advisor", "jev", "-env-file", $envFile, "-on-universe-change", "new-world") + $resetArguments) `
+        -ArgumentList (@("serve", "-public", "-universe", (Join-Path $root "universes\hospedeiro\universe.json"), "-data", $data, "-listen", "127.0.0.1:$port", "-advisor", "jev", "-env-file", $envFile, "-on-universe-change", "new-world", "-nakama", "http://127.0.0.1:7350") + $resetArguments) `
         -RedirectStandardOutput (Join-Path $run "server.log") -RedirectStandardError (Join-Path $run "server.err.log")
     for ($i = 0; $i -lt 30; $i++) { if (Healthy "http://127.0.0.1:$port/v1/health") { return }; Start-Sleep 1 }
     throw "o servidor nao respondeu (veja $run\server.err.log)"

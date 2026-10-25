@@ -148,7 +148,6 @@ func test_restart_world_returns_to_a_plain_newborn() -> void:
 
 func test_restart_button_needs_a_second_press_to_confirm() -> void:
 	var fired := [0]
-	world.hud.restart_requested.disconnect(world.restart_world)
 	world.hud.restart_requested.connect(func() -> void: fired[0] += 1)
 	world.hud.press_restart()
 	assert_eq(fired[0], 0, "first press only arms")

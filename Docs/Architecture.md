@@ -126,6 +126,8 @@ O log de comandos é a fonte da verdade. `store.FileLog` grava JSONL com `fsync`
 
 ## Confiança
 
+**Hospedeiro, 24/10/2026:** a implantação online usa Nakama e Godot headless. Com `serve -adapter-key` (ou `HOSPEDEIRO_ADAPTER_KEY`), comandos `adapter` exigem a credencial do servidor; o token de jogador deixa de poder confirmar acontecimentos. O gateway Nakama deriva o ator da sessão e encaminha apenas intenções. O `core` continua independente de rede e combate. `-nakama http://127.0.0.1:7350` expõe somente a API de cliente e WebSocket sob `/nakama/`, pelo mesmo domínio do jogo. Detalhes em [Hospedeiro/Nakama.md](Hospedeiro/Nakama.md). As descrições históricas abaixo sobre a origem no corpo se referem ao modo de desenvolvimento e à configuração sem a opção de autoridade.
+
 - Clientes de jogador enviam **intenções**; o servidor de jogo envia **acontecimentos confirmados** (`adapter`); o motor nunca recebe dano, HP ou inventário declarados.
 - Hoje, a origem vem no corpo da requisição. Por isso o `serve` só escuta em loopback. Em produção, a origem deve vir da autenticação: token de jogador → `player`; credencial do servidor de jogo → `adapter`.
 - A visão de um observador nunca inclui crenças, fatos privados ou eventos privados de outros (`TestPrivateKnowledgeAndViews`, `TestStreamPushesOnlyVisibleEvents`).

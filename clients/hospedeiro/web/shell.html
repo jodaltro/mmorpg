@@ -157,13 +157,34 @@ const engine = new Engine(GODOT_CONFIG);
 		fail('Este navegador não consegue rodar o jogo.\nFalta: ' + missing.join(', ') + '.\nTente a versão mais recente do Chrome, Edge, Firefox ou Safari.');
 		return;
 	}
-	engine.startGame({
+	async function guestName() {
+		if (new URLSearchParams(location.search).get('engine') === 'off') return;
+		hint.textContent = 'Qual é o nome da sua célula?';
+		const form = document.createElement('form');
+		form.style.cssText = 'display:flex;flex-direction:column;gap:12px;width:min(280px,80vw)';
+		const input = document.createElement('input');
+		input.name = 'name'; input.autocomplete = 'nickname'; input.maxLength = 24; input.minLength = 2; input.required = true;
+		input.placeholder = 'Seu nome'; input.setAttribute('aria-label', 'Nome da célula');
+		try { input.value = localStorage.getItem('hospedeiro.guestName') || ''; } catch(e) {}
+		input.style.cssText = 'font:inherit;font-size:16px;padding:12px;border:1px solid #3e7188;border-radius:8px;background:#0a1c30;color:#e0f8ff';
+		const button = document.createElement('button'); button.textContent = 'Entrar no corpo';
+		button.style.cssText = 'font:inherit;padding:12px;border:1px solid #3e7188;border-radius:8px;background:#123b4d;color:#cfe7ff;cursor:pointer';
+		form.append(input,button); loader.append(form);
+		await new Promise(resolve => form.addEventListener('submit', e => {
+			e.preventDefault(); const name = input.value.trim();
+			if (name.length < 2) { input.focus(); return; }
+			window.__hospedeiroGuestName = name;
+			try { localStorage.setItem('hospedeiro.guestName',name); } catch(e) {}
+			form.remove(); hint.textContent = 'Preparando sua célula e o mundo compartilhado…'; resolve();
+		}));
+	}
+	guestName().then(() => engine.startGame({
 		onProgress(current, total) {
 			if (current > 0 && total > 0) {
 				fill.style.width = Math.min(100, Math.round(100 * current / total)) + '%';
 			}
 		},
-	}).then(() => {
+	})).then(() => {
 		if (new URLSearchParams(location.search).get('engine') === 'off') window.__hospedeiroReady = true;
         hint.textContent = 'Preparando sua célula, o mundo e seus habitantes…';
         fill.style.width = '100%';
@@ -175,9 +196,9 @@ const engine = new Engine(GODOT_CONFIG);
                 loader.remove();
             } else if (Date.now() - started > 20000 && !offeredOffline) {
                 offeredOffline = true;
-                hint.textContent = 'O mundo está demorando para responder. Você pode tentar de novo ou jogar offline enquanto reconectamos.';
+                hint.textContent = 'O mundo está demorando para responder. Você pode tentar novamente ou abrir uma sessão offline.';
                 const actions = document.createElement('div');
-                for (const [text, action] of [['Tentar novamente', () => location.reload()], ['Jogar offline', () => { clearInterval(ready); loader.remove(); }]]) {
+                for (const [text, action] of [['Tentar novamente', () => location.reload()], ['Jogar offline', () => { const url=new URL(location.href);url.searchParams.set('engine','off');location.href=url; }]]) {
                     const button = document.createElement('button');
                     button.textContent = text;
                     button.style.cssText = 'background:#12283c;color:#cfe7ff;border:1px solid #3e7188;border-radius:8px;padding:12px 18px;margin:6px;font:inherit;cursor:pointer';

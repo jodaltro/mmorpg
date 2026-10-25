@@ -4,12 +4,14 @@ extends Area2D
 ## which deed it was.
 
 signal taken(kind: StringName)
+signal collected(cell: BioCellActor)
 
 var kind: StringName = &"hemacia_velha"
 
 var _glow: Sprite2D
 var _seed := randf() * 10.0
 var _color := Color.WHITE
+var _consumed := false
 
 
 func configure(p_kind: StringName) -> void:
@@ -54,11 +56,15 @@ func _draw() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
+	if _consumed:
+		return
 	var cell := body as BioCellActor
 	if cell == null or cell.combatant.actor.team != BioActor.Team.CELL or not cell.combatant.actor.vitals.is_alive():
 		return
+	_consumed = true
 	BioMoteRules.apply(kind, cell.combatant.actor)
 	BioFx.burst(global_position, _color, 6, 1.8, 0.22, 0.35)
 	remove_from_group("motes")
 	taken.emit(kind)
+	collected.emit(cell)
 	queue_free()

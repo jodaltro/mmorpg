@@ -3,11 +3,13 @@ extends Area2D
 ## A toxin mote drifting in the liver. Touching it filters it (see BioToxinRules): the body is cleaner, the cell pays unless it has peroxisomes.
 
 signal filtered
+signal filtered_by(cell: BioCellActor)
 
 var resistant_check: Callable  # () -> bool, asked at the moment of contact
 
 var _glow: Sprite2D
 var _seed := randf() * 10.0
+var _consumed := false
 
 
 func _ready() -> void:
@@ -31,12 +33,16 @@ func _process(_delta: float) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
+	if _consumed:
+		return
 	var cell := body as BioCellActor
 	if cell == null or cell.combatant.actor.team != BioActor.Team.CELL or not cell.combatant.actor.vitals.is_alive():
 		return
-	var resistant: bool = resistant_check.call() if resistant_check.is_valid() else false
+	_consumed = true
+	var resistant: bool = resistant_check.call() if resistant_check.is_valid() else cell.combatant.genome.has_gene(BioToxinRules.RESISTANT_GENE)
 	BioToxinRules.filter(cell.combatant.actor, resistant)
 	BioFx.burst(global_position, Color(0.65, 0.9, 0.15) if not resistant else BioArt.AMBER, 6, 1.8, 0.22, 0.35)
 	remove_from_group("toxins")
 	filtered.emit()
+	filtered_by.emit(cell)
 	queue_free()

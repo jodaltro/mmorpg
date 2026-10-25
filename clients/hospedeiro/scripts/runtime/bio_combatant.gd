@@ -6,6 +6,7 @@ signal hit(who: BioCombatant, result: BioHitResult)
 signal died(who: BioCombatant)
 signal nutrient_consumed(kind: int)
 signal genome_changed(genome: BioGenome)
+signal enemy_defeated(victim: BioCombatant)
 
 var actor: BioActor
 var genome := BioGenome.new()
@@ -134,6 +135,7 @@ func _ready() -> void:
 
 
 var _burn_color := Color(1.0, 0.5, 0.15)
+var _last_attacker: BioCombatant
 
 
 func _process(delta: float) -> void:
@@ -174,6 +176,8 @@ func _tick_burn(delta: float) -> void:
 			BioPfx.burst(BioFx.root, host.global_position, _burn_color, 3, 90.0, 0.4, 8.0, Vector2.UP, 40.0)
 	if before and not actor.vitals.is_alive():
 		_burn_dps = 0.0
+		if is_instance_valid(_last_attacker):
+			_last_attacker._after_blow(self, BioHitResult.new(BioActor.HitOutcome.KILLED, 0.0))
 		died.emit(self)
 
 
@@ -456,6 +460,8 @@ func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
 		counter_raw = def.damage
 		def = BioAttackDef.new(def.id, def.atp_cost, def.damage * _counter_taken, def.cooldown, def.range_units, def.knockback, def.invulnerable_seconds)
 	var result := BioCombatRules.resolve(attacker.actor, actor, def, now)
+	if result.damage_applied > 0.0:
+		_last_attacker = attacker
 	if result.outcome == BioActor.HitOutcome.IGNORED:
 		return result
 	hit.emit(self, result)
@@ -525,6 +531,7 @@ func _after_blow(victim: BioCombatant, result: BioHitResult) -> void:
 			actor.refund_cooldowns(now, _hunt_refund)
 			actor.vitals.add_atp(_hunt_atp)
 	if killed:
+		enemy_defeated.emit(victim)
 		_kills.append(now)
 		_kills = _kills.filter(func(t: float) -> bool: return now - t <= 30.0)
 	elif now < _stance_until and stance == &"m1":  # M1 sets what it hits alight
