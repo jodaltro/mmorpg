@@ -106,6 +106,13 @@ func _ready() -> void:
 		close()
 		world.reset_dialog.open())
 	interior.add_child(restart)
+	var tutorial_button := BioUi.button("Rever / continuar tutorial")
+	tutorial_button.position = Vector2(20, 166)
+	tutorial_button.size = Vector2(296, 40)
+	tutorial_button.pressed.connect(func() -> void:
+		close()
+		world.tutorial.start(world.tutorial.completed))
+	interior.add_child(tutorial_button)
 	_settings = Control.new()
 	_settings.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	_settings.offset_left = 20
@@ -351,6 +358,11 @@ func _refresh_aim() -> void:
 		return
 	var player: BioCellActor = world.player
 	var near := BioTargeting.enemies(player.get_world_2d(), player.global_position, AUTO_AIM_UNITS * BioArt.UNIT, player.combatant.actor.team)
+	# Replicas have no combat collision; aiming is presentation, validated again by the host.
+	if world.online_client != null:
+		for node in get_tree().get_nodes_in_group("cells"):
+			if node is BioCellActor and node != player and node.get_world_2d() == player.get_world_2d() and node.combatant.team() != player.combatant.team() and node.is_active() and node.global_position.distance_to(player.global_position) <= AUTO_AIM_UNITS * BioArt.UNIT and not near.has(node):
+				near.append(node)
 	var nearest: BioCellActor = null
 	var best := INF
 	# Keep a valid target until another is substantially closer.

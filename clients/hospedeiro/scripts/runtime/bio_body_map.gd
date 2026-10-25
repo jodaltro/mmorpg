@@ -4,6 +4,7 @@ extends RefCounted
 ## flow of the blood. Distances are in world units; *_px helpers return pixels. Region ids match the universe.
 
 const MEDULA := &"medula"
+const TRAINING_POINT := Vector2(3, 2)
 const SANGUE := &"sangue"
 const CORACAO := &"coracao"
 const PULMAO := &"pulmao"

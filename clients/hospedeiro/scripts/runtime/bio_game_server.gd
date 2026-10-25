@@ -26,6 +26,7 @@ func _ready() -> void:
 	arena.save_path = ""
 	arena.identity_path = ""
 	add_child(arena)
+	arena.ensure_training_target()
 	arena.set_process(false)
 	arena.player.set_active(false)
 	for n in arena.get_children():
@@ -339,6 +340,9 @@ func _snapshot() -> void:
 				d["traits"] = players[uid].view.get("look", {}).get("traits", {})
 				d["axes"] = players[uid].view.get("look", {}).get("axes", {})
 			else:
+				if cell.has_meta("training"):
+					d["kind"] = "training"
+					d["practice"] = (cell.combatant as BioTrainingCombatant).practice
 				d["enemy_kind"] = str(cell.get_meta("kind", "virion"))
 				for child in cell.get_children():
 					if child is BioCellBody: d["combat_visual"] = (child as BioCellBody).combat_visual_state()
@@ -368,6 +372,13 @@ func _snapshot() -> void:
 			var pos := Vector2(float(e.p[0]), float(e.p[1]))
 			return e.realm == str(cell.get_world_2d().get_instance_id()) and pos.distance_squared_to(cell.global_position) < pow(100.0 * BioArt.UNIT, 2))
 		var cooldowns := {}
+		# A practice hit belongs to its player, just like tutorial progress.
+		for i in near.size():
+			if near[i].get("kind") == "training":
+				var specific: Dictionary = near[i].duplicate()
+				var key := "nk-" + str(id)
+				specific["practice"] = {key: specific.get("practice", {}).get(key, {})}
+				near[i] = specific
 		for key in cell.combatant.actor._ready_at:
 			cooldowns[str(key)] = cell.combatant.actor.cooldown_remaining(key, BioClock.now())
 		var speed := cell.combatant.actor.stat(BioGene.SPEED) * cell.combatant.speed_mult()

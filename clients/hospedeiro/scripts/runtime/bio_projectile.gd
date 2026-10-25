@@ -48,7 +48,7 @@ func _on_body_entered(body: Node) -> void:
 	if target.combatant == _owner_combatant or not BioCombatRules.can_hit(_owner_combatant.actor, target.combatant.actor):
 		return
 	var result := target.combatant.receive_hit(_owner_combatant, _def)
-	if result.outcome != BioActor.HitOutcome.EVADED:
+	if result.outcome == BioActor.HitOutcome.HIT or result.outcome == BioActor.HitOutcome.KILLED:
 		target.apply_impulse(_direction * _def.knockback)
 	_fizzle()
 

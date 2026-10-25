@@ -101,6 +101,10 @@ func test_the_class_button_gives_the_class_and_its_abilities() -> void:
 func test_the_test_buttons_spawn_clear_refill_and_protect() -> void:
 	world.debug_menu.press("5 vírions à frente")
 	await tree.process_frame
+	assert_eq(world.viruses().size(), 0, "even debug spawns respect the Medula sanctuary")
+	world.player.position = BioBodyMap.center_px(BioBodyMap.SANGUE)
+	world.debug_menu.press("5 vírions à frente")
+	await tree.process_frame
 	assert_eq(world.viruses().size(), 5, "five virions")
 	world.debug_menu.press("Limpar vírions")
 	await tree.create_timer(0.1).timeout

@@ -72,6 +72,7 @@ func in_combat() -> bool:
 	for child in world.get_children():
 		if child is BioCellActor and child != world.player:
 			var enemy := child as BioCellActor
+			if enemy.has_meta("training"): continue
 			if enemy.combatant.actor.team == BioActor.Team.VIRUS and enemy.is_active() and enemy.global_position.distance_to(world.player.global_position) < 5.0 * BioArt.UNIT:
 				return true
 	return false
@@ -192,6 +193,7 @@ func _process(delta: float) -> void:
 		_notice_left -= delta
 		if _notice_left <= 0: _status.hide()
 	var key := _offer_key()
+	if world.tutorial != null and world.tutorial.active: return
 	var combat := in_combat()
 	if modal.visible and (combat or not world.sync.link.online or key.is_empty() or key != _shown): modal.hide_modal()
 	if not key.is_empty() and key != _dismissed and not modal.visible and not combat and world.player.is_active() and world.sync.link.online and not world.dungeon.active and not BioUi.captures_input():

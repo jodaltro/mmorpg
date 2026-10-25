@@ -239,7 +239,30 @@ static func create_body_boundary(parent: Node, outline_units: PackedVector2Array
 	return wall
 
 
-static func _make_actor(parent: Node, node_name: String, pos: Vector2) -> BioCellActor:
+static func spawn_training_target(parent: Node, pos: Vector2) -> BioCellActor:
+	var cell := _make_actor(parent, "TrainingTarget", pos, BioTrainingCombatant.new())
+	cell.set_meta("training", true)
+	cell.add_to_group("training_targets")
+	cell.combatant.configure("practice", BioActor.Team.VIRUS, 100, 100, 0)
+	cell.combatant.set_process(false)
+	cell.set_physics_process(false)
+	var body := BioCellBody.new()
+	body.configure(0.65, BioArt.CYAN, BioArt.JADE, 0, 0, 0, 8)
+	cell.add_child(body)
+	var label := Label.new()
+	label.text = "ALVO DE TREINO\nInofensivo · sem recompensas"
+	label.position = Vector2(-110, -68)
+	label.size.x = 220
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 12)
+	cell.add_child(label)
+	var feedback := BioHitFeedback.new()
+	feedback.configure(cell, body, BioArt.CYAN)
+	cell.add_child(feedback)
+	return cell
+
+
+static func _make_actor(parent: Node, node_name: String, pos: Vector2, custom_combatant: BioCombatant = null) -> BioCellActor:
 	var actor := BioCellActor.new()
 	actor.name = node_name
 	actor.position = pos
@@ -248,7 +271,7 @@ static func _make_actor(parent: Node, node_name: String, pos: Vector2) -> BioCel
 	circle.radius = 0.5 * BioArt.UNIT
 	shape.shape = circle
 	actor.add_child(shape)
-	var combatant := BioCombatant.new()
+	var combatant := custom_combatant if custom_combatant != null else BioCombatant.new()
 	combatant.name = "Combatant"
 	actor.add_child(combatant)
 	actor.combatant = combatant

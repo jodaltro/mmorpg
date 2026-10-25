@@ -302,9 +302,11 @@ func _spawn(data: Dictionary) -> Node2D:
 		world.add_child(m)
 		m.set_process(false)
 		return m
-	if kind == "player" or kind == "enemy":
+	if kind == "player" or kind == "enemy" or kind == "training":
 		var cell: BioCellActor
-		if kind == "player":
+		if kind == "training":
+			cell = BioFactory.spawn_training_target(world, at)
+		elif kind == "player":
 			cell = BioFactory.spawn_player(world, at)
 			var label := Label.new()
 			label.text = str(data.get("name", "Célula"))
@@ -337,6 +339,8 @@ func _spawn(data: Dictionary) -> Node2D:
 
 
 func _apply_actor(cell: BioCellActor, data: Dictionary) -> void:
+	if cell.has_meta("training"):
+		(cell.combatant as BioTrainingCombatant).practice = data.get("practice", {})
 	var v := cell.combatant.actor.vitals
 	v.max_membrane = float(data.get("max_hp", 100))
 	v.max_atp = float(data.get("max_atp", 100))

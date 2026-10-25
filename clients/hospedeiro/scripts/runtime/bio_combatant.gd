@@ -422,6 +422,8 @@ func speed_mult() -> float:
 
 
 func receive_hit(attacker: BioCombatant, hit_def: BioAttackDef) -> BioHitResult:
+	if actor.team == BioActor.Team.CELL and is_instance_valid(attacker.get_parent()) and attacker.get_parent().has_meta("sanctuary_bound") and get_parent() is Node2D and BioSanctuary.contains(BioBodyMap.seed_value, (get_parent() as Node2D).global_position / BioArt.UNIT):
+		return BioHitResult.new(BioActor.HitOutcome.IGNORED, 0)
 	var now := BioClock.now()
 	var factor := (_guard_mult if now < _guard_until else 1.0) * attacker.damage_dealt_mult * attacker.dealing_mult(now)
 	var lands := BioCombatRules.can_hit(attacker.actor, actor) and hit_def.damage > 0.0

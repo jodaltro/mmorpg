@@ -87,6 +87,7 @@ func retarget(prey: BioCellActor) -> void:
 
 ## Instant velocity change in world units per second.
 func apply_impulse(units_per_second: Vector2) -> void:
+	if has_meta("training"): return
 	velocity += units_per_second * BioArt.UNIT
 
 
@@ -112,6 +113,7 @@ func is_active() -> bool:
 
 
 func _physics_process(delta: float) -> void:
+	var previous := global_position
 	if is_active():  # a ghost is not there for the other cells: they neither block it nor are pushed by it, nor can they hit it
 		collision_layer = 0 if is_ghost() else LAYER_COMBATANT
 		collision_mask = LAYER_WALL if is_ghost() else (LAYER_COMBATANT | LAYER_WALL)
@@ -125,11 +127,13 @@ func _physics_process(delta: float) -> void:
 			var normal := crash.get_normal()
 			_roll_velocity = _roll_velocity.bounce(normal)
 			bumped.emit(crash.get_collider(), normal)
+		_respect_sanctuary(previous)
 		return
 	if combatant != null and combatant.is_stunned():  # asleep or in a crystal: it only drifts to a halt
 		_dash_until = 0.0
 		velocity -= velocity * minf(1.0, damping * 2.0 * delta)
 		move_and_slide()
+		_respect_sanctuary(previous)
 		return
 	if is_dashing():
 		velocity = _dash_velocity
@@ -137,3 +141,12 @@ func _physics_process(delta: float) -> void:
 		var speed_stat := combatant.actor.stat(BioGene.SPEED) * combatant.speed_mult() * (_slow_factor if BioClock.now() < _slow_until else 1.0)
 		velocity = BioMovementModel.step(velocity, intent, delta, thrust_units, max_speed_units, damping, speed_stat, BioArt.UNIT)
 	move_and_slide()
+	_respect_sanctuary(previous)
+
+
+func _respect_sanctuary(previous: Vector2) -> void:
+	if has_meta("sanctuary_bound") and BioSanctuary.contains(BioBodyMap.seed_value, global_position / BioArt.UNIT):
+		global_position = previous
+		velocity = Vector2.ZERO
+		_dash_until = 0
+		_roll_until = 0

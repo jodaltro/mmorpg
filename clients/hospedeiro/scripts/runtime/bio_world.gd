@@ -1,5 +1,7 @@
 class_name BioWorld
 extends Node2D
+
+var tutorial: BioTutorial
 ## Composition root: the marrow and the blood, camera, glow, player, HUD, population upkeep, the
 ## mutation loop and the link to the engine (BioHostSync). Plays offline when the engine is absent.
 
@@ -252,11 +254,20 @@ func build() -> void:
 		add_child(online_client)
 	if BioPlatform.is_touch():
 		_build_for_touch()
+	tutorial = BioTutorial.new()
+	tutorial.world = self
+	add_child(tutorial)
 	if BioWebProbe.wanted():
 		var probe := BioWebProbe.new()
 		probe.name = "WebProbe"
 		probe.world = self
 		add_child(probe)
+
+
+func ensure_training_target() -> BioCellActor:
+	for node in get_tree().get_nodes_in_group("training_targets"):
+		if node.get_parent() == self: return node as BioCellActor
+	return BioFactory.spawn_training_target(self, BioBodyMap.TRAINING_POINT * BioArt.UNIT)
 
 
 ## A phone or tablet: the interface sized for a thumb, the on-screen controls, and the HUD rearranged around them.
@@ -1000,11 +1011,14 @@ func _on_wild_kill(at: Vector2) -> void:
 
 ## A wild thing of an organ (see BioBestiary): counted with the virions, so it is streamed, slowed by fever and paid in pressure alike.
 func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
+	if BioSanctuary.contains(seed_value, pos / BioArt.UNIT): return
 	var def := BioDungeonPlan.enemy(kind)
 	for i in int(def.get("group", 1)):
 		var at := pos + Vector2.from_angle(randf() * TAU) * (0.8 * BioArt.UNIT if i > 0 else 0.0)
+		if BioSanctuary.contains(seed_value, at / BioArt.UNIT): continue
 		var brain := BioFactory.spawn_enemy(self, at, player, def, FEVER_SLOWDOWN if fever else 1.0, "viruses")
 		var host := brain.get_parent() as BioCellActor
+		host.set_meta("sanctuary_bound", true)
 		host.set_meta("kind", str(kind))
 		host.set_meta("base_speed", float(def["speed"]))
 		host.combatant.died.connect(func(_who: BioCombatant) -> void:
@@ -1016,8 +1030,10 @@ func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
 
 
 func _spawn_virus_at(pos: Vector2) -> void:
+	if BioSanctuary.contains(seed_value, pos / BioArt.UNIT): return
 	var brain := BioFactory.spawn_virus(self, pos, player)
 	var host := brain.get_parent() as BioCellActor
+	host.set_meta("sanctuary_bound", true)
 	host.max_speed_units = _virus_speed()
 	host.combatant.died.connect(func(_who: BioCombatant) -> void: _on_wild_kill(host.global_position))
 

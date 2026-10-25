@@ -77,9 +77,11 @@ func _process(_delta: float) -> void:
 		_controller.set_aim(_host.get_global_mouse_position() - _host.global_position)
 	if BioUi.captures_input():  # a click on a window is not an attack
 		return
-	if Input.is_action_pressed("bio_lash"):
+	var world := _host.get_parent() as BioWorld
+	var pointer_blocked := world != null and world.tutorial != null and world.tutorial.blocks_pointer()
+	if Input.is_action_pressed("bio_lash") and not (pointer_blocked and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 		_controller.lash()
-	if Input.is_action_pressed("bio_spit"):
+	if Input.is_action_pressed("bio_spit") and not (pointer_blocked and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
 		_controller.spit()
 	if Input.is_action_just_pressed("bio_dash"):
 		_controller.dash()
