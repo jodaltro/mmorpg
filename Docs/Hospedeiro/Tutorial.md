@@ -14,4 +14,12 @@ Pausar salva a etapa. A entrada seguinte retoma um guia incompleto. O menu mobil
 
 Sem motor, Estroma é identificado como demonstração offline. Não se inventam conversas, missões ou progresso do mundo.
 
+## Depois do tutorial
+
+O cartão compacto **Próximo passo** permanece disponível após a conclusão. Prioriza o destino marcado no atlas, a missão ativa, um chamado aguardando resposta e as escolhas de evolução. Na ausência deles, orienta a saída da Medula para o Sangue; lá, sugere o primeiro vírion e cinco nutrientes antes de explicar a continuidade da evolução. Essas sugestões não criam missões, recompensas ou progresso: online, os contadores vêm da visão privada confirmada pelo motor; offline, dos acontecimentos locais confirmados.
+
+A trilha azul animada aponta para trechos dos vasos, respeitando as passagens abertas. Missões iniciais com destino conhecido têm orientação explícita; missões dinâmicas sem localização conhecida mantêm seu objetivo textual, sem inventar coordenadas. Marcar um local no atlas substitui temporariamente a sugestão; a marca pode ser limpa no cartão e termina ao chegar perto do destino. Menus, tutorial reaberto, morte e masmorras ocultam o cartão e a trilha.
+
+O atlas inicia ampliado nos locais conhecidos, com opção de ver o corpo inteiro. A legenda distingue jogador, regiões, vasos e masmorras. **Locais e masmorras** oferece botões grandes, explicações de NPCs, nutrientes e vírions, e detalhes das entradas conhecidas. Masmorras são apresentadas como desafios opcionais em instâncias pessoais, com salas e chefe; disponibilidade e impedimentos usam os dados recebidos pelo cliente. Marcar caminho não entra automaticamente nem libera uma entrada bloqueada. Os portais no mundo também levam o rótulo **Masmorra**.
+
 Referências consultadas em 25/10/2026: [Roblox — Onboarding techniques](https://create.roblox.com/docs/production/game-design/onboarding-techniques), com o foco visual de Hello Kitty Cafe e trilhas no mundo; [Apple — Onboarding for Games](https://developer.apple.com/app-store/onboarding-for-games/), com etapas curtas e prática progressiva. São referências de interação; nenhum asset desses jogos é redistribuído.

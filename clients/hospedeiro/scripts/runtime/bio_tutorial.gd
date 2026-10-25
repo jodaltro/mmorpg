@@ -14,7 +14,7 @@ const STEPS := [
 	["Converse e descubra ações", "Perto de Estroma, toque em Agir para ver as ações disponíveis. Leia as opções e feche a janela para continuar.", "Perto de Estroma, pressione E para ver as ações disponíveis. Depois feche a janela."],
 	["Acompanhe suas missões", "Abra Menu → Missões. Veja ofertas e objetivos: eles indicam quem ajudar e quais invasores atacar. Feche a janela depois de explorar.", "Clique no quadro de missões no canto superior direito. Veja os objetivos e feche a janela."],
 	["Construa sua célula", "Abra Corpo. Genes modificam seu organismo; a experiência de jogo permite diferenciar sua classe. Não há níveis nem XP. Fora de combate, você verá um convite quando puder evoluir.", "Pressione G para abrir Corpo e conhecer genes, classe e habilidades."],
-	["Pronto para explorar", "Você já pode sair da Medula rumo ao Sangue, à direita no mapa. Ataque apenas invasores e alvos indicados nas missões. Estroma e os outros NPCs são seus vizinhos. O refúgio continua seguro para treinar.", "Reveja este guia quando quiser pelo botão Tutorial."]
+	["Seu primeiro destino: o Sangue", "Ao concluir, siga a trilha azul pelo canal à direita da Medula. No Sangue, combata vírions e absorva nutrientes para evoluir. O botão Próximo passo acompanha seu objetivo. Toque nos símbolos do mapa para entender os locais; masmorras são desafios opcionais para depois.", "Reveja este guia quando quiser pelo botão Tutorial."]
 ]
 
 var world: BioWorld

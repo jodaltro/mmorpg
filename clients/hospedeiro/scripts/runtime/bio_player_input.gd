@@ -79,6 +79,7 @@ func _process(_delta: float) -> void:
 		return
 	var world := _host.get_parent() as BioWorld
 	var pointer_blocked := world != null and world.tutorial != null and world.tutorial.blocks_pointer()
+	pointer_blocked = pointer_blocked or (world != null and world.journey != null and world.journey.blocks_pointer())
 	if Input.is_action_pressed("bio_lash") and not (pointer_blocked and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 		_controller.lash()
 	if Input.is_action_pressed("bio_spit") and not (pointer_blocked and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):

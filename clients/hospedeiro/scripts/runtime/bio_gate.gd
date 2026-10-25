@@ -48,11 +48,11 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, r * 0.14, Color(0.1, 0.2, 0.05, 0.6))
 	var font := ThemeDB.fallback_font
 	var color := Color(0.85, 1.0, 0.6, 0.95) if eligible else Color(0.7, 0.75, 0.8, 0.8)
-	draw_string(font, Vector2(-100.0, r + 34.0), title, HORIZONTAL_ALIGNMENT_CENTER, 200.0, 24, color)
+	draw_string(font, Vector2(-150.0, r + 34.0), "◇ MASMORRA · " + title, HORIZONTAL_ALIGNMENT_CENTER, 300.0, 18, color)
 	var line := ""
 	if is_near():
 		draw_arc(Vector2.ZERO, r * 1.2, 0.0, TAU, 56, Color(1, 1, 1, 0.5 + 0.3 * pulse), 2.0, true)
-		line = ("Toque em Agir para entrar" if BioPlatform.is_touch() else "Aperte E para entrar") if eligible else hint
+		line = ("Desafio em salas · Agir para entrar" if BioPlatform.is_touch() else "Desafio em salas · E para entrar") if eligible else (hint if not hint.is_empty() else "Indisponível · consulte Agir")
 	elif eligible:
 		line = "uma masmorra: chegue perto"
 	if line != "":

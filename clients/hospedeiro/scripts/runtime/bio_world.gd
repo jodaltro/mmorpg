@@ -2,6 +2,7 @@ class_name BioWorld
 extends Node2D
 
 var tutorial: BioTutorial
+var journey: BioJourney
 ## Composition root: the marrow and the blood, camera, glow, player, HUD, population upkeep, the
 ## mutation loop and the link to the engine (BioHostSync). Plays offline when the engine is absent.
 
@@ -257,6 +258,9 @@ func build() -> void:
 	tutorial = BioTutorial.new()
 	tutorial.world = self
 	add_child(tutorial)
+	journey = BioJourney.new()
+	journey.world = self
+	add_child(journey)
 	if BioWebProbe.wanted():
 		var probe := BioWebProbe.new()
 		probe.name = "WebProbe"
@@ -805,7 +809,11 @@ func _process(delta: float) -> void:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
 	var guide_gate := _nearest_open_gate()
-	if guide_gate != null and not dungeon.active and player.is_active():
+	if journey != null and journey.has_target:
+		hud.set_guide(true, journey.target - player.global_position, "➤ " + journey.destination)
+	elif journey != null and tutorial.completed and not dungeon.active and player.is_active():
+		hud.set_guide(false, Vector2.ZERO, "")
+	elif guide_gate != null and not dungeon.active and player.is_active():
 		var to := guide_gate.global_position - player.global_position
 		var far := to.length() > 9.0 * BioArt.UNIT
 		hud.set_guide(far, to, "%s  %s · %d" % ["➤", guide_gate.title.capitalize(), roundi(to.length() / BioArt.UNIT)])
