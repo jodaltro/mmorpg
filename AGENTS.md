@@ -47,6 +47,13 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 
 ## Hospedeiro (MMORPG dentro de um corpo humano)
 
+### Conflitos globais persistentes — decisão 26/10/2026
+
+- A direção vigente de gameplay está em `Docs/Hospedeiro/LivingWorldConflicts.md`: **NPCs vivos e conflitos globais persistentes** em vez de masmorras instanciadas no Hospedeiro. O conteúdo de dungeon nos documentos antigos é legado e deverá ser migrado, não replicado em novas features.
+- NPCs precisam trabalhar, perceber, pedir/aceitar ajuda e manter relações e memória pelo motor; participação em conflitos é livre, sem exigir aceitar uma missão. O HUD prioriza um conflito acompanhado e pedidos contextuais, com alertas grandes porém deduplicados.
+- **Ainda não implementado:** o repositório contém cinco dungeons e fluxos legados; migrar por fases, com QA local, sem resetar mundos e sem remover prematuramente serviços do motor genérico.
+- Continuar usando o motor Go puro/determinístico, Godot autoritativo, Nakama e Jev assíncrono; Java não deve introduzir outra fonte de verdade.
+
 Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, compartilhado por todos. Visão em `Docs/Hospedeiro/BiologicalVersion.md`, estrutura em `Docs/Hospedeiro/GameStructure.md`, dados científicos em `Docs/Hospedeiro/HostScience.md`. Ler antes de mudar regras do Hospedeiro.
 
 - Universo `universes/hospedeiro/universe.json` (Medula e Sangue). Cliente Godot 4.7 em `clients/hospedeiro/`: conecta ao motor em `127.0.0.1:8096` (porta própria, para não colidir com Valdoria na 8095) e, sem motor, joga em **modo offline**.
