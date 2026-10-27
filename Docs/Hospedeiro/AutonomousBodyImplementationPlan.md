@@ -3,6 +3,8 @@
 > **Data:** 27/10/2026 · **Branch obrigatória:** `main` · **Status:** plano de implementação para Claude Code, NÃO implementação executada.  
 > **Objetivo de entrega final:** múltiplos agentes celulares autônomos trabalham, percebem, lembram, cooperam, reagem e tomam decisões constantemente dentro de um organismo persistente, com ou sem jogadores; conflitos fisiológicos globais emergem, evoluem e se resolvem por causalidade, não por filas de quests ou dungeons privadas.
 
+**Catálogo funcional por tipo de célula:** [AutonomousCellBehaviorAtlas.md](AutonomousCellBehaviorAtlas.md) — rotinas, papel, comunicação, cooperação, falhas, exemplos emergentes e testes de vivacidade.
+
 **Leia antes de executar:** [AGENTS.md](../../AGENTS.md), [Architecture.md](../Architecture.md), [GameVision.md](../GameVision.md), [LivingWorldConflicts.md](LivingWorldConflicts.md), [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md), [Nakama.md](Nakama.md), [PersonalWorlds.md](PersonalWorlds.md), [GameStructure.md](GameStructure.md), [HostScience.md](HostScience.md), [ExplorationPlan.md](ExplorationPlan.md). O documento antigo GameStructure serve como referência técnica legada; conflito persistente substitui dungeon instanciada como loop central.
 
 ## 0. DEFINIÇÃO DE PRONTO — experiência observável
