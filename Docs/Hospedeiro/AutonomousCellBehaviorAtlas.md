@@ -1,6 +1,7 @@
 # Atlas de comportamentos — sociedade celular autônoma do Hospedeiro
 
 > **Branch:** main · **27/10/2026** · **Estado:** especificação de conteúdo/IA para implementação em fases, sem pretensão de precisão médica quantitativa.  
+> Direção de arte e animação de cada papel: [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md), storyboards V01–V16; intervenções precisam de corpo, contato, progresso e consequência visível.
 > Vinculado ao [Plano Mestre](AutonomousBodyImplementationPlan.md), [Runbook Claude Code](ClaudeCodeAutonomousBodyRunbook.md) e [Gates QA](AutonomousBodyQualityGates.md).
 
 ## 1. Princípio: cada célula existe por um trabalho, não por ser um quest giver
@@ -217,6 +218,24 @@ OnAnswer(answer, revision):
 - Não chamar Jev para a mesma escolha repetidamente se mundo/risco/recursos não mudaram.
 - Alertas globalizados representam **mudança de condição material relevante**; microeventos pessoais/locais vão ao contexto ou ao diário, não a banners grandes.
 
+## 8A. Assinatura visual e gestos por papel (critério de NPC completo)
+
+O Atlas especifica **comportamento de verdade**; [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md) define **como esse trabalho é percebido**. Os dois são obrigatórios e devem evoluir juntos, não em fases desconectadas.
+
+| NPC | Forma e movimento | Trabalho visual polido | Reação a obstáculo/ajuda | Storyboard |
+|---|---|---|---|---|
+| **Rubra (hemácia)** | disco orgânico flexível, oscilação no fluxo e vesículas no interior | transportar e transferir oxigênio com ligação ao tecido | desacelerar, sinalizar, pedir ajuda, reconhecer intervenção e retomar entrega | V01/V02 |
+| **Neva (neutrófila)** | lobos e pseudópodes ágeis, atenção direcional | quimiotaxia, patrulha e combate defensivo com telegraph | pedir reforço e trabalhar em formação sem spawn fictício | V04 |
+| **Dendra (dendrítica)** | prolongamentos exploratórios e gestos de varredura | investigar e recolher antígeno, comunicar por sinais/rota | revisar crença falsa, entregar informação e participar de escolta | V05/V09 |
+| **Osteia (estroma)** | ancoragem e pulsações de matriz | nutrir nicho com transferência de material | reduzir ritmo sob falta de suprimento, agradecer reposição | V07 |
+| **Macrófago** | corpo pesado e pseudópodes envolventes | fagocitose, vacúolos e limpeza material da região | interromper/soltar alvo em falha, solicitar apoio e avançar limpeza | V03 |
+| **Plaqueta** | partículas/células pequenas e agrupadas | aderir e formar trama de reparação em camadas | pedir proteção, mostrar brecha persistente e progresso proporcional ao reparo | V06 |
+| **Órgãos e ambiente** | membranas, veias, partículas de fluxo e tecido com profundidade moderada | reação gradual a oxigenação, perfusão, inflamação, ferimento e recuperação | diferenciação entre fase crítica, contida e curada com causa validada | V13 |
+
+**Regra:** a animação de `confirmed` depende de resultado autorizado, não do simples início da pose. Cada intervenção deve ter estados `idle/notice/approach/anticipate/contact/progress/confirmed/fail/recover` relevantes, blending/interrupção e material que muda por trabalho real. A mesma tarefa fora da câmera continua em Go, sem necessidade de efeito visual.
+
+**Começar por Rubra/Neva/Dendra/macrófago/plaqueta/Osteia** antes de expandir para as demais 14 famílias. Ao adicionar uma nova família de NPC, entregar simultaneamente comportamento, silhueta, gesto de trabalho, feedback de falha, sincronização e LOD, com testes headless/visuais e benchmark mobile. **Não marcar novo tipo de intervenção como pronto sem animação funcionalmente expressiva**.
+
 ## 9. Avaliação de autonomia por tipo
 
 Para cada papel, exigir caso de teste que prove:
@@ -229,7 +248,9 @@ Para cada papel, exigir caso de teste que prove:
 7. responde à ajuda do jogador sem obrigar aceite de quest;
 8. interrompe pedido após solução;
 9. mantém estado após reload e fora de câmera;
-10. não realiza ação biológica de outra linhagem sem regra explícita.
+10. não realiza ação biológica de outra linhagem sem regra explícita;
+11. sua ação é visualmente distinta, com aproximação, contato, progresso e resultado confirmados;
+12. os efeitos não reiniciam ao reconectar e têm preset econômico/reduced-motion legível.
 
 **Fim de jogo desejado:** uma pessoa passeia pelo pulmão e vê um contexto em andamento, com células que têm tarefas compreensíveis, respostas individuais e efeitos sistêmicos — não um corredor de NPCs com símbolos de exclamação.
 
