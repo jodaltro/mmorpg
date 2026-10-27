@@ -1,5 +1,7 @@
 # Mmorpg — instruções para agentes
 
+> **PRIORIDADE VIGENTE — 27/10/2026 (Hospedeiro Vivo):** o objetivo do Hospedeiro é uma sociedade celular de NPCs autônomos, trabalhando continuamente enquanto o motor estiver ligado, e conflitos fisiológicos globais em lugar de dungeons instanciadas. Implementar **por fases**, seguindo nesta ordem: [Plano Mestre](Docs/Hospedeiro/AutonomousBodyImplementationPlan.md), [Runbook Claude Code](Docs/Hospedeiro/ClaudeCodeAutonomousBodyRunbook.md), [Quality Gates](Docs/Hospedeiro/AutonomousBodyQualityGates.md), [Visão de Conflitos](Docs/Hospedeiro/LivingWorldConflicts.md) e [Arquitetura Jev](Docs/Hospedeiro/JevCognitiveArchitecture.md). **Esta regra de preservar saves e migrar antes de excluir substitui qualquer autorização antiga de refatoração destrutiva quando houver dados atuais em risco.** As instruções legadas de masmorras e quests do Hospedeiro devem ser tratadas como histórico até a migração. Não declarar implementado o que é apenas especificação. **Branch main sempre.**
+
 ## Direção vigente (19/10/2026)
 
 O projeto foi refeito a partir do zero como **World Simulation Engine**: um motor de mundo vivo para MMORPG, **agnóstico à interface** (Unity, Unreal, Godot, 2D, 3D, web). Inspiração: *Shangri-La Frontier* e *Overgeared*: história fixa do mundo, cenários únicos que só um jogador conclui, continuações dinâmicas para os demais, missões pessoais e NPCs que agem pelo que sabem. Leitura obrigatória antes de mudar regras: `Docs/GameVision.md` e `Docs/Architecture.md`.
