@@ -47,6 +47,8 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 
 ## Hospedeiro (MMORPG dentro de um corpo humano)
 
+- Pesquisa e plano de intensificação cognitiva do Jev em `Docs/Hospedeiro/JevCognitiveArchitecture.md` (27/10/2026): Jev como avaliador estruturado por lotes, memória filtrada com procedência, comparação 1.13/1.14 em QA, `Step` continua autoridade. Não mudar modelo, custo nem contratos sem benchmarks e teste de replay.
+
 ### Conflitos globais persistentes — decisão 26/10/2026
 
 - A direção vigente de gameplay está em `Docs/Hospedeiro/LivingWorldConflicts.md`: **NPCs vivos e conflitos globais persistentes** em vez de masmorras instanciadas no Hospedeiro. O conteúdo de dungeon nos documentos antigos é legado e deverá ser migrado, não replicado em novas features.
