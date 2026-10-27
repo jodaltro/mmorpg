@@ -1,5 +1,7 @@
 # Hospedeiro — estrutura do jogo: do RPG ao MMORPG
 
+> **DECISÃO MAIS RECENTE — 26/10/2026:** o ciclo de jogo do Hospedeiro passa a ser **NPCs vivos + conflitos globais persistentes**, sem masmorras instanciadas como experiência final. Missões tradicionais deixam de ocupar o centro da interface; pedidos de ajuda são contextuais e objetivos pertencem aos conflitos. A especificação vigente é [LivingWorldConflicts.md](LivingWorldConflicts.md), que **substitui as diretrizes antigas de dungeons, conteúdo instanciado, fases de entrega e apresentação de missões** deste documento. As partes abaixo permanecem como histórico e descrição do legado implementado; **essa mudança ainda não foi migrada para o código nem para o servidor real**.
+
 Plano de 22/10/2026. Nada aqui está implementado, exceto o que está marcado como **feito**. Complementa [BiologicalVersion.md](BiologicalVersion.md) (visão) e [HostScience.md](HostScience.md) (dados científicos).
 
 > **Exploração, mapa 10x e mecânicas do corpo:** o plano detalhado está em [ExplorationPlan.md](ExplorationPlan.md) (marcos E0 a E7).
