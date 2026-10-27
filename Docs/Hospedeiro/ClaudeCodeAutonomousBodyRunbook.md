@@ -3,6 +3,8 @@
 > **Leia primeiro:** [AutonomousBodyImplementationPlan.md](AutonomousBodyImplementationPlan.md) (P0–P16), [AutonomousBodyQualityGates.md](AutonomousBodyQualityGates.md), [LivingWorldConflicts.md](LivingWorldConflicts.md), [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md), `AGENTS.md`.  
 > **Branch: sempre `main`**. **Este arquivo é uma fila de execução; nada aqui foi implementado só porque foi escrito.**
 
+**Plano obrigatório de animação e feedback:** [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md), com storyboards V01–V16, arte procedural, contratos de estado, sincronização, LOD e gates de UX. **Implementar polimento junto de cada nova intervenção**, não como acabamento ao fim.
+
 **Atlas obrigatório de comportamentos:** [AutonomousCellBehaviorAtlas.md](AutonomousCellBehaviorAtlas.md). Implementar os seis primeiros perfis antes de acrescentar famílias novas.
 
 ## A. Prompt inicial para colar no Claude Code
@@ -158,6 +160,23 @@ Todos os IDs abaixo correspondem a entregas de código e testes. Marcadores `[ ]
 - [ ] **P10.6** Teste real com dois clientes QA no mesmo mundo e NPCs visíveis.
 **Gate:** trabalho NPC é visível, sincronizado e materialmente efetivo.
 
+### FASE P10V — Produção audiovisual polida (execução paralela às fases funcionais)
+Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md) antes de editar qualquer script de renderização.
+
+- [ ] **P10V.1** Baseline de arte e performance: prints/capturas comparáveis, FPS/frame time, nodes/partículas/CPU/GPU e controles mobile no estado anterior.
+- [ ] **P10V.2** Definir linguagem visual de hemácias, neutrófilos, macrófagos, dendríticas, plaquetas e estroma; contrastar silhuetas e movimento, preservar aparência procedural Jev.
+- [ ] **P10V.3** Implementar `BioInteractionCatalog`/apresentador/máquina de estados equivalentes: orientação, antecipação, contato, progresso real, confirmação, falha e recuperação.
+- [ ] **P10V.4** Integrar IDs e revisões de eventos autoritativos; dois clientes veem a mesma ação; pacote tardio, duplicado ou reconexão não reexecutam efeitos de conclusão.
+- [ ] **P10V.5** Criar biblioteca procedural de sinais químicos, vesículas, pseudópodes, filamentos, material de tecido, deformações, som opcional e feedback acessível — sem "mesma aura em cores diferentes".
+- [ ] **P10V.6** Rubra storyboard V01 e pedido V02: carregar, mover, obstruir, pedir ajuda, jogador ajudar, entregar e ambiente responder; sucesso APENAS após ACK.
+- [ ] **P10V.7** Neva V04, Dendra V05, macrófago V03, plaqueta V06, Osteia V07: animações polidas e diferenciadas, em tarefas reais.
+- [ ] **P10V.8** Reatividade por órgão e fase de conflito V13: inflamação, dano, cura, fluxo, recuperação com interpolação/LOD.
+- [ ] **P10V.9** Implementar presets visual alto/padrão/econômico, reduced-motion, redução de flash/shake/partículas, mobile sem perder controles.
+- [ ] **P10V.10** Ampliar V08–V12 e V14–V16 conforme novos órgãos/cooperação; revisão de animação, microinterações e áudio.
+- [ ] **P10V.11** Medir 1/20/50/100 NPCs visíveis em QA no hardware-alvo; otimizar FX/pooling/batching somente após profiling e registrar p95/p99.
+- [ ] **P10V.12** Registrar QA visual: testes headless, golden captures/vídeos antes/depois, avaliação de legibilidade/prazer e limitações no relatório `Docs/Validation`.
+**Gate:** intervenção tem forma e gesto próprios, progresso material, conclusão/falha fiéis ao servidor, qualidade e acessibilidade mobile; nenhuma fase pode ser marcada concluída com NPC estático e partículas genéricas.
+
 ### FASE P11 — HUD e alertas
 - [ ] **P11.1** Criar painel `Conflitos do Hospedeiro` e componente de evento global; preservar responsividade mobile.
 - [ ] **P11.2** Foco em um conflito + até dois resumos; detalhes dos demais no painel.
@@ -199,6 +218,7 @@ Todos os IDs abaixo correspondem a entregas de código e testes. Marcadores `[ ]
 - [ ] **P15.4** Cliente tenta forjar dano, contribuição, saúde, resultado e mensagem de NPC: tudo rejeitado.
 - [ ] **P15.5** Jev lento/offline/alucinado: replay e comportamento continuam.
 - [ ] **P15.6** Benchmark do HUD com alertas grandes, tela móvel e acessibilidade.
+- [ ] **P15.7** QA visual: 6 papéis, 16 storyboards progressivos, input→feedback→confirmação, 2 clientes, reordenação, falha, mobile em presets, desempenho e acessibilidade conforme plano V.
 **Gate:** arquivo de qualidade preenchido com resultados verdadeiros, sem regressões severas.
 
 ### FASE P16 — Release, limpeza, demonstração
@@ -207,6 +227,7 @@ Todos os IDs abaixo correspondem a entregas de código e testes. Marcadores `[ ]
 - [ ] **P16.3** Demonstrar sequência ponta a ponta: mundo vazio trabalhando → surge crise → NPC age → pede ajuda → jogador auxilia → conflito escala/contém → jogador sai → mundo continua → jogador volta → NPC lembra e alertas não repetem.
 - [ ] **P16.4** Especificar requisitos de servidor always-on para autonomia 24h.
 - [ ] **P16.5** Entregar relatório final com commits, métricas e pendências reais.
+- [ ] **P16.6** Apresentar vídeo/capturas QA com Rubra transportando, pedindo e recebendo ajuda; Neva, Dendra, macrófago e plaquetas cooperando; tecido e ambiente reagindo, inclusive falhas e recuperação; testar mobile e reduced motion.
 **Gate:** todos os critérios em `AutonomousBodyQualityGates.md` comprovados.
 
 ## E. Sequência de execução de cada fase
@@ -227,6 +248,7 @@ Para cada fase Pn:
 - **Agente Biologia/Conteúdo**: pesquisa fisiológica e proposta do JSON; entrega patch sugerido, mas integração do arquivo `universe.json` fica com único responsável.
 - **Agente Jev/Benchmark**: `engine/advisor/`, contratos do batch, fakes, latência e resultados; não altera o esquema do core sem coordenação.
 - **Agente Godot/Nakama**: cliente, servidor, snapshots e UI, sem atribuir autoridade a clientes.
+- **Agente Arte/Animação/UX**: catálogo V01–V16, procedimentos de movimento/contato, atlas material, VFX e testes visuais/performance; trabalha em arquivos Godot isolados e integra com responsável Godot.
 - **Agente QA/Red Team**: testes de exploração, dados ruins, rollback, scripts de QA e validação; escreve em arquivos próprios.
 - **Agente Documentação/Release**: guias, matriz de migração, métricas e relatório; revisa alegações de teste.
 
@@ -248,6 +270,8 @@ Isso é uma proposta de organização de trabalho para implementação. Os NPCs 
 10. Parar Jev em QA; agentes continuam pelas regras determinísticas.
 11. Reiniciar motor QA por journal; digest, conflito e relações permanecem idênticos.
 12. Capturar métricas, reexecutar e documentar os resultados.
+13. Capturar visualmente começo/contato/progresso/confirmação/falha das intervenções de Rubra/Neva/Dendra, comparando antes/depois com qualidade mobile e estado autoritativo.
+14. Repetir com dois clientes e rede/reconexão; nenhum efeito ou recompensa de conclusão pode reaparecer como novo.
 ```
 
 **Proibir atalhos:** não satisfazer o teste disparando `conflict-resolved` manualmente, emitindo apenas uma animação de NPC, inventando efeito Jev ou manipulando diretamente o HUD.
@@ -263,6 +287,7 @@ Isso é uma proposta de organização de trabalho para implementação. Os NPCs 
 | Conteúdo | `universes/hospedeiro/universe.json` | fixtures de testes, possível versão de schema |
 | Comunicação | `engine/api/http.go`, `engine/api/nakama.go` | rotas versionadas se indispensável |
 | Jogo | `bio_world.gd`, `bio_game_server.gd`, `bio_engine_link.gd` | visual NPC e sync de conflitos |
+| Animação/interação | `bio_cell_body.gd`, `bio_cell_forms.gd`, `bio_fx.gd`, `bio_art.gd` | catálogo de gestos, presenter, shaders/FX, animações V01–V16, testes visuais |
 | HUD | `bio_hud.gd`, `bio_dungeon_panel.gd` | painel global e notificação NPC |
 | Testes | `engine/scenarios`, `clients/hospedeiro/tests` | novos cenários de autonomia e conflitos |
 | Migração | `engine/store/filelog.go`, docs de deployment | ferramenta de migração e relatório de reversão |
