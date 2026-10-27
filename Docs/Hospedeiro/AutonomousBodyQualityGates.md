@@ -3,6 +3,8 @@
 > **Status:** critérios a executar no Claude Code; nenhuma linha deste documento indica teste já realizado.  
 > **Branch:** `main` · **QA:** exclusivamente local/isolado; **não resetar mundo compartilhado**.
 
+Os requisitos gráficos e animações são detalhados em [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md): **gates V-G1–V-G12 obrigatórios** para cada intervenção, inclusive sincronização, falhas, desempenho e acessibilidade.
+
 Este documento vincula [AutonomousBodyImplementationPlan.md](AutonomousBodyImplementationPlan.md) ao [ClaudeCodeAutonomousBodyRunbook.md](ClaudeCodeAutonomousBodyRunbook.md).
 
 ## 1. Cinco gates obrigatórios para cada funcionalidade
@@ -14,6 +16,7 @@ Este documento vincula [AutonomousBodyImplementationPlan.md](AutonomousBodyImple
 | G-SEC | player não declara dano, cura, contribuição, verdade do mundo ou prêmio | testes API e headless |
 | G-UX | UI acessível, não bloqueante, sem alertas duplicados | Godot e browser QA |
 | G-MIG | mundos antigos não perdem progressão/registro e modo pessoal permanece válido | fixtures e ensaio de migração reversível |
+| G-VIS | intervenção tem animação polida específica, progresso e resultado material legíveis; feedback sincronizado, testado em mobile e reduced-motion | storyboards V01–V16, dois clientes QA, captura antes/depois, profiling e gates V-G1–V-G12 |
 
 Somente promover uma etapa quando seus gates aplicáveis estiverem verdes com comando real registrado em `Docs/Validation`. Um TODO, teste não executado ou GIF bonito não satisfaz gate.
 
@@ -178,6 +181,18 @@ Testar requestId repetido, NPC falso, HP/dano falso, conflito inexistente, ajuda
 ### QA-15 — Jev e escalabilidade
 Executar mesmos snapshots rotulados em variantes: Go puro, Jev 1.13 pergunta única, Jev 1.13 lotes 8/16/32/64, Jev 1.14 lotes 8/16/32/64 **se endpoint realmente suportar**. Medir utilidade/erros, diversidade de papéis, latência, custo e conflitos de recursos. Não publicar ganho estatístico com amostra inadequada.
 
+### QA-16 — Animações polidas e interações celulares (P10V)
+1. Instanciar Rubra, Neva, Dendra, Osteia, macrófago e plaqueta em QA; verificar silhuetas e animações específicas que indiquem função **sem texto**.
+2. Rubra recebe carga de O2, chega ao bloqueio, pede ajuda, recebe intervenção e entrega ao tecido; comparar estados `anticipate`, `contact`, `progress`, `confirmed`, `cancel`.
+3. Macrófago faz fagocitose e plaquetas selam ferida somente quando o resultado é confirmado; mudança do tecido segue indicador autoritativo, com falha visual se não der certo.
+4. Jogador e NPC cooperam; os dois clientes veem animação/contato/progresso no mesmo ID canônico. Enviar pacotes duplicados, atrasados e fora de ordem; reconectar no meio da animação.
+5. Conferir conflito escalar/recuperar e ambiente reagir; sem flashes repetitivos nem poluição de partículas sobre telegraphs ou controles.
+6. Alternar alto/padrão/econômico e reduced-motion, som mudo, tela pequena e touch; a informação importante persiste.
+7. Repetir em QA com 1, 20, 50 e 100 NPCs visíveis **como cenários de carga, não metas garantidas**; registrar CPU/GPU, frame-time p95/p99, nós/partículas, alocações, banda e input latency.
+8. Capturar antes/depois em mesmo cenário/seed e registrar observações de participantes: compreenderam a ação? Sentiram vontade de intervir? Entenderam se deu certo?
+
+**Falha:** todos os NPCs usam mesma aura ou pose, a conclusão aparece antes do servidor, animacao reinicia ao reaparecer, FX afetam colisão/dano, UI trava controles ou preset baixo esconde informação vital.
+
 ## 4. Tabela de carga e métricas obrigatórias
 
 | Cenário | Variação | Observar |
@@ -189,6 +204,7 @@ Executar mesmos snapshots rotulados em variantes: Go puro, Jev 1.13 pergunta ún
 | Rede | 1/2/4/16/32/64 clientes simulados QA | banda, snapshots, drops, reconciliação, autoridade |
 | Mundo | 1/2/3/5 conflitos relacionados/independentes | dedupe, encadeamento, qualidade de prioridade, UI |
 | Persistência | 100/1.000/10.000 comandos em log QA | fsync, tamanho, replay, checkpoint, digest |
+| Visual e animação celular | 1/20/50/100 NPCs visíveis QA; alto/padrão/econômico | frame-time p95/p99, CPU/GPU, nós/FX ativos, clareza, coerência de sincronização e responsividade |
 
 Valores são **eixos de teste**, não capacidade prometida. Não usar 64 clientes reais em produção para aferir limite. Se performance piorar versus baseline, registrar e corrigir antes de ampliar volume.
 
@@ -203,6 +219,7 @@ Valores são **eixos de teste**, não capacidade prometida. Não usar 64 cliente
 - `duplicate_alerts`, `duplicate_rewards`, `unauthorized_adapter_events` (idealmente zero).
 - `jev_prompt_bytes`, `batch_questions`, `jev_timeout`, `fallback_reason`, `jev_cost`.
 - `replay_digest_mismatch` e `migration_data_loss` (**zero tolerância**).
+- `visual_false_confirmations` (**zero tolerância**), `duplicate_completion_vfx`, `interaction_visual_latency`, `active_fx_nodes`, `npc_visual_frame_p95`, `npc_telegraph_readability`.
 
 Definir metas quantitativas de latência/CPU/custo depois do baseline real, por classe de hardware. Gate estrito de correção pode ser 100% nos testes determinísticos e zero duplicações, mas nenhuma percentagem de “inteligência correta” é universal sem conjuntos rotulados.
 
@@ -277,5 +294,6 @@ A entrega só é considerada completa após todos estes resultados serem observa
 12. Nenhum novo portal de dungeon instanciada no loop final, recompensas e progressão preservadas.
 13. Carga documentada, orçamento Jev, alertas mobile e anti-cheat demonstrados.
 14. Documentar a diferença entre serviço realmente 24/7 e simulação pausada quando computador de hospedagem estiver desligado.
+15. Demonstrar animações polidas de transporte de Rubra, patrulha e defesa de Neva, sinais de Dendra, limpeza por macrófago, reparo por plaquetas e suporte de Osteia. Mudanças ambientais, falha/confirmação, reduced-motion, baixa qualidade mobile e sincronização em 2 clientes devem cumprir V-G1–V-G12.
 
 **Sem essas evidências, a palavra correta é “parcialmente implementado”, e não “concluído”.**
