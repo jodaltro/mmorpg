@@ -5,6 +5,8 @@
 
 **Catálogo funcional por tipo de célula:** [AutonomousCellBehaviorAtlas.md](AutonomousCellBehaviorAtlas.md) — rotinas, papel, comunicação, cooperação, falhas, exemplos emergentes e testes de vivacidade.
 
+**Produção gráfica e animações de interações — obrigatória:** [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md). Cada intervenção funcional deverá ter animação própria e polida, confirmação material visível, feedback de falha, LOD e testes de UX/mobile. Não deixar o polimento para o fim.
+
 **Leia antes de executar:** [AGENTS.md](../../AGENTS.md), [Architecture.md](../Architecture.md), [GameVision.md](../GameVision.md), [LivingWorldConflicts.md](LivingWorldConflicts.md), [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md), [Nakama.md](Nakama.md), [PersonalWorlds.md](PersonalWorlds.md), [GameStructure.md](GameStructure.md), [HostScience.md](HostScience.md), [ExplorationPlan.md](ExplorationPlan.md). O documento antigo GameStructure serve como referência técnica legada; conflito persistente substitui dungeon instanciada como loop central.
 
 ## 0. DEFINIÇÃO DE PRONTO — experiência observável
@@ -327,6 +329,36 @@ Criar contratos mínimos, fora do core de apresentação. Nomes são **propostos
 
 **Aceite:** um observador vê os NPCs trabalhando de verdade e as consequências batem com o motor.
 
+## 14A. P10V — salto de qualidade gráfica e animações interativas (obrigatório, intercalado com P2–P16)
+
+**Decisão de produto de 27/10/2026:** as novas profissões celulares e formas de intervenção **não podem parecer ícones andando ou tarefas invisíveis**. O jogador deve desejar participar porque vê uma ação biológica expressiva, um gesto reconhecível de cada NPC, feedback tátil/audiovisual e transformação real do órgão. O plano completo, com **16 storyboards de ações** e contratos de animação, está em [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md); ele é requisito de entrega, não decoração opcional.
+
+**P10V-01 — direção de arte e performance baseline:** preservar microcosmo procedural bioluminescente, sombrio-onírico e original; medir render atual, frame-time, FX e uso mobile antes de mudanças. Não imitar visual humanoide de outros animes.
+
+**P10V-02 — identidade visual celular:** silhueta, membrana, núcleo, organelas, textura e movimento diferentes para Rubra, Neva, Dendra, Osteia, macrófagos e plaquetas; plantas de visual por função, coerentes com `BioCellBody`, `BioCellForms` e os traços Jev.
+
+**P10V-03 — linguagem de interação:** construir estados `notice/approach/anticipate/act/contact/progress/confirmed/cancel/recover` com interpolação, blending, interrupção e variante procedural estável; não prender jogador em animações longas.
+
+**P10V-04 — presenter autoritativo:** ligar `interaction_id`, tarefa, fase, alvo, progresso e revisão aos eventos do Go/headless; Godot apresenta gestos/FX; só confirmar visualmente cura, entrega, reparo ou derrota após comando aceito; deduplicar ao reconectar e não reproduzir início de tarefa em andamento.
+
+**P10V-05 — biblioteca reutilizável:** transporte de vesículas de oxigênio, pseudópodes/fagocitose, filamentos de coagulação, sinais químicos, investigação de antígenos, suporte celular, reparo e transporte de toxinas; efeitos procedurais com pooling/LOD conforme medição, não dezenas de nodes por NPC.
+
+**P10V-06 — primeiro pacote polido:** Rubra transporta e entrega oxigênio; bloqueio leva a pedido contextual e ajuda visual cooperativa; Neva patrulha e defende; Dendra detecta e comunica; macrófago fagocita; plaquetas fecham ferida. Cada ação tem feedback completo de início, trabalho, conclusão e falha; não apenas partículas.
+
+**P10V-07 — tecidos/órgãos que respondem:** vazão e passagem alteram fluxo visual; inflamação muda cor e pulsação local, ferimento fecha em camadas, recuperação estabiliza iluminação e estruturas; mudanças refletem valores e fases canônicas.
+
+**P10V-08 — alertas e experiência do jogador:** alerta grande de crise, mas não bloqueante; pedidos NPC com sinal ambiente/contexto, interação por toque/tecla e reforço audiovisual de cooperação. Uma única barra ou texto no HUD não substitui animação no mundo.
+
+**P10V-09 — áudio/háptica/acessibilidade:** efeitos curtos e originais, áudio local priorizado, vibração opcional, reduced-motion, redução de flash/partículas, legibilidade sem cores/som; controles mobile sempre livres.
+
+**P10V-10 — LOD e escala:** complexidade máxima apenas perto dos jogadores; agentes ausentes continuam trabalhando no Go sem render ou FX; comparar presets alto/padrão/econômico, registrar frame-time p95/p99, memória, nodes/FX e tráfego com múltiplos NPCs.
+
+**P10V-11 — polimento por intervenção:** captura antes/depois por cenário, testes Godot headless e QA visual, sessões com participantes para avaliar legibilidade/prazer, revisão de transições e timing, sem efeitos falsamente otimistas.
+
+**Dependências:** começar diretrizes/gestos durante P2; interação Rubra durante P5/P7; presenter e visual NPC em P10; UX em P11; outros tecidos junto a P12; benchmarks e testes em P15; release bloqueado por gates visuais em P16.
+
+**Aceite P10V:** seis papéis principais visualmente discerníveis pelo trabalho, uma intervenção com gesto, progresso e consequência real, falha inteligível, dois clientes sincronizados, reconexão sem repetição de FX e preset mobile de boa legibilidade. Se o NPC apenas executa regra interna e solta uma aura genérica, **a interação não está concluída**.
+
 ## 15. P11 — Interface: conflitos globais, alertas e ajuda
 
 **P11-01** Contrato `ConflictView`: `revision, active[], focused_id?, recent_transitions[], recommended_help?`; toda visão pública tem os mesmos indicadores do estado canônico.
@@ -414,6 +446,7 @@ P0 baseline e auditoria
  ├─ P6 conflito ─ P7 contribuição
  ├─ P8 JevBatch ─ P9 scheduler cognitivo (após P3/P4/P6)
  └─ P10 Godot/Nakama (após P2/P6/P7)
+P10V gráficos/interações começa em P2, integra P5/P7/P10/P11 e termina em P15
 P11 UI (após P5/P6/P10)
 P12 outros órgãos (após P1–P11 primeira fatia)
 P13 migração dungeon (após P6/P7/P10/P11)
@@ -422,7 +455,7 @@ P15 QA/escala (contínuo, gate obrigatório)
 P16 release e documentação final
 ```
 
-**Primeira fatia vertical obrigatória:** P0 + P1/P2/P3 mínimos + P4 mínimo + P5 mínimo + P6/P7 infecção pulmonar + P8/P9 Jev consultivo + P10/P11 HUD simples. Sem isso, não iniciar uma limpeza destrutiva de dungeons ou expansão para todos os órgãos.
+**Primeira fatia vertical obrigatória:** P0 + P1/P2/P3 mínimos + P4 mínimo + P5 mínimo + P6/P7 infecção pulmonar + P8/P9 Jev consultivo + P10/P11 HUD simples + P10V animação funcional de Rubra e conflito. Sem isso, não iniciar uma limpeza destrutiva de dungeons ou expansão para todos os órgãos.
 
 ## 22. Modelo de trabalho para Claude Code
 
@@ -445,3 +478,4 @@ P16 release e documentação final
 10. **Sem dependência de cliente:** servidor realmente executa simulação quando a sala está vazia; se servidor parar, retoma conforme política declarada.
 11. **Escala verificada:** p95, CPU, uso de memória, custo Jev e carga são documentados antes de declarar produção pronta.
 12. **Prova replicável:** teste local + replay/digest + demonstração em 2 clientes + documento de validação com evidências.
+13. **Qualidade gráfica das interações:** seis papéis com gestos próprios, transporte/reparo/defesa reconhecíveis, progresso e confirmação visual sincronizados, falhas coerentes, ambiente responsivo, arte original, acessibilidade, medidas de mobile/LOD e testes visuais conforme [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md).
