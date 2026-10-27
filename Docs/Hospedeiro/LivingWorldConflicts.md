@@ -1,6 +1,8 @@
 # Hospedeiro — NPCs vivos e Conflitos Globais
 **Decisão de produto: 26/10/2026 — branch main.**  
 **Estado: especificação aprovada como direção de design; NÃO é implementação concluída.**
+> **Complemento técnico de 27/10/2026:** [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md) registra as pesquisas recentes, as capacidades reais do Jev 1.13/1.14 e o desenho de memória seletiva, avaliação em lotes e decisões de NPCs/conflitos. Aumentar dados coletados e contexto relevante sem criar outra autoridade ou usar o Jev como simulador físico.
+
 
 ## 1. Mudança de direção
 O Hospedeiro deixa de usar masmorras instanciadas como ciclo central. Toda crise importante acontece no mapa vivo do corpo, permanece enquanto sua causa existir, afeta NPCs e jogadores, e pode ser enfrentada por qualquer pessoa do mesmo mundo. Os locais biológicos chamados antigamente de masmorras (granuloma, tumor, biofilme, centro germinativo, barreira hematoencefálica e núcleo) continuam como territórios físicos, fenômenos e acontecimentos do mapa; não como salas privadas, runs, portais, chefes repetíveis ou sequências de limpar salas.
