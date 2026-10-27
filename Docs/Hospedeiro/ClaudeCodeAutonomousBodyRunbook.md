@@ -3,6 +3,8 @@
 > **Leia primeiro:** [AutonomousBodyImplementationPlan.md](AutonomousBodyImplementationPlan.md) (P0–P16), [AutonomousBodyQualityGates.md](AutonomousBodyQualityGates.md), [LivingWorldConflicts.md](LivingWorldConflicts.md), [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md), `AGENTS.md`.  
 > **Branch: sempre `main`**. **Este arquivo é uma fila de execução; nada aqui foi implementado só porque foi escrito.**
 
+**Atlas obrigatório de comportamentos:** [AutonomousCellBehaviorAtlas.md](AutonomousCellBehaviorAtlas.md). Implementar os seis primeiros perfis antes de acrescentar famílias novas.
+
 ## A. Prompt inicial para colar no Claude Code
 
 > Você é o engenheiro principal de implementação do Hospedeiro. Trabalhe no repositório `jodaltro/mmorpg` na branch `main`. Sua tarefa é implementar integralmente o plano `Docs/Hospedeiro/AutonomousBodyImplementationPlan.md`, respeitando `Docs/Hospedeiro/ClaudeCodeAutonomousBodyRunbook.md`, `Docs/Hospedeiro/AutonomousBodyQualityGates.md`, `AGENTS.md`, `Docs/Architecture.md`, `Docs/Hospedeiro/LivingWorldConflicts.md` e `Docs/Hospedeiro/JevCognitiveArchitecture.md`.  
