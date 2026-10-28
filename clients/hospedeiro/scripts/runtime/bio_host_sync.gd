@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "conflict-reward", "codice", "adaptou", "rota", "design"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "calling-assumed", "calling-released", "appearance", "skill-learned", "conflict-reward", "codice", "adaptou", "rota", "design"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -299,6 +299,8 @@ func apply_view(view: Dictionary) -> void:
 		_world.apply_body(view["vitals"])
 	_apply_skills(view.get("skills", []))
 	_apply_events(view.get("events", []))
+	if view.has("calling") and view["calling"] is Dictionary:
+		_world.apply_engine_calling(view["calling"])
 	if view.has("lineage") and view["lineage"] is Dictionary:
 		_world.apply_engine_lineage(view["lineage"])
 	if view.has("evolution") and view["evolution"] is Dictionary:

@@ -154,3 +154,11 @@ Jogo de verdade (renderizador real, offline, invasores padrão), 8 s em cada um 
 - Universo do Hospedeiro: 10 chamados sobre as linhagens existentes (5 papéis: combate, limpeza, cura, controle, marcação) e `needs` nas 10 crises.
 - Testes Go novos (`scenarios/calling_test.go`): a oferta segue a necessidade e muda quando o papel já está coberto; recusa fora de crise, fora da oferta e por origem `adapter`; soltar ao sair/terminar; toda crise oferece ao menos dois papéis e todos têm chamado; replay com o mesmo digest. `gofmt`, `go vet` e `go test ./... -count=1` verdes.
 - Ainda não feito: a tela do cliente para escolher o chamado e aplicar a forma; recompensas/ranking por papel; o Jev ainda não desempata a oferta.
+
+### Chamados no cliente (28/10/2026)
+
+- Cliente: `BioCallingRules` (domínio), `BioCallingPanel` (cartões com as opções, "Agora não", e uma etiqueta "CHAMADO: ..." com "trocar"), `apply_engine_calling` no mundo (veste a forma do chamado, empresta até 2 habilidades da classe e devolve tudo ao soltar). Eventos `calling-assumed` e `calling-released` são silenciosos no feed.
+- Testes: Godot 397 testes, 0 falhas (4 novos em `test_calling.gd`); Go `gofmt`, `go vet`, `go test ./... -count=1` verdes.
+- Execução real (`tests/soak_calling.gd`, motor isolado em 127.0.0.1:8198 com tick de 150 ms, 0 `ERROR` no log): no linfonodo a crise ofereceu `t-regulador` e `linfocito-b`; escolhido o primeiro pelo próprio sinal do painel, o motor confirmou (papel controle), a célula vestiu `t_regulador` e a etiqueta apareceu; ao ir para o sangue o chamado foi solto e a forma base voltou.
+- Backend de uso normal reiniciado do zero com o universo novo (`hospedeiro-reset.ps1`, mundo antigo e saves arquivados em `D:\unity\hospedeiro-data-archive\20261028-201658`).
+- Não feito: recompensas e ranking por papel/temporada; desempate da oferta pelo Jev; ver se as habilidades emprestadas fazem sentido jogando.

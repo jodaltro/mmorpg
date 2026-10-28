@@ -76,6 +76,10 @@ var engine_lineage_featured := ""
 var lineage_id: StringName = &""
 var _pending_evolution := {}
 var _engine_lineage := {}
+var calling_panel: BioCallingPanel
+var _calling := {}  # the engine's `calling` view of this player
+var _calling_form: StringName = &""  # the lineage worn while a calling is held
+var _calling_lent: Array = []  # abilities the form lent
 var look_name := ""  # the variant the advisor chose for this body (Caçador, Andarilho...)
 var _engine_fraction := 0.0
 
@@ -193,6 +197,11 @@ func build() -> void:
 				if is_instance_valid(hud) and hud.banner_text() == str(BioBodyMap.NAMES.get(id, id)):
 					hud.show_banner(""))
 			sync.system.push_feed("Nova região no atlas: %s." % BioBodyMap.NAMES.get(id, id)))
+	calling_panel = BioCallingPanel.new()
+	calling_panel.name = "CallingPanel"
+	add_child(calling_panel)
+	calling_panel.configure()
+	calling_panel.chosen.connect(choose_calling)
 	panel = BioMutationPanel.new()
 	panel.name = "MutationPanel"
 	add_child(panel)
@@ -515,6 +524,8 @@ func apply_engine_lineage(lin: Dictionary) -> void:
 	var lineage_changed := lin != _engine_lineage
 	_engine_lineage = lin
 	var current := BioLineageCatalog.normalise(str(lin.get("current", "")))
+	if _calling_form != &"":  # the calling lends its form while it is held
+		current = _calling_form
 	if current != lineage_id:
 		lineage_id = current
 		genome.lineage = current
@@ -541,6 +552,38 @@ func apply_engine_lineage(lin: Dictionary) -> void:
 			panel.show_lineage_offer(offer, featured)
 	if lineage_changed and body_panel != null:
 		body_panel.refresh()
+
+
+## The calling the crisis offers or the player holds. The form it names is worn, and its first abilities lent, until it is released.
+func apply_engine_calling(view: Dictionary) -> void:
+	_calling = view
+	if calling_panel != null:
+		calling_panel.apply(view)
+	var form := BioCallingRules.form_of(view) if BioCallingRules.is_held(view) else &""
+	if form == _calling_form:
+		return
+	if abilities != null:  # give back what the old form lent, then lend what the new one does
+		var kept: Array = abilities.known().filter(func(id: StringName) -> bool: return not _calling_lent.has(id))
+		abilities.clear()
+		abilities.set_known(kept)
+		_calling_lent = BioCallingRules.lent_abilities(form, kept)
+		for id in _calling_lent:
+			abilities.learn(id)
+		restore_ability_order()
+	_calling_form = form
+	apply_engine_lineage(_engine_lineage)
+	if body_panel != null:
+		body_panel.refresh()
+
+
+## The player takes one of the callings on offer.
+func choose_calling(id: String) -> void:
+	if sync != null and sync.link != null:
+		sync.link.act("assumir", {"calling": id})
+
+
+func engine_calling_view() -> Dictionary:
+	return _calling
 
 
 ## The engine's expressed genes, library, builds and rest, as the last view said (empty offline).

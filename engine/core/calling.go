@@ -60,6 +60,7 @@ type CallingView struct {
 	Conflict string          `json:"conflict,omitempty"` // the crisis where they stand
 	Current  string          `json:"current,omitempty"`
 	Role     string          `json:"role,omitempty"`
+	Form     string          `json:"form,omitempty"` // the lineage whose body the client shows while it is held
 	Offer    []CallingOption `json:"offer"`
 }
 
@@ -260,6 +261,9 @@ func (w *World) callingViewOf(s *State, p ID) *CallingView {
 	v := &CallingView{Offer: []CallingOption{}}
 	if r, ok := s.Roles[p]; ok {
 		v.Current, v.Role = r.Calling, r.Role
+		if cd, ok := w.callingDef(r.Calling); ok {
+			v.Form = cd.Form
+		}
 	}
 	if conflict := w.callingConflict(s, p); conflict != "" {
 		v.Conflict = conflict
