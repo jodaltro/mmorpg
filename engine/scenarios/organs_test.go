@@ -152,7 +152,7 @@ func TestOrganNichesAreUniqueAndQuestsClose(t *testing.T) {
 // rewards and cleans the organ, and the first clear is unique.
 func TestOrganDungeons(t *testing.T) {
 	for _, o := range organs {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyDungeons)
 		h.join("p1", "p2")
 		enter := map[string]core.ID{"dungeon": core.ID(o.dungeon)}
 		if err := h.act("player", "p1", "entrar-masmorra", enter); err == nil {
@@ -190,7 +190,7 @@ func TestOrganDungeons(t *testing.T) {
 // E3: the dungeons are procedural for every organ: runs differ, and the modifiers an organ offers follow its own state.
 func TestOrganDungeonsDifferAndFollowTheOrgan(t *testing.T) {
 	for _, o := range organs {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyDungeons)
 		seen := map[string]bool{}
 		for i := 0; i < 8; i++ {
 			p := core.ID("p" + string(rune('a'+i)))
@@ -208,7 +208,7 @@ func TestOrganDungeonsDifferAndFollowTheOrgan(t *testing.T) {
 			t.Fatalf("%s: eight runs should differ, got %d distinct", o.dungeon, len(seen))
 		}
 	}
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureIn("p1", organs[0])
 	set := func(e, key string, v int64) {

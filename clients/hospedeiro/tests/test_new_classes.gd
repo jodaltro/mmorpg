@@ -47,7 +47,7 @@ func after_each() -> void:
 
 ## A still enemy with this much life, `at` units from the cell in the direction `dir`.
 func _enemy(hp: float, at: float, dir: Vector2 = Vector2.RIGHT) -> BioCellActor:
-	var def := BioDungeonPlan.enemy(&"cilindro_hialino").duplicate()
+	var def := BioEnemyCatalog.enemy(&"cilindro_hialino").duplicate()
 	def["hp"] = hp
 	def["speed"] = 0.0
 	var brain := BioFactory.spawn_enemy(world, world.player.global_position + dir.normalized() * at * BioArt.UNIT, world.player, def, 1.0, "viruses")
@@ -57,7 +57,7 @@ func _enemy(hp: float, at: float, dir: Vector2 = Vector2.RIGHT) -> BioCellActor:
 
 ## An enemy that really hunts: its brain runs. Returns the brain.
 func _hunter(hp: float, at: float, dir: Vector2 = Vector2.RIGHT) -> Node:
-	var def := BioDungeonPlan.enemy(&"cilindro_hialino").duplicate()
+	var def := BioEnemyCatalog.enemy(&"cilindro_hialino").duplicate()
 	def["hp"] = hp
 	def["aggro"] = 14.0
 	return BioFactory.spawn_enemy(world, world.player.global_position + dir.normalized() * at * BioArt.UNIT, world.player, def, 1.0, "viruses")

@@ -3,7 +3,6 @@ extends Node2D
 
 var tutorial: BioTutorial
 var journey: BioJourney
-var dungeon_panel: BioDungeonPanel
 ## Composition root: the marrow and the blood, camera, glow, player, HUD, population upkeep, the
 ## mutation loop and the link to the engine (BioHostSync). Plays offline when the engine is absent.
 
@@ -29,7 +28,6 @@ var living_enabled := true  # draw the engine's living body (cells at work, cris
 
 var player: BioCellActor
 var abilities: BioAbilityRunner
-var dungeon: BioDungeon
 var anatomy: BioAnatomyView
 var atlas: BioAtlas
 var exploration: BioExploration
@@ -45,14 +43,7 @@ var touch: BioTouchControls
 var display: BioDisplay
 var online_client: BioOnlineClient
 
-## Rooms and classes the test menu goes straight to.
-const DEBUG_ROOMS := [
-	{"id": "guarda-de-linfocitos", "name": "A guarda de linfócitos", "kind": "guard"},
-	{"id": "parede-de-macrofagos", "name": "A parede de macrófagos", "kind": "wall"},
-	{"id": "anel-interno", "name": "O anel interno", "kind": "wall"},
-	{"id": "nucleo-necrotico", "name": "O núcleo necrótico", "kind": "core"},
-	{"id": "bacilo", "name": "O bacilo (chefe)", "kind": "boss"},
-]
+## Classes the test menu goes straight to.
 const DEBUG_CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar", &"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]
 var codex_panel: BioCodexPanel
 var adapted_regions: Array = []
@@ -60,10 +51,6 @@ var compass_text := ""
 var body := BioBodyState.new()  # the host's vital signs (from the engine) and what they do to the cell
 var vitals_panel: BioVitalsPanel
 var live_regions: Array[StringName] = []
-var fell_in_dungeon := false
-var gate: BioGate  # the granuloma's
-var liver_gate: BioGate
-var gates: Dictionary = {}  # dungeon id -> its gate
 var hud: BioHud
 var camera: BioCameraFollow
 var genome: BioGenome
@@ -166,31 +153,6 @@ func build() -> void:
 	add_child(hud)
 	hud.bind(player.combatant)
 	hud.bind_abilities(abilities)
-	gate = BioGate.new()
-	gate.name = "GranulomaGate"
-	gate.position = BioBodyMap.center_px(BioBodyMap.SANGUE) + Vector2(6.0, -9.0) * BioArt.UNIT
-	add_child(gate)
-	gate.configure(player)
-	dungeon = BioDungeon.new()
-	dungeon.name = "Dungeon"
-	add_child(dungeon)
-	liver_gate = BioGate.new()
-	liver_gate.name = "CordsGate"
-	liver_gate.dungeon_id = "cordoes-hepaticos"
-	liver_gate.title = "CORDÕES HEPÁTICOS"
-	liver_gate.ring_color = Color(0.95, 0.65, 0.2)
-	liver_gate.core_color = Color(0.75, 0.9, 0.2)
-	liver_gate.position = BioBodyMap.center_px(BioBodyMap.FIGADO) + Vector2(-8.0, 12.0) * BioArt.UNIT
-	add_child(liver_gate)
-	liver_gate.configure(player)
-	gates = {gate.dungeon_id: gate, liver_gate.dungeon_id: liver_gate}
-	_add_organ_gates()
-	dungeon.bind(player, gate.global_position + Vector2(0.0, 3.4 * BioArt.UNIT))
-	for g in gates.values():
-		dungeon.returns[(g as BioGate).dungeon_id] = (g as BioGate).global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
-	dungeon.room_started.connect(func(index: int, info: Dictionary) -> void:
-		hud.set_dungeon_text("%s  ·  sala %d/%d  ·  %s" % [dungeon.title, index + 1, dungeon.rooms.size(), str(info.get("name", ""))]))
-	dungeon.finished.connect(func(_cleared: bool) -> void: hud.set_dungeon_text(""))
 	hud.restart_requested.connect(func() -> void: reset_dialog.open())
 	codex_panel = BioCodexPanel.new()
 	codex_panel.name = "CodexPanel"
@@ -268,9 +230,6 @@ func build() -> void:
 	journey = BioJourney.new()
 	journey.world = self
 	add_child(journey)
-	dungeon_panel = BioDungeonPanel.new()
-	dungeon_panel.world = self
-	add_child(dungeon_panel)
 	if BioPersonalLink.wanted():
 		var personal := BioPersonalWorld.new()
 		personal.world = self
@@ -425,28 +384,11 @@ func apply_design(designed: Dictionary, source: String) -> void:
 
 ## The shortcuts behind the test menu (Esc). Each one is a plain method, so it is tested without a screen.
 func debug_goto(id: StringName) -> void:
-	if dungeon.active:
-		dungeon.finish(false)
 	player.global_position = BioBodyMap.center_px(id)
 	player.velocity = Vector2.ZERO
 	player.set_active(true)
 	player.combatant.reset_vitals()
 	hud.show_banner("")
-
-
-func debug_dungeon_room(index: int) -> void:
-	if dungeon.active:
-		dungeon.finish(false)
-	player.set_active(true)
-	player.combatant.reset_vitals()
-	dungeon.start({"state": "active", "seed": 424242, "room": index, "rooms": DEBUG_ROOMS, "modifier": {"id": "necrose-viva", "name": "Necrose viva", "desc": ""}})
-	hud.show_banner("")
-
-
-func debug_leave_dungeon() -> void:
-	if dungeon.active:
-		dungeon.finish(false)
-		respawn_player()
 
 
 func debug_become(lineage: StringName) -> void:
@@ -606,9 +548,6 @@ func _sync_calls() -> void:
 
 
 func _open_from_chip(key: String) -> void:
-	if key in ["dungeon-ready", "dungeon-reward"]:
-		dungeon_panel.open_run()
-		return
 	if key == "gene-reward":
 		tray.clear_call(key)
 		body_panel.open(BioBodyPanel.GENES)
@@ -660,15 +599,10 @@ func restart_world(reset_engine := true) -> void:
 			hud.show_banner("")
 			return
 	body_panel.close()
-	dungeon_panel.close()
-	dungeon_panel._last_run_key = ""
-	tray.clear_call("dungeon-ready")
-	tray.clear_call("dungeon-reward")
 	sync.system.close()
 	reset_dialog.close()
 	tray.clear_call("gene-reward")
 	if player.has_meta("gene_ready_at"): player.remove_meta("gene_ready_at")
-	dungeon.finish(false)
 	build_store.names.clear()
 	build_store.orders.clear()
 	build_store.current_order.clear()
@@ -720,11 +654,7 @@ func respawn_player() -> void:
 	if player.combatant.actor.vitals.is_alive():
 		return
 	player.set_active(true)
-	if fell_in_dungeon:  # back at the portal, not all the way to the marrow
-		player.global_position = (gates[dungeon.dungeon_id] as BioGate).global_position + Vector2(0.0, 3.4 * BioArt.UNIT)
-		fell_in_dungeon = false
-	else:
-		player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
+	player.global_position = BioBodyMap.center_px(BioBodyMap.MEDULA)
 	player.velocity = Vector2.ZERO
 	player.combatant.reset_vitals()
 	hud.show_banner("")
@@ -801,19 +731,14 @@ func _update_tint() -> void:
 func _on_player_died(_who: BioCombatant) -> void:
 	player.set_intent(Vector2.ZERO)
 	player.set_active(false)
-	fell_in_dungeon = dungeon != null and dungeon.active
-	if fell_in_dungeon:
-		hud.show_banner(("Você caiu no granuloma" if dungeon.dungeon_id == "granuloma" else "Você caiu em %s" % dungeon.title.capitalize()) + ("\nToque em Renascer para voltar ao portal" if BioPlatform.is_touch() else "\nPressione R para voltar ao portal"))
-	else:
-		hud.show_banner("A célula se dissolveu no fluido\n" + ("Toque em Renascer para voltar à medula" if BioPlatform.is_touch() else "Pressione R para renascer na medula"))
-
+	hud.show_banner("A célula se dissolveu no fluido\n" + ("Toque em Renascer para voltar à medula" if BioPlatform.is_touch() else "Pressione R para renascer na medula"))
 
 func _process(delta: float) -> void:
 	if not _built:
 		return
 	if not player.is_active() and Input.is_action_just_pressed("bio_respawn"):
 		respawn_player()
-	if player.is_active() and not dungeon.active:
+	if player.is_active():
 		var now := BioBodyMap.region_of(player.global_position)
 		if now != region:
 			region = now
@@ -834,20 +759,12 @@ func _process(delta: float) -> void:
 	if debug_god:
 		player.combatant.actor.vitals.membrane = player.combatant.actor.vitals.max_membrane
 		player.combatant.actor.vitals.atp = player.combatant.actor.vitals.max_atp
-	if dungeon.active:
-		var left := dungeon.grace_left()
-		hud.set_dungeon_extra("Preparando · início automático" if dungeon.briefing else "Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
-	var guide_gate := _nearest_open_gate()
 	var follow := sync.follow_guide() if sync != null else {}
-	if not follow.is_empty() and player.is_active() and not dungeon.active:
+	if not follow.is_empty() and player.is_active():
 		hud.set_guide(true, follow["to"], str(follow["text"]))
 	elif journey != null and (journey.navigation_state != "none" or tutorial.completed):
 		hud.set_guide(false, Vector2.ZERO, "")
-	elif guide_gate != null and not dungeon.active and player.is_active():
-		var to := guide_gate.global_position - player.global_position
-		var far := to.length() > 9.0 * BioArt.UNIT
-		hud.set_guide(far, to, "%s  %s · %d" % ["➤", guide_gate.title.capitalize(), roundi(to.length() / BioArt.UNIT)])
-	elif not dungeon.active and player.is_active() and exploration != null:
+	elif player.is_active() and exploration != null:
 		var trail := exploration.compass(player.global_position, region)
 		if trail.is_empty() or float(trail["distance"]) < 12.0:
 			hud.set_guide(false, Vector2.ZERO, "")
@@ -884,49 +801,16 @@ func _physics_process(delta: float) -> void:
 		delta = _flow_owed
 		_flow_owed = 0.0
 	var clock := Time.get_ticks_msec() * 0.001
-	if dungeon == null or not dungeon.active:  # inside the granuloma there is no current
-		for node in get_tree().get_nodes_in_group("cells"):
-			var cell := node as BioCellActor
-			if cell != null and cell.is_active():
-				cell.velocity += BioBodyMap.flow_px(cell.global_position, clock) * delta * 1.5
+	for node in get_tree().get_nodes_in_group("cells"):
+		var cell := node as BioCellActor
+		if cell != null and cell.is_active():
+			cell.velocity += BioBodyMap.flow_px(cell.global_position, clock) * delta * 1.5
 	for node in get_tree().get_nodes_in_group("nutrients"):
 		var nutrient := node as Node2D
 		nutrient.global_position += BioBodyMap.flow_px(nutrient.global_position, clock) * 0.6 * delta
 
 
 ## Keeps the regions around the cell alive: the one it is in and the ones a vessel away. The rest of the body sleeps.
-## The entrances of the dungeons of the next organs: where, how it is called and how it looks. The granuloma's and the cords' are above.
-const ORGAN_GATES := [
-	{"id": "centro-germinativo", "region": &"baco", "title": "CENTRO GERMINATIVO", "at": Vector2(-8.0, 14.0), "ring": Color(0.65, 0.45, 0.95), "core": Color(0.95, 0.45, 0.8)},
-	{"id": "criptas-profundas", "region": &"intestino", "title": "CRIPTAS PROFUNDAS", "at": Vector2(10.0, -14.0), "ring": Color(0.55, 0.9, 0.4), "core": Color(0.95, 0.8, 0.3)},
-	{"id": "nefrons", "region": &"rim", "title": "NÉFRONS", "at": Vector2(-6.0, -13.0), "ring": Color(0.35, 0.9, 0.85), "core": Color(1.0, 0.85, 0.4)},
-]
-
-
-func _add_organ_gates() -> void:
-	for g in ORGAN_GATES:
-		var door := BioGate.new()
-		door.name = "Gate_%s" % g["id"]
-		door.dungeon_id = g["id"]
-		door.title = g["title"]
-		door.ring_color = g["ring"]
-		door.core_color = g["core"]
-		door.position = BioBodyMap.center_px(g["region"]) + (g["at"] as Vector2) * BioArt.UNIT
-		add_child(door)
-		door.configure(player)
-		gates[g["id"]] = door
-
-
-## The open dungeon entrance closest to the cell (null when none is open).
-func _nearest_open_gate() -> BioGate:
-	var best: BioGate = null
-	for g in gates.values():
-		var candidate := g as BioGate
-		if candidate.eligible and (best == null or candidate.global_position.distance_to(player.global_position) < best.global_position.distance_to(player.global_position)):
-			best = candidate
-	return best
-
-
 func _update_live() -> void:
 	live_regions = BioAnatomy.within(region, BioAnatomyView.LIVE_HOPS)
 	anatomy.set_live(live_regions)
@@ -952,7 +836,7 @@ func _populate(fill_all: bool) -> void:
 	for node in get_tree().get_nodes_in_group("nutrients"):
 		var at := (node as Node2D).global_position
 		if not BioAnatomy.in_body(seed_value, at / BioArt.UNIT):
-			continue  # not the body's: leave it be (the granuloma's drops)
+			continue  # not the body's: leave it be
 		var r := BioBodyMap.region_of(at)
 		if not live_regions.has(r):
 			node.queue_free()
@@ -1051,7 +935,7 @@ func _on_wild_kill(at: Vector2, victim: BioCombatant = null) -> void:
 ## A wild thing of an organ (see BioBestiary): counted with the virions, so it is streamed, slowed by fever and paid in pressure alike.
 func _spawn_native_at(kind: StringName, pos: Vector2) -> void:
 	if BioSanctuary.contains(seed_value, pos / BioArt.UNIT): return
-	var def := BioDungeonPlan.enemy(kind)
+	var def := BioEnemyCatalog.enemy(kind)
 	for i in int(def.get("group", 1)):
 		var at := pos + Vector2.from_angle(randf() * TAU) * (0.8 * BioArt.UNIT if i > 0 else 0.0)
 		if BioSanctuary.contains(seed_value, at / BioArt.UNIT): continue

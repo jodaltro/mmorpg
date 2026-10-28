@@ -38,7 +38,7 @@ func modifierOptions(d core.Decision) []string {
 
 // E3: the cords are entered from inside the liver, by the mature, and both dungeons are listed side by side.
 func TestCordsNeedMaturityAndTheLiver(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	if err := h.act("player", "p1", "entrar-masmorra", cords); err == nil {
 		t.Fatal("a newborn cannot enter the cords")
@@ -59,7 +59,7 @@ func TestCordsNeedMaturityAndTheLiver(t *testing.T) {
 
 // E3: the modifiers the cords offer depend on the state of the liver itself: the body decides what is possible.
 func TestCordsModifiersFollowTheLiversState(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInLiver("p1")
 	h.setLiver("toxina", 10)
@@ -86,7 +86,7 @@ func TestCordsModifiersFollowTheLiversState(t *testing.T) {
 
 // E3: clearing the cords cleans the liver, the first clear is unique, and the run replays from the log.
 func TestCordsClearCleansTheLiverAndFirstClearIsUnique(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1", "p2")
 	h.matureInLiver("p1")
 	h.matureInLiver("p2")
@@ -110,7 +110,7 @@ func TestCordsClearCleansTheLiverAndFirstClearIsUnique(t *testing.T) {
 	if got := h.skillIDs("p2"); !slices.Contains(got, "selo-do-figado") || slices.Contains(got, "primeiro-filtro") {
 		t.Fatalf("the second clear gets the seal only, got %v", got)
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyDungeons)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {

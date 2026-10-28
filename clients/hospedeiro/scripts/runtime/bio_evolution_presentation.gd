@@ -196,7 +196,7 @@ func _process(delta: float) -> void:
 	if world.tutorial != null and world.tutorial.active: return
 	var combat := in_combat()
 	if modal.visible and (combat or not world.sync.link.online or key.is_empty() or key != _shown): modal.hide_modal()
-	if not key.is_empty() and key != _dismissed and not modal.visible and not combat and world.player.is_active() and world.sync.link.online and not world.dungeon.active and not BioUi.captures_input():
+	if not key.is_empty() and key != _dismissed and not modal.visible and not combat and world.player.is_active() and world.sync.link.online and not BioUi.captures_input():
 		_open_offer()
 
 func _unhandled_input(event: InputEvent) -> void:

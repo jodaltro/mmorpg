@@ -37,7 +37,7 @@ var granuloma = map[string]core.ID{"dungeon": "granuloma"}
 
 // The granuloma is for people who are ready and are standing in the blood where it is.
 func TestGranulomaNeedsMaturityAndTheRightPlace(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	if err := h.act("player", "p1", "entrar-masmorra", granuloma); err == nil {
 		t.Fatal("a newborn in the marrow cannot enter the granuloma")
@@ -58,7 +58,7 @@ func TestGranulomaNeedsMaturityAndTheRightPlace(t *testing.T) {
 
 // The advisor chooses the modifier of the run among the valid ones, it is revalidated, and the seed comes from the engine.
 func TestTheAdvisorPicksTheModifierAndTheRunStarts(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInBlood("p1")
 	h.mustAct("player", "p1", "entrar-masmorra", granuloma)
@@ -87,7 +87,7 @@ func TestTheAdvisorPicksTheModifierAndTheRunStarts(t *testing.T) {
 
 // Without an answer the deterministic default applies at the deadline, so the dungeon never waits for the advisor.
 func TestTheDefaultModifierAppliesAtTheDeadline(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInBlood("p1")
 	h.mustAct("player", "p1", "entrar-masmorra", granuloma)
@@ -100,7 +100,7 @@ func TestTheDefaultModifierAppliesAtTheDeadline(t *testing.T) {
 
 // Rooms are confirmed by the game server (adapter) in order; the last one completes the run, rewards and the unique first clear.
 func TestClearingTheRoomsRewardsAndTheFirstClearIsUnique(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1", "p2")
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.matureInBlood(p)
@@ -141,7 +141,7 @@ func TestClearingTheRoomsRewardsAndTheFirstClearIsUnique(t *testing.T) {
 
 // Falling ends the run, and the same cell must wait before going in again.
 func TestAFailedRunEndsAndHasACooldown(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInBlood("p1")
 	h.mustAct("player", "p1", "entrar-masmorra", granuloma)
@@ -189,7 +189,7 @@ func TestDungeonsAreProceduralPerRun(t *testing.T) {
 		{"granuloma", "guarda-de-linfocitos", "bacilo", func(h *harness, p core.ID) { h.matureInBlood(p) }},
 		{"cordoes-hepaticos", "sinusoides-vigiados", "nodulo", func(h *harness, p core.ID) { h.matureInLiver(p) }},
 	} {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyDungeons)
 		seen := map[string]bool{}
 		lengths := map[int]bool{}
 		for i := 0; i < 10; i++ {

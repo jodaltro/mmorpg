@@ -199,10 +199,10 @@ Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md)
 **Gate:** variedade fisiológica, mesmos contratos, nenhum sistema hardcoded por órgão no motor genérico.
 
 ### FASE P13 — Migrar e extinguir runs de dungeon do Hospedeiro
-- [ ] **P13.1** Mapa de equivalência dungeon→conflito/exploração/recompensa.
-- [ ] **P13.2** Escolher e testar migração ou reset/recriação de saves, journals, mundos, progressão e banco; fingerprint válido no destino, sem backup obrigatório.
-- [ ] **P13.3** Remover portais, `bio_dungeon_panel.gd`, apresentações e controle específico após substituição por conflitos validada, com migração ou reset; manter `engine/core/dungeon.go` se algum outro universo usa.
-- [ ] **P13.4** Atualizar testes e docs, validar inicialização do mundo novo/pessoal e avatar após reset; substituir testes que exijam preservação legada por fixtures descartáveis, mantendo replay/digest e persistência vigente; conferir saves antigos apenas se optar por conversão.
+- [x] **P13.1** Mapa de equivalência dungeon→conflito/exploração/recompensa. *(28/10/2026: `Docs/Hospedeiro/DungeonMigration.md`; as cinco crises pagam pressão, maturidade e selo a quem contribuiu; contrato genérico `rewards` + `rewardMinCredit` em `ConflictDef`.)*
+- [x] **P13.2** *(28/10/2026: escolhido reset/recriação; `scripts/hospedeiro-reset.ps1` arquiva e sobe mundo novo com o fingerprint novo.)* Escolher e testar migração ou reset/recriação de saves, journals, mundos, progressão e banco; fingerprint válido no destino, sem backup obrigatório.
+- [x] **P13.3** *(28/10/2026: removidos `BioDungeon`, `BioDungeonPanel`, `BioGate`, `BioHazardPool`, `BioBossSlam`, portais, HUD/atlas/toque da masmorra e a sala isolada do servidor; `dungeon.go` mantido e testado em fixture congelado.)* Remover portais, `bio_dungeon_panel.gd`, apresentações e controle específico após substituição por conflitos validada, com migração ou reset; manter `engine/core/dungeon.go` se algum outro universo usa.
+- [x] **P13.4** *(28/10/2026: testes de masmorra removidos ou movidos para o fixture; novo `p13_test.go`; Godot e Go verdes.)* Atualizar testes e docs, validar inicialização do mundo novo/pessoal e avatar após reset; substituir testes que exijam preservação legada por fixtures descartáveis, mantendo replay/digest e persistência vigente; conferir saves antigos apenas se optar por conversão.
 **Gate:** mundo novo válido, só com conflitos abertos e progressão nova funcional; progresso antigo pode ser descartado.
 
 ### FASE P14 — Hospedagem contínua e confiabilidade

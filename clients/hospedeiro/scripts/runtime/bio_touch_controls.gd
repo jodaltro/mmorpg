@@ -20,7 +20,6 @@ var attack_stick: BioTouchStick
 var toxin: BioTouchButton
 var dash: BioTouchButton
 var interact: BioTouchButton
-var leave: BioTouchButton
 var respawn: BioTouchButton
 var ability_buttons: Array[BioTouchButton] = []
 var window_buttons: Array[BioTouchButton] = []
@@ -179,7 +178,6 @@ func _ready() -> void:
 		ability_buttons.append(b)
 	interact = _add(BioTouchButton.round_button(&"bio_interact", "Agir", Color(1.0, 0.8, 0.35), 23.0))
 	interact.glyph = "interact"
-	leave = _add(BioTouchButton.pill(&"bio_leave", "Sair da sala", Color(1.0, 0.6, 0.4), Vector2(120, 38)))
 	respawn = _add(BioTouchButton.pill(&"bio_respawn", "Renascer", Color(1.0, 0.5, 0.55), Vector2(150, 54)))
 	for entry in [["Corpo", &"bio_body"], ["Códice", &"bio_codex"], ["Mapa", &"bio_map"], ["Sinais", &"bio_vitals"]]:
 		var index := window_buttons.size()
@@ -250,7 +248,6 @@ func layout(size_override: Vector2 = Vector2.ZERO) -> void:
 	move_stick.position = Vector2(0.0, view.y*0.45)
 	move_stick.size = Vector2(view.x*0.4,view.y*0.55)
 	interact.position = pad + Vector2(-156,-160).lerp(Vector2(-180,-143),room) - interact.size*0.5
-	leave.position = Vector2(view.x * 0.5 - leave.size.x * 0.5, view.y - 210.0)
 	respawn.position = Vector2((view.x - respawn.size.x) * 0.5, view.y * 0.5 + 30.0)
 	menu.position = Vector2(view.x - 86.0, 14.0)
 	ping_label.position = Vector2(view.x - 158.0, 25.0)
@@ -287,10 +284,8 @@ func _process(delta: float) -> void:
 	world.tray._box.visible = not covered
 
 	var alive: bool = world.player.is_active() and not covered
-	var in_dungeon: bool = world.dungeon != null and world.dungeon.active
-	minimap.visible = alive and not in_dungeon
+	minimap.visible = alive
 	respawn.visible = not world.player.is_active() and not covered
-	leave.visible = alive and in_dungeon
 	interact.visible = alive
 	toxin.visible = alive
 	dash.visible = alive

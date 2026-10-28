@@ -61,7 +61,7 @@ O usuário autorizou **refatoração destrutiva**: pode remover, reescrever e si
 
 - A direção vigente de gameplay está em `Docs/Hospedeiro/LivingWorldConflicts.md`: **NPCs vivos e conflitos globais persistentes** em vez de masmorras instanciadas no Hospedeiro. O conteúdo de dungeon nos documentos antigos é legado e deverá ser migrado, não replicado em novas features.
 - NPCs precisam trabalhar, perceber, pedir/aceitar ajuda e manter relações e memória pelo motor; participação em conflitos é livre, sem exigir aceitar uma missão. O HUD prioriza um conflito acompanhado e pedidos contextuais, com alertas grandes porém deduplicados.
-- **Ainda não implementado:** o repositório contém cinco dungeons e fluxos legados; substituir por fases, com QA local e migração ou reset/recriação conforme necessário; verificar dependências de outros universos antes de remover serviços do motor genérico.
+- **Masmorras removidas do Hospedeiro (P13, 28/10/2026):** o universo não tem mais `dungeons`; as cinco crises equivalentes pagam pressão, maturidade e selo a quem contribuiu (`ConflictDef.rewards`). Ver `Docs/Hospedeiro/DungeonMigration.md`. `engine/core/dungeon.go` fica como serviço genérico, testado em `engine/scenarios/testdata/legacy-dungeons`; não reintroduzir portais ou salas no Hospedeiro.
 - Continuar usando o motor Go puro/determinístico, Godot autoritativo, Nakama e Jev assíncrono; Java não deve introduzir outra fonte de verdade.
 
 Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, compartilhado por todos. Visão em `Docs/Hospedeiro/BiologicalVersion.md`, estrutura em `Docs/Hospedeiro/GameStructure.md`, dados científicos em `Docs/Hospedeiro/HostScience.md`. Ler antes de mudar regras do Hospedeiro.

@@ -21,9 +21,7 @@ const CONFIRM_SECONDS := 4.0
 
 var _title: Label
 var _banner: Label
-var _dungeon_label: Label
 var _guide: Label
-var _dungeon_text := ""
 var _restart_button: Button
 var _restart_armed_until := 0.0
 var _abilities: BioAbilityRunner
@@ -70,7 +68,7 @@ func press_restart() -> void:
 	_restart_button.text = "CONFIRMAR? apaga tudo"
 
 
-## An arrow at the edge of the screen pointing at something far away (the granuloma), with a short text.
+## An arrow at the edge of the screen pointing at something far away (a lead of the chemical trail, a person to follow), with a short text.
 func set_guide(on: bool, direction: Vector2, text: String) -> void:
 	_guide.visible = on
 	if not on:
@@ -119,21 +117,11 @@ func set_touch(on: bool) -> void:
 	_banner.offset_top = 90
 	_banner.offset_bottom = 150
 	_banner.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_dungeon_label.add_theme_font_size_override("font_size", 14)
 
 
 ## A public engine does not let anyone wipe the shared body: the button goes away.
 func set_restart_allowed(allowed: bool) -> void:
 	_restart_button.visible = allowed
-
-
-func set_dungeon_text(text: String) -> void:
-	_dungeon_text = text
-	_dungeon_label.text = text
-
-
-func set_dungeon_extra(extra: String) -> void:
-	_dungeon_label.text = _dungeon_text if extra.is_empty() or _dungeon_text.is_empty() else _dungeon_text + "\n" + extra
 
 
 func show_banner(text: String) -> void:
@@ -253,16 +241,6 @@ func _ready() -> void:
 	_guide.add_theme_constant_override("outline_size", 6)
 	_guide.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_guide)
-	_dungeon_label = Label.new()
-	_dungeon_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	_dungeon_label.offset_left = -400
-	_dungeon_label.offset_right = 400
-	_dungeon_label.offset_top = 24
-	_dungeon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_dungeon_label.add_theme_font_size_override("font_size", 20)
-	_dungeon_label.add_theme_color_override("font_color", Color(0.8, 1.0, 0.45, 0.9))
-	_dungeon_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_dungeon_label)
 
 	var title := Label.new()
 	_title = title

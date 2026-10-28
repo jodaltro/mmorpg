@@ -17,28 +17,6 @@ class LocalAuthority extends BioGameServer:
 
 var server: BioGameServer
 
-func test_dungeon_briefing_is_an_isolated_safe_room_until_player_confirms() -> void:
-	var rooms := [{"id":"guarda","name":"Guarda","kind":"guard"},{"id":"chefe","name":"Chefe","kind":"boss"}]
-	var run := {"state":"ready","dungeon":"granuloma","name":"Granuloma","seed":817,"room":0,"rooms":rooms}
-	var cell: BioCellActor = server.players.alpha.cell
-	var body_position := cell.global_position
-	server._apply_view("alpha", {"dungeon":{"run":run}})
-	var dungeon := server.players.alpha.dungeon as BioDungeon
-	assert_true(dungeon.briefing)
-	assert_true(cell.get_world_2d() != server.arena.get_world_2d())
-	assert_true(dungeon.enemies().is_empty())
-	var atp := cell.combatant.actor.vitals.atp
-	server._packet(1, {"id":"alpha","input":{"seq":1,"move":[0,0],"aim":[1,0],"actions":["spit"]}})
-	assert_eq(cell.combatant.actor.vitals.atp, atp, "cannot preload attacks while briefing")
-	run.state = "active"
-	server._apply_view("alpha", {"dungeon":{"run":run}})
-	assert_true(not dungeon.briefing)
-	assert_true(not dungeon.enemies().is_empty())
-	run.state = "failed"
-	server._apply_view("alpha", {"dungeon":{"run":run}})
-	assert_true(cell.get_world_2d() == server.arena.get_world_2d())
-	assert_eq(cell.global_position, body_position)
-
 func test_sequenced_input_acknowledges_simulation_not_packet_receipt() -> void:
 	var cell: BioCellActor = server.players.alpha.cell
 	var start := cell.position
@@ -143,21 +121,6 @@ func test_delayed_damage_keeps_the_kill_credit() -> void:
 	enemy.combatant.ignite(20, 1)
 	enemy.combatant._tick_burn(0.1)
 	assert_eq(defeated[0], 1, "burning kill still advances the attacker's server-owned progress")
-
-func test_dungeons_isolate_physics_and_return_to_shared_world() -> void:
-	var run := {"seed":4242,"room":0,"rooms":[{"id":"guarda","kind":"guard","name":"Guarda"}]}
-	server._dungeon("alpha", run)
-	server._dungeon("beta", run)
-	await tree.physics_frame
-	var a: BioCellActor = server.players.alpha.cell
-	var b: BioCellActor = server.players.beta.cell
-	assert_true(a.get_world_2d() != b.get_world_2d(), "personal instances never share physics")
-	var dungeon: BioDungeon = server.players.alpha.dungeon
-	for enemy in dungeon.enemies():
-		assert_eq((enemy as Node2D).get_world_2d(), a.get_world_2d(), "room clear counts only its own enemies")
-	server._end_dungeon("alpha")
-	assert_eq(a.get_world_2d(), server.arena.get_world_2d(), "returns to shared body")
-	assert_true((server.players.beta.dungeon as BioDungeon).active, "other player's room continues")
 
 func test_snapshots_include_server_projectiles_and_ground_effects() -> void:
 	var a: BioCellActor = server.players.alpha.cell

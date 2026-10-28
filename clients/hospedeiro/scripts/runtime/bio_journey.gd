@@ -131,7 +131,7 @@ func recommendation() -> Dictionary:
 				next["at"] = node.global_position
 				next["entity"] = node
 		return next
-	return {"title": "Proteja o corpo e desenvolva sua célula", "detail": "Ataque os invasores e absorva nutrientes passando sobre eles. Isso aumenta sua pressão evolutiva: acompanhe Corpo para escolher genes e classes. Leia os chamados em Missões. As masmorras são desafios opcionais; você não precisa entrar nelas agora."}
+	return {"title": "Proteja o corpo e desenvolva sua célula", "detail": "Ataque os invasores e absorva nutrientes passando sobre eles. Isso aumenta sua pressão evolutiva: acompanhe Corpo para escolher genes e classes. Leia os chamados em Missões. As crises do corpo são abertas a todos; você não precisa aceitar uma missão agora."}
 
 func _regions_to(at: Vector2) -> Array[StringName]:
 	var from := world.region
@@ -235,7 +235,7 @@ func _update_position() -> void:
 
 func _process(delta: float) -> void:
 	_age += delta
-	var available := world.tutorial != null and ((world.tutorial.completed and not world.tutorial.active) or has_manual_destination()) and world.player.is_active() and not world.dungeon.active
+	var available := world.tutorial != null and ((world.tutorial.completed and not world.tutorial.active) or has_manual_destination()) and world.player.is_active()
 	_card.visible = available and not BioUi.captures_input()
 	_ink.visible = available and not BioUi.captures_input()
 	if not available:

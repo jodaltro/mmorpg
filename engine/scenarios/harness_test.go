@@ -245,3 +245,9 @@ func sortedKeys[V any](m map[core.ID]V) []core.ID {
 	slices.Sort(out)
 	return out
 }
+
+// legacyDungeons is the Hospedeiro as it was while it still had dungeon runs.
+// The generic dungeon service stays in the core (no other universe uses it
+// today), so its scenarios run on this frozen fixture and not on the live
+// universe, which no longer has dungeons.
+const legacyDungeons = "../engine/scenarios/testdata/legacy-dungeons"

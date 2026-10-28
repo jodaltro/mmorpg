@@ -43,6 +43,12 @@ type ConflictDef struct {
 	OnReopen   []Effect `json:"onReopen,omitempty"`
 	OnRecover  []Effect `json:"onRecover,omitempty"`
 	OnResolve  []Effect `json:"onResolve,omitempty"`
+	// Rewards are paid once, when an instance resolves, to every player whose
+	// validated contribution reaches RewardMinCredit (default 3). $self is that
+	// player. Nobody who only watched is paid, and a reopened conflict pays
+	// only when it finally resolves.
+	Rewards         []Effect `json:"rewards,omitempty"`
+	RewardMinCredit int64    `json:"rewardMinCredit,omitempty"`
 	// WhileRecovering runs every tick of the recovery phase: the cleanup is
 	// real work, not a celebration.
 	WhileRecovering []Effect `json:"whileRecovering,omitempty"`
@@ -131,6 +137,12 @@ func (w *World) compileConflicts(v *validator, ents map[ID]string) error {
 			if e := v.cond(f.When, vars, where+" front "+f.ID); e != nil {
 				return e
 			}
+		}
+		if e := v.effects(c.Rewards, map[string]bool{"self": true}, where+" rewards"); e != nil {
+			return e
+		}
+		if c.RewardMinCredit < 0 {
+			return invalid("%s: rewardMinCredit", where)
 		}
 		for _, list := range [][]Effect{c.OnStart, c.OnEscalate, c.OnContain, c.OnReopen, c.OnRecover, c.OnResolve, c.WhileRecovering} {
 			if e := v.effects(list, vars, where); e != nil {
@@ -263,12 +275,40 @@ func (w *World) advanceConflict(s *State, def ConflictDef, id, cause string) {
 			w.apply(s, def.WhileRecovering, Bind{}, cause)
 			if hold(def.Resolve) && held(def.Recovery) {
 				transition(PhaseResolved, "conflict-resolved", def.Title+": resolvido.", def.OnResolve)
+				w.payConflictRewards(s, def, s.Conflicts[id], cause)
 			}
 		}
 	}
 	if cur := s.Conflicts[id]; cur.Held != c.Held || cur.Peak != c.Peak {
 		cur.Held, cur.Peak = c.Held, c.Peak
 		s.Conflicts[id] = cur
+	}
+}
+
+// payConflictRewards gives the rewards of a resolved conflict to the players
+// who contributed enough. Credit comes only from confirmed deeds, so this is
+// the one place where taking part in a crisis becomes progression.
+func (w *World) payConflictRewards(s *State, def ConflictDef, c ConflictState, cause string) {
+	if len(def.Rewards) == 0 {
+		return
+	}
+	need := def.RewardMinCredit
+	if need == 0 {
+		need = 3
+	}
+	total := map[string]int64{}
+	for k, n := range c.Credit {
+		if actor, _, ok := splitCredit(k); ok {
+			total[actor] += n
+		}
+	}
+	for _, name := range sortedKeys(total) {
+		actor := ID(name)
+		if total[name] < need || s.Entities[actor].Kind != w.U.PlayerKind {
+			continue
+		}
+		w.apply(s, def.Rewards, Bind{"self": actor}, cause)
+		w.emit(s, Event{Kind: "conflict-reward", Holder: actor, Public: false, Text: def.Title, Cause: cause, Data: map[string]string{"conflict": c.ID, "def": def.ID}})
 	}
 }
 

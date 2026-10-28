@@ -7,7 +7,7 @@ extends CanvasLayer
 ##   HABILIDADES  the four class abilities and the keys they sit on (swap by clicking two).
 ##   BUILDS       three saved sets of genes (and the order of the abilities) that can be applied in one click.
 ## It decides nothing: every change of genes is an intention sent to the engine, which validates it. Changes wait: not inside a
-## dungeon, and not while the body is still settling from the last change (the engine says for how long).
+## combat-free moment, and not while the body is still settling from the last change (the engine says for how long).
 
 signal closed
 
@@ -222,8 +222,6 @@ func _online() -> bool:
 func lock_reason(for_rest := true) -> String:
 	if not _online():
 		return "Sem o motor, o corpo não se reconfigura."
-	if _world.dungeon.active:
-		return "Dentro de uma masmorra o corpo não muda."
 	var rest := int(_evolution().get("restLeft", 0))
 	if for_rest and rest > 0:
 		return "O corpo ainda se acomoda: %d s." % ceili(rest * TICK_SECONDS)

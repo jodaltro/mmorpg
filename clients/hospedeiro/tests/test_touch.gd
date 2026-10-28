@@ -139,8 +139,8 @@ func test_the_world_builds_the_finger_controls_only_on_a_touch_screen() -> void:
 
 
 func test_the_cell_aims_at_the_nearest_enemy_when_no_thumb_aims() -> void:
-	var near := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(5.0, 0.0) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
-	var far := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(0.0, 9.0) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	var near := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(5.0, 0.0) * BioArt.UNIT, world.player, BioEnemyCatalog.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	var far := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(0.0, 9.0) * BioArt.UNIT, world.player, BioEnemyCatalog.enemy(&"cilindro_hialino"), 1.0, "viruses")
 	(near as Node).set_process(false)
 	(far as Node).set_process(false)
 	await tree.physics_frame
@@ -194,7 +194,7 @@ func test_every_control_fits_inside_the_screen_for_each_shape_of_phone_and_table
 	for view in [Vector2(909, 420), Vector2(747, 420), Vector2(1024, 768), Vector2(820, 600), Vector2(960, 420)]:
 		world.touch.layout(view)
 		var rect := Rect2(Vector2.ZERO, view)
-		var controls: Array[Control] = [world.touch.attack_stick, world.touch.toxin, world.touch.dash, world.touch.interact, world.touch.leave, world.touch.respawn, world.touch.fullscreen]
+		var controls: Array[Control] = [world.touch.attack_stick, world.touch.toxin, world.touch.dash, world.touch.interact, world.touch.respawn, world.touch.fullscreen]
 		for b in world.touch.ability_buttons:
 			controls.append(b)
 		for b in world.touch.window_buttons:
@@ -272,8 +272,8 @@ func test_menu_hides_combat_and_releases_a_held_attack() -> void:
 
 
 func test_auto_aim_keeps_target_when_another_enemy_is_only_slightly_closer() -> void:
-	var a := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(5, 0) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
-	var b := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(0, 6) * BioArt.UNIT, world.player, BioDungeonPlan.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	var a := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(5, 0) * BioArt.UNIT, world.player, BioEnemyCatalog.enemy(&"cilindro_hialino"), 1.0, "viruses")
+	var b := BioFactory.spawn_enemy(world, world.player.global_position + Vector2(0, 6) * BioArt.UNIT, world.player, BioEnemyCatalog.enemy(&"cilindro_hialino"), 1.0, "viruses")
 	a.set_process(false)
 	b.set_process(false)
 	await tree.physics_frame

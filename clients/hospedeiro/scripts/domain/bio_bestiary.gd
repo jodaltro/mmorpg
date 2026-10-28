@@ -1,9 +1,9 @@
 class_name BioBestiary
 extends RefCounted
-## What lives in each organ, outside the dungeons. The blood has its spiny virions; every other organ has its own wild things, with
+## What lives in each organ, in the open body. The blood has its spiny virions; every other organ has its own wild things, with
 ## their own look and their own way of fighting (a clot that is slow and heavy, cocci that come in pairs, a spore that keeps away and
 ## throws spores, a plaque, an embolus that charges from afar, a parasite that splits in two). A region lists {kind, weight}; the kind
-## `virion` is the classic one, the others are defined in BioDungeonPlan.enemy.
+## `virion` is the classic one, the others are defined in BioEnemyCatalog.enemy.
 
 const VIRION := &"virion"
 

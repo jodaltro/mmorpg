@@ -8,7 +8,7 @@ import (
 )
 
 func TestFirstDiveAwardsPermanentGeneWithoutReplacingBuildAndReplays(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1", "p2")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	q := h.steer("p1", "primeiro-mergulho")
@@ -29,7 +29,7 @@ func TestFirstDiveAwardsPermanentGeneWithoutReplacingBuildAndReplays(t *testing.
 	if !slices.Contains(h.s.Genomes["p1"].Genes, "nucleo-reativo") {
 		t.Fatal("the permanent reward cannot be expressed")
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyDungeons)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {
@@ -42,7 +42,7 @@ func TestFirstDiveAwardsPermanentGeneWithoutReplacingBuildAndReplays(t *testing.
 }
 
 func TestGeneRewardIsIdempotentAndOnlyAuthorityCanGrantIt(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	u := h.w.U
 	u.Actions = append(slices.Clone(u.Actions), core.ActionDef{ID: "award-test", By: []string{"adapter"}, Effects: []core.Effect{{Op: "acquire-gene", E: "$self", V: "vesicula-toxica"}}})
 	var err error
@@ -75,7 +75,7 @@ func TestGeneRewardIsIdempotentAndOnlyAuthorityCanGrantIt(t *testing.T) {
 }
 
 func TestSlowerEvolutionAndEveryDungeonHasConcreteGeneReward(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	if h.w.U.Evolution.Threshold != 120 || !slices.Equal(h.w.U.Differentiation.Tiers, []int64{168, 480}) {
 		t.Fatal("progression no longer follows the calibrated fourfold cadence")
 	}
@@ -87,7 +87,7 @@ func TestSlowerEvolutionAndEveryDungeonHasConcreteGeneReward(t *testing.T) {
 }
 
 func TestClassProofCountsPracticeAfterDifferentiation(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	h.move("p1", "sangue")

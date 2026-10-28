@@ -69,7 +69,7 @@ func test_the_engine_view_feeds_the_panel() -> void:
 func test_escape_opens_the_menu_and_every_button_exists() -> void:
 	world.debug_menu.toggle()
 	assert_true(world.debug_menu.is_open(), "the menu opens")
-	for label in ["Alvéolos", "Granuloma: O bacilo (chefe)", "Macrófago", "5 vírions à frente", "Invulnerável (liga/desliga)", "Sortear um design completo", "Painel do Jev (F2)"]:
+	for label in ["Alvéolos", "Macrófago", "5 vírions à frente", "Invulnerável (liga/desliga)", "Sortear um design completo", "Painel do Jev (F2)"]:
 		assert_true(world.debug_menu.button_labels().has(label), "a button: %s" % label)
 	assert_true(world.debug_menu.press("Fechar menu") and not world.debug_menu.is_open(), "and it closes")
 
@@ -79,16 +79,6 @@ func test_the_place_buttons_take_you_there() -> void:
 		assert_true(world.debug_menu.press(pair[0]), "press %s" % pair[0])
 		await tree.create_timer(0.25).timeout
 		assert_eq(world.region, pair[1], "you are in %s" % pair[1])
-
-
-func test_the_granuloma_buttons_start_the_room_you_choose() -> void:
-	world.debug_menu.press("Granuloma: O bacilo (chefe)")
-	await tree.create_timer(0.8).timeout
-	assert_true(world.dungeon.active, "the run is on")
-	assert_true(world.dungeon.enemies().size() > 0, "the boss room has enemies")
-	world.debug_menu.press("Sair do granuloma")
-	await tree.create_timer(0.3).timeout
-	assert_true(not world.dungeon.active, "and you can leave it")
 
 
 func test_the_class_button_gives_the_class_and_its_abilities() -> void:

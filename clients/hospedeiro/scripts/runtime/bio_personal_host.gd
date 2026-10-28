@@ -16,7 +16,7 @@ func _ready() -> void:
 	cell.combatant.set_meta("party_player", true)
 	cell.combatant.set_meta("party_owner", "host")
 	BioPartyHealth.attach(cell, owner_name)
-	players["host"] = {"local":true,"cell":cell,"name":owner_name,"view":arena.sync.link.view,"region":str(arena.region),"viewport":null,"dungeon":null,"exploration":arena.exploration,"sequenced":false}
+	players["host"] = {"local":true,"cell":cell,"name":owner_name,"view":arena.sync.link.view,"region":str(arena.region),"exploration":arena.exploration,"sequenced":false}
 	for child in cell.get_children():
 		if child is BioAttackExecutor:
 			(child as BioAttackExecutor).performed.connect(_host_attack)

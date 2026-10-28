@@ -52,12 +52,6 @@ func confirm_host_region(new_region: String) -> void:
 	await super.move_region(new_region)
 
 
-func act(action: String, args: Dictionary = {}) -> Dictionary:
-	if action in ["entrar-masmorra", "iniciar-masmorra"] and bool(JavaScriptBridge.eval("!!window.HospPersonal.peer", true)):
-		return {"status": 409, "body": {"error":"party_open_world", "note":"Masmorras pessoais ficam disponíveis ao jogar sozinho. Feche a visita em Mundo / amigos."}}
-	return await super.act(action, args)
-
-
 func request(_method: int, path: String, body: Variant = null) -> Dictionary:
 	var ticket := int(JavaScriptBridge.eval("window.HospPersonal.begin(%s,%s)" % [JSON.stringify(path), JSON.stringify(body)], true))
 	while is_inside_tree():

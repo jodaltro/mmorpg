@@ -85,8 +85,8 @@ static func spawn_virus(parent: Node, pos: Vector2, prey: BioCellActor) -> BioVi
 	return brain
 
 
-## An enemy shaped by BioDungeonPlan.enemy: hp, speed, size, colours and how it fights (it lunges, it shoots from afar, or it is a nest).
-## `group` is where it is counted: the dungeon's enemies by default, or "viruses" for the wild ones of an organ. Returns its brain.
+## An enemy shaped by BioEnemyCatalog.enemy: hp, speed, size, colours and how it fights (it lunges, it shoots from afar, or it is a nest).
+## `group` is where it is counted: "viruses" for the wild ones of an organ. Returns its brain.
 static func spawn_enemy(parent: Node, pos: Vector2, prey: BioCellActor, def: Dictionary, speed_mult: float = 1.0, group: String = "dungeon_enemies") -> Node:
 	var actor := _make_actor(parent, str(def.get("name", "Enemy")), pos)
 	var speed := float(def["speed"]) * speed_mult

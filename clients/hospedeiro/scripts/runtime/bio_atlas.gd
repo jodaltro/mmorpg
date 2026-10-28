@@ -50,7 +50,7 @@ func configure(player: Node2D, body_seed: int, save_path: String) -> void:
 		zoom.text = "Ver corpo inteiro" if _focus_known else "Ampliar locais conhecidos"
 		_panel.queue_redraw())
 	row.add_child(zoom)
-	var places := BioUi.button("Locais e masmorras · o que são?")
+	var places := BioUi.button("Locais · o que são?")
 	places.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	places.pressed.connect(show_places)
 	row.add_child(places)
@@ -216,13 +216,7 @@ func _paint() -> void:
 			var end: Vector2 = to_screen.call(world.journey.goal / BioArt.UNIT)
 			_panel.draw_circle(end, 7, BioUi.BG)
 			_panel.draw_arc(end, 7, 0, TAU, 32, BioUi.ACCENT, 2, true)
-		for gate in world.gates.values():
-			if not knows(BioBodyMap.region_of(gate.global_position)): continue
-			var at: Vector2 = to_screen.call(gate.global_position / BioArt.UNIT)
-			var diamond := PackedVector2Array([at + Vector2(0,-7), at + Vector2(7,0), at + Vector2(0,7), at + Vector2(-7,0), at + Vector2(0,-7)])
-			_panel.draw_polyline(diamond, BioUi.GOOD if gate.eligible else BioUi.MUTED, 2, true)
-			_hits.append({"screen": at, "at": gate.global_position, "title": "Masmorra: " + gate.title.capitalize(), "detail": dungeon_description(gate)})
-	_legend.text = "● Você · ○ Região · ◇ Masmorra · Linha azul: GPS\nToque em um local para ver detalhes e marcar destino."
+	_legend.text = "● Você · ○ Região · Linha azul: GPS\nToque em um local para ver detalhes e marcar destino."
 	if world != null and world.journey != null and world.journey.navigation_state != "none":
 		_legend.text += "\nGPS · " + world.journey.gps_label()
 	if is_instance_valid(_player):
@@ -230,9 +224,6 @@ func _paint() -> void:
 		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)
 		_panel.draw_circle(at, 9.0 + 4.0 * pulse, Color(0.2, 0.9, 1.0, 0.25))
 		_panel.draw_circle(at, 5.0, Color(0.7, 1.0, 1.0, 0.95))
-
-static func dungeon_description(gate: BioGate) -> String:
-	return "Desafio opcional em uma instância pessoal, com salas de combate e um chefe. Aproxime-se da entrada e use Agir para consultar as ações.\n" + ("Entrada disponível. Prepare genes e habilidades em Corpo antes de entrar." if gate.eligible else "Entrada indisponível: " + (gate.hint if not gate.hint.is_empty() else "consulte os requisitos em Agir quando estiver perto.")) + ("\n\n" + gate.details if not gate.details.is_empty() else "")
 
 static func place_title(region: Dictionary) -> String:
 	if region["id"] == BioBodyMap.MEDULA: return "MEDULA · REFÚGIO"
@@ -264,15 +255,6 @@ func _show_selected() -> void:
 	_go.visible = true
 	_modal.hide_modal()
 	_info.present(self)
-	var world := _player.get_parent() as BioWorld
-	if world == null: return
-	for gate in world.gates.values():
-		if gate.global_position != _selected.at: continue
-		var preview := BioUi.button("Ver expedição e prêmios", "primary")
-		preview.pressed.connect(func() -> void: close(); world.dungeon_panel.open_gate(gate))
-		_info.content.add_child(preview)
-		break
-
 func _clear_place_buttons() -> void:
 	for child in _info.content.get_children():
 		if child == _detail or child == _go: continue
@@ -281,7 +263,7 @@ func _clear_place_buttons() -> void:
 
 func show_places() -> void:
 	_clear_place_buttons()
-	_detail.text = "NPC dourado: habitante aliado, não ataque.\nNutriente: absorva ao passar sobre ele.\nVírion: invasor para combater.\nMasmorra: desafio opcional em salas, separado do mapa aberto.\n\nEscolha um local conhecido para ver detalhes e marcar o caminho:"
+	_detail.text = "NPC dourado: habitante aliado, não ataque.\nNutriente: absorva ao passar sobre ele.\nVírion: invasor para combater.\n\nEscolha um local conhecido para ver detalhes e marcar o caminho:"
 	_go.visible = false
 	for hit in _hits:
 		var button := BioUi.button(str(hit.title))

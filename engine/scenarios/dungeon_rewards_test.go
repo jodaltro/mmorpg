@@ -14,7 +14,7 @@ func (h *harness) expedition(p core.ID) core.ExpeditionPreview {
 }
 
 func TestExpeditionDraftIsStableAcrossTimeAndAbandonment(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInBlood("p1")
 	preview := h.expedition("p1")
@@ -47,7 +47,7 @@ func TestExpeditionDraftIsStableAcrossTimeAndAbandonment(t *testing.T) {
 }
 
 func TestExpeditionVictoryPaysExactlyOneChosenGeneAndReplays(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInBlood("p1")
 	preview := h.expedition("p1")
@@ -86,7 +86,7 @@ func TestExpeditionVictoryPaysExactlyOneChosenGeneAndReplays(t *testing.T) {
 	if got := h.expedition("p1"); got.Token == preview.Token {
 		t.Fatal("victory did not advance the expedition")
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyDungeons)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {
@@ -99,7 +99,7 @@ func TestExpeditionVictoryPaysExactlyOneChosenGeneAndReplays(t *testing.T) {
 }
 
 func TestLegacyDungeonEntryDeliversRewardWithoutClaimUI(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.matureInBlood("p1")
 	preview := h.expedition("p1")
@@ -118,7 +118,7 @@ func TestLegacyDungeonEntryDeliversRewardWithoutClaimUI(t *testing.T) {
 }
 
 func TestDraftsVaryAndNeverOfferOwnedOrIneligibleGenes(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	seen := map[string]bool{}
 	for i := 0; i < 12; i++ {
 		p := core.ID("p" + strconv.Itoa(i))
@@ -150,7 +150,7 @@ func TestDraftsVaryAndNeverOfferOwnedOrIneligibleGenes(t *testing.T) {
 }
 
 func TestRewardViewsDescribeQuestEffectsWithoutChangingState(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyDungeons)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	q := h.steer("p1", "primeiro-mergulho")

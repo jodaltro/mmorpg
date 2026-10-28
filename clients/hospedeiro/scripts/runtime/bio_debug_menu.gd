@@ -1,7 +1,7 @@
 class_name BioDebugMenu
 extends CanvasLayer
 ## The test menu (Esc): buttons that take you straight to what you want to test, with the mouse. Places of the body, each room of the
-## granuloma, any class (with its abilities), enemies to fight, full health, god mode, and shortcuts to the designs and to the panels of
+## any class (with its abilities), enemies to fight, full health, god mode, and shortcuts to the designs and to the panels of
 ## what Jev is doing. Every button calls a method of the world, so the same shortcuts are tested without a screen.
 
 var _world: Node
@@ -88,16 +88,11 @@ func _sections() -> Array:
 	var place_names := {BioBodyMap.MEDULA: "Nicho da medula", BioBodyMap.SANGUE: "Vênula", BioBodyMap.CORACAO: "Endocárdio", BioBodyMap.PULMAO: "Alvéolos", BioBodyMap.AORTA: "Artéria", BioBodyMap.FIGADO: "Fígado", BioBodyMap.BACO: "Baço", BioBodyMap.INTESTINO: "Intestino", BioBodyMap.RIM: "Rim", BioBodyMap.PELE: "Pele", BioBodyMap.LINFONODO: "Linfonodo", BioBodyMap.CEREBRO: "Cérebro"}
 	for id in place_names:
 		places.append([place_names[id], func() -> void: w.debug_goto(id)])
-	var rooms: Array = []
-	for i in BioWorld.DEBUG_ROOMS.size():
-		rooms.append(["Granuloma: " + (str(BioWorld.DEBUG_ROOMS[i]["name"])), func() -> void: w.debug_dungeon_room(i)])
-	rooms.append(["Sair do granuloma", func() -> void: w.debug_leave_dungeon()])
 	var classes: Array = []
 	for id in BioWorld.DEBUG_CLASSES:
 		classes.append([BioLineageCatalog.display_name(id), func() -> void: w.debug_become(id)])
 	return [
 		{"title": "IR PARA UM LUGAR DO CORPO", "items": places},
-		{"title": "GRANULOMA (masmorra): direto para uma sala", "items": rooms},
 		{"title": "CLASSE (com as 4 habilidades dela; ligado ao motor ele pode desfazer)", "items": classes},
 		{"title": "TESTAR", "items": [
 			["5 vírions à frente", func() -> void: w.debug_spawn_virions(5)],

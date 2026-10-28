@@ -24,7 +24,7 @@ var _guard_mult := 1.0
 var _haste_until := 0.0
 var _haste := 1.0
 var _bonus_atp := 0.0
-var damage_dealt_mult := 1.0  # how hard this one hits (enemies of a dungeon are tuned)
+var damage_dealt_mult := 1.0  # how hard this one hits (some enemies are tuned)
 
 ## The flavour of this cell's effects (BioEffectPhysics): the ability hits it lands carry a physical consequence.
 var effect_style: StringName = &""

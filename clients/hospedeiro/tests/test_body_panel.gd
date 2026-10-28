@@ -47,8 +47,6 @@ func _online() -> void:
 	world.sync.link.online = true
 
 
-
-
 # --- the pieces without a screen -------------------------------------------------------------------------------------------------
 
 
@@ -115,13 +113,10 @@ func test_the_body_window_opens_where_something_waits() -> void:
 	assert_true(not BioUi.captures_input(), "closed: the cell attacks with the mouse again")
 
 
-func test_nothing_changes_inside_a_dungeon_or_offline() -> void:
+func test_nothing_changes_offline() -> void:
 	assert_true(world.body_panel.lock_reason().contains("motor"), "offline the body is not reconfigured")
 	_online()
 	assert_eq(world.body_panel.lock_reason(), "", "online and calm")
-	world.dungeon.active = true
-	assert_true(world.body_panel.lock_reason().contains("masmorra"), "not inside a dungeon")
-	world.dungeon.active = false
 
 
 func test_the_body_rests_between_changes() -> void:

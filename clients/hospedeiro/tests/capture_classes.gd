@@ -50,7 +50,7 @@ func _foes(hp: float, hunting: bool = false) -> Array[BioCellActor]:
 	var foes: Array[BioCellActor] = []
 	var spots := [Vector2(4.0, -2.5), Vector2(5.4, 0.2), Vector2(4.2, 2.6), Vector2(7.0, -1.0)]
 	for k in spots.size():
-		var def := BioDungeonPlan.enemy(&"cilindro_hialino").duplicate()
+		var def := BioEnemyCatalog.enemy(&"cilindro_hialino").duplicate()
 		def["hp"] = hp
 		if not hunting:
 			def["speed"] = 0.0

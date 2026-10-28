@@ -151,7 +151,6 @@ func _connect() -> void:
 
 
 func queue_action(action: String) -> int:
-	if world.dungeon.briefing: return BioActor.AttackStatus.ON_COOLDOWN
 	if not is_ready and not _has_started: return BioActor.AttackStatus.DEAD
 	if action == "respawn":
 		if is_ready and not _actions.has(action):
@@ -477,7 +476,7 @@ func _spawn(data: Dictionary) -> Node2D:
 			if enemy_kind == &"virion":
 				cell = BioFactory.spawn_virus(world, at, world.player).get_parent() as BioCellActor
 			else:
-				cell = BioFactory.spawn_enemy(world, at, world.player, BioDungeonPlan.enemy(enemy_kind), 1.0, "viruses").get_parent() as BioCellActor
+				cell = BioFactory.spawn_enemy(world, at, world.player, BioEnemyCatalog.enemy(enemy_kind), 1.0, "viruses").get_parent() as BioCellActor
 		cell.set_meta("net_uid", str(data.get("uid", "")))
 		cell.set_physics_process(false)
 		cell.collision_layer = 0

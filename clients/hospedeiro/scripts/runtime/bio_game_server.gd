@@ -179,7 +179,7 @@ func _join(id: String, player_name: String) -> void:
 	var link := _new_player_link()
 	link.request_headers = {"X-Adapter-Key": adapter_key, "X-Edge-Secret": edge_secret}
 	link.configure(engine_url, {"id": "nk-"+id, "name": player_name})
-	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "viewport": null, "dungeon": null, "dungeon_seed": -1, "used": {}, "travel": 0.0, "last_pos": cell.global_position, "compact": false, "metadata": {}}
+	players[id] = {"cell": cell, "link": link, "name": player_name, "seq": -1, "last_input": 0, "region": "medula", "view": {}, "used": {}, "travel": 0.0, "last_pos": cell.global_position, "compact": false, "metadata": {}}
 	players[id].merge({"sequenced":false,"inputs":BioNetInputBuffer.new(),"action_token":0,"results":[]})
 	(players[id].inputs as BioNetInputBuffer).next_sequence = 1
 	link.view_changed.connect(func(view: Dictionary) -> void: _apply_view(id, view))
@@ -216,13 +216,11 @@ func _leave(id: String) -> void:
 	(p.cell as Node).queue_free()
 	(p.link as Node).queue_free()
 	(p.exploration as Node).queue_free()
-	if p.viewport != null: (p.viewport as Node).queue_free()
 	players.erase(id)
 
 
 func _reset_cell(id: String) -> void:
 	if not players.has(id): return
-	_end_dungeon(id)
 	if Time.get_ticks_msec() - _last_reset > 3000:
 		_last_reset = Time.get_ticks_msec()
 		for group in ["viruses", "nutrients", "motes", "toxins"]:
@@ -267,53 +265,6 @@ func _apply_view(id: String, view: Dictionary) -> void:
 	body.apply(view.get("vitals", []))
 	cell.combatant.environment_speed = body.speed_multiplier()
 	cell.combatant.actor.vitals.regen_scale = body.atp_regen_multiplier() * (1.15 if view.get("explore", {}).get("adapted", []).has(players[id].region) else 1.0)
-	var run: Variant = view.get("dungeon", {}).get("run")
-	if run is Dictionary and run.get("state", "") in ["ready", "active"]:
-		_dungeon(id, run)
-	elif players[id].dungeon != null:
-		_end_dungeon(id)
-
-
-func _dungeon(id: String, run: Dictionary) -> void:
-	var p: Dictionary = players[id]
-	if p.dungeon == null:
-		var viewport := SubViewport.new()
-		viewport.world_2d = World2D.new()
-		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
-		add_child(viewport)
-		var realm := Node2D.new()
-		viewport.add_child(realm)
-		var cell: BioCellActor = p.cell
-		p["return_to"] = cell.global_position
-		cell.reparent(realm)
-		var dungeon := BioDungeon.new()
-		realm.add_child(dungeon)
-		dungeon.bind(cell, p.return_to)
-		dungeon.room_cleared.connect(func(_room: int) -> void: (p.link as BioEngineLink).occur("sala-limpa"))
-		dungeon.run_failed.connect(func() -> void: (p.link as BioEngineLink).occur("falhar-masmorra"))
-		p.viewport = viewport
-		p.dungeon = dungeon
-		p.dungeon_seed = int(run.get("seed", 0))
-		dungeon.start(run)
-	else:
-		var dungeon := p.dungeon as BioDungeon
-		if dungeon.briefing and run.get("state", "") == "active":
-			dungeon.start(run)
-		elif not dungeon.briefing and dungeon.active and int(run.get("room", 0)) > dungeon.room_index:
-			dungeon.advance(int(run.room))
-
-
-func _end_dungeon(id: String) -> void:
-	var p: Dictionary = players[id]
-	if p.dungeon == null: return
-	var dungeon := p.dungeon as BioDungeon
-	dungeon.finish(true)
-	var cell: BioCellActor = p.cell
-	cell.reparent(arena)
-	cell.global_position = p.get("return_to", BioBodyMap.center_px(BioBodyMap.MEDULA))
-	(p.viewport as Node).queue_free()
-	p.viewport = null
-	p.dungeon = null
 
 
 func _process(delta: float) -> void:
@@ -329,7 +280,6 @@ func _process(delta: float) -> void:
 		p.last_pos = cell.global_position
 		if Time.get_ticks_msec() - int(p.last_input) > 500 or not transport.connected:
 			cell.set_intent(Vector2.ZERO)
-		if p.dungeon != null: continue
 		var r := String(BioBodyMap.region_of(cell.global_position))
 		if r != p.region:
 			p.region = r
@@ -357,7 +307,6 @@ func _process(delta: float) -> void:
 func _upkeep() -> void:
 	var live: Array[StringName] = []
 	for id in players:
-		if players[id].dungeon != null: continue
 		for r in BioAnatomy.within(StringName(players[id].region), 1):
 			if not live.has(r): live.append(r)
 	arena.live_regions = live
@@ -367,7 +316,7 @@ func _upkeep() -> void:
 		var target: BioCellActor = null
 		for id in players:
 			var cell: BioCellActor = players[id].cell
-			if players[id].dungeon == null and cell.is_active() and (target == null or cell.global_position.distance_squared_to(enemy.global_position) < target.global_position.distance_squared_to(enemy.global_position)):
+			if cell.is_active() and (target == null or cell.global_position.distance_squared_to(enemy.global_position) < target.global_position.distance_squared_to(enemy.global_position)):
 				target = cell
 		if target != null: (enemy as BioCellActor).retarget(target)
 	for mote in get_tree().get_nodes_in_group("motes"):
@@ -399,9 +348,6 @@ func _snapshot() -> void:
 		transport.send_data(2, {"target": "", "body": {}})  # keep the host lease alive even in an empty world
 	var entities: Array = []
 	var nodes: Array[Node] = arena.get_children()
-	for id in players:
-		if players[id].viewport != null:
-			nodes.append_array((players[id].viewport as Node).get_child(0).get_children())
 	for n in nodes:
 		if not n is Node2D or (n == arena.player and not n.has_meta("net_id")) or n.is_queued_for_deletion(): continue
 		var d := {"id": str(n.get_instance_id()), "p": BioNetProtocol.xy((n as Node2D).global_position), "realm": str((n as Node2D).get_world_2d().get_instance_id())}

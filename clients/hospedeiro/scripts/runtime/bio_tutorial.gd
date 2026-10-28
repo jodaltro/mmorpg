@@ -14,7 +14,7 @@ const STEPS := [
 	["Converse e descubra ações", "Perto de Estroma, toque em Agir para ver as ações disponíveis. Leia as opções e feche a janela para continuar.", "Perto de Estroma, pressione E para ver as ações disponíveis. Depois feche a janela."],
 	["Acompanhe suas missões", "Abra Menu → Missões. Veja ofertas e objetivos: eles indicam quem ajudar e quais invasores atacar. Feche a janela depois de explorar.", "Clique no quadro de missões no canto superior direito. Veja os objetivos e feche a janela."],
 	["Construa sua célula", "Abra Corpo. Genes modificam seu organismo; a experiência de jogo permite diferenciar sua classe. Não há níveis nem XP. Fora de combate, você verá um convite quando puder evoluir.", "Pressione G para abrir Corpo e conhecer genes, classe e habilidades."],
-	["Seu primeiro destino: o Sangue", "Ao concluir, siga a trilha azul pelo canal à direita da Medula. No Sangue, combata vírions e absorva nutrientes para evoluir. O botão Próximo passo acompanha seu objetivo. Toque nos símbolos do mapa para entender os locais; masmorras são desafios opcionais para depois.", "Reveja este guia quando quiser pelo botão Tutorial."]
+	["Seu primeiro destino: o Sangue", "Ao concluir, siga a trilha azul pelo canal à direita da Medula. No Sangue, combata vírions e absorva nutrientes para evoluir. O botão Próximo passo acompanha seu objetivo. Toque nos símbolos do mapa para entender os locais; as crises do corpo são o desafio de verdade.", "Reveja este guia quando quiser pelo botão Tutorial."]
 ]
 
 var world: BioWorld
@@ -210,9 +210,9 @@ func _process(delta: float) -> void:
 	_step_age += delta
 	if _success_age >= 0: _success_age += delta
 	var was_waiting := _waiting
-	_waiting = not ready_to_play or not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT) or world.dungeon.active
+	_waiting = not ready_to_play or not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT)
 	if was_waiting and not _waiting and step == 1 and not _fulfilled: _origin = world.player.global_position
-	_can_guide_back = ready_to_play and not world.dungeon.active and world.player.is_active() and not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT)
+	_can_guide_back = ready_to_play and world.player.is_active() and not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT)
 	_next.text = "Começar" if step == 0 else "Concluir" if step == STEPS.size() - 1 else "Continuar"
 	_root.visible = true
 	_card.visible = not ((step == 9 and world.sync.system._missions.visible) or (step == 10 and world.body_panel.is_open()) or (step == 8 and world.sync.system.menu_open))
@@ -220,7 +220,6 @@ func _process(delta: float) -> void:
 	_ink.visible = _card.visible
 	if _waiting:
 		_status.text = "Aguardando o mundo carregar…" if not ready_to_play else "Volte à Medula para continuar com segurança."
-		if ready_to_play and world.dungeon.active: _status.text = "Saia da masmorra e volte à Medula para retomar o tutorial."
 		_status.modulate = Color.WHITE
 		if _can_guide_back: _next.text = "Ver caminho"
 		_next.disabled = not _can_guide_back

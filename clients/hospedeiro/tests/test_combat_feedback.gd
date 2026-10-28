@@ -5,7 +5,7 @@ func test_smooth_enemies_have_wounds_contraction_and_membrane_particles() -> voi
 	tree.root.add_child(root)
 	var player := BioFactory.spawn_player(root, Vector2.ZERO)
 	for kind in [&"linfocito", &"macrofago_guarda", &"hepatocito_doente", &"gota_de_gordura"]:
-		var brain := BioFactory.spawn_enemy(root, Vector2(100,0), player, BioDungeonPlan.enemy(kind))
+		var brain := BioFactory.spawn_enemy(root, Vector2(100,0), player, BioEnemyCatalog.enemy(kind))
 		brain.set_process(false)
 		var cell := brain.get_parent() as BioCellActor
 		var body: BioCellBody

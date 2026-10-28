@@ -57,25 +57,6 @@ func test_real_mission_takes_priority_without_accepting_offers() -> void:
 	assert_eq(world.journey.recommendation().title, "Responda ao chamado")
 	assert_true(world.sync.system._active.is_empty(), "reading a recommendation cannot accept a quest")
 
-func test_atlas_lists_known_dungeons_with_large_buttons_and_routes_selection() -> void:
-	world.atlas._panel.size = Vector2(600, 260)
-	# draw callback builds the exact same hit/list data used by touch input.
-	world.atlas.toggle()
-	await tree.process_frame
-	world.atlas.show_places()
-	var found := false
-	for child in world.atlas._info.content.get_children():
-		if child is Button and child.text.contains("Granuloma"):
-			found = true
-			child.pressed.emit()
-			assert_true(world.atlas._detail.text.contains("instância pessoal"))
-			assert_true(world.atlas._detail.text.contains("indisponível"))
-			world.atlas._go.pressed.emit()
-			break
-	assert_true(found, "known dungeon has a readable, tappable list entry")
-	assert_eq(world.journey._pinned.get("at"), world.gate.global_position)
-	assert_true(not world.atlas.is_open(), "marking a route closes the map")
-
 func test_arrival_hides_world_and_map_arrows_without_restarting_the_route() -> void:
 	world.tutorial.completed = true
 	world.journey.pin(Vector2.ZERO, "Refúgio")
@@ -96,10 +77,6 @@ func test_arrival_hides_world_and_map_arrows_without_restarting_the_route() -> v
 	world._build_for_touch()
 	var segments := world.touch.minimap.route_segments(Rect2(7,7,78,78), 1.5, Vector2(46,46))
 	assert_true(segments.is_empty(), "the actual minimap renderer receives no route after arrival")
-	world.dungeon.active = true
-	world.journey._process(0)
-	assert_true(not world.journey._card.visible and not world.journey.has_target)
-	world.dungeon.active = false
 	world.player.set_active(false)
 	world.journey._process(0)
 	assert_true(not world.journey._card.visible and not world.journey.has_target, "death hides guidance")

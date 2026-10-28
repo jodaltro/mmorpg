@@ -8,7 +8,6 @@ const TOXIN_SPIT := &"toxin_spit"
 const MEMBRANE_DASH := &"membrane_dash"
 const VIRAL_LUNGE := &"viral_lunge"
 const ENEMY_SPIT := &"enemy_spit"  # what the spitters of the organs throw
-const BACILLUS_SLAM := &"bacillus_slam"  # the boss of the granuloma: a shockwave around itself
 
 static var _defs: Dictionary = {}
 
@@ -22,7 +21,6 @@ static func get_def(id: StringName) -> BioAttackDef:
 		_defs[MEMBRANE_DASH] = BioAttackDef.new(MEMBRANE_DASH, 12.0, 0.0, 1.2, 4.5, 0.0, 0.28)
 		_defs[VIRAL_LUNGE] = BioAttackDef.new(VIRAL_LUNGE, 0.0, 12.0, 2.4, 3.2, 9.0, 0.0)
 		_defs[ENEMY_SPIT] = BioAttackDef.new(ENEMY_SPIT, 0.0, 9.0, 2.6, 9.0, 3.0, 0.0)
-		_defs[BACILLUS_SLAM] = BioAttackDef.new(BACILLUS_SLAM, 0.0, 18.0, 5.5, 4.2, 14.0, 0.0)
 	return _defs[id]
 
 

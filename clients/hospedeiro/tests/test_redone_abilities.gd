@@ -25,7 +25,7 @@ func after_each() -> void:
 
 
 func _enemy(hp: float, at: float, dir: Vector2 = Vector2.RIGHT) -> BioCellActor:
-	var def := BioDungeonPlan.enemy(&"cilindro_hialino").duplicate()
+	var def := BioEnemyCatalog.enemy(&"cilindro_hialino").duplicate()
 	def["hp"] = hp
 	def["speed"] = 0.0
 	var brain := BioFactory.spawn_enemy(world, world.player.global_position + dir.normalized() * at * BioArt.UNIT, world.player, def, 1.0, "viruses")

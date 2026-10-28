@@ -56,7 +56,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var screen := get_viewport().get_visible_rect().size
-	JavaScriptBridge.eval("window.HospPersonal.canInvite=%s;window.HospPersonal.inCombat=%s" % ["true" if world.player.is_active() and not world.dungeon.active else "false", "true" if world.evolution_presentation.in_combat() else "false"], true)
+	JavaScriptBridge.eval("window.HospPersonal.canInvite=%s;window.HospPersonal.inCombat=%s" % ["true" if world.player.is_active() else "false", "true" if world.evolution_presentation.in_combat() else "false"], true)
 	_button.position = Vector2(screen.x * 0.5 - 60, 6)
 	var modal := bool(JavaScriptBridge.eval("window.HospPersonal.partyModal", true))
 	if modal != _was_modal:
@@ -99,7 +99,7 @@ func _process(delta: float) -> void:
 	if _clock > 0: return
 	_clock = 1.0
 	var vitals := world.player.combatant.actor.vitals
-	var saved := {"position":BioNetProtocol.xy(world.dungeon._return_to if world.dungeon.active else world.player.global_position),"region":str(world.region),"health":vitals.membrane / maxf(1,vitals.max_membrane),"energy":vitals.atp / maxf(1,vitals.max_atp),"files":{}}
+	var saved := {"position":BioNetProtocol.xy(world.player.global_position),"region":str(world.region),"health":vitals.membrane / maxf(1,vitals.max_membrane),"energy":vitals.atp / maxf(1,vitals.max_atp),"files":{}}
 	for file_name in PROFILE_FILES:
 		if FileAccess.file_exists("user://" + file_name): saved.files[file_name] = FileAccess.get_file_as_string("user://" + file_name)
 	JavaScriptBridge.eval("window.HospPersonal.setPlayer(%s)" % JSON.stringify(saved), true)
