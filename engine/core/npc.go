@@ -424,6 +424,11 @@ type SocietyView struct {
 	Doing    string          `json:"doing,omitempty"`
 	Done     int64           `json:"done"`
 	Failed   int64           `json:"failed"`
+	Dest     ID              `json:"dest,omitempty"` // region of the leg in progress: where the NPC is heading
+	Step     int             `json:"step"`           // 0-based leg of the route
+	Steps    int             `json:"steps"`          // legs in the route
+	Since    Tick            `json:"since"`          // tick the current phase began
+	Arrive   Tick            `json:"arrive,omitempty"`
 	Help     *HelpView       `json:"help,omitempty"`
 	Memories []MemoryEpisode `json:"memories,omitempty"`
 }
@@ -450,6 +455,16 @@ func (w *World) societyView(s *State, observer ID) []SocietyView {
 		st := s.NPCs[id]
 		v := SocietyView{ID: id, Name: ent.Name, Region: ent.Region, Phase: st.Phase, Task: st.Task, Doing: ent.Tag["doing"], Done: st.Done, Failed: st.Failed,
 			Memories: s.TopMemories(id, observer, 3)}
+		if t, ok := w.tasks[st.Task]; ok && st.Task != "" {
+			route := st.route(t)
+			v.Steps, v.Since = len(route), st.Since
+			if st.Step < len(route) {
+				v.Dest = route[st.Step].Region
+			}
+			if st.Phase == NPCTravel {
+				v.Arrive = st.Arrive
+			}
+		}
 		if st.Help != "" {
 			r := s.Helps[st.Help]
 			v.Help = &HelpView{ID: r.ID, Need: r.Need, Text: r.Text, Region: r.Region, Open: r.Open, Status: r.Status}

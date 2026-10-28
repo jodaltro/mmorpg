@@ -353,3 +353,32 @@ func TestSocietyReplayDigest(t *testing.T) {
 		t.Fatal("replay digest mismatch")
 	}
 }
+
+// The view tells a client where each NPC is heading and how far along the leg
+// is, so a client can draw real progress instead of a cosmetic timer.
+func TestSocietyViewCarriesLegProgress(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.join("p1")
+	sawLeg := false
+	for i := 0; i < 400; i++ {
+		h.tick(1)
+		v, ok := h.w.View(&h.s, "p1", 10)
+		if !ok {
+			t.Fatal("no view")
+		}
+		for _, n := range v.Society {
+			if n.Phase == core.NPCTravel {
+				if n.Dest == "" || n.Steps < 1 || n.Step >= n.Steps || n.Arrive < n.Since || n.Task == "" {
+					t.Fatalf("a travelling NPC must expose its leg: %+v", n)
+				}
+				sawLeg = true
+			}
+			if n.Phase == core.NPCIdle && (n.Task != "" || n.Arrive != 0) {
+				t.Fatalf("an idle NPC has no leg: %+v", n)
+			}
+		}
+	}
+	if !sawLeg {
+		t.Fatal("nobody travelled in 400 ticks")
+	}
+}

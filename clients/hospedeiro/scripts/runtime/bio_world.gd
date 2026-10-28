@@ -24,6 +24,7 @@ const FEVER_SLOWDOWN := 0.55
 @export var seed_value := 1337
 @export var save_path := "user://hospedeiro_genome.json"  # empty disables persistence
 @export var engine_url := "http://127.0.0.1:8096"  # empty keeps the game offline
+var living_enabled := true  # draw the engine's living body (cells at work, crises); the headless game server turns it off
 @export var identity_path := "user://hospedeiro_player.json"
 
 var player: BioCellActor
@@ -837,7 +838,10 @@ func _process(delta: float) -> void:
 		var left := dungeon.grace_left()
 		hud.set_dungeon_extra("Preparando · início automático" if dungeon.briefing else "Prepare-se… %d" % ceili(left) if left > 0.0 else ("Segure para atacar · arraste para mirar" if BioPlatform.is_touch() else "WASD move · clique ataca · Q F C V habilidades · Backspace sai"))
 	var guide_gate := _nearest_open_gate()
-	if journey != null and (journey.navigation_state != "none" or tutorial.completed):
+	var follow := sync.follow_guide() if sync != null else {}
+	if not follow.is_empty() and player.is_active() and not dungeon.active:
+		hud.set_guide(true, follow["to"], str(follow["text"]))
+	elif journey != null and (journey.navigation_state != "none" or tutorial.completed):
 		hud.set_guide(false, Vector2.ZERO, "")
 	elif guide_gate != null and not dungeon.active and player.is_active():
 		var to := guide_gate.global_position - player.global_position

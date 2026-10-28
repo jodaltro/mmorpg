@@ -78,7 +78,7 @@ func test_viruses_live_in_the_blood() -> void:
 
 func test_view_shows_the_call_and_the_residents_of_this_region() -> void:
 	var neva := {"id": "neva", "kind": "celula", "name": "Neva, neutrofila veterana", "region": "sangue"}
-	var offer := {"key": "investigar-inflamacao|p1", "state": "offered", "giver": "neva", "rank": "E", "title": "Calor no capilar", "objective": "Examine o capilar inflamado.", "reward": "Reputacao +1"}
+	var offer := {"key": "primeiro-gene|p1", "def": "primeiro-gene", "state": "offered", "giver": "neva", "rank": "E", "title": "Calor no capilar", "objective": "Examine o capilar inflamado.", "reward": "Reputacao +1"}
 	world.sync.apply_view(_view({"others": [neva], "quests": [offer]}))
 	assert_true(world.sync.system.is_offer_visible(), "the call is shown")
 	assert_true(world.sync.system.offer_text().contains("Neva"), "the caller is named")

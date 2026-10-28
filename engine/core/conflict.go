@@ -312,21 +312,24 @@ type ConflictView struct {
 }
 
 type ConflictItemView struct {
-	ID       string           `json:"id"`
-	Def      string           `json:"def"`
-	Title    string           `json:"title"`
-	Desc     string           `json:"desc,omitempty"`
-	Phase    string           `json:"phase"`
-	Region   ID               `json:"region"`
-	Onset    Tick             `json:"onset"`
-	Since    Tick             `json:"since"`
-	Revision int64            `json:"revision"`
-	Severity int64            `json:"severity"`
-	Peak     int64            `json:"peak"`
-	Metrics  []MetricView     `json:"metrics"`
-	Fronts   []string         `json:"fronts,omitempty"`
-	Reopened int64            `json:"reopened,omitempty"`
-	Mine     map[string]int64 `json:"mine,omitempty"` // the observer's own validated credit by kind
+	ID       string       `json:"id"`
+	Def      string       `json:"def"`
+	Title    string       `json:"title"`
+	Desc     string       `json:"desc,omitempty"`
+	Phase    string       `json:"phase"`
+	Region   ID           `json:"region"`
+	Onset    Tick         `json:"onset"`
+	Since    Tick         `json:"since"`
+	Revision int64        `json:"revision"`
+	Severity int64        `json:"severity"`
+	Peak     int64        `json:"peak"`
+	Metrics  []MetricView `json:"metrics"`
+	Fronts   []string     `json:"fronts,omitempty"`
+	// FrontRegions maps each opened front to the region it reached, so a client
+	// shows the spread only where and when the engine opened it.
+	FrontRegions map[string]ID    `json:"frontRegions,omitempty"`
+	Reopened     int64            `json:"reopened,omitempty"`
+	Mine         map[string]int64 `json:"mine,omitempty"` // the observer's own validated credit by kind
 }
 
 type MetricView struct {
@@ -348,6 +351,14 @@ func (w *World) conflictView(s *State, observer ID) *ConflictView {
 		def := w.conflicts[c.Def]
 		it := ConflictItemView{ID: c.ID, Def: c.Def, Title: def.Title, Desc: def.Desc, Phase: c.Phase, Region: c.Region, Onset: c.Onset, Since: c.Since,
 			Revision: c.Revision, Severity: w.metric(s, def.Severity), Peak: c.Peak, Metrics: []MetricView{}, Fronts: c.Fronts, Reopened: c.Reopened}
+		for _, f := range def.Fronts {
+			if slices.Contains(c.Fronts, f.ID) {
+				if it.FrontRegions == nil {
+					it.FrontRegions = map[string]ID{}
+				}
+				it.FrontRegions[f.ID] = f.Region
+			}
+		}
 		for _, m := range def.Metrics {
 			it.Metrics = append(it.Metrics, MetricView{ID: m.ID, Label: m.Label, Value: w.metric(s, m)})
 		}

@@ -36,6 +36,8 @@ static func ensure_actions() -> void:
 	_bind("bio_vitals", [_key(KEY_TAB)])
 	_bind("bio_codex", [_key(KEY_B)])
 	_bind("bio_body", [_key(KEY_G)])
+	_bind("bio_conflicts", [_key(KEY_L)])
+	_bind("bio_help", [_key(KEY_H)])
 	_bind("bio_debug_toggle", [_key(KEY_F3)])
 	_bind("bio_jev", [_key(KEY_F2)])
 	_bind("bio_menu", [_key(KEY_ESCAPE)])

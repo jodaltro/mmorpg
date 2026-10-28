@@ -26,6 +26,7 @@ func _ready() -> void:
 	arena.engine_url = ""
 	arena.save_path = ""
 	arena.identity_path = ""
+	arena.living_enabled = false  # the authority draws nothing: it only confirms what happens
 	add_child(arena)
 	arena.ensure_training_target()
 	arena.set_process(false)

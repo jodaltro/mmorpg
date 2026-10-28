@@ -154,38 +154,38 @@ Todos os IDs abaixo correspondem a entregas de código e testes. Marcadores `[ ]
 **Gate:** 1 hora simulada mostra deliberação adaptativa sem travamento e custo limitado.
 
 ### FASE P10 — Encarnar agentes no mapa
-- [ ] **P10.1** Extender `bio_game_server.gd`, `bio_world.gd` e apresentação com NPCs canônicos persistentes.
-- [ ] **P10.2** Animações procedurais diferentes por função (carregar, patrulhar, sinalizar, reparar, reciclar), sem imitar diretamente personagens protegidos de Cells at Work.
-- [ ] **P10.3** Separar física de NPC próximo e movimento lógico distante; reconciliar ambas.
-- [ ] **P10.4** Snapshot por proximidade/revisão, sem gerar entidades duplicadas em reconexão.
-- [ ] **P10.5** Nível de detalhe por performance de mobile, sem deixar coortes pararem de produzir resultados fora de câmera.
-- [ ] **P10.6** Teste real com dois clientes QA no mesmo mundo e NPCs visíveis.
+- [~] **P10.1** Extender `bio_game_server.gd`, `bio_world.gd` e apresentação com NPCs canônicos persistentes. *(parcial, 28/10/2026: `BioNpcPresenter`/`BioNpcActor` desenham as 7 células canônicas a partir da visão do motor, uma por id; a autoridade headless não desenha. Sem física de NPC no servidor.)*
+- [x] **P10.2** Animações procedurais diferentes por função (carregar, patrulhar, sinalizar, reparar, reciclar), sem imitar diretamente personagens protegidos de Cells at Work. *(28/10/2026: sete silhuetas e oito gestos próprios; ver `Docs/Validation/2026-10-28-hospedeiro-p10-p11-cliente.md`. Sem avaliação com jogadores.)*
+- [~] **P10.3** Separar física de NPC próximo e movimento lógico distante; reconciliar ambas. *(parcial: a posição visual vem do progresso da etapa informado pelo motor; não há física de NPC próximo a reconciliar.)*
+- [x] **P10.4** Snapshot por proximidade/revisão, sem gerar entidades duplicadas em reconexão. *(28/10/2026: só regiões vivas ganham nó; reconectar não duplica nem repete efeito. Testado com `BioWorld` real.)*
+- [x] **P10.5** Nível de detalhe por performance de mobile, sem deixar coortes pararem de produzir resultados fora de câmera. *(28/10/2026: 3 níveis de detalhe, corpo completo só nos mais próximos, nada fora da tela; medido, ver relatório.)*
+- [ ] **P10.6** Teste real com dois clientes QA no mesmo mundo e NPCs visíveis. *(NÃO feito: dois clientes reais via Nakama não foram executados; só dois apresentadores sobre a mesma visão em teste.)*
 **Gate:** trabalho NPC é visível, sincronizado e materialmente efetivo.
 
 ### FASE P10V — Produção audiovisual polida (execução paralela às fases funcionais)
 Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md) antes de editar qualquer script de renderização.
 
-- [ ] **P10V.1** Baseline de arte e performance: prints/capturas comparáveis, FPS/frame time, nodes/partículas/CPU/GPU e controles mobile no estado anterior.
-- [ ] **P10V.2** Definir linguagem visual de hemácias, neutrófilos, macrófagos, dendríticas, plaquetas e estroma; contrastar silhuetas e movimento, preservar aparência procedural Jev.
-- [ ] **P10V.3** Implementar `BioInteractionCatalog`/apresentador/máquina de estados equivalentes: orientação, antecipação, contato, progresso real, confirmação, falha e recuperação.
-- [ ] **P10V.4** Integrar IDs e revisões de eventos autoritativos; dois clientes veem a mesma ação; pacote tardio, duplicado ou reconexão não reexecutam efeitos de conclusão.
-- [ ] **P10V.5** Criar biblioteca procedural de sinais químicos, vesículas, pseudópodes, filamentos, material de tecido, deformações, som opcional e feedback acessível — sem "mesma aura em cores diferentes".
-- [ ] **P10V.6** Rubra storyboard V01 e pedido V02: carregar, mover, obstruir, pedir ajuda, jogador ajudar, entregar e ambiente responder; sucesso APENAS após ACK.
-- [ ] **P10V.7** Neva V04, Dendra V05, macrófago V03, plaqueta V06, Osteia V07: animações polidas e diferenciadas, em tarefas reais.
-- [ ] **P10V.8** Reatividade por órgão e fase de conflito V13: inflamação, dano, cura, fluxo, recuperação com interpolação/LOD.
-- [ ] **P10V.9** Implementar presets visual alto/padrão/econômico, reduced-motion, redução de flash/shake/partículas, mobile sem perder controles.
-- [ ] **P10V.10** Ampliar V08–V12 e V14–V16 conforme novos órgãos/cooperação; revisão de animação, microinterações e áudio.
-- [ ] **P10V.11** Medir 1/20/50/100 NPCs visíveis em QA no hardware-alvo; otimizar FX/pooling/batching somente após profiling e registrar p95/p99.
-- [ ] **P10V.12** Registrar QA visual: testes headless, golden captures/vídeos antes/depois, avaliação de legibilidade/prazer e limitações no relatório `Docs/Validation`.
+- [~] **P10V.1** Baseline de arte e performance: prints/capturas comparáveis, FPS/frame time, nodes/partículas/CPU/GPU e controles mobile no estado anterior. *(parcial: benchmark de quadros por preset; sem capturas antes/depois do estado anterior nem hardware móvel.)*
+- [~] **P10V.2** Definir linguagem visual de hemácias, neutrófilos, macrófagos, dendríticas, plaquetas e estroma; contrastar silhuetas e movimento, preservar aparência procedural Jev. *(parcial: silhuetas distintas para hemácia, neutrófilo, macrófago, dendrítica, plaqueta, Kupffer e estroma; sem revisão artística.)*
+- [x] **P10V.3** Implementar `BioInteractionCatalog`/apresentador/máquina de estados equivalentes: orientação, antecipação, contato, progresso real, confirmação, falha e recuperação. *(28/10/2026: `BioInteractionState` com notice/approach/anticipate/act/progress/blocked/help/confirmed/cancel/recover.)*
+- [~] **P10V.4** Integrar IDs e revisões de eventos autoritativos; dois clientes veem a mesma ação; pacote tardio, duplicado ou reconexão não reexecutam efeitos de conclusão. *(parcial: deduplicação por contadores `done`/`failed` do motor e primeira visão como histórico; o motor ainda não envia `interaction_id` próprio.)*
+- [~] **P10V.5** Criar biblioteca procedural de sinais químicos, vesículas, pseudópodes, filamentos, material de tecido, deformações, som opcional e feedback acessível — sem "mesma aura em cores diferentes". *(parcial: gestos procedurais sem nós de partícula; faltam sinais químicos entre células e pooling medido.)*
+- [~] **P10V.6** Rubra storyboard V01 e pedido V02: carregar, mover, obstruir, pedir ajuda, jogador ajudar, entregar e ambiente responder; sucesso APENAS após ACK. *(parcial: Rubra leva e entrega O2, bloqueio, pedido e agradecimento; falta o jogador desobstruir com efeito conjunto no mundo.)*
+- [~] **P10V.7** Neva V04, Dendra V05, macrófago V03, plaqueta V06, Osteia V07: animações polidas e diferenciadas, em tarefas reais. *(parcial: Neva, Dendra, macrófago e plaqueta têm gesto; Osteia ainda não tem tarefa no universo.)*
+- [x] **P10V.8** Reatividade por órgão e fase de conflito V13: inflamação, dano, cura, fluxo, recuperação com interpolação/LOD. *(28/10/2026: `BioTissueMood` — inflamação, fissuras, contenção e recuperação gradual por região, frentes só onde o motor abriu.)*
+- [~] **P10V.9** Implementar presets visual alto/padrão/econômico, reduced-motion, redução de flash/shake/partículas, mobile sem perder controles. *(parcial: presets alto/padrão/econômico, menos movimento, menos brilho, som opcional, texto 100/125/150%; vibração não testada em aparelho.)*
+- [ ] **P10V.10** Ampliar V08–V12 e V14–V16 conforme novos órgãos/cooperação; revisão de animação, microinterações e áudio. *(não feito: V08–V12 e V14–V16 dependem de novos órgãos e tarefas.)*
+- [~] **P10V.11** Medir 1/20/50/100 NPCs visíveis em QA no hardware-alvo; otimizar FX/pooling/batching somente após profiling e registrar p95/p99. *(parcial: 0/1/7/20/50/100 células em uma máquina; sem hardware-alvo.)*
+- [~] **P10V.12** Registrar QA visual: testes headless, golden captures/vídeos antes/depois, avaliação de legibilidade/prazer e limitações no relatório `Docs/Validation`. *(parcial: testes headless e capturas reais desta sessão; sem golden captures versionadas nem avaliação de prazer.)*
 **Gate:** intervenção tem forma e gesto próprios, progresso material, conclusão/falha fiéis ao servidor, qualidade e acessibilidade mobile; nenhuma fase pode ser marcada concluída com NPC estático e partículas genéricas.
 
 ### FASE P11 — HUD e alertas
-- [ ] **P11.1** Criar painel `Conflitos do Hospedeiro` e componente de evento global; preservar responsividade mobile.
-- [ ] **P11.2** Foco em um conflito + até dois resumos; detalhes dos demais no painel.
-- [ ] **P11.3** Alerta grande por início, escalada, contenção, término; animação e áudio opcionais; sem bloquear movimento.
-- [ ] **P11.4** Deduplicação por `conflict_id+revision`, fila por prioridade e ACK de exibição local, histórico de alertas.
-- [ ] **P11.5** Pedido NPC contextual no HUD sem forçar missão aceita e sem competir com emergência.
-- [ ] **P11.6** Remover da interface principal o ruído de listas de quests repetitivas; preservar tutoriais e história.
+- [~] **P11.1** Criar painel `Conflitos do Hospedeiro` e componente de evento global; preservar responsividade mobile. *(28/10/2026: painel de Crises (tecla L) e alerta global; layout conferido em 1280x720 e 844x390, mas não em aparelho com toque.)*
+- [x] **P11.2** Foco em um conflito + até dois resumos; detalhes dos demais no painel. *(28/10/2026: um conflito acompanhado + dois resumos.)*
+- [x] **P11.3** Alerta grande por início, escalada, contenção, término; animação e áudio opcionais; sem bloquear movimento. *(28/10/2026: alerta grande não bloqueante por transição; sem som obrigatório.)*
+- [x] **P11.4** Deduplicação por `conflict_id+revision`, fila por prioridade e ACK de exibição local, histórico de alertas. *(28/10/2026: deduplicação por `conflito:revisão:tipo`, fila por prioridade com validade e histórico.)*
+- [x] **P11.5** Pedido NPC contextual no HUD sem forçar missão aceita e sem competir com emergência. *(28/10/2026: pedido contextual só para a região do jogador; "Ajudar" não declara feito.)*
+- [x] **P11.6** Remover da interface principal o ruído de listas de quests repetitivas; preservar tutoriais e história. *(28/10/2026: o cartão de missão e as ofertas só mostram história e primeiros passos; as demais seguem na janela de missões.)*
 **Gate:** tela clara com várias crises; nenhum spam após reconnect.
 
 ### FASE P12 — Outros sistemas do organismo

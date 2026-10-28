@@ -31,6 +31,19 @@ var _last_seq := -1
 var _announce_abilities := false  # the first view is history, not news
 var _dungeon_state := ""  # the run state we last reacted to
 var _dungeon_seed := 0
+## Quests kept in the main interface: the first steps and the story. The rest stay reachable in the missions window, but no longer
+## compete with the living crises for the attention of the player.
+const STORY_QUESTS := ["primeiro-mergulho", "primeiro-gene", "linhagem-definida", "primeira-lembranca", "vigilia"]
+const FOLLOW_SECONDS := 90.0
+
+var prefs: BioVisualPrefs
+var presenter: BioNpcPresenter
+var mood: BioTissueMood
+var living_hud: BioLivingHud
+var tones: BioLivingSound
+var _follow_npc := ""
+var _follow_region := ""
+var _follow_until := 0.0
 var _quest_receipts: Dictionary = {}
 var _answering_offer := false
 var _auto_gate := ""
@@ -99,13 +112,81 @@ func _ready() -> void:
 			link.occur("esquivar"))
 	system.set_region(_world.region)
 	_last_pos = _world.player.global_position
+	if _world.living_enabled:
+		_build_living()
 	for child in _world.player.get_children():
 		if child is BioAttackExecutor:
 			(child as BioAttackExecutor).performed.connect(func(id: StringName, _dir: Vector2) -> void: _used[id] = true)
 
 
+## The living body: named cells at work, crises on the tissue, and the interface that explains them.
+func _build_living() -> void:
+	prefs = BioVisualPrefs.load_from()
+	tones = BioLivingSound.new()
+	tones.name = "LivingSound"
+	add_child(tones)
+	presenter = BioNpcPresenter.new()
+	presenter.name = "Npcs"
+	_world.add_child(presenter)
+	presenter.configure(_world.player, _world.anatomy, prefs)
+	mood = BioTissueMood.new()
+	mood.name = "TissueMood"
+	_world.add_child(mood)
+	mood.configure(_world.anatomy, prefs)
+	living_hud = BioLivingHud.new()
+	living_hud.name = "LivingHud"
+	add_child(living_hud)
+	living_hud.bind(presenter.model, prefs, tones)
+	living_hud.help_accepted.connect(_on_help_accepted)
+	living_hud.focus_changed.connect(func(_id: String) -> void: _follow_npc = "")
+	presenter.cue.connect(_on_npc_cue)
+	presenter.thanked.connect(func(_npc: String, name_text: String) -> void:
+		system.push_feed("%s agradece a ajuda." % name_text))
+
+
+func _on_npc_cue(npc: String, kind: StringName, _at: Vector2) -> void:
+	if kind == &"confirmed" and prefs.sound:
+		var a := presenter.actor(npc)
+		if a != null and a.lod >= 2:
+			tones.play(&"confirmed", -8.0)
+
+
+## "Ajudar" never declares a deed: it points the player to the cell and the crisis; the engine counts only what the game server
+## confirms (a virion destroyed, a mote taken, ...).
+func _on_help_accepted(npc: String, region: String) -> void:
+	_follow_npc = npc
+	_follow_region = region
+	_follow_until = Time.get_ticks_msec() * 0.001 + FOLLOW_SECONDS
+	for c in presenter.model.ordered():
+		if str(c.get("region", "")) == region:
+			living_hud.follow(str(c.get("id", "")))
+			break
+	_follow_npc = npc  # following a crisis clears the arrow: set it again
+	system.push_feed("Siga a seta até %s. Ajude eliminando a causa no local; só o que o motor confirma conta." % str(_names.get(npc, npc)).get_slice(",", 0))
+
+
+## The arrow towards the cell being helped (empty when there is none), for the guide of the world.
+func follow_guide() -> Dictionary:
+	if _follow_npc == "" or Time.get_ticks_msec() * 0.001 > _follow_until:
+		_follow_npc = ""
+		return {}
+	var a := presenter.actor(_follow_npc)
+	var goal := a.position if a != null else BioBodyMap.center_px(StringName(_follow_region))
+	var to := goal - _world.player.global_position
+	if to.length() < 9.0 * BioArt.UNIT:
+		return {}
+	return {"to": to, "text": "ajudar %s · %d" % [str(_names.get(_follow_npc, _follow_npc)).get_slice(",", 0), roundi(to.length() / BioArt.UNIT)]}
+
+
 ## The world began again: forget the other cells, traces and news of the old one. The next view is history again.
 func forget() -> void:
+	if presenter != null:
+		presenter.forget()
+		mood.set_conflicts([])
+		living_hud.queue.clear()
+		living_hud.chosen = ""
+		_follow_npc = ""
+		living_hud.refresh()
 	_auto_gate = ""
 	for r in _residents.values():
 		if is_instance_valid(r):
@@ -266,6 +347,12 @@ func _answer_offer(accepted: bool) -> void:
 ## Applies one view from the engine. Public so tests can feed a view without a network.
 func apply_view(view: Dictionary) -> void:
 	system.set_status(true, int(view.get("tick", 0)))
+	if presenter != null:
+		var notices := presenter.apply_view(view)
+		mood.set_conflicts(presenter.model.ordered())
+		living_hud.set_stale(false)
+		living_hud.push_notices(notices)
+		living_hud.refresh()
 	for o in view.get("others", []):
 		_names[str(o.get("id", ""))] = str(o.get("name", ""))
 	_apply_quests(view.get("quests", []))
@@ -374,7 +461,9 @@ func _apply_quests(quests: Array) -> void:
 	var active: Dictionary = {}
 	for q in quests:
 		if q.get("state", "") in ["offered", "active"] and not bool(q.get("acknowledged", false)):
-			_acknowledge_quest(q)
+			_acknowledge_quest(q)  # the engine is always answered, whatever the interface shows
+		if presenter != null and not STORY_QUESTS.has(str(q.get("def", ""))):
+			continue
 		match q.get("state", ""):
 			"offered":
 				offered = q
@@ -400,6 +489,8 @@ func _apply_residents(others: Array) -> void:
 	var wanted := {}
 	for o in others:
 		var id := str(o.get("id", ""))
+		if presenter != null and presenter.model.npcs.has(id):
+			continue  # a cell of the society is drawn by the presenter, once
 		if o.get("kind", "") == "celula" and str(o.get("region", "")) == String(_world.region) and BioBodyMap.RESIDENTS.has(id):
 			wanted[id] = str(o.get("name", id))
 	for id in _residents.keys():
@@ -496,6 +587,10 @@ um gene novo é seu")
 
 
 func _on_status(online: bool) -> void:
+	if presenter != null:
+		living_hud.set_stale(not online)
+		if not online:
+			presenter.model.expect_history()
 	_world.jev_panel.set_online(online)
 	system.set_status(online, 0)
 	if not online:
@@ -504,5 +599,7 @@ func _on_status(online: bool) -> void:
 
 
 func _on_region(region: StringName) -> void:
+	if living_hud != null:
+		living_hud.set_player_region(String(region))
 	system.set_region(region)
 	link.move_region(String(region))
