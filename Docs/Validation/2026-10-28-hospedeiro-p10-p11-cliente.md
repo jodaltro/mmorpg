@@ -143,3 +143,7 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 - Cada papel tem PV, dano e postura (`BioWorkerRoles.COMBAT`): lutadores (neutrófilo, macrófago, NK), os que revidam (hepatócito, glia, linfócito, etc.) e os indefesos (plaqueta, flora, hemácia), que fogem e pedem ajuda. Invasores móveis vão atrás da célula mais próxima (`BioCellActor.lure`) e batem nela; ao zerar o PV a célula cai e volta após 16 s. Só apresentação: contagens do motor não mudam.
 - Barras de PV nos feridos (células e invasores), flash de dano e reação do corpo do invasor.
 - Godot: 393 testes, 0 falhas (2 novos). Não medido: equilíbrio da luta com o jogador por perto.
+
+### Execução real por todos os órgãos (`tests/soak_regions.gd`)
+
+Jogo de verdade (renderizador real, offline, invasores padrão), 8 s em cada um dos 12 órgãos com os 12 tipos de célula, log lido. Achou `Trying to assign invalid previously freed instance` em `bio_work_crowd.gd` (alvo já liberado atribuído a variável `Node2D`), que a suíte não pegava; corrigido. Depois: 0 `ERROR` nos 12 órgãos e suíte Godot verde.

@@ -95,11 +95,12 @@ func _process(delta: float) -> void:
 		var radius: float = _radii.get(region, 800.0)
 		if look:
 			_targets[w] = _find(w, region)
-		var target: Node2D = _targets.get(w)
-		var goal: Variant = target.global_position if is_instance_valid(target) else null
+		var target: Variant = _targets.get(w)  # it may have been freed since: not typed as a Node2D
+		var alive := is_instance_valid(target)
+		var goal: Variant = (target as Node2D).global_position if alive else null
 		var event := w.step(delta, center, radius, goal, BioBodyMap.flow_px(w.pos, now))
-		if event == "done" and is_instance_valid(target):
-			_finish(w, target)
+		if event == "done" and alive:
+			_finish(w, target as Node2D)
 		_chatter(w, delta)
 	for i in range(_pulses.size() - 1, -1, -1):
 		_pulses[i]["age"] = float(_pulses[i]["age"]) + delta
