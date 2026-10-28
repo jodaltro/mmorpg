@@ -57,6 +57,9 @@ type ConflictMetric struct {
 	Label string `json:"label"`
 	E     ID     `json:"e"`
 	K     string `json:"k"`
+	// Of inverts the reading: the metric is Of minus the stored number, for a
+	// quantity where less is worse (a microbiota at 20 of 100 is a severity of 80).
+	Of int64 `json:"of,omitempty"`
 }
 
 // ConflictFront is another place the same conflict reaches. It does not copy
@@ -168,6 +171,7 @@ func (w *World) conflictTick(s *State, cause string) {
 		}
 		w.advanceConflict(s, def, live, cause)
 	}
+	w.attentionTick(s)
 }
 
 func (w *World) openConflict(s *State, def ConflictDef, cause string) {
@@ -181,7 +185,13 @@ func (w *World) openConflict(s *State, def ConflictDef, cause string) {
 	w.openResponses(s, def, c)
 }
 
-func (w *World) metric(s *State, m ConflictMetric) int64 { return s.Entities[m.E].Num[m.K] }
+func (w *World) metric(s *State, m ConflictMetric) int64 {
+	v := s.Entities[m.E].Num[m.K]
+	if m.Of != 0 {
+		return m.Of - v
+	}
+	return v
+}
 
 func (w *World) advanceConflict(s *State, def ConflictDef, id, cause string) {
 	c := s.Conflicts[id]
@@ -367,6 +377,11 @@ func (w *World) conflictView(s *State, observer ID) *ConflictView {
 	})
 	if len(v.Active) > 0 {
 		v.Focus = v.Active[0].ID
+	}
+	for _, it := range v.Active { // the body's chosen attention is the recommended focus
+		if it.ID == s.Attention {
+			v.Focus = it.ID
+		}
 	}
 	slices.SortStableFunc(recent, func(a, b ConflictItemView) int { return int(b.Since - a.Since) })
 	v.Recent = recent[:min(len(recent), 3)]

@@ -125,7 +125,7 @@ func TestHospedeiroHuntQuestPaysInEvolutionAndRepair(t *testing.T) {
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	h.move("p1", "sangue")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil) // seen acting in the blood: Neva now knows this cell
-	h.tick(8) // the outbreak starts at tick 5
+	h.tick(8)                                             // the outbreak starts at tick 5
 	q := h.steer("p1", "caca-no-capilar")
 	if q.Giver != "neva" {
 		t.Fatalf("Neva should call the hunt, got %q", q.Giver)

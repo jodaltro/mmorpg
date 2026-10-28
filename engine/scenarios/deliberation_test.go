@@ -135,11 +135,18 @@ func TestDeliberationDefaultKeepsTheWorldMoving(t *testing.T) {
 // cannot be answered.
 func TestConflictResponseMusterSpendsReserveOnce(t *testing.T) {
 	h := load(t, "hospedeiro")
-	ds := h.runUntil(core.DecisionConflict, 900)
-	if len(ds) == 0 {
+	var d core.Decision
+	for i := 0; i < 1500 && d.ID == ""; i++ {
+		h.tick(1)
+		for _, x := range pending(h.s, core.DecisionConflict) {
+			if h.s.Conflicts[x.Subject].Def == "infeccao-pulmonar" {
+				d = x
+			}
+		}
+	}
+	if d.ID == "" {
 		t.Fatal("the infection never asked how to respond")
 	}
-	d := ds[0]
 	if len(d.Options) != 3 || d.Default != "manter-defesa" {
 		t.Fatalf("%+v", d)
 	}
@@ -160,15 +167,19 @@ func TestConflictResponseMusterSpendsReserveOnce(t *testing.T) {
 		t.Fatal("mustered twice")
 	}
 	// Empty reserve: nothing appears from nowhere.
-	ds = nil
-	for i := 0; i < 1200 && len(ds) == 0; i++ {
+	var again core.Decision
+	for i := 0; i < 2000 && again.ID == ""; i++ {
 		h.tick(1)
-		ds = pending(h.s, core.DecisionConflict)
+		for _, x := range pending(h.s, core.DecisionConflict) {
+			if h.s.Conflicts[x.Subject].Def == "infeccao-pulmonar" {
+				again = x
+			}
+		}
 	}
-	if len(ds) > 0 {
+	if again.ID != "" {
 		setNum(h, "medula", "reserva", 0)
 		c0 := h.s.Pops["macrofagos_pulmao"].Count
-		if err := h.resolve(ds[0], "mobilizar-defesa"); err != nil {
+		if err := h.resolve(again, "mobilizar-defesa"); err != nil {
 			t.Fatal(err)
 		}
 		if h.s.Pops["macrofagos_pulmao"].Count > c0 || h.s.Entities["medula"].Num["reserva"] != 0 {

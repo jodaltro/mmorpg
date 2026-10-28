@@ -20,7 +20,10 @@ type TaskDef struct {
 	Route    []StepDef `json:"route"`
 	// Reserve makes the task exclusive: while another NPC holds the key, this
 	// one replans to something else instead of crowding the same job.
-	Reserve  string    `json:"reserve,omitempty"`
+	Reserve string `json:"reserve,omitempty"`
+	// Conflict names the conflict definition this task serves, so the body's
+	// attention can favour it.
+	Conflict string    `json:"conflict,omitempty"`
 	Block    *BlockDef `json:"block,omitempty"`
 	Cooldown Tick      `json:"cooldown,omitempty"`
 	Success  []Effect  `json:"success,omitempty"`
@@ -116,6 +119,11 @@ func (w *World) compileTasks(v *validator, ents map[ID]string) error {
 			return e
 		}
 		steps := slices.Clone(t.Route)
+		if t.Conflict != "" {
+			if _, known := w.conflicts[t.Conflict]; !known {
+				return invalid("%s: unknown conflict %q", where, t.Conflict)
+			}
+		}
 		if b := t.Block; b != nil {
 			if !w.regions[ents[b.Via]] || b.HelpAfter < 1 || b.GiveUpAfter <= b.HelpAfter || b.Need == "" || b.Say == "" || b.HelpCooldown < 0 {
 				return invalid("%s: block", where)
@@ -199,10 +207,20 @@ func (w *World) startTask(s *State, id ID, st *NPCState, cause string) {
 			st.Replans++ // someone else is on it: replan instead of crowding
 		}
 	}
+	if att := w.attentionDef(s); att != "" {
+		slices.SortStableFunc(ok, func(a, b TaskDef) int { return w.effectivePriority(b, att) - w.effectivePriority(a, att) })
+	}
 	if len(ok) == 0 || w.deliberate(s, id, st, ok) {
 		return
 	}
 	w.beginTask(s, id, st, ok[0], cause)
+}
+
+func (w *World) effectivePriority(t TaskDef, attention string) int {
+	if attention != "" && t.Conflict == attention {
+		return t.Priority + attentionBonus
+	}
+	return t.Priority
 }
 
 func (w *World) beginTask(s *State, id ID, st *NPCState, t TaskDef, cause string) {

@@ -55,6 +55,33 @@
   "jogador"
  ],
  "entities": [
+   {
+    "id": "pele",
+    "kind": "tecido",
+    "name": "Pele",
+    "num": {
+     "ferida": 0
+    }
+   },
+   {
+    "id": "esplena",
+    "kind": "celula",
+    "name": "Esplena",
+    "region": "baco"
+   },
+   {
+    "id": "kupffer",
+    "kind": "celula",
+    "name": "Kupffer",
+    "region": "figado"
+   },
+   {
+    "id": "placa",
+    "kind": "celula",
+    "name": "Placa",
+    "region": "pele"
+   }
+  ,
   {
    "id": "macra",
    "kind": "celula",
@@ -348,6 +375,82 @@
   }
  ],
  "rules": [
+  {
+    "id": "carga-toxica",
+    "every": 200,
+    "when": {
+     "num": {
+      "e": "figado",
+      "k": "toxina",
+      "op": "<",
+      "v": 60
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "figado",
+      "k": "toxina",
+      "d": 50,
+      "max": 100
+     },
+     {
+      "op": "emit",
+      "event": "carga-toxica",
+      "public": true,
+      "text": "Uma refeição pesada despeja uma carga de toxinas no fígado."
+     }
+    ]
+   },
+   {
+    "id": "ferida-sangra",
+    "every": 4,
+    "when": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": ">",
+      "v": 0
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "pele",
+      "k": "ferida",
+      "d": 1,
+      "max": 100
+     }
+    ]
+   },
+   {
+    "id": "ferida-contamina",
+    "every": 10,
+    "when": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": ">=",
+      "v": 50
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "sangue",
+      "k": "carga",
+      "d": 3,
+      "max": 100
+     },
+     {
+      "op": "emit",
+      "event": "ferida-contamina",
+      "public": true,
+      "text": "A ferida aberta deixa invasores entrarem no sangue."
+     }
+    ]
+   }
+  ,
   {
    "id": "surto-inicial",
    "when": {},
@@ -1549,6 +1652,57 @@
   }
  ],
  "actions": [
+   {
+    "id": "selar-ferida-pele",
+    "title": "Selar a ferida da pele",
+    "by": [
+     "adapter"
+    ],
+    "tags": [
+     "help",
+     "endure"
+    ],
+    "requires": {
+     "all": [
+      {
+       "in": {
+        "e": "$self",
+        "region": "pele"
+       }
+      },
+      {
+       "num": {
+        "e": "pele",
+        "k": "ferida",
+        "op": ">",
+        "v": 0
+       }
+      }
+     ]
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "pele",
+      "k": "ferida",
+      "d": -6,
+      "min": 0
+     },
+     {
+      "op": "contribute",
+      "rule": "ferida-na-pele",
+      "k": "reparo",
+      "d": 3
+     },
+     {
+      "op": "adjust",
+      "e": "$self",
+      "k": "maturidade",
+      "d": 1
+     }
+    ]
+   }
+  ,
   {
    "id": "conter-infeccao-pulmonar",
    "title": "Conter a infecção nos alvéolos",
@@ -2293,6 +2447,12 @@
    ],
    "effects": [
     {
+     "op": "contribute",
+     "rule": "sobrecarga-hepatica",
+     "k": "depuracao",
+     "d": 2
+    },
+    {
      "op": "adjust",
      "e": "figado",
      "k": "toxina",
@@ -2330,6 +2490,12 @@
     "endure"
    ],
    "effects": [
+    {
+     "op": "contribute",
+     "rule": "congestao-esplenica",
+     "k": "reciclagem",
+     "d": 2
+    },
     {
      "op": "adjust",
      "e": "baco",
@@ -2412,6 +2578,12 @@
     "endure"
    ],
    "effects": [
+    {
+     "op": "contribute",
+     "rule": "disbiose-intestinal",
+     "k": "nutricao",
+     "d": 2
+    },
     {
      "op": "adjust",
      "e": "intestino",
@@ -5179,6 +5351,127 @@
   }
  ],
  "happenings": [
+   {
+    "id": "ferimento",
+    "title": "Ferimento na pele",
+    "desc": "Um corte abre a pele: plaquetas e defesa local precisam fechar a brecha.",
+    "intensity": 1,
+    "cooldown": 90,
+    "when": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": "<=",
+      "v": 0
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "pele",
+      "k": "ferida",
+      "d": 40,
+      "max": 100
+     },
+     {
+      "op": "emit",
+      "event": "ferimento",
+      "public": true,
+      "text": "A pele se rasga: uma ferida se abre."
+     }
+    ]
+   },
+   {
+    "id": "intoxicacao",
+    "title": "Intoxicação",
+    "desc": "Uma carga de toxinas chega ao fígado de uma vez.",
+    "intensity": 2,
+    "cooldown": 120,
+    "when": {
+     "num": {
+      "e": "figado",
+      "k": "toxina",
+      "op": "<",
+      "v": 40
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "figado",
+      "k": "toxina",
+      "d": 60,
+      "max": 100
+     },
+     {
+      "op": "emit",
+      "event": "intoxicacao",
+      "public": true,
+      "text": "Uma carga de toxinas inunda o fígado."
+     }
+    ]
+   },
+   {
+    "id": "antibiotico",
+    "title": "Desequilíbrio da microbiota",
+    "desc": "Um agente agressivo varre a flora do intestino.",
+    "intensity": 1,
+    "cooldown": 150,
+    "when": {
+     "num": {
+      "e": "intestino",
+      "k": "microbiota",
+      "op": ">=",
+      "v": 65
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "intestino",
+      "k": "microbiota",
+      "d": -45,
+      "min": 0
+     },
+     {
+      "op": "emit",
+      "event": "antibiotico",
+      "public": true,
+      "text": "A flora do intestino é varrida: a microbiota despenca."
+     }
+    ]
+   },
+   {
+    "id": "hemolise",
+    "title": "Hemólise",
+    "desc": "Hemácias velhas chegam em massa ao baço.",
+    "intensity": 1,
+    "cooldown": 120,
+    "when": {
+     "num": {
+      "e": "baco",
+      "k": "hemacias",
+      "op": "<",
+      "v": 50
+     }
+    },
+    "effects": [
+     {
+      "op": "adjust",
+      "e": "baco",
+      "k": "hemacias",
+      "d": 45,
+      "max": 100
+     },
+     {
+      "op": "emit",
+      "event": "hemolise",
+      "public": true,
+      "text": "Hemácias velhas se acumulam no baço."
+     }
+    ]
+   }
+  ,
   {
    "id": "surto-viral",
    "title": "Surto viral",
@@ -10132,6 +10425,110 @@
   }
  ],
  "populations": [
+   {
+    "id": "plaquetas_pele",
+    "role": "reparo",
+    "region": "pele",
+    "count": 30,
+    "max": 70,
+    "baseline": 40,
+    "mortality": 10,
+    "mortalityEvery": 10,
+    "recruit": {
+     "from": "medula",
+     "k": "reserva",
+     "cost": 1,
+     "perCycle": 2,
+     "every": 8
+    },
+    "work": [
+     {
+      "id": "fechar-ferida",
+      "k": "ferida",
+      "from": "pele",
+      "rate": 25
+     }
+    ]
+   },
+   {
+    "id": "macrofagos_baco",
+    "role": "reciclagem",
+    "region": "baco",
+    "count": 20,
+    "max": 60,
+    "baseline": 20,
+    "mortality": 5,
+    "mortalityEvery": 10,
+    "recruit": {
+     "from": "medula",
+     "k": "reserva",
+     "cost": 1,
+     "perCycle": 1,
+     "every": 10
+    },
+    "work": [
+     {
+      "id": "reciclar",
+      "k": "hemacias",
+      "from": "baco",
+      "to": "medula",
+      "toK": "ferro",
+      "rate": 12
+     }
+    ]
+   },
+   {
+    "id": "hepatocitos_figado",
+    "role": "depuracao",
+    "region": "figado",
+    "count": 40,
+    "max": 90,
+    "baseline": 40,
+    "mortality": 5,
+    "mortalityEvery": 10,
+    "recruit": {
+     "from": "medula",
+     "k": "reserva",
+     "cost": 1,
+     "perCycle": 1,
+     "every": 10
+    },
+    "work": [
+     {
+      "id": "filtrar",
+      "k": "toxina",
+      "from": "figado",
+      "rate": 18
+     }
+    ]
+   },
+   {
+    "id": "flora_intestinal",
+    "role": "simbiose",
+    "region": "intestino",
+    "count": 50,
+    "max": 110,
+    "baseline": 50,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 2,
+    "every": 8
+   },
+    "work": [
+     {
+      "id": "cultivar",
+      "k": "alimento",
+      "from": "intestino",
+      "to": "intestino",
+      "toK": "microbiota",
+      "rate": 8,
+      "toMax": 100
+     }
+    ]
+   }
+  ,
   {
    "id": "hemacias_sangue",
    "role": "transporte",
@@ -10233,6 +10630,314 @@
   }
  ],
  "conflicts": [
+   {
+    "id": "ferida-na-pele",
+    "title": "Ferida na pele",
+    "desc": "A pele rasgou: plaquetas precisam selar a brecha antes que invasores entrem no sangue.",
+    "region": "pele",
+    "trigger": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": ">=",
+      "v": 10
+     }
+    },
+    "severity": {
+     "id": "ferida",
+     "label": "Abertura da ferida",
+     "e": "pele",
+     "k": "ferida"
+    },
+    "critical": 70,
+    "criticalExit": 50,
+    "contain": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": "<=",
+      "v": 20
+     }
+    },
+    "resolve": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": "<=",
+      "v": 0
+     }
+    },
+    "sustain": 5,
+    "recovery": 8,
+    "cooldown": 40,
+    "metrics": [
+     {
+      "id": "carga-sangue",
+      "label": "Invasores no sangue",
+      "e": "sangue",
+      "k": "carga"
+     }
+    ],
+    "responses": [
+     {
+      "id": "manter-plaquetas",
+      "title": "Manter as plaquetas",
+      "desc": "Confiar nas plaquetas atuais."
+     },
+     {
+      "id": "mobilizar-plaquetas",
+      "title": "Mobilizar plaquetas",
+      "desc": "Gastar a reserva da medula em plaquetas para selar mais depressa.",
+      "effects": [
+       {
+        "op": "muster",
+        "rule": "plaquetas_pele",
+        "d": 25
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "congestao-esplenica",
+    "title": "Baço congestionado",
+    "desc": "Hemácias velhas se acumulam no baço, o ferro não volta à medula e o corpo inflama.",
+    "region": "baco",
+    "trigger": {
+     "num": {
+      "e": "baco",
+      "k": "hemacias",
+      "op": ">=",
+      "v": 80
+     }
+    },
+    "severity": {
+     "id": "hemacias",
+     "label": "Hemácias velhas",
+     "e": "baco",
+     "k": "hemacias"
+    },
+    "critical": 95,
+    "criticalExit": 85,
+    "contain": {
+     "num": {
+      "e": "baco",
+      "k": "hemacias",
+      "op": "<=",
+      "v": 60
+     }
+    },
+    "resolve": {
+     "num": {
+      "e": "baco",
+      "k": "hemacias",
+      "op": "<=",
+      "v": 45
+     }
+    },
+    "sustain": 6,
+    "recovery": 12,
+    "cooldown": 60,
+    "metrics": [
+     {
+      "id": "ferro",
+      "label": "Ferro na medula",
+      "e": "medula",
+      "k": "ferro"
+     },
+     {
+      "id": "inflamacao",
+      "label": "Inflamação",
+      "e": "corpo",
+      "k": "inflamacao"
+     }
+    ],
+    "responses": [
+     {
+      "id": "manter-reciclagem",
+      "title": "Manter a reciclagem",
+      "desc": "Não gastar a reserva."
+     },
+     {
+      "id": "mobilizar-macrofagos",
+      "title": "Mobilizar macrófagos esplênicos",
+      "desc": "Gastar a reserva em macrófagos do baço.",
+      "effects": [
+       {
+        "op": "muster",
+        "rule": "macrofagos_baco",
+        "d": 20
+       }
+      ]
+     },
+     {
+      "id": "reciclagem-forcada",
+      "title": "Forçar a reciclagem",
+      "desc": "Devolver ferro à medula de uma vez.",
+      "effects": [
+       {
+        "op": "transfer",
+        "e": "baco",
+        "to": "medula",
+        "k": "hemacias",
+        "v": "ferro",
+        "d": 20,
+        "min": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "sobrecarga-hepatica",
+    "title": "Sobrecarga hepática",
+    "desc": "O fígado recebe mais toxinas do que consegue filtrar; a toxina sobe e o corpo inflama.",
+    "region": "figado",
+    "trigger": {
+     "num": {
+      "e": "figado",
+      "k": "toxina",
+      "op": ">=",
+      "v": 80
+     }
+    },
+    "severity": {
+     "id": "toxina",
+     "label": "Toxinas no fígado",
+     "e": "figado",
+     "k": "toxina"
+    },
+    "critical": 95,
+    "criticalExit": 85,
+    "contain": {
+     "num": {
+      "e": "figado",
+      "k": "toxina",
+      "op": "<=",
+      "v": 55
+     }
+    },
+    "resolve": {
+     "num": {
+      "e": "figado",
+      "k": "toxina",
+      "op": "<=",
+      "v": 35
+     }
+    },
+    "sustain": 6,
+    "recovery": 12,
+    "cooldown": 60,
+    "metrics": [
+     {
+      "id": "ureia",
+      "label": "Ureia nos rins",
+      "e": "rim",
+      "k": "ureia"
+     },
+     {
+      "id": "inflamacao",
+      "label": "Inflamação",
+      "e": "corpo",
+      "k": "inflamacao"
+     }
+    ],
+    "responses": [
+     {
+      "id": "manter-depuracao",
+      "title": "Manter a depuração",
+      "desc": "Não gastar a reserva."
+     },
+     {
+      "id": "mobilizar-hepatocitos",
+      "title": "Mobilizar hepatócitos",
+      "desc": "Gastar a reserva em células de depuração do fígado.",
+      "effects": [
+       {
+        "op": "muster",
+        "rule": "hepatocitos_figado",
+        "d": 25
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "disbiose-intestinal",
+    "title": "Disbiose intestinal",
+    "desc": "A microbiota caiu: sem ela o intestino inflama o corpo. Volta devagar se for nutrida.",
+    "region": "intestino",
+    "trigger": {
+     "num": {
+      "e": "intestino",
+      "k": "microbiota",
+      "op": "<=",
+      "v": 25
+     }
+    },
+    "severity": {
+     "id": "deficit",
+     "label": "Perda de microbiota",
+     "e": "intestino",
+     "k": "microbiota",
+     "of": 100
+    },
+    "critical": 90,
+    "criticalExit": 80,
+    "contain": {
+     "num": {
+      "e": "intestino",
+      "k": "microbiota",
+      "op": ">=",
+      "v": 45
+     }
+    },
+    "resolve": {
+     "num": {
+      "e": "intestino",
+      "k": "microbiota",
+      "op": ">=",
+      "v": 60
+     }
+    },
+    "sustain": 6,
+    "recovery": 10,
+    "cooldown": 60,
+    "metrics": [
+     {
+      "id": "alimento",
+      "label": "Alimento no intestino",
+      "e": "intestino",
+      "k": "alimento"
+     },
+     {
+      "id": "inflamacao",
+      "label": "Inflamação",
+      "e": "corpo",
+      "k": "inflamacao"
+     }
+    ],
+    "responses": [
+     {
+      "id": "esperar-flora",
+      "title": "Esperar a flora voltar",
+      "desc": "Não gastar a reserva."
+     },
+     {
+      "id": "semear-flora",
+      "title": "Semear flora",
+      "desc": "Gastar a reserva para repor a flora do intestino.",
+      "effects": [
+       {
+        "op": "muster",
+        "rule": "flora_intestinal",
+        "d": 30
+       }
+      ]
+     }
+    ]
+   }
+  ,
   {
    "id": "infeccao-pulmonar",
    "title": "Infecção pulmonar",
@@ -10363,9 +11068,242 @@
  ],
  "deliberation": {
   "every": 12,
-  "maxOpen": 4
+  "maxOpen": 6,
+  "attentionEvery": 30
  },
  "tasks": [
+   {
+    "id": "selar-ferida",
+    "conflict": "ferida-na-pele",
+    "npc": "placa",
+    "title": "Selar a ferida com um tampão de plaquetas",
+    "priority": 6,
+    "when": {
+     "num": {
+      "e": "pele",
+      "k": "ferida",
+      "op": ">",
+      "v": 0
+     }
+    },
+    "route": [
+     {
+      "region": "pele",
+      "ticks": 2,
+      "doing": "agrega e solta fibras sobre a brecha",
+      "do": [
+       {
+        "op": "adjust",
+        "e": "pele",
+        "k": "ferida",
+        "d": -2,
+        "min": 0,
+        "if": {
+         "num": {
+          "e": "pele",
+          "k": "ferida",
+          "op": ">",
+          "v": 0
+         }
+        }
+       },
+       {
+        "op": "contribute",
+        "rule": "ferida-na-pele",
+        "k": "reparo",
+        "d": 1,
+        "if": {
+         "num": {
+          "e": "pele",
+          "k": "ferida",
+          "op": ">",
+          "v": 0
+         }
+        }
+       }
+      ]
+     },
+     {
+      "region": "pele",
+      "ticks": 2,
+      "doing": "reforça o tampão"
+     }
+    ],
+    "cooldown": 1
+   },
+   {
+    "id": "circular-plaquetas",
+    "npc": "placa",
+    "title": "Circular pelo sangue à procura de lesões",
+    "priority": 2,
+    "when": {},
+    "route": [
+     {
+      "region": "sangue",
+      "ticks": 4,
+      "doing": "circula vigiando as paredes"
+     },
+     {
+      "region": "pele",
+      "ticks": 4,
+      "doing": "volta à pele"
+     }
+    ],
+    "cooldown": 6
+   },
+   {
+    "id": "reciclar-no-baco",
+    "conflict": "congestao-esplenica",
+    "npc": "esplena",
+    "title": "Fagocitar hemácias velhas e devolver o ferro",
+    "priority": 5,
+    "when": {
+     "num": {
+      "e": "baco",
+      "k": "hemacias",
+      "op": ">=",
+      "v": 40
+     }
+    },
+    "route": [
+     {
+      "region": "baco",
+      "ticks": 3,
+      "doing": "engole hemácias velhas",
+      "do": [
+       {
+        "op": "transfer",
+        "e": "baco",
+        "to": "medula",
+        "k": "hemacias",
+        "v": "ferro",
+        "d": 3,
+        "min": 0
+       },
+       {
+        "op": "contribute",
+        "rule": "congestao-esplenica",
+        "k": "reciclagem",
+        "d": 1,
+        "if": {
+         "num": {
+          "e": "baco",
+          "k": "hemacias",
+          "op": ">=",
+          "v": 40
+         }
+        }
+       }
+      ]
+     },
+     {
+      "region": "baco",
+      "ticks": 2,
+      "doing": "digere o ferro"
+     }
+    ],
+    "cooldown": 1
+   },
+   {
+    "id": "rondar-baco",
+    "npc": "esplena",
+    "title": "Rondar a polpa vermelha",
+    "priority": 2,
+    "when": {},
+    "route": [
+     {
+      "region": "sangue",
+      "ticks": 4,
+      "doing": "verifica as hemácias em circulação"
+     },
+     {
+      "region": "baco",
+      "ticks": 4,
+      "doing": "volta ao baço"
+     }
+    ],
+    "cooldown": 6
+   },
+   {
+    "id": "limpar-toxinas",
+    "conflict": "sobrecarga-hepatica",
+    "npc": "kupffer",
+    "title": "Capturar toxinas que chegam pela veia porta",
+    "priority": 5,
+    "when": {
+     "num": {
+      "e": "figado",
+      "k": "toxina",
+      "op": ">=",
+      "v": 40
+     }
+    },
+    "route": [
+     {
+      "region": "figado",
+      "ticks": 2,
+      "doing": "captura toxinas",
+      "do": [
+       {
+        "op": "adjust",
+        "e": "figado",
+        "k": "toxina",
+        "d": -2,
+        "min": 0,
+        "if": {
+         "num": {
+          "e": "figado",
+          "k": "toxina",
+          "op": ">",
+          "v": 0
+         }
+        }
+       },
+       {
+        "op": "contribute",
+        "rule": "sobrecarga-hepatica",
+        "k": "depuracao",
+        "d": 1,
+        "if": {
+         "num": {
+          "e": "figado",
+          "k": "toxina",
+          "op": ">=",
+          "v": 40
+         }
+        }
+       }
+      ]
+     },
+     {
+      "region": "figado",
+      "ticks": 2,
+      "doing": "processa o que capturou"
+     }
+    ],
+    "cooldown": 1
+   },
+   {
+    "id": "rondar-sinusoides",
+    "npc": "kupffer",
+    "title": "Rondar os sinusoides",
+    "priority": 2,
+    "when": {},
+    "route": [
+     {
+      "region": "sangue",
+      "ticks": 4,
+      "doing": "patrulha os sinusoides"
+     },
+     {
+      "region": "figado",
+      "ticks": 4,
+      "doing": "volta ao fígado"
+     }
+    ],
+    "cooldown": 6
+   }
+  ,
   {
     "id": "apresentar-antigenos",
     "npc": "dendra",
@@ -10505,6 +11443,7 @@
   },
   {
    "id": "defender-pulmao",
+   "conflict": "infeccao-pulmonar",
    "npc": "neva",
    "title": "Defender o pulmão do foco conhecido",
    "priority": 8,
@@ -10678,6 +11617,7 @@
   },
   {
    "id": "limpar-alveolos",
+   "conflict": "infeccao-pulmonar",
    "npc": "macra",
    "title": "Fagocitar bactérias e detritos nos alvéolos",
    "priority": 5,

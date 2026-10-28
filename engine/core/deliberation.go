@@ -19,6 +19,11 @@ import (
 type DeliberationDef struct {
 	Every   Tick `json:"every"`
 	MaxOpen int  `json:"maxOpen"`
+	// AttentionEvery turns on the macro layer: with two or more live conflicts,
+	// every this many ticks the advisor chooses which one the body concentrates
+	// on. The choice has a material effect (see TaskDef.Conflict) and is the
+	// focus clients show first. Zero: off.
+	AttentionEvery Tick `json:"attentionEvery,omitempty"`
 }
 
 // ResponseDef is one way the body can answer a conflict. Its effects are
@@ -32,8 +37,9 @@ type ResponseDef struct {
 
 // Decision kinds added by the deliberation layer.
 const (
-	DecisionNPC      = "npc"
-	DecisionConflict = "conflict"
+	DecisionNPC       = "npc"
+	DecisionConflict  = "conflict"
+	DecisionAttention = "attention"
 	// WaitChoice is the option that keeps the routine: do nothing new.
 	WaitChoice = "esperar"
 )
@@ -216,4 +222,74 @@ func (w *World) muster(s *State, pop string, n int64) {
 	s.Ledger[ledgerKey("born", pop)] += k
 	st.Count += k
 	s.Pops[pop] = st
+}
+
+// attentionBonus is how much a task that serves the conflict holding the
+// body's attention is preferred when an NPC picks its default.
+const attentionBonus = 3
+
+func (w *World) liveConflicts(s *State) []string {
+	var ids []string
+	for _, id := range sortedKeys(s.Conflicts) {
+		if s.Conflicts[id].Phase != PhaseResolved {
+			ids = append(ids, id)
+		}
+	}
+	slices.SortStableFunc(ids, func(a, b string) int {
+		ca, cb := s.Conflicts[a], s.Conflicts[b]
+		if ra, rb := phaseRank[ca.Phase], phaseRank[cb.Phase]; ra != rb {
+			return rb - ra
+		}
+		if sa, sb := w.metric(s, w.conflicts[ca.Def].Severity), w.metric(s, w.conflicts[cb.Def].Severity); sa != sb {
+			return int(sb - sa)
+		}
+		return strings.Compare(a, b)
+	})
+	return ids
+}
+
+// attentionTick opens the macro question when several crises are alive.
+func (w *World) attentionTick(s *State) {
+	d := w.U.Deliberation
+	if d == nil || d.AttentionEvery < 1 || w.openDecisions(s, DecisionAttention) > 0 {
+		return
+	}
+	live := w.liveConflicts(s)
+	if len(live) < 2 || s.AttentionAt != 0 && s.Tick-s.AttentionAt < d.AttentionEvery {
+		return
+	}
+	dec := Decision{ID: "attention:" + strconv.FormatInt(int64(s.Tick), 10), Kind: DecisionAttention, Subject: "world", Default: live[0],
+		Created: s.Tick, Due: s.Tick + w.U.Limits.DecisionTimeout}
+	dec.Context = []string{"several crises are alive at once and the body's cohorts are finite", "tick: " + strconv.FormatInt(int64(s.Tick), 10)}
+	for _, id := range live[:min(len(live), 8)] {
+		c := s.Conflicts[id]
+		def := w.conflicts[c.Def]
+		dec.Options = append(dec.Options, Option{ID: id, Title: def.Title, Desc: c.Phase + ", severity " + strconv.FormatInt(w.metric(s, def.Severity), 10) + ", peak " + strconv.FormatInt(c.Peak, 10) + ", reopened " + strconv.FormatInt(c.Reopened, 10)})
+		dec.Context = append(dec.Context, def.Title+" is "+c.Phase+", severity "+strconv.FormatInt(w.metric(s, def.Severity), 10)+" for "+strconv.FormatInt(int64(s.Tick-c.Onset), 10)+" ticks")
+	}
+	if len(dec.Options) < 2 {
+		return
+	}
+	s.Decisions[dec.ID] = dec
+}
+
+func (w *World) decideAttention(s *State, d Decision, choice, cause string) error {
+	c, ok := s.Conflicts[choice]
+	if !ok || c.Phase == PhaseResolved {
+		delete(s.Decisions, d.ID)
+		return reject("attention target is no longer alive")
+	}
+	delete(s.Decisions, d.ID)
+	s.Attention, s.AttentionAt = choice, s.Tick
+	w.emit(s, Event{Kind: "conflict-attention", Public: true, Cause: cause, Text: "O corpo concentra a atenção em: " + w.conflicts[c.Def].Title + ".",
+		Data: map[string]string{"conflict": choice, "def": c.Def, "revision": strconv.FormatInt(c.Revision, 10)}})
+	return nil
+}
+
+// attentionDef is the definition id of the conflict holding attention, if alive.
+func (w *World) attentionDef(s *State) string {
+	if c, ok := s.Conflicts[s.Attention]; ok && c.Phase != PhaseResolved {
+		return c.Def
+	}
+	return ""
 }

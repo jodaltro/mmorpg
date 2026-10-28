@@ -153,6 +153,8 @@ type State struct {
 	Helps       map[string]HelpRequest   `json:"helps,omitempty"`
 	HelpSeq     int64                    `json:"helpSeq,omitempty"`
 	Memories    map[ID][]MemoryEpisode   `json:"memories,omitempty"` // each NPC's own memory
+	Attention   string                   `json:"attention,omitempty"`
+	AttentionAt Tick                     `json:"attentionAt,omitempty"`
 	Reserved    map[string]ID            `json:"reserved,omitempty"` // exclusive task keys and who holds them
 }
 

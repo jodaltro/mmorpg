@@ -1,8 +1,11 @@
 package scenarios
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"slices"
 	"strings"
 	"testing"
@@ -22,6 +25,37 @@ type harness struct {
 func load(t *testing.T, name string) *harness {
 	t.Helper()
 	w, err := universe.Load("../../universes/" + name + "/universe.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return &harness{t: t, w: w, s: core.NewState(w)}
+}
+
+// loadWithoutPops loads a universe with some cohorts taken out, to study an
+// organ chain bare. The variant world is compiled normally and replays on its own.
+func loadWithoutPops(t *testing.T, name string, ids ...string) *harness {
+	t.Helper()
+	data, err := os.ReadFile("../../universes/" + name + "/universe.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	dec := json.NewDecoder(bytes.NewReader(bytes.TrimPrefix(data, []byte{0xef, 0xbb, 0xbf})))
+	var u core.Universe
+	if err := dec.Decode(&u); err != nil {
+		t.Fatal(err)
+	}
+	// ids prefixed "npc:" remove that NPC and its tasks.
+	u.Tasks = slices.DeleteFunc(u.Tasks, func(t core.TaskDef) bool { return slices.Contains(ids, "npc:"+string(t.NPC)) })
+	u.Populations = slices.DeleteFunc(u.Populations, func(p core.PopulationDef) bool { return slices.Contains(ids, p.ID) })
+	for i := range u.Conflicts { // responses that would muster a removed cohort go with it
+		u.Conflicts[i].Responses = slices.DeleteFunc(u.Conflicts[i].Responses, func(r core.ResponseDef) bool {
+			return slices.ContainsFunc(r.Effects, func(e core.Effect) bool { return e.Op == "muster" && slices.Contains(ids, e.Rule) })
+		})
+		if len(u.Conflicts[i].Responses) < 2 {
+			u.Conflicts[i].Responses = nil
+		}
+	}
+	w, err := core.Compile(u)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -38,7 +38,7 @@ func TestHospedeiroLiverVerbsNeedTheLiver(t *testing.T) {
 // E3: organs talk to each other. A blood sugar that runs low is topped up from the liver's glycogen; toxins that nobody filters pile up
 // until the body inflames. All of it without a single player acting, and the log replays it.
 func TestHospedeiroLiverKeepsSugarAndPilesToxins(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadWithoutPops(t, "hospedeiro", "hepatocitos_figado") // nobody filters the toxins
 	h.join("p1")
 	h.tick(60)
 	if len(h.events("figado-libera")) == 0 {
@@ -51,7 +51,7 @@ func TestHospedeiroLiverKeepsSugarAndPilesToxins(t *testing.T) {
 	if len(h.events("figado-sobrecarregado")) == 0 {
 		t.Fatal("unfiltered toxins should overload the liver and inflame the body")
 	}
-	b := load(t, "hospedeiro")
+	b := loadWithoutPops(t, "hospedeiro", "hepatocitos_figado")
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {

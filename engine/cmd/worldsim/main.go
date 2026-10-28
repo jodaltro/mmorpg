@@ -15,6 +15,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -68,6 +69,8 @@ func simulate(args []string) error {
 	mode := fs.String("advisor", "none", "none | deterministic | jev (batched) | jev-single (one question per call)")
 	envFile := fs.String("env-file", ".env", "local file with OPENROUTER_API_KEY (jev only)")
 	model := fs.String("jev-model", "", "Jev model id (default typesafe/jev-1.13)")
+	maxQ := fs.Int("max-questions-per-minute", 0, "cap on advisor questions per minute (0: none)")
+	maxCost := fs.Float64("max-cost-per-hour", 0, "cap on advisor cost per hour in USD (0: none)")
 	window := fs.Duration("batch-window", 0, "hold NPC/conflict questions this long so nearby ones share one Jev request")
 	pace := fs.Duration("pace", 0, "wall-clock time per tick (give async advisors time to answer)")
 	fs.Parse(args)
@@ -80,7 +83,7 @@ func simulate(args []string) error {
 	if err != nil {
 		return err
 	}
-	r, err := sim.Open(w, &store.Memory{}, sim.Options{Advisor: adv, AdvisorTimeout: 10 * time.Second, BatchWindow: *window})
+	r, err := sim.Open(w, &store.Memory{}, sim.Options{Advisor: adv, AdvisorTimeout: 10 * time.Second, BatchWindow: *window, MaxQuestionsPerMinute: *maxQ, MaxCostPerHour: *maxCost})
 	if err != nil {
 		return err
 	}
@@ -172,13 +175,21 @@ func simulate(args []string) error {
 	}
 	r.Drain()
 	st := r.Stats()
-	fmt.Printf("\nadvisor stats: questions=%d calls=%d batches=%d failed=%d applied=%d rejected=%d changed-vs-default=%d meanCallLatency=%dms cost=$%.6f\n",
-		st.Questions, st.Calls, st.Batches, st.Failed, st.Applied, st.Rejected, st.Changed, st.LatencyMS/max(st.Calls, 1), st.Cost)
-	for _, k := range []string{"conflict", "npc"} {
+	fmt.Printf("\nadvisor stats: questions=%d calls=%d batches=%d failed=%d applied=%d rejected=%d changed-vs-default=%d skipped-by-cap=%d meanCallLatency=%dms cost=$%.6f\n",
+		st.Questions, st.Calls, st.Batches, st.Failed, st.Applied, st.Rejected, st.Changed, st.Skipped, st.LatencyMS/max(st.Calls, 1), st.Cost)
+	for _, k := range []string{"attention", "conflict", "npc"} {
 		x := st.ByKind[k]
-		fmt.Printf("  %-9s asked=%d applied=%d rejected=%d failed=%d changed-vs-default=%d\n", k, x.Asked, x.Applied, x.Rejected, x.Failed, x.Changed)
+		fmt.Printf("  %-9s created=%d asked=%d applied=%d rejected=%d failed=%d changed-vs-default=%d\n", k, x.Created, x.Asked, x.Applied, x.Rejected, x.Failed, x.Changed)
 	}
 	s = r.Snapshot()
+	for _, id := range sortedKeysID(s.NPCs) {
+		n := s.NPCs[id]
+		fmt.Printf("society %-8s done=%-3d failed=%d replans=%-3d phase=%s\n", id, n.Done, n.Failed, n.Replans, n.Phase)
+	}
+	for _, id := range sortedKeysStr(s.Conflicts) {
+		c := s.Conflicts[id]
+		fmt.Printf("conflict %-46s phase=%-10s peak=%d reopened=%d rev=%d\n", id, c.Phase, c.Peak, c.Reopened, c.Revision)
+	}
 	report(s)
 	fmt.Printf("\ndigest %s\n", s.Digest())
 	return nil
@@ -449,4 +460,13 @@ func serve(args []string) error {
 		return err
 	}
 	return nil
+}
+
+func sortedKeysStr[V any](m map[string]V) []string {
+	out := []string{}
+	for k := range m {
+		out = append(out, k)
+	}
+	sort.Strings(out)
+	return out
 }

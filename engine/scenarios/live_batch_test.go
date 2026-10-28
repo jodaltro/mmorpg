@@ -21,7 +21,7 @@ func collectDecisions(t *testing.T, ticks int) []core.Decision {
 	var out []core.Decision
 	for i := 0; i < ticks; i++ {
 		h.tick(1)
-		for _, k := range []string{core.DecisionConflict, core.DecisionNPC} {
+		for _, k := range []string{core.DecisionAttention, core.DecisionConflict, core.DecisionNPC} {
 			for _, d := range pending(h.s, k) {
 				if !seen[d.ID] {
 					seen[d.ID] = true
@@ -59,9 +59,9 @@ func TestLiveJevBatchComparison(t *testing.T) {
 	if err != nil || key == "" {
 		t.Fatal("OPENROUTER_API_KEY unavailable")
 	}
-	all := collectDecisions(t, 1500)
-	if len(all) < 32 {
-		t.Fatalf("need at least 32 real decisions, got %d", len(all))
+	all := collectDecisions(t, 3000)
+	if len(all) < 64 {
+		t.Fatalf("need at least 64 real decisions, got %d", len(all))
 	}
 	t.Logf("%d real decisions collected (npc/conflict)", len(all))
 	for _, model := range []string{advisor.JevModel, "typesafe/jev-1.14"} {
@@ -95,7 +95,7 @@ func TestLiveJevBatchComparison(t *testing.T) {
 			}
 		}
 		t.Logf("%s single x16: valid=%d/16 same-as-default=%d p50=%dms cost=$%.6f", model, valid, agree, median(lat), cost)
-		for _, n := range []int{8, 16, 32} {
+		for _, n := range []int{8, 16, 32, 64} {
 			started := time.Now()
 			res := jev.DecideBatch(context.Background(), "hospedeiro", "batch", all[:n])
 			wall := time.Since(started).Milliseconds()

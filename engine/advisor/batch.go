@@ -31,7 +31,7 @@ type BatchResult struct {
 }
 
 // MaxBatch bounds a single request so cost, latency and size stay predictable.
-const MaxBatch = 32
+const MaxBatch = 64
 
 func mapProbs(in map[string]float64, back map[string]string) map[string]float64 {
 	if len(in) == 0 {

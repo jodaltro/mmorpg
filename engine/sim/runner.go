@@ -28,6 +28,14 @@ type Options struct {
 	// Zero sends at once. The deadline of each decision does not move, so a
 	// window longer than the decision timeout only wastes the question.
 	BatchWindow time.Duration
+	// MaxQuestionsPerMinute and MaxCostPerHour (USD, as reported by the
+	// provider) bound what the advisor may be asked. Over the cap a question is
+	// not sent and its deadline default applies; zero means no cap. Higher
+	// priority questions (attention, then conflict, then NPC) are sent first.
+	MaxQuestionsPerMinute int
+	MaxCostPerHour        float64
+	// Now is the clock for the caps; nil means time.Now.
+	Now func() time.Time
 }
 
 type Runner struct {
@@ -44,6 +52,7 @@ type Runner struct {
 	closed   bool
 	stats    Stats
 	queue    []queued
+	spent    []spend
 	flushing bool
 	gen      int // bumped by Reset; advisor answers of an older world are dropped
 }
@@ -153,6 +162,7 @@ type Stats struct {
 	Applied   int64   // answers the engine accepted
 	Rejected  int64   // answers the engine refused (stale or invalid)
 	Changed   int64   // accepted answers that differ from the default
+	Skipped   int64   // questions the caps kept from being sent
 	LatencyMS int64   // sum over calls
 	Cost      float64 // sum of reported cost
 	// ByKind splits the same counters by decision kind (npc, conflict, world...).
@@ -160,7 +170,7 @@ type Stats struct {
 }
 
 // KindStats are the per-kind counters.
-type KindStats struct{ Asked, Failed, Applied, Rejected, Changed int64 }
+type KindStats struct{ Created, Asked, Failed, Applied, Rejected, Changed, Skipped int64 }
 
 // kind updates one kind's counters; callers hold r.mu.
 func (r *Runner) kind(k string, f func(*KindStats)) {
@@ -183,7 +193,9 @@ func (r *Runner) Stats() Stats {
 
 // batchable kinds are the cognitive scheduler's: NPC choices and conflict
 // responses. They are grouped by kind and sent together in one request.
-func batchable(kind string) bool { return kind == core.DecisionNPC || kind == core.DecisionConflict }
+func batchable(kind string) bool {
+	return kind == core.DecisionNPC || kind == core.DecisionConflict || kind == core.DecisionAttention
+}
 
 func (r *Runner) claim(d core.Decision) (gen int, ok bool) {
 	r.mu.Lock()
@@ -229,6 +241,74 @@ func (r *Runner) apply(d core.Decision, a advisor.Answer, gen int) {
 	r.mu.Unlock()
 }
 
+type spend struct {
+	at   time.Time
+	n    int
+	cost float64
+}
+
+func (r *Runner) now() time.Time {
+	if r.opt.Now != nil {
+		return r.opt.Now()
+	}
+	return time.Now()
+}
+
+// admit says how many of n questions may be sent now under the caps, and
+// records them. Callers do not hold r.mu.
+func (r *Runner) admit(n int) int {
+	if r.opt.MaxQuestionsPerMinute <= 0 && r.opt.MaxCostPerHour <= 0 {
+		return n
+	}
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	now := r.now()
+	keep := r.spent[:0]
+	var perMinute int
+	var perHour float64
+	for _, x := range r.spent {
+		if now.Sub(x.at) < time.Hour {
+			keep = append(keep, x)
+			perHour += x.cost
+			if now.Sub(x.at) < time.Minute {
+				perMinute += x.n
+			}
+		}
+	}
+	r.spent = keep
+	allowed := n
+	if r.opt.MaxQuestionsPerMinute > 0 {
+		allowed = min(allowed, max(r.opt.MaxQuestionsPerMinute-perMinute, 0))
+	}
+	if r.opt.MaxCostPerHour > 0 && perHour >= r.opt.MaxCostPerHour {
+		allowed = 0
+	}
+	if allowed > 0 {
+		r.spent = append(r.spent, spend{at: now, n: allowed})
+	}
+	return allowed
+}
+
+// charge adds the real cost of a finished call to the newest matching window entry.
+func (r *Runner) charge(cost float64) {
+	if r.opt.MaxCostPerHour <= 0 || cost <= 0 {
+		return
+	}
+	r.mu.Lock()
+	r.spent = append(r.spent, spend{at: r.now(), cost: cost})
+	r.mu.Unlock()
+}
+
+// skip counts a question the caps kept from being sent.
+func (r *Runner) skip(q queued) {
+	r.release(q.d, q.gen)
+	r.mu.Lock()
+	r.stats.Skipped++
+	r.kind(q.d.Kind, func(k *KindStats) { k.Skipped++ })
+	r.mu.Unlock()
+	r.wg.Done()
+}
+
 type queued struct {
 	d   core.Decision
 	gen int
@@ -240,6 +320,9 @@ func (r *Runner) dispatch(ds []core.Decision) {
 	}
 	_, canBatch := r.opt.Advisor.(advisor.BatchAdvisor)
 	for _, d := range ds {
+		r.mu.Lock()
+		r.kind(d.Kind, func(k *KindStats) { k.Created++ })
+		r.mu.Unlock()
 		gen, ok := r.claim(d)
 		if !ok {
 			continue
@@ -259,6 +342,10 @@ func (r *Runner) dispatch(ds []core.Decision) {
 			}
 			continue
 		}
+		if r.admit(1) == 0 {
+			r.skip(queued{d, gen})
+			continue
+		}
 		go func(d core.Decision) {
 			defer r.wg.Done()
 			ctx, cancel := context.WithTimeout(context.Background(), r.opt.AdvisorTimeout)
@@ -276,6 +363,7 @@ func (r *Runner) dispatch(ds []core.Decision) {
 				r.stats.LatencyMS += a.LatencyMS
 				if a.Cost != nil {
 					r.stats.Cost += *a.Cost
+					defer r.charge(*a.Cost)
 				}
 			}
 			r.mu.Unlock()
@@ -295,7 +383,7 @@ func (r *Runner) flush() {
 	r.queue, r.flushing = nil, false
 	r.mu.Unlock()
 	b, _ := r.opt.Advisor.(advisor.BatchAdvisor)
-	for _, kind := range []string{core.DecisionConflict, core.DecisionNPC} {
+	for _, kind := range []string{core.DecisionAttention, core.DecisionConflict, core.DecisionNPC} {
 		var same []queued
 		for _, x := range q {
 			if x.d.Kind == kind {
@@ -304,7 +392,13 @@ func (r *Runner) flush() {
 		}
 		for len(same) > 0 {
 			n := min(len(same), advisor.MaxBatch)
-			r.sendBatch(b, kind, same[:n])
+			ok := r.admit(n)
+			for _, q := range same[ok:n] {
+				r.skip(q)
+			}
+			if ok > 0 {
+				r.sendBatch(b, kind, same[:ok])
+			}
 			same = same[n:]
 		}
 	}
@@ -339,6 +433,7 @@ func (r *Runner) sendBatch(b advisor.BatchAdvisor, kind string, mine []queued) {
 				}
 			} else if x.Answer.Cost != nil {
 				r.stats.Cost += *x.Answer.Cost
+				defer r.charge(*x.Answer.Cost)
 			}
 		}
 		r.mu.Unlock()

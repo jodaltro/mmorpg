@@ -13,8 +13,19 @@ import (
 func transitions(s core.State) []string {
 	var out []string
 	for _, e := range s.Events {
-		if strings.HasPrefix(e.Kind, "conflict-") {
+		if strings.HasPrefix(e.Kind, "conflict-") && e.Data["def"] == "infeccao-pulmonar" {
 			out = append(out, e.Kind+"@"+strconv.Itoa(int(e.At))+":r"+e.Data["revision"])
+		}
+	}
+	return out
+}
+
+// lung returns only the pulmonary infection instances: other conflicts coexist.
+func lung(s core.State) map[string]core.ConflictState {
+	out := map[string]core.ConflictState{}
+	for id, c := range s.Conflicts {
+		if c.Def == "infeccao-pulmonar" {
+			out[id] = c
 		}
 	}
 	return out
@@ -23,7 +34,7 @@ func transitions(s core.State) []string {
 func liveCount(s core.State) int {
 	n := 0
 	for _, c := range s.Conflicts {
-		if c.Phase != core.PhaseResolved {
+		if c.Def == "infeccao-pulmonar" && c.Phase != core.PhaseResolved {
 			n++
 		}
 	}
@@ -49,11 +60,11 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 	if maxLive != 1 {
 		t.Fatalf("one cause must never have %d live instances", maxLive)
 	}
-	if got := len(h.s.Conflicts); got < 5 {
+	if got := len(lung(h.s)); got < 5 {
 		t.Fatalf("recurrent infections should have opened several instances, got %d", got)
 	}
 	resolved := 0
-	for id, c := range h.s.Conflicts {
+	for id, c := range lung(h.s) {
 		if c.Phase == core.PhaseResolved {
 			resolved++
 		}
@@ -67,7 +78,7 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 	// Per instance, revisions in the events strictly increase.
 	last := map[string]int{}
 	for _, e := range h.s.Events {
-		if !strings.HasPrefix(e.Kind, "conflict-") || e.Kind == "conflict-response" {
+		if !strings.HasPrefix(e.Kind, "conflict-") || e.Kind == "conflict-response" || e.Data["def"] != "infeccao-pulmonar" {
 			continue
 		}
 		r, _ := strconv.Atoi(e.Data["revision"])
@@ -76,7 +87,7 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 		}
 		last[e.Data["conflict"]] = r
 	}
-	t.Logf("tick %d: %d instances (%d resolved), first cycle %v", h.s.Tick, len(h.s.Conflicts), resolved, transitions(h.s)[:5])
+	t.Logf("tick %d: %d instances (%d resolved), first cycle %v", h.s.Tick, len(lung(h.s)), resolved, transitions(h.s)[:5])
 }
 
 // Remove the body's defenders and the same infection is no longer held back:
@@ -95,7 +106,7 @@ func TestHospedeiroLungInfectionEscalatesWhenDefendersAreGone(t *testing.T) {
 	critical := false
 	for i := 0; i < 900 && !critical; i++ {
 		h.tick(1)
-		for _, c := range h.s.Conflicts {
+		for _, c := range lung(h.s) {
 			critical = critical || c.Phase == core.PhaseCritical
 		}
 	}
@@ -114,10 +125,10 @@ func TestHospedeiroLungInfectionTakesConfirmedContributions(t *testing.T) {
 	h := load(t, "hospedeiro")
 	h.joinAt("p1", "pulmao")
 	h.joinAt("p2", "pulmao")
-	for i := 0; i < 400 && len(h.s.Conflicts) == 0; i++ {
+	for i := 0; i < 400 && len(lung(h.s)) == 0; i++ {
 		h.tick(1)
 	}
-	if len(h.s.Conflicts) == 0 {
+	if len(lung(h.s)) == 0 {
 		t.Fatal("the lung infection never opened")
 	}
 	if err := h.act("player", "p1", "conter-infeccao-pulmonar", nil); err == nil {
@@ -135,13 +146,22 @@ func TestHospedeiroLungInfectionTakesConfirmedContributions(t *testing.T) {
 	h.do(core.Command{Kind: "act", Origin: "adapter", Actor: "p2", Action: "conter-infeccao-pulmonar", RequestID: "ev-2"})
 	v1, _ := h.w.View(&h.s, "p1", 10)
 	v2, _ := h.w.View(&h.s, "p2", 10)
-	if v1.Conflicts == nil || len(v1.Conflicts.Active) != 1 {
-		t.Fatalf("p1 must see the live crisis: %+v", v1.Conflicts)
+	pick := func(v core.View) core.ConflictItemView {
+		if v.Conflicts != nil {
+			for _, c := range v.Conflicts.Active {
+				if c.Def == "infeccao-pulmonar" {
+					return c
+				}
+			}
+		}
+		t.Fatalf("the lung crisis must be visible: %+v", v.Conflicts)
+		return core.ConflictItemView{}
 	}
-	if v1.Conflicts.Active[0].Mine["combate"] != 3 || v2.Conflicts.Active[0].Mine["combate"] != 3 {
-		t.Fatalf("each fighter is credited once: %v %v", v1.Conflicts.Active[0].Mine, v2.Conflicts.Active[0].Mine)
+	a1, a2 := pick(v1), pick(v2)
+	if a1.Mine["combate"] != 3 || a2.Mine["combate"] != 3 {
+		t.Fatalf("each fighter is credited once: %v %v", a1.Mine, a2.Mine)
 	}
-	if v1.Conflicts.Active[0].Severity != v2.Conflicts.Active[0].Severity || v1.Conflicts.Focus != v2.Conflicts.Focus {
+	if a1.Severity != a2.Severity || v1.Conflicts.Focus != v2.Conflicts.Focus {
 		t.Fatal("both players must see the same official numbers")
 	}
 	// Once the load is gone there is nothing to fight and nothing to credit.
@@ -165,7 +185,7 @@ func TestHospedeiroConflictSurvivesLogoutAndReplays(t *testing.T) {
 		t.Fatal("no conflict to leave")
 	}
 	id, rev := "", int64(0)
-	for k, c := range h.s.Conflicts {
+	for k, c := range lung(h.s) {
 		id, rev = k, c.Revision
 	}
 	h.tick(3) // the player is gone; the clock does not care
