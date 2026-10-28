@@ -109,3 +109,10 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 **Vigia (rodado de verdade, isolado):** o motor morto foi reiniciado e o mundo seguiu do mesmo tick; o arquivo de parada encerrou vigia e motor. Reset rodado com o vigia: mundo novo no ar, `/v1/metrics` respondendo.
 **Orçamento medido (este PC):** 14 células 0,35 ms/tick, 100 células 0,76 ms, 500 células 5,76 ms (p99 20 ms); o tick tem 4000 ms.
 **Não feito:** compactação do log (cerca de 7 MB por dia); backup automático e failover; parada limpa pelo vigia (ele mata o motor, então a parada comum reexecuta a cauda); a tarefa agendada e as opções de energia não foram instaladas (dependem do usuário); teto de contexto do Jev; escala acima de 500 células e coortes maiores (P15).
+
+## Correção — reset do cliente e minimapa do PC (28/10/2026, noite)
+
+**Erro meu no reset:** `scripts/hospedeiro-reset.ps1` nunca arquivou os saves do cliente: o `-Include` sem curinga no caminho não filtra nada, e as pastas `client` dos arquivos ficaram vazias. O relato anterior de "0 saves de personagem" estava errado. Efeito visível: o save antigo (classe dendrítica, habilidades e identidade de sessões passadas) continuou valendo e a célula já nascia com a forma evoluída. Corrigido o filtro e o script agora avisa quando sobra save. Os 15 saves foram arquivados à mão em `D:\unity\hospedeiro-data-archive\20261028-165942-client`; restam 0.
+**Cuidado:** com o jogo aberto, ele pode regravar os saves ao fechar; o reset só vale com o cliente fechado (o script já o fecha).
+**Minimapa:** só existia nos controles de toque, então no PC não aparecia. Agora há um no canto superior direito (150 px), com o corpo inteiro, a célula, a rota e um anel nas crises; o clique abre o atlas. Teste: `test_the_pc_has_a_minimap_that_opens_the_atlas`. Godot: 382 testes, 0 falhas.
+**Não verificado:** a aparência inicial depois do reset não foi vista na tela; a célula nova não deveria vir de save nem do motor (a aparência só chega depois de 20 gestos).

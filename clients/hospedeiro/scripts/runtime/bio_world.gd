@@ -42,6 +42,7 @@ var debug_god := false
 var touch: BioTouchControls
 var display: BioDisplay
 var online_client: BioOnlineClient
+var pc_minimap: BioTouchMinimap  # the small map of the PC (the touch controls carry their own)
 
 ## Classes the test menu goes straight to.
 const DEBUG_CLASSES := [&"macrofago", &"neutrofilo", &"dendritica", &"linfocito_b", &"t_citotoxico", &"t_auxiliar", &"mastocito", &"eosinofilo", &"celula_nk", &"t_regulador"]
@@ -225,6 +226,8 @@ func build() -> void:
 		add_child(online_client)
 	if BioPlatform.is_touch():
 		_build_for_touch()
+	else:
+		_build_pc_minimap()
 	tutorial = BioTutorial.new()
 	tutorial.world = self
 	if BioPersonalLink.wanted(): tutorial.persistence_path = "user://hospedeiro_personal_tutorial.json"
@@ -250,6 +253,23 @@ func ensure_training_target() -> BioCellActor:
 
 
 ## A phone or tablet: the interface sized for a thumb, the on-screen controls, and the HUD rearranged around them.
+## The small map in the top-right corner of the PC: the whole body, the cell, the route and a ring on every crisis. A click opens the atlas.
+func _build_pc_minimap() -> void:
+	var layer := CanvasLayer.new()
+	layer.name = "MinimapLayer"
+	layer.layer = 11
+	add_child(layer)
+	pc_minimap = BioTouchMinimap.new()
+	pc_minimap.name = "Minimap"
+	pc_minimap.configure(self)
+	layer.add_child(pc_minimap)
+	pc_minimap.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	pc_minimap.offset_left = -24.0 - 150.0
+	pc_minimap.offset_right = -24.0
+	pc_minimap.offset_top = 16.0
+	pc_minimap.offset_bottom = 16.0 + 150.0
+
+
 func _build_for_touch() -> void:
 	var stride := BioPlatform.query_param("stride")
 	BioCellBody.background_stride = int(stride) if stride.is_valid_int() else 2

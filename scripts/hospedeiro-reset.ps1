@@ -25,7 +25,9 @@ Start-Sleep -Seconds 2
 
 # 2. Arquivar o mundo, os personagens do cliente e o banco.
 if (Test-Path $data) { Get-ChildItem $data -File | Move-Item -Destination "$archive\world" }
-if (Test-Path $saves) { Get-ChildItem $saves -File -Include 'hospedeiro_*.json', 'e2e_identity_*.json' -ErrorAction SilentlyContinue | Move-Item -Destination "$archive\client" }
+if (Test-Path $saves) { Get-ChildItem "$saves\*" -File | Where-Object { $_.Name -match '^(hospedeiro_.*|e2e_identity_.*)\.json$' } | Move-Item -Destination "$archive\client" }
+$left = @(Get-ChildItem "$saves\*" -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -match '^(hospedeiro_.*|e2e_identity_.*)\.json$' }).Count
+if ($left -gt 0) { Write-Host "AVISO: $left save(s) do cliente continuam em $saves (o jogo está aberto?)" } else { Write-Host 'saves do cliente arquivados' }
 if (Test-Path $nakamaDb) { Move-Item $nakamaDb "$archive\nakama-db" }
 Write-Host "arquivado em $archive"
 

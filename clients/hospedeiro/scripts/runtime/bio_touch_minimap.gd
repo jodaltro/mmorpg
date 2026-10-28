@@ -1,6 +1,6 @@
 class_name BioTouchMinimap
 extends Control
-## Compact atlas using only already visited regions; tap opens the full map.
+## Compact atlas (the whole body, the cell, the route and a ring on every crisis); a tap or a click opens the full map.
 var world: BioWorld
 var _body := {}
 var _age := 0.0
@@ -13,7 +13,8 @@ func configure(value: BioWorld) -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch and event.pressed:
+	var tapped: bool = (event is InputEventScreenTouch and event.pressed) or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed)
+	if tapped:
 		world.atlas.toggle()
 		accept_event()
 

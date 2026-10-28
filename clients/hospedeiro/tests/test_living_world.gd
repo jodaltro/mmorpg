@@ -209,3 +209,13 @@ func test_there_are_no_missions_in_the_interface() -> void:
 	var side := {"key": "x|p1", "def": "x", "state": "offered", "title": "Qualquer missão", "giver": "neva"}
 	world.sync.apply_view(_view(10, [], []).merged({"quests": [side]}, true))
 	assert_true(not world.sync.has_method("_apply_quests") and not world.sync.system.has_method("show_offer"), "the interface has no place for a mission")
+
+
+func test_the_pc_has_a_minimap_that_opens_the_atlas() -> void:
+	assert_true(world.pc_minimap != null and world.pc_minimap.is_visible_in_tree(), "the small map is on the screen of the PC")
+	var click := InputEventMouseButton.new()
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.pressed = true
+	world.pc_minimap._gui_input(click)
+	assert_true(world.atlas.is_open(), "a click opens the whole atlas")
+	world.atlas.close()
