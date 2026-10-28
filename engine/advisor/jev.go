@@ -28,6 +28,14 @@ type Jev struct {
 	URL     string // tests only; empty means the official endpoint
 	Client  *http.Client
 	Timeout time.Duration
+	Model   string // empty means JevModel; e.g. typesafe/jev-1.14 for the A/B
+}
+
+func (j *Jev) model() string {
+	if j.Model != "" {
+		return j.Model
+	}
+	return JevModel
 }
 
 type jevQuestion struct {
@@ -53,6 +61,8 @@ var instructions = map[string]string{
 	"evolution-slot": "One slot of a player's mutation offer is being composed. The context says what the other slots are. Choose the single mutation that gives this slot its own reason to exist for this particular player: deepen the path their life points to, offer a surprising alternative that fits who they could become, or hedge. Avoid mutations that merely repeat what is already offered or expressed. Use only the supplied criteria IDs.",
 	"design":         "You are the designer of one procedural trait of a player's cell in a living body. The first context line names the trait. Choose the single option that makes this particular cell distinctive and true to how this person lives: their play style, deeds, class, genes, the places they made home. Other traits are being designed in parallel, so be bold and specific rather than choosing the safe average. Use only the supplied criteria IDs.",
 	"rota":           "A cell is exploring the body of its host. Choose the single hidden place to point it to next, judging from how this particular player lives: the genes they express, what they already found, how they play, and the state of the body. Prefer a place that fits who they are or opens a path they have not walked; avoid sending them back over ground they know. Use only the supplied criteria IDs.",
+	"npc":            "A named cell of a living body is idle and could start one of several tasks, or keep its routine and wait. Choose what it should do next, judging only from what this cell itself believes and remembers, the public state of the crisis and the priorities listed. Prefer the task that responds to a real, current need; prefer waiting when nothing is needed or the information is insufficient. Use only the supplied criteria IDs.",
+	"conflict":       "A persistent crisis of a living body has just started or escalated. Choose how the body responds, spending its finite reserve only when the numbers justify it: severity, the trend implied by the peak, how many defenders and carriers remain and how often it came back. Prefer keeping the reserve when the cohorts are holding the threat. Use only the supplied criteria IDs.",
 	"story":          "Choose how the shared world story continues after this chapter, given who concluded it and the recent public events. Prefer the continuation that makes the world feel reactive and coherent. Use only the supplied criteria IDs.",
 }
 
@@ -74,7 +84,7 @@ func (j *Jev) Decide(ctx context.Context, universe string, d core.Decision) (Ans
 	for _, c := range head(d.Context, 32) {
 		ctxLines = append(ctxLines, clip(c, 256))
 	}
-	body, err := json.Marshal(jevRequest{Model: JevModel,
+	body, err := json.Marshal(jevRequest{Model: j.model(),
 		State:     map[string]any{"universe": universe, "decision": d.Kind, "context": ctxLines},
 		Questions: map[string]jevQuestion{"choice": {Type: "choice", Instructions: instructions[d.Kind], Criteria: criteria}}})
 	if err != nil {
@@ -140,10 +150,11 @@ func (j *Jev) Decide(ctx context.Context, universe string, d core.Decision) (Ans
 	if a.Confidence != nil && (math.IsNaN(*a.Confidence) || *a.Confidence < 0 || *a.Confidence > 1) {
 		return Answer{}, errors.New("invalid_confidence")
 	}
-	if !strings.HasPrefix(wire.Model, JevModel) || strings.Contains(wire.Model, j.APIKey) || len(wire.Model) > 64 {
+	if !strings.HasPrefix(wire.Model, j.model()) || strings.Contains(wire.Model, j.APIKey) || len(wire.Model) > 64 {
 		return Answer{}, errors.New("invalid_model")
 	}
 	ans := Answer{Choice: back[a.Choice], Provider: "jev", Model: wire.Model, Confidence: a.Confidence, LatencyMS: time.Since(started).Milliseconds()}
+	ans.Probabilities = mapProbs(a.Probabilities, back)
 	if validCall(wire.ID) && !strings.Contains(wire.ID, j.APIKey) {
 		ans.Call = wire.ID
 	}

@@ -555,6 +555,14 @@ func (w *World) decide(s *State, d Decision, choice string, meta map[string]stri
 		if err := w.decideRota(s, d, choice, cause); err != nil {
 			return err
 		}
+	case DecisionNPC:
+		if err := w.decideNPC(s, d, choice, cause); err != nil {
+			return err
+		}
+	case DecisionConflict:
+		if err := w.decideConflict(s, d, choice, cause); err != nil {
+			return err
+		}
 	case "design":
 		if err := w.decideDesign(s, d, choice, cause); err != nil {
 			return err
@@ -583,7 +591,7 @@ func (w *World) decideDefault(s *State, d Decision, cause string) {
 		w.setBeat(s, d.Subject, d.Options[0].ID)
 		return
 	}
-	if d.Kind == "world" || d.Kind == "evolution" || d.Kind == "appearance" || d.Kind == "lineage" || d.Kind == "ability" || d.Kind == "dungeon" || d.Kind == decisionRota || d.Kind == "design" || d.Kind == kindSlot {
+	if d.Kind == "world" || d.Kind == "evolution" || d.Kind == "appearance" || d.Kind == "lineage" || d.Kind == "ability" || d.Kind == "dungeon" || d.Kind == decisionRota || d.Kind == "design" || d.Kind == kindSlot || d.Kind == DecisionNPC || d.Kind == DecisionConflict {
 		return // nothing still valid: tried again on a later tick
 	}
 	// The world moved on while the decision was pending: offer the first

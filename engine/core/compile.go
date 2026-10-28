@@ -234,6 +234,9 @@ func Compile(u Universe) (*World, error) {
 	if e := w.compileConflicts(v, ents); e != nil {
 		return nil, e
 	}
+	if e := w.compileDeliberation(v); e != nil {
+		return nil, e
+	}
 	if e := w.compileTasks(v, ents); e != nil {
 		return nil, e
 	}
@@ -826,6 +829,10 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 			}
 			if err := v.ref(e.To, vars, where); err != nil {
 				return err
+			}
+		case "muster":
+			if p, ok := v.w.pops[e.Rule]; !ok || p.Recruit == nil || e.D < 1 {
+				return invalid("%s: muster needs a cohort that recruits and a positive amount", where)
 			}
 		case "assist":
 			if e.E == "" || !vars["self"] {

@@ -65,19 +65,22 @@ func simulate(args []string) error {
 	path := fs.String("universe", "", "universe.json")
 	n := fs.Int("ticks", 120, "ticks to run")
 	players := fs.Int("players", 3, "scripted players")
-	mode := fs.String("advisor", "none", "none | deterministic | jev")
+	mode := fs.String("advisor", "none", "none | deterministic | jev (batched) | jev-single (one question per call)")
 	envFile := fs.String("env-file", ".env", "local file with OPENROUTER_API_KEY (jev only)")
+	model := fs.String("jev-model", "", "Jev model id (default typesafe/jev-1.13)")
+	window := fs.Duration("batch-window", 0, "hold NPC/conflict questions this long so nearby ones share one Jev request")
 	pace := fs.Duration("pace", 0, "wall-clock time per tick (give async advisors time to answer)")
 	fs.Parse(args)
 	w, err := universe.Load(*path)
 	if err != nil {
 		return err
 	}
+	jevModel = *model
 	adv, err := pickAdvisor(*mode, *envFile, 8*time.Second)
 	if err != nil {
 		return err
 	}
-	r, err := sim.Open(w, &store.Memory{}, sim.Options{Advisor: adv, AdvisorTimeout: 10 * time.Second})
+	r, err := sim.Open(w, &store.Memory{}, sim.Options{Advisor: adv, AdvisorTimeout: 10 * time.Second, BatchWindow: *window})
 	if err != nil {
 		return err
 	}
@@ -168,6 +171,13 @@ func simulate(args []string) error {
 		}
 	}
 	r.Drain()
+	st := r.Stats()
+	fmt.Printf("\nadvisor stats: questions=%d calls=%d batches=%d failed=%d applied=%d rejected=%d changed-vs-default=%d meanCallLatency=%dms cost=$%.6f\n",
+		st.Questions, st.Calls, st.Batches, st.Failed, st.Applied, st.Rejected, st.Changed, st.LatencyMS/max(st.Calls, 1), st.Cost)
+	for _, k := range []string{"conflict", "npc"} {
+		x := st.ByKind[k]
+		fmt.Printf("  %-9s asked=%d applied=%d rejected=%d failed=%d changed-vs-default=%d\n", k, x.Asked, x.Applied, x.Rejected, x.Failed, x.Changed)
+	}
 	s = r.Snapshot()
 	report(s)
 	fmt.Printf("\ndigest %s\n", s.Digest())
@@ -295,18 +305,28 @@ func countHappenings(s core.State) int {
 	return n
 }
 
+// jevModel is set by -jev-model; empty keeps the default.
+var jevModel string
+
+// singleOnly hides batching so the same advisor answers one question per call.
+type singleOnly struct{ advisor.Advisor }
+
 func pickAdvisor(mode, envFile string, timeout time.Duration) (advisor.Advisor, error) {
 	switch mode {
 	case "none":
 		return nil, nil
 	case "deterministic":
 		return advisor.Deterministic{}, nil
-	case "jev":
+	case "jev", "jev-single":
 		key, err := advisor.ResolveKey(envFile)
 		if err != nil || key == "" {
 			return nil, errors.New("jev advisor needs OPENROUTER_API_KEY (environment or -env-file)")
 		}
-		return &advisor.Jev{APIKey: key, Timeout: timeout}, nil
+		j := &advisor.Jev{APIKey: key, Timeout: timeout, Model: jevModel}
+		if mode == "jev-single" {
+			return singleOnly{j}, nil
+		}
+		return j, nil
 	}
 	return nil, errors.New("unknown advisor")
 }

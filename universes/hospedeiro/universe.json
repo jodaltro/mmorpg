@@ -10137,7 +10137,8 @@
    "role": "transporte",
    "region": "sangue",
    "count": 600,
-   "max": 650,
+   "max": 700,
+   "baseline": 650,
    "mortality": 3,
    "mortalityEvery": 10,
    "recruit": {
@@ -10185,7 +10186,8 @@
    "role": "defesa",
    "region": "pulmao",
    "count": 40,
-   "max": 60,
+   "max": 100,
+   "baseline": 60,
    "mortality": 15,
    "mortalityEvery": 5,
    "recruit": {
@@ -10209,7 +10211,8 @@
    "role": "limpeza",
    "region": "pulmao",
    "count": 20,
-   "max": 30,
+   "max": 50,
+   "baseline": 30,
    "mortality": 5,
    "mortalityEvery": 10,
    "recruit": {
@@ -10285,6 +10288,42 @@
      }
     ]
    },
+   "responses": [
+    {
+     "id": "manter-defesa",
+     "title": "Manter as defesas como estão",
+     "desc": "Não gastar a reserva da medula; confiar nas coortes atuais."
+    },
+    {
+     "id": "mobilizar-defesa",
+     "title": "Mobilizar neutrófilos e macrófagos",
+     "desc": "Gastar a reserva da medula para trazer mais defensores ao pulmão agora.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "neutrofilos_pulmao",
+       "d": 20
+      },
+      {
+       "op": "muster",
+       "rule": "macrofagos_pulmao",
+       "d": 10
+      }
+     ]
+    },
+    {
+     "id": "reforcar-transporte",
+     "title": "Reforçar o transporte de oxigênio",
+     "desc": "Gastar a reserva em hemácias para sustentar o oxigênio enquanto o pulmão está comprometido.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "hemacias_sangue",
+       "d": 30
+      }
+     ]
+    }
+   ],
    "sustain": 6,
    "recovery": 12,
    "cooldown": 60,
@@ -10322,7 +10361,60 @@
    ]
   }
  ],
+ "deliberation": {
+  "every": 12,
+  "maxOpen": 4
+ },
  "tasks": [
+  {
+    "id": "apresentar-antigenos",
+    "npc": "dendra",
+    "title": "Levar antígenos ao baço para apresentá-los",
+    "priority": 3,
+    "when": {},
+    "route": [
+     {
+      "region": "baco",
+      "ticks": 6,
+      "doing": "leva antígenos ao baço",
+      "do": [
+       {
+        "op": "adjust",
+        "e": "baco",
+        "k": "antigenos",
+        "d": -1,
+        "min": 0
+       }
+      ]
+     },
+     {
+      "region": "sangue",
+      "ticks": 6,
+      "doing": "volta ao sangue"
+     }
+    ],
+    "cooldown": 10
+   },
+   {
+    "id": "patrulhar-sangue",
+    "npc": "macra",
+    "title": "Patrulhar o sangue em busca de resíduos",
+    "priority": 2,
+    "when": {},
+    "route": [
+     {
+      "region": "sangue",
+      "ticks": 4,
+      "doing": "rola pela corrente atrás de resíduos"
+     },
+     {
+      "region": "pulmao",
+      "ticks": 4,
+      "doing": "volta aos alvéolos"
+     }
+    ],
+    "cooldown": 6
+   },
   {
    "id": "transportar-oxigenio",
    "npc": "rubra",

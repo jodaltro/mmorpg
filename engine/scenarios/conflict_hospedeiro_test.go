@@ -67,7 +67,7 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 	// Per instance, revisions in the events strictly increase.
 	last := map[string]int{}
 	for _, e := range h.s.Events {
-		if !strings.HasPrefix(e.Kind, "conflict-") {
+		if !strings.HasPrefix(e.Kind, "conflict-") || e.Kind == "conflict-response" {
 			continue
 		}
 		r, _ := strconv.Atoi(e.Data["revision"])

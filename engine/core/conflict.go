@@ -46,6 +46,9 @@ type ConflictDef struct {
 	// WhileRecovering runs every tick of the recovery phase: the cleanup is
 	// real work, not a celebration.
 	WhileRecovering []Effect `json:"whileRecovering,omitempty"`
+	// Responses are the ways the body can answer when this starts or escalates;
+	// the first is the deterministic default. See deliberation.go.
+	Responses []ResponseDef `json:"responses,omitempty"`
 }
 
 // ConflictMetric is one official indicator: a number of an entity.
@@ -175,6 +178,7 @@ func (w *World) openConflict(s *State, def ConflictDef, cause string) {
 	s.Conflicts[id] = c
 	w.apply(s, def.OnStart, Bind{}, cause)
 	w.emitConflict(s, c, def, "conflict-started", def.Title+": o conflito começou.", cause)
+	w.openResponses(s, def, c)
 }
 
 func (w *World) metric(s *State, m ConflictMetric) int64 { return s.Entities[m.E].Num[m.K] }
@@ -200,6 +204,9 @@ func (w *World) advanceConflict(s *State, def ConflictDef, id, cause string) {
 		s.Conflicts[id] = c
 		w.apply(s, fx, Bind{}, cause)
 		w.emitConflict(s, c, def, kind, text, cause)
+		if phase == PhaseCritical {
+			w.openResponses(s, def, c)
+		}
 	}
 	defer func() {
 		// Fronts open once, whatever phase the conflict is in.

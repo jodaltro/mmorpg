@@ -82,6 +82,8 @@ type Universe struct {
 	Conflicts []ConflictDef `json:"conflicts,omitempty"`
 	// Tasks: what named NPCs do on their own; see npc.go.
 	Tasks []TaskDef `json:"tasks,omitempty"`
+	// Deliberation: which choices become advisor decisions; see deliberation.go.
+	Deliberation *DeliberationDef `json:"deliberation,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`
 	// VisibleMarks lists predicates that show on the person who carries them

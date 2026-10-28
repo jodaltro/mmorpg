@@ -19,6 +19,9 @@ type Answer struct {
 	Confidence *float64
 	Cost       *float64
 	LatencyMS  int64
+	// Probabilities by option id, when the provider gives them. Kept for audit
+	// only: the engine never reads them to decide anything.
+	Probabilities map[string]float64
 }
 
 type Advisor interface {

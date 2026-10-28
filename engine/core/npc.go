@@ -56,22 +56,24 @@ const (
 	NPCTravel   = "travel"
 	NPCBlocked  = "blocked"
 	NPCSeekHelp = "seek_help"
+	NPCDeciding = "deciding" // waiting for the advisor or the default
 )
 
 // NPCState is the persisted mind of a named NPC: what it is doing, where in the
 // route, since when. Everything else it "knows" lives in beliefs and memory.
 type NPCState struct {
-	Task    string `json:"task,omitempty"`
-	Step    int    `json:"step"`
-	Phase   string `json:"phase"`
-	Since   Tick   `json:"since"`
-	Arrive  Tick   `json:"arrive,omitempty"`
-	Detour  bool   `json:"detour,omitempty"`
-	Blocked Tick   `json:"blocked,omitempty"`
-	Help    string `json:"help,omitempty"` // open help request id
-	Done    int64  `json:"done"`
-	Failed  int64  `json:"failed"`
-	Replans int64  `json:"replans"`
+	Task     string `json:"task,omitempty"`
+	Step     int    `json:"step"`
+	Phase    string `json:"phase"`
+	Since    Tick   `json:"since"`
+	Arrive   Tick   `json:"arrive,omitempty"`
+	Detour   bool   `json:"detour,omitempty"`
+	Blocked  Tick   `json:"blocked,omitempty"`
+	Help     string `json:"help,omitempty"`     // open help request id
+	Decision string `json:"decision,omitempty"` // pending deliberation
+	Done     int64  `json:"done"`
+	Failed   int64  `json:"failed"`
+	Replans  int64  `json:"replans"`
 }
 
 // HelpRequest is a real need an NPC could not meet by itself. It exists only
@@ -172,6 +174,10 @@ func (w *World) npcStep(s *State, id ID, st *NPCState, cause string) {
 	switch st.Phase {
 	case NPCIdle:
 		w.startTask(s, id, st, cause)
+	case NPCDeciding:
+		if _, open := s.Decisions[st.Decision]; !open { // answered elsewhere or dropped
+			st.Phase, st.Decision, st.Since = NPCIdle, "", s.Tick
+		}
 	case NPCTravel:
 		for st.Phase == NPCTravel && s.Tick >= st.Arrive {
 			w.arrive(s, id, st, cause)
@@ -182,23 +188,31 @@ func (w *World) npcStep(s *State, id ID, st *NPCState, cause string) {
 }
 
 func (w *World) startTask(s *State, id ID, st *NPCState, cause string) {
-	for _, t := range w.npcTasks[id] {
-		if s.Cooldowns["task|"+string(id)+"|"+t.ID] > s.Tick || !w.Holds(s, t.When, Bind{"self": id}) {
-			continue
-		}
-		if t.Reserve != "" {
-			if holder, taken := s.Reserved[t.Reserve]; taken && holder != id {
-				st.Replans++ // someone else is on it: replan instead of crowding
-				continue
-			}
-			s.Reserved[t.Reserve] = id
-		}
-		st.Task, st.Step, st.Detour, st.Phase, st.Since, st.Blocked = t.ID, 0, false, NPCTravel, s.Tick, 0
-		w.depart(s, id, st, cause)
-		for st.Phase == NPCTravel && s.Tick >= st.Arrive {
-			w.arrive(s, id, st, cause)
-		}
+	if s.Cooldowns["wait|"+string(id)] > s.Tick {
 		return
+	}
+	var ok []TaskDef
+	for _, t := range w.npcTasks[id] {
+		if w.eligible(s, id, t) {
+			ok = append(ok, t)
+		} else if t.Reserve != "" && s.Reserved[t.Reserve] != "" && s.Reserved[t.Reserve] != id && s.Cooldowns["task|"+string(id)+"|"+t.ID] <= s.Tick && w.Holds(s, t.When, Bind{"self": id}) {
+			st.Replans++ // someone else is on it: replan instead of crowding
+		}
+	}
+	if len(ok) == 0 || w.deliberate(s, id, st, ok) {
+		return
+	}
+	w.beginTask(s, id, st, ok[0], cause)
+}
+
+func (w *World) beginTask(s *State, id ID, st *NPCState, t TaskDef, cause string) {
+	if t.Reserve != "" {
+		s.Reserved[t.Reserve] = id
+	}
+	st.Task, st.Step, st.Detour, st.Phase, st.Since, st.Blocked = t.ID, 0, false, NPCTravel, s.Tick, 0
+	w.depart(s, id, st, cause)
+	for st.Phase == NPCTravel && s.Tick >= st.Arrive {
+		w.arrive(s, id, st, cause)
 	}
 }
 

@@ -10,6 +10,7 @@ package sim
 import (
 	"context"
 	"errors"
+	"maps"
 	"strconv"
 	"sync"
 	"time"
@@ -22,6 +23,11 @@ import (
 type Options struct {
 	Advisor        advisor.Advisor
 	AdvisorTimeout time.Duration
+	// BatchWindow holds cognitive decisions (NPC choices, conflict responses)
+	// for this long so those created in nearby ticks travel in one request.
+	// Zero sends at once. The deadline of each decision does not move, so a
+	// window longer than the decision timeout only wastes the question.
+	BatchWindow time.Duration
 }
 
 type Runner struct {
@@ -36,6 +42,9 @@ type Runner struct {
 	subs     map[int]chan core.Delta
 	nextSub  int
 	closed   bool
+	stats    Stats
+	queue    []queued
+	flushing bool
 	gen      int // bumped by Reset; advisor answers of an older world are dropped
 }
 
@@ -134,39 +143,218 @@ func (r *Runner) Run(ctx context.Context, every time.Duration) error {
 	}
 }
 
+// Stats counts what the advisor did, so the value of asking can be measured:
+// an answer that equals the default changed nothing.
+type Stats struct {
+	Questions int64   // decisions sent
+	Batches   int64   // requests carrying more than one question
+	Calls     int64   // provider requests of any size
+	Failed    int64   // questions that got no usable answer (the default applies)
+	Applied   int64   // answers the engine accepted
+	Rejected  int64   // answers the engine refused (stale or invalid)
+	Changed   int64   // accepted answers that differ from the default
+	LatencyMS int64   // sum over calls
+	Cost      float64 // sum of reported cost
+	// ByKind splits the same counters by decision kind (npc, conflict, world...).
+	ByKind map[string]KindStats
+}
+
+// KindStats are the per-kind counters.
+type KindStats struct{ Asked, Failed, Applied, Rejected, Changed int64 }
+
+// kind updates one kind's counters; callers hold r.mu.
+func (r *Runner) kind(k string, f func(*KindStats)) {
+	if r.stats.ByKind == nil {
+		r.stats.ByKind = map[string]KindStats{}
+	}
+	x := r.stats.ByKind[k]
+	f(&x)
+	r.stats.ByKind[k] = x
+}
+
+// Stats returns a copy of the counters.
+func (r *Runner) Stats() Stats {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	c := r.stats
+	c.ByKind = maps.Clone(r.stats.ByKind)
+	return c
+}
+
+// batchable kinds are the cognitive scheduler's: NPC choices and conflict
+// responses. They are grouped by kind and sent together in one request.
+func batchable(kind string) bool { return kind == core.DecisionNPC || kind == core.DecisionConflict }
+
+func (r *Runner) claim(d core.Decision) (gen int, ok bool) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.inflight[d.ID] || r.closed {
+		return 0, false
+	}
+	r.inflight[d.ID] = true
+	r.wg.Add(1)
+	return r.gen, true
+}
+
+func (r *Runner) release(d core.Decision, gen int) {
+	r.mu.Lock()
+	if gen == r.gen {
+		delete(r.inflight, d.ID)
+	}
+	r.mu.Unlock()
+}
+
+// apply submits one answer. A late or stale one is rejected by the engine.
+func (r *Runner) apply(d core.Decision, a advisor.Answer, gen int) {
+	_, err := r.submit(core.Command{Version: 1, RequestID: "resolve:" + d.ID, Origin: "advisor", Kind: "resolve",
+		Decision: d.ID, Choice: a.Choice, Provider: a.Provider, Model: a.Model, Call: a.Call,
+		Confidence: a.Confidence, LatencyMS: a.LatencyMS, Cost: a.Cost, Probabilities: a.Probabilities}, gen)
+	r.mu.Lock()
+	if err != nil {
+		r.stats.Rejected++
+		r.kind(d.Kind, func(k *KindStats) { k.Rejected++ })
+	} else {
+		r.stats.Applied++
+		changed := a.Choice != d.Default
+		if changed {
+			r.stats.Changed++
+		}
+		r.kind(d.Kind, func(k *KindStats) {
+			k.Applied++
+			if changed {
+				k.Changed++
+			}
+		})
+	}
+	r.mu.Unlock()
+}
+
+type queued struct {
+	d   core.Decision
+	gen int
+}
+
 func (r *Runner) dispatch(ds []core.Decision) {
 	if r.opt.Advisor == nil {
 		return
 	}
+	_, canBatch := r.opt.Advisor.(advisor.BatchAdvisor)
 	for _, d := range ds {
-		r.mu.Lock()
-		if r.inflight[d.ID] || r.closed {
-			r.mu.Unlock()
+		gen, ok := r.claim(d)
+		if !ok {
 			continue
 		}
-		r.inflight[d.ID] = true
-		r.wg.Add(1)
-		gen := r.gen
-		r.mu.Unlock()
+		if canBatch && batchable(d.Kind) {
+			r.mu.Lock()
+			r.queue = append(r.queue, queued{d, gen})
+			arm := !r.flushing
+			r.flushing = true
+			r.mu.Unlock()
+			if arm {
+				if r.opt.BatchWindow > 0 {
+					time.AfterFunc(r.opt.BatchWindow, r.flush)
+				} else {
+					r.flush()
+				}
+			}
+			continue
+		}
 		go func(d core.Decision) {
 			defer r.wg.Done()
 			ctx, cancel := context.WithTimeout(context.Background(), r.opt.AdvisorTimeout)
 			a, err := r.opt.Advisor.Decide(ctx, r.w.U.ID, d)
 			cancel()
+			r.release(d, gen)
 			r.mu.Lock()
-			if gen == r.gen {
-				delete(r.inflight, d.ID)
+			r.stats.Questions++
+			r.stats.Calls++
+			r.kind(d.Kind, func(k *KindStats) { k.Asked++ })
+			if err != nil {
+				r.stats.Failed++
+				r.kind(d.Kind, func(k *KindStats) { k.Failed++ })
+			} else {
+				r.stats.LatencyMS += a.LatencyMS
+				if a.Cost != nil {
+					r.stats.Cost += *a.Cost
+				}
 			}
 			r.mu.Unlock()
 			if err != nil {
 				return // the deterministic default applies at the deadline
 			}
-			// A late or stale answer is rejected by the engine; that is fine.
-			_, _ = r.submit(core.Command{Version: 1, RequestID: "resolve:" + d.ID, Origin: "advisor", Kind: "resolve",
-				Decision: d.ID, Choice: a.Choice, Provider: a.Provider, Model: a.Model, Call: a.Call,
-				Confidence: a.Confidence, LatencyMS: a.LatencyMS, Cost: a.Cost}, gen)
+			r.apply(d, a, gen)
 		}(d)
 	}
+}
+
+// flush sends what the window collected: one request per kind and per
+// MaxBatch questions.
+func (r *Runner) flush() {
+	r.mu.Lock()
+	q := r.queue
+	r.queue, r.flushing = nil, false
+	r.mu.Unlock()
+	b, _ := r.opt.Advisor.(advisor.BatchAdvisor)
+	for _, kind := range []string{core.DecisionConflict, core.DecisionNPC} {
+		var same []queued
+		for _, x := range q {
+			if x.d.Kind == kind {
+				same = append(same, x)
+			}
+		}
+		for len(same) > 0 {
+			n := min(len(same), advisor.MaxBatch)
+			r.sendBatch(b, kind, same[:n])
+			same = same[n:]
+		}
+	}
+}
+
+func (r *Runner) sendBatch(b advisor.BatchAdvisor, kind string, mine []queued) {
+	go func() {
+		list := make([]core.Decision, len(mine))
+		for i, c := range mine {
+			list[i] = c.d
+		}
+		ctx, cancel := context.WithTimeout(context.Background(), r.opt.AdvisorTimeout)
+		res := b.DecideBatch(ctx, r.w.U.ID, kind, list)
+		cancel()
+		r.mu.Lock()
+		r.stats.Calls++
+		if len(list) > 1 {
+			r.stats.Batches++
+		}
+		r.stats.Questions += int64(len(list))
+		for _, c := range mine {
+			r.kind(c.d.Kind, func(k *KindStats) { k.Asked++ })
+		}
+		if len(res) > 0 && res[0].Err == nil {
+			r.stats.LatencyMS += res[0].Answer.LatencyMS
+		}
+		for i, x := range res {
+			if x.Err != nil {
+				r.stats.Failed++
+				if i < len(mine) {
+					r.kind(mine[i].d.Kind, func(k *KindStats) { k.Failed++ })
+				}
+			} else if x.Answer.Cost != nil {
+				r.stats.Cost += *x.Answer.Cost
+			}
+		}
+		r.mu.Unlock()
+		for i, c := range mine {
+			r.release(c.d, c.gen)
+			if i < len(res) && res[i].Err == nil && res[i].Decision == c.d.ID {
+				r.apply(c.d, res[i].Answer, c.gen)
+			} else if i >= len(res) || res[i].Err == nil {
+				r.mu.Lock()
+				r.stats.Failed++ // no result for this question
+				r.kind(c.d.Kind, func(k *KindStats) { k.Failed++ })
+				r.mu.Unlock()
+			}
+			r.wg.Done()
+		}
+	}()
 }
 
 // Subscribe receives every applied delta. Slow subscribers drop deltas

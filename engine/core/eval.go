@@ -335,6 +335,8 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 			s.Seq++
 			s.Schedules = append(s.Schedules, Scheduled{Key: "s" + strconv.FormatInt(s.Seq, 10), Due: s.Tick + e.After, Rule: e.Rule, Bind: maps.Clone(b), Cause: cause})
 			sortSchedules(s.Schedules)
+		case "muster":
+			w.muster(s, e.Rule, e.D)
 		case "assist":
 			w.assist(s, self, resolve(e.E, b))
 		case "contribute":

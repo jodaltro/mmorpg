@@ -11,26 +11,27 @@ import (
 // Command is the only way to change a world. Origin is set by the trusted
 // boundary (API/auth or runtime), never chosen freely by a game client.
 type Command struct {
-	Version          int           `json:"version"`
-	RequestID        string        `json:"requestId"`
-	Origin           string        `json:"origin"` // system | player | adapter | advisor
-	Kind             string        `json:"kind"`   // tick | join | move | act | accept | decline | abandon | resolve
-	Actor            ID            `json:"actor,omitempty"`
-	Name             string        `json:"name,omitempty"`
-	Region           ID            `json:"region,omitempty"` // join: where the newcomer arrives; move: the region the game server saw the actor enter
-	Spot             string        `json:"spot,omitempty"`   // move: the named spot the actor is at now (within the region), or empty
-	Action           string        `json:"action,omitempty"`
-	Args             map[string]ID `json:"args,omitempty"`
-	Quest            string        `json:"quest,omitempty"`
-	Decision         string        `json:"decision,omitempty"`
-	Choice           string        `json:"choice,omitempty"`
-	Provider         string        `json:"provider,omitempty"`
-	Model            string        `json:"model,omitempty"`
-	Call             string        `json:"call,omitempty"`       // provider call id, for audit
-	Confidence       *float64      `json:"confidence,omitempty"` // advisor self-reported confidence
-	LatencyMS        int64         `json:"latencyMs,omitempty"`
-	Cost             *float64      `json:"cost,omitempty"` // USD reported by the provider
-	ExpectedRevision *int64        `json:"expectedRevision,omitempty"`
+	Version          int                `json:"version"`
+	RequestID        string             `json:"requestId"`
+	Origin           string             `json:"origin"` // system | player | adapter | advisor
+	Kind             string             `json:"kind"`   // tick | join | move | act | accept | decline | abandon | resolve
+	Actor            ID                 `json:"actor,omitempty"`
+	Name             string             `json:"name,omitempty"`
+	Region           ID                 `json:"region,omitempty"` // join: where the newcomer arrives; move: the region the game server saw the actor enter
+	Spot             string             `json:"spot,omitempty"`   // move: the named spot the actor is at now (within the region), or empty
+	Action           string             `json:"action,omitempty"`
+	Args             map[string]ID      `json:"args,omitempty"`
+	Quest            string             `json:"quest,omitempty"`
+	Decision         string             `json:"decision,omitempty"`
+	Choice           string             `json:"choice,omitempty"`
+	Provider         string             `json:"provider,omitempty"`
+	Model            string             `json:"model,omitempty"`
+	Call             string             `json:"call,omitempty"`       // provider call id, for audit
+	Confidence       *float64           `json:"confidence,omitempty"` // advisor self-reported confidence
+	LatencyMS        int64              `json:"latencyMs,omitempty"`
+	Cost             *float64           `json:"cost,omitempty"` // USD reported by the provider
+	ExpectedRevision *int64             `json:"expectedRevision,omitempty"`
+	Probabilities    map[string]float64 `json:"probabilities,omitempty"` // advisor distribution, audit only
 }
 
 // Delta is what a command changed, for push to clients and advisors.
@@ -154,6 +155,18 @@ func audit(c Command) map[string]string {
 	}
 	if c.LatencyMS > 0 {
 		m["latencyMs"] = strconv.FormatInt(c.LatencyMS, 10)
+	}
+	if len(c.Probabilities) > 0 {
+		keys := make([]string, 0, len(c.Probabilities))
+		for k := range c.Probabilities {
+			keys = append(keys, k)
+		}
+		slices.Sort(keys)
+		parts := make([]string, 0, len(keys))
+		for _, k := range keys {
+			parts = append(parts, k+"="+strconv.FormatFloat(c.Probabilities[k], 'f', 3, 64))
+		}
+		m["probs"] = strings.Join(parts, ",")
 	}
 	if c.Cost != nil {
 		m["cost"] = strconv.FormatFloat(*c.Cost, 'f', 9, 64)

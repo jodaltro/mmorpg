@@ -16,6 +16,9 @@ type PopulationDef struct {
 	Region ID     `json:"region"`
 	Count  int64  `json:"count"`         // headcount at tick 0
 	Max    int64  `json:"max,omitempty"` // capacity; 0 means Count
+	// Baseline is how far natural recruiting refills the cohort (0: up to Max).
+	// Above it only an explicit muster can add members.
+	Baseline int64 `json:"baseline,omitempty"`
 	// Mortality is the permille of the headcount lost every MortalityEvery ticks.
 	Mortality      int64       `json:"mortality,omitempty"`
 	MortalityEvery Tick        `json:"mortalityEvery,omitempty"`
@@ -124,6 +127,13 @@ func (w *World) initPopulations(s *State) {
 	}
 }
 
+func (p PopulationDef) naturalTarget() int64 {
+	if p.Baseline > 0 {
+		return min(p.Baseline, p.capacity())
+	}
+	return p.capacity()
+}
+
 func (p PopulationDef) capacity() int64 {
 	if p.Max > 0 {
 		return p.Max
@@ -150,9 +160,9 @@ func (w *World) populationTick(s *State) {
 				s.Ledger[ledgerKey("died", id)] += dead
 			}
 		}
-		if r := def.Recruit; r != nil && st.Count < def.capacity() && s.Tick%max(r.Every, 1) == 0 {
+		if r := def.Recruit; r != nil && st.Count < def.naturalTarget() && s.Tick%max(r.Every, 1) == 0 {
 			from := s.Entities[r.From]
-			n := min(r.PerCycle, def.capacity()-st.Count, from.Num[r.K]/r.Cost)
+			n := min(r.PerCycle, def.naturalTarget()-st.Count, from.Num[r.K]/r.Cost)
 			if n > 0 {
 				from.Num[r.K] -= n * r.Cost
 				s.Entities[r.From] = from
