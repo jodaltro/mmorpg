@@ -60,3 +60,17 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 - Layout de toque conferido só por resolução pequena em desktop; vibração, controles móveis e web não foram testados em aparelho.
 - Há um objeto achatado de cor oliva ao lado do jogador no pulmão nas capturas; não é um dos atores novos (confirmado pelos deslocamentos dos quatro atores), não foi identificado.
 - Não foram feitos: P12 (outros órgãos), P13 (migração das masmorras), P14 (operação 24/7), P15 (estresse), avaliação cega do Jev.
+
+## Atualização — Osteia, P12.2 e corpo orgânico (28/10/2026, mais tarde)
+
+**Correção:** o "objeto oliva" das capturas era meu: eram as bolhas de bactéria do `BioTissueMood` desenhadas com raio de 50 px (`rad*0.025`). Reduzidas para ≈ 9 px. Não havia objeto desconhecido (a afirmação anterior de que "não era dos atores novos" estava certa, mas a origem era o tecido).
+
+**Universo (`worldsim validate` ok):** Osteia (`estroma`) ganhou as tarefas `nutrir-nicho-medular` (reserva da medula, credita a crise) e `rondar-nicho`; nova crise `medula-esgotada` (reserva ≤ 15, resolve ≥ 55) com resposta `reforcar-nicho`; happening `convocacao-em-massa` (esvazia 48 da reserva); Esplena devolve 6 de ferro por ciclo em vez de 3 (com 3, a congestão do baço não fechava em 4500 ticks neste mundo).
+
+**Testes Go:** `TestOsteiaFeedsTheMarrowNicheWithoutPlayers`, `TestMarrowExhaustionOpensEscalatesAndRecoversOnlyWithTheStroma`, `TestSpleenIronMarrowReserveChain`; `go vet` e `go test ./... -count=1` verdes. Três testes antigos foram ajustados porque a nova vida muda a sequência do diretor: o de revisão passou a ignorar `conflict-attention` (não é transição), o do pulmão sem defensores remove Osteia, e o de cinco crises roda 4500 ticks.
+
+**Cliente:** no PC o jogo é offline por padrão (Nakama só com `--online`). A célula agora é **uma só membrana**: braços, garras, espinhos, raízes e bocas são lóbulos da própria membrana, a cor é um gradiente (centro → borda → ponta de cada extensão) e o corpo todo se move (inclina para o trabalho, junta-se antes dele, estica na direção do movimento e arrasta ao andar). Cada extensão é uma mola própria com ritmo e fase próprios e cada célula tem seu andamento (`BioNpcMotion`). Godot: **413 testes, 0 falhas**.
+
+**Desempenho do corpo orgânico (pior caso, todas na tela), média em ms:** 7 células: alto 19,8 / padrão 19,4 / econômico 16,6; 20: 28,9 / 19,4 / 16,7; 100: 59,2 / 26,9 / 29,5. O preset alto com 20 células empilhadas passa de 28 ms; o mundo real tem 8 células nomeadas.
+
+**Não feito:** avaliação com jogadores; anemia visível no sangue; P12.3–P12.7.

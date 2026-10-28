@@ -190,7 +190,7 @@ Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md)
 
 ### FASE P12 — Outros sistemas do organismo
 - [ ] **P12.1** Pele/plaquetas/feridas e reparo.
-- [ ] **P12.2** Baço/ferro/hemácias velhas/produção medular.
+- [~] **P12.2** Baço/ferro/hemácias velhas/produção medular. *(28/10/2026, parcial: Osteia nutre o nicho; crise `medula-esgotada` com ferro do baço e reserva; happening `convocacao-em-massa`; Esplena recicla mais depressa (a congestão deixava de fechar). Testado em `osteia_test.go`. Falta anemia visível no sangue e produção medular por linhagem.)*
 - [ ] **P12.3** Fígado/rim/toxina/depuração.
 - [ ] **P12.4** Intestino/microbiota e fluxos de nutrientes.
 - [ ] **P12.5** Linfonodos e sinalização/memória imunológica.
