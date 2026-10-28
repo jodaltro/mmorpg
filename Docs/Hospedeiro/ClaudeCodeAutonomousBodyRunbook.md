@@ -191,11 +191,11 @@ Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md)
 ### FASE P12 — Outros sistemas do organismo
 - [ ] **P12.1** Pele/plaquetas/feridas e reparo.
 - [~] **P12.2** Baço/ferro/hemácias velhas/produção medular. *(28/10/2026, parcial: Osteia nutre o nicho; crise `medula-esgotada` com ferro do baço e reserva; happening `convocacao-em-massa`; Esplena recicla mais depressa (a congestão deixava de fechar). Testado em `osteia_test.go`. Falta anemia visível no sangue e produção medular por linhagem.)*
-- [ ] **P12.3** Fígado/rim/toxina/depuração.
-- [ ] **P12.4** Intestino/microbiota e fluxos de nutrientes.
-- [ ] **P12.5** Linfonodos e sinalização/memória imunológica.
-- [ ] **P12.6** Cérebro/glia/sinais, mais tumores no mapa global.
-- [ ] **P12.7** Testes de cascata entre órgãos, cooperação entre linhagens e conflitos concomitantes.
+- [x] **P12.3** Fígado/rim/toxina/depuração. *(28/10/2026: Nefra e os néfrons; crise `sobrecarga-renal`; a toxina do fígado vira ureia e sobrecarrega o rim; Nefra reduz o tempo de recuperação e é creditada. `p12_test.go`.)*
+- [x] **P12.4** Intestino/microbiota e fluxos de nutrientes. *(28/10/2026: Entera alimenta a flora (a disbiose passa a ser uma crise curta) e passa nutrientes do intestino ao sangue.)*
+- [x] **P12.5** Linfonodos e sinalização/memória imunológica. *(28/10/2026: região Linfonodo; antígenos do baço viram memória; Regina (Treg) acalma a reação gastando tolerância e guarda reserva; crise `reacao-exagerada`; evento `ruptura-de-tolerancia`.)*
+- [x] **P12.6** Cérebro/glia/sinais, mais tumores no mapa global. *(28/10/2026: região Cérebro; sem oxigênio o cérebro perde energia; Gliana limpa resíduos e passa energia; crise `sofrimento-cerebral`. Tumor: massa que ocupa território no intestino, cresce com a inflamação e é contida por Nika e pelas células NK; crise `tumor-intestinal`, desenhada como massa no tecido.)*
+- [x] **P12.7** Testes de cascata entre órgãos, cooperação entre linhagens e conflitos concomitantes. *(28/10/2026: `TestEveryOrganInCrisisAtOnceIsDeterministicAndRecoverable`: 9 crises ao mesmo tempo, 8 fecham sozinhas, 9 células diferentes creditadas, resultado idêntico em duas execuções.)*
 **Gate:** variedade fisiológica, mesmos contratos, nenhum sistema hardcoded por órgão no motor genérico.
 
 ### FASE P13 — Migrar e extinguir runs de dungeon do Hospedeiro

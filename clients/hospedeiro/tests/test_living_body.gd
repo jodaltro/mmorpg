@@ -152,7 +152,7 @@ func test_roles_have_distinct_silhouettes_and_every_task_a_gesture() -> void:
 	assert_eq(BioNpcRoles.gesture("limpar-alveolos"), "engulf", "Macra")
 	assert_eq(BioNpcRoles.gesture("selar-ferida"), "seal", "platelets")
 	assert_eq(BioNpcRoles.gesture("nutrir-nicho-medular"), "feed", "Osteia feeds the niche")
-	assert_eq(BioNpcRoles.verb("feed"), "nutre o nicho", "and says so")
+	assert_eq(BioNpcRoles.verb("feed"), "nutre", "and says so")
 	assert_eq(BioConflictFocus.organ({"def": "medula-esgotada"}), "Medula", "the marrow crisis is named")
 	assert_true(BioConflictFocus.suggestion({"def": "medula-esgotada", "phase": "active"}).contains("Osteia"), "and points at her")
 	assert_true(not BioOnlineClient.wanted("http://127.0.0.1:8096"), "a PC plays offline unless asked for the online mode")
@@ -242,3 +242,27 @@ func test_springs_follow_smoothly_overshoot_a_little_and_never_blow_up() -> void
 	assert_true(is_finite(huge.x) and absf(huge.x) < 3.0, "a long pause does not throw the part away")
 	var k := BioNpcMotion.limbs(_ctx("branch", "signal", BioInteractionState.ACT, 1.0))
 	assert_true(k.size() >= 7 and k["den0"].has("k"), "each limb carries its own stiffness")
+
+
+func test_every_cell_of_the_body_has_its_own_look_and_gesture() -> void:
+	var sils := {}
+	for id in ["rubra", "neva", "dendra", "macra", "placa", "esplena", "kupffer", "estroma", "nefra", "entera", "linfa", "regina", "gliana", "nika"]:
+		assert_true(BioNpcRoles.ROLES.has(id), "%s has a role" % id)
+		sils[BioNpcRoles.role(id)["silhouette"]] = true
+	assert_true(sils.size() >= 12, "fourteen cells, at least twelve different silhouettes (%d)" % sils.size())
+	for task in ["filtrar-ureia-renal", "nutrir-flora", "absorver-alimento", "apresentar-no-linfonodo", "acalmar-reacao", "limpar-residuos-cerebrais", "amparar-neuronios", "eliminar-tumor"]:
+		assert_true(BioNpcRoles.gesture(task) != "idle", "%s has a gesture" % task)
+	assert_eq(BioNpcRoles.gesture("acalmar-reacao"), "calm", "Regina calms")
+	assert_eq(BioNpcRoles.gesture("eliminar-tumor"), "kill", "Nika kills")
+	for def in ["sobrecarga-renal", "reacao-exagerada", "sofrimento-cerebral", "tumor-intestinal"]:
+		assert_true(BioConflictFocus.EFFECT.has(def) and BioConflictFocus.NEXT.has(def) and BioConflictFocus.ORGAN.has(def), "%s is explained to the player" % def)
+	for sil in ["tube", "villus", "round", "halo", "astro", "killer"]:
+		var limbs := BioNpcMotion.limbs(_ctx(sil, "calm", BioInteractionState.IDLE, 1.0))
+		assert_true(limbs.size() >= 1, "%s has a membrane shape" % sil)
+
+
+func test_the_three_new_places_exist_and_belong_to_the_body() -> void:
+	for id in [&"pele", &"linfonodo", &"cerebro"]:
+		assert_true(not BioAnatomy.region_def(id).is_empty(), "%s is on the map" % id)
+		assert_true(BioAnatomy.within(&"medula", 10).has(id), "%s can be reached from the marrow" % id)
+		assert_true(BioBodyMap.NAMES.has(id), "%s has a name" % id)

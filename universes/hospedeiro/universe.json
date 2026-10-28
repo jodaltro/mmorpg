@@ -210,6 +210,69 @@
     "ureia": 25,
     "sodio": 50
    }
+  },
+  {
+   "id": "nefra",
+   "kind": "celula",
+   "name": "Nefra, célula tubular",
+   "region": "rim"
+  },
+  {
+   "id": "entera",
+   "kind": "celula",
+   "name": "Entera, enterócito",
+   "region": "intestino"
+  },
+  {
+   "id": "linfa",
+   "kind": "celula",
+   "name": "Linfa, linfócito",
+   "region": "linfonodo"
+  },
+  {
+   "id": "regina",
+   "kind": "celula",
+   "name": "Regina, célula T reguladora",
+   "region": "linfonodo"
+  },
+  {
+   "id": "gliana",
+   "kind": "celula",
+   "name": "Gliana, astrócito",
+   "region": "cerebro"
+  },
+  {
+   "id": "nika",
+   "kind": "celula",
+   "name": "Nika, célula NK",
+   "region": "sangue"
+  },
+  {
+   "id": "linfonodo",
+   "kind": "tecido",
+   "name": "Linfonodo",
+   "num": {
+    "antigenos": 0,
+    "memoria": 0,
+    "tolerancia": 60
+   }
+  },
+  {
+   "id": "cerebro",
+   "kind": "tecido",
+   "name": "Cérebro",
+   "num": {
+    "residuos": 20,
+    "energia": 80
+   }
+  },
+  {
+   "id": "tumor",
+   "kind": "tecido",
+   "name": "Tumor",
+   "num": {
+    "massa": 0
+   }
   }
  ],
  "facts": [
@@ -1647,6 +1710,404 @@
      "event": "rim-sobrecarregado",
      "public": true,
      "text": "O rim não dá conta da ureia: a pressão na artéria sobe."
+    }
+   ]
+  },
+  {
+   "id": "antigenos-chegam-ao-linfonodo",
+   "every": 6,
+   "when": {
+    "num": {
+     "e": "baco",
+     "k": "antigenos",
+     "op": ">=",
+     "v": 15
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "antigenos",
+     "d": -5,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "antigenos",
+     "d": 5,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "linfonodo-forma-memoria",
+   "every": 8,
+   "when": {
+    "num": {
+     "e": "linfonodo",
+     "k": "antigenos",
+     "op": ">=",
+     "v": 30
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "antigenos",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "memoria",
+     "d": 4,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": -2,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "linfonodo-forma-memoria",
+     "public": true,
+     "text": "O linfonodo organiza a defesa e guarda a memória do invasor."
+    }
+   ]
+  },
+  {
+   "id": "memoria-decai",
+   "every": 20,
+   "when": {
+    "num": {
+     "e": "linfonodo",
+     "k": "memoria",
+     "op": ">",
+     "v": 0
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "memoria",
+     "d": -1,
+     "min": 0
+    }
+   ]
+  },
+  {
+   "id": "tolerancia-volta",
+   "every": 8,
+   "when": {
+    "num": {
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "op": "<",
+     "v": 100
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 3,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "linfonodo-hiperativo",
+   "every": 8,
+   "when": {
+    "num": {
+     "e": "corpo",
+     "k": "inflamacao",
+     "op": ">=",
+     "v": 90
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": -2,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "linfonodo-hiperativo",
+     "public": true,
+     "text": "O linfonodo reage demais: a tolerância cai e a inflamação se alimenta."
+    }
+   ]
+  },
+  {
+   "id": "tempestade-se-alimenta",
+   "every": 8,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": ">=",
+       "v": 60
+      }
+     },
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": "<=",
+       "v": 5
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": 1,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "cerebro-acumula",
+   "every": 6,
+   "when": {
+    "num": {
+     "e": "cerebro",
+     "k": "residuos",
+     "op": "<",
+     "v": 100
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": 2,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "cerebro-limpa-no-sono",
+   "every": 4,
+   "when": {
+    "fact": {
+     "p": "sono",
+     "s": "medula"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -4,
+     "min": 0
+    }
+   ]
+  },
+  {
+   "id": "cerebro-sem-oxigenio",
+   "every": 6,
+   "when": {
+    "num": {
+     "e": "sangue",
+     "k": "oxigenio",
+     "op": "<=",
+     "v": 40
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": -4,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "cerebro-sem-oxigenio",
+     "public": true,
+     "text": "Sem oxigênio, os neurônios perdem energia."
+    }
+   ]
+  },
+  {
+   "id": "cerebro-repoe-energia",
+   "every": 6,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "oxigenio",
+       "op": ">=",
+       "v": 60
+      }
+     },
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "energia",
+       "op": "<",
+       "v": 100
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 3,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "cerebro-sofre",
+   "every": 6,
+   "when": {
+    "num": {
+     "e": "cerebro",
+     "k": "residuos",
+     "op": ">=",
+     "v": 80
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": 2,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": -2,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "cerebro-sofre",
+     "public": true,
+     "text": "Resíduos demais no cérebro: os neurônios sofrem e o corpo inflama."
+    }
+   ]
+  },
+  {
+   "id": "tumor-cresce",
+   "every": 5,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "tumor",
+       "k": "massa",
+       "op": ">",
+       "v": 0
+      }
+     },
+     {
+      "num": {
+       "e": "tumor",
+       "k": "massa",
+       "op": "<",
+       "v": 100
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": 2,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "tumor-aproveita-inflamacao",
+   "every": 6,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "tumor",
+       "k": "massa",
+       "op": ">",
+       "v": 0
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": ">=",
+       "v": 40
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": 1,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "tumor-inflama",
+   "every": 6,
+   "when": {
+    "num": {
+     "e": "tumor",
+     "k": "massa",
+     "op": ">=",
+     "v": 50
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": 2,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "tumor-inflama",
+     "public": true,
+     "text": "O tumor ocupa o tecido e o corpo inflama."
     }
    ]
   }
@@ -5770,6 +6231,120 @@
      "event": "convocacao-em-massa",
      "public": true,
      "text": "O corpo convoca células em massa e a reserva da medula se esvazia."
+    }
+   ]
+  },
+  {
+   "id": "mutacao-celular",
+   "title": "Mutação celular",
+   "desc": "Uma célula do intestino escapa do controle e começa a se multiplicar.",
+   "intensity": 2,
+   "cooldown": 500,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "tumor",
+       "k": "massa",
+       "op": "<=",
+       "v": 0
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": ">=",
+       "v": 15
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": 10,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "mutacao-celular",
+     "public": true,
+     "text": "Uma célula escapa do controle: um tumor começa no intestino."
+    }
+   ]
+  },
+  {
+   "id": "queda-de-oxigenio-cerebral",
+   "title": "Queda de energia cerebral",
+   "desc": "O cérebro gasta mais do que recebe.",
+   "intensity": 1,
+   "cooldown": 150,
+   "when": {
+    "num": {
+     "e": "cerebro",
+     "k": "energia",
+     "op": ">=",
+     "v": 70
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": -45,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "queda-de-oxigenio-cerebral",
+     "public": true,
+     "text": "O cérebro gasta mais energia do que recebe."
+    }
+   ]
+  },
+  {
+   "id": "ruptura-de-tolerancia",
+   "title": "Ruptura de tolerância",
+   "desc": "O linfonodo perde a tolerância e a defesa passa a atacar o próprio corpo.",
+   "intensity": 2,
+   "cooldown": 250,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": ">=",
+       "v": 60
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": ">=",
+       "v": 70
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": -55,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "ruptura-de-tolerancia",
+     "public": true,
+     "text": "A tolerância se rompe: a defesa passa a atacar o próprio corpo."
     }
    ]
   }
@@ -10657,6 +11232,109 @@
      "rate": 15
     }
    ]
+  },
+  {
+   "id": "nefrons_rim",
+   "role": "filtracao",
+   "region": "rim",
+   "count": 40,
+   "max": 100,
+   "baseline": 40,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "filtrar-ureia",
+     "k": "ureia",
+     "from": "rim",
+     "rate": 10
+    }
+   ]
+  },
+  {
+   "id": "linfocitos_linfonodo",
+   "role": "memoria",
+   "region": "linfonodo",
+   "count": 30,
+   "max": 80,
+   "baseline": 30,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "guardar-memoria",
+     "k": "antigenos",
+     "from": "linfonodo",
+     "to": "linfonodo",
+     "toK": "memoria",
+     "rate": 4,
+     "toMax": 100
+    }
+   ]
+  },
+  {
+   "id": "glia_cerebro",
+   "role": "amparo",
+   "region": "cerebro",
+   "count": 40,
+   "max": 90,
+   "baseline": 40,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "limpar-residuos",
+     "k": "residuos",
+     "from": "cerebro",
+     "rate": 8
+    }
+   ]
+  },
+  {
+   "id": "nk_corpo",
+   "role": "vigilancia",
+   "region": "sangue",
+   "count": 20,
+   "max": 60,
+   "baseline": 20,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "destruir-celulas-alteradas",
+     "k": "massa",
+     "from": "tumor",
+     "rate": 6
+    }
+   ]
   }
  ],
  "conflicts": [
@@ -11169,6 +11847,385 @@
        "v": "ferro",
        "d": 20,
        "min": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sobrecarga-renal",
+   "title": "Rim sobrecarregado",
+   "desc": "A ureia chega mais depressa do que os néfrons filtram: a pressão na artéria sobe e o corpo inflama.",
+   "region": "rim",
+   "trigger": {
+    "num": {
+     "e": "rim",
+     "k": "ureia",
+     "op": ">=",
+     "v": 70
+    }
+   },
+   "severity": {
+    "id": "ureia",
+    "label": "Ureia no rim",
+    "e": "rim",
+    "k": "ureia"
+   },
+   "critical": 95,
+   "criticalExit": 85,
+   "contain": {
+    "num": {
+     "e": "rim",
+     "k": "ureia",
+     "op": "<=",
+     "v": 50
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "rim",
+     "k": "ureia",
+     "op": "<=",
+     "v": 30
+    }
+   },
+   "sustain": 6,
+   "recovery": 12,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "pressao",
+     "label": "Pressão na artéria",
+     "e": "aorta",
+     "k": "pressao"
+    },
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    }
+   ],
+   "responses": [
+    {
+     "id": "esperar-rim",
+     "title": "Esperar o rim",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "mobilizar-nefrons",
+     "title": "Mobilizar néfrons",
+     "desc": "Gastar a reserva em células de filtração do rim.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "nefrons_rim",
+       "d": 25
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "reacao-exagerada",
+   "title": "Reação imune exagerada",
+   "desc": "A defesa passou do ponto: a inflamação sobe, a tolerância do linfonodo se esgota e a reação se alimenta. As células reguladoras gastam tolerância para acalmá-la.",
+   "region": "linfonodo",
+   "trigger": {
+    "all": [
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": ">=",
+       "v": 70
+      }
+     },
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": "<=",
+       "v": 35
+      }
+     }
+    ]
+   },
+   "severity": {
+    "id": "deficit",
+    "label": "Tolerância perdida",
+    "e": "linfonodo",
+    "k": "tolerancia",
+    "of": 100
+   },
+   "critical": 85,
+   "criticalExit": 75,
+   "contain": {
+    "any": [
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": ">=",
+       "v": 50
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": "<=",
+       "v": 55
+      }
+     }
+    ]
+   },
+   "resolve": {
+    "any": [
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": ">=",
+       "v": 70
+      }
+     },
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": "<=",
+       "v": 35
+      }
+     }
+    ]
+   },
+   "sustain": 6,
+   "recovery": 12,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "inflamacao",
+     "label": "Inflamação do corpo",
+     "e": "corpo",
+     "k": "inflamacao"
+    },
+    {
+     "id": "memoria",
+     "label": "Memória imune",
+     "e": "linfonodo",
+     "k": "memoria"
+    }
+   ],
+   "responses": [
+    {
+     "id": "esperar-reacao",
+     "title": "Esperar a reação passar",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "reforcar-regulacao",
+     "title": "Reforçar a regulação",
+     "desc": "Gastar reserva da medula para refazer a tolerância do linfonodo.",
+     "effects": [
+      {
+       "op": "adjust",
+       "e": "medula",
+       "k": "reserva",
+       "d": -10,
+       "min": 0
+      },
+      {
+       "op": "adjust",
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "d": 30,
+       "max": 100
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sofrimento-cerebral",
+   "title": "Sofrimento cerebral",
+   "desc": "Falta energia ou sobram resíduos no cérebro: a glia precisa amparar os neurônios e limpar o que se acumulou.",
+   "region": "cerebro",
+   "trigger": {
+    "any": [
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "energia",
+       "op": "<=",
+       "v": 35
+      }
+     },
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "residuos",
+       "op": ">=",
+       "v": 90
+      }
+     }
+    ]
+   },
+   "severity": {
+    "id": "deficit",
+    "label": "Energia perdida",
+    "e": "cerebro",
+    "k": "energia",
+    "of": 100
+   },
+   "critical": 85,
+   "criticalExit": 75,
+   "contain": {
+    "all": [
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "energia",
+       "op": ">=",
+       "v": 55
+      }
+     },
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "residuos",
+       "op": "<=",
+       "v": 70
+      }
+     }
+    ]
+   },
+   "resolve": {
+    "all": [
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "energia",
+       "op": ">=",
+       "v": 70
+      }
+     },
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "residuos",
+       "op": "<=",
+       "v": 50
+      }
+     }
+    ]
+   },
+   "sustain": 6,
+   "recovery": 12,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "residuos",
+     "label": "Resíduos no cérebro",
+     "e": "cerebro",
+     "k": "residuos"
+    },
+    {
+     "id": "oxigenio",
+     "label": "Oxigênio no sangue",
+     "e": "sangue",
+     "k": "oxigenio"
+    }
+   ],
+   "responses": [
+    {
+     "id": "esperar-glia",
+     "title": "Esperar a glia",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "mobilizar-glia",
+     "title": "Mobilizar a glia",
+     "desc": "Gastar a reserva em células de amparo do cérebro.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "glia_cerebro",
+       "d": 25
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tumor-intestinal",
+   "title": "Tumor no intestino",
+   "desc": "Células alteradas se multiplicam sem controle e ocupam o tecido. As células NK precisam contê-las antes que a massa tome o intestino.",
+   "region": "intestino",
+   "trigger": {
+    "num": {
+     "e": "tumor",
+     "k": "massa",
+     "op": ">=",
+     "v": 8
+    }
+   },
+   "severity": {
+    "id": "massa",
+    "label": "Massa do tumor",
+    "e": "tumor",
+    "k": "massa"
+   },
+   "critical": 70,
+   "criticalExit": 60,
+   "contain": {
+    "num": {
+     "e": "tumor",
+     "k": "massa",
+     "op": "<=",
+     "v": 20
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "tumor",
+     "k": "massa",
+     "op": "<=",
+     "v": 0
+    }
+   },
+   "sustain": 6,
+   "recovery": 8,
+   "cooldown": 80,
+   "metrics": [
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    },
+    {
+     "id": "microbiota",
+     "label": "Microbiota",
+     "e": "intestino",
+     "k": "microbiota"
+    }
+   ],
+   "responses": [
+    {
+     "id": "esperar-nk",
+     "title": "Esperar as células NK",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "mobilizar-nk",
+     "title": "Mobilizar células NK",
+     "desc": "Gastar a reserva em células de vigilância.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "nk_corpo",
+       "d": 20
       }
      ]
     }
@@ -11858,6 +12915,571 @@
      "region": "medula",
      "ticks": 4,
      "doing": "volta ao nicho"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "filtrar-ureia-renal",
+   "conflict": "sobrecarga-renal",
+   "npc": "nefra",
+   "title": "Filtrar o sangue e devolver o que serve",
+   "priority": 5,
+   "when": {
+    "num": {
+     "e": "rim",
+     "k": "ureia",
+     "op": ">=",
+     "v": 40
+    }
+   },
+   "route": [
+    {
+     "region": "rim",
+     "ticks": 2,
+     "doing": "filtra o sangue no glomérulo",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "rim",
+       "k": "ureia",
+       "d": -3,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "rim",
+         "k": "ureia",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "sobrecarga-renal",
+       "k": "filtracao",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "rim",
+         "k": "ureia",
+         "op": ">=",
+         "v": 40
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "rim",
+     "ticks": 2,
+     "doing": "devolve ao sangue o que serve"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "rondar-nefron",
+   "npc": "nefra",
+   "title": "Percorrer o túbulo",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "rim",
+     "ticks": 4,
+     "doing": "confere o túbulo"
+    },
+    {
+     "region": "aorta",
+     "ticks": 4,
+     "doing": "sente a pressão da artéria"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "nutrir-flora",
+   "conflict": "disbiose-intestinal",
+   "npc": "entera",
+   "title": "Alimentar a flora das criptas",
+   "priority": 5,
+   "when": {
+    "num": {
+     "e": "intestino",
+     "k": "microbiota",
+     "op": "<",
+     "v": 75
+    }
+   },
+   "route": [
+    {
+     "region": "intestino",
+     "ticks": 3,
+     "doing": "alimenta a flora nas criptas",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "intestino",
+       "k": "microbiota",
+       "d": 2,
+       "max": 100,
+       "if": {
+        "num": {
+         "e": "intestino",
+         "k": "alimento",
+         "op": ">=",
+         "v": 10
+        }
+       }
+      },
+      {
+       "op": "adjust",
+       "e": "intestino",
+       "k": "alimento",
+       "d": -4,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "intestino",
+         "k": "alimento",
+         "op": ">=",
+         "v": 10
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "disbiose-intestinal",
+       "k": "nutricao",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "intestino",
+         "k": "microbiota",
+         "op": "<",
+         "v": 75
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "intestino",
+     "ticks": 2,
+     "doing": "protege a barreira do epitélio"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "absorver-alimento",
+   "npc": "entera",
+   "title": "Absorver nutrientes e passá-los ao sangue",
+   "priority": 3,
+   "when": {
+    "num": {
+     "e": "intestino",
+     "k": "alimento",
+     "op": ">=",
+     "v": 40
+    }
+   },
+   "route": [
+    {
+     "region": "intestino",
+     "ticks": 3,
+     "doing": "absorve nutrientes nas vilosidades",
+     "do": [
+      {
+       "op": "transfer",
+       "e": "intestino",
+       "to": "sangue",
+       "k": "alimento",
+       "v": "glicose",
+       "d": 4,
+       "min": 0
+      }
+     ]
+    },
+    {
+     "region": "sangue",
+     "ticks": 3,
+     "doing": "entrega os nutrientes ao sangue"
+    }
+   ],
+   "cooldown": 4
+  },
+  {
+   "id": "apresentar-no-linfonodo",
+   "npc": "linfa",
+   "title": "Apresentar antígenos e formar memória",
+   "priority": 4,
+   "when": {
+    "num": {
+     "e": "linfonodo",
+     "k": "antigenos",
+     "op": ">=",
+     "v": 10
+    }
+   },
+   "route": [
+    {
+     "region": "linfonodo",
+     "ticks": 3,
+     "doing": "apresenta antígenos aos linfócitos",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "linfonodo",
+       "k": "antigenos",
+       "d": -4,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "linfonodo",
+         "k": "antigenos",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "adjust",
+       "e": "linfonodo",
+       "k": "memoria",
+       "d": 3,
+       "max": 100
+      }
+     ]
+    },
+    {
+     "region": "linfonodo",
+     "ticks": 2,
+     "doing": "guarda o que aprendeu"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "rondar-linfonodo",
+   "npc": "linfa",
+   "title": "Colher antígenos da polpa do baço",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "baco",
+     "ticks": 4,
+     "doing": "colhe antígenos na polpa"
+    },
+    {
+     "region": "linfonodo",
+     "ticks": 4,
+     "doing": "volta ao linfonodo"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "acalmar-reacao",
+   "conflict": "reacao-exagerada",
+   "npc": "regina",
+   "title": "Liberar sinais que acalmam a reação imune",
+   "priority": 6,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "corpo",
+       "k": "inflamacao",
+       "op": ">=",
+       "v": 70
+      }
+     },
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": ">=",
+       "v": 40
+      }
+     }
+    ]
+   },
+   "route": [
+    {
+     "region": "linfonodo",
+     "ticks": 3,
+     "doing": "libera sinais que acalmam a reação",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "corpo",
+       "k": "inflamacao",
+       "d": -4,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "corpo",
+         "k": "inflamacao",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "adjust",
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "d": -3,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "linfonodo",
+         "k": "tolerancia",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "reacao-exagerada",
+       "k": "regulacao",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "corpo",
+         "k": "inflamacao",
+         "op": ">=",
+         "v": 70
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "linfonodo",
+     "ticks": 2,
+     "doing": "recolhe os sinais"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "vigiar-tolerancia",
+   "npc": "regina",
+   "title": "Vigiar a tolerância do corpo",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "linfonodo",
+     "ticks": 5,
+     "doing": "vigia a tolerância"
+    },
+    {
+     "region": "baco",
+     "ticks": 4,
+     "doing": "confere o baço"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "limpar-residuos-cerebrais",
+   "conflict": "sofrimento-cerebral",
+   "npc": "gliana",
+   "title": "Recolher os resíduos dos neurônios",
+   "priority": 5,
+   "when": {
+    "num": {
+     "e": "cerebro",
+     "k": "residuos",
+     "op": ">=",
+     "v": 40
+    }
+   },
+   "route": [
+    {
+     "region": "cerebro",
+     "ticks": 3,
+     "doing": "recolhe resíduos dos neurônios",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "cerebro",
+       "k": "residuos",
+       "d": -4,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "cerebro",
+         "k": "residuos",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "sofrimento-cerebral",
+       "k": "limpeza",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "cerebro",
+         "k": "residuos",
+         "op": ">=",
+         "v": 40
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "cerebro",
+     "ticks": 2,
+     "doing": "descarta os resíduos"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "amparar-neuronios",
+   "conflict": "sofrimento-cerebral",
+   "npc": "gliana",
+   "title": "Passar energia aos neurônios",
+   "priority": 6,
+   "when": {
+    "num": {
+     "e": "cerebro",
+     "k": "energia",
+     "op": "<",
+     "v": 80
+    }
+   },
+   "route": [
+    {
+     "region": "cerebro",
+     "ticks": 3,
+     "doing": "passa lactato aos neurônios",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "cerebro",
+       "k": "energia",
+       "d": 3,
+       "max": 100,
+       "if": {
+        "num": {
+         "e": "cerebro",
+         "k": "energia",
+         "op": "<",
+         "v": 100
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "sofrimento-cerebral",
+       "k": "amparo",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "cerebro",
+         "k": "energia",
+         "op": "<",
+         "v": 80
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "cerebro",
+     "ticks": 2,
+     "doing": "sustenta a barreira do cérebro"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "eliminar-tumor",
+   "conflict": "tumor-intestinal",
+   "npc": "nika",
+   "title": "Reconhecer e destruir as células alteradas",
+   "priority": 6,
+   "when": {
+    "num": {
+     "e": "tumor",
+     "k": "massa",
+     "op": ">",
+     "v": 0
+    }
+   },
+   "route": [
+    {
+     "region": "intestino",
+     "ticks": 3,
+     "doing": "reconhece e destrói células alteradas",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "tumor",
+       "k": "massa",
+       "d": -8,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "tumor",
+         "k": "massa",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "tumor-intestinal",
+       "k": "citotoxicidade",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "tumor",
+         "k": "massa",
+         "op": ">",
+         "v": 0
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "intestino",
+     "ticks": 2,
+     "doing": "recolhe os restos"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "patrulhar-tecidos",
+   "npc": "nika",
+   "title": "Inspecionar os tecidos",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "inspeciona as células do sangue"
+    },
+    {
+     "region": "intestino",
+     "ticks": 4,
+     "doing": "inspeciona o epitélio"
     }
    ],
    "cooldown": 6

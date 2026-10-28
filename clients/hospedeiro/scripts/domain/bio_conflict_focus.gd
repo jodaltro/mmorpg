@@ -12,7 +12,7 @@ const FILTERS := ["todos", "ativo", "crítico", "contido", "recuperando"]
 const FILTER_PHASE := {"ativo": "active", "crítico": "critical", "contido": "contained", "recuperando": "recovering"}
 
 const ORGAN := {"ferida-na-pele": "Pele", "congestao-esplenica": "Baço", "sobrecarga-hepatica": "Fígado", "disbiose-intestinal": "Intestino",
-	"infeccao-pulmonar": "Pulmão", "medula-esgotada": "Medula"}
+	"infeccao-pulmonar": "Pulmão", "medula-esgotada": "Medula", "sobrecarga-renal": "Rim", "reacao-exagerada": "Linfonodo", "sofrimento-cerebral": "Cérebro", "tumor-intestinal": "Intestino"}
 const EFFECT := {
 	"ferida-na-pele": "Sem o tampão, invasores entram no sangue.",
 	"congestao-esplenica": "O ferro não volta à medula e o corpo inflama.",
@@ -20,6 +20,10 @@ const EFFECT := {
 	"disbiose-intestinal": "Sem microbiota, o intestino inflama o corpo.",
 	"infeccao-pulmonar": "O oxigênio cai, a febre sobe e as citocinas chegam ao sangue.",
 	"medula-esgotada": "Sem reserva não nascem hemácias novas: o oxigênio cai e o corpo inflama.",
+	"sobrecarga-renal": "A ureia passa do que os néfrons filtram: a pressão na artéria sobe e o corpo inflama.",
+	"reacao-exagerada": "A tolerância do linfonodo se esgotou: a defesa ataca demais e a inflamação se alimenta.",
+	"sofrimento-cerebral": "Sem energia e com resíduos, os neurônios sofrem; a glia precisa amparar e limpar.",
+	"tumor-intestinal": "Células alteradas se multiplicam e ocupam o intestino; a massa cresce com a inflamação.",
 }
 const NEXT := {
 	"ferida-na-pele": "Vá à pele e defenda as plaquetas dos invasores.",
@@ -28,6 +32,10 @@ const NEXT := {
 	"disbiose-intestinal": "Vá ao intestino: nutra a microbiota e repele invasores.",
 	"infeccao-pulmonar": "Vá aos alvéolos: elimine vírions e ajude Neva, Macra e Rubra.",
 	"medula-esgotada": "Vá ao nicho da medula: leve nutrientes e ajude Osteia; o ferro do baço também repõe a reserva.",
+	"sobrecarga-renal": "Vá ao rim: ajude Nefra a filtrar e alivie o fígado para a ureia parar de chegar.",
+	"reacao-exagerada": "Vá ao linfonodo: proteja Regina e reduza o que inflama o corpo, para a tolerância voltar.",
+	"sofrimento-cerebral": "Vá ao cérebro: ajude Gliana a limpar os resíduos e mantenha o oxigênio do sangue.",
+	"tumor-intestinal": "Vá ao intestino: ajude Nika a destruir as células alteradas antes que a massa cresça.",
 }
 const NEXT_BY_PHASE := {"contained": "Mantenha o apoio até o tecido se estabilizar.", "recovering": "Falta pouco: deixe as células terminarem o reparo."}
 

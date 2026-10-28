@@ -39,7 +39,7 @@ func sortedConflictIDs(s core.State) []string {
 // advisor each one opens from its own cause, never twice at once, and the body
 // closes them by the numbers (the stricter ones less often than the lung).
 func TestFiveConflictsCycleOnTheirOwnWithoutPlayers(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadWithoutPops(t, "hospedeiro", "npc:entera") // with Entera the flora never collapses on its own
 	maxLive := map[string]int{}
 	concurrent := 0
 	for i := 0; i < 4500; i++ {
@@ -88,7 +88,7 @@ func TestEachConflictEscalatesWhenItsDefendersAreGone(t *testing.T) {
 		{"ferida-na-pele", []string{"plaquetas_pele", "npc:placa"}, func(h *harness) { setNum(h, "pele", "ferida", 40) }},
 		{"congestao-esplenica", []string{"macrofagos_baco", "npc:esplena"}, func(h *harness) { setNum(h, "baco", "hemacias", 85) }},
 		{"sobrecarga-hepatica", []string{"hepatocitos_figado", "npc:kupffer"}, func(h *harness) { setNum(h, "figado", "toxina", 85) }},
-		{"disbiose-intestinal", []string{"flora_intestinal"}, func(h *harness) { setNum(h, "intestino", "microbiota", 12) }},
+		{"disbiose-intestinal", []string{"flora_intestinal", "npc:entera"}, func(h *harness) { setNum(h, "intestino", "microbiota", 12) }},
 	}
 	for _, c := range cases {
 		h := loadWithoutPops(t, "hospedeiro", c.without...)

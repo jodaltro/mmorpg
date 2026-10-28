@@ -56,6 +56,24 @@ static func limbs(ctx: Dictionary) -> Dictionary:
 		"anchor":
 			for i in 3:
 				_lobe(out, "root%d" % i, PI * 0.5 + (i - 1) * 0.7 + sin(t * (0.5 + 0.2 * i) + i) * 0.08 * m, 0.72 + 0.06 * sin(t * (0.9 + 0.3 * i)), 0.15, 0.6)
+	match sil:
+		"tube":  # a tubule: open at both ends, so what passes through it is part of its shape
+			for i in 2:
+				_lobe(out, "end%d" % i, ph + face + i * PI + sin(t * (0.9 + 0.3 * i)) * 0.2 * m, 0.45 + 0.1 * sin(t * (1.2 + 0.3 * i) + i), 0.45, 0.9)
+		"villus":  # a brush border of short fingers on the side that faces the lumen
+			for i in 9:
+				var a: float = ph + PI * 0.5 + (i - 4) * 0.27 + sin(t * (1.3 + 0.17 * i) + i) * 0.08 * m
+				_lobe(out, "fringe%d" % i, a, 0.28 + 0.1 * sin(t * (1.5 + 0.21 * i) + i * 1.7), 0.09, 1.3)
+		"round":
+			_lobe(out, "swell", ph + t * 0.3 * m, 0.08 + 0.04 * sin(t * 1.1), 0.9, 0.8)
+		"halo":  # a calm crown of soft bumps that breathe in turn
+			for i in 6:
+				_lobe(out, "crown%d" % i, ph + i * TAU / 6.0 + t * 0.15 * m, 0.16 + 0.1 * (0.5 + 0.5 * sin(t * 1.4 - i * 1.0)), 0.3, 0.8)
+		"astro":  # many fine arms that spread over the neurons
+			for i in 8:
+				_lobe(out, "astro%d" % i, ph + i * TAU / 8.0 + sin(t * (0.6 + 0.15 * i) + i * 2.1) * 0.2 * m, 0.7 + 0.15 * sin(t * (0.9 + 0.12 * i) + i), 0.1, 1.0)
+		"killer":  # compact, with granules; the weapons appear only when it works
+			_lobe(out, "bulk", ph + t * 0.2 * m, 0.1, 0.8, 0.8)
 	# Moving: the body leans forward and the limbs behind ripple like a crawl, each a little later than its neighbour.
 	if phase == BioInteractionState.APPROACH or phase == BioInteractionState.ANTICIPATE:
 		_lobe(out, "lead", face, 0.18 + 0.2 * speed, 0.6, 1.0)
@@ -86,6 +104,13 @@ static func limbs(ctx: Dictionary) -> Dictionary:
 			_lobe(out, "vent", face - PI * 0.5, 0.22 + 0.08 * sin(t * 2.6 + PI), 0.3, 1.0)
 		"signal":
 			_lobe(out, "send", aim, 0.45 + 0.2 * (0.5 + 0.5 * sin(t * 3.6)), 0.22, 1.2)
+		"calm":  # the whole crown opens and a soft wave leaves it
+			for i in 6:
+				_lobe(out, "open%d" % i, ph + i * TAU / 6.0, 0.35 + 0.2 * (0.5 + 0.5 * sin(t * 2.0 - i * 0.9)), 0.3, 0.9)
+		"kill":  # two sharp fangs of membrane towards the target
+			_lobe(out, "fangL", aim - 0.28, 0.5 + 0.35 * act, 0.1, 1.6)
+			_lobe(out, "fangR", aim + 0.28, 0.5 + 0.35 * act, 0.1, 1.6)
+			_lobe(out, "jaw", aim, 0.3 + 0.25 * (0.5 + 0.5 * sin(t * 4.0)) * act, 0.2, 1.2)
 		"seal":
 			_lobe(out, "reach", aim + sin(t * 2.2) * 0.1 * m, 0.5 + 0.4 * p, 0.34, 1.0)
 		"feed":

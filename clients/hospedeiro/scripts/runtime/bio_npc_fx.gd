@@ -301,6 +301,16 @@ func _gesture_traces(tint: Color, r: float) -> void:
 				draw_arc(stem, r * 0.28, 0.0, TAU, 14, BioArt.with_alpha(role["edge"], 0.8), 1.5)
 				var u := fposmod(t * 0.9 + i / 3.0, 1.0)
 				draw_circle(Vector2.from_angle(a) * r * 2.45 * u, r * 0.08, BioArt.with_alpha(Color(1.0, 0.9, 0.5), 0.9))
+		"calm":  # soft rings leave the cell and fade: the signal that quiets the reaction
+			for i in _count(3):
+				var u := fposmod(t * 0.6 + i / 3.0, 1.0)
+				draw_arc(Vector2.ZERO, r * (1.3 + 2.4 * u), 0.0, TAU, 28, BioArt.with_alpha(tint, 0.5 * (1.0 - u)), 2.5)
+		"kill":  # the altered cell is closed on and shrinks; granules cross to it
+			var victim := aim * r * 2.3
+			draw_circle(victim, r * 0.55 * (1.0 - 0.9 * p), Color(0.8, 0.2, 0.7, 0.55))
+			for i in _count(5):
+				var u := fposmod(t * 1.2 + i * 0.2, 1.0)
+				draw_circle(_tip.lerp(victim, u), r * 0.06, BioArt.with_alpha(Color(1.0, 0.85, 0.5), 0.9 * (1.0 - 0.4 * u)))
 		"defend":
 			draw_arc(Vector2.ZERO, TELEGRAPH_UNITS * BioArt.UNIT * (0.25 + 0.75 * (1.0 - p)), 0.0, TAU, 48, BioArt.with_alpha(tint, 0.35), 3.0)
 			_telegraph(1.0 - p)

@@ -85,7 +85,7 @@ func press(label: String) -> bool:
 func _sections() -> Array:
 	var w := _world
 	var places: Array = []
-	var place_names := {BioBodyMap.MEDULA: "Nicho da medula", BioBodyMap.SANGUE: "Vênula", BioBodyMap.CORACAO: "Endocárdio", BioBodyMap.PULMAO: "Alvéolos", BioBodyMap.AORTA: "Artéria", BioBodyMap.FIGADO: "Fígado", BioBodyMap.BACO: "Baço", BioBodyMap.INTESTINO: "Intestino", BioBodyMap.RIM: "Rim"}
+	var place_names := {BioBodyMap.MEDULA: "Nicho da medula", BioBodyMap.SANGUE: "Vênula", BioBodyMap.CORACAO: "Endocárdio", BioBodyMap.PULMAO: "Alvéolos", BioBodyMap.AORTA: "Artéria", BioBodyMap.FIGADO: "Fígado", BioBodyMap.BACO: "Baço", BioBodyMap.INTESTINO: "Intestino", BioBodyMap.RIM: "Rim", BioBodyMap.PELE: "Pele", BioBodyMap.LINFONODO: "Linfonodo", BioBodyMap.CEREBRO: "Cérebro"}
 	for id in place_names:
 		places.append([place_names[id], func() -> void: w.debug_goto(id)])
 	var rooms: Array = []

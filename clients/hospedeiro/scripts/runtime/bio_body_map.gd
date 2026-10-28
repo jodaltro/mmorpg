@@ -13,6 +13,9 @@ const FIGADO := &"figado"
 const BACO := &"baco"
 const INTESTINO := &"intestino"
 const RIM := &"rim"
+const PELE := &"pele"
+const LINFONODO := &"linfonodo"
+const CEREBRO := &"cerebro"
 
 ## The seed the body is grown from (the world sets it; the same seed gives the same body to everyone).
 static var seed_value := 1337
@@ -47,7 +50,7 @@ const RESIDENTS := {
 	"dendra": Vector2(41.0, 12.0),
 }
 
-const NAMES := {MEDULA: "NICHO DA MEDULA", SANGUE: "VÊNULA", CORACAO: "ENDOCÁRDIO", PULMAO: "ALVÉOLOS", AORTA: "ARTÉRIA", FIGADO: "SINUSOIDES DO FÍGADO", BACO: "POLPA DO BAÇO", INTESTINO: "CRIPTAS DO INTESTINO", RIM: "NÉFRONS DO RIM"}
+const NAMES := {MEDULA: "NICHO DA MEDULA", SANGUE: "VÊNULA", CORACAO: "ENDOCÁRDIO", PULMAO: "ALVÉOLOS", AORTA: "ARTÉRIA", FIGADO: "SINUSOIDES DO FÍGADO", BACO: "POLPA DO BAÇO", INTESTINO: "CRIPTAS DO INTESTINO", RIM: "NÉFRONS DO RIM", PELE: "DERME E EPIDERME", LINFONODO: "LINFONODO", CEREBRO: "TECIDO CEREBRAL"}
 
 
 static func body() -> Dictionary:

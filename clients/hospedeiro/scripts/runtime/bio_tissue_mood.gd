@@ -124,6 +124,26 @@ func _extras(kind: String, level: float, ratio: float, center: Vector2, rad: flo
 			for i in n:
 				var a := float(i) * 1.9 + _t * 0.1 * prefs.motion_scale()
 				draw_circle(center + Vector2.from_angle(a) * rad * (0.2 + 0.5 * fposmod(a * 0.37, 1.0)), rad * 0.005, BioArt.with_alpha(haze, minf(0.7, level * 3.5)))
+		"tumor-intestinal":  # a mass that takes up the territory of the tissue, in proportion to the engine's severity
+			var mass := rad * (0.06 + 0.3 * ratio)
+			var at := center + Vector2.from_angle(float(absi("tumor".hash()) % 628) / 100.0) * rad * 0.3
+			var pts := PackedVector2Array()
+			for i in 32:
+				var a := TAU * i / 32.0
+				pts.append(at + Vector2.from_angle(a) * mass * (1.0 + 0.18 * sin(a * 5.0 + _t * 0.6 * prefs.motion_scale()) + 0.1 * sin(a * 9.0)))
+			draw_colored_polygon(pts, Color(0.75, 0.15, 0.6, minf(0.5, 0.2 + level * 2.0)))
+		"sobrecarga-renal":
+			for i in n:
+				var a := float(i) * 2.2 + _t * 0.1 * prefs.motion_scale()
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.15 + 0.55 * fposmod(a * 0.39, 1.0)), rad * 0.006, BioArt.with_alpha(Color(0.4, 1.0, 0.95), minf(0.7, level * 3.5)))
+		"reacao-exagerada":
+			for i in n:
+				var a := float(i) * 1.7 + _t * 0.2 * prefs.motion_scale()
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.2 + 0.5 * fposmod(a * 0.47, 1.0)), rad * 0.007, BioArt.with_alpha(Color(1.0, 0.55, 0.4), minf(0.7, level * 3.5)))
+		"sofrimento-cerebral":
+			for i in n:
+				var a := float(i) * 2.9 + _t * 0.07 * prefs.motion_scale()
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.15 + 0.55 * fposmod(a * 0.31, 1.0)), rad * 0.006, BioArt.with_alpha(Color(0.8, 0.5, 1.0), minf(0.7, level * 3.5)))
 		"medula-esgotada":  # an empty niche: pale dust where new cells should be born
 			for i in n:
 				var a := float(i) * 2.3 + _t * 0.08 * prefs.motion_scale()

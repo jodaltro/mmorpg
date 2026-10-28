@@ -76,7 +76,7 @@ func TestOrganVerbsNeedTheirOrgan(t *testing.T) {
 // E3: the organs talk to each other: the spleen's recycled iron feeds the marrow, the gut pours food (and toxins) into the liver, the liver's
 // toxins become the kidney's urea, and an overloaded kidney raises the pressure of the artery. Nobody acts for any of it, and the log replays.
 func TestOrganChains(t *testing.T) {
-	h := loadWithoutPops(t, "hospedeiro", "hepatocitos_figado", "flora_intestinal") // the chain of the bare organs
+	h := loadWithoutPops(t, "hospedeiro", "hepatocitos_figado", "flora_intestinal", "npc:entera", "npc:kupffer", "npc:nefra", "nefrons_rim") // the chain of the bare organs
 	h.join("p1")
 	h.intoOrgan("p1", "baco")
 	for i := 0; i < 6; i++ {
@@ -105,7 +105,7 @@ func TestOrganChains(t *testing.T) {
 	if len(h.events("baco-congestionado")) == 0 {
 		t.Fatal("old red cells nobody recycles should congest the spleen")
 	}
-	b := loadWithoutPops(t, "hospedeiro", "hepatocitos_figado", "flora_intestinal")
+	b := loadWithoutPops(t, "hospedeiro", "hepatocitos_figado", "flora_intestinal", "npc:entera", "npc:kupffer", "npc:nefra", "nefrons_rim")
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {
