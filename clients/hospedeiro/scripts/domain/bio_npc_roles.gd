@@ -23,11 +23,11 @@ const FALLBACK := {"role": "Célula", "silhouette": "disc", "radius": 0.55, "cor
 const GESTURES := {
 	"transportar-oxigenio": "carry", "patrulhar-sangue": "patrol", "rondar-baco": "patrol", "rondar-sinusoides": "patrol", "vigiar-pulmao": "patrol",
 	"circular-plaquetas": "patrol", "defender-pulmao": "defend", "limpar-alveolos": "engulf", "reciclar-no-baco": "engulf", "limpar-toxinas": "detox",
-	"apresentar-antigenos": "signal", "colher-sinais": "sample", "selar-ferida": "seal",
+	"apresentar-antigenos": "signal", "colher-sinais": "sample", "selar-ferida": "seal", "nutrir-nicho-medular": "feed", "rondar-nicho": "patrol",
 }
 const VERBS := {
 	"carry": "leva oxigênio", "patrol": "vigia", "defend": "defende", "engulf": "engole detritos", "detox": "filtra toxinas",
-	"signal": "avisa os outros", "sample": "colhe sinais", "seal": "sela a brecha", "idle": "descansa",
+	"signal": "avisa os outros", "sample": "colhe sinais", "seal": "sela a brecha", "feed": "nutre o nicho", "idle": "descansa",
 }
 
 

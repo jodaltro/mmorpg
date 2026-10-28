@@ -51,7 +51,8 @@ static func wanted(engine: String) -> bool:
 	if BioPersonalLink.wanted(): return false
 	if engine.is_empty(): return false
 	if BioPlatform.is_web(): return BioPlatform.query_param("multiplayer") != "off"
-	return DisplayServer.get_name() != "headless" or OS.get_cmdline_user_args().has("--online")
+	# On a PC the game is offline by default: it talks to the local engine and fights on its own. Nakama is opt-in.
+	return OS.get_cmdline_user_args().has("--online") or OS.get_environment("HOSPEDEIRO_ONLINE") == "1"
 
 
 func _ready() -> void:

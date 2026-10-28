@@ -151,6 +151,11 @@ func test_roles_have_distinct_silhouettes_and_every_task_a_gesture() -> void:
 	assert_eq(BioNpcRoles.gesture("apresentar-antigenos"), "signal", "Dendra")
 	assert_eq(BioNpcRoles.gesture("limpar-alveolos"), "engulf", "Macra")
 	assert_eq(BioNpcRoles.gesture("selar-ferida"), "seal", "platelets")
+	assert_eq(BioNpcRoles.gesture("nutrir-nicho-medular"), "feed", "Osteia feeds the niche")
+	assert_eq(BioNpcRoles.verb("feed"), "nutre o nicho", "and says so")
+	assert_eq(BioConflictFocus.organ({"def": "medula-esgotada"}), "Medula", "the marrow crisis is named")
+	assert_true(BioConflictFocus.suggestion({"def": "medula-esgotada", "phase": "active"}).contains("Osteia"), "and points at her")
+	assert_true(not BioOnlineClient.wanted("http://127.0.0.1:8096"), "a PC plays offline unless asked for the online mode")
 
 
 func test_requests_and_vitality_come_from_the_view() -> void:
@@ -176,3 +181,64 @@ func test_visual_presets_scale_cost_and_accessibility_removes_motion() -> void:
 	p.save(path)
 	assert_eq(BioVisualPrefs.load_from(path).preset, "economico", "saved per device")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+
+
+func _ctx(sil: String, gesture: String, phase: StringName, t: float, extra: Dictionary = {}) -> Dictionary:
+	var c := {"sil": sil, "gesture": gesture, "phase": phase, "progress": 0.5, "working": phase == BioInteractionState.ACT, "face": 0.0, "aim": 1.5, "aim_vec": Vector2.from_angle(1.5),
+		"speed": 0.0, "t": t, "tempo": 1.0, "phase_offset": 0.0, "motion": 1.0}
+	c.merge(extra, true)
+	return c
+
+
+func test_every_extension_moves_on_its_own_rhythm() -> void:
+	var a := BioNpcMotion.limbs(_ctx("branch", "signal", BioInteractionState.ACT, 1.0))
+	var b := BioNpcMotion.limbs(_ctx("branch", "signal", BioInteractionState.ACT, 1.7))
+	var moved := 0
+	var distinct := {}
+	for k in a:
+		if k.begins_with("den"):
+			distinct[snappedf(float(a[k]["a"]) - float(k.trim_prefix("den").to_int()) * TAU / 7.0, 0.01)] = true
+			if absf(float(a[k]["a"]) - float(b[k]["a"])) > 0.01:
+				moved += 1
+	assert_eq(moved, 7, "all seven dendrites move over time")
+	assert_true(distinct.size() >= 6, "and not in unison (%d offsets)" % distinct.size())
+	var spikes := BioNpcMotion.limbs(_ctx("lobed", "defend", BioInteractionState.ACT, 0.3))
+	var amps := {}
+	for i in 8:
+		amps[snappedf(float(spikes["spike%d" % i]["amp"]), 0.01)] = true
+	assert_true(amps.size() >= 4, "the spikes ripple round the outline instead of rising together (%d)" % amps.size())
+
+
+func test_cells_have_their_own_tempo_and_the_same_on_every_client() -> void:
+	var one := BioNpcMotion.personality(hash("rubra"))
+	assert_eq(one, BioNpcMotion.personality(hash("rubra")), "stable")
+	assert_true(one["tempo"] != BioNpcMotion.personality(hash("neva"))["tempo"], "each cell its own")
+	assert_true(one["tempo"] >= 0.8 and one["tempo"] <= 1.25, "within a believable range")
+
+
+func test_the_body_leans_into_the_work_and_gathers_before_it() -> void:
+	var work := BioNpcMotion.body(_ctx("pseudo", "engulf", BioInteractionState.ACT, 1.0))
+	assert_true((work["lean"] as Vector2).dot(Vector2.from_angle(1.5)) > 0.1, "towards the target while working")
+	var before := BioNpcMotion.body(_ctx("pseudo", "engulf", BioInteractionState.ANTICIPATE, 1.0))
+	assert_true((before["lean"] as Vector2).dot(Vector2.from_angle(1.5)) < 0.0, "back, gathering, before it")
+	var travelling := BioNpcMotion.body(_ctx("disc", "carry", BioInteractionState.APPROACH, 1.0, {"speed": 1.0}))
+	assert_true(float(travelling["stretch"]) > 0.2, "stretched along its heading when it moves fast")
+	var calm := BioNpcMotion.body(_ctx("disc", "carry", BioInteractionState.ACT, 1.0, {"motion": 0.35}))
+	assert_true(float(calm["stretch"]) <= float(travelling["stretch"]) and (calm["lean"] as Vector2).length() < 0.2, "reduced motion softens it")
+
+
+func test_springs_follow_smoothly_overshoot_a_little_and_never_blow_up() -> void:
+	var x := 0.0
+	var v := 0.0
+	var peak := 0.0
+	for i in 120:
+		var s := BioNpcMotion.spring(x, v, 1.0, 1.0 / 60.0)
+		x = s.x
+		v = s.y
+		peak = maxf(peak, x)
+	assert_near(x, 1.0, 0.02, "settles on the target")
+	assert_true(peak > 1.0 and peak < 1.25, "a gentle overshoot, like soft tissue (%.2f)" % peak)
+	var huge := BioNpcMotion.spring(0.0, 0.0, 1.0, 5.0)
+	assert_true(is_finite(huge.x) and absf(huge.x) < 3.0, "a long pause does not throw the part away")
+	var k := BioNpcMotion.limbs(_ctx("branch", "signal", BioInteractionState.ACT, 1.0))
+	assert_true(k.size() >= 7 and k["den0"].has("k"), "each limb carries its own stiffness")

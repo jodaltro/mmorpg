@@ -79,19 +79,19 @@ func _run() -> void:
 func _roles(world: BioWorld, out_dir: String) -> void:
 	var sync := world.sync
 	var order := [["rubra", "transportar-oxigenio"], ["neva", "defender-pulmao"], ["dendra", "apresentar-antigenos"], ["macra", "limpar-alveolos"],
-		["placa", "selar-ferida"], ["kupffer", "limpar-toxinas"], ["esplena", "reciclar-no-baco"]]
+		["placa", "selar-ferida"], ["kupffer", "limpar-toxinas"], ["esplena", "reciclar-no-baco"], ["estroma", "nutrir-nicho-medular"]]
 	var society: Array = []
 	for o in order:
 		society.append(_npc(o[0], o[0].capitalize(), "pulmao", "travel", o[1], {"dest": "pulmao", "arrive": 140, "step": 1}))
 	sync.apply_view(_view(120, society, []))
 	await create_timer(0.3).timeout
 	sync.presenter.set_process(false)
-	var base := world.player.global_position + Vector2(-330.0, -150.0)
+	var base := world.player.global_position + Vector2(-340.0, -150.0)
 	for i in order.size():
 		var a := sync.presenter.actor(order[i][0])
 		var st := sync.presenter.state_of(order[i][0])
 		st.refine(0.5)
-		a.position = base + Vector2(i * 110.0, 0.0)
+		a.position = base + Vector2(i * 100.0, 0.0)
 		a.target = a.position
 		a.lod = 2
 		a.aim(Vector2(0.3, 1.0))

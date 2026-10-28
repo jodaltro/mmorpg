@@ -42,7 +42,7 @@ func TestFiveConflictsCycleOnTheirOwnWithoutPlayers(t *testing.T) {
 	h := load(t, "hospedeiro")
 	maxLive := map[string]int{}
 	concurrent := 0
-	for i := 0; i < 3000; i++ {
+	for i := 0; i < 4500; i++ {
 		h.tick(1)
 		live := 0
 		for _, def := range allConflicts {
@@ -62,7 +62,7 @@ func TestFiveConflictsCycleOnTheirOwnWithoutPlayers(t *testing.T) {
 		}
 		t.Logf("%-22s instances=%d resolved=%d maxLive=%d", def, len(all), resolved, maxLive[def])
 		if len(all) == 0 {
-			t.Errorf("%s never opened in 3000 ticks", def)
+			t.Errorf("%s never opened in 4500 ticks", def)
 		}
 		if resolved == 0 {
 			t.Errorf("%s never closed: the body must be able to recover", def)

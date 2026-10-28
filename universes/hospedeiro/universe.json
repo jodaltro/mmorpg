@@ -5742,6 +5742,36 @@
      }
     }
    ]
+  },
+  {
+   "id": "convocacao-em-massa",
+   "title": "Convocação em massa",
+   "desc": "O corpo pede células em massa e esvazia a reserva da medula.",
+   "intensity": 1,
+   "cooldown": 150,
+   "when": {
+    "num": {
+     "e": "medula",
+     "k": "reserva",
+     "op": ">=",
+     "v": 60
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": -48,
+     "min": 0
+    },
+    {
+     "op": "emit",
+     "event": "convocacao-em-massa",
+     "public": true,
+     "text": "O corpo convoca células em massa e a reserva da medula se esvazia."
+    }
+   ]
   }
  ],
  "director": {
@@ -11064,6 +11094,85 @@
      }
     }
    ]
+  },
+  {
+   "id": "medula-esgotada",
+   "title": "Medula esgotada",
+   "desc": "A reserva da medula acabou: sem ela não nascem hemácias novas, o oxigênio cai e o corpo inflama. O estroma precisa nutrir o nicho.",
+   "region": "medula",
+   "trigger": {
+    "num": {
+     "e": "medula",
+     "k": "reserva",
+     "op": "<=",
+     "v": 15
+    }
+   },
+   "severity": {
+    "id": "deficit",
+    "label": "Reserva perdida",
+    "e": "medula",
+    "k": "reserva",
+    "of": 100
+   },
+   "critical": 92,
+   "criticalExit": 85,
+   "contain": {
+    "num": {
+     "e": "medula",
+     "k": "reserva",
+     "op": ">=",
+     "v": 35
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "medula",
+     "k": "reserva",
+     "op": ">=",
+     "v": 55
+    }
+   },
+   "sustain": 6,
+   "recovery": 10,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "ferro",
+     "label": "Ferro na medula",
+     "e": "medula",
+     "k": "ferro"
+    },
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    }
+   ],
+   "responses": [
+    {
+     "id": "esperar-nicho",
+     "title": "Esperar o nicho",
+     "desc": "Confiar que o estroma recompõe a reserva sozinho."
+    },
+    {
+     "id": "reforcar-nicho",
+     "title": "Reforçar o nicho",
+     "desc": "Devolver ferro à medula de uma vez, a partir do baço.",
+     "effects": [
+      {
+       "op": "transfer",
+       "e": "baco",
+       "to": "medula",
+       "k": "hemacias",
+       "v": "ferro",
+       "d": 20,
+       "min": 0
+      }
+     ]
+    }
+   ]
   }
  ],
  "deliberation": {
@@ -11177,7 +11286,7 @@
         "to": "medula",
         "k": "hemacias",
         "v": "ferro",
-        "d": 3,
+        "d": 6,
         "min": 0
        },
        {
@@ -11673,6 +11782,85 @@
     }
    ],
    "cooldown": 1
+  },
+  {
+   "id": "nutrir-nicho-medular",
+   "conflict": "medula-esgotada",
+   "npc": "estroma",
+   "title": "Alimentar o nicho: passar vesículas de ferro às células-tronco",
+   "priority": 6,
+   "when": {
+    "num": {
+     "e": "medula",
+     "k": "reserva",
+     "op": "<",
+     "v": 80
+    }
+   },
+   "route": [
+    {
+     "region": "medula",
+     "ticks": 3,
+     "doing": "ancora na matriz e passa vesículas às células-tronco",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "medula",
+       "k": "reserva",
+       "d": 3,
+       "max": 100,
+       "if": {
+        "num": {
+         "e": "medula",
+         "k": "reserva",
+         "op": "<",
+         "v": 100
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "medula-esgotada",
+       "k": "nutricao",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "medula",
+         "k": "reserva",
+         "op": "<",
+         "v": 80
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "medula",
+     "ticks": 2,
+     "doing": "reforça o nicho"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "rondar-nicho",
+   "npc": "estroma",
+   "title": "Conferir os sinusoides do nicho",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "confere a saída dos sinusoides"
+    },
+    {
+     "region": "medula",
+     "ticks": 4,
+     "doing": "volta ao nicho"
+    }
+   ],
+   "cooldown": 6
   }
  ]
 }

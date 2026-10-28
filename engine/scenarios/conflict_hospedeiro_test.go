@@ -78,7 +78,7 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 	// Per instance, revisions in the events strictly increase.
 	last := map[string]int{}
 	for _, e := range h.s.Events {
-		if !strings.HasPrefix(e.Kind, "conflict-") || e.Kind == "conflict-response" || e.Data["def"] != "infeccao-pulmonar" {
+		if !strings.HasPrefix(e.Kind, "conflict-") || e.Kind == "conflict-response" || e.Kind == "conflict-attention" || e.Data["def"] != "infeccao-pulmonar" {
 			continue
 		}
 		r, _ := strconv.Atoi(e.Data["revision"])
@@ -93,7 +93,7 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 // Remove the body's defenders and the same infection is no longer held back:
 // it climbs to critical and stays there, because the cause is still present.
 func TestHospedeiroLungInfectionEscalatesWhenDefendersAreGone(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadWithoutPops(t, "hospedeiro", "npc:estroma") // the stroma would refill the reserve: an undefended body has no Osteia either
 	h.tick(40)
 	for _, id := range []string{"neutrofilos_pulmao", "macrofagos_pulmao"} {
 		st := h.s.Pops[id]

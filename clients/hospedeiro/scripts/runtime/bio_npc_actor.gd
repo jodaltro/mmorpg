@@ -15,13 +15,14 @@ var lod := 2:
 		lod = value
 		_apply_lod()
 
-var _body: BioCellBody
 var _fx: BioNpcFx
 var _tag: Label
 var _prefs: BioVisualPrefs
 var _t := 0.0
-var _last_phase: StringName = &""
 var _on_screen := true
+var _owed := 0.0
+var _vel := Vector2.ZERO  # smoothed real velocity, for the stretch and the drag of the body
+var _prev := Vector2.ZERO
 var _radius_px := 30.0
 
 
@@ -32,9 +33,6 @@ func configure(id: String, name_text: String, interaction: BioInteractionState, 
 	_prefs = prefs
 	var role := BioNpcRoles.role(id)
 	_radius_px = float(role["radius"]) * BioArt.UNIT
-	_body = BioCellBody.new()
-	_body.configure(float(role["radius"]), role["core"], role["edge"], 0, 0.0, 0.25, 6)
-	add_child(_body)
 	_fx = BioNpcFx.new()
 	_fx.role = role
 	_fx.state = interaction
@@ -44,7 +42,7 @@ func configure(id: String, name_text: String, interaction: BioInteractionState, 
 	_fx.z_index = 7
 	add_child(_fx)
 	_tag = Label.new()
-	_tag.position = Vector2(-130, -_radius_px - 44)
+	_tag.position = Vector2(-130, -_radius_px - 44 - (interaction.seed_value % 3) * 13)  # staggered, so neighbours do not overprint
 	_tag.size = Vector2(260, 40)
 	_tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_tag.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
@@ -71,19 +69,18 @@ func thank() -> void:
 	_fx.thanks = 1.2
 
 
-## 2: the game's deformable membrane, name and gesture; 1: a light silhouette and gesture; 0: a dot. Off screen nothing is drawn.
+## 2: the full membrane, name and gesture; 1: the membrane with fewer points; 0: a dot. Off screen nothing is drawn.
 func _apply_lod() -> void:
-	if _body == null:
+	if _fx == null:
 		return
 	var full := lod >= 2 and _on_screen
-	_body.visible = full
-	_body.set_process(full)
 	_tag.visible = full
 	_fx.visible = _on_screen
 	_fx.lod = lod
 
 
 func place(pos: Vector2) -> void:
+	_prev = pos
 	position = pos
 	target = pos
 
@@ -119,6 +116,9 @@ func _process(delta: float) -> void:
 	var move := delta_pos
 	if move.length() > 1.0:
 		_fx.facing = move.normalized()
+	_vel = _vel.lerp((position - _prev) / maxf(delta, 0.001), 1.0 - exp(-delta * 8.0))
+	_prev = position
+	_fx.velocity = _vel
 	var seen := get_viewport_rect().grow(260.0).has_point(get_global_transform_with_canvas().origin)
 	if seen != _on_screen:
 		_on_screen = seen
@@ -131,31 +131,13 @@ func _process(delta: float) -> void:
 		if (Engine.get_process_frames() + get_instance_id()) % stride == 0:
 			_fx.queue_redraw()
 		return
-	var phase := state.phase
-	if phase != _last_phase:
-		_on_phase(phase)
-		_last_phase = phase
-	_fx.t = _t
 	_fx.step_index = state.step
 	_fx.thanks = maxf(0.0, _fx.thanks - delta)
-	if lod >= 2:
-		_tag.text = _caption()
-	if (Engine.get_process_frames() + get_instance_id()) % stride == 0:
+	_owed += delta
+	if (Engine.get_process_frames() + get_instance_id()) % stride == 0:  # far cells are shaped and drawn less often, with the time they were owed
+		_fx.t = _t
+		_fx.advance(_owed)
+		_owed = 0.0
+		if lod >= 2:
+			_tag.text = _caption()
 		_fx.queue_redraw()
-
-
-## Membrane deformation that goes with the pose (the body's own elastic system), once per change of phase.
-func _on_phase(phase: StringName) -> void:
-	var toward := _fx.target_dir
-	match phase:
-		BioInteractionState.ANTICIPATE:
-			_body.elastic(-toward, 0.14 * _prefs.motion_scale(), 0.2 * _prefs.motion_scale(), 0.12)
-		BioInteractionState.ACT:
-			_body.elastic(toward, 0.1 * _prefs.motion_scale(), 0.3 * _prefs.motion_scale(), 0.08)
-		BioInteractionState.CONFIRMED:
-			_body.swell(1.0 + 0.18 * _prefs.motion_scale(), 0.4)
-		BioInteractionState.CANCEL:
-			if _prefs.motion_scale() >= 1.0:
-				_body.hit_reaction(-toward)
-		BioInteractionState.BLOCKED:
-			_body.elastic(-toward, 0.1 * _prefs.motion_scale(), 0.16 * _prefs.motion_scale(), 0.1)

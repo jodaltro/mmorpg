@@ -118,13 +118,17 @@ func _extras(kind: String, level: float, ratio: float, center: Vector2, rad: flo
 		"congestao-esplenica":  # clotted old cells
 			for i in n:
 				var a := float(i) * 2.4
-				draw_circle(center + Vector2.from_angle(a) * rad * (0.25 + 0.4 * fposmod(a, 1.0)), rad * 0.035, Color(0.45, 0.05, 0.2, minf(0.8, level * 4.0)))
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.25 + 0.4 * fposmod(a, 1.0)), rad * 0.006, Color(0.45, 0.05, 0.2, minf(0.8, level * 4.0)))
 		"sobrecarga-hepatica", "disbiose-intestinal":
 			var haze := Color(0.65, 1.0, 0.2) if kind == "sobrecarga-hepatica" else Color(0.9, 0.7, 0.3)
 			for i in n:
 				var a := float(i) * 1.9 + _t * 0.1 * prefs.motion_scale()
-				draw_circle(center + Vector2.from_angle(a) * rad * (0.2 + 0.5 * fposmod(a * 0.37, 1.0)), rad * 0.03, BioArt.with_alpha(haze, minf(0.7, level * 3.5)))
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.2 + 0.5 * fposmod(a * 0.37, 1.0)), rad * 0.005, BioArt.with_alpha(haze, minf(0.7, level * 3.5)))
+		"medula-esgotada":  # an empty niche: pale dust where new cells should be born
+			for i in n:
+				var a := float(i) * 2.3 + _t * 0.08 * prefs.motion_scale()
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.15 + 0.5 * fposmod(a * 0.43, 1.0)), rad * 0.006, BioArt.with_alpha(Color(1.0, 0.85, 0.5), minf(0.7, level * 3.5)))
 		"infeccao-pulmonar":
 			for i in n:
 				var a := float(i) * 2.1 + _t * 0.12 * prefs.motion_scale()
-				draw_circle(center + Vector2.from_angle(a) * rad * (0.2 + 0.55 * fposmod(a * 0.41, 1.0)), rad * 0.025, BioArt.with_alpha(Color(0.8, 1.0, 0.3), minf(0.75, level * 3.5)))
+				draw_circle(center + Vector2.from_angle(a) * rad * (0.2 + 0.55 * fposmod(a * 0.41, 1.0)), rad * 0.0045, BioArt.with_alpha(Color(0.8, 1.0, 0.3), minf(0.75, level * 3.5)))

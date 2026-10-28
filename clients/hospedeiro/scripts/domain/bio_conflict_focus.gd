@@ -12,13 +12,14 @@ const FILTERS := ["todos", "ativo", "crítico", "contido", "recuperando"]
 const FILTER_PHASE := {"ativo": "active", "crítico": "critical", "contido": "contained", "recuperando": "recovering"}
 
 const ORGAN := {"ferida-na-pele": "Pele", "congestao-esplenica": "Baço", "sobrecarga-hepatica": "Fígado", "disbiose-intestinal": "Intestino",
-	"infeccao-pulmonar": "Pulmão"}
+	"infeccao-pulmonar": "Pulmão", "medula-esgotada": "Medula"}
 const EFFECT := {
 	"ferida-na-pele": "Sem o tampão, invasores entram no sangue.",
 	"congestao-esplenica": "O ferro não volta à medula e o corpo inflama.",
 	"sobrecarga-hepatica": "A toxina sobe, os rins acumulam ureia e o corpo inflama.",
 	"disbiose-intestinal": "Sem microbiota, o intestino inflama o corpo.",
 	"infeccao-pulmonar": "O oxigênio cai, a febre sobe e as citocinas chegam ao sangue.",
+	"medula-esgotada": "Sem reserva não nascem hemácias novas: o oxigênio cai e o corpo inflama.",
 }
 const NEXT := {
 	"ferida-na-pele": "Vá à pele e defenda as plaquetas dos invasores.",
@@ -26,6 +27,7 @@ const NEXT := {
 	"sobrecarga-hepatica": "Vá ao fígado: filtre toxinas e ajude Kupffer.",
 	"disbiose-intestinal": "Vá ao intestino: nutra a microbiota e repele invasores.",
 	"infeccao-pulmonar": "Vá aos alvéolos: elimine vírions e ajude Neva, Macra e Rubra.",
+	"medula-esgotada": "Vá ao nicho da medula: leve nutrientes e ajude Osteia; o ferro do baço também repõe a reserva.",
 }
 const NEXT_BY_PHASE := {"contained": "Mantenha o apoio até o tecido se estabilizar.", "recovering": "Falta pouco: deixe as células terminarem o reparo."}
 
