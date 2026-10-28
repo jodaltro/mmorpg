@@ -252,6 +252,9 @@ func Compile(u Universe) (*World, error) {
 	if e := w.compileDifferentiation(); e != nil {
 		return nil, e
 	}
+	if e := w.compileCallings(); e != nil {
+		return nil, e
+	}
 	if e := w.compileAbilities(); e != nil {
 		return nil, e
 	}

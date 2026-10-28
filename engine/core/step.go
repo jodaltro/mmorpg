@@ -266,6 +266,8 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 		return w.applyBuild(s, origin, actor, args, cause)
 	case actDifferentiate:
 		return w.differentiate(s, origin, actor, args, cause)
+	case actAssume:
+		return w.assume(s, origin, actor, args, cause)
 	case actEnterDungeon:
 		return w.enterDungeon(s, origin, actor, args, cause)
 	case actStartDungeon:

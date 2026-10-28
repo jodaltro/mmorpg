@@ -142,6 +142,7 @@ type State struct {
 	Deeds       map[ID]map[string]int64  `json:"deeds"`               // how often each player did each thing
 	Marks       []Mark                   `json:"marks"`               // symbols travellers left in places
 	Lineages    map[ID]Differ            `json:"lineages,omitempty"`  // pending lineage offers
+	Roles       map[ID]RoleState         `json:"roles,omitempty"`     // the calling each player holds in a crisis
 	Looks       map[ID]Look              `json:"looks,omitempty"`     // each player's procedural body
 	Genomes     map[ID]Genome            `json:"genomes,omitempty"`   // expressed genes and pending mutation offers
 	Delves      map[ID]Delve             `json:"delves,omitempty"`    // each player's current or last dungeon run
@@ -230,6 +231,7 @@ func (s *State) Clone() State {
 		d.Offer = slices.Clone(d.Offer)
 		c.Lineages[k] = d
 	}
+	c.Roles = maps.Clone(s.Roles)
 	c.Looks = make(map[ID]Look, len(s.Looks))
 	for k, l := range s.Looks {
 		l.Axes = maps.Clone(l.Axes)
@@ -376,6 +378,7 @@ func (w *World) Revive(s *State) {
 	reviveMap(&s.Deeds, t.Deeds)
 	reviveSlice(&s.Marks, t.Marks)
 	reviveMap(&s.Lineages, t.Lineages)
+	reviveMap(&s.Roles, t.Roles)
 	reviveMap(&s.Looks, t.Looks)
 	reviveMap(&s.Genomes, t.Genomes)
 	reviveMap(&s.Delves, t.Delves)

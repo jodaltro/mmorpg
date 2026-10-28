@@ -23,10 +23,12 @@ type ConflictDef struct {
 	// Severity is the official measure: higher is worse.
 	Severity ConflictMetric `json:"severity"`
 	// Critical and CriticalExit give the hysteresis of the critical phase.
-	Critical     int64 `json:"critical"`
-	CriticalExit int64 `json:"criticalExit"`
-	Contain      Cond  `json:"contain"` // the threat is held back
-	Resolve      Cond  `json:"resolve"` // the world is stable again
+	// Needs are the roles this crisis wants and how many players each; see calling.go.
+	Needs        []NeedDef `json:"needs,omitempty"`
+	Critical     int64     `json:"critical"`
+	CriticalExit int64     `json:"criticalExit"`
+	Contain      Cond      `json:"contain"` // the threat is held back
+	Resolve      Cond      `json:"resolve"` // the world is stable again
 	// Sustain is how many consecutive ticks Contain must hold to be contained,
 	// and Resolve to start recovering. Recovery is how long Resolve must keep
 	// holding while recovering before the conflict is resolved.
@@ -380,6 +382,9 @@ func (w *World) contribute(s *State, def string, actor ID, kind string, amount i
 			c.Credit = map[string]int64{}
 		}
 		c.Credit[string(actor)+"|"+kind] += min(amount, maxCredit)
+		if r, ok := s.Roles[actor]; ok && r.Gap && r.Conflict == id { // whoever fills the role nobody covered is worth a little more
+			c.Credit[string(actor)+"|lacuna"]++
+		}
 		s.Conflicts[id] = c
 	}
 }

@@ -76,6 +76,8 @@ type Universe struct {
 	Abilities       *AbilitiesDef       `json:"abilities,omitempty"`
 	Dungeons        []DungeonDef        `json:"dungeons,omitempty"`
 	Lineages        []LineageDef        `json:"lineages,omitempty"`
+	// Callings: situational classes a crisis offers by what it needs; see calling.go.
+	Callings []CallingDef `json:"callings,omitempty"`
 	// Populations: cohorts of anonymous workers kept as headcounts; see population.go.
 	Populations []PopulationDef `json:"populations,omitempty"`
 	// Conflicts: persistent crises of the shared world; see conflict.go.

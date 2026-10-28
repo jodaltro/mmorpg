@@ -147,3 +147,10 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 ### Execução real por todos os órgãos (`tests/soak_regions.gd`)
 
 Jogo de verdade (renderizador real, offline, invasores padrão), 8 s em cada um dos 12 órgãos com os 12 tipos de célula, log lido. Achou `Trying to assign invalid previously freed instance` em `bio_work_crowd.gd` (alvo já liberado atribuído a variável `Node2D`), que a suíte não pegava; corrigido. Depois: 0 `ERROR` nos 12 órgãos e suíte Godot verde.
+
+## Chamados: a classe vem da necessidade da crise (motor, 28/10/2026)
+
+- Motor (`engine/core/calling.go`, genérico): `UniverseDef.Callings` (classe situacional: papel + forma) e `ConflictDef.Needs` (papéis e quantos jogadores cada um pede). Quem está numa crise recebe até 3 opções, de papéis diferentes, com o papel mais faltante primeiro e, dentro do papel, o chamado que menos gente tem; escolhe com a ação `assumir` (só `player`, revalidada contra a oferta recalculada). O chamado vira tags (`calling`, `role`, `form`), é solto ao sair da crise ou quando ela termina, e quem preenche um papel que ninguém cobria ganha 1 de crédito extra (`lacuna`) a cada contribuição. A visão do jogador traz `calling`.
+- Universo do Hospedeiro: 10 chamados sobre as linhagens existentes (5 papéis: combate, limpeza, cura, controle, marcação) e `needs` nas 10 crises.
+- Testes Go novos (`scenarios/calling_test.go`): a oferta segue a necessidade e muda quando o papel já está coberto; recusa fora de crise, fora da oferta e por origem `adapter`; soltar ao sair/terminar; toda crise oferece ao menos dois papéis e todos têm chamado; replay com o mesmo digest. `gofmt`, `go vet` e `go test ./... -count=1` verdes.
+- Ainda não feito: a tela do cliente para escolher o chamado e aplicar a forma; recompensas/ranking por papel; o Jev ainda não desempata a oferta.

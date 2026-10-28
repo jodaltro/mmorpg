@@ -6151,6 +6151,18 @@
    480
   ]
  },
+ "callings": [
+  {"id": "neutrofilo", "name": "Armadilheiro", "desc": "Veloz: prende e retalha os invasores com redes de DNA.", "role": "combate", "form": "neutrofilo"},
+  {"id": "t-citotoxico", "name": "Executor", "desc": "Mata de perto o que está infectado ou alterado.", "role": "combate", "form": "t-citotoxico"},
+  {"id": "celula-nk", "name": "Caçadora", "desc": "Persegue as células alteradas e os tumores sem aviso.", "role": "combate", "form": "celula-nk"},
+  {"id": "macrofago", "name": "Devorador", "desc": "Engole os invasores e os restos, e aguenta o que vier.", "role": "limpeza", "form": "macrofago"},
+  {"id": "eosinofilo", "name": "Faxineiro", "desc": "Rola sobre parasitas e restos e os dissolve.", "role": "limpeza", "form": "eosinofilo"},
+  {"id": "t-auxiliar", "name": "Sustentador", "desc": "Alimenta e fortalece quem está trabalhando.", "role": "cura", "form": "t-auxiliar"},
+  {"id": "mastocito", "name": "Irrigador", "desc": "Abre caminho para o sangue e chama reforços.", "role": "cura", "form": "mastocito"},
+  {"id": "t-regulador", "name": "Pacificador", "desc": "Acalma a reação e segura a inflamação.", "role": "controle", "form": "t-regulador"},
+  {"id": "linfocito-b", "name": "Anticorpomante", "desc": "Marca os alvos à distância para todos.", "role": "marcacao", "form": "linfocito-b"},
+  {"id": "dendritica", "name": "Cartógrafa", "desc": "Colhe o rosto dos invasores e leva o conhecimento aos outros.", "role": "marcacao", "form": "dendritica"}
+ ],
  "lineages": [
   {
    "id": "mieloide",
@@ -7993,6 +8005,11 @@
      "e": "pele",
      "k": "ferida"
     },
+    "needs": [
+      {"role": "cura", "weight": 3},
+      {"role": "combate", "weight": 1},
+      {"role": "limpeza", "weight": 1}
+    ],
     "critical": 70,
     "criticalExit": 50,
     "contain": {
@@ -8085,6 +8102,11 @@
      "e": "baco",
      "k": "hemacias"
     },
+    "needs": [
+      {"role": "limpeza", "weight": 3},
+      {"role": "marcacao", "weight": 1},
+      {"role": "controle", "weight": 1}
+    ],
     "critical": 95,
     "criticalExit": 85,
     "contain": {
@@ -8199,6 +8221,10 @@
      "e": "figado",
      "k": "toxina"
     },
+    "needs": [
+      {"role": "limpeza", "weight": 3},
+      {"role": "cura", "weight": 2}
+    ],
     "critical": 95,
     "criticalExit": 85,
     "contain": {
@@ -8298,6 +8324,11 @@
      "k": "microbiota",
      "of": 100
     },
+    "needs": [
+      {"role": "cura", "weight": 2},
+      {"role": "limpeza", "weight": 2},
+      {"role": "combate", "weight": 1}
+    ],
     "critical": 90,
     "criticalExit": 80,
     "contain": {
@@ -8395,6 +8426,11 @@
     "e": "pulmao",
     "k": "carga"
    },
+   "needs": [
+     {"role": "combate", "weight": 3},
+     {"role": "limpeza", "weight": 2},
+     {"role": "marcacao", "weight": 1}
+   ],
    "critical": 60,
    "criticalExit": 45,
    "contain": {
@@ -8541,6 +8577,10 @@
     "k": "reserva",
     "of": 100
    },
+   "needs": [
+     {"role": "cura", "weight": 3},
+     {"role": "controle", "weight": 1}
+   ],
    "critical": 92,
    "criticalExit": 85,
    "contain": {
@@ -8643,6 +8683,11 @@
     "e": "rim",
     "k": "ureia"
    },
+   "needs": [
+     {"role": "limpeza", "weight": 2},
+     {"role": "cura", "weight": 2},
+     {"role": "controle", "weight": 1}
+   ],
    "critical": 95,
    "criticalExit": 85,
    "contain": {
@@ -8746,6 +8791,10 @@
     "k": "tolerancia",
     "of": 100
    },
+   "needs": [
+     {"role": "controle", "weight": 3},
+     {"role": "marcacao", "weight": 2}
+   ],
    "critical": 85,
    "criticalExit": 75,
    "contain": {
@@ -8882,6 +8931,11 @@
     "k": "energia",
     "of": 100
    },
+   "needs": [
+     {"role": "cura", "weight": 2},
+     {"role": "limpeza", "weight": 2},
+     {"role": "controle", "weight": 1}
+   ],
    "critical": 85,
    "criticalExit": 75,
    "contain": {
@@ -8996,6 +9050,11 @@
     "e": "tumor",
     "k": "massa"
    },
+   "needs": [
+     {"role": "combate", "weight": 3},
+     {"role": "marcacao", "weight": 2},
+     {"role": "cura", "weight": 1}
+   ],
    "critical": 70,
    "criticalExit": 60,
    "contain": {
