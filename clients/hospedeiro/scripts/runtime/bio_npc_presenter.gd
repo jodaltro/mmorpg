@@ -13,22 +13,47 @@ const TICK_SECONDS := 4.0  # the universe's clock (universe.json tickSeconds)
 ## Where cells rest and work, as a fraction of the region radius: close to the middle, where cells arrive, so they are found.
 const REST_SPREAD := 0.1
 const WORK_SPREAD := 0.17
+## What a gesture works on when the map has it: the groups of things a cell of that work turns to (the nearest wins).
+const WORKS_ON := {"defend": ["viruses"], "patrol": ["viruses"], "kill": ["viruses"], "detox": ["toxins"], "engulf": ["motes", "viruses"]}
+const FOE_REACH_UNITS := 9.0
 
 var model := BioLivingModel.new()
 var prefs := BioVisualPrefs.new()
 var player: Node2D
 var anatomy: BioAnatomyView
 var my_id := ""
+var foe_hit: Callable  # (invader: Node2D, color: Color): the named cells at combat work land their blows through the crowd
 
 var _states := {}  # npc id -> BioInteractionState
 var _actors := {}  # npc id -> BioNpcActor
 var _centers := {}  # region -> centre in px
 var _radii := {}  # region -> radius in px
 var _routes := {}  # "from>to" -> PackedVector2Array (px)
+var _blow := {}  # npc id -> seconds to the next blow
 var _seen_tick := -1
 var _tick_at := 0.0
 var _thanks_seen := {}
 var _first_memories := true
+
+
+## What a cell at work can reach in its own organ (an invader, a toxin, an old red cell): the nearest, within a short reach.
+func _foe_near(at: Vector2, region: StringName, groups: Array) -> Node2D:
+	var best: Node2D = null
+	var best_d := FOE_REACH_UNITS * BioArt.UNIT
+	var nodes: Array[Node] = []
+	for g in groups:
+		nodes.append_array(get_tree().get_nodes_in_group(g))
+	for node in nodes:
+		var n := node as Node2D
+		if n == null or n.is_queued_for_deletion() or (n is BioCellActor and not (n as BioCellActor).is_active()):
+			continue
+		if BioBodyMap.region_of(n.global_position) != region:
+			continue
+		var d := at.distance_to(n.global_position)
+		if d < best_d:
+			best_d = d
+			best = n
+	return best
 
 
 func configure(p: Node2D, anatomy_view: BioAnatomyView, visual: BioVisualPrefs) -> void:
@@ -135,6 +160,14 @@ func _process(delta: float) -> void:
 			_actors[id] = a
 		a.target = where.pos
 		a.aim(where.aim)
+		if st.is_working() and WORKS_ON.has(st.gesture) and foe_hit.is_valid():
+			var foe := _foe_near(a.position, StringName(str(entry.get("region", ""))), WORKS_ON[st.gesture])
+			if foe != null:  # the cell turns on the invader and lands its blows on it
+				a.aim(foe.global_position - a.position)
+				_blow[id] = float(_blow.get(id, 1.2)) - delta
+				if float(_blow[id]) <= 0.0:
+					_blow[id] = 1.2
+					foe_hit.call(foe, BioNpcRoles.role(id).get("tint", Color.WHITE))
 		by_distance.append({"a": a, "d": player.global_position.distance_to(a.position) if player != null else 0.0})
 	by_distance.sort_custom(func(x: Dictionary, y: Dictionary) -> bool: return x["d"] < y["d"])
 	var cap := int(prefs.get_number("npc_cap"))

@@ -34,6 +34,7 @@ const FOLLOW_SECONDS := 90.0
 var prefs: BioVisualPrefs
 var presenter: BioNpcPresenter
 var mood: BioTissueMood
+var crowd: BioWorkCrowd
 var living_hud: BioLivingHud
 var tones: BioLivingSound
 var _follow_npc := ""
@@ -116,6 +117,11 @@ func _build_living() -> void:
 	mood.name = "TissueMood"
 	_world.add_child(mood)
 	mood.configure(_world.anatomy, prefs)
+	crowd = BioWorkCrowd.new()
+	crowd.name = "WorkCrowd"
+	_world.add_child(crowd)
+	crowd.configure(_world, prefs)
+	presenter.foe_hit = crowd.strike
 	living_hud = BioLivingHud.new()
 	living_hud.name = "LivingHud"
 	add_child(living_hud)
@@ -167,6 +173,7 @@ func forget() -> void:
 		presenter.forget()
 		mood.set_conflicts([])
 		mood.set_populations([])
+		crowd.set_populations([])
 		living_hud.queue.clear()
 		living_hud.chosen = ""
 		_follow_npc = ""
@@ -266,6 +273,7 @@ func apply_view(view: Dictionary) -> void:
 		var notices := presenter.apply_view(view)
 		mood.set_conflicts(presenter.model.ordered())
 		mood.set_populations(presenter.model.pops)
+		crowd.set_populations(presenter.model.pops)
 		living_hud.set_stale(false)
 		living_hud.push_notices(notices)
 		living_hud.refresh()

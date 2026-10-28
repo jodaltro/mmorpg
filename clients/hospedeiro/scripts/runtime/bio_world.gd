@@ -939,6 +939,7 @@ func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
 ## A wild thing died: pressure and the confirmed kill, and in the spleen and the intestine the verb of the organ too.
 func _on_wild_kill(at: Vector2, victim: BioCombatant = null) -> void:
 	if victim != null and is_instance_valid(victim._last_attacker) and victim._last_attacker.get_meta("party_owner", "") == "guest": return
+	if victim != null and victim.get_meta("npc_kill", false): return  # a cell of the body finished it: the player is not paid
 	add_pressure(BioMutationTracker.KILL_POINTS)
 	virus_destroyed.emit()
 	# Beating the invaders of an organ is how a cell helps the crisis that lives there: one gesture, everywhere.

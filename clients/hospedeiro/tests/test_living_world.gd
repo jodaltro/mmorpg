@@ -219,3 +219,78 @@ func test_the_pc_has_a_minimap_that_opens_the_atlas() -> void:
 	world.pc_minimap._gui_input(click)
 	assert_true(world.atlas.is_open(), "a click opens the whole atlas")
 	world.atlas.close()
+
+
+func _pops(count: int) -> Array:
+	return [{"id": "neutrofilos_pulmao", "role": "defesa", "region": "pulmao", "count": count, "max": 40},
+		{"id": "hepatocitos_figado", "role": "depuracao", "region": "figado", "count": 40, "max": 40}]
+
+
+func test_the_cohorts_of_the_organs_near_the_player_are_seen_at_work() -> void:
+	await _go(&"pulmao")
+	world.sync.apply_view(_view(10, [], []).merged({"populations": _pops(40)}, true))
+	world.sync.crowd._sync()
+	assert_eq(world.sync.crowd.count_of("neutrofilos_pulmao"), world.sync.prefs.crowd_per_cohort(), "the lung's neutrophils are drawn, up to the preset")
+	assert_eq(world.sync.crowd.count_of("hepatocitos_figado"), 0, "the liver is far: its cells are not drawn")
+	world.sync.apply_view(_view(11, [], []).merged({"populations": _pops(0)}, true))
+	world.sync.crowd._sync()
+	assert_eq(world.sync.crowd.count_of("neutrofilos_pulmao"), 0, "when none is alive none is drawn")
+
+
+func test_defenders_finish_an_invader_and_the_player_is_not_paid() -> void:
+	await _go(&"pulmao")
+	world.sync.apply_view(_view(10, [], []).merged({"populations": _pops(40)}, true))
+	world.sync.crowd._sync()
+	var paid := [0]
+	world.virus_destroyed.connect(func() -> void: paid[0] += 1)
+	var foe := BioFactory.spawn_virus(world, BioBodyMap.center_px(&"pulmao"), world.player).get_parent() as BioCellActor
+	foe.combatant.actor.vitals.membrane = 10.0
+	for w in world.sync.crowd.workers:
+		w.pos = foe.global_position + Vector2(1.5, 0.0) * BioArt.UNIT
+	for i in 40:
+		world.sync.crowd._retarget_in = 0.0
+		world.sync.crowd._process(0.1)
+		if not foe.is_active():
+			break
+	assert_true(not foe.is_active() or foe.is_queued_for_deletion(), "the neutrophils killed the invader")
+	assert_eq(paid[0], 0, "and a kill of the body pays the player nothing")
+
+
+func test_cleaners_eat_what_the_organ_clears() -> void:
+	await _go(&"figado")
+	world.sync.apply_view(_view(10, [], []).merged({"populations": _pops(40)}, true))
+	world.sync.crowd._sync()
+	for node in tree.get_nodes_in_group("toxins"):
+		node.queue_free()
+	await tree.process_frame
+	var toxin := BioToxin.new()
+	toxin.position = BioBodyMap.center_px(&"figado")
+	world.add_child(toxin)
+	for w in world.sync.crowd.workers:
+		w.pos = toxin.global_position + Vector2(1.2, 0.0) * BioArt.UNIT
+	for i in 40:
+		world.sync.crowd._retarget_in = 0.0
+		world.sync.crowd._process(0.1)
+		if toxin.is_queued_for_deletion():
+			break
+	assert_true(toxin.is_queued_for_deletion(), "the hepatocytes cleared the toxin")
+
+
+func test_a_cell_at_work_says_a_short_line_in_a_balloon_and_only_a_few_at_once() -> void:
+	await _go(&"pulmao")
+	var society := [_npc("neva", "Neva, neutrófila", "pulmao", "travel", "defender-pulmao", 0, {"dest": "pulmao", "since": 10, "arrive": 30}), _npc("macra", "Macra, macrófago", "pulmao", "travel", "limpar-alveolos", 0, {"dest": "pulmao", "since": 10, "arrive": 30})]
+	world.sync.apply_view(_view(20, society, []))
+	world.sync.apply_view(_view(21, society, []))
+	await tree.process_frame
+	var a := world.sync.presenter.actor("neva")
+	assert_true(a != null, "the cell is there")
+	a.lod = 2
+	a._say_in = 0.0
+	a._speak(0.1)
+	assert_true(a._bubble.is_speaking(), "it speaks while it works")
+	assert_true(BioSpeech.TASKS["defender-pulmao"].has(a._last_line), "about its own task (%s)" % a._last_line)
+	var b := world.sync.presenter.actor("macra")
+	b.lod = 2
+	b._say_in = 0.0
+	b._speak(0.1)
+	assert_true(BioSpeechBubble.live <= world.sync.prefs.get_number("speech_cap"), "never more balloons than the preset allows")

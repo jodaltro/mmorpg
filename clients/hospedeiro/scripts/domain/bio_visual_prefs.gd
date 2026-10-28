@@ -5,9 +5,9 @@ extends RefCounted
 
 const PRESETS := {
 	# npc_cap: cells drawn with the full deformable membrane (the costly part); the rest are a light silhouette or a dot.
-	"alto": {"fx": 1.0, "npc_cap": 12, "lod_near": 1400.0, "lod_far": 3200.0, "particles": 1.0},
-	"padrao": {"fx": 0.7, "npc_cap": 8, "lod_near": 1000.0, "lod_far": 2400.0, "particles": 0.6},
-	"economico": {"fx": 0.35, "npc_cap": 4, "lod_near": 650.0, "lod_far": 1600.0, "particles": 0.25},
+	"alto": {"fx": 1.0, "npc_cap": 12, "crowd_cap": 48, "crowd_per_cohort": 10, "speech_cap": 4, "lod_near": 1400.0, "lod_far": 3200.0, "particles": 1.0},
+	"padrao": {"fx": 0.7, "npc_cap": 8, "crowd_cap": 28, "crowd_per_cohort": 7, "speech_cap": 3, "lod_near": 1000.0, "lod_far": 2400.0, "particles": 0.6},
+	"economico": {"fx": 0.35, "npc_cap": 4, "crowd_cap": 12, "crowd_per_cohort": 3, "speech_cap": 1, "lod_near": 650.0, "lod_far": 1600.0, "particles": 0.25},
 }
 const PATH := "user://hospedeiro_visual.cfg"
 
@@ -46,6 +46,15 @@ func save(path: String = PATH) -> void:
 	cfg.set_value("visual", "sound", sound)
 	cfg.set_value("visual", "text_scale", text_scale)
 	cfg.save(path)
+
+
+## How many cells of the cohorts are drawn at work at most, and how many of one cohort.
+func crowd_cap() -> int:
+	return int(get_number("crowd_cap"))
+
+
+func crowd_per_cohort() -> int:
+	return int(get_number("crowd_per_cohort"))
 
 
 func get_number(key: String) -> float:

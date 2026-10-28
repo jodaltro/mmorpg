@@ -21,6 +21,9 @@ var _prefs: BioVisualPrefs
 var _t := 0.0
 var _on_screen := true
 var _owed := 0.0
+var _bubble: BioSpeechBubble
+var _say_in := 0.0
+var _last_line := ""
 var _vel := Vector2.ZERO  # smoothed real velocity, for the stretch and the drag of the body
 var _prev := Vector2.ZERO
 var _radius_px := 30.0
@@ -53,6 +56,10 @@ func configure(id: String, name_text: String, interaction: BioInteractionState, 
 	_tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_tag.z_index = 8
 	add_child(_tag)
+	_bubble = BioSpeechBubble.new()
+	_bubble.position = Vector2(0.0, -_radius_px - 92.0 - (interaction.seed_value % 3) * 13.0)
+	add_child(_bubble)
+	_say_in = 2.0 + float(interaction.seed_value % 50) / 10.0
 	z_index = 5
 
 
@@ -105,6 +112,26 @@ func _caption() -> String:
 	return "%s · %s\n%s" % [display_name.get_slice(",", 0), role["role"], doing]
 
 
+## A short line about the work, now and then, only while it is really working (or asking for help, or just done).
+func _speak(delta: float) -> void:
+	_say_in -= delta
+	if _say_in > 0.0:
+		return
+	var phase := "work"
+	if state.phase == BioInteractionState.HELP:
+		phase = "help"
+	elif state.phase == BioInteractionState.CONFIRMED:
+		phase = "confirmed"
+	elif not state.is_working():
+		_say_in = 1.0
+		return
+	var salt := int(Time.get_ticks_msec() / 997) + state.seed_value
+	var text := BioSpeech.line(state.task, phase, salt, _last_line)
+	if _bubble.say(text, int(_prefs.get_number("speech_cap")), _prefs.text_scale):
+		_last_line = text
+	_say_in = BioSpeech.gap(salt)
+
+
 func _process(delta: float) -> void:
 	_t += delta
 	var k := 1.0 - exp(-delta * (3.0 if _prefs.motion_scale() >= 1.0 else 6.0))
@@ -125,6 +152,8 @@ func _process(delta: float) -> void:
 		_apply_lod()
 	if not _on_screen:
 		return
+	if lod >= 1:
+		_speak(delta)
 	var stride := 1 if lod >= 2 else (2 if lod == 1 else 4)
 	if lod == 0:
 		_fx.t = _t

@@ -116,3 +116,14 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 **Cuidado:** com o jogo aberto, ele pode regravar os saves ao fechar; o reset só vale com o cliente fechado (o script já o fecha).
 **Minimapa:** só existia nos controles de toque, então no PC não aparecia. Agora há um no canto superior direito (150 px), com o corpo inteiro, a célula, a rota e um anel nas crises; o clique abre o atlas. Teste: `test_the_pc_has_a_minimap_that_opens_the_atlas`. Godot: 382 testes, 0 falhas.
 **Não verificado:** a aparência inicial depois do reset não foi vista na tela; a célula nova não deveria vir de save nem do motor (a aparência só chega depois de 20 gestos).
+
+## Atualização — o corpo trabalhando à vista e balões de fala (28/10/2026, noite)
+
+**Queixa do usuário:** os NPCs só andavam de lá para cá, sem nada para tratar no mapa; faltavam os que combatem os vírus; o mapa parecia vazio.
+**Causa:** o motor contava os grupos (40 neutrófilos no pulmão, 40 hepatócitos...) mas só os 14 NPCs nomeados eram desenhados, e nenhum deles agia sobre o que existia no mapa (vírions, toxinas, hemácias velhas, cristais). Não era falta de coisas no mapa: era falta de trabalho sobre elas.
+**Agora (só apresentação, nenhum número do corpo muda):**
+- `BioWorkCrowd`: de cada população de um órgão vivo perto do jogador aparece uma parte (25% da contagem do motor, até 10/7/3 por grupo e 48/28/12 no total, conforme o preset). Defensores (neutrófilos, macrófagos, NK, plaquetas, glia) caçam os invasores do órgão e os derrotam; hepatócitos comem toxinas, o baço recicla hemácias velhas, os néfrons filtram cristais de ureia, a flora come bactérias boas, as hemácias descem a corrente. Competem com o jogador pelas mesmas coisas do mapa; **uma morte causada por eles não paga o jogador**.
+- Os NPCs nomeados também agem sobre o que está ao alcance: Neva e os outros viram-se para o invasor e golpeiam, Kupffer pega toxinas, Esplena e Macra engolem.
+- `BioSpeech` e `BioSpeechBubble`: balões pequenos com falas curtas sobre a tarefa (as 27 tarefas têm falas), enquanto trabalham, pedem ajuda ou concluem; no máximo 4/3/1 balões por vez (preset), nunca a mesma fala duas vezes seguidas; os trabalhadores também falam, perto do jogador.
+**Testes Godot (rodados):** fração do grupo desenhada e limites; trabalhador vai ao alvo, trabalha e conclui; passeia sem atravessar a parede; defensores matam um invasor e o jogador não recebe nada; hepatócitos limpam a toxina; célula nomeada fala sobre a própria tarefa e o limite de balões; toda tarefa tem falas. Suíte inteira: **390 testes, 0 falhas**.
+**Não feito:** ninguém viu na tela (o equilíbrio entre quantos invasores sobram para o jogador e quantos os defensores matam precisa de olho humano); os grupos não são persistentes nem têm identidade (são só uma amostra visual); o custo de desenho com 48 trabalhadores não foi medido.

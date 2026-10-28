@@ -266,3 +266,57 @@ func test_the_three_new_places_exist_and_belong_to_the_body() -> void:
 		assert_true(not BioAnatomy.region_def(id).is_empty(), "%s is on the map" % id)
 		assert_true(BioAnatomy.within(&"medula", 10).has(id), "%s can be reached from the marrow" % id)
 		assert_true(BioBodyMap.NAMES.has(id), "%s has a name" % id)
+
+
+func test_a_cohort_is_drawn_as_a_share_of_its_headcount() -> void:
+	assert_eq(BioWorkerRoles.drawn(40, 10), 10, "forty neutrophils: a crowd of ten")
+	assert_eq(BioWorkerRoles.drawn(40, 7), 7, "never more than the preset allows")
+	assert_eq(BioWorkerRoles.drawn(3, 10), 1, "while any is alive, at least one is seen")
+	assert_eq(BioWorkerRoles.drawn(0, 10), 0, "none alive, none drawn")
+	for role in ["defesa", "limpeza", "vigilancia", "reparo", "amparo"]:
+		assert_eq(BioWorkerRoles.spec(role)["mode"], BioWorkerRoles.HUNT, "%s hunts the invaders" % role)
+	for role in ["reciclagem", "depuracao", "filtracao", "simbiose"]:
+		assert_eq(BioWorkerRoles.spec(role)["mode"], BioWorkerRoles.EAT, "%s eats what the organ clears" % role)
+	assert_eq(BioWorkerRoles.spec("transporte")["mode"], BioWorkerRoles.FLOW, "the red cells ride the current")
+
+
+func test_a_worker_walks_to_its_target_works_on_it_and_reports_it_done() -> void:
+	var center := Vector2.ZERO
+	var radius := 40.0 * BioArt.UNIT
+	var w := BioWorker.new("neutrofilos_pulmao", "defesa", Vector2(2.0, 0.0) * BioArt.UNIT, 1.0)
+	var target := Vector2(9.0, 0.0) * BioArt.UNIT
+	var done := false
+	var seeking := false
+	for i in 600:
+		var event := w.step(0.05, center, radius, target, Vector2.ZERO)
+		seeking = seeking or w.state == &"seek"
+		if event == "done":
+			done = true
+			break
+	assert_true(seeking and done, "it went there, and finished its work on it")
+	assert_true(w.pos.distance_to(target) <= (BioWorker.CONTACT + 0.5) * BioArt.UNIT, "standing at the target")
+
+
+func test_a_worker_with_nothing_to_do_wanders_inside_its_organ() -> void:
+	var center := Vector2(500.0, 500.0)
+	var radius := 20.0 * BioArt.UNIT
+	var w := BioWorker.new("flora_intestinal", "simbiose", center, 2.0)
+	var farthest := 0.0
+	for i in 800:
+		w.step(0.05, center, radius, null, Vector2.ZERO)
+		farthest = maxf(farthest, w.pos.distance_to(center))
+	assert_true(farthest > 1.0 * BioArt.UNIT, "it moves about")
+	assert_true(farthest <= radius, "and never through the wall (%.1f of %.1f)" % [farthest, radius])
+
+
+func test_every_task_of_the_universe_has_something_to_say_and_never_repeats_itself() -> void:
+	for task in BioNpcRoles.GESTURES:
+		assert_true(BioSpeech.TASKS.has(task), "%s has lines" % task)
+	for task in BioSpeech.TASKS:
+		var first := BioSpeech.line(task, "work", 1)
+		assert_true(first != "", "%s speaks" % task)
+		if (BioSpeech.TASKS[task] as Array).size() > 1:
+			assert_true(BioSpeech.line(task, "work", 1, first) != first, "%s does not say the same line twice in a row" % task)
+	assert_true(BioSpeech.HELP.has(BioSpeech.line("limpar-toxinas", "help", 3)), "asking for help has its own lines")
+	assert_true(BioSpeech.CROWD.has("defesa") and BioSpeech.crowd_line("defesa", 0) != "", "the crowd speaks too")
+	assert_true(BioSpeech.gap(0) >= 7.0 and BioSpeech.gap(99) <= 14.0, "and not too often")
