@@ -58,6 +58,7 @@ func OpenCached(definition []byte, commands []core.Command, cache *Checkpoint) (
 		start = cache.Count
 		s.restoredCount = start
 		s.State = cache.State
+		w.Revive(&s.State) // empty maps do not survive the JSON the cache travels in
 		s.Journal = append(s.Journal, commands[:start]...)
 	}
 	for i, c := range commands[start:] {

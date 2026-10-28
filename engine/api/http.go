@@ -111,9 +111,16 @@ func HandlerWith(r *sim.Runner, o Options) http.Handler {
 		a.session(rw, q, r)
 	})
 	mux.HandleFunc("GET /v1/health", func(rw http.ResponseWriter, _ *http.Request) {
-		s := r.Snapshot()
-		reply(rw, 200, map[string]any{"version": Version, "status": "ok", "universe": s.Universe, "tick": s.Tick, "revision": s.Revision})
+		// status is ok, starting (no tick yet) or stalled (ticks stopped coming):
+		// the call itself always answers 200, so a watchdog reads the status.
+		m := r.Metrics()
+		reply(rw, 200, map[string]any{"version": Version, "status": m.Status, "universe": m.Universe, "tick": m.Tick, "revision": m.Revision, "uptimeSeconds": m.UptimeSeconds, "lastTickAgeSeconds": m.LastTickAgeSeconds})
 	})
+	if !o.Public {
+		mux.HandleFunc("GET /v1/metrics", func(rw http.ResponseWriter, _ *http.Request) {
+			reply(rw, 200, map[string]any{"version": Version, "metrics": r.Metrics()})
+		})
+	}
 	mux.HandleFunc("GET /v1/chronicle", func(rw http.ResponseWriter, q *http.Request) {
 		s := r.Snapshot()
 		reply(rw, 200, w.Chronicle(&s, limit(q)))

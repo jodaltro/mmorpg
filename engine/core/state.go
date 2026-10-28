@@ -351,3 +351,51 @@ func sortedIDs[V any](m map[ID]V) []ID {
 	slices.Sort(k)
 	return k
 }
+
+// Revive makes a state read back from JSON fit to run: empty maps and lists do
+// not survive a round trip as empty (they come back nil), and the rules write
+// into them. Each one the world allocates at the start is allocated again;
+// nothing that holds data is touched, so the digest does not change. A test
+// compares it with NewState field by field, so a new field cannot be forgotten.
+func (w *World) Revive(s *State) {
+	t := NewState(w)
+	reviveMap(&s.Entities, t.Entities)
+	reviveMap(&s.Facts, t.Facts)
+	reviveMap(&s.Beliefs, t.Beliefs)
+	reviveSlice(&s.Events, t.Events)
+	reviveSlice(&s.Schedules, t.Schedules)
+	reviveMap(&s.Arcs, t.Arcs)
+	reviveMap(&s.Quests, t.Quests)
+	reviveMap(&s.Declined, t.Declined)
+	reviveMap(&s.Decisions, t.Decisions)
+	reviveMap(&s.Cooldowns, t.Cooldowns)
+	reviveMap(&s.Receipts, t.Receipts)
+	reviveMap(&s.Relations, t.Relations)
+	reviveMap(&s.Styles, t.Styles)
+	reviveMap(&s.Skills, t.Skills)
+	reviveMap(&s.Deeds, t.Deeds)
+	reviveSlice(&s.Marks, t.Marks)
+	reviveMap(&s.Lineages, t.Lineages)
+	reviveMap(&s.Looks, t.Looks)
+	reviveMap(&s.Genomes, t.Genomes)
+	reviveMap(&s.Delves, t.Delves)
+	reviveMap(&s.Pops, t.Pops)
+	reviveMap(&s.Ledger, t.Ledger)
+	reviveMap(&s.Conflicts, t.Conflicts)
+	reviveMap(&s.NPCs, t.NPCs)
+	reviveMap(&s.Helps, t.Helps)
+	reviveMap(&s.Memories, t.Memories)
+	reviveMap(&s.Reserved, t.Reserved)
+}
+
+func reviveMap[K comparable, V any](have *map[K]V, want map[K]V) {
+	if *have == nil && want != nil {
+		*have = map[K]V{}
+	}
+}
+
+func reviveSlice[E any](have *[]E, want []E) {
+	if *have == nil && want != nil {
+		*have = []E{}
+	}
+}

@@ -392,6 +392,10 @@ func serve(args []string) error {
 	adapterKey := fs.String("adapter-key", os.Getenv("HOSPEDEIRO_ADAPTER_KEY"), "server-only credential for authoritative adapter commands")
 	nakamaURL := fs.String("nakama", "", "optional loopback Nakama endpoint (HTTP + WebSocket proxy at /nakama/)")
 	web := fs.String("web", "", "directory of static files (the web client) served at /")
+	ckEvery := fs.Int64("checkpoint-every", 450, "write a verified state checkpoint every N ticks (0: only when stopping; -1: never), so a restart replays the tail of the log")
+	maxQ := fs.Int("max-questions-per-minute", 120, "most questions asked of the advisor per minute; over it the deterministic default applies (0: no cap)")
+	maxCost := fs.Float64("max-cost-per-hour", 1.0, "most the advisor may cost per hour, in USD as reported by the provider; over it the default applies (0: no cap)")
+	window := fs.Duration("batch-window", 0, "hold NPC/conflict questions this long so nearby ones share one advisor request")
 	fs.Parse(args)
 	host, _, err := net.SplitHostPort(*listen)
 	if err != nil || !net.ParseIP(host).IsLoopback() {
@@ -431,7 +435,11 @@ func serve(args []string) error {
 		}
 		return err
 	}
-	r, err := sim.Open(w, l, sim.Options{Advisor: adv, AdvisorTimeout: *jevTimeout + time.Second})
+	opt := sim.Options{Advisor: adv, AdvisorTimeout: *jevTimeout + time.Second, BatchWindow: *window, MaxQuestionsPerMinute: *maxQ, MaxCostPerHour: *maxCost}
+	if *ckEvery >= 0 {
+		opt.CheckpointPath, opt.CheckpointEvery = filepath.Join(*data, w.U.ID+".checkpoint.json"), *ckEvery
+	}
+	r, err := sim.Open(w, l, opt)
 	if err != nil {
 		return err
 	}
@@ -454,12 +462,23 @@ func serve(args []string) error {
 		defer c()
 		srv.Shutdown(sctx)
 	}()
-	go r.Run(ctx, *every)
-	fmt.Printf("%s at tick %d, serving http://%s (advisor=%s, public=%v, web=%q)\n", w.U.Name, r.Snapshot().Tick, *listen, *mode, *public, *web)
+	// A world that can no longer write its log must not keep answering as if it
+	// lived: Run reports it, the server stops and the process exits non-zero so
+	// a supervisor restarts it from the log.
+	runErr := make(chan error, 1)
+	go func() {
+		err := r.Run(ctx, *every)
+		runErr <- err
+		if err != nil {
+			stop()
+		}
+	}()
+	m := r.Metrics()
+	fmt.Printf("%s at tick %d, serving http://%s (advisor=%s, public=%v, web=%q, restored=%v, replayed=%d in %.0fms, checkpoint every %d ticks)\n", w.U.Name, m.Tick, *listen, *mode, *public, *web, m.Startup.FromCheckpoint, m.Startup.ReplayedCommands, m.Startup.OpenMS, *ckEvery)
 	if err := srv.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 		return err
 	}
-	return nil
+	return <-runErr
 }
 
 func sortedKeysStr[V any](m map[string]V) []string {

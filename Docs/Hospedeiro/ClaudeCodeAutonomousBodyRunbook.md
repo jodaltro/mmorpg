@@ -206,11 +206,11 @@ Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md)
 **Gate:** mundo novo válido, só com conflitos abertos e progressão nova funcional; progresso antigo pode ser descartado.
 
 ### FASE P14 — Hospedagem contínua e confiabilidade
-- [ ] **P14.1** Definir serviço/ticker 24/7 e monitoramento operacional. Enquanto PC hospeda, desligar PC interrompe simulação; registrar isso até migrar para host always-on.
-- [ ] **P14.2** Checkpoint + journal replay da versão vigente, backup opcional, política de catch-up ou pausa, crash recovery, healthcheck e limite de eventos.
-- [ ] **P14.3** Métricas e orçamentos para 10/100/500 NPCs nomeados e grandes coortes.
-- [ ] **P14.4** Taxa máxima de consultas Jev, custo máximo por período, cap de contexto e fila; fallback automático.
-- [ ] **P14.5** Distintos dados compartilhados/pessoais; recovery e custo após queda de serviço.
+- [x] **P14.1** Definir serviço/ticker 24/7 e monitoramento operacional. Enquanto PC hospeda, desligar PC interrompe simulação; registrar isso até migrar para host always-on. *(28/10/2026: o motor fica neste PC; vigia `hospedeiro-service.ps1`, tarefa agendada opcional, `/v1/health` com status e `/v1/metrics`; o PC desligado para o mundo, registrado em `Docs/Hospedeiro/Operations.md`.)*
+- [x] **P14.2** *(28/10/2026: checkpoint verificado com geração anterior, cauda reexecutada após queda, pausa fiel ao tick, tick que não grava derruba o processo; sem compactação do log.)* Checkpoint + journal replay da versão vigente, backup opcional, política de catch-up ou pausa, crash recovery, healthcheck e limite de eventos.
+- [x] **P14.3** Métricas e orçamentos para 10/100/500 NPCs nomeados e grandes coortes. *(28/10/2026: 14/100/500 células, tick médio 0,35/0,76/5,76 ms; tabela em `Operations.md`.)*
+- [x] **P14.4** *(28/10/2026: `serve` com `-max-questions-per-minute`, `-max-cost-per-hour`, `-batch-window`; passado o teto vale o padrão determinístico; sem teto de contexto próprio.)* Taxa máxima de consultas Jev, custo máximo por período, cap de contexto e fila; fallback automático.
+- [x] **P14.5** Distintos dados compartilhados/pessoais; recovery e custo após queda de serviço. *(28/10/2026: o cache do mundo pessoal tinha o mesmo defeito de restauração e foi corrigido; recuperação do compartilhado testada.)*
 **Gate:** testes controlados de restart/crash e tick contínuo sem cliente.
 
 ### FASE P15 — Stress, segurança, balanceamento

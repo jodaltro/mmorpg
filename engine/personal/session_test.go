@@ -68,3 +68,49 @@ func TestPrivateJournalReplayAndIsolation(t *testing.T) {
 		t.Fatal("corrupt journal accepted")
 	}
 }
+
+// A cache travels as JSON, where empty maps come back nil. The restored world
+// must keep living (NPCs start tasks, conflicts open) exactly like the one
+// replayed from the journal.
+func TestRestoredCacheKeepsLivingLikeTheReplayedWorld(t *testing.T) {
+	definition, err := os.ReadFile("../../universes/hospedeiro/universe.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	s, err := Open(definition, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r := s.Request("/v1/commands", json.RawMessage(`{"version":1,"requestId":"join:a","origin":"adapter","kind":"join","actor":"alice","name":"Alice","region":"medula"}`)); r.Status != 200 {
+		t.Fatal(r)
+	}
+	for i := 0; i < 5; i++ { // early, while many maps are still empty
+		s.Request("/tick", nil)
+	}
+	raw, err := json.Marshal(s.Checkpoint())
+	if err != nil {
+		t.Fatal(err)
+	}
+	var cache Checkpoint
+	if err := json.Unmarshal(raw, &cache); err != nil {
+		t.Fatal(err)
+	}
+	restored, err := OpenCached(definition, s.Journal, &cache)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if restored.restoredCount == 0 {
+		t.Fatal("the cache was not used")
+	}
+	for i := 0; i < 600; i++ {
+		if r := s.Request("/tick", nil); r.Status != 200 {
+			t.Fatal(r)
+		}
+		if r := restored.Request("/tick", nil); r.Status != 200 {
+			t.Fatal(r)
+		}
+	}
+	if restored.State.Digest() != s.State.Digest() {
+		t.Fatal("the restored world diverged from the replayed one")
+	}
+}

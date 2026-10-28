@@ -14,7 +14,9 @@ $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $archive = "D:\unity\hospedeiro-data-archive\$stamp"
 New-Item -ItemType Directory -Force "$archive\world", "$archive\client" | Out-Null
 
-# 1. Parar tudo (motor, Nakama, autoridade Godot, cliente aberto, PostgreSQL).
+# 1. Parar tudo (vigia do motor, motor, Nakama, autoridade Godot, cliente aberto, PostgreSQL). O vigia primeiro: senão ele sobe o motor de volta.
+Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'hospedeiro-service' -and $_.Name -match 'powershell' -and $_.ProcessId -ne $PID } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+Remove-Item "$run\service.pid", "$run\service.stop" -ErrorAction SilentlyContinue
 Get-CimInstance Win32_Process | Where-Object { $_.Name -match '^(worldsim.*|nakama|Godot.*)\.exe$' -and $_.ProcessId -ne $PID } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'hospedeiro-nakama' -and $_.Name -match 'powershell' -and $_.ProcessId -ne $PID } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 if (Test-Path "$nakamaDb\postmaster.pid") { & "$pgBin\pg_ctl.exe" -D $nakamaDb stop -m immediate 2>$null | Out-Null }
@@ -27,13 +29,18 @@ if (Test-Path $saves) { Get-ChildItem $saves -File -Include 'hospedeiro_*.json',
 if (Test-Path $nakamaDb) { Move-Item $nakamaDb "$archive\nakama-db" }
 Write-Host "arquivado em $archive"
 
-# 3. Motor novo, a partir do código atual.
+# 3. Motor novo, a partir do código atual, sob o vigia (scripts\hospedeiro-service.ps1).
 $go = 'D:\tools\go\bin\go.exe'
 if (Test-Path $go) { Push-Location "$repo\engine"; & $go build -o "$run\worldsim-living.exe" ./cmd/worldsim; Pop-Location }
 New-Item -ItemType Directory -Force $data | Out-Null
-$engine = Start-Process -FilePath "$run\worldsim-living.exe" -ArgumentList @('serve', '-universe', '..\universes\hospedeiro\universe.json', '-data', $data, '-listen', '127.0.0.1:8096', '-advisor', 'jev', '-env-file', '.env', '-on-universe-change', 'new-world') -WorkingDirectory "$repo\engine" -WindowStyle Hidden -RedirectStandardOutput "$run\living.out.log" -RedirectStandardError "$run\living.err.log" -PassThru
-Start-Sleep -Seconds 5
-Write-Host "motor em 127.0.0.1:8096 (pid $($engine.Id)): $(Get-Content "$run\living.out.log" -Tail 1)"
+# O vigia sobe o motor (mundo novo se o universo mudou), reinicia se ele cair e grava o estado em service-status.json.
+Start-Process -FilePath powershell.exe -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "$repo\scripts\hospedeiro-service.ps1", '-OnUniverseChange', 'new-world') -WindowStyle Hidden | Out-Null
+$health = $null
+for ($i = 0; $i -lt 30 -and -not $health; $i++) {
+    Start-Sleep -Seconds 1
+    try { $health = Invoke-RestMethod -Uri 'http://127.0.0.1:8096/v1/health' -TimeoutSec 2 } catch { }
+}
+if ($health) { Write-Host "motor em 127.0.0.1:8096, vigiado (tick $($health.tick), status $($health.status))" } else { Write-Host "o motor não respondeu em 30 s: veja $run\service-status.json e os engine-*.err.log" }
 
 # 4. Online (opcional): o supervisor recria o banco vazio, aplica as migrações e sobe o Nakama.
 if ($Online) {

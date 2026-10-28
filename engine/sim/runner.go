@@ -36,6 +36,11 @@ type Options struct {
 	MaxCostPerHour        float64
 	// Now is the clock for the caps; nil means time.Now.
 	Now func() time.Time
+	// CheckpointPath, when set, keeps a verified snapshot of the state next to
+	// the log, written every CheckpointEvery ticks (0: only on Close), so a
+	// restart replays the tail of the log instead of the whole of it.
+	CheckpointPath  string
+	CheckpointEvery int64
 }
 
 type Runner struct {
@@ -55,6 +60,17 @@ type Runner struct {
 	spent    []spend
 	flushing bool
 	gen      int // bumped by Reset; advisor answers of an older world are dropped
+
+	// Operation (see ops.go).
+	entries    int // commands in the log this state includes
+	ckMu       sync.Mutex
+	ck         ckStats
+	tickTimes  []time.Duration
+	tickAt     int
+	lastTickAt time.Time
+	every      time.Duration
+	started    time.Time
+	startup    Startup
 }
 
 // Open rebuilds the world by replaying the log, then dispatches decisions
@@ -64,17 +80,31 @@ func Open(w *core.World, log store.Log, opt Options) (*Runner, error) {
 		opt.AdvisorTimeout = 8 * time.Second
 	}
 	r := &Runner{w: w, s: core.NewState(w), log: log, opt: opt, inflight: map[string]bool{}, subs: map[int]chan core.Delta{}}
+	r.started = r.now()
 	cmds, err := log.Load()
 	if err != nil {
 		return nil, err
 	}
-	for i, c := range cmds {
-		s, _, err := w.Step(r.s, c)
+	from := 0
+	if opt.CheckpointPath != "" {
+		// A checkpoint is only a shortcut: if it is missing, old or does not
+		// verify, the whole log is replayed and nothing is lost.
+		if st, n, ok := loadCheckpoint(opt.CheckpointPath, w, len(cmds)); ok {
+			r.s, from = st, n
+			r.startup.FromCheckpoint, r.startup.CheckpointTick = true, int64(st.Tick)
+			r.ck = ckStats{written: true, entries: n, tick: st.Tick, at: r.now()}
+		}
+	}
+	for i := from; i < len(cmds); i++ {
+		s, _, err := w.Step(r.s, cmds[i])
 		if err != nil {
 			return nil, errors.New("replay failed at entry " + strconv.Itoa(i+1) + ": " + err.Error())
 		}
 		r.s = s
 	}
+	r.entries = len(cmds)
+	r.startup.ReplayedCommands = len(cmds) - from
+	r.startup.OpenMS = float64(r.now().Sub(r.started).Microseconds()) / 1000
 	pending := []core.Decision{}
 	for _, d := range r.s.Decisions {
 		pending = append(pending, d)
@@ -110,10 +140,16 @@ func (r *Runner) submit(c core.Command, gen int) (core.Delta, error) {
 		r.mu.Unlock()
 		return core.Delta{}, errStale
 	}
+	began := time.Now()
 	next, d, err := r.w.Step(r.s, c)
 	if err == nil && !d.Duplicate {
 		if err = r.log.Append(c); err == nil {
 			r.s = next
+			r.entries++
+			if c.Kind == "tick" {
+				r.recordTick(time.Since(began))
+				r.maybeCheckpoint()
+			}
 		}
 	}
 	r.mu.Unlock()
@@ -137,17 +173,32 @@ func (r *Runner) Tick() (core.Delta, error) {
 
 // Run ticks on a wall clock until ctx ends. The world lives whether or not
 // anyone is connected.
+//
+// Time is faithful to ticks, not to the clock: while the process is down the
+// world is paused and resumes at the tick where it stopped, with no catch-up
+// burst. A tick that fails to be applied (a full disk, a log that cannot be
+// written) is retried on the next beat; after a few in a row Run returns the
+// error, so a supervisor restarts the process instead of leaving a frozen
+// world that still answers requests.
 func (r *Runner) Run(ctx context.Context, every time.Duration) error {
+	r.mu.Lock()
+	r.every = every
+	r.mu.Unlock()
 	t := time.NewTicker(every)
 	defer t.Stop()
+	failed := 0
 	for {
 		select {
 		case <-ctx.Done():
 			return nil
 		case <-t.C:
 			if _, err := r.Tick(); err != nil {
-				return err
+				if failed++; failed >= maxTickFailures {
+					return tickFailure(failed, err)
+				}
+				continue
 			}
+			failed = 0
 		}
 	}
 }
@@ -498,6 +549,12 @@ func (r *Runner) Reset() (string, error) {
 	}
 	r.s = core.NewState(r.w)
 	r.gen++
+	r.entries = 0
+	r.ck = ckStats{}
+	r.startup = Startup{}
+	if r.opt.CheckpointPath != "" {
+		removeCheckpoints(r.opt.CheckpointPath)
+	}
 	r.inflight = map[string]bool{}
 	s := r.s
 	r.mu.Unlock()
@@ -511,7 +568,11 @@ func (r *Runner) Drain() { r.wg.Wait() }
 func (r *Runner) Close() error {
 	r.mu.Lock()
 	r.closed = true
+	entries, s, gen := r.entries, r.s, r.gen
 	r.mu.Unlock()
 	r.wg.Wait()
+	if r.opt.CheckpointPath != "" && s.Tick > 0 {
+		r.saveCheckpoint(entries, s, gen) // a clean stop leaves the shortest possible restart
+	}
 	return r.log.Close()
 }
