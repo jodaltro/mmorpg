@@ -1544,6 +1544,56 @@
  ],
  "actions": [
   {
+   "id": "conter-infeccao-pulmonar",
+   "title": "Conter a infecção nos alvéolos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "combat",
+    "help"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "carga",
+       "op": ">",
+       "v": 0
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "infeccao-pulmonar",
+     "k": "combate",
+     "d": 3
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    }
+   ]
+  },
+  {
    "id": "absorver-nutriente",
    "title": "Absorver nutriente",
    "by": [
@@ -10165,6 +10215,99 @@
      "k": "carga",
      "from": "pulmao",
      "rate": 15
+    }
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "infeccao-pulmonar",
+   "title": "Infecção pulmonar",
+   "desc": "Bactérias nos alvéolos: a inflamação sobe, as citocinas chegam ao sangue e o oxigênio cai. Persiste até a carga baixar e o tecido se estabilizar.",
+   "region": "pulmao",
+   "trigger": {
+    "fact": {
+     "p": "foco",
+     "s": "pulmao"
+    }
+   },
+   "severity": {
+    "id": "carga",
+    "label": "Carga bacteriana",
+    "e": "pulmao",
+    "k": "carga"
+   },
+   "critical": 60,
+   "criticalExit": 45,
+   "contain": {
+    "num": {
+     "e": "pulmao",
+     "k": "carga",
+     "op": "<=",
+     "v": 25
+    }
+   },
+   "resolve": {
+    "all": [
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "carga",
+       "op": "<=",
+       "v": 5
+      }
+     },
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "oxigenio",
+       "op": ">=",
+       "v": 70
+      }
+     },
+     {
+      "not": {
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     }
+    ]
+   },
+   "sustain": 6,
+   "recovery": 12,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "oxigenio",
+     "label": "Oxigenação do pulmão",
+     "e": "pulmao",
+     "k": "oxigenio"
+    },
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    },
+    {
+     "id": "temperatura",
+     "label": "Temperatura",
+     "e": "corpo",
+     "k": "temperatura"
+    }
+   ],
+   "fronts": [
+    {
+     "id": "circulacao",
+     "region": "sangue",
+     "when": {
+      "fact": {
+       "p": "febre",
+       "s": "sangue"
+      }
+     }
     }
    ]
   }

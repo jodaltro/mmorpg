@@ -120,33 +120,35 @@ type Decision struct {
 }
 
 type State struct {
-	Universe  string                   `json:"universe"`
-	Revision  int64                    `json:"revision"`
-	Tick      Tick                     `json:"tick"`
-	Seq       int64                    `json:"seq"`
-	Entities  map[ID]Entity            `json:"entities"`
-	Facts     map[string]Fact          `json:"facts"`
-	Beliefs   map[ID]map[string]Belief `json:"beliefs"`
-	Events    []Event                  `json:"events"`
-	Schedules []Scheduled              `json:"schedules"`
-	Arcs      map[string]ArcState      `json:"arcs"`
-	Quests    map[string]Quest         `json:"quests"`
-	Declined  map[string]Tick          `json:"declined"`
-	Decisions map[string]Decision      `json:"decisions"`
-	Cooldowns map[string]Tick          `json:"cooldowns"`
-	Receipts  map[string]int64         `json:"receipts"`
-	Relations map[string]int64         `json:"relations"`          // "a|b": what a feels about b
-	Styles    map[ID]map[string]int64  `json:"styles"`             // play style learned per player
-	Tension   int64                    `json:"tension"`            // world tension for pacing
-	Skills    map[ID]map[string]Tick   `json:"skills"`             // learned skills and when
-	Deeds     map[ID]map[string]int64  `json:"deeds"`              // how often each player did each thing
-	Marks     []Mark                   `json:"marks"`              // symbols travellers left in places
-	Lineages  map[ID]Differ            `json:"lineages,omitempty"` // pending lineage offers
-	Looks     map[ID]Look              `json:"looks,omitempty"`    // each player's procedural body
-	Genomes   map[ID]Genome            `json:"genomes,omitempty"`  // expressed genes and pending mutation offers
-	Delves    map[ID]Delve             `json:"delves,omitempty"`   // each player's current or last dungeon run
-	Pops      map[string]PopState      `json:"pops,omitempty"`     // cohorts: headcount and fractions of work
-	Ledger    map[string]int64         `json:"ledger,omitempty"`   // exogenous sources, sinks and births/deaths
+	Universe    string                   `json:"universe"`
+	Revision    int64                    `json:"revision"`
+	Tick        Tick                     `json:"tick"`
+	Seq         int64                    `json:"seq"`
+	Entities    map[ID]Entity            `json:"entities"`
+	Facts       map[string]Fact          `json:"facts"`
+	Beliefs     map[ID]map[string]Belief `json:"beliefs"`
+	Events      []Event                  `json:"events"`
+	Schedules   []Scheduled              `json:"schedules"`
+	Arcs        map[string]ArcState      `json:"arcs"`
+	Quests      map[string]Quest         `json:"quests"`
+	Declined    map[string]Tick          `json:"declined"`
+	Decisions   map[string]Decision      `json:"decisions"`
+	Cooldowns   map[string]Tick          `json:"cooldowns"`
+	Receipts    map[string]int64         `json:"receipts"`
+	Relations   map[string]int64         `json:"relations"`           // "a|b": what a feels about b
+	Styles      map[ID]map[string]int64  `json:"styles"`              // play style learned per player
+	Tension     int64                    `json:"tension"`             // world tension for pacing
+	Skills      map[ID]map[string]Tick   `json:"skills"`              // learned skills and when
+	Deeds       map[ID]map[string]int64  `json:"deeds"`               // how often each player did each thing
+	Marks       []Mark                   `json:"marks"`               // symbols travellers left in places
+	Lineages    map[ID]Differ            `json:"lineages,omitempty"`  // pending lineage offers
+	Looks       map[ID]Look              `json:"looks,omitempty"`     // each player's procedural body
+	Genomes     map[ID]Genome            `json:"genomes,omitempty"`   // expressed genes and pending mutation offers
+	Delves      map[ID]Delve             `json:"delves,omitempty"`    // each player's current or last dungeon run
+	Pops        map[string]PopState      `json:"pops,omitempty"`      // cohorts: headcount and fractions of work
+	Ledger      map[string]int64         `json:"ledger,omitempty"`    // exogenous sources, sinks and births/deaths
+	Conflicts   map[string]ConflictState `json:"conflicts,omitempty"` // persistent crises by instance id
+	ConflictSeq int64                    `json:"conflictSeq,omitempty"`
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -235,6 +237,9 @@ func (s *State) Clone() State {
 	}
 	c.Pops = clonePops(s.Pops)
 	c.Ledger = maps.Clone(s.Ledger)
+	if s.Conflicts != nil {
+		c.Conflicts = cloneConflicts(s.Conflicts)
+	}
 	c.Marks = slices.Clone(s.Marks)
 	for i := range c.Marks {
 		c.Marks[i].Agree = slices.Clone(c.Marks[i].Agree)
@@ -276,6 +281,9 @@ func NewState(w *World) State {
 	if len(u.Populations) > 0 {
 		w.initPopulations(&s)
 		s.Ledger = map[string]int64{}
+	}
+	if len(u.Conflicts) > 0 {
+		s.Conflicts = map[string]ConflictState{}
 	}
 	return s
 }

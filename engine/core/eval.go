@@ -310,6 +310,8 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 			s.Seq++
 			s.Schedules = append(s.Schedules, Scheduled{Key: "s" + strconv.FormatInt(s.Seq, 10), Due: s.Tick + e.After, Rule: e.Rule, Bind: maps.Clone(b), Cause: cause})
 			sortSchedules(s.Schedules)
+		case "contribute":
+			w.contribute(s, e.Rule, self, e.K, e.D)
 		case "emit":
 			ev := Event{Kind: e.Event, Actor: self, Public: e.Public, Text: w.render(s, e.Text, b), Cause: cause}
 			if !e.Public {

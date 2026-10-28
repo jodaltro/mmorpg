@@ -66,6 +66,7 @@ func (w *World) tick(s *State, cause string) {
 	w.dungeonTick(s, cause)
 	w.appearanceTick(s, cause)
 	w.designTick(s, cause)
+	w.conflictTick(s, cause)
 }
 
 func (w *World) stories(s *State, cause string) {

@@ -78,6 +78,8 @@ type Universe struct {
 	Lineages        []LineageDef        `json:"lineages,omitempty"`
 	// Populations: cohorts of anonymous workers kept as headcounts; see population.go.
 	Populations []PopulationDef `json:"populations,omitempty"`
+	// Conflicts: persistent crises of the shared world; see conflict.go.
+	Conflicts []ConflictDef `json:"conflicts,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`
 	// VisibleMarks lists predicates that show on the person who carries them

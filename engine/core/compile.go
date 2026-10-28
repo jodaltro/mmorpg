@@ -24,6 +24,7 @@ type World struct {
 	perceives map[string]bool
 	regions   map[string]bool
 	pops      map[string]PopulationDef
+	conflicts map[string]ConflictDef
 }
 
 var ErrUniverse = errors.New("invalid_universe")
@@ -126,6 +127,10 @@ func Compile(u Universe) (*World, error) {
 	if err := w.compilePopulations(ents); err != nil {
 		return nil, err
 	}
+	w.conflicts = map[string]ConflictDef{}
+	for _, c := range u.Conflicts {
+		w.conflicts[c.ID] = c
+	}
 	if err := w.compileExploration(ents); err != nil {
 		return nil, err
 	}
@@ -222,6 +227,9 @@ func Compile(u Universe) (*World, error) {
 		return nil, e
 	}
 	if e := w.compileDirector(v); e != nil {
+		return nil, e
+	}
+	if e := w.compileConflicts(v, ents); e != nil {
 		return nil, e
 	}
 	if e := w.compileEvolution(v); e != nil {
@@ -803,6 +811,10 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 		case "schedule":
 			if v.w.rules[e.Rule].ID == "" || e.After < 1 {
 				return invalid("%s: schedule %q", where, e.Rule)
+			}
+		case "contribute":
+			if _, ok := v.w.conflicts[e.Rule]; !ok || e.K == "" || e.D < 1 || !vars["self"] {
+				return invalid("%s: contribute needs a conflict, a kind, a positive amount and $self", where)
 			}
 		case "emit":
 			if e.Text == "" || e.Event == "" {
