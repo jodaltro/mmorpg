@@ -33,7 +33,7 @@ func _wait(seconds: float) -> void:
 
 func test_world_boots_with_player_viruses_nutrients_and_frames_advance() -> void:
 	assert_true(world.player != null, "player exists")
-	assert_eq(world.viruses().size(), 6, "virus count")
+	assert_eq(world.viruses().size(), world.virus_count, "virus count")
 	assert_true(world.nutrient_count() >= 45, "nutrients")
 	assert_true(world.hud != null, "hud")
 	var frame := Engine.get_process_frames()

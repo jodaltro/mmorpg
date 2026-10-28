@@ -8,6 +8,9 @@ const KINDS := {
 	&"hemacia_velha": {"name": "Hemácia velha", "color": Color(0.85, 0.22, 0.25), "membrane": 4.0, "atp": 3.0, "action": "reciclar-hemacia"},
 	&"microbio": {"name": "Bactéria boa", "color": Color(0.55, 1.0, 0.4), "membrane": 2.0, "atp": 5.0, "action": "nutrir-microbiota"},
 	&"cristal_de_ureia": {"name": "Cristal de ureia", "color": Color(0.4, 0.95, 0.9), "membrane": -3.0, "atp": 0.0, "action": "filtrar-ureia"},
+	&"fibrina": {"name": "Fibra de fibrina", "color": Color(1.0, 0.82, 0.78), "membrane": 3.0, "atp": 2.0, "action": "selar-ferida-pele"},
+	&"residuo_neural": {"name": "Resíduo neural", "color": Color(0.72, 0.55, 0.98), "membrane": 1.0, "atp": 2.0, "action": "amparar-neuronios-cerebro"},
+	&"antigeno": {"name": "Antígeno", "color": Color(1.0, 0.65, 0.3), "membrane": 0.0, "atp": 3.0, "action": "acalmar-reacao-linfonodo"},
 }
 
 

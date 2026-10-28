@@ -46,10 +46,13 @@ static func definition() -> Dictionary:
 			"motes": {&"cristal_de_ureia": 12},
 			"wall": Color(0.3, 0.88, 0.82, 0.45), "fill": Color(0.04, 0.3, 0.3, 0.1), "palette": [Color(0.35, 0.95, 0.9), Color(1.0, 0.85, 0.4), Color(0.4, 0.7, 1.0)]},
 		{"id": &"pele", "name": "DERME E EPIDERME", "center": Vector2(-45.0, 75.0), "radius": 26.0, "wobble": 0.12, "bubbles": 0, "swirl": 0.6, "pulse": 0.1, "nutrients": 12, "viruses": 3,
+			"motes": {&"fibrina": 12},
 			"wall": Color(0.95, 0.72, 0.55, 0.45), "fill": Color(0.5, 0.25, 0.12, 0.1), "palette": [Color(1.0, 0.75, 0.55), Color(0.9, 0.45, 0.4), Color(1.0, 0.9, 0.7)]},
 		{"id": &"linfonodo", "name": "LINFONODO", "center": Vector2(350.0, -80.0), "radius": 24.0, "wobble": 0.1, "bubbles": 0, "swirl": 0.4, "pulse": 0.05, "nutrients": 10, "viruses": 2,
+			"motes": {&"antigeno": 10},
 			"wall": Color(0.45, 0.65, 1.0, 0.45), "fill": Color(0.08, 0.15, 0.45, 0.1), "palette": [Color(0.5, 0.7, 1.0), Color(0.75, 0.9, 1.0), Color(0.35, 0.45, 0.95)]},
 		{"id": &"cerebro", "name": "TECIDO CEREBRAL", "center": Vector2(205.0, -128.0), "radius": 28.0, "wobble": 0.14, "bubbles": 0, "swirl": 0.5, "pulse": 0.3, "nutrients": 14, "viruses": 2,
+			"motes": {&"residuo_neural": 12},
 			"wall": Color(1.0, 0.6, 0.85, 0.45), "fill": Color(0.45, 0.1, 0.35, 0.1), "palette": [Color(1.0, 0.65, 0.9), Color(0.8, 0.5, 1.0), Color(1.0, 0.85, 0.95)]},
 	]
 	var links: Array[Dictionary] = [

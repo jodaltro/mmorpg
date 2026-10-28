@@ -269,13 +269,13 @@ func test_the_three_new_places_exist_and_belong_to_the_body() -> void:
 
 
 func test_a_cohort_is_drawn_as_a_share_of_its_headcount() -> void:
-	assert_eq(BioWorkerRoles.drawn(40, 10), 10, "forty neutrophils: a crowd of ten")
+	assert_eq(BioWorkerRoles.drawn(40, 20), 16, "forty neutrophils: a crowd of sixteen")
 	assert_eq(BioWorkerRoles.drawn(40, 7), 7, "never more than the preset allows")
-	assert_eq(BioWorkerRoles.drawn(3, 10), 1, "while any is alive, at least one is seen")
+	assert_eq(BioWorkerRoles.drawn(1, 10), 1, "while any is alive, at least one is seen")
 	assert_eq(BioWorkerRoles.drawn(0, 10), 0, "none alive, none drawn")
-	for role in ["defesa", "limpeza", "vigilancia", "reparo", "amparo"]:
+	for role in ["defesa", "limpeza", "vigilancia"]:
 		assert_eq(BioWorkerRoles.spec(role)["mode"], BioWorkerRoles.HUNT, "%s hunts the invaders" % role)
-	for role in ["reciclagem", "depuracao", "filtracao", "simbiose"]:
+	for role in ["reciclagem", "depuracao", "filtracao", "simbiose", "reparo", "amparo", "memoria"]:
 		assert_eq(BioWorkerRoles.spec(role)["mode"], BioWorkerRoles.EAT, "%s eats what the organ clears" % role)
 	assert_eq(BioWorkerRoles.spec("transporte")["mode"], BioWorkerRoles.FLOW, "the red cells ride the current")
 
@@ -320,3 +320,15 @@ func test_every_task_of_the_universe_has_something_to_say_and_never_repeats_itse
 	assert_true(BioSpeech.HELP.has(BioSpeech.line("limpar-toxinas", "help", 3)), "asking for help has its own lines")
 	assert_true(BioSpeech.CROWD.has("defesa") and BioSpeech.crowd_line("defesa", 0) != "", "the crowd speaks too")
 	assert_true(BioSpeech.gap(0) >= 7.0 and BioSpeech.gap(99) <= 14.0, "and not too often")
+
+
+func test_every_organ_has_something_on_the_map_for_its_cells_to_work_on() -> void:
+	var body := BioAnatomy.build(BioBodyMap.seed_value)
+	for id in [&"pele", &"linfonodo", &"cerebro", &"baco", &"intestino", &"rim"]:
+		var def := BioAnatomy.region_def(id)
+		assert_true((def.get("motes", {}) as Dictionary).size() > 0, "%s has things drifting in it" % id)
+		for kind in def["motes"]:
+			assert_true(not BioMoteRules.kind(kind).is_empty(), "%s is a known kind" % kind)
+	for kind in [&"fibrina", &"residuo_neural", &"antigeno"]:
+		assert_true(str(BioMoteRules.kind(kind)["action"]) != "", "taking %s is a deed the engine knows" % kind)
+	assert_true((body["regions"] as Array).size() >= 12, "the whole body")

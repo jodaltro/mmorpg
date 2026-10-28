@@ -8,7 +8,9 @@ extends Node2D
 const SYNC_SECONDS := 1.0
 const RETARGET_SECONDS := 0.45
 const HIT_DAMAGE := 16.0
+const NEAR_UNITS := 34.0  # farther than this from the cell, a worker is moved to where the cell can see it
 const REACH_UNITS := 22.0  # how far a worker looks for work
+const VESSELS := [&"sangue", &"coracao", &"aorta"]  # where the red cells are seen: the whole circulation, not one place
 
 var prefs: BioVisualPrefs = BioVisualPrefs.new()
 var world: BioWorld
@@ -65,6 +67,14 @@ func _process(delta: float) -> void:
 	var now := Time.get_ticks_msec() * 0.001
 	for w in workers:
 		var region := BioBodyMap.region_of(w.pos)
+		if w.spec["mode"] == BioWorkerRoles.FLOW and not world.live_regions.has(region):  # carried out of sight: back into the circulation
+			var live_vessels: Array = VESSELS.filter(func(v: StringName) -> bool: return world.live_regions.has(v))
+			if not live_vessels.is_empty():
+				var rng := RandomNumberGenerator.new()
+				rng.seed = hash("%s:%d" % [w.cohort, Time.get_ticks_msec() / 1000])
+				w.pos = BioBodyMap.random_point_px(rng, live_vessels[rng.randi() % live_vessels.size()], world.player.global_position, 4.0)
+				region = BioBodyMap.region_of(w.pos)
+		_keep_near(w, region)
 		var center: Vector2 = _centers.get(region, w.pos)
 		var radius: float = _radii.get(region, 800.0)
 		if look:
@@ -94,7 +104,10 @@ func _sync() -> void:
 			continue
 		var n := mini(BioWorkerRoles.drawn(int(p.get("count", 0)), per), budget)
 		budget -= n
-		wanted[str(p.get("id", ""))] = {"n": n, "region": region, "role": str(p.get("role", ""))}
+		var places: Array = [region]
+		if str(p.get("role", "")) == "transporte":
+			places = VESSELS.filter(func(v: StringName) -> bool: return live.has(v))
+		wanted[str(p.get("id", ""))] = {"n": n, "region": region, "role": str(p.get("role", "")), "places": places}
 		if budget <= 0:
 			break
 	for i in range(workers.size() - 1, -1, -1):  # cohorts that left the screen's neighbourhood, or shrank
@@ -108,7 +121,9 @@ func _sync() -> void:
 		for k in range(have, int(info["n"])):
 			var rng := RandomNumberGenerator.new()
 			rng.seed = hash("%s:%d" % [id, k])
-			workers.append(BioWorker.new(id, str(info["role"]), BioBodyMap.random_point_px(rng, info["region"], world.player.global_position, 4.0), rng.randf() * 10.0))
+			var places: Array = info["places"]
+			var where: StringName = places[k % places.size()] if not places.is_empty() else info["region"]
+			workers.append(BioWorker.new(id, str(info["role"]), BioBodyMap.random_point_near_px(rng, where, world.player.global_position, NEAR_UNITS * 0.7, 4.0), rng.randf() * 10.0))
 
 
 ## The nearest thing this worker works on in its own organ, or null.
@@ -135,6 +150,20 @@ func _find(w: BioWorker, region: StringName) -> Node2D:
 			best_d = d
 			best = n
 	return best
+
+
+## A cell that fell far behind the player is born again at the edge of what is seen, in its own organ: the crowd lives where the player is.
+func _keep_near(w: BioWorker, region: StringName) -> void:
+	if world.player == null or w.spec["mode"] == BioWorkerRoles.FLOW:
+		return
+	if w.pos.distance_to(world.player.global_position) < NEAR_UNITS * BioArt.UNIT:
+		return
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("%s:%f" % [w.cohort, w.seed_value + _t])
+	var p := BioBodyMap.random_point_near_px(rng, region, world.player.global_position, NEAR_UNITS * 0.8, 10.0)
+	if BioBodyMap.region_of(p) == region:
+		w.pos = p
+		w.vel = Vector2.ZERO
 
 
 ## A worker at its job says a short thing now and then, near the player and only as many at once as the preset allows.
@@ -206,25 +235,9 @@ func _draw_balloon(w: BioWorker) -> void:
 	draw_string(font, box.position + Vector2(7.0, text_size.y * 0.8 + 2.0), w.say, HORIZONTAL_ALIGNMENT_LEFT, -1, size, Color(0.95, 1.0, 1.0, fade))
 
 
-## A small soft cell: a wobbling membrane with a nucleus. Working, it leans into its target and brightens.
 func _draw_worker(w: BioWorker) -> void:
-	var core: Color = w.spec["core"]
-	var edge: Color = w.spec["edge"]
-	var r: float = float(w.spec["size"]) * BioArt.UNIT * 0.7
-	var lean := w.aim * r * 0.35 * (0.4 + 0.6 * sin(w.work * PI)) if w.state == &"work" else w.vel.limit_length(r) * 0.05
-	var n := 14
-	var pts := PackedVector2Array()
-	var cols := PackedColorArray()
-	for i in n + 1:
-		var a := TAU * i / n
-		var wob := 1.0 + 0.1 * sin(a * 3.0 + _t * 3.0 + w.seed_value) + (0.28 * maxf(0.0, w.aim.normalized().dot(Vector2.from_angle(a))) * sin(w.work * PI) if w.state == &"work" else 0.0)
-		pts.append(w.pos + lean + Vector2.from_angle(a) * r * wob)
-		cols.append(BioArt.with_alpha(edge, 0.85))
-	var fan := PackedVector2Array([w.pos + lean])
-	fan.append_array(pts)
-	var fan_cols := PackedColorArray([BioArt.with_alpha(core, 0.9 if w.state != &"work" else 1.0)])
-	fan_cols.append_array(cols)
-	draw_polygon(fan, fan_cols)
-	draw_circle(w.pos + lean * 1.2, r * 0.32, BioArt.with_alpha(edge.darkened(0.25), 0.9))
-	if w.state == &"work":
-		draw_line(w.pos + lean, w.pos + w.aim * r * 1.7, BioArt.with_alpha(core, 0.7), 2.0, true)
+	var near := world.player != null and w.pos.distance_to(world.player.global_position) < 900.0
+	BioCellArt.draw(self, w, _t, near)
+	if w.state == &"work" and is_instance_valid(_targets.get(w)):
+		var to := ((_targets[w] as Node2D).global_position - w.pos)
+		draw_line(w.pos + to.normalized() * BioArt.UNIT * 0.5, w.pos + to * 0.92, BioArt.with_alpha(w.spec["core"], 0.35), 1.5, true)  # the contact

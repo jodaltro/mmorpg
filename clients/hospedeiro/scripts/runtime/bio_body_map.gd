@@ -81,6 +81,16 @@ static func random_point_px(rng: RandomNumberGenerator, region: StringName, avoi
 	return center_px(region)
 
 
+## A point of the region close to a place (the cell): what a region holds is mostly where the player is, not spread over thousands of pixels.
+static func random_point_near_px(rng: RandomNumberGenerator, region: StringName, near_px: Vector2, radius_units: float, min_distance_units: float) -> Vector2:
+	for attempt in 16:
+		var p := BioAnatomy.random_point(seed_value, region, rng, 2.0) * BioArt.UNIT
+		var d := p.distance_to(near_px)
+		if d <= radius_units * BioArt.UNIT and d >= min_distance_units * BioArt.UNIT:
+			return p
+	return random_point_px(rng, region, near_px, min_distance_units)
+
+
 ## The flow of the blood at a point (pixels per second) at time t; zero outside the body.
 static func flow_px(pos_px: Vector2, t: float) -> Vector2:
 	return BioAnatomy.flow_at(seed_value, pos_px / BioArt.UNIT, t) * BioArt.UNIT

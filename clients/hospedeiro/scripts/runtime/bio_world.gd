@@ -15,10 +15,11 @@ signal glycogen_stored
 signal organ_deed(action: String)  # a verb of an organ was done (a mote taken, a kill in the spleen...): the game server tells the engine
 
 const BLOOD_FLOW_UNITS := 2.2
+const DENSITY := 1.6  # more to see and to work on than the bare table of the organs
 const VIRUS_SPEED := 3.6
 const FEVER_SLOWDOWN := 0.55
 
-@export var virus_count := 6
+@export var virus_count := 9
 @export var nutrient_target := 45
 @export var seed_value := 1337
 @export var save_path := "user://hospedeiro_genome.json"  # empty disables persistence
@@ -266,8 +267,8 @@ func _build_pc_minimap() -> void:
 	pc_minimap.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	pc_minimap.offset_left = -24.0 - 150.0
 	pc_minimap.offset_right = -24.0
-	pc_minimap.offset_top = 16.0
-	pc_minimap.offset_bottom = 16.0 + 150.0
+	pc_minimap.offset_top = 112.0  # under the key hints of the top-right corner
+	pc_minimap.offset_bottom = 112.0 + 150.0
 
 
 func _build_for_touch() -> void:
@@ -876,11 +877,11 @@ func _populate(fill_all: bool) -> void:
 		var want_v := roundi(float(def["viruses"]) * virus_scale)
 		var missing_n: int = want_n - int(nutrients_in.get(id, 0))
 		var missing_v: int = want_v - int(viruses_in.get(id, 0))
-		var missing_t: int = int(def.get("toxins", 0)) - int(toxins_in.get(id, 0))
+		var missing_t: int = roundi(float(def.get("toxins", 0)) * DENSITY) - int(toxins_in.get(id, 0))
 		for i in (missing_t if fill_all else mini(missing_t, 2)):
 			_spawn_toxin_in(id, 0.0 if fill_all else 8.0)
 		for mote_kind in (def.get("motes", {}) as Dictionary):
-			var missing_m: int = int((def["motes"] as Dictionary)[mote_kind]) - int(motes_in.get(id, 0))  # (one kind per organ)
+			var missing_m: int = roundi(float((def["motes"] as Dictionary)[mote_kind]) * DENSITY) - int(motes_in.get(id, 0))  # (one kind per organ)
 			for i in (missing_m if fill_all else mini(missing_m, 2)):
 				_spawn_mote_in(id, mote_kind, 0.0 if fill_all else 8.0)
 		for i in (missing_n if fill_all else mini(missing_n, 3)):
@@ -892,9 +893,16 @@ func _populate(fill_all: bool) -> void:
 	_virus_respawn_timer -= 1.0
 
 
+## Where a new thing of the map goes: mostly near the cell, because a region is thousands of pixels wide and the player sees a few hundred.
+func _point_in(where: StringName, min_distance_units: float) -> Vector2:
+	if where == region and player != null and _rng.randf() < 0.65:
+		return BioBodyMap.random_point_near_px(_rng, where, player.global_position, 24.0, min_distance_units)
+	return BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+
+
 func _spawn_nutrient_in(where: StringName, min_distance_units: float) -> void:
 	var kind := BioNutrientRules.Kind.GLUCOSE if _rng.randf() < 0.75 else BioNutrientRules.Kind.LIPID
-	BioFactory.spawn_nutrient(self, BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units), kind)
+	BioFactory.spawn_nutrient(self, _point_in(where, min_distance_units), kind)
 
 
 func _spawn_nutrient(min_distance_units: float) -> void:
@@ -904,7 +912,7 @@ func _spawn_nutrient(min_distance_units: float) -> void:
 func _spawn_toxin_in(where: StringName, min_distance_units: float) -> void:
 	var toxin := BioToxin.new()
 	toxin.name = "Toxin"
-	toxin.position = BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	toxin.position = _point_in(where, min_distance_units)
 	toxin.resistant_check = func() -> bool: return genome != null and genome.has_gene(BioToxinRules.RESISTANT_GENE)
 	toxin.filtered.connect(func() -> void:
 		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
@@ -916,7 +924,7 @@ func _spawn_mote_in(where: StringName, kind: StringName, min_distance_units: flo
 	var mote := BioMote.new()
 	mote.name = "Mote"
 	mote.configure(kind)
-	mote.position = BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	mote.position = _point_in(where, min_distance_units)
 	mote.taken.connect(func(taken_kind: StringName) -> void:
 		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
 		organ_deed.emit(str(BioMoteRules.kind(taken_kind)["action"])))
@@ -928,7 +936,7 @@ func _spawn_virus(min_distance_units: float) -> void:
 
 
 func _spawn_virus_in(where: StringName, min_distance_units: float) -> void:
-	var at := BioBodyMap.random_point_px(_rng, where, player.global_position, min_distance_units)
+	var at := _point_in(where, min_distance_units)
 	var kind := BioBestiary.pick(where, _rng)  # each organ has its own wild things (the blood has the virion)
 	if kind == BioBestiary.VIRION:
 		_spawn_virus_at(at)
