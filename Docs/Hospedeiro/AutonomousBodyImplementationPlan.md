@@ -1,5 +1,7 @@
 # PLANO MESTRE — Hospedeiro como organismo vivo e sociedade de agentes autônomos
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 > **Data:** 27/10/2026 · **Branch obrigatória:** `main` · **Status:** plano de implementação para Claude Code, NÃO implementação executada.  
 > **Objetivo de entrega final:** múltiplos agentes celulares autônomos trabalham, percebem, lembram, cooperam, reagem e tomam decisões constantemente dentro de um organismo persistente, com ou sem jogadores; conflitos fisiológicos globais emergem, evoluem e se resolvem por causalidade, não por filas de quests ou dungeons privadas.
 
@@ -21,7 +23,7 @@ Ao entrar no Hospedeiro pela primeira vez:
 7. Jev participa realmente em escala macro/meso/micro, em lotes de perguntas coerentes, de modo assíncrono, com contexto rico e rastreável; continua possível simular com Jev desligado.
 8. Ações materiais só ocorrem por comando autorizado, com deduplicação, journal persistente e replay determinístico.
 9. Os mundos pessoais permanecem separados do compartilhado; nenhuma visita P2P injeta fatos, dano ou recompensas no MMO.
-10. As cinco masmorras legadas deixam de ser experiência visível após migração segura; seus locais, conteúdos e recompensas úteis se transformam em frentes abertas e descobertas do corpo.
+10. As cinco masmorras legadas deixam de ser experiência visível após substituição validada, com migração ou reset; seus locais, conteúdos e recompensas úteis se transformam em frentes abertas e descobertas do corpo.
 
 **O resultado esperado não é 'um milhão de LLMs conversando sem parar'.** É uma população de muitos agentes eficientes, simulados em níveis de detalhe, com avaliações Jev seletivas e consequências sistêmicas duráveis.
 
@@ -45,11 +47,11 @@ Ao entrar no Hospedeiro pela primeira vez:
 
 ### 1.1 Regras invioláveis
 - **main sempre**; `git status`, `git pull --ff-only origin main`; nunca usar `master` implicitamente.
-- Começar por testes locais isolados; não testar contra publicação e não resetar instância real.
+- Começar por testes locais isolados; não testar contra publicação. Reset/recriação necessários ao desenvolvimento estão autorizados, com escopo registrado.
 - Go core é puro, determinístico, biblioteca padrão. Sem Java, socket, LLM, banco, relógio real ou aleatoriedade externa no `Step`.
 - Motor é autoridade de progresso e conflitos; Godot headless confirma física/combate; Nakama autentica/transporta; cliente envia intenções, não fatos.
 - Respostas de Jev nunca alteram recursos diretamente. É uma proposta de intenção entre ações validadas, que passa por revalidação.
-- `Fingerprint` impede trocar universe.json em log existente sem migração; **não forçar recomeço**.
+- `Fingerprint` impede reinterpretar journal incompatível: migrar explicitamente ou descartar o estado antigo e iniciar mundo/banco novos; não silenciar a verificação.
 - Mundo pessoal e mundo compartilhado precisam conservar seus históricos/IDs separados e modo offline funcional.
 - Execução contínua significa serviço em execução; se máquina desliga, estado persiste. Um processo parado **não executa agentes**.
 
@@ -122,11 +124,11 @@ Criar contratos mínimos, fora do core de apresentação. Nomes são **propostos
 
 **Entrega P0-01:** registrar SHA exato da `main`, tabelar arquivos/módulos, configuração do runner, fluxos Godot headless, JEV e contratos de API, rotinas NPC e legado de dungeons. Marcar o que é testado versus somente documentado.
 
-**P0-02:** criar fixture de mundo QA e cópia isolada do journal real **somente se autorizado e sem copiar segredos**. Rodar replay/digest em cópia; registrar tamanho do log, tick médio, universo fingerprint, número de NPCs, players, quests e dungeons. Não reexecutar nem resetar produção.
+**P0-02:** criar fixture sintética de mundo QA, sem segredos. Rodar replay/digest na versão vigente; registrar tamanho do log, tick médio, universo fingerprint, número de NPCs, players, quests e dungeons. Cópia legada e ensaio de conversão são opcionais se a estratégia escolhida for migrar; reset/recriação não exigem preservar journal real.
 
 **P0-03:** adicionar benchmarks baseline de 1, 10, 100, 1.000 NPCs **sintéticos** no core; medir latência p50/p95/p99 do tick, alocações e tamanho do journal, CPU e memória. Identificar custos reais antes de otimizar.
 
-**P0-04:** catalogar todas as dependências de `dungeon` em Go, Godot, testes, recompensas, codex, UI e saves. Criar matriz de migração sem excluir nada.
+**P0-04:** catalogar todas as dependências de `dungeon` em Go, Godot, testes, recompensas, codex, UI e saves. Criar matriz de substituição, registrando o que migrar ou descartar; P0 é levantamento, não execução de limpeza.
 
 **Aceite:** baseline reproduzível e relatório em `Docs/Validation/`, com ambiente/commit/comandos/resultados e problemas conhecidos.
 
@@ -400,13 +402,13 @@ Cada cadeia precisa de: condições de surgimento, recurso consumido, trabalho N
 **Rota:**
 1. Feature flag mantém modo legado até conflito aberto funcionar.
 2. Mapear recompensas de cada dungeon para novos conflitos, exploração e feitos equivalentes sem conceder arbitrariamente tudo aos antigos participantes.
-3. Preparar migração determinística de personagens com runs abertas: marcar runs legadas como suspensas ou convertidas e avisar o jogador com efeitos/recompensas preservados; nunca teletransportar sem regra.
-4. Não editar universo no ar enquanto o log antigo estiver vinculado ao fingerprint. Projetar `schemaVersion` de journal/universo e migração offline verificável, ou ponte versionada de eventos. Copiar e comparar replay antigo; preservar arquivo original.
-5. Testes de migração em QA e rollback por backup. Cobrir saves em dungeon, genes, codex, quests, progresso e mundo pessoal.
+3. Escolher migração ou reset/recriação total. Runs abertas, personagens, genes, recompensas e progressão antigos podem ser descartados; conversão e compensação são opcionais.
+4. Coordenar parada e retomada dos serviços ao trocar universo/estado. Migrar com versão explícita ou recriar mundo, journals e banco compatíveis com o fingerprint atual. Não reproduzir journal antigo como se pertencesse ao universo novo; backup/arquivo original são opcionais.
+5. Testar em QA o caminho escolhido: reset/recriação inicializa MMO e mundo pessoal válidos, sem referências legadas ou recompensas duplicadas; se houver conversor, testar sua saída. Não exigir saves antigos nem restauração de progressão.
 6. Desativar portais/UI/run de dungeon no Hospedeiro **somente após** conflitos terem progressão equivalente. Remover código Godot morto com buscas e testes. Manter generic dungeon em engine se ainda necessário.
 7. Registrar depreciações em docs de arquitetura e validação.
 
-**Aceite:** contas antigas e mundos pessoais iniciam sem perda; novo personagem não encontra entrada de dungeon; conteúdo de granuloma/tumor/biofilme existe como frente persistente do mapa.
+**Aceite:** contas e mundos pessoais iniciam válidos após migração ou reset, sem obrigação de manter dados antigos; novo personagem não encontra entrada de dungeon; conteúdo de granuloma/tumor/biofilme existe como frente persistente do mapa.
 
 ## 18. P14 — Operação 24/7, custo e confiabilidade
 
@@ -428,12 +430,12 @@ Cada cadeia precisa de: condições de surgimento, recurso consumido, trabalho N
 
 **Invariantes globais:** recursos conservados ou fontes/sumidouros explícitos; conflitos nunca se resolvem ao acaso; evento duplicado não remunera; NPC desconhecido não conhece segredo; todos no mesmo mundo observam estado coerente; decisões aplicadas seguem legalidade e replay.
 
-**Promoção:** estabelecer gates mensurados (ver [AutonomousBodyQualityGates.md](AutonomousBodyQualityGates.md)) com rollback por fase. Não chamar um módulo "pronto" sem teste local executado.
+**Promoção:** estabelecer gates mensurados (ver [AutonomousBodyQualityGates.md](AutonomousBodyQualityGates.md)) com recuperação por fase (correção/reversão de código ou recriação do estado; restauração de dados opcional). Não chamar um módulo "pronto" sem teste local executado.
 
 ## 20. P16 — Entrega final e documentação
 
-- Revisar `AGENTS.md` e Docs atuais como fonte única. Marcar documentos legados e apagar somente orientações contraditórias após migrar.
-- Criar guia de operação e monitoramento do corpo contínuo, configuração Jev, limites, backups, migração e troubleshooting.
+- Revisar `AGENTS.md` e Docs atuais como fonte única. Marcar documentos legados e remover orientações contraditórias, sem condicionar a atualização documental à preservação ou migração de dados.
+- Criar guia de operação e monitoramento do corpo contínuo, configuração Jev, limites, reset/recriação, migração opcional, backups opcionais e troubleshooting.
 - Fazer demonstração reproduzível: abrir cliente com dois jogadores, esperar conflito real; observar Rubra, Neva e Dendra trabalhando; ajuda voluntária; conflito agrava e depois é contido; outro conflito coexiste; jogadores desconectam; ticks e NPCs continuam; reconectam; alertas não repetem; replay tem mesmo digest.
 - Separar claramente **concluído/validado/local**, **concluído/validado/e2e** e **pendente** no relatório final, com paths, commits e SHA. Não alegar testes que não executou.
 - Não confundir "rodar eternamente" com processo imortal: a infraestrutura pode reiniciar, mas estado e comportamento devem ser duráveis enquanto serviço estiver operando.
@@ -460,7 +462,7 @@ P16 release e documentação final
 ## 22. Modelo de trabalho para Claude Code
 
 - Ler [ClaudeCodeAutonomousBodyRunbook.md](ClaudeCodeAutonomousBodyRunbook.md) para prompts, batches, checkpoints e tarefas numeradas; conferir [AutonomousBodyQualityGates.md](AutonomousBodyQualityGates.md) antes de cada commit.
-- Cada etapa é commit isolável na **main**, com modificações pequenas, local/QA e rollback claro. Dependências sequenciais não devem ser feitas simultaneamente por múltiplos agentes de programação no mesmo path.
+- Cada etapa é commit isolável na **main**, com modificações pequenas, local/QA e estratégia de recuperação clara, que pode recriar o estado. Dependências sequenciais não devem ser feitas simultaneamente por múltiplos agentes de programação no mesmo path.
 - Subagentes Claude Code podem trabalhar em paralelo **somente** em pesquisa/inventário/testes isolados sem conflito de arquivos; integrar um conjunto de mudanças por vez. Os “agentes autônomos” do produto final são os **NPCs**, não um processo Claude Code que precise ficar rodando.
 - Ao final de cada etapa: `gofmt`, `go vet ./...`, `go test ./...` dentro de `engine/`, testes Godot afetados, validação/simulação do universo quando aplicável, documentação `Docs/Validation/`, diff e commit. Sempre registrar se o ambiente não permitiu rodar algo.
 
@@ -473,7 +475,7 @@ P16 release e documentação final
 5. **Muitos agentes:** LOD/coortes permitem população grande e agentes nominados diversos sem escalar linearmente chamadas de IA/render/física; capacidade demonstrada por benchmark.
 6. **Participação livre:** pedidos NPC contextuais, contribuição sem missão, relações lembradas, nenhum spam.
 7. **Conflitos globais:** várias frentes consistentes com mesmo corpo, um objetivo de HUD e alertas sem duplicação.
-8. **Sem dungeons:** fluxo final do Hospedeiro não tem runs instanciadas, com progresso legado preservado.
+8. **Sem dungeons:** fluxo final do Hospedeiro não tem runs instanciadas, com novo ciclo de progressão validado; progresso legado pode ser descartado.
 9. **Segurança/justiça:** servidor confirma ações/recompensas; cliente não falsifica conflito, dano ou memória.
 10. **Sem dependência de cliente:** servidor realmente executa simulação quando a sala está vazia; se servidor parar, retoma conforme política declarada.
 11. **Escala verificada:** p95, CPU, uso de memória, custo Jev e carga são documentados antes de declarar produção pronta.

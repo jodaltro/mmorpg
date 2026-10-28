@@ -1,5 +1,7 @@
 # Progressão por transformações — 25/10/2026
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 O ciclo passa a ser: explorar e combater → conquistar um gene ou uma nova habilidade → entender a mudança antes de expressar → montar uma combinação e experimentar no combate. Sem níveis nem XP. A classe continua sendo uma identidade permanente, e genes permanecem como escolhas de build; o objetivo é que recompensas mudem ações, alcance de atuação, defesa ou suporte, além dos atributos.
 
 ## Ritmo inicial

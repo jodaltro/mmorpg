@@ -1,5 +1,7 @@
 # Mundos pessoais e visitas — 25/10/2026
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 Direção autorizada pelo usuário: jogar localmente, guardar progresso no servidor em segundo plano, convidar um amigo por QR Code e conexão direta. O visitante usa a própria build **e continua evoluindo**. PvP de teste no **mapa aberto inteiro, junto dos monstros**, sem arena obrigatória e sem recompensas por abater jogadores.
 
 ## Como jogar

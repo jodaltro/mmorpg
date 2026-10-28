@@ -1,5 +1,7 @@
 # Hospedeiro — plano de exploração e de mecânicas do corpo
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 Plano de 23/10/2026. Nada aqui está implementado, salvo o que a seção 1 diz que já existe. Complementa [GameStructure.md](GameStructure.md) (visão geral), [HostScience.md](HostScience.md) (dados científicos) e [Balance.md](Balance.md) (a régua de balanceamento, que passa a valer para todo conteúdo novo).
 
 ## 0. O que queremos
@@ -264,7 +266,7 @@ E0 destrava tudo (sem corpo-como-dados e sem streaming, mapa grande é impossív
 | Acoplamentos que viram caos | Cada cadeia tem teste de cenário no motor e um painel que mostra causa e efeito; mudanças pela régua de balanceamento. |
 | Latência do Jev | Tudo continua assíncrono, com padrão determinístico; as decisões novas (`rota`) não bloqueiam. |
 | Perder o foco de combate | O combate continua sendo o laço de segundo a segundo; a exploração só decide **para onde**. |
-| Determinismo e compatibilidade de salvamentos | O log de comandos continua sendo a verdade; mudança de regra exige novo mundo ("novo mundo ao mudar o universo", como já fazemos). |
+| Determinismo e estratégia de dados | O log de comandos continua sendo a verdade na versão vigente. Mudanças incompatíveis permitem migração explícita ou descarte/recriação de mundo, saves, journal, progressão e banco; compatibilidade legada não é obrigatória. |
 
 ## 10. O que falta decidir (e o que eu recomendo)
 

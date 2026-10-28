@@ -1,5 +1,7 @@
 # Hospedeiro — NPCs vivos e Conflitos Globais
 **Decisão de produto: 26/10/2026 — branch main.**  
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 **Estado: especificação aprovada como direção de design; NÃO é implementação concluída.**
 > **Complemento técnico de 27/10/2026:** [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md) registra as pesquisas recentes, as capacidades reais do Jev 1.13/1.14 e o desenho de memória seletiva, avaliação em lotes e decisões de NPCs/conflitos. Aumentar dados coletados e contexto relevante sem criar outra autoridade ou usar o Jev como simulador físico.
 
@@ -114,9 +116,9 @@ Reutilizar **agents**, **goals**, **beliefs**, **relations**, **routines**, **go
 O cliente desenha posições, rotinas, alertas e interface. O servidor Godot confirma ações materiais; não aceitar clientes declarando dano, cura de órgão, resultado de conflito, pontos de participação ou conclusão. Nakama distribui eventos públicos com número de revisão e oferece snapshot atual ao entrar/reconectar. Alertas são derivados da mudança confirmada da instância, não de prompts livres da IA.
 
 ## 6. Remoção segura das masmorras
-A decisão **é remover a experiência de masmorras no Hospedeiro**, NÃO excluir indiscriminadamente o sistema genérico de dungeons do motor, que pode atender outros universos e históricos. Os cinco registros atuais de dungeons e os fluxos de Godot precisam ser migrados para frentes abertas e eventos do mundo. Planejar antes uma conversão de recompensas, genes, registros de progressão, testes e personagens dentro de uma run.
+A decisão **é remover a experiência de masmorras no Hospedeiro**, NÃO excluir indiscriminadamente o sistema genérico de dungeons do motor, que pode atender outros universos e históricos. Os cinco registros atuais de dungeons e os fluxos de Godot precisam ser migrados para frentes abertas e eventos do mundo. Planejar a substituição das recompensas e testes; genes, registros de progressão e personagens dentro de uma run podem ser descartados por reset, sem conversão obrigatória.
 
-A branch main atual possui mundos persistentes e journals vinculados ao fingerprint do universo. Editar/remover simplesmente a seção dungeons no JSON pode invalidar dados salvos e quebrar testes. A implementação deve introduzir migração versionada e compatibilidade temporária de leitura; nenhuma instância real deve ser resetada, e testes só em ambiente local isolado. A remoção do menu/portais deve ocorrer quando a alternativa de conflitos estiver de fato jogável.
+A branch main atual possui mundos persistentes e journals vinculados ao fingerprint do universo. Editar/remover simplesmente a seção dungeons no JSON pode invalidar dados salvos e quebrar testes. A implementação pode usar migração versionada ou descartar saves, mundos, journals, progressão e recriar o banco. Compatibilidade temporária, backup e preservação de dados não são obrigatórios. Não silenciar fingerprint nem reproduzir journal incompatível; testes só em ambiente local isolado. A remoção do menu/portais deve ocorrer quando a alternativa de conflitos estiver de fato jogável.
 
 ## 7. Fatia vertical inicial — Infecção pulmonar
 **Objetivo:** demonstrar que todos participam da mesma crise, com NPCs que continuam trabalhando e que pedem ajuda de maneira causal.
@@ -133,13 +135,13 @@ A branch main atual possui mundos persistentes e journals vinculados ao fingerpr
 ## 8. Fases técnicas
 **C0 — Contrato e testes determinísticos:** desenhar ConflictDef/State/View, estados, eventos, gatilhos e replay, sem alterar o servidor real.
 
-**C1 — Primeiro conflito compartilhado:** infecção pulmonar persistente, objetivos coletivos, contribuições verificadas, alertas de início/escala/resolução e HUD mínimo; coexistência temporária com dungeons legadas apenas por migração.
+**C1 — Primeiro conflito compartilhado:** infecção pulmonar persistente, objetivos coletivos, contribuições verificadas, alertas de início/escala/resolução e HUD mínimo; coexistência temporária com dungeons legadas apenas se útil à transição; reset/recriação pode eliminar o legado.
 
 **C2 — Sociedade celular:** NPCs com trabalho independente, deslocamentos reais, necessidades, interações, pedido de ajuda, memória e relações; observar comportamentos em horários, com/sem jogadores.
 
 **C3 — Ecologia de conflitos:** ferimentos, transporte de oxigênio, tumores e desequilíbrios de órgãos; cadeias causais, conflitos simultâneos, recuperação e priorização do diretor.
 
-**C4 — Migração e limpeza de experiência:** substituir portas, menus, indicadores e recompensas de masmorras por conflitos no mapa. Remover conteúdo de dungeon do Hospedeiro após validar progresso e saves; manter motor genérico enquanto utilizado.
+**C4 — Migração e limpeza de experiência:** substituir portas, menus, indicadores e recompensas de masmorras por conflitos no mapa. Remover conteúdo de dungeon do Hospedeiro após validar a progressão nova e o caminho de migração ou reset/recriação; manter motor genérico enquanto utilizado.
 
 ## 9. Critérios de pronto e QA
 - Dois convidados diferentes veem o mesmo conflito, indicadores e alterações no mundo compartilhado.
@@ -151,7 +153,7 @@ A branch main atual possui mundos persistentes e journals vinculados ao fingerpr
 - Dois focos relacionados não criam spam nem infinitas cópias; conflitos simultâneos continuam distintos e navegáveis.
 - HUD tem no máximo um objetivo acompanhado e um pedido contextual relevante, com painel para as demais crises.
 - Tests de Step, simulação e replay geram digest idêntico para mesmos comandos; advisor desligado funciona.
-- Testes apenas em mundo QA/local; não resetar nem usar a implantação compartilhada real como laboratório.
+- Testes apenas em mundo QA/local; não usar a implantação compartilhada real como laboratório; reset/recriação necessários ao desenvolvimento são permitidos fora dos testes.
 
 ## 10. Regra de experiência
 **O jogador não recebe tarefas porque o jogo precisa mantê-lo ocupado. Ele encontra necessidades porque o Hospedeiro está vivo.**

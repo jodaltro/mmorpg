@@ -1,5 +1,7 @@
 # Hospedeiro web e mobile
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 Estado conferido em 24/10/2026. Endereço público: https://hospedeiro.memowhats.workers.dev
 
 ## Onde estava
@@ -44,4 +46,4 @@ O servidor usa a opção explícita serve -test-reset. A API exige sessão váli
 
 Supervisor: scripts/hospedeiro-online.ps1 -TestReset -ReuseTunnel. ReuseTunnel conserva a origem existente; sem TestReset o reset público volta a ser bloqueado. ServerBinary permite escolher o executável; por padrão prefere D:/unity/hospedeiro-run/worldsim-nakama-v2.exe, depois worldsim-current.exe e engine/worldsim.exe. Uma compilação com suporte a -nakama é necessária para esta implantação. A supervisão verifica a porta e o processo do túnel localmente, sem sondagens do endereço publicado.
 
-A atualização do servidor preserva D:/unity/hospedeiro-data e o túnel. O reset real é acionado pela confirmação no jogo; não faz parte dos testes de publicação.
+O fluxo atual de atualização mantém D:/unity/hospedeiro-data e o túnel por padrão; isso não impõe preservação em mudanças de desenvolvimento. Limpeza de dados e reset/recriação estão autorizados quando necessários. A confirmação no jogo pertence ao botão de reset do produto. Testes de publicação continuam locais e não executam reset real.

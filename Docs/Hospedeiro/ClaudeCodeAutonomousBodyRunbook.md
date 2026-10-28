@@ -1,5 +1,7 @@
 # RUNBOOK DO CLAUDE CODE — implementação incremental do Hospedeiro Vivo
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 > **Leia primeiro:** [AutonomousBodyImplementationPlan.md](AutonomousBodyImplementationPlan.md) (P0–P16), [AutonomousBodyQualityGates.md](AutonomousBodyQualityGates.md), [LivingWorldConflicts.md](LivingWorldConflicts.md), [JevCognitiveArchitecture.md](JevCognitiveArchitecture.md), `AGENTS.md`.  
 > **Branch: sempre `main`**. **Este arquivo é uma fila de execução; nada aqui foi implementado só porque foi escrito.**
 
@@ -11,8 +13,8 @@
 
 > Você é o engenheiro principal de implementação do Hospedeiro. Trabalhe no repositório `jodaltro/mmorpg` na branch `main`. Sua tarefa é implementar integralmente o plano `Docs/Hospedeiro/AutonomousBodyImplementationPlan.md`, respeitando `Docs/Hospedeiro/ClaudeCodeAutonomousBodyRunbook.md`, `Docs/Hospedeiro/AutonomousBodyQualityGates.md`, `AGENTS.md`, `Docs/Architecture.md`, `Docs/Hospedeiro/LivingWorldConflicts.md` e `Docs/Hospedeiro/JevCognitiveArchitecture.md`.  
 > **Não tente executar todas as fases num único commit.** Comece por P0 e a menor fatia vertical. Faça auditoria, implemente, teste e registre cada fase; mantenha main funcional a cada commit. O Go determinístico é a única autoridade material, o Godot headless valida combate, Nakama transporta e Jev é conselheiro estruturado assíncrono. Mundo pessoal deve funcionar sem API externa.  
-> Nunca resetar mundo real, testar em produção, vazar segredos ou alterar `master`. Não apagar dungeons até haver migração e progressão equivalente. Faça `git status`, `git pull --ff-only origin main`, identifique SHA/fingerprint e execute as validações locais pertinentes.  
-> O produto final deve ter muitos NPCs que trabalham sem jogadores conectados, possuem rotinas/memória e geram pedidos causais de ajuda, com conflitos compartilhados e alertas claros; valide em sessões sem jogadores e replay. Continue pelas etapas autorizadas sem pedir confirmação a cada pequeno commit, mas **pare e reporte qualquer risco de perda de dados do servidor real ou impossibilidade de garantir rollback**. Informe o commit SHA e testes realmente executados após cada etapa.
+> Não testar em produção, vazar segredos ou alterar `master`. Reset total, descarte de dados legados e recriação do banco estão autorizados quando necessários ao desenvolvimento. Remover a experiência de dungeons após validar conflitos e a progressão nova, por migração ou reset. Faça `git status`, `git pull --ff-only origin main`, identifique SHA/fingerprint e execute as validações locais pertinentes.  
+> O produto final deve ter muitos NPCs que trabalham sem jogadores conectados, possuem rotinas/memória e geram pedidos causais de ajuda, com conflitos compartilhados e alertas claros; valide em sessões sem jogadores e replay. Continue pelas etapas autorizadas sem pedir confirmação a cada pequeno commit, e registre o escopo de descarte e a recuperação por correção/reversão de código ou recriação do estado; perda autorizada de dados antigos e ausência de backup não exigem nova confirmação. Informe o commit SHA e testes realmente executados após cada etapa.
 
 ## B. Checklist de preparação de cada sessão
 
@@ -41,7 +43,7 @@ G="/d/tools/godot/bin/Godot_v4.7.2-stable_win64_console.exe"
 ```
 Verificar também `SCRIPT ERROR` e `ERROR` do Godot, não apenas total de asserts. Rodar browser/Nakama somente na configuração QA isolada descrita em `Docs/Hospedeiro/Nakama.md`; não executar bateria web contra domínio publicado nem instância real.
 
-**Universo Go:** após mudar `universes/hospedeiro/universe.json`, executar `worldsim validate` e `worldsim simulate` em modo local isolado (descobrir uso exato com `worldsim --help` do binário compilado, não inventar flags). Qualquer mudança altera fingerprint; seguir roteiro de migração.
+**Universo Go:** após mudar `universes/hospedeiro/universe.json`, executar `worldsim validate` e `worldsim simulate` em modo local isolado (descobrir uso exato com `worldsim --help` do binário compilado, não inventar flags). Qualquer mudança altera fingerprint; escolher migração explícita ou reset/recriação, sem reinterpretar journal incompatível.
 
 ## C. Regras de commit e relatório
 
@@ -63,7 +65,7 @@ Todos os IDs abaixo correspondem a entregas de código e testes. Marcadores `[ ]
 - [ ] **P0.2** Inventariar `agents`, `entities`, `rules`, `happenings`, `quests` no `universe.json`; mapear a função de Rubra/Neva/Dendra/Osteia e o que o Godot encarna.
 - [ ] **P0.3** Criar benchmark inicial `engine/core/*_bench_test.go` ou `engine/scenarios/*_bench_test.go` isolado sem alterar produção; medir número crescente de entidades.
 - [ ] **P0.4** Documentar rotas entre regiões, `passages`/ `spots`, tabela de recursos e órgãos já implementados, duração de tick e comportamento sem players.
-- [ ] **P0.5** Inventariar código legacy dungeon e risco de fingerprints/saves; nenhum delete agora.
+- [ ] **P0.5** Inventariar código legacy dungeon e impacto de fingerprints/saves; registrar migração ou descarte planejado (P0 não executa limpeza).
 **Gate:** relatório baseline honesto; Go e testes do cliente anteriores mantêm comportamento.
 
 ### FASE P1 — Estado de população e fisiologia
@@ -96,7 +98,7 @@ Todos os IDs abaixo correspondem a entregas de código e testes. Marcadores `[ ]
 **Gate:** sem jogador, tarefas geram resultados concretos, não só eventos decorativos.
 
 ### FASE P4 — Memória, aprendizado e relações
-- [ ] **P4.1** Criar `MemoryEpisode` com `event_id`, tipo, `source`, recência, validade, escopo e índice; migrar entidades antigas com defaults.
+- [ ] **P4.1** Criar `MemoryEpisode` com `event_id`, tipo, `source`, recência, validade, escopo e índice; inicializar entidades novas com defaults; conversão de entidades antigas é opcional.
 - [ ] **P4.2** Incorporar observação, memória e comunicação no processamento de NPCs, respeitando `Belief` versus `Fact`.
 - [ ] **P4.3** Relação com jogador só muda após evidência confirmada. Ajudar Rubra gera memória de quem ajudou; ignorar não equivale a culpa automática.
 - [ ] **P4.4** Boatos/rede de comunicação levam tempo e respeitam alcance, encontros e especialização.
@@ -198,14 +200,14 @@ Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md)
 
 ### FASE P13 — Migrar e extinguir runs de dungeon do Hospedeiro
 - [ ] **P13.1** Mapa de equivalência dungeon→conflito/exploração/recompensa.
-- [ ] **P13.2** Mecanismo de migração com backups, fingerprint e fixture legada, preservando dado real intacto.
-- [ ] **P13.3** Remover portais, `bio_dungeon_panel.gd`, apresentações e controle específico só após migração comprovada; manter `engine/core/dungeon.go` se algum outro universo usa.
-- [ ] **P13.4** Atualizar testes e docs, conferir saves antigos, mundo pessoal e avatar que estava em uma run.
-**Gate:** nenhum progresso antigo perdido; mundo novo só tem conflitos abertos.
+- [ ] **P13.2** Escolher e testar migração ou reset/recriação de saves, journals, mundos, progressão e banco; fingerprint válido no destino, sem backup obrigatório.
+- [ ] **P13.3** Remover portais, `bio_dungeon_panel.gd`, apresentações e controle específico após substituição por conflitos validada, com migração ou reset; manter `engine/core/dungeon.go` se algum outro universo usa.
+- [ ] **P13.4** Atualizar testes e docs, validar inicialização do mundo novo/pessoal e avatar após reset; substituir testes que exijam preservação legada por fixtures descartáveis, mantendo replay/digest e persistência vigente; conferir saves antigos apenas se optar por conversão.
+**Gate:** mundo novo válido, só com conflitos abertos e progressão nova funcional; progresso antigo pode ser descartado.
 
 ### FASE P14 — Hospedagem contínua e confiabilidade
 - [ ] **P14.1** Definir serviço/ticker 24/7 e monitoramento operacional. Enquanto PC hospeda, desligar PC interrompe simulação; registrar isso até migrar para host always-on.
-- [ ] **P14.2** Checkpoint + journal replay, backup, política de catch-up ou pausa, crash recovery, healthcheck e limite de eventos.
+- [ ] **P14.2** Checkpoint + journal replay da versão vigente, backup opcional, política de catch-up ou pausa, crash recovery, healthcheck e limite de eventos.
 - [ ] **P14.3** Métricas e orçamentos para 10/100/500 NPCs nomeados e grandes coortes.
 - [ ] **P14.4** Taxa máxima de consultas Jev, custo máximo por período, cap de contexto e fila; fallback automático.
 - [ ] **P14.5** Distintos dados compartilhados/pessoais; recovery e custo após queda de serviço.
@@ -223,7 +225,7 @@ Consultar [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md)
 
 ### FASE P16 — Release, limpeza, demonstração
 - [ ] **P16.1** Revisar docs legados e atualizar README/AGENTS para direção atual.
-- [ ] **P16.2** Plano de migração/rollback aprovado localmente; não fazer deploy sem segurança dos dados.
+- [ ] **P16.2** Estratégia de migração ou reset/recriação validada localmente; recuperação operacional definida, sem exigir conservação/restauração dos dados antigos.
 - [ ] **P16.3** Demonstrar sequência ponta a ponta: mundo vazio trabalhando → surge crise → NPC age → pede ajuda → jogador auxilia → conflito escala/contém → jogador sai → mundo continua → jogador volta → NPC lembra e alertas não repetem.
 - [ ] **P16.4** Especificar requisitos de servidor always-on para autonomia 24h.
 - [ ] **P16.5** Entregar relatório final com commits, métricas e pendências reais.
@@ -290,7 +292,7 @@ Isso é uma proposta de organização de trabalho para implementação. Os NPCs 
 | Animação/interação | `bio_cell_body.gd`, `bio_cell_forms.gd`, `bio_fx.gd`, `bio_art.gd` | catálogo de gestos, presenter, shaders/FX, animações V01–V16, testes visuais |
 | HUD | `bio_hud.gd`, `bio_dungeon_panel.gd` | painel global e notificação NPC |
 | Testes | `engine/scenarios`, `clients/hospedeiro/tests` | novos cenários de autonomia e conflitos |
-| Migração | `engine/store/filelog.go`, docs de deployment | ferramenta de migração e relatório de reversão |
+| Migração | `engine/store/filelog.go`, docs de deployment | caminho de migração ou reset/recriação e relatório de inicialização |
 
 A tabela é **mapa de partida**, não ordem para criar todos os arquivos. Confirmar interfaces reais e evitar duplicar mecanismos preexistentes.
 
@@ -305,7 +307,7 @@ Alterações: <arquivos e decisões importantes>
 Comportamento demonstrável: <exemplo reproduzível>
 Testes executados: <comandos e resultados reais>
 Testes não executados: <quais e por quê>
-Migração necessária? <sim/não; plano e backup>
+Estratégia de dados: <migração ou reset/recriação; escopo descartado, validação e recuperação; backup opcional>
 Impacto em mundos pessoais/online: <descrever>
 Riscos/pendências e próximo item: <exatos>
 ```

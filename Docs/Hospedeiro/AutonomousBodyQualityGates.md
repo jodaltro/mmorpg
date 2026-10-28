@@ -1,7 +1,9 @@
 # Hospedeiro vivo — matriz de validação, benchmarks e gates de release
 
+> **POLÍTICA VIGENTE — 28/10/2026:** o usuário autoriza limpeza destrutiva, descarte de saves, mundos, journals e progressão, recriação do banco de dados e reset total do Hospedeiro quando necessários ao desenvolvimento. Migração sem perda, compatibilidade com dados antigos, backup e restauração do estado anterior são opcionais e não bloqueiam implementação, gates ou release. Registrar a estratégia escolhida (migração ou reset/recriação) e validar o estado resultante. A autorização não exige reset em toda mudança. Persistência, replay/digest e idempotência continuam obrigatórios dentro da versão vigente. Testes continuam locais/isolados; este ajuste documental não executa limpeza, reset, migração, deploy ou acesso ao banco.
+
 > **Status:** critérios a executar no Claude Code; nenhuma linha deste documento indica teste já realizado.  
-> **Branch:** `main` · **QA:** exclusivamente local/isolado; **não resetar mundo compartilhado**.
+> **Branch:** `main` · **QA:** exclusivamente local/isolado; reset/recriação de desenvolvimento autorizados; não executar na rotina de QA.
 
 Os requisitos gráficos e animações são detalhados em [VisualInteractionAnimationPlan.md](VisualInteractionAnimationPlan.md): **gates V-G1–V-G12 obrigatórios** para cada intervenção, inclusive sincronização, falhas, desempenho e acessibilidade.
 
@@ -15,7 +17,7 @@ Este documento vincula [AutonomousBodyImplementationPlan.md](AutonomousBodyImple
 | G-CAUS | origem biológica/necessidade válida, estoque e recurso finitos, efeito material real | cenários de mundo sem cliente |
 | G-SEC | player não declara dano, cura, contribuição, verdade do mundo ou prêmio | testes API e headless |
 | G-UX | UI acessível, não bloqueante, sem alertas duplicados | Godot e browser QA |
-| G-MIG | mundos antigos não perdem progressão/registro e modo pessoal permanece válido | fixtures e ensaio de migração reversível |
+| G-MIG | migração ou reset/recriação produz mundo válido, inclusive modo pessoal; dados antigos descartáveis | fixtures locais do caminho escolhido e inicialização/replay da versão vigente |
 | G-VIS | intervenção tem animação polida específica, progresso e resultado material legíveis; feedback sincronizado, testado em mobile e reduced-motion | storyboards V01–V16, dois clientes QA, captura antes/depois, profiling e gates V-G1–V-G12 |
 
 Somente promover uma etapa quando seus gates aplicáveis estiverem verdes com comando real registrado em `Docs/Validation`. Um TODO, teste não executado ou GIF bonito não satisfaz gate.
@@ -29,7 +31,7 @@ Somente promover uma etapa quando seus gates aplicáveis estiverem verdes com co
 - **I-04** Uma decisão obsoleta por `world_revision` é descartada/replanejada; nenhuma dupla atribuição por resposta tardia.
 - **I-05** `core` não importa rede, banco, Godot, Java ou cliente do Jev.
 - **I-06** Falhas de escrita do log não publicam efeitos como concluídos.
-- **I-07** Universo anterior e fingerprint diferente exigem migração explícita; o processo não força reset.
+- **I-07** Fingerprint diferente exige migração explícita ou descarte/recriação do estado; nunca reinterpretar journal incompatível.
 
 **Agentes e população**
 - **I-08** Nenhuma coorte ou NPC importante depende da presença de jogador para trabalhar.
@@ -153,15 +155,17 @@ Somente promover uma etapa quando seus gates aplicáveis estiverem verdes com co
 
 **Falha:** sobreposição/flash, banner repetido, lock de input, perda de objetivo acompanhado.
 
-### QA-11 — Persistência e migração
-1. Criar fixture de journal do formato anterior com quests ativas, dungeons pessoais, genes e NPC legado.
-2. Backup e verificação de hash dos arquivos originais; nunca usar world journal real como alvo de escrita.
-3. Rodar conversor de versão/fingerprint em cópia isolada; reabrir pelo runner novo e conferir personagens/genes/histórico.
-4. Personagem que estava em dungeon precisa de regra explícita para sair, conservar pendências e evitar recompensa duplicada.
-5. Repetir migração e confirmar idempotência ou recusa segura; reverter e restaurar original.
-6. Conferir mundo pessoal WASM e versão de save sem importar journal para o MMORPG.
+**Manutenção dos testes:** substituir expectativas que obriguem conservar saves, runs, genes, progressão, journals ou banco legados por fixtures descartáveis e validação do caminho escolhido. Não remover testes de replay/digest, idempotência, autoridade ou persistência normal da versão vigente. Esta revisão altera a especificação de testes; não modifica testes executáveis.
 
-**Falha:** reset automático, perda de progressão, fingerprint silenciado, arquivo original modificado.
+### QA-11 — Persistência vigente e migração ou reset/recriação
+1. Registrar estratégia, escopo e versão/fingerprint de destino; usar fixtures locais descartáveis.
+2. Para reset/recriação, inicializar mundo, journal e banco de teste vazios com schema/configuração atuais; backup e fixture legada são opcionais.
+3. Confirmar nascimento de personagem, NPCs, conflitos, progressão nova e ausência de referências a runs/IDs descartados ou recompensas duplicadas.
+4. Reiniciar a versão vigente e comparar replay/digest, persistência e idempotência; isso continua obrigatório após um reset.
+5. Se optar por conversão, testar a transformação declarada e repetição idempotente ou recusa segura; não exigir conservação de toda progressão nem restauração do original.
+6. Conferir novo mundo pessoal WASM/save e isolamento em relação ao MMORPG.
+
+**Falha:** estado resultante inválido, fingerprint silenciado, replay divergente na versão vigente ou duplicação de efeitos. Descarte autorizado de dados antigos não é falha.
 
 ### QA-12 — Operação sem cliente e após restart
 1. Iniciar runner no host de QA e desconectar todos os clientes.
@@ -218,7 +222,7 @@ Valores são **eixos de teste**, não capacidade prometida. Não usar 64 cliente
 - `rumor_false_positive` e `belief_correction_delay`.
 - `duplicate_alerts`, `duplicate_rewards`, `unauthorized_adapter_events` (idealmente zero).
 - `jev_prompt_bytes`, `batch_questions`, `jev_timeout`, `fallback_reason`, `jev_cost`.
-- `replay_digest_mismatch` e `migration_data_loss` (**zero tolerância**).
+- `replay_digest_mismatch` na versão vigente e estado inválido após migração/reset (**zero tolerância**). Descarte legado previsto na estratégia não é `migration_data_loss` bloqueante.
 - `visual_false_confirmations` (**zero tolerância**), `duplicate_completion_vfx`, `interaction_visual_latency`, `active_fx_nodes`, `npc_visual_frame_p95`, `npc_telegraph_readability`.
 
 Definir metas quantitativas de latência/CPU/custo depois do baseline real, por classe de hardware. Gate estrito de correção pode ser 100% nos testes determinísticos e zero duplicações, mas nenhuma percentagem de “inteligência correta” é universal sem conjuntos rotulados.
@@ -244,12 +248,12 @@ Registrar número de casos, distribuição, critérios, divergência entre avali
 **NÃO DESLIGAR** `bio_dungeon_panel`, portais e `dungeonTick` do Hospedeiro até confirmar:
 - [ ] jogador tem conflito permanente e objetivo visível ao nascer;
 - [ ] ao menos duas fontes de progressão antes exclusivas de dungeon têm equivalente justo;
-- [ ] migração do journal, dos runs em progresso, dos genes e do modo pessoal testada;
-- [ ] rollback reproduzível numa cópia QA com hash da origem;
+- [ ] caminho escolhido (migração ou reset/recriação) testado, incluindo inicialização do modo pessoal;
+- [ ] recuperação reproduzível em QA por correção/reversão de código ou recriação; backup/restauração de dados opcionais;
 - [ ] duas pessoas participam da mesma crise, sem cena instanciada;
 - [ ] nenhum requisito de `engine/core/dungeon.go` em Valdoria ou outros universos foi alterado inadvertidamente.
 
-Depois da migração, eliminar gradualmente o legado de UI/cliente, nunca com exclusão ampla de código sem busca por referências.
+Depois da substituição validada, com migração ou reset, eliminar gradualmente o legado de UI/cliente, nunca com exclusão ampla de código sem busca por referências.
 
 ## 7. Template de relatório real em Docs/Validation
 
@@ -270,7 +274,7 @@ Depois da migração, eliminar gradualmente o legado de UI/cliente, nunca com ex
 - Visuais / logs sem segredos:
 - Defeitos encontrados e corrigidos:
 - Testes não executados e justificativa:
-- Estado de migração/backup/rollback:
+- Estratégia e resultado de migração ou reset/recriação; backup/restauração opcionais:
 - Pendências e gate aprovado/reprovado:
 ```
 
@@ -290,8 +294,8 @@ A entrega só é considerada completa após todos estes resultados serem observa
 8. A visibilidade e o desmaterializar de NPCs não reiniciam seu trabalho.
 9. Jev 1.13/1.14 (conforme variante vencedora) demonstra valor sobre baseline medido; Jev indisponível não paralisa.
 10. Reiniciar Go QA restaura mesmo mundo, e replay reproduz digest.
-11. Saves legados e modos pessoais passam em migração sem perda.
-12. Nenhum novo portal de dungeon instanciada no loop final, recompensas e progressão preservadas.
+11. Mundo compartilhado e pessoal iniciam válidos após migração ou reset/recriação; saves legados podem ser descartados.
+12. Nenhum novo portal de dungeon instanciada no loop final; recompensas e progressão novas funcionam sem exigir conservação do legado.
 13. Carga documentada, orçamento Jev, alertas mobile e anti-cheat demonstrados.
 14. Documentar a diferença entre serviço realmente 24/7 e simulação pausada quando computador de hospedagem estiver desligado.
 15. Demonstrar animações polidas de transporte de Rubra, patrulha e defesa de Neva, sinais de Dendra, limpeza por macrófago, reparo por plaquetas e suporte de Osteia. Mudanças ambientais, falha/confirmação, reduced-motion, baixa qualidade mobile e sincronização em 2 clientes devem cumprir V-G1–V-G12.
