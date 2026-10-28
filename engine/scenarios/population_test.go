@@ -11,7 +11,7 @@ import (
 // player kind. Used to audit conservation with exact arithmetic.
 func miniUniverse(pops []core.PopulationDef, ents ...core.EntitySeed) core.Universe {
 	return core.Universe{
-		Version: 1, ID: "mini", Name: "mini", Kinds: []string{"lugar", "gente"}, RegionKinds: []string{"lugar"}, PlayerKind: "gente",
+		Version: 1, ID: "mini", Name: "mini", Kinds: []string{"lugar", "gente", "bicho"}, RegionKinds: []string{"lugar"}, PlayerKind: "gente",
 		Perceivers: []string{"gente"}, Predicates: []string{"p"},
 		Player:      core.EntitySeed{ID: "p0", Kind: "gente", Region: "a"},
 		Entities:    append([]core.EntitySeed{{ID: "a", Kind: "lugar"}, {ID: "b", Kind: "lugar"}}, ents...),

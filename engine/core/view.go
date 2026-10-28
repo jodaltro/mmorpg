@@ -31,6 +31,7 @@ type View struct {
 	Codex     []CodexView      `json:"codex,omitempty"`       // the codex of the body
 	Advisor   *AdvisorView     `json:"advisor,omitempty"`     // what the advisor decided for this player (debug)
 	Pops      []PopulationView `json:"populations,omitempty"` // cohorts and their headcount
+	Society   []SocietyView    `json:"society,omitempty"`     // named NPCs at work, their open requests and what they remember of you
 	Conflicts *ConflictView    `json:"conflicts,omitempty"`   // persistent crises, equal for every observer
 }
 
@@ -77,7 +78,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 		return View{}, false
 	}
 	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
-		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer), Lineage: w.lineageViewOf(s, observer), Dungeon: w.dungeonView(s, observer), Vitals: w.vitalsView(s), Explore: w.exploreView(s, observer), Codex: w.codexView(s, observer), Advisor: w.advisorView(s, observer), Pops: w.populationsView(s), Conflicts: w.conflictView(s, observer)}
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer), Lineage: w.lineageViewOf(s, observer), Dungeon: w.dungeonView(s, observer), Vitals: w.vitalsView(s), Explore: w.exploreView(s, observer), Codex: w.codexView(s, observer), Advisor: w.advisorView(s, observer), Pops: w.populationsView(s), Conflicts: w.conflictView(s, observer), Society: w.societyView(s, observer)}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]

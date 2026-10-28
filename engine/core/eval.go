@@ -245,6 +245,31 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 			}
 			ent.Num[e.K] = x
 			s.Entities[id] = ent
+		case "transfer":
+			// Moves what the source really has: nothing is created or lost.
+			from, to := resolve(e.E, b), resolve(e.To, b)
+			src, okS := s.Entities[from]
+			dst, okD := s.Entities[to]
+			if !okS || !okD || from == to {
+				continue
+			}
+			dk := e.V
+			if dk == "" {
+				dk = e.K
+			}
+			n := min(e.D, src.Num[e.K])
+			if e.Min != nil {
+				n = min(n, src.Num[e.K]-*e.Min)
+			}
+			if e.Max != nil {
+				n = min(n, *e.Max-dst.Num[dk])
+			}
+			if n <= 0 {
+				continue
+			}
+			src.Num[e.K] -= n
+			dst.Num[dk] += n
+			s.Entities[from], s.Entities[to] = src, dst
 		case "set":
 			id := resolve(e.E, b)
 			if ent, ok := s.Entities[id]; ok {
@@ -310,6 +335,8 @@ func (w *World) apply(s *State, list []Effect, b Bind, cause string) {
 			s.Seq++
 			s.Schedules = append(s.Schedules, Scheduled{Key: "s" + strconv.FormatInt(s.Seq, 10), Due: s.Tick + e.After, Rule: e.Rule, Bind: maps.Clone(b), Cause: cause})
 			sortSchedules(s.Schedules)
+		case "assist":
+			w.assist(s, self, resolve(e.E, b))
 		case "contribute":
 			w.contribute(s, e.Rule, self, e.K, e.D)
 		case "emit":

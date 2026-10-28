@@ -47,6 +47,10 @@ func TestHospedeiroTellingDendraArmsTheDefense(t *testing.T) {
 	if holds, ok := h.believes("dendra", "assinatura", "virion"); ok && holds {
 		t.Fatal("Dendra cannot know before being told")
 	}
+	// Dendra now makes her rounds: the player tells her when she is back in the blood.
+	for i := 0; i < 40 && h.s.Entities["dendra"].Region != "sangue"; i++ {
+		h.tick(1)
+	}
 	h.mustAct("player", "p1", "contar", map[string]core.ID{"npc": "dendra", "p": "assinatura", "s": "virion"})
 	h.tick(3)
 	if !h.fact("", "defesa-armada", "sangue", "") {

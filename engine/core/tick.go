@@ -59,6 +59,7 @@ func (w *World) tick(s *State, cause string) {
 		}
 	}
 	w.think(s)
+	w.npcTick(s, cause)
 	w.questTick(s, cause)
 	w.mutationTick(s, cause)
 	w.lineageTick(s, cause)

@@ -149,6 +149,11 @@ type State struct {
 	Ledger      map[string]int64         `json:"ledger,omitempty"`    // exogenous sources, sinks and births/deaths
 	Conflicts   map[string]ConflictState `json:"conflicts,omitempty"` // persistent crises by instance id
 	ConflictSeq int64                    `json:"conflictSeq,omitempty"`
+	NPCs        map[ID]NPCState          `json:"npcs,omitempty"` // what each named NPC is doing
+	Helps       map[string]HelpRequest   `json:"helps,omitempty"`
+	HelpSeq     int64                    `json:"helpSeq,omitempty"`
+	Memories    map[ID][]MemoryEpisode   `json:"memories,omitempty"` // each NPC's own memory
+	Reserved    map[string]ID            `json:"reserved,omitempty"` // exclusive task keys and who holds them
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -240,6 +245,9 @@ func (s *State) Clone() State {
 	if s.Conflicts != nil {
 		c.Conflicts = cloneConflicts(s.Conflicts)
 	}
+	if s.NPCs != nil {
+		c.NPCs, c.Helps, c.Memories, c.Reserved = cloneNPCs(s.NPCs), maps.Clone(s.Helps), cloneMemories(s.Memories), maps.Clone(s.Reserved)
+	}
 	c.Marks = slices.Clone(s.Marks)
 	for i := range c.Marks {
 		c.Marks[i].Agree = slices.Clone(c.Marks[i].Agree)
@@ -284,6 +292,9 @@ func NewState(w *World) State {
 	}
 	if len(u.Conflicts) > 0 {
 		s.Conflicts = map[string]ConflictState{}
+	}
+	if len(u.Tasks) > 0 {
+		s.NPCs, s.Helps, s.Memories, s.Reserved = map[ID]NPCState{}, map[string]HelpRequest{}, map[ID][]MemoryEpisode{}, map[string]ID{}
 	}
 	return s
 }

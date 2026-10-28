@@ -56,6 +56,12 @@
  ],
  "entities": [
   {
+   "id": "macra",
+   "kind": "celula",
+   "name": "Macra",
+   "region": "pulmao"
+  },
+  {
    "id": "medula",
    "kind": "tecido",
    "name": "Medula Óssea",
@@ -1578,6 +1584,10 @@
      "k": "carga",
      "d": -6,
      "min": 0
+    },
+    {
+     "op": "assist",
+     "e": "rubra"
     },
     {
      "op": "contribute",
@@ -10310,6 +10320,327 @@
      }
     }
    ]
+  }
+ ],
+ "tasks": [
+  {
+   "id": "transportar-oxigenio",
+   "npc": "rubra",
+   "title": "Levar oxigênio do pulmão aos tecidos",
+   "priority": 5,
+   "when": {
+    "all": [
+     {
+      "num": {
+       "e": "sangue",
+       "k": "oxigenio",
+       "op": "<",
+       "v": 100
+      }
+     },
+     {
+      "num": {
+       "e": "pulmao",
+       "k": "oxigenio",
+       "op": ">=",
+       "v": 75
+      }
+     }
+    ]
+   },
+   "route": [
+    {
+     "region": "coracao",
+     "ticks": 2,
+     "doing": "segue o fluxo até o coração"
+    },
+    {
+     "region": "pulmao",
+     "ticks": 3,
+     "doing": "entra nos capilares do pulmão",
+     "do": [
+      {
+       "op": "transfer",
+       "e": "pulmao",
+       "to": "$self",
+       "k": "oxigenio",
+       "v": "o2",
+       "d": 5,
+       "min": 70,
+       "max": 5
+      }
+     ]
+    },
+    {
+     "region": "coracao",
+     "ticks": 3,
+     "doing": "carrega oxigênio de volta"
+    },
+    {
+     "region": "sangue",
+     "ticks": 2,
+     "doing": "entrega oxigênio aos tecidos",
+     "do": [
+      {
+       "op": "transfer",
+       "e": "$self",
+       "to": "sangue",
+       "k": "o2",
+       "v": "oxigenio",
+       "d": 5,
+       "max": 100
+      }
+     ]
+    }
+   ],
+   "block": {
+    "via": "pulmao",
+    "when": {
+     "num": {
+      "e": "pulmao",
+      "k": "carga",
+      "op": ">=",
+      "v": 20
+     }
+    },
+    "helpAfter": 4,
+    "giveUpAfter": 30,
+    "helpCooldown": 25,
+    "need": "capilares-obstruidos",
+    "say": "{self}: os capilares do pulmão estão obstruídos pela infecção. Preciso de ajuda para abrir caminho."
+   },
+   "cooldown": 3
+  },
+  {
+   "id": "defender-pulmao",
+   "npc": "neva",
+   "title": "Defender o pulmão do foco conhecido",
+   "priority": 8,
+   "when": {
+    "knows": {
+     "p": "foco",
+     "s": "pulmao"
+    }
+   },
+   "reserve": "defesa-pulmao",
+   "route": [
+    {
+     "region": "pulmao",
+     "ticks": 4,
+     "doing": "corre ao foco nos alvéolos",
+     "do": [
+      {
+       "op": "observe",
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     ]
+    },
+    {
+     "region": "pulmao",
+     "ticks": 2,
+     "doing": "investe contra o foco",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "pulmao",
+       "k": "carga",
+       "d": -3,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "pulmao",
+         "k": "carga",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "infeccao-pulmonar",
+       "k": "combate",
+       "d": 2,
+       "if": {
+        "num": {
+         "e": "pulmao",
+         "k": "carga",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "observe",
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     ]
+    },
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "volta à vigilância"
+    }
+   ],
+   "cooldown": 2
+  },
+  {
+   "id": "vigiar-pulmao",
+   "npc": "neva",
+   "title": "Patrulhar a via do pulmão",
+   "priority": 3,
+   "when": {},
+   "route": [
+    {
+     "region": "pulmao",
+     "ticks": 5,
+     "doing": "patrulha os alvéolos",
+     "do": [
+      {
+       "op": "observe",
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     ]
+    },
+    {
+     "region": "sangue",
+     "ticks": 5,
+     "doing": "volta à vigilância do sangue"
+    }
+   ],
+   "cooldown": 10
+  },
+  {
+   "id": "colher-sinais",
+   "npc": "dendra",
+   "title": "Colher sinais do pulmão e avisar a defesa",
+   "priority": 4,
+   "when": {},
+   "route": [
+    {
+     "region": "pulmao",
+     "ticks": 5,
+     "doing": "colhe antígenos nos alvéolos",
+     "do": [
+      {
+       "op": "observe",
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       }
+      }
+     ]
+    },
+    {
+     "region": "sangue",
+     "ticks": 5,
+     "doing": "leva o sinal à defesa",
+     "do": [
+      {
+       "op": "inform",
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       },
+       "to": "neva",
+       "if": {
+        "near": {
+         "a": "$self",
+         "b": "neva"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "sangue",
+     "ticks": 3,
+     "doing": "espera a defesa para avisar",
+     "do": [
+      {
+       "op": "inform",
+       "fact": {
+        "p": "foco",
+        "s": "pulmao"
+       },
+       "to": "neva",
+       "if": {
+        "near": {
+         "a": "$self",
+         "b": "neva"
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "cooldown": 8
+  },
+  {
+   "id": "limpar-alveolos",
+   "npc": "macra",
+   "title": "Fagocitar bactérias e detritos nos alvéolos",
+   "priority": 5,
+   "when": {
+    "num": {
+     "e": "pulmao",
+     "k": "carga",
+     "op": ">",
+     "v": 0
+    }
+   },
+   "route": [
+    {
+     "region": "pulmao",
+     "ticks": 2,
+     "doing": "estende pseudópodes sobre as bactérias",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "pulmao",
+       "k": "carga",
+       "d": -1,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "pulmao",
+         "k": "carga",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "infeccao-pulmonar",
+       "k": "limpeza",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "pulmao",
+         "k": "carga",
+         "op": ">",
+         "v": 0
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "pulmao",
+     "ticks": 2,
+     "doing": "digere o que engoliu"
+    }
+   ],
+   "cooldown": 1
   }
  ]
 }

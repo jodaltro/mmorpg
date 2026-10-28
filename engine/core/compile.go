@@ -25,6 +25,8 @@ type World struct {
 	regions   map[string]bool
 	pops      map[string]PopulationDef
 	conflicts map[string]ConflictDef
+	tasks     map[string]TaskDef
+	npcTasks  map[ID][]TaskDef
 }
 
 var ErrUniverse = errors.New("invalid_universe")
@@ -230,6 +232,9 @@ func Compile(u Universe) (*World, error) {
 		return nil, e
 	}
 	if e := w.compileConflicts(v, ents); e != nil {
+		return nil, e
+	}
+	if e := w.compileTasks(v, ents); e != nil {
 		return nil, e
 	}
 	if e := w.compileEvolution(v); e != nil {
@@ -811,6 +816,23 @@ func (v *validator) effects(list []Effect, vars map[string]bool, where string) e
 		case "schedule":
 			if v.w.rules[e.Rule].ID == "" || e.After < 1 {
 				return invalid("%s: schedule %q", where, e.Rule)
+			}
+		case "transfer":
+			if e.K == "" || e.D < 1 {
+				return invalid("%s: transfer needs key and a positive amount", where)
+			}
+			if err := v.ref(e.E, vars, where); err != nil {
+				return err
+			}
+			if err := v.ref(e.To, vars, where); err != nil {
+				return err
+			}
+		case "assist":
+			if e.E == "" || !vars["self"] {
+				return invalid("%s: assist needs an npc and $self", where)
+			}
+			if err := v.ref(e.E, vars, where); err != nil {
+				return err
 			}
 		case "contribute":
 			if _, ok := v.w.conflicts[e.Rule]; !ok || e.K == "" || e.D < 1 || !vars["self"] {

@@ -80,6 +80,8 @@ type Universe struct {
 	Populations []PopulationDef `json:"populations,omitempty"`
 	// Conflicts: persistent crises of the shared world; see conflict.go.
 	Conflicts []ConflictDef `json:"conflicts,omitempty"`
+	// Tasks: what named NPCs do on their own; see npc.go.
+	Tasks []TaskDef `json:"tasks,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`
 	// VisibleMarks lists predicates that show on the person who carries them
