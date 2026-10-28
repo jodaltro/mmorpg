@@ -174,12 +174,6 @@ func test_chips_and_calls_are_always_there_for_the_player_to_open() -> void:
 	tray.set_call("mutation", "mutation", "Mutação disponível", "3 genes para escolher", "G")
 	assert_true(tray.chip_text("mutation").contains("3 genes"), "the chip says what is waiting, fight or not")
 	tray.clear_call("mutation")
-	var offer := {"key": "q|p1", "state": "offered", "giver": "", "rank": "E", "title": "Calor no capilar", "objective": "Examine o capilar.", "reward": "Reputação +1"}
-	world.sync.system.show_offer(offer, "Neva")
-	assert_true(world.sync.system.is_offer_visible(), "the call card is up as soon as it arrives")
-	assert_true(world.sync.system.offer_text().contains("Neva") and world.sync.system.offer_text().contains("Calor no capilar"), "it says who calls and for what")
-	world.sync.system.hide_offer()
-	assert_true(not world.sync.system.is_offer_visible(), "withdrawn")
 
 
 func test_choices_are_not_held_back_by_a_fight() -> void:

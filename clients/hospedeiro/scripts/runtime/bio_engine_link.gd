@@ -173,18 +173,6 @@ func move_region(new_region: String) -> void:
 		await _command("adapter", "move", {"region": new_region})
 
 
-func accept(quest_key: String) -> Dictionary:
-	return await _command("player", "accept", {"quest": quest_key})
-
-
-func acknowledge_quest(quest_key: String) -> Dictionary:
-	return await act("acknowledge-quest", {"quest":quest_key})
-
-
-func decline(quest_key: String) -> Dictionary:
-	return await _command("player", "decline", {"quest": quest_key})
-
-
 func _command(origin: String, kind: String, extra: Dictionary) -> Dictionary:
 	if base_url.is_empty():
 		return {"status": 0, "body": {}}

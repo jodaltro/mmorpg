@@ -25,17 +25,19 @@ const EFFECT := {
 	"sofrimento-cerebral": "Sem energia e com resíduos, os neurônios sofrem; a glia precisa amparar e limpar.",
 	"tumor-intestinal": "Células alteradas se multiplicam e ocupam o intestino; a massa cresce com a inflamação.",
 }
+## What the player does, in one line: where to go and the gesture that counts. The gesture is always the same family: beat the
+## invaders of that organ (or touch the glowing things that drift in it). Presentation only; the engine decides what counts.
 const NEXT := {
-	"ferida-na-pele": "Vá à pele e defenda as plaquetas dos invasores.",
-	"congestao-esplenica": "Vá ao baço: capture antígenos e ajude Esplena a reciclar.",
-	"sobrecarga-hepatica": "Vá ao fígado: filtre toxinas e ajude Kupffer.",
-	"disbiose-intestinal": "Vá ao intestino: nutra a microbiota e repele invasores.",
-	"infeccao-pulmonar": "Vá aos alvéolos: elimine vírions e ajude Neva, Macra e Rubra.",
-	"medula-esgotada": "Vá ao nicho da medula: leve nutrientes e ajude Osteia; o ferro do baço também repõe a reserva.",
-	"sobrecarga-renal": "Vá ao rim: ajude Nefra a filtrar e alivie o fígado para a ureia parar de chegar.",
-	"reacao-exagerada": "Vá ao linfonodo: proteja Regina e reduza o que inflama o corpo, para a tolerância voltar.",
-	"sofrimento-cerebral": "Vá ao cérebro: ajude Gliana a limpar os resíduos e mantenha o oxigênio do sangue.",
-	"tumor-intestinal": "Vá ao intestino: ajude Nika a destruir as células alteradas antes que a massa cresça.",
+	"ferida-na-pele": "Vá à Pele e derrote os invasores que tentam entrar.",
+	"congestao-esplenica": "Vá ao Baço e toque nas hemácias velhas; derrote os invasores de lá.",
+	"sobrecarga-hepatica": "Vá ao Fígado e toque nas toxinas para filtrá-las.",
+	"disbiose-intestinal": "Vá ao Intestino e toque nas bactérias boas para nutrir a flora.",
+	"infeccao-pulmonar": "Vá ao Pulmão e derrote os invasores dos alvéolos.",
+	"medula-esgotada": "Fique na Medula e absorva nutrientes para nutrir o nicho.",
+	"sobrecarga-renal": "Vá ao Rim e toque nos cristais de ureia para filtrá-los.",
+	"reacao-exagerada": "Vá ao Linfonodo e derrote os invasores de lá para acalmar a reação.",
+	"sofrimento-cerebral": "Vá ao Cérebro e derrote os invasores para amparar os neurônios.",
+	"tumor-intestinal": "Vá ao Intestino e derrote os invasores para ajudar Nika contra o tumor.",
 }
 const NEXT_BY_PHASE := {"contained": "Mantenha o apoio até o tecido se estabilizar.", "recovering": "Falta pouco: deixe as células terminarem o reparo."}
 
@@ -77,6 +79,17 @@ static func filtered(ordered: Array, recent: Array, filter: String) -> Array:
 static func next_filter(filter: String) -> String:
 	var i := FILTERS.find(filter)
 	return FILTERS[(i + 1) % FILTERS.size()]
+
+
+## True when the cell is already where the crisis is.
+static func here(c: Dictionary, player_region: String) -> bool:
+	return str(c.get("region", "")) == player_region
+
+
+## Whether this crisis asks for attention now (active or critical). A calm one needs nothing from the player.
+static func demanding(c: Dictionary) -> bool:
+	var p := str(c.get("phase", ""))
+	return p == "active" or p == "critical"
 
 
 static func organ(c: Dictionary) -> String:

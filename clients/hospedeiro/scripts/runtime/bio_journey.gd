@@ -1,6 +1,6 @@
 class_name BioJourney
 extends CanvasLayer
-## Presentation only: recommendations never grant quests, progress or rewards.
+## Presentation only: recommendations never grant progress or rewards. The first thing it points at is the crisis the body is living.
 var world: BioWorld
 var target := Vector2.ZERO
 var has_target := false
@@ -83,34 +83,11 @@ func gps_label() -> String:
 func recommendation() -> Dictionary:
 	if not _pinned.is_empty():
 		return {"title": _pinned.title, "detail": "Você chegou ao destino. As setas foram encerradas. Volte ao objetivo atual quando quiser." if navigation_state == "arrived" else "Destino marcado no atlas. Siga a rota azul no cenário, mapa ou minimapa; a marca não movimenta sua célula automaticamente.", "at": _pinned.at}
-	var system := world.sync.system
-	if not system._active.is_empty():
-		var q := system._active
-		var result := {"title": str(q.get("title", "Missão ativa")), "detail": str(q.get("objective", q.get("desc", "")))}
-		# Explicit locations for the opening missions; unknown missions retain their real objective.
-		match str(q.get("def", "")):
-			"primeiro-mergulho":
-				result["at"] = BioBodyMap.center_px(BioBodyMap.SANGUE)
-				result["detail"] += " Saia pelo canal à direita da Medula: a sinusoide é o vaso que liga o refúgio ao Sangue. Siga a trilha azul."
-			"vigilia", "caca-no-capilar":
-				result["at"] = BioBodyMap.center_px(BioBodyMap.SANGUE)
-				if world.region == BioBodyMap.SANGUE:
-					var closest := INF
-					for enemy in world.viruses():
-						if not enemy.is_active() or BioBodyMap.region_of(enemy.global_position) != world.region: continue
-						var distance := world.player.global_position.distance_to(enemy.global_position)
-						if distance < closest:
-							closest = distance
-							result["at"] = enemy.global_position
-							result["entity"] = enemy
-			"investigar-inflamacao": result["at"] = BioBodyMap.spot_px("capilar")
-		return result
-	if system.has_offer():
-		var next := {"title": "Responda ao chamado", "detail": "Há uma missão disponível: %s. Abra Missões para ler o objetivo e aceitar o chamado." % str(system._offer.get("title", "Novo chamado"))}
-		match str(system._offer.get("def", "")):
-			"primeiro-mergulho", "vigilia", "caca-no-capilar": next["at"] = BioBodyMap.center_px(BioBodyMap.SANGUE)
-			"investigar-inflamacao": next["at"] = BioBodyMap.spot_px("capilar")
-		return next
+	var crisis := _crisis()
+	if not crisis.is_empty() and BioConflictFocus.demanding(crisis):
+		var organ := BioConflictFocus.organ(crisis)
+		return {"title": "%s · %s" % [str(crisis.get("title", "")), organ], "detail": BioConflictFocus.suggestion(crisis),
+			"at": BioBodyMap.center_px(StringName(str(crisis.get("region", "")))), "crisis": str(crisis.get("id", ""))}
 	if not world.engine_offer.is_empty() or not world.engine_lineage_offer.is_empty():
 		return {"title": "Escolha sua evolução", "detail": "Você já pode desenvolver sua célula. Abra Corpo para escolher genes ou uma classe. Faça isso em segurança, fora de combate."}
 	if world.region == BioBodyMap.MEDULA:
@@ -132,6 +109,13 @@ func recommendation() -> Dictionary:
 				next["entity"] = node
 		return next
 	return {"title": "Proteja o corpo e desenvolva sua célula", "detail": "Ataque os invasores e absorva nutrientes passando sobre eles. Isso aumenta sua pressão evolutiva: acompanhe Corpo para escolher genes e classes. Leia os chamados em Missões. As crises do corpo são abertas a todos; você não precisa aceitar uma missão agora."}
+
+## The crisis the player follows (empty when there is none or the living body is off).
+func _crisis() -> Dictionary:
+	if world.sync == null or world.sync.living_hud == null:
+		return {}
+	return world.sync.living_hud.focus_conflict()
+
 
 func _regions_to(at: Vector2) -> Array[StringName]:
 	var from := world.region
@@ -162,9 +146,7 @@ func waypoint(at: Vector2) -> Dictionary:
 
 func _navigation_source(next: Dictionary) -> String:
 	if not _pinned.is_empty(): return "pin:%d" % _pin_revision
-	var system := world.sync.system
-	if not system._active.is_empty(): return "quest:" + str(system._active.get("key", system._active.get("def", "active")))
-	if system.has_offer(): return "quest:" + str(system._offer.get("key", system._offer.get("def", "offer")))
+	if next.has("crisis"): return "crisis:" + str(next["crisis"])
 	if not next.has("at"): return ""
 	return "intro:blood" if world.region == BioBodyMap.MEDULA else "intro:combat" if str(next.title).begins_with("Derrote") else "intro:food"
 
@@ -180,7 +162,7 @@ func _sync_navigation(next: Dictionary) -> void:
 		return
 	# Non-spatial notifications cannot cancel the last real destination.
 	if not next.has("at"):
-		if source.begins_with("quest:") and source != _source:
+		if source.begins_with("crisis:") and source != _source:
 			clear_destination()
 			_source = source
 		return
@@ -213,9 +195,9 @@ func _objective_completed() -> bool:
 		"intro:blood": return world.region == BioBodyMap.SANGUE
 		"intro:combat": return int(stats.get("abates", _local_kills)) > 0
 		"intro:food": return int(stats.get("nutrientes", _local_food)) >= 5
-	if _source.begins_with("quest:"):
-		for quest in world.sync.link.view.get("quests", []):
-			if str(quest.get("key", "")) == _source.trim_prefix("quest:") and quest.get("state") == "done": return true
+	if _source.begins_with("crisis:"):  # the crisis stopped asking for attention: contained, recovering or over
+		var c := _crisis()
+		return c.is_empty() or str(c.get("id", "")) != _source.trim_prefix("crisis:") or not BioConflictFocus.demanding(c)
 	return false
 
 func _update_position() -> void:
@@ -271,7 +253,7 @@ func open() -> void:
 	_modal.content.add_child(BioUi.wrapped(str(next.detail), 13))
 	if next.has("at") and waypoint(next.at).is_empty():
 		_modal.content.add_child(BioUi.wrapped("O caminho ainda está bloqueado. Aproxime-se da membrana no vaso para consultar a adaptação necessária.", 12, BioUi.WARN))
-	for item in [["Ver missão / chamado", func() -> void: close(); world.sync.system.open_missions()], ["Ver caminho no mapa", func() -> void: close(); world.atlas.toggle()], ["Genes, classe e habilidades", func() -> void: close(); world.body_panel.toggle()]]:
+	for item in [["Ver as crises do corpo", func() -> void: close(); if world.sync.living_hud != null: world.sync.living_hud.toggle_panel()], ["Ver caminho no mapa", func() -> void: close(); world.atlas.toggle()], ["Genes, classe e habilidades", func() -> void: close(); world.body_panel.toggle()]]:
 		var button := BioUi.button(item[0])
 		button.pressed.connect(item[1])
 		_modal.content.add_child(button)

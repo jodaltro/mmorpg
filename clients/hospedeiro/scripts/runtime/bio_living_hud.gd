@@ -50,6 +50,15 @@ func bind(living: BioLivingModel, visual: BioVisualPrefs, tones: BioLivingSound)
 	_build()
 
 
+## The crisis being followed (empty when the body is in balance).
+func focus_conflict() -> Dictionary:
+	var focus := focus_id()
+	for it in model.ordered():
+		if str(it.get("id", "")) == focus:
+			return it
+	return {}
+
+
 func focus_id() -> String:
 	return BioConflictFocus.pick(model.ordered(), model.engine_focus, chosen)
 
@@ -227,7 +236,13 @@ func _rebuild_card() -> void:
 			_card_box.add_child(BioUi.label(headline, _size(12), BioUi.TEXT))
 		var peak := maxf(1.0, float(c.get("peak", 1)))
 		_card_box.add_child(BioUi.gauge(clampf(float(c.get("severity", 0)) / peak, 0.0, 1.0), color, 6.0))
-		_card_box.add_child(_wrap("Próximo passo: " + BioConflictFocus.suggestion(c), _size(12), BioUi.ACCENT, CARD_WIDTH - 30.0))
+		if BioConflictFocus.demanding(c):
+			var where := "Você está no lugar certo." if BioConflictFocus.here(c, player_region) else "Siga a seta até %s." % BioConflictFocus.organ(c)
+			_card_box.add_child(BioUi.label("O QUE FAZER", _size(11), BioUi.MUTED))
+			_card_box.add_child(_wrap(BioConflictFocus.suggestion(c), _size(14), BioUi.ACCENT, CARD_WIDTH - 30.0))
+			_card_box.add_child(_wrap(where, _size(12), BioUi.TEXT, CARD_WIDTH - 30.0))
+		else:
+			_card_box.add_child(_wrap(BioConflictFocus.suggestion(c), _size(12), BioUi.ACCENT, CARD_WIDTH - 30.0))
 		var mine: Variant = c.get("mine")
 		if mine is Dictionary and not (mine as Dictionary).is_empty():
 			var total := 0

@@ -9,7 +9,7 @@ import (
 // A newborn cell is a stranger until it does something; then the stroma
 // invites it to dive into the blood, and entering the blood completes it.
 func TestHospedeiroFirstDiveAfterTheFirstDeed(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	if got := h.s.Entities["p1"].Region; got != "medula" {
 		t.Fatalf("born in %q, want the marrow", got)
@@ -75,14 +75,14 @@ func TestHospedeiroBodyRegulatesItselfWithoutPlayers(t *testing.T) {
 // The first memory is a unique scenario: only one cell deciphers it first,
 // it needs to know the virion's language, and the story moves on for all.
 func TestHospedeiroFirstMemoryIsUnique(t *testing.T) {
-	early := load(t, "hospedeiro")
+	early := load(t, legacyQuests)
 	early.join("p1")
 	early.mustAct("adapter", "p1", "derrotar-virus", nil)
 	if early.act("player", "p1", "ler-codigo", nil) == nil {
 		t.Fatal("the fragment cannot be read before it appears")
 	}
 
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1", "p2")
 	h.tick(26) // the strange code appears at tick 25
 	if h.act("player", "p2", "ler-codigo", nil) == nil {
@@ -120,7 +120,7 @@ func (h *harness) eventKinds(holder core.ID) map[string]int {
 // A hunt quest follows what the player does in combat, and pays in things the
 // player feels: evolutionary pressure and a repair of the cell.
 func TestHospedeiroHuntQuestPaysInEvolutionAndRepair(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	h.move("p1", "sangue")
@@ -148,7 +148,7 @@ func TestHospedeiroHuntQuestPaysInEvolutionAndRepair(t *testing.T) {
 // Evolving is itself something to be asked about, and the veteran reward is a
 // guaranteed mutation (enough pressure to overflow the threshold).
 func TestHospedeiroEvolutionQuestsFollowTheGenome(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	q := h.steer("p1", "primeiro-mergulho")
@@ -172,7 +172,7 @@ func TestHospedeiroEvolutionQuestsFollowTheGenome(t *testing.T) {
 // Dodging is counted by the engine when the game server confirms it, and a
 // quest can ask for it.
 func TestHospedeiroDodgeQuestCountsConfirmedDodges(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	h.move("p1", "sangue")

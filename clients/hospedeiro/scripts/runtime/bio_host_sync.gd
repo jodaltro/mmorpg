@@ -6,7 +6,7 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
-const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "quest-offered", "quest-active", "quest-expired", "quest-obsolete", "quest-withdrawn", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "conflict-reward", "codice", "adaptou", "rota", "design"]
+const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "appearance", "skill-learned", "conflict-reward", "codice", "adaptou", "rota", "design"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
 const TOLD := {
@@ -29,9 +29,6 @@ var _signs := {}  # sign id -> BioSignMarker
 var _names := {}  # entity id -> display name
 var _last_seq := -1
 var _announce_abilities := false  # the first view is history, not news
-## Quests kept in the main interface: the first steps and the story. The rest stay reachable in the missions window, but no longer
-## compete with the living crises for the attention of the player.
-const STORY_QUESTS := ["primeiro-mergulho", "primeiro-gene", "linhagem-definida", "primeira-lembranca", "vigilia"]
 const FOLLOW_SECONDS := 90.0
 
 var prefs: BioVisualPrefs
@@ -42,8 +39,6 @@ var tones: BioLivingSound
 var _follow_npc := ""
 var _follow_region := ""
 var _follow_until := 0.0
-var _quest_receipts: Dictionary = {}
-var _answering_offer := false
 
 ## Behaviour the engine reads to shape the body. It is reported in batches, in the background:
 ## one confirmation per kind per interval, so combat never waits on the network.
@@ -70,9 +65,6 @@ func _ready() -> void:
 		link.configure(_world.engine_url, identity, _world.identity_path)
 		link.capabilities_changed.connect(func(allowed: bool) -> void: _world.hud.set_restart_allowed(allowed))
 	system.tray = _world.tray
-	system.offer_clicked.connect(func(accepted: bool) -> void:
-		if system.is_offer_visible():
-			_answer_offer(accepted))
 	system.menu_chosen.connect(choose)
 	link.region = String(_world.region)
 	link.world_reset_detected.connect(func() -> void: _world.restart_world(false))
@@ -191,8 +183,6 @@ func forget() -> void:
 	_used.clear()
 	_last_seq = -1
 	_announce_abilities = false
-	system.set_active({})
-	system.hide_offer()
 	system.close_menu()
 
 
@@ -202,11 +192,6 @@ func wants_numbers() -> bool:
 
 func _process(delta: float) -> void:
 	_track_behaviour(delta)
-	var calling := system.is_offer_visible() and not BioUi.typing()
-	if Input.is_action_just_pressed("bio_accept") and calling:
-		_answer_offer(true)
-	elif Input.is_action_just_pressed("bio_refuse") and calling:
-		_answer_offer(false)
 	if Input.is_action_just_pressed("bio_interact") and not _world.body_panel.is_open() and not BioUi.typing() and (not BioUi.captures_input() or system.menu_open):
 		if system.menu_open:
 			system.close_menu()
@@ -274,22 +259,6 @@ func choose(index: int) -> void:
 		system.push_feed(str(e.get("text", "")))
 
 
-func _answer_offer(accepted: bool) -> void:
-	if _answering_offer or system.offer_key.is_empty(): return
-	_answering_offer = true
-	var key := system.offer_key
-	var res: Dictionary
-	if accepted:
-		res = await link.accept(key)
-	else:
-		res = await link.decline(key)
-	_answering_offer = false
-	if res.status != 200:
-		system.push_feed("Não foi possível confirmar sua resposta. O chamado continua aqui; tente novamente.")
-	elif system.offer_key == key:
-		system.hide_offer()
-
-
 ## Applies one view from the engine. Public so tests can feed a view without a network.
 func apply_view(view: Dictionary) -> void:
 	system.set_status(true, int(view.get("tick", 0)))
@@ -302,7 +271,6 @@ func apply_view(view: Dictionary) -> void:
 		living_hud.refresh()
 	for o in view.get("others", []):
 		_names[str(o.get("id", ""))] = str(o.get("name", ""))
-	_apply_quests(view.get("quests", []))
 	_apply_residents(view.get("others", []))
 	_apply_signs(view.get("signs", []))
 	_apply_beliefs(view.get("beliefs", []))
@@ -341,35 +309,6 @@ func _apply_skills(skills: Array) -> void:
 			system.push_feed("Nova habilidade: %s." % BioAbilityCatalog.get_ability(id).get("name", id))
 	_announce_abilities = true
 	_world.restore_ability_order()
-
-
-func _apply_quests(quests: Array) -> void:
-	var offered: Dictionary = {}
-	var active: Dictionary = {}
-	for q in quests:
-		if q.get("state", "") in ["offered", "active"] and not bool(q.get("acknowledged", false)):
-			_acknowledge_quest(q)  # the engine is always answered, whatever the interface shows
-		if presenter != null and not STORY_QUESTS.has(str(q.get("def", ""))):
-			continue
-		match q.get("state", ""):
-			"offered":
-				offered = q
-			"active":
-				active = q
-	system.set_active(active)
-	if offered.is_empty():
-		system.hide_offer()
-	elif str(offered.get("key", "")) != system.offer_key:
-		var giver := str(offered.get("giver", ""))
-		system.show_offer(offered, str(_names.get(giver, giver.capitalize())) if not giver.is_empty() else "")
-
-
-func _acknowledge_quest(quest: Dictionary) -> void:
-	var key := str(quest.get("key", ""))
-	if not link.online or key.is_empty() or _quest_receipts.has(key): return
-	_quest_receipts[key] = true
-	await link.acknowledge_quest(key)
-	_quest_receipts.erase(key)  # the next authoritative view confirms receipt; failures retry on polling
 
 
 func _apply_residents(others: Array) -> void:
@@ -439,15 +378,7 @@ func _apply_events(events: Array) -> void:
 	for e in fresh:
 		_last_seq = maxi(_last_seq, int(e.get("seq", 0)))
 		var kind := str(e.get("kind", ""))
-		if kind == "quest-done":
-			system.push_feed("Missão concluída: %s" % e.get("text", ""))
-		elif kind == "quest-failed":
-			system.push_feed("Missão encerrada por falha ou prazo: %s" % e.get("text", ""))
-		elif kind == "beat-lost":
-			system.push_feed("Outro jogador concluiu este cenário único. Veja os próximos chamados: %s" % e.get("text", ""))
-		elif kind in ["quest-expired", "quest-obsolete", "quest-withdrawn"]:
-			system.push_feed("O contexto deste chamado mudou antes da confirmação: %s" % e.get("text", ""))
-		elif not QUIET_EVENTS.has(kind):
+		if not QUIET_EVENTS.has(kind):
 			system.push_feed(str(e.get("text", "")))
 		if first_view:
 			continue  # history before this session: shown, not replayed

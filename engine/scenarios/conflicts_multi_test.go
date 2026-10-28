@@ -157,7 +157,7 @@ func TestPlayersContributeToEveryOrganCrisis(t *testing.T) {
 // body's attention. Neither is dropped, nothing is created from nothing, and
 // the attention choice has a material effect on what an NPC does by default.
 func TestConcurrentCrisesShareTheReserveAndTheBodysAttention(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadUncapped(t, "hospedeiro")
 	h.joinAt("p1", "pulmao")
 	h.joinAt("p2", "pele")
 	h.tick(10)

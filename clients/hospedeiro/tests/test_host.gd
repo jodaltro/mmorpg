@@ -11,25 +11,6 @@ class QuestReceiptLink extends BioEngineLink:
 	func accept(_key: String) -> Dictionary:
 		return {"status":0}
 
-func test_presented_quest_is_acknowledged_and_failed_answer_keeps_the_offer() -> void:
-	var original := world.sync.link
-	var recording := QuestReceiptLink.new()
-	world.sync.add_child(recording)
-	recording.online = true
-	world.sync.link = recording
-	var offer := {"key":"first|p1", "state":"offered", "title":"Travessia", "def":"primeiro-mergulho"}
-	world.sync._apply_quests([offer])
-	assert_eq(recording.receipts, ["first|p1"] as Array[String])
-	world.sync._answer_offer(true)
-	assert_true(world.sync.system.has_offer(), "a network failure cannot dismiss the mission")
-	assert_true(world.sync.system.feed_text().contains("tente novamente"))
-	offer["acknowledged"] = true
-	world.sync._apply_quests([offer])
-	assert_eq(recording.receipts.size(), 1, "confirmed receipts need no more requests")
-	world.sync.link = original
-	recording.queue_free()
-
-
 func before_each() -> void:
 	world = BioWorld.new()
 	world.save_path = ""
@@ -74,21 +55,6 @@ func test_crossing_the_sinusoid_changes_region() -> void:
 func test_viruses_live_in_the_blood() -> void:
 	for v in world.viruses():
 		assert_eq(BioBodyMap.region_of((v as Node2D).global_position), BioBodyMap.SANGUE, "virion spawned in the blood")
-
-
-func test_view_shows_the_call_and_the_residents_of_this_region() -> void:
-	var neva := {"id": "neva", "kind": "celula", "name": "Neva, neutrofila veterana", "region": "sangue"}
-	var offer := {"key": "primeiro-gene|p1", "def": "primeiro-gene", "state": "offered", "giver": "neva", "rank": "E", "title": "Calor no capilar", "objective": "Examine o capilar inflamado.", "reward": "Reputacao +1"}
-	world.sync.apply_view(_view({"others": [neva], "quests": [offer]}))
-	assert_true(world.sync.system.is_offer_visible(), "the call is shown")
-	assert_true(world.sync.system.offer_text().contains("Neva"), "the caller is named")
-	assert_true(world.sync.system.offer_text().contains("Calor no capilar"), "the quest is named")
-	assert_eq(world.sync._residents.size(), 0, "Neva lives in the blood, not shown in the marrow")
-	await _go_to_blood()
-	world.sync.apply_view(_view({"others": [neva], "quests": [offer]}))
-	assert_true(world.sync._residents.has("neva"), "Neva appears once the player is in the blood")
-	world.sync.apply_view(_view({"others": [neva]}))
-	assert_true(not world.sync.system.is_offer_visible(), "the call goes away when the engine withdraws it")
 
 
 func test_fever_follows_what_the_player_knows() -> void:
@@ -236,3 +202,12 @@ func test_class_mutations_are_only_met_by_their_class() -> void:
 			met = met or need == &"macrofago"
 	assert_true(met, "and does meet them")
 	assert_eq(tracker.pressure, 0)
+
+
+func test_view_shows_the_residents_of_this_region() -> void:
+	var neva := {"id": "neva", "kind": "celula", "name": "Neva, neutrofila veterana", "region": "sangue"}
+	world.sync.apply_view(_view({"others": [neva]}))
+	assert_eq(world.sync._residents.size(), 0, "Neva lives in the blood, not shown in the marrow")
+	await _go_to_blood()
+	world.sync.apply_view(_view({"others": [neva]}))
+	assert_true(world.sync._residents.has("neva"), "Neva appears once the player is in the blood")

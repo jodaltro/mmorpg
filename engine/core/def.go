@@ -199,6 +199,17 @@ type Limits struct {
 	// something (any action of the universe): a newcomer is a stranger to the
 	// system as well, and the first window should answer what they did.
 	FirstDeedFirst bool `json:"firstOfferAfterDeed,omitempty"`
+	// MaxLiveConflicts caps how many persistent conflicts ask for attention at
+	// once (0: no cap). A crisis whose trigger holds while the places are taken
+	// waits; the one that has waited longest since it last ended goes first,
+	// then the universe's order. Only a crisis that is active or critical takes
+	// a place: one that is contained or recovering is calm and keeps running
+	// beside the next. LiveConflictPatience (ticks, 0: no limit) frees the place
+	// of a crisis that has stayed demanding for that long, because a crisis can
+	// depend on one that is waiting (an inflammation only an infection's end
+	// lowers) and a full world must never be a stuck world.
+	MaxLiveConflicts     int  `json:"maxLiveConflicts,omitempty"`
+	LiveConflictPatience Tick `json:"liveConflictPatience,omitempty"`
 }
 
 // Pattern addresses a fact. Private facts belong to $self.

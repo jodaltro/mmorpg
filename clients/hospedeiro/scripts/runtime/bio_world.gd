@@ -142,7 +142,9 @@ func build() -> void:
 		if region == BioBodyMap.FIGADO:
 			glycogen_stored.emit()  # in the liver a nutrient is also kept, as glycogen
 		elif region == BioBodyMap.RIM:
-			organ_deed.emit("equilibrar-sal"))  # in the kidney it is salt to be balanced
+			organ_deed.emit("equilibrar-sal")  # in the kidney it is salt to be balanced
+		elif region == BioBodyMap.MEDULA:
+			organ_deed.emit("nutrir-nicho-medular"))  # in the marrow it feeds the niche
 	player.combatant.hit.connect(func(_who: BioCombatant, result: BioHitResult) -> void:
 		if result.outcome == BioActor.HitOutcome.EVADED and not player.combatant.last_hit_was_pvp:
 			add_pressure(BioMutationTracker.EVADE_POINTS)
@@ -552,12 +554,6 @@ func _open_from_chip(key: String) -> void:
 		tray.clear_call(key)
 		body_panel.open(BioBodyPanel.GENES)
 		return
-	if key == "active_quest":
-		sync.system.open_missions()
-		return
-	if key == "quest":
-		sync.system.open_offer()
-		return
 	body_panel.open()
 
 
@@ -925,11 +921,20 @@ func _on_wild_kill(at: Vector2, victim: BioCombatant = null) -> void:
 	if victim != null and is_instance_valid(victim._last_attacker) and victim._last_attacker.get_meta("party_owner", "") == "guest": return
 	add_pressure(BioMutationTracker.KILL_POINTS)
 	virus_destroyed.emit()
+	# Beating the invaders of an organ is how a cell helps the crisis that lives there: one gesture, everywhere.
 	match BioBodyMap.region_of(at):
 		BioBodyMap.BACO:
 			organ_deed.emit("capturar-antigeno")
 		BioBodyMap.INTESTINO:
 			organ_deed.emit("repelir-invasor")
+		BioBodyMap.PULMAO:
+			organ_deed.emit("conter-infeccao-pulmonar")
+		BioBodyMap.PELE:
+			organ_deed.emit("selar-ferida-pele")
+		BioBodyMap.LINFONODO:
+			organ_deed.emit("acalmar-reacao-linfonodo")
+		BioBodyMap.CEREBRO:
+			organ_deed.emit("amparar-neuronios-cerebro")
 
 
 ## A wild thing of an organ (see BioBestiary): counted with the virions, so it is streamed, slowed by fever and paid in pressure alike.

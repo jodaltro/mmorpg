@@ -120,7 +120,7 @@ func TestOrganChains(t *testing.T) {
 // E3: each organ has a unique niche that gives a gene to the first finder only, and a quest that closes on its deeds.
 func TestOrganNichesAreUniqueAndQuestsClose(t *testing.T) {
 	for _, o := range organs {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyQuests)
 		h.join("p1", "p2")
 		h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 		h.mustAct("adapter", "p2", "absorver-nutriente", nil)

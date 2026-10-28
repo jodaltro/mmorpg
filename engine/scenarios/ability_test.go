@@ -59,7 +59,7 @@ func TestEachClassIsBornWithItsStarterAbility(t *testing.T) {
 
 // A class quest grants the second ability as its reward.
 func TestClassQuestGrantsAnAbility(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	h.move("p1", "sangue")
@@ -145,7 +145,7 @@ func TestTheNewClassesHaveTheirProofQuests(t *testing.T) {
 		{"linfoide", "t-regulador", "absorver-nutriente", "sinapse-imunologica", 25},
 	}
 	for _, c := range cases {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyQuests)
 		h.join("p1")
 		h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 		h.move("p1", "sangue")

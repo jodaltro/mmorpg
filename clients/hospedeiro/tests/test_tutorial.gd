@@ -152,16 +152,16 @@ func test_online_practice_replica_preserves_server_confirmation_by_player() -> v
 	assert_true(not replica.is_physics_processing())
 	client.free()
 
-func test_menu_lessons_observe_opened_windows_and_do_not_fake_quests() -> void:
+func test_menu_lessons_observe_opened_windows() -> void:
 	world.tutorial.start()
 	world.tutorial._enter(9)
 	world.tutorial._process(0)
 	assert_true(not world.tutorial._fulfilled)
-	world.sync.system.open_missions()
+	world.sync.living_hud.toggle_panel()
 	world.tutorial._process(0)
 	assert_true(world.tutorial._fulfilled)
 	assert_true(not world.tutorial._card.visible, "reading the real window leaves every button accessible")
-	world.sync.system.close_missions()
+	world.sync.living_hud.close()
 	world.tutorial._enter(10)
 	world.tutorial._process(0)
 	assert_true(not world.tutorial._fulfilled)

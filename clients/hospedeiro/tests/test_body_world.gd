@@ -55,12 +55,12 @@ func test_the_walls_hold_in_the_new_chambers() -> void:
 	assert_true(BioAnatomy.in_body(BioBodyMap.seed_value, world.player.global_position / BioArt.UNIT), "the cell is still inside the body")
 
 
-func test_the_atlas_fills_in_as_the_cell_moves_on() -> void:
-	assert_true(not world.atlas.knows(&"pulmao"), "the lung is unknown")
+func test_the_atlas_has_no_fog_and_the_screen_says_where_the_cell_is() -> void:
+	assert_true(world.atlas.knows(&"pulmao"), "the lung is on the map before the cell goes there")
 	world.player.global_position = BioBodyMap.center_px(BioBodyMap.PULMAO)
 	await tree.create_timer(0.4).timeout
-	assert_true(world.atlas.knows(&"pulmao"), "walking in discovers it")
-	assert_true(world.hud.banner_text().contains("ALVÉOLOS"), "and the screen says where it is")
+	assert_eq(world.region, BioBodyMap.PULMAO, "walking in changes the region")
+	assert_eq(world.sync.system._region.text, str(BioBodyMap.NAMES.get(BioBodyMap.PULMAO)), "and the screen says where the cell is")
 
 
 func test_the_cell_can_cross_from_the_marrow_to_the_aorta_through_the_vessels() -> void:

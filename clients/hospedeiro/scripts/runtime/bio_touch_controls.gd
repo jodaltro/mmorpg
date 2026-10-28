@@ -27,7 +27,7 @@ var fullscreen: BioTouchButton
 var menu: BioTouchButton
 var menu_open := false
 var _drawer: PanelContainer
-var missions_button: Button
+var crises_button: Button
 var restart_button: Button
 var scale_reset: Button
 var _menu_back: ColorRect
@@ -89,14 +89,15 @@ func _ready() -> void:
 	help.add_theme_color_override("font_color",Color(0.65,0.78,0.85))
 	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	interior.add_child(help)
-	missions_button = BioUi.button("Missões")
-	var missions := missions_button
-	missions.position = Vector2(20, 62)
-	missions.size = Vector2(296, 40)
-	missions.pressed.connect(func() -> void:
+	crises_button = BioUi.button("Crises do corpo")
+	var crises := crises_button
+	crises.position = Vector2(20, 62)
+	crises.size = Vector2(296, 40)
+	crises.pressed.connect(func() -> void:
 		close()
-		world.sync.system.open_missions())
-	interior.add_child(missions)
+		if world.sync.living_hud != null:
+			world.sync.living_hud.toggle_panel())
+	interior.add_child(crises)
 	restart_button = BioUi.button("Reiniciar mundo · teste", "danger")
 	var restart := restart_button
 	restart.position = Vector2(20, 114)
@@ -328,8 +329,6 @@ func _process(delta: float) -> void:
 
 
 func _a_window_is_open() -> bool:
-	if world.sync != null and world.sync.system != null and world.sync.system.is_offer_visible():
-		return true
 	for window in [world.body_panel, world.codex_panel, world.atlas, world.vitals_panel]:
 		if window != null and window.is_open():
 			return true

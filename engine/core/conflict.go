@@ -161,7 +161,14 @@ func (w *World) conflictTick(s *State, cause string) {
 	if len(w.U.Conflicts) == 0 {
 		return
 	}
-	for _, def := range w.U.Conflicts {
+	type waiting struct {
+		def  ConflictDef
+		last Tick
+		at   int
+	}
+	var queue []waiting
+	alive := 0
+	for i, def := range w.U.Conflicts {
 		live := ""
 		var last Tick = -1 << 62
 		for _, id := range sortedKeys(s.Conflicts) {
@@ -177,13 +184,48 @@ func (w *World) conflictTick(s *State, cause string) {
 		}
 		if live == "" {
 			if (last < 0 || s.Tick-last >= def.Cooldown) && w.Holds(s, def.Trigger, Bind{}) {
-				w.openConflict(s, def, cause)
+				queue = append(queue, waiting{def, last, i})
 			}
 			continue
 		}
 		w.advanceConflict(s, def, live, cause)
+		if w.takesAPlace(s, s.Conflicts[live]) {
+			alive++
+		}
+	}
+	// The ones whose cause holds open in order of how long they have waited
+	// (never opened first, then the least recently ended), while there is room.
+	limit := w.U.Limits.MaxLiveConflicts
+	if limit > 0 { // without a cap everything opens in the universe's order, as always
+		slices.SortStableFunc(queue, func(a, b waiting) int {
+			if a.last != b.last {
+				if a.last < b.last {
+					return -1
+				}
+				return 1
+			}
+			return a.at - b.at
+		})
+	}
+	for _, q := range queue {
+		if limit > 0 && alive >= limit {
+			break
+		}
+		w.openConflict(s, q.def, cause)
+		alive++
 	}
 	w.attentionTick(s)
+}
+
+// takesAPlace says whether a live conflict counts against the cap: it must be
+// asking for attention (active or critical) and not have kept the place past
+// the universe's patience.
+func (w *World) takesAPlace(s *State, c ConflictState) bool {
+	if c.Phase != PhaseActive && c.Phase != PhaseCritical {
+		return false
+	}
+	p := w.U.Limits.LiveConflictPatience
+	return p == 0 || s.Tick-c.Onset < p
 }
 
 func (w *World) openConflict(s *State, def ConflictDef, cause string) {

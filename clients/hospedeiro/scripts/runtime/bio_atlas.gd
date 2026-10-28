@@ -1,7 +1,8 @@
 class_name BioAtlas
 extends CanvasLayer
-## The atlas of the body (key M): the regions the cell has been to are drawn and named, the ones it has not are only a dim, unnamed
-## outline, the vessels between them are lines, and a marker shows where the cell is. Discovery is remembered between sessions.
+## The atlas of the body (key M): the whole body is drawn and named from the start (a crisis can be anywhere, so the player must
+## always see where to go), the vessels between the regions are lines, a marker shows where the cell is, and every crisis that asks
+## for attention is ringed on its organ with what to do there.
 
 signal discovered(region: StringName)
 signal destination_chosen(at: Vector2, title: String)
@@ -65,9 +66,7 @@ func configure(player: Node2D, body_seed: int, save_path: String) -> void:
 	_go.visible = false
 	_go.pressed.connect(func() -> void: destination_chosen.emit(_selected.at, _selected.title))
 	_info.content.add_child(_go)
-	_load()
-	for id in [BioBodyMap.MEDULA, BioBodyMap.SANGUE]:
-		discover(id)
+	reveal_all()
 
 
 func is_open() -> bool:
@@ -118,10 +117,14 @@ func merge(ids: Array) -> void:
 
 
 func forget_all() -> void:
+	reveal_all()
+
+
+## No fog of war: every region is known from the start.
+func reveal_all() -> void:
 	known.clear()
-	_save()
-	for id in [BioBodyMap.MEDULA, BioBodyMap.SANGUE]:
-		discover(id)
+	for region in BioAnatomy.build(_seed)["regions"]:
+		known.append(StringName(region["id"]))
 
 
 func _process(_delta: float) -> void:
@@ -167,7 +170,7 @@ func _paint() -> void:
 	var scale := minf(frame.size.x / box.size.x, frame.size.y / box.size.y)
 	var offset := frame.position + (frame.size - box.size * scale) * 0.5 - box.position * scale
 	var font := ThemeDB.fallback_font
-	_modal.heading.text = "ATLAS · %d/%d regiões" % [known.size(), (body["regions"] as Array).size()]
+	_modal.heading.text = "ATLAS · o corpo inteiro"
 	var to_screen := func(p: Vector2) -> Vector2: return p * scale + offset
 	for loop in body["loops"]:  # the whole body is one membrane: its shape is always there, only dim where the cell has not been
 		var shape := PackedVector2Array()
@@ -207,6 +210,7 @@ func _paint() -> void:
 			_hits.append({"screen": at, "at": region["center"] * BioArt.UNIT, "title": place_title(region), "detail": "Medula · refúgio sem invasores. Treine e conheça Estroma, o NPC dourado." if region["id"] == BioBodyMap.MEDULA else "Sangue · primeira área de combate. Ataque vírions e absorva nutrientes para evoluir." if region["id"] == BioBodyMap.SANGUE else str(region["name"]) + " · região do corpo. Siga os vasos para chegar; membranas podem exigir adaptação."})
 	var world := _player.get_parent() as BioWorld if is_instance_valid(_player) else null
 	if world != null:
+		_paint_crises(world, body, to_screen, font)
 		if world.journey != null and world.journey.has_target:
 			var gps := PackedVector2Array()
 			for point in world.journey.navigation_path(): gps.append(to_screen.call(point / BioArt.UNIT))
@@ -216,7 +220,7 @@ func _paint() -> void:
 			var end: Vector2 = to_screen.call(world.journey.goal / BioArt.UNIT)
 			_panel.draw_circle(end, 7, BioUi.BG)
 			_panel.draw_arc(end, 7, 0, TAU, 32, BioUi.ACCENT, 2, true)
-	_legend.text = "● Você · ○ Região · Linha azul: GPS\nToque em um local para ver detalhes e marcar destino."
+	_legend.text = "● Você · ◎ Crise que pede ajuda · Linha azul: GPS\nToque em um local para ver detalhes e marcar destino."
 	if world != null and world.journey != null and world.journey.navigation_state != "none":
 		_legend.text += "\nGPS · " + world.journey.gps_label()
 	if is_instance_valid(_player):
@@ -224,6 +228,27 @@ func _paint() -> void:
 		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)
 		_panel.draw_circle(at, 9.0 + 4.0 * pulse, Color(0.2, 0.9, 1.0, 0.25))
 		_panel.draw_circle(at, 5.0, Color(0.7, 1.0, 1.0, 0.95))
+
+## A ring on the organ of every crisis that asks for attention, named, with what to do there when it is tapped.
+func _paint_crises(world: BioWorld, body: Dictionary, to_screen: Callable, font: Font) -> void:
+	if world.sync == null or world.sync.presenter == null:
+		return
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)
+	var focus := world.sync.living_hud.focus_id() if world.sync.living_hud != null else ""
+	for c in world.sync.presenter.model.ordered():
+		if not BioConflictFocus.demanding(c):
+			continue
+		for region in body["regions"]:
+			if str(region["id"]) != str(c.get("region", "")):
+				continue
+			var at: Vector2 = to_screen.call(region["center"])
+			var color: Color = BioConflictFocus.PHASE_COLOR.get(str(c.get("phase", "")), Color.WHITE)
+			var big := str(c.get("id", "")) == focus
+			_panel.draw_arc(at, (20.0 if big else 15.0) + 4.0 * pulse, 0.0, TAU, 32, color, 3.0 if big else 2.0, true)
+			_panel.draw_string(font, at + Vector2(24, -6), str(c.get("title", "")), HORIZONTAL_ALIGNMENT_LEFT, 220, 12, color)
+			_hits.append({"screen": at, "at": region["center"] * BioArt.UNIT, "title": "%s · %s" % [str(c.get("title", "")), BioConflictFocus.organ(c)],
+				"detail": "%s\n\nO QUE FAZER: %s" % [BioConflictFocus.effect(c), BioConflictFocus.suggestion(c)]})
+
 
 static func place_title(region: Dictionary) -> String:
 	if region["id"] == BioBodyMap.MEDULA: return "MEDULA · REFÚGIO"

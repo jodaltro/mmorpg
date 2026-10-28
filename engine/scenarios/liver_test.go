@@ -65,7 +65,7 @@ func TestHospedeiroLiverKeepsSugarAndPilesToxins(t *testing.T) {
 
 // E3: the crypt of Kupffer is unique and hands over the peroxisomes; the liver quests close on the deeds.
 func TestHospedeiroKupfferCryptAndLiverQuest(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1", "p2")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil) // the first deed unlocks offers
 	h.mustAct("adapter", "p2", "absorver-nutriente", nil)

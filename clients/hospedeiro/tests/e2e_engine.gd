@@ -32,19 +32,7 @@ func _run() -> void:
 		return _fail("nutrient confirmed to the engine")
 	_step("nutrient absorbed and confirmed")
 
-	if not await _until(func() -> bool: return world.sync.system.offer_key.begins_with("primeiro-mergulho"), 30.0):
-		return _fail("the stroma calls (offer primeiro-mergulho)")
-	_step("offer shown: %s" % world.sync.system.offer_text().get_slice("\n", 1))
-	await _shot("e2e_01_offer")
-	world.sync._answer_offer(true)
-	if not await _until(func() -> bool: return _quest_state("primeiro-mergulho") == "active", 10.0):
-		return _fail("quest accepted")
-	_step("quest accepted")
-
 	world.player.global_position = BioBodyMap.center_px(BioBodyMap.SANGUE)
-	if not await _until(func() -> bool: return _quest_state("primeiro-mergulho") == "done", 15.0):
-		return _fail("diving into the blood completes the quest")
-	_step("entered the blood: quest done")
 	await _shot("e2e_02_blood")
 
 	world.virus_destroyed.emit()  # as the combat server would after a kill
@@ -138,13 +126,6 @@ func _run() -> void:
 
 func _self_num() -> Dictionary:
 	return world.sync.link.view.get("self", {}).get("num", {})
-
-
-func _quest_state(def: String) -> String:
-	for q in world.sync.link.view.get("quests", []):
-		if str(q.get("def", "")) == def:
-			return str(q.get("state", ""))
-	return ""
 
 
 func _believes(p: String, s: String) -> bool:

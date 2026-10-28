@@ -2113,6 +2113,163 @@
   }
  ],
  "actions": [
+  {
+   "id": "acalmar-reacao-linfonodo",
+   "title": "Acalmar a reação do linfonodo",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "num": {
+       "e": "linfonodo",
+       "k": "tolerancia",
+       "op": "<",
+       "v": 100
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 3,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "rule": "reacao-exagerada",
+     "k": "regulacao",
+     "d": 2
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "amparar-neuronios-cerebro",
+   "title": "Amparar os neurônios",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "num": {
+       "e": "cerebro",
+       "k": "energia",
+       "op": "<",
+       "v": 100
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 2,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "rule": "sofrimento-cerebral",
+     "k": "amparo",
+     "d": 2
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    }
+   ]
+  },
+  {
+   "id": "nutrir-nicho-medular",
+   "title": "Nutrir o nicho da medula",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "num": {
+       "e": "medula",
+       "k": "reserva",
+       "op": "<",
+       "v": 100
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 2,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "rule": "medula-esgotada",
+     "k": "nutricao",
+     "d": 2
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 1
+    }
+   ]
+  },
    {
     "id": "selar-ferida-pele",
     "title": "Selar a ferida da pele",
@@ -3077,6 +3234,8 @@
     "endure"
    ],
    "effects": [
+   {"op": "adjust", "e": "tumor", "k": "massa", "d": -2, "min": 0, "if": {"num": {"e": "tumor", "k": "massa", "op": ">", "v": 0}}},
+   {"op": "contribute", "rule": "tumor-intestinal", "k": "citotoxicidade", "d": 2, "if": {"num": {"e": "tumor", "k": "massa", "op": ">", "v": 0}}},
     {
      "op": "adjust",
      "e": "intestino",
@@ -3368,2455 +3527,6 @@
    "met": "{from} comenta sobre uma célula-tronco nova."
   }
  },
- "arcs": [
-  {
-   "id": "reescrita",
-   "title": "A Reescrita",
-   "start": "lembranca",
-   "beats": [
-    {
-     "id": "lembranca",
-     "title": "Cenário Único: A Primeira Lembrança",
-     "unique": true,
-     "desc": "Decifrar o fragmento de código que surgiu no nicho da medula.",
-     "opens": {
-      "fact": {
-       "p": "codigo-estranho",
-       "s": "medula"
-      }
-     },
-     "goal": {
-      "fact": {
-       "p": "leu-codigo",
-       "s": "$self",
-       "o": "medula",
-       "private": true
-      }
-     },
-     "claim": [
-      {
-       "op": "assert",
-       "fact": {
-        "p": "reescrita-revelada",
-        "s": "medula"
-       }
-      },
-      {
-       "op": "set",
-       "e": "$self",
-       "k": "title",
-       "v": "Primeira Lembrança"
-      },
-      {
-       "op": "adjust",
-       "e": "$self",
-       "k": "reputacao",
-       "d": 5
-      },
-      {
-       "op": "emit",
-       "event": "revelacao",
-       "public": true,
-       "text": "{self} decifrou o código estranho: algo está reescrevendo o Hospedeiro.",
-       "reveals": {
-        "p": "reescrita-revelada",
-        "s": "medula"
-       }
-      },
-      {
-       "op": "adjust",
-       "e": "$self",
-       "k": "pressao",
-       "d": 10
-      },
-      {
-       "op": "adjust",
-       "e": "$self",
-       "k": "maturidade",
-       "d": 8
-      }
-     ],
-     "rival": [
-      {
-       "op": "assert",
-       "fact": {
-        "p": "viu-codigo",
-        "s": "$self",
-        "o": "medula",
-        "private": true
-       }
-      },
-      {
-       "op": "adjust",
-       "e": "$self",
-       "k": "reputacao",
-       "d": 1
-      },
-      {
-       "op": "emit",
-       "event": "rival",
-       "text": "{claimant} decifrou o código antes de você, mas você viu o mesmo fragmento."
-      },
-      {
-       "op": "adjust",
-       "e": "$self",
-       "k": "pressao",
-       "d": 5
-      }
-     ],
-     "next": [
-      "vigilia"
-     ]
-    },
-    {
-     "id": "vigilia",
-     "title": "Capítulo: Vigília no Sangue",
-     "desc": "Toda célula que sabe da Reescrita patrulha o sangue.",
-     "opens": {
-      "fact": {
-       "p": "reescrita-revelada",
-       "s": "medula"
-      }
-     },
-     "goal": {
-      "fact": {
-       "p": "vigiou",
-       "s": "$self",
-       "o": "sangue",
-       "private": true
-      }
-     },
-     "advanceWhen": {
-      "num": {
-       "e": "medula",
-       "k": "vigias",
-       "op": ">=",
-       "v": 3
-      }
-     }
-    }
-   ]
-  }
- ],
- "quests": [
-  {
-   "id": "primeiro-mergulho",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "O primeiro mergulho",
-   "desc": "Osteia acha que você está pronta para deixar o nicho.",
-   "objective": "Atravesse a sinusoide e entre na corrente sanguínea.",
-   "reward": "Pressão evolutiva +4 e uma chuva de nutrientes · Gene permanente: Núcleo Reativo (Corpo → Genes)",
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "$self",
-       "k": "mergulhos",
-       "op": "<",
-       "v": 1
-      }
-     },
-     {
-      "in": {
-       "e": "$self",
-       "region": "medula"
-      }
-     }
-    ]
-   },
-   "goal": {
-    "in": {
-     "e": "$self",
-     "region": "sangue"
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 4,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "emit",
-     "event": "bonus-nutrientes",
-     "text": "Recompensa: uma chuva de nutrientes cai ao seu redor."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "mergulhos",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 4,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "nucleo-reativo"
-    }
-   ],
-   "tags": [
-    "explore"
-   ]
-  },
-  {
-   "id": "primeiro-gene",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "O primeiro gene",
-   "desc": "Osteia sente que seu corpo está pronto para mudar.",
-   "objective": "Expresse seu primeiro gene: escolha uma mutação quando a pressão evolutiva estourar (derrote vírions e absorva nutrientes).",
-   "reward": "Pressão evolutiva +3 e reparo da célula",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "$self",
-       "k": "mergulhos",
-       "op": ">=",
-       "v": 1
-      }
-     },
-     {
-      "deeds": {
-       "action": "evoluir",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "evoluir",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "emit",
-     "event": "bonus-reparo",
-     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "investigar-inflamacao",
-   "giver": "neva",
-   "rank": "E",
-   "title": "Calor no capilar",
-   "desc": "Neva sente o sangue esquentando e quer saber por que.",
-   "objective": "Examine o capilar inflamado e descubra o que acontece.",
-   "reward": "Pressão evolutiva +3 e reparo da célula",
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "sangue",
-       "k": "carga",
-       "op": ">",
-       "v": 0
-      }
-     },
-     {
-      "not": {
-       "knows": {
-        "p": "foco",
-        "s": "sangue"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "knows": {
-     "p": "foco",
-     "s": "sangue"
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "emit",
-     "event": "bonus-reparo",
-     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
-    },
-    {
-     "op": "relate",
-     "e": "neva",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ],
-   "tags": [
-    "knowledge"
-   ]
-  },
-  {
-   "id": "caca-no-capilar",
-   "giver": "neva",
-   "rank": "E",
-   "title": "Caça no capilar",
-   "desc": "Neva precisa de mais células que saibam lutar.",
-   "objective": "Destrua 5 vírions no sangue.",
-   "reward": "Pressão evolutiva +5 e reparo da célula · Gene permanente: Vesícula Tóxica (Corpo → Genes)",
-   "tags": [
-    "combat"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "$self",
-       "k": "abates",
-       "op": "<",
-       "v": 5
-      }
-     },
-     {
-      "fact": {
-       "p": "foco",
-       "s": "sangue"
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "abates",
-     "op": ">=",
-     "v": 5
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "emit",
-     "event": "bonus-reparo",
-     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
-    },
-    {
-     "op": "relate",
-     "e": "neva",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "vesicula-toxica"
-    }
-   ]
-  },
-  {
-   "id": "banquete",
-   "giver": "rubra",
-   "rank": "E",
-   "title": "Banquete no sangue",
-   "desc": "Rubra carrega glicose o dia todo e quer ver alguém aproveitá-la.",
-   "objective": "Absorva 12 nutrientes.",
-   "reward": "Pressão evolutiva +4 e uma chuva de nutrientes",
-   "tags": [
-    "metabolism"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "$self",
-       "k": "nutrientes",
-       "op": "<",
-       "v": 12
-      }
-     },
-     {
-      "num": {
-       "e": "$self",
-       "k": "mergulhos",
-       "op": ">=",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "nutrientes",
-     "op": ">=",
-     "v": 12
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 4,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "emit",
-     "event": "bonus-nutrientes",
-     "text": "Recompensa: uma chuva de nutrientes cai ao seu redor."
-    },
-    {
-     "op": "relate",
-     "e": "rubra",
-     "to": "$self",
-     "d": 2,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 4,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "conter-infeccao",
-   "giver": "neva",
-   "rank": "D",
-   "title": "Conter a infecção",
-   "desc": "O foco está crescendo. Neva precisa de quem lute.",
-   "objective": "Destrua vírions no sangue até a carga viral cair abaixo de 10.",
-   "reward": "Pressão evolutiva +6 e reparo da célula · Gene permanente: Flagelo Calejado (Corpo → Genes)",
-   "eligible": {
-    "all": [
-     {
-      "knows": {
-       "p": "foco",
-       "s": "sangue"
-      }
-     },
-     {
-      "num": {
-       "e": "sangue",
-       "k": "carga",
-       "op": ">=",
-       "v": 10
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "sangue",
-     "k": "carga",
-     "op": "<",
-     "v": 10
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 6,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "emit",
-     "event": "bonus-reparo",
-     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
-    },
-    {
-     "op": "relate",
-     "e": "neva",
-     "to": "$self",
-     "d": 2,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 6,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "flagelo-calejado"
-    }
-   ],
-   "tags": [
-    "combat"
-   ]
-  },
-  {
-   "id": "rosto-do-inimigo",
-   "giver": "dendra",
-   "rank": "D",
-   "title": "O rosto do inimigo",
-   "desc": "Dendra pode ensinar as defesas a reconhecer o vírion, se alguem contar a ela como ele e.",
-   "objective": "Conte a Dendra o que você aprendeu sobre o Vírion Espinhoso.",
-   "reward": "Pressão evolutiva +6: o corpo aprende o rosto do inimigo",
-   "eligible": {
-    "all": [
-     {
-      "knows": {
-       "p": "assinatura",
-       "s": "virion"
-      }
-     },
-     {
-      "not": {
-       "knows": {
-        "who": "dendra",
-        "p": "assinatura",
-        "s": "virion"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "knows": {
-     "who": "dendra",
-     "p": "assinatura",
-     "s": "virion"
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 6,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "dendra",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 6,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ],
-   "tags": [
-    "knowledge"
-   ]
-  },
-  {
-   "id": "dancar-com-o-perigo",
-   "giver": "neva",
-   "rank": "D",
-   "title": "Dançar com o perigo",
-   "desc": "Quem aprende a esquivar dos virions sobrevive às infecções longas.",
-   "objective": "Esquive de 3 golpes no último instante (use o impulso quando o vírion brilhar).",
-   "reward": "Pressão evolutiva +6",
-   "tags": [
-    "endure"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "$self",
-       "k": "abates",
-       "op": ">=",
-       "v": 3
-      }
-     },
-     {
-      "num": {
-       "e": "$self",
-       "k": "esquivas",
-       "op": "<",
-       "v": 3
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "esquivas",
-     "op": ">=",
-     "v": 3
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 6,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "neva",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 6,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "cacador-veterano",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Caçador veterano",
-   "desc": "Neva acha que você já provou seu valor e quer ver até onde vai.",
-   "objective": "Destrua 20 vírions no total.",
-   "reward": "Uma mutação garantida (pressão +10) e o título Caçador de Vírions",
-   "tags": [
-    "combat"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "num": {
-       "e": "$self",
-       "k": "abates",
-       "op": ">=",
-       "v": 8
-      }
-     },
-     {
-      "num": {
-       "e": "$self",
-       "k": "abates",
-       "op": "<",
-       "v": 20
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "abates",
-     "op": ">=",
-     "v": 20
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "set",
-     "e": "$self",
-     "k": "title",
-     "v": "Caçador de Vírions"
-    },
-    {
-     "op": "emit",
-     "event": "bonus-reparo",
-     "text": "Recompensa: sua membrana se regenera por completo e o ATP volta ao máximo."
-    },
-    {
-     "op": "relate",
-     "e": "neva",
-     "to": "$self",
-     "d": 2,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 10,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "linhagem-definida",
-   "giver": "dendra",
-   "rank": "C",
-   "title": "Linhagem definida",
-   "desc": "Dendra estuda como cada célula escolhe o seu caminho.",
-   "objective": "Expresse 3 genes: o corpo só se define depois de várias escolhas.",
-   "reward": "Uma mutação garantida (pressão +10) e o título Linhagem Definida",
-   "tags": [
-    "knowledge"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "deeds": {
-       "action": "evoluir",
-       "op": ">=",
-       "v": 1
-      }
-     },
-     {
-      "deeds": {
-       "action": "evoluir",
-       "op": "<",
-       "v": 3
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "evoluir",
-     "op": ">=",
-     "v": 3
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "set",
-     "e": "$self",
-     "k": "title",
-     "v": "Linhagem Definida"
-    },
-    {
-     "op": "relate",
-     "e": "dendra",
-     "to": "$self",
-     "d": 2,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 10,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "primeira-lembranca",
-   "arc": "reescrita",
-   "beat": "lembranca",
-   "rank": "S",
-   "title": "Cenário Único: A Primeira Lembrança",
-   "desc": "Decifre o fragmento de código no nicho antes de qualquer outra célula.",
-   "objective": "Examine o brilho no nicho da medula e decifre o fragmento. Para ler a língua dele, você precisa conhecer o vírion.",
-   "reward": "Título Primeira Lembrança e uma mutação garantida (quem chegar depois ganha pressão +5)",
-   "eligible": {},
-   "goal": {
-    "fact": {
-     "p": "leu-codigo",
-     "s": "$self",
-     "o": "medula",
-     "private": true
-    }
-   }
-  },
-  {
-   "id": "vigilia",
-   "arc": "reescrita",
-   "beat": "vigilia",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Vigília no Sangue",
-   "desc": "Agora que se sabe da Reescrita, cada vírion pode carregar um pedaco do código.",
-   "objective": "Destrua um vírion no sangue.",
-   "reward": "Pressão evolutiva +5",
-   "eligible": {},
-   "goal": {
-    "fact": {
-     "p": "vigiou",
-     "s": "$self",
-     "o": "sangue",
-     "private": true
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "prova-macrofago",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Prova do Devorador",
-   "desc": "Quem se diferencia aprende com a prática. Onda de Pseudópodes espera por você.",
-   "objective": "Após a diferenciação, absorva 40 nutrientes: um macrófago se prova comendo.",
-   "reward": "A habilidade Onda de Pseudópodes e pressão evolutiva +5 · Gene permanente: Fagossomo Profundo (Corpo → Genes)",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "macrofago"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "onda-de-pseudopodes"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-macrofago-feitos",
-     "op": ">=",
-     "v": 40
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "onda-de-pseudopodes"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "fagossomo-profundo"
-    }
-   ]
-  },
-  {
-   "id": "prova-neutrofilo",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Prova do Armadilheiro",
-   "desc": "Quem se diferencia aprende com a prática. Explosão Neutrofílica espera por você.",
-   "objective": "Após a diferenciação, esquive de 8 golpes: o neutrófilo vive de não ser atingido.",
-   "reward": "A habilidade Explosão Neutrofílica e pressão evolutiva +5 · Gene permanente: Degranulação Tóxica (Corpo → Genes)",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "neutrofilo"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "explosao-neutrofilica"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-neutrofilo-feitos",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "explosao-neutrofilica"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "degranulacao-toxica"
-    }
-   ]
-  },
-  {
-   "id": "prova-dendritica",
-   "giver": "dendra",
-   "rank": "C",
-   "title": "Prova da Cartógrafa",
-   "desc": "Quem se diferencia aprende com a prática. Dendritos em Chicote espera por você.",
-   "objective": "Após a diferenciação, colha 30 nutrientes: a dendrítica aprende o que prova.",
-   "reward": "A habilidade Dendritos em Chicote e pressão evolutiva +5 · Gene permanente: Dendritos Sensores (Corpo → Genes)",
-   "tags": [
-    "knowledge",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "dendritica"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "dendritos-em-chicote"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-dendritica-feitos",
-     "op": ">=",
-     "v": 30
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "dendritos-em-chicote"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "dendritos-sensores"
-    }
-   ]
-  },
-  {
-   "id": "prova-linfocito-b",
-   "giver": "dendra",
-   "rank": "C",
-   "title": "Prova do Anticorpomante",
-   "desc": "Quem se diferencia aprende com a prática. Complemento espera por você.",
-   "objective": "Após a diferenciação, dispare 20 vezes: um linfócito B aprende atirando.",
-   "reward": "A habilidade Complemento e pressão evolutiva +5 · Gene permanente: Anticorpos em Y (Corpo → Genes)",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "linfocito-b"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "complemento"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "uso-toxina",
-     "op": ">=",
-     "v": 20
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "complemento"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "anticorpos-em-y"
-    }
-   ]
-  },
-  {
-   "id": "prova-t-citotoxico",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Prova do Executor",
-   "desc": "Quem se diferencia aprende com a prática. Salto Letal espera por você.",
-   "objective": "Após a diferenciação, chegue a 120 invasores destruídos: um T citotóxico se prova eliminando o que o corpo já marcou.",
-   "reward": "A habilidade Salto Letal e pressão evolutiva +5 · Gene permanente: Granzima B (Corpo → Genes)",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-citotoxico"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "salto-letal"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-t-citotoxico-feitos",
-     "op": ">=",
-     "v": 120
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "salto-letal"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "granzima-b"
-    }
-   ]
-  },
-  {
-   "id": "prova-t-auxiliar",
-   "giver": "rubra",
-   "rank": "C",
-   "title": "Prova do Maestro",
-   "desc": "Quem se diferencia aprende com a prática. Chamado aos Auxiliares espera por você.",
-   "objective": "Após a diferenciação, colha 25 nutrientes: o maestro rege o que alimenta.",
-   "reward": "A habilidade Chamado aos Auxiliares e pressão evolutiva +5 · Gene permanente: Interleucina 2 (Corpo → Genes)",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-auxiliar"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "chamado-aos-auxiliares"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-t-auxiliar-feitos",
-     "op": ">=",
-     "v": 25
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "chamado-aos-auxiliares"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "interleucina-2"
-    }
-   ]
-  },
-  {
-   "id": "rastro-nicho-estroma",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Bolsa do estroma",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Bolsa do estroma e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "nicho-estroma"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:nicho-estroma",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:nicho-estroma",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "rastro-bolsa-da-venula",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Bolsa da vênula",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Bolsa da vênula e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "bolsa-da-venula"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:bolsa-da-venula",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:bolsa-da-venula",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "rastro-recesso-do-atrio",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Recesso do átrio",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Recesso do átrio e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "recesso-do-atrio"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:recesso-do-atrio",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:recesso-do-atrio",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "rastro-gruta-alveolar",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Gruta alveolar",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Gruta alveolar e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "gruta-alveolar"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:gruta-alveolar",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:gruta-alveolar",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "rastro-valva-aortica",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Seio da valva aórtica",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Seio da valva aórtica e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "valva-aortica"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:valva-aortica",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:valva-aortica",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "rastro-sonho-da-medula",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Câmara do sono",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Câmara do sono e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "sonho-da-medula"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:sonho-da-medula",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:sonho-da-medula",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "rastro-calor-do-alveolo",
-   "giver": "estroma",
-   "rank": "F",
-   "title": "Rastro: Alvéolo em brasa",
-   "desc": "Osteia segue um fio químico que leva a um recanto do corpo que você ainda não viu.",
-   "objective": "Siga o rastro químico até Alvéolo em brasa e entre.",
-   "reward": "Pressão evolutiva +2 e a gratidão de Osteia",
-   "tags": [
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "rota",
-       "v": "calor-do-alveolo"
-      }
-     },
-     {
-      "deeds": {
-       "action": "nicho:calor-do-alveolo",
-       "op": "<",
-       "v": 1
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nicho:calor-do-alveolo",
-     "op": ">=",
-     "v": 1
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ]
-  },
-  {
-   "id": "guardar-a-reserva",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "Guardar a reserva",
-   "desc": "Osteia explica: o que o sangue não gasta, o fígado guarda.",
-   "objective": "No fígado, absorva 8 nutrientes: o glicogênio guardado sustenta o corpo quando a glicose cai.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "figado",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "guardar-glicogenio",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "guardar-glicogenio",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "figado-limpo",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "Fígado limpo",
-   "desc": "Osteia teme o que o fígado acumula: toxina demais vira inflamação.",
-   "objective": "Filtre 8 toxinas nos sinusoides, antes que o corpo inflame.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "figado",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "filtrar-toxina",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "filtrar-toxina",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "polpa-limpa",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "Polpa limpa",
-   "desc": "Osteia explica: o baço desfaz as hemácias velhas e devolve o ferro à medula.",
-   "objective": "Na polpa vermelha, recicle 8 hemácias velhas antes que o baço congestione.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "baco",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "reciclar-hemacia",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "reciclar-hemacia",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "mostrar-o-inimigo",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "Mostrar o inimigo",
-   "desc": "Osteia insiste: sem antígeno apresentado, a defesa não sabe quem é o inimigo.",
-   "objective": "No baço, capture 8 antígenos: é assim que os linfócitos aprendem quem atacar.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "baco",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "capturar-antigeno",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "capturar-antigeno",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "jardim-do-intestino",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "O jardim do intestino",
-   "desc": "Osteia explica: as bactérias boas ocupam o lugar das ruins e treinam a defesa.",
-   "objective": "No intestino, nutra a microbiota 8 vezes: ela é a primeira defesa da parede.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "intestino",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "nutrir-microbiota",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "nutrir-microbiota",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "guarda-da-parede",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "Guarda da parede",
-   "desc": "Osteia teme o que entra com a comida: sem guarda, a parede deixa passar.",
-   "objective": "Repila 8 invasores na parede do intestino, antes que a microbiota se desfaça.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "intestino",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "repelir-invasor",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "repelir-invasor",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "filtro-do-corpo",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "O filtro do corpo",
-   "desc": "Osteia explica: o fígado transforma o que envenena em ureia, e só o rim a tira do sangue.",
-   "objective": "No rim, filtre 8 cristais de ureia antes que a pressão suba.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "rim",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "filtrar-ureia",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "filtrar-ureia",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "sal-na-medida",
-   "giver": "estroma",
-   "rank": "E",
-   "title": "Sal na medida",
-   "desc": "Osteia lembra: quem controla o sal controla a pressão.",
-   "objective": "Equilibre o sal do rim 8 vezes: sal demais prende água e aperta as artérias.",
-   "reward": "Pressão evolutiva +3",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "fact": {
-       "p": "visitou",
-       "s": "$self",
-       "o": "rim",
-       "private": true
-      }
-     },
-     {
-      "deeds": {
-       "action": "equilibrar-sal",
-       "op": "<",
-       "v": 8
-      }
-     }
-    ]
-   },
-   "goal": {
-    "deeds": {
-     "action": "equilibrar-sal",
-     "op": ">=",
-     "v": 8
-    }
-   },
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "relate",
-     "e": "estroma",
-     "to": "$self",
-     "d": 1,
-     "min": -10,
-     "max": 10
-    }
-   ]
-  },
-  {
-   "id": "prova-mastocito",
-   "giver": "rubra",
-   "rank": "C",
-   "title": "Prova do Alarmista",
-   "desc": "Quem se diferencia aprende com a prática. Histamina Instável espera por você.",
-   "objective": "Após a diferenciação, absorva 30 nutrientes: um mastócito se enche de grânulos comendo.",
-   "reward": "A habilidade Histamina Instável e pressão evolutiva +5 · Gene permanente: Degranulação Explosiva (Corpo → Genes)",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "mastocito"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "histamina-instavel"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-mastocito-feitos",
-     "op": ">=",
-     "v": 30
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "histamina-instavel"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "degranulacao-explosiva"
-    }
-   ]
-  },
-  {
-   "id": "prova-eosinofilo",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Prova do Caça-Colossos",
-   "desc": "Quem se diferencia aprende com a prática. Cristal de Charcot-Leyden espera por você.",
-   "objective": "Após a diferenciação, chegue a 120 invasores destruídos: um eosinófilo se prova guardando o que o ameaça.",
-   "reward": "A habilidade Cristal de Charcot-Leyden e pressão evolutiva +5 · Gene permanente: Peroxidase Concentrada (Corpo → Genes)",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "eosinofilo"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "cristal-de-charcot"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-eosinofilo-feitos",
-     "op": ">=",
-     "v": 120
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "cristal-de-charcot"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "peroxidase-concentrada"
-    }
-   ]
-  },
-  {
-   "id": "prova-celula-nk",
-   "giver": "neva",
-   "rank": "C",
-   "title": "Prova da Caçadora",
-   "desc": "Quem se diferencia aprende com a prática. Predar espera por você.",
-   "objective": "Após a diferenciação, esquive 10 vezes: uma célula NK vive de chegar antes do golpe.",
-   "reward": "A habilidade Predar e pressão evolutiva +5 · Gene permanente: Memória de Presa (Corpo → Genes)",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "celula-nk"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "predar"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-celula-nk-feitos",
-     "op": ">=",
-     "v": 10
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "predar"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "memoria-de-presa"
-    }
-   ]
-  },
-  {
-   "id": "prova-t-regulador",
-   "giver": "rubra",
-   "rank": "C",
-   "title": "Prova do Pacificador",
-   "desc": "Quem se diferencia aprende com a prática. Sinapse Imunológica espera por você.",
-   "objective": "Após a diferenciação, absorva 25 nutrientes: um regulador aprende a manter a calma comendo.",
-   "reward": "A habilidade Sinapse Imunológica e pressão evolutiva +5 · Gene permanente: Interleucina 10 (Corpo → Genes)",
-   "tags": [
-    "knowledge",
-    "endure"
-   ],
-   "eligible": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-regulador"
-      }
-     },
-     {
-      "not": {
-       "has": {
-        "skill": "sinapse-imunologica"
-       }
-      }
-     }
-    ]
-   },
-   "goal": {
-    "num": {
-     "e": "$self",
-     "k": "prova-t-regulador-feitos",
-     "op": ">=",
-     "v": 25
-    }
-   },
-   "rewards": [
-    {
-     "op": "grant",
-     "v": "sinapse-imunologica"
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 5,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
-     "op": "acquire-gene",
-     "e": "$self",
-     "v": "interleucina-10"
-    }
-   ]
-  }
- ],
  "happenings": [
    {
     "id": "ferimento",
@@ -6367,7 +4077,9 @@
   "maxEvents": 1000,
   "allowAbandon": true,
   "questGap": 3,
-  "firstOfferAfterDeed": true
+  "firstOfferAfterDeed": true,
+  "maxLiveConflicts": 1,
+  "liveConflictPatience": 450
  },
  "evolution": {
   "pressure": "pressao",
@@ -8587,6 +6299,7 @@
   },
   {
    "id": "onda-de-pseudopodes",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "macrofago"}}, {"num": {"e": "$self", "k": "prova-macrofago-feitos", "op": ">=", "v": 40}}]},
    "name": "Onda de Pseudópodes",
    "rarity": "incomum",
    "desc": "Lóbulos enormes se estendem em todas as direções e arremessam quem está perto.",
@@ -8611,6 +6324,7 @@
   },
   {
    "id": "explosao-neutrofilica",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "neutrofilo"}}, {"num": {"e": "$self", "k": "prova-neutrofilo-feitos", "op": ">=", "v": 8}}]},
    "name": "Explosão Neutrofílica",
    "rarity": "incomum",
    "desc": "Um arranque veloz que corta tudo no caminho e deixa um rastro de faíscas.",
@@ -8623,6 +6337,7 @@
   },
   {
    "id": "dendritos-em-chicote",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "dendritica"}}, {"num": {"e": "$self", "k": "prova-dendritica-feitos", "op": ">=", "v": 30}}]},
    "name": "Dendritos em Chicote",
    "rarity": "incomum",
    "desc": "Braços ramificados se estendem em leque e açoitam tudo à frente.",
@@ -8731,6 +6446,7 @@
   },
   {
    "id": "histamina-instavel",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "mastocito"}}, {"num": {"e": "$self", "k": "prova-mastocito-feitos", "op": ">=", "v": 30}}]},
    "name": "Histamina Instável",
    "rarity": "incomum",
    "desc": "Cola uma bomba no inimigo: ela explode depois de um pavio, e cada bomba a mais no mesmo alvo aumenta a explosão.",
@@ -8797,6 +6513,7 @@
   },
   {
    "id": "cristal-de-charcot",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "eosinofilo"}}, {"num": {"e": "$self", "k": "prova-eosinofilo-feitos", "op": ">=", "v": 120}}]},
    "name": "Cristal de Charcot-Leyden",
    "rarity": "incomum",
    "desc": "Prende o inimigo em cristal: ele fica parado e nada o fere. Os golpes ficam guardados e saem todos de uma vez, em explosão, quando o cristal quebra.",
@@ -8863,6 +6580,7 @@
   },
   {
    "id": "predar",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "celula-nk"}}, {"num": {"e": "$self", "k": "prova-celula-nk-feitos", "op": ">=", "v": 10}}]},
    "name": "Predar",
    "rarity": "incomum",
    "desc": "Escolhe uma presa. Cada golpe nela devolve recarga e energia às outras habilidades; matá-la devolve todas.",
@@ -8929,6 +6647,7 @@
   },
   {
    "id": "sinapse-imunologica",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "t-regulador"}}, {"num": {"e": "$self", "k": "prova-t-regulador-feitos", "op": ">=", "v": 25}}]},
    "name": "Sinapse Imunológica",
    "rarity": "incomum",
    "desc": "Une até três inimigos: o que um sofre, os outros sofrem em parte.",
@@ -9121,6 +6840,7 @@
   },
   {
    "id": "complemento",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "linfocito-b"}}, {"num": {"e": "$self", "k": "uso-toxina", "op": ">=", "v": 20}}]},
    "name": "Complemento",
    "rarity": "incomum",
    "desc": "Marca o inimigo com complemento: no terceiro golpe, de quem for, ele estoura.",
@@ -9175,6 +6895,7 @@
   },
   {
    "id": "salto-letal",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "t-citotoxico"}}, {"num": {"e": "$self", "k": "prova-t-citotoxico-feitos", "op": ">=", "v": 120}}]},
    "name": "Salto Letal",
    "rarity": "incomum",
    "desc": "Salta por cima da multidão, sem que nada a pare, e cai com um golpe no chão.",
@@ -9241,6 +6962,7 @@
   },
   {
    "id": "chamado-aos-auxiliares",
+   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "t-auxiliar"}}, {"num": {"e": "$self", "k": "prova-t-auxiliar-feitos", "op": ">=", "v": 25}}]},
    "name": "Chamado aos Auxiliares",
    "rarity": "incomum",
    "desc": "Chama células auxiliares que correm atrás dos inimigos e os mordem por um tempo.",
@@ -9448,21 +7170,13 @@
    "id": "arteria_pulmonar",
    "from": "coracao",
    "to": "pulmao",
-   "name": "Artéria pulmonar",
-   "gene": "citoesqueleto-elastico",
-   "hint": "Os capilares do pulmão são estreitos: só passa quem tem o citoesqueleto elástico para se espremer."
+   "name": "Artéria pulmonar"
   },
   {
    "id": "aorta_ascendente",
    "from": "coracao",
    "to": "aorta",
-   "name": "Aorta ascendente",
-   "gene": "citoesqueleto-elastico",
-   "lineages": [
-    "macrofago",
-    "neutrofilo"
-   ],
-   "hint": "A parede da aorta é espessa: passam os que atravessam a parede por ofício (macrófago e neutrófilo, a diapedese) ou os que se espremem com o citoesqueleto elástico."
+   "name": "Aorta ascendente"
   },
   {
    "id": "arteria_hepatica",
@@ -10246,6 +7960,22 @@
  "conflicts": [
    {
     "id": "ferida-na-pele",
+    "rewards": [
+     {
+      "op": "adjust",
+      "e": "$self",
+      "k": "pressao",
+      "d": 10,
+      "text": "Preenche a barra que libera uma escolha de gene."
+     },
+     {
+      "op": "adjust",
+      "e": "$self",
+      "k": "maturidade",
+      "d": 5,
+      "text": "Conta para os requisitos de diferenciação; não é um nível."
+     }
+    ],
     "title": "Ferida na pele",
     "desc": "A pele rasgou: plaquetas precisam selar a brecha antes que invasores entrem no sangue.",
     "region": "pele",
@@ -10777,6 +8507,22 @@
   },
   {
    "id": "medula-esgotada",
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
+    }
+   ],
    "title": "Medula esgotada",
    "desc": "A reserva da medula acabou: sem ela não nascem hemácias novas, o oxigênio cai e o corpo inflama. O estroma precisa nutrir o nicho.",
    "region": "medula",
@@ -10954,6 +8700,22 @@
   },
   {
    "id": "reacao-exagerada",
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
+    }
+   ],
    "title": "Reação imune exagerada",
    "desc": "A defesa passou do ponto: a inflamação sobe, a tolerância do linfonodo se esgota e a reação se alimenta. As células reguladoras gastam tolerância para acalmá-la.",
    "region": "linfonodo",
@@ -11074,6 +8836,22 @@
   },
   {
    "id": "sofrimento-cerebral",
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
+    }
+   ],
    "title": "Sofrimento cerebral",
    "desc": "Falta energia ou sobram resíduos no cérebro: a glia precisa amparar os neurônios e limpar o que se acumulou.",
    "region": "cerebro",
@@ -11185,6 +8963,22 @@
   },
   {
    "id": "tumor-intestinal",
+   "rewards": [
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "pressao",
+     "d": 10,
+     "text": "Preenche a barra que libera uma escolha de gene."
+    },
+    {
+     "op": "adjust",
+     "e": "$self",
+     "k": "maturidade",
+     "d": 5,
+     "text": "Conta para os requisitos de diferenciação; não é um nível."
+    }
+   ],
    "title": "Tumor no intestino",
    "desc": "Células alteradas se multiplicam sem controle e ocupam o tecido. As células NK precisam contê-las antes que a massa tome o intestino.",
    "region": "intestino",

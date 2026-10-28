@@ -61,7 +61,7 @@ func TestKidneyOverloadCascadesFromTheLiverAndNefraClearsIt(t *testing.T) {
 	slow := loadWithoutPops(t, "hospedeiro", "nefrons_rim", "npc:nefra")
 	setNum(slow, "rim", "ureia", 90)
 	withoutHelp := runUntil(slow, 1500, func() bool { return resolvedOf(slow, "sobrecarga-renal") })
-	fast := load(t, "hospedeiro")
+	fast := loadUncapped(t, "hospedeiro")
 	setNum(fast, "rim", "ureia", 90)
 	withHelp := runUntil(fast, 1500, func() bool { return resolvedOf(fast, "sobrecarga-renal") })
 	if !resolvedOf(fast, "sobrecarga-renal") || withHelp >= withoutHelp {
@@ -88,7 +88,7 @@ func TestEnteraRestoresTheFloraAndFeedsTheBlood(t *testing.T) {
 		t.Fatalf("Entera alone must bring the flora back and be credited (microbiota %d)", nv(h, "intestino", "microbiota"))
 	}
 
-	g := load(t, "hospedeiro")
+	g := loadUncapped(t, "hospedeiro")
 	setNum(g, "intestino", "alimento", 90)
 	setNum(g, "sangue", "glicose", 20)
 	peak := int64(0)
@@ -105,14 +105,14 @@ func TestEnteraRestoresTheFloraAndFeedsTheBlood(t *testing.T) {
 // memory; regulation costs tolerance; when tolerance breaks the reaction is a
 // crisis that ends only as tolerance returns.
 func TestLymphNodeLearnsAndRegulationCostsTolerance(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadUncapped(t, "hospedeiro")
 	setNum(h, "baco", "antigenos", 80)
 	h.tick(400)
 	if nv(h, "linfonodo", "memoria") < 4 {
 		t.Fatalf("antigens from the spleen must become memory in the node: %d", nv(h, "linfonodo", "memoria"))
 	}
 
-	r := load(t, "hospedeiro")
+	r := loadUncapped(t, "hospedeiro")
 	setNum(r, "linfonodo", "tolerancia", 100)
 	setNum(r, "corpo", "inflamacao", 100)
 	spent := false
@@ -130,7 +130,7 @@ func TestLymphNodeLearnsAndRegulationCostsTolerance(t *testing.T) {
 		t.Fatalf("she must keep a reserve of tolerance instead of burning all of it: %d", nv(r, "linfonodo", "tolerancia"))
 	}
 
-	b := load(t, "hospedeiro")
+	b := loadUncapped(t, "hospedeiro")
 	setNum(b, "linfonodo", "tolerancia", 8)
 	setNum(b, "corpo", "inflamacao", 90)
 	b.tick(2)
@@ -149,7 +149,7 @@ func TestLymphNodeLearnsAndRegulationCostsTolerance(t *testing.T) {
 
 // P12.6: brain. Low blood oxygen starves it and glia shortens the recovery.
 func TestBrainStarvesWithoutOxygenAndGliaSpeedsTheRecovery(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadUncapped(t, "hospedeiro")
 	for i := 0; i < 150; i++ {
 		setNum(h, "sangue", "oxigenio", 10)
 		h.tick(1)
@@ -161,7 +161,7 @@ func TestBrainStarvesWithoutOxygenAndGliaSpeedsTheRecovery(t *testing.T) {
 	setNum(slow, "cerebro", "energia", 15)
 	setNum(slow, "cerebro", "residuos", 60)
 	without := runUntil(slow, 1500, func() bool { return resolvedOf(slow, "sofrimento-cerebral") })
-	fast := load(t, "hospedeiro")
+	fast := loadUncapped(t, "hospedeiro")
 	setNum(fast, "cerebro", "energia", 15)
 	setNum(fast, "cerebro", "residuos", 60)
 	with := runUntil(fast, 1500, func() bool { return resolvedOf(fast, "sofrimento-cerebral") })
@@ -180,7 +180,7 @@ func TestTumorTakesTerritoryAndNKCellsContainIt(t *testing.T) {
 	if nv(free, "tumor", "massa") < 40 {
 		t.Fatalf("with no NK cells the tumor must grow: %d", nv(free, "tumor", "massa"))
 	}
-	h := load(t, "hospedeiro")
+	h := loadUncapped(t, "hospedeiro")
 	setNum(h, "tumor", "massa", 12)
 	setNum(h, "corpo", "inflamacao", 50)
 	runUntil(h, 600, func() bool { return resolvedOf(h, "tumor-intestinal") })
@@ -208,7 +208,7 @@ func forceBody(h *harness) {
 func TestEveryOrganInCrisisAtOnceIsDeterministicAndRecoverable(t *testing.T) {
 	defs := []string{"ferida-na-pele", "sobrecarga-hepatica", "congestao-esplenica", "sobrecarga-renal", "reacao-exagerada", "sofrimento-cerebral", "tumor-intestinal", "disbiose-intestinal", "medula-esgotada"}
 	run := func() (*harness, int) {
-		h := load(t, "hospedeiro")
+		h := loadUncapped(t, "hospedeiro")
 		forceBody(h)
 		concurrent := 0
 		for i := 0; i < 2500; i++ {

@@ -1,8 +1,11 @@
 package sim
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
+	"os"
 	"sync"
 	"testing"
 	"time"
@@ -171,10 +174,7 @@ func costPtr(c float64) *float64 {
 
 func runnerWith(t *testing.T, adv advisor.Advisor, mod func(*Options)) *Runner {
 	t.Helper()
-	w, err := universe.Load("../../universes/hospedeiro/universe.json")
-	if err != nil {
-		t.Fatal(err)
-	}
+	w := uncapped(t)
 	opt := Options{Advisor: adv, AdvisorTimeout: 2 * time.Second}
 	mod(&opt)
 	r, err := Open(w, &store.Memory{}, opt)
@@ -257,4 +257,24 @@ func TestRunnerSendsAttentionQuestions(t *testing.T) {
 		t.Fatalf("attention answers must be applied: %+v", st.ByKind[core.DecisionAttention])
 	}
 	t.Logf("by kind: %+v batches=%d", st.ByKind, st.Batches)
+}
+
+// uncapped is the Hospedeiro with several crises free to be alive at once: the
+// advisor's macro question (where to concentrate) only exists then.
+func uncapped(t *testing.T) *core.World {
+	t.Helper()
+	data, err := os.ReadFile("../../universes/hospedeiro/universe.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var u core.Universe
+	if err := json.NewDecoder(bytes.NewReader(bytes.TrimPrefix(data, []byte{0xef, 0xbb, 0xbf}))).Decode(&u); err != nil {
+		t.Fatal(err)
+	}
+	u.Limits.MaxLiveConflicts, u.Limits.LiveConflictPatience = 0, 0
+	w, err := core.Compile(u)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return w
 }

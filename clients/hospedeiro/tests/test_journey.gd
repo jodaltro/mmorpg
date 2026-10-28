@@ -43,20 +43,6 @@ func test_route_follows_vessel_and_honors_closed_passage() -> void:
 	world.exploration.passages[0]["open"] = true
 	assert_true(not world.journey.waypoint(goal).is_empty())
 
-func test_real_mission_takes_priority_without_accepting_offers() -> void:
-	world.sync.system.set_active({"def": "primeiro-mergulho", "title": "Missão real", "objective": "Entre no sangue"})
-	var next := world.journey.recommendation()
-	assert_eq(next.title, "Missão real")
-	assert_eq(next.at, BioBodyMap.center_px(BioBodyMap.SANGUE))
-	world.sync.system.set_active({"def": "dynamic-unknown", "title": "Outra missão", "objective": "Objetivo do motor"})
-	next = world.journey.recommendation()
-	assert_eq(next.detail, "Objetivo do motor")
-	assert_true(not next.has("at"), "never guess the destination of an unknown mission")
-	world.sync.system.set_active({})
-	world.sync.system.show_offer({"key": "test", "title": "Ajude o corpo"}, "")
-	assert_eq(world.journey.recommendation().title, "Responda ao chamado")
-	assert_true(world.sync.system._active.is_empty(), "reading a recommendation cannot accept a quest")
-
 func test_arrival_hides_world_and_map_arrows_without_restarting_the_route() -> void:
 	world.tutorial.completed = true
 	world.journey.pin(Vector2.ZERO, "Refúgio")
@@ -124,23 +110,6 @@ func test_explicit_map_destination_works_before_finishing_the_tutorial() -> void
 	assert_true(not world.journey.has_target and world.journey.navigation_path().is_empty())
 	assert_eq(world.journey.navigation_state, "arrived")
 
-func test_confirmed_mission_completion_ends_old_route_before_showing_next_objective() -> void:
-	world.tutorial.completed = true
-	world.sync.system.set_active({"key":"dive|p1", "def":"primeiro-mergulho", "title":"Entre no Sangue"})
-	world.journey._process(0)
-	assert_true(world.journey.has_target)
-	world.region = BioBodyMap.SANGUE
-	world.player.position = BioBodyMap.center_px(world.region) - Vector2(8,0) * BioArt.UNIT
-	world.sync.link.view = {"quests":[{"key":"dive|p1", "state":"done"}]}
-	world.sync.system.set_active({})
-	BioFactory.spawn_virus(world, world.player.position + Vector2(150,0), world.player)
-	for i in 10:
-		world.journey._process(0.1)
-		assert_true(not world.journey.has_target and world.journey.navigation_path().is_empty(), "confirmed completion hides arrows immediately, including between GPS refreshes")
-	assert_eq(world.journey.navigation_state, "arrived", "server completion is an arrival even before the old region-center marker")
-	world.journey._process(3)
-	assert_true(world.journey.has_target, "a distinct next objective begins after the arrival notice")
-
 func test_first_blood_objectives_use_confirmed_counts() -> void:
 	world.region = BioBodyMap.SANGUE
 	world.player.position = BioBodyMap.center_px(world.region)
@@ -156,7 +125,6 @@ func test_first_blood_objectives_use_confirmed_counts() -> void:
 
 func test_pending_opening_offer_and_gene_notification_keep_the_trail() -> void:
 	world.tutorial.completed = true
-	world.sync.system.show_offer({"key":"first", "def":"primeiro-mergulho", "title":"Primeira travessia"}, "")
 	world.tray.set_call("gene-reward", "mutation", "Gene conquistado", "biblioteca")
 	world.journey._process(0)
 	assert_true(world.journey.has_target and world.journey._ink.visible, "a notification cannot erase the route")
@@ -164,3 +132,34 @@ func test_pending_opening_offer_and_gene_notification_keep_the_trail() -> void:
 	world.tray.clear_call("gene-reward")
 	world.journey._process(0)
 	assert_true(world.journey._card.visible and world.journey.has_target)
+
+
+func _crisis_view(phase: String) -> Dictionary:
+	return {"tick": 50, "others": [], "signs": [], "beliefs": [], "events": [], "skills": [], "society": [], "populations": [],
+		"conflicts": {"revision": 1, "focus": "c1", "active": [{"id": "c1", "def": "ferida-na-pele", "title": "Ferida na pele", "phase": phase, "region": "pele", "revision": 1, "since": 40,
+		"onset": 40, "severity": 50, "peak": 60, "metrics": []}], "recent": []}}
+
+
+func test_the_crisis_is_the_first_thing_the_guide_points_at() -> void:
+	world.tutorial.completed = true
+	world.sync.apply_view(_crisis_view("active"))
+	var next := world.journey.recommendation()
+	assert_true(next.title.contains("Ferida na pele") and next.title.contains("Pele"), "it names the crisis and the organ")
+	assert_eq(next.at, BioBodyMap.center_px(BioBodyMap.PELE), "and points at the organ where it lives")
+	assert_true(str(next.detail).contains("Vá à Pele"), "and says what to do")
+
+
+func test_a_calm_crisis_asks_nothing_and_the_guide_goes_back_to_the_basics() -> void:
+	world.tutorial.completed = true
+	world.sync.apply_view(_crisis_view("contained"))
+	assert_true(not world.journey.recommendation().has("crisis"), "a contained crisis does not call the player")
+
+
+func test_the_route_ends_when_the_crisis_stops_asking_for_attention() -> void:
+	world.tutorial.completed = true
+	world.sync.apply_view(_crisis_view("active"))
+	world.journey._process(0)
+	assert_true(world.journey.has_target, "the way to the organ is drawn")
+	world.sync.apply_view(_crisis_view("contained"))
+	world.journey._process(0.3)
+	assert_eq(world.journey.navigation_state, "arrived", "calm means the call is over")

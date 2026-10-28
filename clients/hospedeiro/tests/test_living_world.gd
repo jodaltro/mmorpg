@@ -95,7 +95,7 @@ func test_the_followed_crisis_the_alert_and_the_tissue() -> void:
 	world.sync.apply_view(_view(100, [], [_conflict("active", 1, 99)]))
 	var hud := world.sync.living_hud
 	assert_true(hud.card_text().contains("Infecção pulmonar"), "the followed crisis is named")
-	assert_true(hud.card_text().contains("Próximo passo"), "and what to do next")
+	assert_true(hud.card_text().contains("O QUE FAZER") and hud.card_text().contains("Vá ao Pulmão"), "and what to do, plainly")
 	assert_eq(hud.queue.waiting(), 0, "the first view is history: no banner")
 	world.sync.apply_view(_view(101, [], [_conflict("critical", 2, 101, 80)]))
 	assert_eq(hud.queue.waiting(), 1, "an escalation is one alert")
@@ -159,15 +159,6 @@ func test_help_call_is_contextual_and_does_not_declare_a_deed() -> void:
 	assert_true(not hud.help_visible(), "a distant request waits in the panel instead of drawing a balloon")
 
 
-func test_side_quests_leave_the_main_interface_but_stories_stay() -> void:
-	var side := {"key": "prova-macrofago|p1", "def": "prova-macrofago", "state": "offered", "title": "Prova do Devorador", "giver": "neva"}
-	world.sync.apply_view(_view(10, [], []).merged({"quests": [side]}, true))
-	assert_true(not world.sync.system.is_offer_visible(), "an ordinary quest no longer competes for attention")
-	var story := {"key": "vigilia|p1", "def": "vigilia", "state": "offered", "title": "Vigília no Sangue", "giver": "neva"}
-	world.sync.apply_view(_view(11, [], []).merged({"quests": [story]}, true))
-	assert_true(world.sync.system.is_offer_visible(), "the story stays")
-
-
 func test_the_panel_lists_every_crisis_and_filters() -> void:
 	var second := _conflict("recovering", 1, 90, 10)
 	second["id"] = "ferida-na-pele"
@@ -212,3 +203,9 @@ func test_anemia_shows_in_the_blood_only_when_the_red_cells_fall() -> void:
 	for i in 80:
 		world.sync.mood._process(0.5)
 	assert_eq(world.sync.mood.anemia(), 0.0, "it fades as the marrow replaces the cells")
+
+
+func test_there_are_no_missions_in_the_interface() -> void:
+	var side := {"key": "x|p1", "def": "x", "state": "offered", "title": "Qualquer missão", "giver": "neva"}
+	world.sync.apply_view(_view(10, [], []).merged({"quests": [side]}, true))
+	assert_true(not world.sync.has_method("_apply_quests") and not world.sync.system.has_method("show_offer"), "the interface has no place for a mission")

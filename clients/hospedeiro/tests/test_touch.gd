@@ -445,17 +445,11 @@ func test_dragging_a_card_never_selects_it_and_tap_waits_for_release() -> void:
 	assert_eq(clicks.size(), 1)
 	card.free()
 
-func test_action_menu_selection_closes_and_outside_dismissal_preserves_offer() -> void:
+func test_action_menu_selection_closes() -> void:
 	world.sync.system.open_menu([{"title": "Observar", "action": "inspect"}])
 	assert_true(world.sync.system.menu_open)
 	world.sync.system._menu_rows.get_child(0).pressed.emit()
 	assert_true(not world.sync.system.menu_open, "choosing an action closes its menu")
-	world.sync.system.show_offer({"key": "test", "title": "Chamado", "objective": "Observar"}, "Sentinela")
-	world.sync.system.open_offer()
-	assert_true(world.sync.system.is_offer_visible())
-	world.sync.system._offer_modal.dismissed.emit()
-	assert_true(not world.sync.system.is_offer_visible())
-	assert_true(world.sync.system.has_offer(), "outside means later, not refusing the mission")
 	assert_true(not BioUi.captures_input())
 
 
@@ -493,36 +487,6 @@ func test_skill_drop_is_scoped_to_its_editor_and_empty_slots_reject_it() -> void
 	empty.free()
 
 
-func test_missions_open_from_corner_and_navigation_never_blocks_them() -> void:
-	world.sync.system.set_active({"title": "Defender a medula", "objective": "Observe o nicho"})
-	assert_true(world.tray.has_call("active_quest"))
-	var chip: Control = world.tray._chips["active_quest"]["root"]
-	var tap := InputEventScreenTouch.new()
-	tap.position = Vector2(20, 20)
-	tap.pressed = true
-	chip.gui_input.emit(tap)
-	assert_true(not world.sync.system._missions.visible)
-	tap.pressed = false
-	chip.gui_input.emit(tap)
-	assert_true(world.sync.system._missions.visible)
-	assert_true(BioUi.captures_input())
-	world.sync.system.hide_offer()
-	assert_true(BioUi.captures_input(), "an expiring offer cannot release input while the journal remains open")
-	world.sync.system.set_active({"title": "Defender a medula", "objective": "Novo objetivo"})
-	await tree.process_frame
-	await tree.process_frame
-	assert_true(world.sync.system._missions.content.get_children().any(func(node: Node) -> bool: return node is Label and node.text.contains("Novo objetivo")), "mission details update while the journal is open")
-	world.touch.menu.tapped.emit()
-	assert_true(not world.sync.system._missions.visible)
-	await tree.process_frame
-	assert_true(not world.tray._box.visible, "corner missions do not show through the navigation backdrop")
-	assert_true(not world.sync.system._column.visible)
-	world.touch.close()
-	world.sync.system.open_missions()
-	assert_true(world.sync.system._missions.visible)
-	world.sync.system.close()
-	assert_true(not BioUi.captures_input())
-
 func test_reset_dialog_dismissal_preserves_progress_and_requires_server_permission() -> void:
 	world.debug_become(&"macrofago")
 	var original: Array = world.abilities.known().duplicate()
@@ -540,3 +504,13 @@ func test_reset_dialog_dismissal_preserves_progress_and_requires_server_permissi
 	await world.reset_dialog._reset()
 	assert_true(world.abilities.known().is_empty())
 	assert_true(not world.reset_dialog.modal.visible)
+
+
+func test_the_crises_open_from_the_navigation_menu_and_close_with_it() -> void:
+	world.touch.menu.tapped.emit()
+	assert_true(world.touch.crises_button.is_visible_in_tree(), "the menu offers the crises of the body")
+	world.touch.crises_button.pressed.emit()
+	await tree.process_frame
+	assert_true(world.sync.living_hud.panel_open(), "and opens them")
+	world.sync.living_hud.toggle_panel()
+	assert_true(not world.sync.living_hud.panel_open())

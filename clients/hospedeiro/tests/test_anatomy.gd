@@ -88,23 +88,22 @@ func test_the_flow_runs_along_the_vessels_and_beats() -> void:
 	assert_true(absf(swirl.y) > 0.5, "the venule swirls")
 
 
-func test_the_atlas_remembers_what_the_cell_has_seen() -> void:
+func test_the_atlas_shows_the_whole_body_from_the_start() -> void:
 	var player := Node2D.new()
 	tree.root.add_child(player)
 	var atlas := BioAtlas.new()
 	tree.root.add_child(atlas)
 	var path := "user://test_atlas_%d.json" % Time.get_ticks_usec()
 	atlas.configure(player, SEED, path)
-	assert_eq(atlas.known.size(), 2, "it starts knowing the marrow and the blood")
-	assert_true(atlas.discover(&"coracao"), "the heart is new")
-	assert_true(not atlas.discover(&"coracao"), "and only once")
-	assert_true(not atlas.knows(&"pulmao"), "the lung is still a question mark")
+	assert_eq(atlas.known.size(), (BioAnatomy.build(SEED)["regions"] as Array).size(), "every region is known: a crisis can be anywhere")
+	assert_true(atlas.knows(&"pulmao") and atlas.knows(&"cerebro") and atlas.knows(&"pele"), "no fog over the lung, the brain or the skin")
+	assert_true(not atlas.discover(&"coracao"), "so nothing is ever new")
 	atlas.toggle()
 	assert_true(atlas.is_open(), "M opens it")
 	var again := BioAtlas.new()
 	tree.root.add_child(again)
 	again.configure(player, SEED, path)
-	assert_true(again.knows(&"coracao"), "a new session remembers")
+	assert_true(again.knows(&"coracao"), "a new session sees the same")
 	DirAccess.remove_absolute(path)
 	atlas.queue_free()
 	again.queue_free()

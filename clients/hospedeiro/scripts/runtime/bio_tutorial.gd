@@ -10,9 +10,9 @@ const STEPS := [
 	["Toxina: ataque à distância", "Mire no mesmo alvo: arraste o botão verde de Toxina e solte para disparar. Sem arrastar, a mira escolhe um alvo próximo.", "Mire no alvo e dispare com clique direito ou K."],
 	["Desvie com um impulso", "Toque no botão Pulo enquanto se move. O impulso gasta ATP e ajuda a escapar de ataques.", "Mova-se e pressione Espaço para impulsionar a célula."],
 	["Skills e magias biológicas", "Além de ataque, Toxina e Pulo, sua classe desbloqueia poderes especiais: dano, cura, defesa e controle. Eles ocupam quatro espaços e usam ATP e recarga. Configure a ordem no menu Corpo → Habilidades.", "Os quatro espaços de habilidades usam Q, F, C e V. Configure a ordem em Corpo → Habilidades."],
-	["Conheça um NPC", "Siga a marca até Estroma, a célula dourada. NPCs são habitantes do corpo: dão informações e missões. Não são alvos. Invasores ficam fora da Medula.", ""],
+	["Conheça um NPC", "Siga a marca até Estroma, a célula dourada. NPCs são habitantes do corpo: trabalham e pedem ajuda. Não são alvos. Invasores ficam fora da Medula.", ""],
 	["Converse e descubra ações", "Perto de Estroma, toque em Agir para ver as ações disponíveis. Leia as opções e feche a janela para continuar.", "Perto de Estroma, pressione E para ver as ações disponíveis. Depois feche a janela."],
-	["Acompanhe suas missões", "Abra Menu → Missões. Veja ofertas e objetivos: eles indicam quem ajudar e quais invasores atacar. Feche a janela depois de explorar.", "Clique no quadro de missões no canto superior direito. Veja os objetivos e feche a janela."],
+	["Uma crise de cada vez", "O corpo vive uma crise por vez. O cartão no canto diz onde ir e o que fazer; a seta no chão leva até lá. Ajudar é derrotar os invasores do órgão ou tocar nos brilhos dele. Abra Menu → Crises do corpo para ver todas.", "Pressione L para abrir o painel das crises e veja a atual. Feche a janela depois."],
 	["Construa sua célula", "Abra Corpo. Genes modificam seu organismo; a experiência de jogo permite diferenciar sua classe. Não há níveis nem XP. Fora de combate, você verá um convite quando puder evoluir.", "Pressione G para abrir Corpo e conhecer genes, classe e habilidades."],
 	["Seu primeiro destino: o Sangue", "Ao concluir, siga a trilha azul pelo canal à direita da Medula. No Sangue, combata vírions e absorva nutrientes para evoluir. O botão Próximo passo acompanha seu objetivo. Toque nos símbolos do mapa para entender os locais; as crises do corpo são o desafio de verdade.", "Reveja este guia quando quiser pelo botão Tutorial."]
 ]
@@ -215,7 +215,7 @@ func _process(delta: float) -> void:
 	_can_guide_back = ready_to_play and world.player.is_active() and not BioSanctuary.contains(world.seed_value, world.player.global_position / BioArt.UNIT)
 	_next.text = "Começar" if step == 0 else "Concluir" if step == STEPS.size() - 1 else "Continuar"
 	_root.visible = true
-	_card.visible = not ((step == 9 and world.sync.system._missions.visible) or (step == 10 and world.body_panel.is_open()) or (step == 8 and world.sync.system.menu_open))
+	_card.visible = not ((step == 9 and world.sync.living_hud != null and world.sync.living_hud.panel_open()) or (step == 10 and world.body_panel.is_open()) or (step == 8 and world.sync.system.menu_open))
 	_veil.visible = _card.visible
 	_ink.visible = _card.visible
 	if _waiting:
@@ -236,7 +236,7 @@ func _process(delta: float) -> void:
 		5: _fulfilled = _fulfilled or int(_actions.get(str(BioAttackCatalog.MEMBRANE_DASH), 0)) > _baseline
 		7: _fulfilled = _fulfilled or world.player.global_position.distance_to(BioBodyMap.RESIDENTS["estroma"] * BioArt.UNIT) < 3.0 * BioArt.UNIT
 		8: _fulfilled = _fulfilled or world.sync.system.menu_open or not world.sync.link.online
-		9: _fulfilled = _fulfilled or world.sync.system._missions.visible
+		9: _fulfilled = _fulfilled or world.sync.living_hud == null or world.sync.living_hud.panel_open()
 		10: _fulfilled = _fulfilled or world.body_panel.is_open()
 		_: _fulfilled = true
 	if _fulfilled and not previously_fulfilled and step in [1, 3, 4, 5, 7, 8, 9, 10]: _success_age = 0
@@ -244,7 +244,7 @@ func _process(delta: float) -> void:
 	if step in [0, 2, 6, 11]: _status.text = "Avance no seu ritmo. Você pode pausar."
 	_status.modulate = BioUi.GOOD if _fulfilled and step not in [0, 2, 6, 11] else Color.WHITE
 	if step == 8 and not world.sync.link.online:
-		_status.text = "Modo offline: conversas e missões precisam do motor conectado."
+		_status.text = "Modo offline: as conversas precisam do motor conectado."
 	_next.disabled = not _fulfilled
 	_highlight = _target_rect()
 	if not _card.visible: _highlight = Rect2()
@@ -325,10 +325,9 @@ func _target_rect() -> Rect2:
 			5: target = world.touch.dash
 			6, 10: target = world.touch.window_buttons[0] if world.touch.menu_open else world.touch.menu
 			8: target = world.touch.interact
-			9: target = world.touch.missions_button if world.touch.menu_open else world.touch.menu
+			9: target = world.touch.crises_button if world.touch.menu_open else world.touch.menu
 	if step == 2: target = world.hud._cluster
-	if step == 9 and world.touch == null: target = world.sync.system._tracker
-	if step == 9 and world.sync.system._missions.visible: target = null
+	if step == 9 and world.sync.living_hud != null and world.sync.living_hud.panel_open(): target = null
 	if step == 10 and world.body_panel.is_open(): target = null
 	if target != null and target.is_visible_in_tree():
 		return target.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, target.size)

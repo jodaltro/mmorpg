@@ -34,6 +34,24 @@ func route_segments(frame: Rect2, factor: float, offset: Vector2) -> Array[Packe
 		if segment.size() == 2: out.append(segment)
 	return out
 
+## Every crisis that asks for attention is a ring on its organ; when it is off the minimap the ring sits on the edge, towards it.
+func _draw_crises(frame: Rect2, factor: float, offset: Vector2) -> void:
+	if world.sync == null or world.sync.presenter == null:
+		return
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)
+	for c in world.sync.presenter.model.ordered():
+		if not BioConflictFocus.demanding(c):
+			continue
+		for region in _body.get("regions", []):
+			if str(region["id"]) != str(c.get("region", "")):
+				continue
+			var at: Vector2 = (region["center"] as Vector2) * factor + offset
+			var p := Vector2(clampf(at.x, frame.position.x + 6.0, frame.end.x - 6.0), clampf(at.y, frame.position.y + 6.0, frame.end.y - 6.0))
+			var color: Color = BioConflictFocus.PHASE_COLOR.get(str(c.get("phase", "")), Color.WHITE)
+			draw_circle(p, 3.0, color)
+			draw_arc(p, 6.0 + 2.0 * pulse, 0.0, TAU, 20, color, 1.5, true)
+
+
 func _draw() -> void:
 	if world == null:
 		return
@@ -61,6 +79,7 @@ func _draw() -> void:
 		var direction := center.direction_to(ahead)
 		var arrow := center + direction * minf(22, center.distance_to(ahead))
 		draw_polyline(PackedVector2Array([arrow - direction * 5 + direction.orthogonal() * 3, arrow, arrow - direction * 5 - direction.orthogonal() * 3]), Color(0.75, 1, 1), 2, true)
+	_draw_crises(frame, factor, offset)
 	for resident in world.sync._residents.values():
 		if is_instance_valid(resident):
 			var at: Vector2 = resident.global_position/BioArt.UNIT*factor+offset

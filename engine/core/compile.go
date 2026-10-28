@@ -120,7 +120,7 @@ func Compile(u Universe) (*World, error) {
 	if l.QuestGap < 0 {
 		return nil, invalid("limits")
 	}
-	if l.MaxActiveQuests < 1 || l.DecisionTimeout < 1 || l.DeclineCooldown < 0 || l.OfferExpiry < 1 || l.MaxEvents < 16 {
+	if l.MaxLiveConflicts < 0 || l.LiveConflictPatience < 0 || (l.MaxLiveConflicts > 0 && l.LiveConflictPatience == 0) || l.MaxActiveQuests < 1 || l.DecisionTimeout < 1 || l.DeclineCooldown < 0 || l.OfferExpiry < 1 || l.MaxEvents < 16 {
 		return nil, invalid("limits")
 	}
 	if err := w.compileVitals(ents); err != nil {

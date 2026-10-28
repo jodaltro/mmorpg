@@ -85,10 +85,9 @@ func test_the_compass_leads_to_the_nearest_niche_the_cell_can_reach() -> void:
 	assert_eq(str(lung["hint"]), "uma gruta entre os alvéolos", "once the lung opens, the trail leads there")
 
 
-func test_the_atlas_takes_what_the_engine_remembers() -> void:
-	assert_true(not world.atlas.knows(&"pulmao"), "the lung is unknown")
+func test_the_engines_memory_changes_nothing_on_an_atlas_without_fog() -> void:
+	assert_true(world.atlas.knows(&"pulmao"), "the lung is already on the map")
 	world.atlas.merge(["medula", "sangue", "pulmao", "lugar-que-nao-existe"])
-	assert_true(world.atlas.knows(&"pulmao"), "the engine's memory fills the atlas")
 	assert_true(not world.atlas.knows(&"lugar-que-nao-existe"), "and unknown places are ignored")
 
 

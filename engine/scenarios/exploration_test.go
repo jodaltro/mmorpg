@@ -19,7 +19,7 @@ func findNiche(h *harness, p core.ID, niche string) {
 // E2: a gene is a key. The lung is closed to a cell that cannot squeeze into its capillaries; a niche in the
 // venule gives the gene that opens it, and the log replays the whole trip to the same state.
 func TestHospedeiroNicheGeneOpensTheLung(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.move("p1", "sangue")
 	h.move("p1", "coracao")
@@ -49,7 +49,7 @@ func TestHospedeiroNicheGeneOpensTheLung(t *testing.T) {
 			t.Fatal("the view should show the passage open")
 		}
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyQuests)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {
@@ -282,14 +282,14 @@ func TestHospedeiroDiapedesisOpensTheAorta(t *testing.T) {
 		h.move(p, "sangue")
 		h.move(p, "coracao")
 	}
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p0")
 	toHeart(h, "p0")
 	if _, err := h.try(core.Command{Kind: "move", Origin: "adapter", Actor: "p0", Region: "aorta"}); !isRejected(err) {
 		t.Fatalf("a plain cell cannot cross the aorta's wall, got %v", err)
 	}
 	for class, progenitor := range map[string]string{"macrofago": "mieloide", "neutrofilo": "mieloide", "dendritica": "mieloide"} {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyQuests)
 		h.join("p1")
 		h.becomeClass("p1", progenitor, class)
 		toHeart(h, "p1")
@@ -310,7 +310,7 @@ func TestHospedeiroDiapedesisOpensTheAorta(t *testing.T) {
 // E2 part 3: the route turns into a quest. While the advisor points the player to a niche, the first mentor offers the trail; finding
 // the niche completes it and pays pressure.
 func TestHospedeiroRouteQuestCompletesWhenTheNicheIsFound(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil) // the first deed unlocks offers
 	h.move("p1", "sangue")

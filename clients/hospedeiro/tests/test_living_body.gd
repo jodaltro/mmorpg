@@ -154,7 +154,7 @@ func test_roles_have_distinct_silhouettes_and_every_task_a_gesture() -> void:
 	assert_eq(BioNpcRoles.gesture("nutrir-nicho-medular"), "feed", "Osteia feeds the niche")
 	assert_eq(BioNpcRoles.verb("feed"), "nutre", "and says so")
 	assert_eq(BioConflictFocus.organ({"def": "medula-esgotada"}), "Medula", "the marrow crisis is named")
-	assert_true(BioConflictFocus.suggestion({"def": "medula-esgotada", "phase": "active"}).contains("Osteia"), "and points at her")
+	assert_true(BioConflictFocus.suggestion({"def": "medula-esgotada", "phase": "active"}).contains("Medula"), "and says where to go")
 	assert_true(not BioOnlineClient.wanted("http://127.0.0.1:8096"), "a PC plays offline unless asked for the online mode")
 
 

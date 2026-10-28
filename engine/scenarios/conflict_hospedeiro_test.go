@@ -51,7 +51,7 @@ func (h *harness) joinAt(id, region core.ID) {
 // moment do two live instances of the same cause exist, and every transition is
 // announced exactly once with a growing revision.
 func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := loadUncapped(t, "hospedeiro")
 	maxLive := 0
 	for i := 0; i < 1500; i++ {
 		h.tick(1)

@@ -7,7 +7,7 @@ import (
 )
 
 func TestDeliveredQuestWaitsForResponseAndSurvivesTravel(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1", "p2")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	q := h.steer("p1", "primeiro-mergulho")
@@ -38,7 +38,7 @@ func TestDeliveredQuestWaitsForResponseAndSurvivesTravel(t *testing.T) {
 	if h.s.Quests[q.Key].State != "done" {
 		t.Fatal("accepting after reaching the objective did not complete the quest")
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyQuests)
 	for _, command := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, command); err != nil {
@@ -51,7 +51,7 @@ func TestDeliveredQuestWaitsForResponseAndSurvivesTravel(t *testing.T) {
 }
 
 func TestDeliveredActiveQuestKeepsItsObjectiveWhenEligibilityChanges(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyQuests)
 	h.join("p1")
 	h.mustAct("adapter", "p1", "absorver-nutriente", nil)
 	q := h.steer("p1", "primeiro-mergulho")

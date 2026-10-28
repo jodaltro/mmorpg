@@ -44,6 +44,7 @@ func loadWithoutPops(t *testing.T, name string, ids ...string) *harness {
 	if err := dec.Decode(&u); err != nil {
 		t.Fatal(err)
 	}
+	u.Limits.MaxLiveConflicts, u.Limits.LiveConflictPatience = 0, 0 // a bare organ is studied with every crisis free to open
 	// ids prefixed "npc:" remove that NPC and its tasks.
 	u.Tasks = slices.DeleteFunc(u.Tasks, func(t core.TaskDef) bool { return slices.Contains(ids, "npc:"+string(t.NPC)) })
 	u.Populations = slices.DeleteFunc(u.Populations, func(p core.PopulationDef) bool { return slices.Contains(ids, p.ID) })
@@ -251,3 +252,15 @@ func sortedKeys[V any](m map[core.ID]V) []core.ID {
 // today), so its scenarios run on this frozen fixture and not on the live
 // universe, which no longer has dungeons.
 const legacyDungeons = "../engine/scenarios/testdata/legacy-dungeons"
+
+// legacyQuests: the Hospedeiro had missions until 28/10/2026. The engine's
+// quest service is generic (Valdoria uses it), so its scenarios that were
+// written on the Hospedeiro run on the same frozen fixture.
+const legacyQuests = legacyDungeons
+
+// loadUncapped is a universe with the cap on live conflicts lifted, to study
+// several crises at once.
+func loadUncapped(t *testing.T, name string) *harness {
+	t.Helper()
+	return loadWithoutPops(t, name)
+}
