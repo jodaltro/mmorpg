@@ -83,3 +83,10 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 **Cliente:** três regiões novas no mapa (pele, linfonodo, cerebro), seis silhuetas novas (tubo, vilosidade, redonda, coroa, astrócito, assassina) e dois gestos (acalmar, matar), todos como deformação da membrana; textos das quatro crises; massa do tumor desenhada no tecido. Godot: **415 testes, 0 falhas**. Captura real com as 14 células conferida por mim.
 **Reset completo:** `scripts/hospedeiro-reset.ps1` arquiva (não apaga) mundo, saves do cliente e banco do Nakama e sobe motor novo. Executado: mundo no tick 0, banco do Nakama arquivado (o supervisor o recria no próximo uso online), 0 saves de personagem no cliente.
 **Não feito:** avaliação com jogadores; anemia visível; o banco do Nakama não foi recriado nesta sessão (foco offline); cérebro e linfonodo ainda sem moradores de combate próprios (só as células e as crises).
+
+## Atualização — anemia visível e moradores de pele, linfonodo e cérebro (28/10/2026, noite)
+
+**Anemia no sangue:** `BioTissueMood.set_populations` lê a população `hemacias_sangue` (contagem contra a linha de base do motor). Abaixo de 85% a vênula empalidece e mostra anéis vazios; com metade das hemácias a anemia é total; some aos poucos quando a medula repõe. Só desenho: o número é do motor, nada muda em fatos ou colliders. Teste: `test_anemia_shows_in_the_blood_only_when_the_red_cells_fall`.
+**Moradores:** `BioBestiary` ganhou pele (estafilococo, fungo da pele), linfonodo (micobactéria do nódulo, célula metastática) e cérebro (ameba cerebral que se divide, agregado amiloide), cada um com a sua definição em `BioDungeonPlan.enemy`. Teste: `test_the_new_places_have_their_own_wild_things`.
+**Godot:** 417 testes, 0 falhas. Não rodei o Go (sem mudança no motor ou no universo).
+**Ainda não feito:** avaliação com jogadores, o visual dos novos inimigos não foi visto em captura, e o banco do Nakama segue sem ser recriado (foco offline).

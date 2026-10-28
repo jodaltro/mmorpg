@@ -19,6 +19,8 @@ var _centers := {}
 var _radii := {}
 var _outlines := {}  # region -> PackedVector2Array in px
 var _t := 0.0
+var _anemia_target := 0.0  # 0..1: how far the red cells of the blood have fallen below their usual headcount
+var _anemia := 0.0
 
 
 func configure(anatomy_view: BioAnatomyView, visual: BioVisualPrefs) -> void:
@@ -54,6 +56,22 @@ func set_conflicts(items: Array) -> void:
 	_targets = next
 
 
+## Anemia is read from the headcount of the red cells in the blood against the usual one, nothing else: below 85% it begins to show,
+## at half it is full. Only the drawing changes; the engine owns the number.
+func set_populations(pops: Array) -> void:
+	_anemia_target = 0.0
+	for p in pops:
+		if str(p.get("id", "")) != "hemacias_sangue":
+			continue
+		var usual := float(p.get("baseline", p.get("max", 0)))
+		if usual > 0.0:
+			_anemia_target = clampf((0.85 - float(p.get("count", 0)) / usual) / 0.35, 0.0, 1.0)
+
+
+func anemia() -> float:
+	return _anemia
+
+
 func _offer(into: Dictionary, region: StringName, phase: String, level: float, ratio: float, kind: String) -> void:
 	if region == &"":
 		return
@@ -75,6 +93,8 @@ func _process(delta: float) -> void:
 		var speed := 1.0 / FADE_SECONDS if want < cur else 0.35
 		_now[region] = move_toward(cur, want, delta * speed * maxf(0.05, absf(want - cur) + 0.1))
 		any = any or float(_now[region]) > 0.003
+	_anemia = move_toward(_anemia, _anemia_target, delta * 0.25)
+	any = any or _anemia > 0.003
 	visible = any
 	if any:
 		queue_redraw()
@@ -83,6 +103,7 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if anatomy == null:
 		return
+	_draw_anemia()
 	for region in _outlines:
 		var level: float = float(_now.get(region, 0.0))
 		if level <= 0.003 or not anatomy.live.has(region):
@@ -103,6 +124,26 @@ func _draw() -> void:
 				scaled.append(center + (p - center) * k)
 			draw_colored_polygon(scaled, BioArt.with_alpha(tint, level * beat * (0.4 + 0.15 * layer)))
 		_extras(str(info["kind"]), level, float(info["ratio"]), center, float(_radii[region]))
+
+
+## Pale, thin blood: the vessel loses its red, and empty rings (cells without their haemoglobin) drift where the red ones were.
+func _draw_anemia() -> void:
+	var blood := &"sangue"
+	if _anemia <= 0.003 or not _outlines.has(blood) or not anatomy.live.has(blood):
+		return
+	var center: Vector2 = _centers[blood]
+	var rad: float = _radii[blood]
+	var pts: PackedVector2Array = _outlines[blood]
+	var wash := PackedVector2Array()
+	for p in pts:
+		wash.append(center + (p - center) * 1.05)
+	draw_colored_polygon(wash, Color(0.62, 0.78, 0.9, 0.16 * _anemia))
+	var n := clampi(roundi((4.0 + 10.0 * _anemia) * prefs.fx_scale()), 0, 14)
+	for i in n:
+		var a := float(i) * 2.399 + _t * 0.08 * prefs.motion_scale()
+		var at := center + Vector2.from_angle(a) * rad * (0.15 + 0.7 * fposmod(a * 0.37, 1.0))
+		draw_arc(at, rad * 0.075, 0.0, TAU, 20, Color(0.8, 0.9, 1.0, 0.35 * _anemia), 1.6, true)
+		draw_circle(at, rad * 0.03, Color(0.8, 0.9, 1.0, 0.12 * _anemia))
 
 
 ## What each kind of crisis leaves on the tissue (a fissure, a clot, a haze), in proportion to the engine's severity.

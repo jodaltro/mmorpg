@@ -115,6 +115,19 @@ static func enemy(kind: StringName) -> Dictionary:
 			return {"name": "Cristal que racha", "hp": 56.0, "speed": 1.8, "damage": 0.6, "size": 0.8, "core": Color(0.9, 1.0, 1.0), "edge": Color(0.5, 0.8, 0.9), "spikes": 7, "spike_len": 0.4, "spin": 0.6, "aggro": 10.0, "lunge": 3.4, "telegraph": 0.7, "recover": 1.2, "split": {"kind": &"cristal_de_urato", "count": 2}}
 		&"o_calculo":
 			return {"name": "O Cálculo", "hp": 380.0, "speed": 1.7, "damage": 0.95, "size": 1.85, "core": Color(0.85, 0.8, 0.6), "edge": Color(0.5, 0.4, 0.2), "spikes": 13, "spike_len": 0.3, "aggro": 20.0, "lunge": 5.0, "telegraph": 0.85, "recover": 1.1, "boss": true}
+		# --- The three newest places of the body: skin, lymph node and brain.
+		&"estafilococo":  # the skin: a small cluster of cocci that comes in a pair
+			return {"name": "Estafilococo", "hp": 20.0, "speed": 3.1, "damage": 0.45, "size": 0.38, "core": Color(1.0, 0.95, 0.6), "edge": Color(0.95, 0.75, 0.25), "spikes": 0, "aggro": 10.0, "lunge": 3.0, "telegraph": 0.5, "recover": 0.9, "group": 2}
+		&"fungo_da_pele":  # the skin: a fungus that keeps away and throws spores
+			return {"name": "Fungo da pele", "hp": 32.0, "speed": 1.2, "damage": 0.5, "size": 0.5, "core": Color(0.95, 0.85, 0.7), "edge": Color(0.75, 0.55, 0.35), "spikes": 6, "spike_len": 0.18, "spin": 0.1, "aggro": 13.0, "lunge": 8.0, "telegraph": 0.8, "recover": 1.5, "behavior": "ranged"}
+		&"micobacteria_do_no":  # the lymph node: slow, sturdy, wrapped in wax
+			return {"name": "Micobactéria do nódulo", "hp": 110.0, "speed": 1.2, "damage": 0.7, "size": 1.1, "core": Color(0.85, 0.8, 0.55), "edge": Color(0.55, 0.5, 0.25), "spikes": 0, "aggro": 8.0, "lunge": 3.6, "telegraph": 1.0, "recover": 1.6}
+		&"celula_metastatica":  # the lymph node: a tumour cell carried in the lymph, quick and ragged
+			return {"name": "Célula metastática", "hp": 26.0, "speed": 3.3, "damage": 0.55, "size": 0.44, "core": Color(0.95, 0.5, 0.8), "edge": Color(0.7, 0.2, 0.55), "spikes": 5, "spike_len": 0.3, "spin": 0.4, "aggro": 11.0, "lunge": 3.4, "telegraph": 0.55, "recover": 1.0}
+		&"ameba_cerebral":  # the brain: it divides when it dies
+			return {"name": "Ameba cerebral", "hp": 60.0, "speed": 1.8, "damage": 0.65, "size": 0.85, "core": Color(0.85, 0.7, 1.0), "edge": Color(0.55, 0.35, 0.85), "spikes": 0, "aggro": 10.0, "lunge": 3.4, "telegraph": 0.7, "recover": 1.2, "split": {"kind": &"ameba_filha", "count": 2}}
+		&"agregado_amiloide":  # the brain: a hard plaque that barely moves
+			return {"name": "Agregado amiloide", "hp": 120.0, "speed": 1.0, "damage": 0.7, "size": 1.15, "core": Color(0.8, 0.75, 0.9), "edge": Color(0.5, 0.4, 0.65), "spikes": 4, "spike_len": 0.3, "spin": 0.1, "aggro": 8.0, "lunge": 3.8, "telegraph": 1.0, "recover": 1.6}
 	return {}
 
 

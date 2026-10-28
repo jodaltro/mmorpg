@@ -192,3 +192,23 @@ func test_the_panel_lists_every_crisis_and_filters() -> void:
 	hud._rebuild_panel()
 	hud.toggle_panel()
 	assert_true(not hud.panel_open(), "L closes it")
+
+
+func test_anemia_shows_in_the_blood_only_when_the_red_cells_fall() -> void:
+	var view := _view(100, [], [])
+	view["populations"] = [{"id": "hemacias_sangue", "region": "sangue", "count": 640, "max": 700, "baseline": 650}]
+	world.sync.apply_view(view)
+	for i in 40:
+		world.sync.mood._process(0.5)
+	assert_eq(world.sync.mood.anemia(), 0.0, "a healthy headcount draws nothing")
+	view["populations"] = [{"id": "hemacias_sangue", "region": "sangue", "count": 380, "max": 700, "baseline": 650}]
+	world.sync.apply_view(view)
+	for i in 40:
+		world.sync.mood._process(0.5)
+	assert_true(world.sync.mood.anemia() > 0.6, "a blood with 58%% of its red cells is pale (%.2f)" % world.sync.mood.anemia())
+	assert_true(world.sync.mood.visible, "and the tissue layer turns on to draw it")
+	view["populations"] = [{"id": "hemacias_sangue", "region": "sangue", "count": 650, "max": 700, "baseline": 650}]
+	world.sync.apply_view(view)
+	for i in 80:
+		world.sync.mood._process(0.5)
+	assert_eq(world.sync.mood.anemia(), 0.0, "it fades as the marrow replaces the cells")

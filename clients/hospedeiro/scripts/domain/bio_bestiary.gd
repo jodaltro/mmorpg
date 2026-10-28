@@ -16,6 +16,9 @@ const NATIVES := {
 	&"baco": [[&"virion", 15], [&"meningococo", 45], [&"bacteria_encapsulada", 40]],
 	&"intestino": [[&"virion", 10], [&"bacteria_enterica", 40], [&"verme_intestinal", 30], [&"esporo_de_clostridio", 20]],
 	&"rim": [[&"virion", 15], [&"cristal_de_urato", 45], [&"calculo_renal", 25], [&"espiculo_de_oxalato", 15]],
+	&"pele": [[&"virion", 15], [&"estafilococo", 45], [&"fungo_da_pele", 40]],
+	&"linfonodo": [[&"virion", 10], [&"micobacteria_do_no", 45], [&"celula_metastatica", 45]],
+	&"cerebro": [[&"virion", 10], [&"ameba_cerebral", 40], [&"agregado_amiloide", 50]],
 }
 
 

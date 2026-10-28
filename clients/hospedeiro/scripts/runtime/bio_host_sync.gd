@@ -183,6 +183,7 @@ func forget() -> void:
 	if presenter != null:
 		presenter.forget()
 		mood.set_conflicts([])
+		mood.set_populations([])
 		living_hud.queue.clear()
 		living_hud.chosen = ""
 		_follow_npc = ""
@@ -350,6 +351,7 @@ func apply_view(view: Dictionary) -> void:
 	if presenter != null:
 		var notices := presenter.apply_view(view)
 		mood.set_conflicts(presenter.model.ordered())
+		mood.set_populations(presenter.model.pops)
 		living_hud.set_stale(false)
 		living_hud.push_notices(notices)
 		living_hud.refresh()
