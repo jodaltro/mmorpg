@@ -23,6 +23,7 @@ type World struct {
 	preds     map[string]bool
 	perceives map[string]bool
 	regions   map[string]bool
+	pops      map[string]PopulationDef
 }
 
 var ErrUniverse = errors.New("invalid_universe")
@@ -122,6 +123,9 @@ func Compile(u Universe) (*World, error) {
 	if err := w.compileVitals(ents); err != nil {
 		return nil, err
 	}
+	if err := w.compilePopulations(ents); err != nil {
+		return nil, err
+	}
 	if err := w.compileExploration(ents); err != nil {
 		return nil, err
 	}
@@ -172,6 +176,9 @@ func Compile(u Universe) (*World, error) {
 		if e := v.effects(a.Effects, vars, "action "+a.ID); e != nil {
 			return nil, e
 		}
+	}
+	if err := w.validatePopulationConds(v); err != nil {
+		return nil, err
 	}
 	if err := v.places(); err != nil {
 		return nil, err
@@ -686,6 +693,12 @@ func (v *validator) cond(c Cond, vars map[string]bool, where string) error {
 		}
 		if e := v.ref(c.Rel.B, vars, where); e != nil {
 			return e
+		}
+	}
+	if c.Pop != nil {
+		n++
+		if _, ok := v.w.pops[c.Pop.ID]; !ok || !slices.Contains([]string{"<", "<=", "==", "!=", ">=", ">"}, c.Pop.Op) {
+			return invalid("%s: population comparison %q", where, c.Pop.ID)
 		}
 	}
 	if c.Near != nil {

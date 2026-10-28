@@ -145,6 +145,8 @@ type State struct {
 	Looks     map[ID]Look              `json:"looks,omitempty"`    // each player's procedural body
 	Genomes   map[ID]Genome            `json:"genomes,omitempty"`  // expressed genes and pending mutation offers
 	Delves    map[ID]Delve             `json:"delves,omitempty"`   // each player's current or last dungeon run
+	Pops      map[string]PopState      `json:"pops,omitempty"`     // cohorts: headcount and fractions of work
+	Ledger    map[string]int64         `json:"ledger,omitempty"`   // exogenous sources, sinks and births/deaths
 }
 
 func factKey(holder ID, p string, s, o ID) string {
@@ -231,6 +233,8 @@ func (s *State) Clone() State {
 		g.Builds = maps.Clone(g.Builds)
 		c.Genomes[k] = g
 	}
+	c.Pops = clonePops(s.Pops)
+	c.Ledger = maps.Clone(s.Ledger)
 	c.Marks = slices.Clone(s.Marks)
 	for i := range c.Marks {
 		c.Marks[i].Agree = slices.Clone(c.Marks[i].Agree)
@@ -268,6 +272,10 @@ func NewState(w *World) State {
 			st.Beats[b.ID] = BeatState{State: "locked"}
 		}
 		s.Arcs[a.ID] = st
+	}
+	if len(u.Populations) > 0 {
+		w.initPopulations(&s)
+		s.Ledger = map[string]int64{}
 	}
 	return s
 }

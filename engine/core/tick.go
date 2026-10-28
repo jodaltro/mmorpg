@@ -40,6 +40,7 @@ func (w *World) tick(s *State, cause string) {
 			}
 		}
 	}
+	w.populationTick(s)
 	w.expireMarks(s)
 	w.routines(s)
 	w.chatter(s)

@@ -22,14 +22,15 @@ type View struct {
 	Story     []StoryView      `json:"story"`
 	Signs     []SignView       `json:"signs"` // traces of hidden things the observer can make out here
 	Marks     []MarkView       `json:"marks"`
-	Evolution *EvolutionView   `json:"evolution,omitempty"` // the observer's own genome and mutation offer
-	Lineage   *LineageView     `json:"lineage,omitempty"`   // the observer's lineage, offer and progress
-	Look      *LookView        `json:"look,omitempty"`      // the observer's own procedural body
-	Dungeon   *DungeonView     `json:"dungeon,omitempty"`   // the dungeons the observer may enter and their current run
-	Vitals    []VitalView      `json:"vitals,omitempty"`    // the public numbers of the body
-	Explore   *ExploreView     `json:"explore,omitempty"`   // passages (open or closed) and niches
-	Codex     []CodexView      `json:"codex,omitempty"`     // the codex of the body
-	Advisor   *AdvisorView     `json:"advisor,omitempty"`   // what the advisor decided for this player (debug)
+	Evolution *EvolutionView   `json:"evolution,omitempty"`   // the observer's own genome and mutation offer
+	Lineage   *LineageView     `json:"lineage,omitempty"`     // the observer's lineage, offer and progress
+	Look      *LookView        `json:"look,omitempty"`        // the observer's own procedural body
+	Dungeon   *DungeonView     `json:"dungeon,omitempty"`     // the dungeons the observer may enter and their current run
+	Vitals    []VitalView      `json:"vitals,omitempty"`      // the public numbers of the body
+	Explore   *ExploreView     `json:"explore,omitempty"`     // passages (open or closed) and niches
+	Codex     []CodexView      `json:"codex,omitempty"`       // the codex of the body
+	Advisor   *AdvisorView     `json:"advisor,omitempty"`     // what the advisor decided for this player (debug)
+	Pops      []PopulationView `json:"populations,omitempty"` // cohorts and their headcount
 }
 
 type Seen struct {
@@ -75,7 +76,7 @@ func (w *World) View(s *State, observer ID, limit int) (View, bool) {
 		return View{}, false
 	}
 	v := View{Universe: s.Universe, Tick: s.Tick, Hour: w.Hour(s), Style: s.Styles[observer], Skills: w.skillsOf(s, observer), Revision: s.Revision, Self: self, Others: []Seen{}, Facts: []Fact{},
-		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer), Lineage: w.lineageViewOf(s, observer), Dungeon: w.dungeonView(s, observer), Vitals: w.vitalsView(s), Explore: w.exploreView(s, observer), Codex: w.codexView(s, observer), Advisor: w.advisorView(s, observer)}
+		Beliefs: []Belief{}, Quests: []Quest{}, Events: []Event{}, Story: []StoryView{}, Signs: w.Signs(s, observer), Marks: w.MarksHere(s, observer), Evolution: w.evolutionView(s, observer), Look: w.lookOf(s, observer), Lineage: w.lineageViewOf(s, observer), Dungeon: w.dungeonView(s, observer), Vitals: w.vitalsView(s), Explore: w.exploreView(s, observer), Codex: w.codexView(s, observer), Advisor: w.advisorView(s, observer), Pops: w.populationsView(s)}
 	for _, id := range sortedIDs(s.Entities) {
 		if id != observer {
 			e := s.Entities[id]

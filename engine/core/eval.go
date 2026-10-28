@@ -112,6 +112,8 @@ func (w *World) Holds(s *State, c Cond, b Bind) bool {
 			who = "$self"
 		}
 		return compare(s.Deeds[resolve(who, b)][c.Deeds.Action], c.Deeds.Op, c.Deeds.V)
+	case c.Pop != nil:
+		return compare(s.Pops[c.Pop.ID].Count, c.Pop.Op, c.Pop.V)
 	case c.Rel != nil:
 		return compare(s.Relations[relKey(resolve(c.Rel.A, b), resolve(c.Rel.B, b))], c.Rel.Op, c.Rel.V)
 	}

@@ -10070,5 +10070,103 @@
     }
    }
   }
+ ],
+ "populations": [
+  {
+   "id": "hemacias_sangue",
+   "role": "transporte",
+   "region": "sangue",
+   "count": 600,
+   "max": 650,
+   "mortality": 3,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 3,
+    "every": 5
+   },
+   "work": [
+    {
+     "id": "levar-oxigenio",
+     "k": "oxigenio",
+     "from": "pulmao",
+     "to": "sangue",
+     "rate": 3,
+     "toMax": 100,
+     "when": {
+      "num": {
+       "e": "pulmao",
+       "k": "oxigenio",
+       "op": ">=",
+       "v": 70
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "suporte_sangue",
+   "role": "suporte",
+   "region": "sangue",
+   "count": 300,
+   "work": [
+    {
+     "id": "consumir-oxigenio",
+     "k": "oxigenio",
+     "from": "sangue",
+     "rate": 3
+    }
+   ]
+  },
+  {
+   "id": "neutrofilos_pulmao",
+   "role": "defesa",
+   "region": "pulmao",
+   "count": 40,
+   "max": 60,
+   "mortality": 15,
+   "mortalityEvery": 5,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 2,
+    "every": 5
+   },
+   "work": [
+    {
+     "id": "conter-carga",
+     "k": "carga",
+     "from": "pulmao",
+     "rate": 20
+    }
+   ]
+  },
+  {
+   "id": "macrofagos_pulmao",
+   "role": "limpeza",
+   "region": "pulmao",
+   "count": 20,
+   "max": 30,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "limpar-carga",
+     "k": "carga",
+     "from": "pulmao",
+     "rate": 15
+    }
+   ]
+  }
  ]
 }

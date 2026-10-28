@@ -76,6 +76,8 @@ type Universe struct {
 	Abilities       *AbilitiesDef       `json:"abilities,omitempty"`
 	Dungeons        []DungeonDef        `json:"dungeons,omitempty"`
 	Lineages        []LineageDef        `json:"lineages,omitempty"`
+	// Populations: cohorts of anonymous workers kept as headcounts; see population.go.
+	Populations []PopulationDef `json:"populations,omitempty"`
 	// Appearance: procedural bodies decided by the advisor; see appearance.go.
 	Appearance *AppearanceDef `json:"appearance,omitempty"`
 	// VisibleMarks lists predicates that show on the person who carries them
@@ -219,6 +221,7 @@ type Cond struct {
 	Time   *TimeCmp   `json:"time,omitempty"`
 	Has    *HasCmp    `json:"has,omitempty"`
 	Deeds  *DeedsCmp  `json:"deeds,omitempty"`
+	Pop    *PopCmp    `json:"pop,omitempty"`
 }
 
 // HasCmp holds when entity E (default $self) knows skill Skill.
