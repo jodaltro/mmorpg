@@ -32,29 +32,25 @@ static func draw(ci: CanvasItem, w: BioWorker, t: float, near: bool) -> void:
 	if moving:
 		squash = Vector2(1.0 + 0.12, 1.0 - 0.1)  # a cell on the move is a little longer along its way
 	var ring := PackedVector2Array()
-	for i in SEGMENTS + 1:
+	for i in SEGMENTS:  # no repeated closing point: the triangulator rejects it
 		var a := TAU * i / SEGMENTS
 		var k := 1.0 + 0.05 * sin(a * 3.0 + t * 1.4 + w.seed_value) + 0.035 * sin(a * 5.0 - t * 1.9 + w.seed_value * 2.0)
 		for l in lobes:
 			var d := absf(angle_difference(a, float(l[0])))
 			k += float(l[2]) * exp(-(d * d) / (2.0 * float(l[1]) * float(l[1])))
-		var v := Vector2.from_angle(a) * r * k
+		var v := Vector2.from_angle(a) * r * maxf(k, 0.2)
 		v = v.rotated(-heading) * squash
 		ring.append(w.pos + v.rotated(heading))
 	ci.draw_circle(w.pos, r * 1.7, BioArt.with_alpha(core, 0.045))  # a soft halo: the body is dark and the cells are its lights
-	# soft outer light, then the body: bright core fading to the edge, then the lit rim
+	# soft outer light, then the body: layers from the dark edge to a bright core (a gradient inside the one cell), then the lit rim
 	ci.draw_polyline(ring, BioArt.with_alpha(core, 0.18), 5.0, true)
-	var fan := PackedVector2Array([w.pos + aim * r * 0.12])
-	fan.append_array(ring)
-	var cols := PackedColorArray([core.lightened(0.3)])
-	for i in ring.size():
-		var rim := 0.5 + 0.5 * sin(TAU * i / SEGMENTS - heading)
-		cols.append(edge.lerp(core, 0.18 * rim))
-	ci.draw_polygon(fan, cols)
-	var inner := PackedVector2Array()
-	for p in ring:
-		inner.append(w.pos + (p - w.pos) * 0.62)
-	ci.draw_colored_polygon(inner, BioArt.with_alpha(core.lightened(0.35), 0.38))
+	for j in 4:
+		var layer := PackedVector2Array()
+		var s := 1.0 - 0.22 * j
+		var shift := aim * r * 0.05 * j
+		for p in ring:
+			layer.append(w.pos + shift + (p - w.pos) * s)
+		ci.draw_colored_polygon(layer, edge.lerp(core.lightened(0.3), j / 3.0))
 	ci.draw_polyline(ring, BioArt.with_alpha(core.lightened(0.5), 0.85), 1.4, true)
 	ci.draw_circle(w.pos - aim.orthogonal() * r * 0.35 - aim * r * 0.1, r * 0.13, BioArt.with_alpha(Color.WHITE, 0.4))  # a glint
 	if near:
@@ -138,18 +134,17 @@ static func _details(ci: CanvasItem, w: BioWorker, r: float, core: Color, edge: 
 static func _draw_red_cell(ci: CanvasItem, w: BioWorker, r: float, core: Color, edge: Color, heading: float, t: float) -> void:
 	var flat := 0.62 + 0.38 * absf(cos(t * 0.8 + w.seed_value))  # it tumbles in the flow
 	var ring := PackedVector2Array()
-	for i in SEGMENTS + 1:
+	for i in SEGMENTS:
 		var a := TAU * i / SEGMENTS
 		ring.append(w.pos + Vector2(cos(a) * r, sin(a) * r * flat).rotated(heading))
-	var fan := PackedVector2Array([w.pos])
-	fan.append_array(ring)
-	var cols := PackedColorArray([core.lerp(Color.WHITE, 0.25)])
-	for i in ring.size():
-		cols.append(edge)
-	ci.draw_polygon(fan, cols)
+	ci.draw_colored_polygon(ring, edge)
+	var mid := PackedVector2Array()
+	for p in ring:
+		mid.append(w.pos + (p - w.pos) * 0.72)
+	ci.draw_colored_polygon(mid, edge.lerp(core, 0.6))
 	ci.draw_polyline(ring, BioArt.with_alpha(core.lightened(0.4), 0.8), 1.2, true)
 	var dent := PackedVector2Array()
-	for i in SEGMENTS + 1:
+	for i in SEGMENTS:
 		var a := TAU * i / SEGMENTS
 		dent.append(w.pos + Vector2(cos(a) * r * 0.42, sin(a) * r * 0.42 * flat).rotated(heading))
 	ci.draw_colored_polygon(dent, BioArt.with_alpha(core.lightened(0.45), 0.5))
@@ -167,7 +162,7 @@ static func _draw_rod(ci: CanvasItem, w: BioWorker, r: float, core: Color, edge:
 		var bend := sin(t * 3.0 + w.seed_value + f * 3.0) * r * 0.12
 		var width := r * 0.62 * pow(sin(f * PI), 0.5)
 		pts.append(w.pos + u * x + v * (bend + width))
-	for i in 13:
+	for i in range(1, 12):  # the two tips are already in the first pass
 		var f := 1.0 - float(i) / 12.0
 		var x := lerpf(-half, half, f)
 		var bend := sin(t * 3.0 + w.seed_value + f * 3.0) * r * 0.12

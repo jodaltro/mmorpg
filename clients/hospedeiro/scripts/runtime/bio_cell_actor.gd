@@ -12,6 +12,8 @@ var damping := 3.5
 var intent := Vector2.ZERO
 var _slow_until := 0.0
 var _slow_factor := 1.0
+var _lure := Vector2.ZERO
+var _lure_until := 0.0
 
 var _dash_until := 0.0
 var _dash_velocity := Vector2.ZERO
@@ -85,6 +87,13 @@ func retarget(prey: BioCellActor) -> void:
 			child.call("set_prey", prey)
 
 
+## A lure for `seconds`: while its brain only wanders, the cell drifts towards `direction` (a cell of the body it is going to attack).
+## A brain that is chasing or winding up a blow keeps its own intent.
+func lure(direction: Vector2, seconds: float) -> void:
+	_lure = direction.limit_length(1.0)
+	_lure_until = BioClock.now() + seconds
+
+
 ## Instant velocity change in world units per second.
 func apply_impulse(units_per_second: Vector2) -> void:
 	if has_meta("training"): return
@@ -139,7 +148,10 @@ func _physics_process(delta: float) -> void:
 		velocity = _dash_velocity
 	else:
 		var speed_stat := combatant.actor.stat(BioGene.SPEED) * combatant.speed_mult() * (_slow_factor if BioClock.now() < _slow_until else 1.0)
-		velocity = BioMovementModel.step(velocity, intent, delta, thrust_units, max_speed_units, damping, speed_stat, BioArt.UNIT)
+		var steer := intent
+		if BioClock.now() < _lure_until and intent.length() > 0.2 and intent.length() < 0.5:
+			steer = _lure * 0.7
+		velocity = BioMovementModel.step(velocity, steer, delta, thrust_units, max_speed_units, damping, speed_stat, BioArt.UNIT)
 	move_and_slide()
 	_respect_sanctuary(previous)
 

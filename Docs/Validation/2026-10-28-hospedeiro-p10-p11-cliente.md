@@ -136,3 +136,10 @@ Resolução 1280x720, vsync em 60 Hz (linha de base ≈ 16,6 ms). Pior caso: **t
 **Mapa:** o que há para fazer está perto do jogador (65% do que nasce, num raio de 24 unidades) e há 1,6 vez mais brilhos, toxinas e invasores (9 por padrão); a pele, o linfonodo e o cérebro ganharam coisas à deriva (fibrina, antígenos e resíduos neurais) que o jogador toca para ajudar a crise de lá e que plaquetas, linfócitos e glia comem; os grupos (até 16, 10 ou 5 por grupo, 72, 44 ou 18 no total) ficam onde o jogador pode ver, as células que ficam longe renascem na borda do que se vê, e as hemácias circulam pelo sangue, o coração e a aorta. O minimapa saiu de cima do texto de atalhos.
 **Testes Godot:** suíte inteira rodada; ajustei três que dependiam dos números antigos (9 invasores, 40% do grupo).
 **Não feito:** o equilíbrio (quantos invasores sobram ao jogador) e o custo de desenhar 72 células com detalhe não foram medidos; o texto "REINICIAR MUNDO" ainda se sobrepõe ao aviso do canto superior esquerdo.
+
+## Combate das células anônimas e correção do desenho (28/10/2026)
+
+- Erro `Invalid polygon data, triangulation failed` em `bio_cell_art.gd`: os polígonos fechavam repetindo o primeiro ponto. Agora o anel não repete o ponto, o gradiente é feito com camadas de polígonos e a bactéria em bastão não duplica as pontas. Captura real de `capture_crowd.gd` sem nenhum `ERROR`.
+- Cada papel tem PV, dano e postura (`BioWorkerRoles.COMBAT`): lutadores (neutrófilo, macrófago, NK), os que revidam (hepatócito, glia, linfócito, etc.) e os indefesos (plaqueta, flora, hemácia), que fogem e pedem ajuda. Invasores móveis vão atrás da célula mais próxima (`BioCellActor.lure`) e batem nela; ao zerar o PV a célula cai e volta após 16 s. Só apresentação: contagens do motor não mudam.
+- Barras de PV nos feridos (células e invasores), flash de dano e reação do corpo do invasor.
+- Godot: 393 testes, 0 falhas (2 novos). Não medido: equilíbrio da luta com o jogador por perto.

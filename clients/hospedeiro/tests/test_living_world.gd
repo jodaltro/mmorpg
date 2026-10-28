@@ -256,6 +256,45 @@ func test_defenders_finish_an_invader_and_the_player_is_not_paid() -> void:
 	assert_eq(paid[0], 0, "and a kill of the body pays the player nothing")
 
 
+func test_every_kind_of_cell_has_hp_and_a_way_to_fight() -> void:
+	for role in BioWorkerRoles.ROLES:
+		var c := BioWorkerRoles.combat(role)
+		assert_true(float(c["hp"]) > 0.0, "%s has hp" % role)
+		assert_true(BioWorkerRoles.COMBAT.has(role), "%s has a stance" % role)
+		assert_eq(float(c["dmg"]) > 0.0, c["stance"] != BioWorkerRoles.HELPLESS, "%s hits unless it is helpless" % role)
+	assert_true(BioWorkerRoles.combat("defesa")["hp"] < BioWorkerRoles.combat("limpeza")["hp"], "a macrophage is sturdier than a neutrophil")
+
+
+func test_invaders_hurt_the_cells_and_the_helpless_ones_run() -> void:
+	await _go(&"pulmao")
+	world.sync.apply_view(_view(10, [], []).merged({"populations": _pops(40)}, true))
+	var crowd: BioWorkCrowd = world.sync.crowd
+	crowd.workers.clear()
+	var red := BioWorker.new("hemacias", "transporte", BioBodyMap.center_px(&"pulmao"), 1.0)
+	var guard := BioWorker.new("neutrofilos_pulmao", "defesa", BioBodyMap.center_px(&"pulmao") - Vector2(400, 0), 2.0)
+	crowd.workers.append(red)
+	crowd.workers.append(guard)
+	var foe := BioFactory.spawn_virus(world, red.pos + Vector2(1.0, 0.0) * BioArt.UNIT, world.player).get_parent() as BioCellActor
+	crowd._invader_next.clear()
+	crowd._fight()
+	assert_true(red.hp < red.max_hp, "the invader hit the red cell")
+	assert_true(red.threat != null, "and the red cell knows where it is")
+	var before := red.pos
+	red.step(0.2, red.pos, 4000.0, null, Vector2.ZERO)
+	assert_eq(red.state, &"flee", "a helpless cell runs")
+	assert_true(red.pos.distance_to(foe.global_position) >= before.distance_to(foe.global_position), "away from the invader")
+	var fell := false
+	for i in 8:
+		fell = red.take_blow(30.0) or fell
+	assert_true(fell and red.is_down(), "enough blows and it falls")
+	red.step(BioWorkerRoles.DOWN_SECONDS + 0.1, red.pos, 4000.0, null, Vector2.ZERO)
+	assert_true(not red.is_down() and red.hp == red.max_hp, "and it is back after a while")
+	var hp_foe := foe.combatant.actor.vitals.membrane
+	guard.pos = foe.global_position + Vector2(1.0, 0.0) * BioArt.UNIT
+	crowd.strike(foe, Color.WHITE, guard.dmg)
+	assert_true(foe.combatant.actor.vitals.membrane < hp_foe, "a neutrophil's blow takes the invader's membrane")
+
+
 func test_cleaners_eat_what_the_organ_clears() -> void:
 	await _go(&"figado")
 	world.sync.apply_view(_view(10, [], []).merged({"populations": _pops(40)}, true))

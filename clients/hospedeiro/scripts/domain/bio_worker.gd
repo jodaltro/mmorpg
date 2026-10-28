@@ -20,6 +20,15 @@ var say := ""  # the balloon the cell shows now, and for how long
 var say_left := 0.0
 var say_in := 0.0
 
+var max_hp := 30.0
+var hp := 30.0
+var dmg := 3.0  # one blow
+var stance: StringName = BioWorkerRoles.SELF_DEFENSE
+var threat: Variant = null  # where the nearest invader is (px), or null
+var down_left := 0.0  # while above zero the cell has fallen and is not there
+var hurt := 0.0  # 1 right after a blow, fading
+var blow_in := 0.0  # seconds until it can hit back
+
 var _wander_to := Vector2.ZERO
 var _wander_left := 0.0
 
@@ -28,10 +37,34 @@ func _init(p_cohort: String, p_role: String, at: Vector2, p_seed: float) -> void
 	cohort = p_cohort
 	role = p_role
 	spec = BioWorkerRoles.spec(p_role)
+	var c := BioWorkerRoles.combat(p_role)
+	max_hp = float(c["hp"])
+	hp = max_hp
+	dmg = float(c["dmg"])
+	stance = c["stance"]
 	pos = at
 	seed_value = p_seed
 	say_in = 3.0 + fmod(p_seed * 5.0, 6.0)
 	_wander_to = at
+
+
+func is_down() -> bool:
+	return down_left > 0.0
+
+
+## Takes a blow. True when it is the one that makes the cell fall.
+func take_blow(amount: float) -> bool:
+	if is_down() or amount <= 0.0:
+		return false
+	hp -= amount
+	hurt = 1.0
+	if hp <= 0.0:
+		hp = 0.0
+		down_left = BioWorkerRoles.DOWN_SECONDS
+		state = &"down"
+		work = 0.0
+		return true
+	return false
 
 
 ## Advances by `delta`. `center` and `radius` are the organ's (px); `target` is a point or null; `flow` is the current there (px/s).
@@ -42,7 +75,23 @@ func step(delta: float, center: Vector2, radius: float, target: Variant, flow: V
 	var mode: StringName = spec["mode"]
 	var event := ""
 	var want := Vector2.ZERO
-	if mode == BioWorkerRoles.FLOW:
+	hurt = maxf(0.0, hurt - delta * 3.0)
+	blow_in = maxf(0.0, blow_in - delta)
+	if down_left > 0.0:
+		down_left -= delta
+		vel = Vector2.ZERO
+		if down_left <= 0.0:
+			hp = max_hp
+			state = &"wander"
+		return ""
+	hp = minf(max_hp, hp + delta * 0.4)  # a cell slowly mends when left alone
+	if threat != null and stance == BioWorkerRoles.HELPLESS:  # it cannot fight: it runs from the invader, someone must defend it
+		var away: Vector2 = pos - (threat as Vector2)
+		aim = -away.normalized() if away.length() > 1.0 else aim
+		state = &"flee"
+		work = 0.0
+		want = away.normalized() * speed * 1.7
+	elif mode == BioWorkerRoles.FLOW:
 		want = flow + Vector2.from_angle(seed_value * 3.0 + Time.get_ticks_msec() * 0.0004) * 0.25 * speed
 		state = &"wander"
 	elif target != null:

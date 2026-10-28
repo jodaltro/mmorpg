@@ -27,6 +27,34 @@ const ROLES := {
 }
 const FALLBACK := {"mode": WANDER, "name": "Célula", "core": Color(0.6, 1.0, 0.75), "edge": Color(0.2, 0.5, 0.9), "size": 0.45, "speed": 1.0}
 
+## How each kind of cell stands in a fight: `hp`, the `dmg` of one blow, and its `stance`. A fighter hunts invaders; a defender of itself
+## only hits back what touches it; a helpless one cannot fight and runs, so someone has to defend it. Presentation only: the engine's
+## headcounts never change, a fallen cell comes back after `DOWN_SECONDS`.
+const FIGHTER := &"fighter"
+const SELF_DEFENSE := &"self"
+const HELPLESS := &"helpless"
+const COMBAT := {
+	"defesa": {"hp": 46.0, "dmg": 15.0, "stance": FIGHTER},
+	"limpeza": {"hp": 95.0, "dmg": 11.0, "stance": FIGHTER},
+	"vigilancia": {"hp": 58.0, "dmg": 22.0, "stance": FIGHTER},
+	"depuracao": {"hp": 72.0, "dmg": 6.0, "stance": SELF_DEFENSE},
+	"reciclagem": {"hp": 80.0, "dmg": 9.0, "stance": SELF_DEFENSE},
+	"amparo": {"hp": 50.0, "dmg": 5.0, "stance": SELF_DEFENSE},
+	"filtracao": {"hp": 48.0, "dmg": 4.0, "stance": SELF_DEFENSE},
+	"memoria": {"hp": 32.0, "dmg": 7.0, "stance": SELF_DEFENSE},
+	"suporte": {"hp": 36.0, "dmg": 3.0, "stance": SELF_DEFENSE},
+	"reparo": {"hp": 14.0, "dmg": 0.0, "stance": HELPLESS},
+	"simbiose": {"hp": 16.0, "dmg": 0.0, "stance": HELPLESS},
+	"transporte": {"hp": 22.0, "dmg": 0.0, "stance": HELPLESS},
+}
+const FALLBACK_COMBAT := {"hp": 30.0, "dmg": 3.0, "stance": SELF_DEFENSE}
+const DOWN_SECONDS := 16.0
+
+
+static func combat(role: String) -> Dictionary:
+	return COMBAT.get(role, FALLBACK_COMBAT)
+
+
 ## How many of a cohort are drawn: a share of its real headcount, never more than `per_cohort`, and at least one while any is alive.
 const SHARE := 0.4
 
