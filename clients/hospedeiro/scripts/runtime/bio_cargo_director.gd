@@ -72,7 +72,8 @@ func _process(delta: float) -> void:
 			var aim: Vector2 = world.player.velocity.normalized() if world.player.velocity.length() > 5.0 else Vector2.DOWN
 			var want: Vector2 = me - aim * BioArt.UNIT * 1.3
 			l["pos"] = (l["pos"] as Vector2).lerp(want, clampf(delta * 8.0, 0.0, 1.0))
-			if site != null and (l["pos"] as Vector2).distance_to(site.global_position) < BioCargoRules.DELIVER_UNITS * BioArt.UNIT:
+			var reach := BioCargoRules.DELIVER_UNITS * BioArt.UNIT  # the load trails behind: the cell reaching the place is enough
+			if site != null and ((l["pos"] as Vector2).distance_to(site.global_position) < reach or me.distance_to(site.global_position) < reach):
 				_deliver(i)
 		elif carrying < 0 and alive and (l["pos"] as Vector2).distance_to(me) < (BioCargoRules.PICK_UNITS + 0.6) * BioArt.UNIT:
 			carrying = i

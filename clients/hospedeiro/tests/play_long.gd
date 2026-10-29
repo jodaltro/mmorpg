@@ -128,7 +128,11 @@ func _play(dt: float) -> void:
 	var region := StringName(str(c.get("region", "")))
 	if world.region != region:  # follow the guide to the crisis
 		var path := world.journey.navigation_path() if world.journey != null else PackedVector2Array()
-		var to := path[mini(1, path.size() - 1)] if path.size() > 1 else BioBodyMap.center_px(region)
+		var to := BioBodyMap.center_px(region)
+		for i in range(1, path.size()):  # the first point of the route that is a step away (the next one can sit on the cell)
+			to = path[i]
+			if path[i].distance_to(world.player.global_position) > BioArt.UNIT * 1.5:
+				break
 		_steer(to)
 		var in_the_way := _nearest("viruses", 4.0)  # what blocks the vessel is fought, as a person would
 		if in_the_way != null:

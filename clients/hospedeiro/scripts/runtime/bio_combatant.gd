@@ -554,8 +554,10 @@ func _after_blow(victim: BioCombatant, result: BioHitResult) -> void:
 ## A wounded cell passes a share of the wound to the others of its link (they feel it directly, so it does not echo back).
 func _share_with_link(dealt: float, attacker: BioCombatant) -> void:
 	for other in _link:
+		if not is_instance_valid(other):  # a linked cell that died and was freed: casting it would fail
+			continue
 		var mate := other as BioCombatant
-		if mate == null or mate == self or not is_instance_valid(mate) or not mate.actor.vitals.is_alive():
+		if mate == null or mate == self or not mate.actor.vitals.is_alive():
 			continue
 		var taken := mate.actor.vitals.take_damage(dealt * _link_share)
 		if taken > 0.0: mate._last_attacker = attacker

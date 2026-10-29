@@ -617,6 +617,8 @@ func _draw_wear(radius: float, tint: Color) -> void:
 		var dir := Vector2.from_angle(float(bit.angle))
 		var p := dir*radius*(1.0+age*2.6) + dir.orthogonal()*sin(age*5)*radius*0.2
 		var size := float(bit.size)*(1.0-age/0.7)
+		if size <= 0.05:  # at the end of its life a flake has no size: a triangle of one point cannot be drawn
+			continue
 		var axis := dir.rotated(age*4.0)
 		if spikes == 0:
 			draw_circle(p, size, BioArt.with_alpha(tint, 1.0-age/0.7))

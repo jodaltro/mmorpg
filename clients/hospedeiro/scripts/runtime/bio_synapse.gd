@@ -18,10 +18,12 @@ static func tie(parent: Node, cells: Array, p_color: Color, p_seconds: float) ->
 	s.color = p_color
 	s.seconds = p_seconds
 	parent.add_child(s)
+	var ref: WeakRef = weakref(s)  # the cells outlive the synapse: a lambda holding it would call into a freed object
 	for c in cells:
 		(c as BioCellActor).combatant.hit.connect(func(_who: BioCombatant, _r: BioHitResult) -> void:
-			if is_instance_valid(s):
-				s._pulse = 1.0)
+			var alive: Object = ref.get_ref()
+			if alive != null:
+				(alive as BioSynapse)._pulse = 1.0)
 	return s
 
 

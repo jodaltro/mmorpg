@@ -72,8 +72,10 @@ func _sleep(a: Dictionary, color: Color, targets: Array) -> void:
 	body.elastic(targets[0].global_position - host.global_position, 0.1, 0.25, 0.08)
 	await _wait(0.18)
 	for t in targets:
+		if not is_instance_valid(t):  # freed while the spores flew
+			continue
 		var cell := t as BioCellActor
-		if not is_instance_valid(cell) or not cell.combatant.actor.vitals.is_alive():
+		if cell == null or not cell.combatant.actor.vitals.is_alive():
 			continue
 		var seconds := float(a["seconds"]) * (0.4 if cell.combatant.actor.vitals.max_membrane >= BIG_HP else 1.0)
 		cell.combatant.put_to_sleep(seconds, float(a["wake"]))
