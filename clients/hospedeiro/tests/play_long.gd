@@ -165,8 +165,14 @@ func _play(dt: float) -> void:
 			if cargo == null or cargo.current_def() == "" or not is_instance_valid(cargo.site):
 				_mode_left = 0.0
 				return
-			if cargo.carrying >= 0:
-				_steer(cargo.site.global_position)
+			if cargo.carrying >= 0:  # follow the guide to the place, as a person would
+				var path := world.journey.navigation_path() if world.journey != null else PackedVector2Array()
+				var to := cargo.site.global_position
+				for k in range(1, path.size()):
+					to = path[k]
+					if path[k].distance_to(world.player.global_position) > BioArt.UNIT * 1.5:
+						break
+				_steer(to)
 			else:
 				var best := Vector2.ZERO
 				var best_d := INF

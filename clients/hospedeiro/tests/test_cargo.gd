@@ -67,3 +67,19 @@ func test_the_cell_picks_up_a_load_drags_it_and_delivering_it_is_a_confirmed_dee
 	world.sync.apply_view(_skin_crisis(10, 11))
 	await tree.create_timer(BioCargoDirector.LOOK_SECONDS + 0.2).timeout
 	assert_true(world.cargo.site.healed > 0.5, "the place heals with the crisis's numbers")
+
+
+func test_while_a_load_is_carried_the_guide_leads_to_its_place() -> void:
+	world.tutorial.completed = true
+	world.player.global_position = BioBodyMap.center_px(&"pele")
+	for i in 4:
+		await tree.process_frame
+	world.sync.apply_view(_skin_crisis(50))
+	await tree.create_timer(BioCargoDirector.LOOK_SECONDS + 0.2).timeout
+	world.player.global_position = world.cargo._loads[0]["pos"]
+	await tree.create_timer(0.3).timeout
+	assert_eq(world.cargo.carrying, 0, "the load is picked up")
+	assert_true(world.journey.has_manual_destination(), "and the guide now leads to its place")
+	world.player.global_position = world.cargo.site.global_position
+	await tree.create_timer(0.5).timeout
+	assert_true(not world.journey.has_manual_destination(), "delivered, the guide lets go of the place")

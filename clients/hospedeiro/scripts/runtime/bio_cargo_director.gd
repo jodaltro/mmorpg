@@ -19,6 +19,7 @@ var _loads: Array[Dictionary] = []  # {pos, vel, seed, back_in}
 var _look_in := 0.0
 var _salt := 0
 var _t := 0.0
+var _guiding := false  # the guide points at the place while the cell carries a load (the way can bend round a fold)
 
 
 func configure(p_world: BioWorld) -> void:
@@ -68,6 +69,7 @@ func _process(delta: float) -> void:
 		if i == carrying:
 			if not alive:  # a dissolved cell lets go of what it carried
 				carrying = -1
+				_guide(false)
 				continue
 			var aim: Vector2 = world.player.velocity.normalized() if world.player.velocity.length() > 5.0 else Vector2.DOWN
 			var want: Vector2 = me - aim * BioArt.UNIT * 1.3
@@ -78,6 +80,7 @@ func _process(delta: float) -> void:
 		elif carrying < 0 and alive and (l["pos"] as Vector2).distance_to(me) < (BioCargoRules.PICK_UNITS + 0.6) * BioArt.UNIT:
 			carrying = i
 			BioFx.ring(l["pos"], 0.6, BioCargoRules.of(_def).get("cargo_color", Color.WHITE))
+			_guide(true)
 	if site != null:
 		site.waiting = carrying >= 0
 	queue_redraw()
@@ -102,7 +105,20 @@ func _refresh(c: Dictionary) -> void:
 		site.healed = BioCargoRules.healed(c)
 
 
+## While a load is carried the guide (GPS and arrow) leads to its place, round the walls; it lets go when the load does.
+func _guide(on: bool) -> void:
+	if world.journey == null:
+		return
+	if on and is_instance_valid(site):
+		world.journey.pin(site.global_position, "Entregar: %s" % site.title)
+		_guiding = true
+	elif _guiding:
+		world.journey.clear_destination()
+		_guiding = false
+
+
 func _clear() -> void:
+	_guide(false)
 	if is_instance_valid(site):
 		site.queue_free()
 	site = null
@@ -121,6 +137,7 @@ func _deliver(i: int) -> void:
 		world.sync.system.push_feed("Entregue: %s → %s." % [str(c["cargo"]), str(c["site"])])
 	_loads[i]["back_in"] = RESPAWN_SECONDS
 	carrying = -1
+	_guide(false)
 	delivered.emit(_def)
 
 
