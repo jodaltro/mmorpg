@@ -86,6 +86,8 @@ var _base_spikes := 0
 
 ## Elastic motion: a spring along a direction (negative = squashed back, positive = stretched out), a
 ## breathing spring for swelling, and a short queue of timed kicks (wind-up, then snap).
+const SPRING_STEP := 0.016  # seconds: the longest step the body's springs take at once
+
 var _stretch := 0.0
 var _stretch_v := 0.0
 var _stretch_dir := Vector2.RIGHT
@@ -251,12 +253,17 @@ func _step_elastic(delta: float) -> void:
 		if float(kick[0]) <= 0.0:
 			_stretch_v += float(kick[1])
 	_kicks = _kicks.filter(func(k: Array) -> bool: return float(k[0]) > 0.0)
-	_stretch_v += (-220.0 * _stretch - 14.0 * _stretch_v) * delta
-	_stretch = clampf(_stretch + _stretch_v * delta, -0.55, 1.4)
 	if _swell_target != 1.0 and BioClock.now() >= _swell_until:
 		_swell_target = 1.0
-	_swell_v += (-150.0 * (_swell - _swell_target) - 13.0 * _swell_v) * delta
-	_swell = clampf(_swell + _swell_v * delta, 0.5, 1.8)
+	# The springs are stiff: one long step (a hitch when a form changes or a corridor loads) makes them oscillate to their limits and the
+	# body flashes between a needle and a pancake. Small fixed steps keep them stable whatever the frame took.
+	var steps := clampi(ceili(delta / SPRING_STEP), 1, 12)
+	var h := minf(delta, SPRING_STEP * 12.0) / steps
+	for i in steps:
+		_stretch_v += (-220.0 * _stretch - 14.0 * _stretch_v) * h
+		_stretch = clampf(_stretch + _stretch_v * h, -0.55, 1.4)
+		_swell_v += (-150.0 * (_swell - _swell_target) - 13.0 * _swell_v) * h
+		_swell = clampf(_swell + _swell_v * h, 0.5, 1.8)
 
 
 func flash() -> void:

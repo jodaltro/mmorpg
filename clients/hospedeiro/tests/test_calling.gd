@@ -38,6 +38,7 @@ func test_the_panel_offers_cards_and_a_choice_is_sent() -> void:
 	var panel := BioCallingPanel.new()
 	tree.root.add_child(panel)
 	panel.configure()
+	panel.dwell = 0.0
 	var picked := []
 	panel.chosen.connect(func(id: String) -> void: picked.append(id))
 	panel.apply(_view("", _offer()))
@@ -69,3 +70,30 @@ func test_wearing_and_giving_back_the_form_in_the_world() -> void:
 	assert_eq(world.abilities.known(), before, "and so are the abilities")
 	world.queue_free()
 	await tree.process_frame
+
+
+func test_passing_through_a_crisis_offers_nothing_until_the_player_stays() -> void:
+	var panel := BioCallingPanel.new()
+	tree.root.add_child(panel)
+	panel.configure()
+	panel.dwell = 0.4
+	panel.apply(_view("", _offer()))
+	assert_true(not panel.is_card_visible(), "just arrived: nothing yet")
+	await tree.create_timer(0.7).timeout
+	assert_true(panel.is_card_visible(), "after staying a moment the offer comes")
+	panel.apply({"conflict": "", "offer": []})
+	panel.apply(_view("", _offer(), "other-crisis"))
+	assert_true(not panel.is_card_visible(), "another crisis starts the wait again")
+	panel.queue_free()
+
+
+func test_a_long_frame_does_not_throw_the_body_into_a_needle() -> void:
+	var body := BioCellBody.new()
+	body._stretch = 0.3
+	body._stretch_v = 4.0
+	body._swell = 1.3
+	for i in 30:
+		body._step_elastic(0.4)  # a hitch of nearly half a second, again and again
+	assert_true(absf(body._stretch) < 0.05, "the stretch settles instead of flipping between its limits (%f)" % body._stretch)
+	assert_true(absf(body._swell - 1.0) < 0.05, "and so does the swell (%f)" % body._swell)
+	body.free()

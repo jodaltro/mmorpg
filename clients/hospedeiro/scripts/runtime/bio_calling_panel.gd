@@ -10,8 +10,11 @@ var _card: PanelContainer
 var _box: VBoxContainer
 var _chip: Button
 var _view: Dictionary = {}
+var dwell := 2.5  # seconds in a crisis before it offers anything: passing through a corridor asks nothing of you
 var _dismissed_for := ""  # the crisis whose offer the player put away
 var _key := ""
+var _here_for := ""  # the crisis the player is standing in, and since when
+var _here_since := 0.0
 
 
 func configure() -> void:
@@ -57,13 +60,23 @@ func option_ids() -> Array:
 	return out
 
 
+## The offer waits `dwell` seconds, so the view is looked at again while it is pending.
+func _process(_delta: float) -> void:
+	if not _view.is_empty() and not _card.visible and BioCallingRules.is_choosing(_view):
+		apply(_view)
+
+
 ## Takes the engine's `calling` view of the player.
 func apply(view: Dictionary) -> void:
 	_view = view
 	var conflict := str(view.get("conflict", ""))
 	if conflict.is_empty():
 		_dismissed_for = ""
-	var key := JSON.stringify(view)
+	if conflict != _here_for:
+		_here_for = conflict
+		_here_since = Time.get_ticks_msec() * 0.001
+	var waited := Time.get_ticks_msec() * 0.001 - _here_since >= dwell
+	var key := JSON.stringify(view) + str(waited)
 	if key == _key:
 		return
 	_key = key
@@ -71,7 +84,7 @@ func apply(view: Dictionary) -> void:
 		_show_card(false)
 		_chip.visible = true
 		_chip.text = "CHAMADO: %s  ·  %s   (trocar)" % [_name_of(view), BioCallingRules.role_name(str(view.get("role", "")))]
-	elif BioCallingRules.is_choosing(view) and _dismissed_for != conflict:
+	elif BioCallingRules.is_choosing(view) and _dismissed_for != conflict and waited:
 		_chip.visible = false
 		_show_card(true)
 	else:

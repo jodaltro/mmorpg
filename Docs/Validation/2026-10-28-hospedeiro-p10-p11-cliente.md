@@ -162,3 +162,11 @@ Jogo de verdade (renderizador real, offline, invasores padrão), 8 s em cada um 
 - Execução real (`tests/soak_calling.gd`, motor isolado em 127.0.0.1:8198 com tick de 150 ms, 0 `ERROR` no log): no linfonodo a crise ofereceu `t-regulador` e `linfocito-b`; escolhido o primeiro pelo próprio sinal do painel, o motor confirmou (papel controle), a célula vestiu `t_regulador` e a etiqueta apareceu; ao ir para o sangue o chamado foi solto e a forma base voltou.
 - Backend de uso normal reiniciado do zero com o universo novo (`hospedeiro-reset.ps1`, mundo antigo e saves arquivados em `D:\unity\hospedeiro-data-archive\20261028-201658`).
 - Não feito: recompensas e ranking por papel/temporada; desempate da oferta pelo Jev; ver se as habilidades emprestadas fazem sentido jogando.
+
+### Corpo que virava agulha ao andar (28/10/2026)
+
+- Relato: depois de voltar à forma normal o personagem piscava e se distorcia. Causa achada filmando o corpo (um quadro a cada 2 s) numa caminhada real por 12 órgãos contra um motor isolado: com ou sem chamado, em corredores e artérias o corpo virava agulha ou panqueca. As molas de esticar e de inchar (`BioCellBody._step_elastic`) eram integradas em um passo só; num quadro lento (troca de forma, corredor) passavam do limite de estabilidade e oscilavam até os extremos. Agora são integradas em passos de até 16 ms. Teste novo (`test_a_long_frame_does_not_throw_the_body_into_a_needle`): falha sem a correção (estica 1,4, inchaço 1,8) e passa com ela; a mesma caminhada depois não mostrou mais nenhuma agulha.
+- Todas as 10 formas de chamado vestidas e devolvidas no renderizador real (`tests/capture_calling_forms.gd`): limpas na volta.
+- A oferta do chamado só aparece depois de 2,5 s dentro da crise, para não pipocar a cada corredor atravessado.
+- O log do Godot da sessão do usuário já tinha sido apagado (ele guarda os 5 últimos), então a causa vem da reprodução, não do log dele. Godot: 399 testes, 0 falhas.
+- Novos scripts: `soak_walk.gd` (caminhada contínua por todos os órgãos, registra cada troca de região, chamado e forma, e salva uma tira de quadros), `capture_calling.gd`, `capture_calling_live.gd`, `capture_calling_forms.gd`.
