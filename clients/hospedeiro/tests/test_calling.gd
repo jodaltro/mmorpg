@@ -25,12 +25,14 @@ func test_the_rules_read_the_engine_view() -> void:
 		assert_true(BioCallingRules.ROLES.has(role), "%s has words" % role)
 
 
-func test_a_form_lends_a_few_abilities_the_player_does_not_have() -> void:
+func test_a_form_lends_its_whole_class_of_abilities() -> void:
 	var form := BioLineageCatalog.normalise("neutrofilo")
+	var all := BioAbilityCatalog.ids_of_class(form)
+	assert_true(all.size() > 0, "the class has abilities")
 	var lent := BioCallingRules.lent_abilities(form, [])
-	assert_true(lent.size() > 0 and lent.size() <= BioCallingRules.ABILITIES_PER_FORM, "a form lends one or two abilities")
+	assert_eq(lent.size(), all.size(), "the player arrives with all of them")
 	var again := BioCallingRules.lent_abilities(form, lent)
-	assert_true(not again.any(func(id: Variant) -> bool: return lent.has(id)), "never one the player already knows")
+	assert_eq(again.size(), 0, "never one the player already knows")
 	assert_eq(BioCallingRules.lent_abilities(&"", []).size(), 0, "no form, nothing lent")
 
 
@@ -64,7 +66,10 @@ func test_wearing_and_giving_back_the_form_in_the_world() -> void:
 	var before: Array = world.abilities.known().duplicate()
 	world.apply_engine_calling(_view("t-auxiliar", _offer()))
 	assert_eq(world.lineage_id, BioLineageCatalog.normalise("t-auxiliar"), "the cell wears the form of the calling")
-	assert_true(world.abilities.known().size() > before.size(), "and the form lends abilities")
+	var kit := BioAbilityCatalog.ids_of_class(BioLineageCatalog.normalise("t-auxiliar"))
+	assert_eq(world.abilities.known().slice(0, kit.size()), kit, "and its whole kit sits in the first slots, ready to use")
+	world.restore_ability_order()
+	assert_eq(world.abilities.known().slice(0, kit.size()), kit, "even when the order is restored while it lasts")
 	world.apply_engine_calling({"conflict": "", "offer": []})
 	assert_eq(world.lineage_id, base, "released, the base form is back")
 	assert_eq(world.abilities.known(), before, "and so are the abilities")
@@ -97,3 +102,30 @@ func test_a_long_frame_does_not_throw_the_body_into_a_needle() -> void:
 	assert_true(absf(body._stretch) < 0.05, "the stretch settles instead of flipping between its limits (%f)" % body._stretch)
 	assert_true(absf(body._swell - 1.0) < 0.05, "and so does the swell (%f)" % body._swell)
 	body.free()
+
+
+func test_the_crisis_card_says_what_the_role_does_and_every_place_has_a_short_name() -> void:
+	var held := _view("t-auxiliar", [])
+	var line := BioCallingRules.card_line(held, "Sustentador")
+	assert_true(line.contains("Sustentador") and line.contains("Cura") and line.ends_with("."), "the held calling: its name, its role and what it does (%s)" % line)
+	assert_true(BioCallingRules.card_line(_view("", _offer()), "").contains("cartão"), "choosing: it points at the card")
+	assert_eq(BioCallingRules.card_line({"conflict": "", "offer": []}, ""), "", "nothing to say away from a crisis")
+	assert_eq(BioCallingRules.what_it_does("cura").substr(0, 1), "S", "the sentence starts with a capital, not every word")
+	for id in BioBodyMap.NAMES:
+		assert_true(BioBodyMap.SHORT.has(id), "%s has a short name for the maps" % id)
+
+
+func test_the_feed_gives_the_body_s_ambient_news_one_line_at_a_time() -> void:
+	var world := BioWorld.new()
+	world.save_path = ""
+	world.engine_url = ""
+	tree.root.add_child(world)
+	await tree.physics_frame
+	var sync: BioHostSync = world.sync
+	sync._last_ambient = -100.0
+	assert_true(sync._worth_the_feed("world-news"), "the first ambient line goes through")
+	assert_true(not sync._worth_the_feed("world-news"), "the next ones wait")
+	assert_true(sync._worth_the_feed("conflict-escalated"), "a crisis event is never held back")
+	assert_true(sync._worth_the_feed("calling-assumed"), "nor the player's own calling")
+	world.queue_free()
+	await tree.process_frame

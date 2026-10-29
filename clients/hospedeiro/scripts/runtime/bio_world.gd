@@ -559,17 +559,23 @@ func apply_engine_calling(view: Dictionary) -> void:
 	_calling = view
 	if calling_panel != null:
 		calling_panel.apply(view)
+		if sync != null and sync.living_hud != null:
+			sync.living_hud.set_calling(view, calling_panel.held_name())
 	var form := BioCallingRules.form_of(view) if BioCallingRules.is_held(view) else &""
 	if form == _calling_form:
 		return
-	if abilities != null:  # give back what the old form lent, then lend what the new one does
+	if abilities != null:
+		# The calling's class takes the four slots while it lasts (all of its kit, ready to use); what the player knew waits behind
+		# it and comes back, in its own order, when the calling is released.
 		var kept: Array = abilities.known().filter(func(id: StringName) -> bool: return not _calling_lent.has(id))
+		var class_ids: Array = BioAbilityCatalog.ids_of_class(form) if form != &"" else []
 		abilities.clear()
-		abilities.set_known(kept)
-		_calling_lent = BioCallingRules.lent_abilities(form, kept)
-		for id in _calling_lent:
+		for id in class_ids:
 			abilities.learn(id)
-		restore_ability_order()
+		abilities.set_known(kept)
+		_calling_lent = class_ids.filter(func(id: StringName) -> bool: return not kept.has(id))
+		if form == &"":
+			restore_ability_order()
 	_calling_form = form
 	apply_engine_lineage(_engine_lineage)
 	if body_panel != null:
@@ -634,6 +640,8 @@ func arrange_abilities(order: Array) -> void:
 
 ## The order the player gave their abilities, restored once the engine says which ones the class knows.
 func restore_ability_order() -> void:
+	if _calling_form != &"":
+		return  # the calling's class holds the slots; the player's own order comes back with them
 	abilities.arrange(build_store.current_order)
 
 

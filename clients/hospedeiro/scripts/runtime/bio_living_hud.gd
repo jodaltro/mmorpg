@@ -19,6 +19,8 @@ var sound: BioLivingSound
 var chosen := ""  # the crisis the player follows; "" lets the engine's suggestion lead
 var filter := "todos"
 var player_region := ""
+var calling := {}  # the engine's `calling` view of the player
+var calling_name := ""
 var stale := false  # no connection: what is shown may be out of date and is never presented as current
 
 var _card: PanelContainer
@@ -239,7 +241,10 @@ func _rebuild_card() -> void:
 		if BioConflictFocus.demanding(c):
 			var where := "Você está no lugar certo." if BioConflictFocus.here(c, player_region) else "Siga a seta até %s." % BioConflictFocus.organ(c)
 			_card_box.add_child(BioUi.label("O QUE FAZER", _size(11), BioUi.MUTED))
-			_card_box.add_child(_wrap(BioConflictFocus.suggestion(c), _size(14), BioUi.ACCENT, CARD_WIDTH - 30.0))
+			var role_line := ""
+			if BioConflictFocus.here(c, player_region):  # in place, the calling says what to do; the old line only says where to go
+				role_line = BioCallingRules.card_line(calling, calling_name)
+			_card_box.add_child(_wrap(role_line if role_line != "" else BioConflictFocus.suggestion(c), _size(14), BioUi.ACCENT, CARD_WIDTH - 30.0))
 			_card_box.add_child(_wrap(where, _size(12), BioUi.TEXT, CARD_WIDTH - 30.0))
 		else:
 			_card_box.add_child(_wrap(BioConflictFocus.suggestion(c), _size(12), BioUi.ACCENT, CARD_WIDTH - 30.0))
@@ -377,6 +382,15 @@ func _dismiss_help() -> void:
 	if _help_for != "":
 		_dismissed[_help_for] = true
 	_help.visible = false
+
+
+## The player's calling changed: the card says what the role does here.
+func set_calling(view: Dictionary, held_name: String) -> void:
+	if view == calling and held_name == calling_name:
+		return
+	calling = view
+	calling_name = held_name
+	_rebuild_card()
 
 
 func set_player_region(region: String) -> void:

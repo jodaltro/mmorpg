@@ -115,7 +115,7 @@ func _ready() -> void:
 	_lineage_label = BioUi.label("", BioUi.FS_HEAD, BioArt.with_alpha(BioArt.AMBER, 0.95))
 	_lineage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_lineage_label.custom_minimum_size.x = WIDTH
-	_lineage_label.clip_text = true
+	_lineage_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # a long class name wraps; it was cut off on the left
 	column.add_child(_lineage_label)
 
 	_pressure_back = Control.new()

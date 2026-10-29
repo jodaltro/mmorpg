@@ -51,6 +51,8 @@ const RESIDENTS := {
 }
 
 const NAMES := {MEDULA: "NICHO DA MEDULA", SANGUE: "VÊNULA", CORACAO: "ENDOCÁRDIO", PULMAO: "ALVÉOLOS", AORTA: "ARTÉRIA", FIGADO: "SINUSOIDES DO FÍGADO", BACO: "POLPA DO BAÇO", INTESTINO: "CRIPTAS DO INTESTINO", RIM: "NÉFRONS DO RIM", PELE: "DERME E EPIDERME", LINFONODO: "LINFONODO", CEREBRO: "TECIDO CEREBRAL"}
+## The short name of each place, for labels on the maps.
+const SHORT := {MEDULA: "Medula", SANGUE: "Vênula", CORACAO: "Coração", PULMAO: "Pulmão", AORTA: "Artéria", FIGADO: "Fígado", BACO: "Baço", INTESTINO: "Intestino", RIM: "Rim", PELE: "Pele", LINFONODO: "Linfonodo", CEREBRO: "Cérebro"}
 
 
 static func body() -> Dictionary:

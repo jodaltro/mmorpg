@@ -170,3 +170,10 @@ Jogo de verdade (renderizador real, offline, invasores padrão), 8 s em cada um 
 - A oferta do chamado só aparece depois de 2,5 s dentro da crise, para não pipocar a cada corredor atravessado.
 - O log do Godot da sessão do usuário já tinha sido apagado (ele guarda os 5 últimos), então a causa vem da reprodução, não do log dele. Godot: 399 testes, 0 falhas.
 - Novos scripts: `soak_walk.gd` (caminhada contínua por todos os órgãos, registra cada troca de região, chamado e forma, e salva uma tira de quadros), `capture_calling.gd`, `capture_calling_live.gd`, `capture_calling_forms.gd`.
+
+### Revisão da tela de crise, nomes no mapa e kit completo (28/10/2026)
+
+- Revisão em jogo real (`tests/capture_crisis_hud.gd`, quadros inteiros durante uma crise): o cartão de chamado cobria a célula e tinha texto em maiúsculas erradas; agora é compacto, mais baixo e diz só o que o papel faz. O "O QUE FAZER" da crise passa a dizer o que o chamado faz ("Chamado: Pacificador · Controle. Acalma a reação e segura a inflamação.") ou "Escolha um chamado no cartão abaixo". O feed dá ao noticiário ambiente do corpo no máximo uma linha a cada 20 s (eventos de crise, ajuda, genes e chamados passam sempre) e mostra 4 linhas. O botão Tutorial saiu de cima das linhas de status. O nome longo da classe no canto superior direito quebra em vez de ser cortado.
+- Nomes dos lugares: o atlas escreve o nome de cada lugar ao lado do marcador, sem sobreposição, e o minimapa nomeia os lugares à vista (`BioBodyMap.SHORT`, `tests/capture_maps.gd`).
+- Ao assumir um chamado a classe vem com o kit inteiro (as 4 habilidades da classe nos 4 slots, Q F C V); o que o jogador já tinha espera atrás e volta na ordem dele ao soltar. Conferido em jogo real.
+- Godot: 401 testes, 0 falhas.

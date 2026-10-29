@@ -6,7 +6,7 @@ extends CanvasLayer
 
 signal menu_chosen(index: int)
 
-const FEED_LINES := 5
+const FEED_LINES := 4
 const FEED_SECONDS := 16.0
 const MENU_SIZE := 9
 

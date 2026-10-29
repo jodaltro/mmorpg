@@ -112,7 +112,7 @@ func _ready() -> void:
 	_next.pressed.connect(_next_pressed)
 	_buttons.add_child(_next)
 	var replay := BioUi.button("Tutorial")
-	replay.position = Vector2(16, 94)
+	replay.position = Vector2(150, 6)  # clear of the status lines at the top-left
 	replay.pressed.connect(func() -> void: start(completed))
 	add_child(replay)
 	replay.visible = world.touch == null

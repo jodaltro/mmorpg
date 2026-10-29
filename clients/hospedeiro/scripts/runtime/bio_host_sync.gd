@@ -6,6 +6,8 @@ extends Node
 ## Without an engine everything here stays quiet and the game plays offline.
 
 ## Echoes of the player's own combat and lifecycle notices already shown elsewhere (the System window).
+const PRIORITY_PREFIXES := ["conflict", "help", "gene", "differentiated", "calling", "skill", "nicho", "dungeon", "fame", "story"]
+const AMBIENT_SECONDS := 20.0
 const QUIET_EVENTS := ["abate", "nutriente", "faro", "esquiva", "join", "moved", "evolution-offered", "evolution-declined", "mutated", "lineage-offered", "calling-assumed", "calling-released", "appearance", "skill-learned", "conflict-reward", "codice", "adaptou", "rota", "design"]
 
 ## How the menu names what can be told (the engine gives the predicate and subject).
@@ -27,6 +29,7 @@ var _world: BioWorld
 var _residents := {}  # entity id -> BioResident
 var _signs := {}  # sign id -> BioSignMarker
 var _names := {}  # entity id -> display name
+var _last_ambient := -100.0
 var _last_seq := -1
 var _announce_abilities := false  # the first view is history, not news
 const FOLLOW_SECONDS := 90.0
@@ -381,6 +384,19 @@ func _apply_beliefs(beliefs: Array) -> void:
 	system.set_states(states)
 
 
+## What happens to the player and to the crisis they follow always reaches the feed; the body's ambient news (what an organ is doing)
+## gets one line every AMBIENT_SECONDS, so a crisis is not read through a wall of text.
+func _worth_the_feed(kind: String) -> bool:
+	for p in PRIORITY_PREFIXES:
+		if kind.begins_with(p):
+			return true
+	var now := BioClock.now()
+	if now - _last_ambient < AMBIENT_SECONDS:
+		return false
+	_last_ambient = now
+	return true
+
+
 func _apply_events(events: Array) -> void:
 	var fresh := events.filter(func(e: Dictionary) -> bool: return int(e.get("seq", -1)) > _last_seq)
 	fresh.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a.get("seq", 0)) < int(b.get("seq", 0)))
@@ -388,7 +404,7 @@ func _apply_events(events: Array) -> void:
 	for e in fresh:
 		_last_seq = maxi(_last_seq, int(e.get("seq", 0)))
 		var kind := str(e.get("kind", ""))
-		if not QUIET_EVENTS.has(kind):
+		if not QUIET_EVENTS.has(kind) and _worth_the_feed(kind):
 			system.push_feed(str(e.get("text", "")))
 		if first_view:
 			continue  # history before this session: shown, not replayed

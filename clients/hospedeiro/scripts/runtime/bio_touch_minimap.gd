@@ -86,6 +86,14 @@ func _draw() -> void:
 			var at: Vector2 = resident.global_position/BioArt.UNIT*factor+offset
 			if frame.has_point(at):
 				draw_circle(at,1.6,Color(0.9,0.75,0.4,0.8))
+	var font := ThemeDB.fallback_font  # the places in view are named
+	for region in _body.get("regions", []):
+		var at: Vector2 = (region["center"] as Vector2) * factor + offset
+		if frame.grow(-14.0).has_point(at):
+			var label := str(BioBodyMap.SHORT.get(region["id"], ""))
+			var label_at := at + Vector2(-font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 11).x * 0.5, 4)
+			draw_string_outline(font, label_at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 11, 3, Color(0.01, 0.02, 0.05, 0.95))
+			draw_string(font, label_at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(0.75, 0.9, 1.0, 0.9))
 	draw_circle(size*0.5,5,Color(0.5,1,1,0.2))
 	draw_circle(size*0.5,2.5,Color(0.8,1,1))
 	draw_string(ThemeDB.fallback_font,Vector2(9,15),"N",HORIZONTAL_ALIGNMENT_LEFT,12,8,Color(0.7,0.8,0.85,0.6))

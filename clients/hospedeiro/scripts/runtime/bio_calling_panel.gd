@@ -22,9 +22,9 @@ func configure() -> void:
 	_card = PanelContainer.new()
 	_card.add_theme_stylebox_override("panel", BioUi.style(BioUi.BG, BioUi.LINE_STRONG, 12, 12))
 	_card.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	_card.offset_left = -340.0
-	_card.offset_right = 340.0
-	_card.offset_bottom = -150.0
+	_card.offset_left = -310.0
+	_card.offset_right = 310.0
+	_card.offset_bottom = -120.0
 	_card.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	_card.visible = false
 	add_child(_card)
@@ -35,8 +35,8 @@ func configure() -> void:
 	_chip.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	_chip.offset_left = -170.0
 	_chip.offset_right = 170.0
-	_chip.offset_bottom = -150.0
-	_chip.offset_top = -184.0
+	_chip.offset_bottom = -120.0
+	_chip.offset_top = -154.0
 	_chip.visible = false
 	_chip.pressed.connect(func() -> void:
 		_dismissed_for = ""
@@ -92,6 +92,10 @@ func apply(view: Dictionary) -> void:
 		_chip.visible = false
 
 
+func held_name() -> String:
+	return _name_of(_view) if BioCallingRules.is_held(_view) else ""
+
+
 func _name_of(view: Dictionary) -> String:
 	var id := str(view.get("current", ""))
 	for o in view.get("offer", []):
@@ -110,13 +114,14 @@ func _show_card(on: bool) -> void:
 		c.queue_free()
 	var title := "A CRISE PEDE UM CHAMADO" if not BioCallingRules.is_held(_view) else "TROCAR DE CHAMADO"
 	_box.add_child(BioUi.label(title, BioUi.FS_HEAD, BioUi.ACCENT))
-	_box.add_child(BioUi.wrapped("Escolha a forma que mais ajuda aqui. Ela dura enquanto você estiver nesta crise.", BioUi.FS_SMALL, BioUi.MUTED))
+	_box.add_child(BioUi.label("Dura enquanto você estiver nesta crise.", BioUi.FS_SMALL, BioUi.MUTED))
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	_box.add_child(row)
 	for o in _view.get("offer", []):
 		row.add_child(_option_card(o))
 	var later := BioUi.button("Agora não", "ghost")
+	later.custom_minimum_size.y = 26.0
 	later.pressed.connect(func() -> void:
 		_dismissed_for = str(_view.get("conflict", ""))
 		_show_card(false))

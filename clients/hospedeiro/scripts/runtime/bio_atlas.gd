@@ -195,17 +195,24 @@ func _paint() -> void:
 			_panel.draw_polyline(pts, BioArt.with_alpha(tint.lerp(Color.WHITE, 0.3), 0.95), 2.5, true)
 		else:
 			_panel.draw_polyline(pts, Color(0.55, 0.6, 0.7, 0.3), 2.0, true)
-	var number := 0
+	var placed: Array[Rect2] = []  # the names already on the map, so two never overlap
 	for region in body["regions"]:
 		var at: Vector2 = to_screen.call(region["center"])
 		var visited := known.has(region["id"])
-		var marker := "?"
-		if visited:
-			number += 1
-			marker = str(number)
-		var tint := BioUi.ACCENT if visited else BioUi.MUTED
-		_panel.draw_circle(at, 10, BioUi.BG)
-		_panel.draw_string(font, at + Vector2(-4, 4), marker, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, tint)
+		var tint := BioUi.ACCENT if visited else BioUi.TEXT
+		_panel.draw_circle(at, 7, BioUi.BG)
+		_panel.draw_arc(at, 7, 0.0, TAU, 20, tint, 2.0, true)
+		var label := str(BioBodyMap.SHORT.get(region["id"], region["name"]))  # every place is named: the whole body is open
+		var label_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
+		var label_at := at + Vector2(-label_size.x * 0.5, -16)
+		for below in [Vector2(0, 0), Vector2(0, 32), Vector2(0, -16)]:  # above the marker; below it when a neighbour's name is in the way
+			var name_box := Rect2(label_at + below + Vector2(0, -label_size.y), label_size).grow(2.0)
+			if not placed.any(func(r: Rect2) -> bool: return r.intersects(name_box)):
+				label_at += below
+				placed.append(name_box)
+				break
+		_panel.draw_string_outline(font, label_at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, 4, Color(0.01, 0.02, 0.05, 0.95))
+		_panel.draw_string(font, label_at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, tint)
 		if visited:
 			_hits.append({"screen": at, "at": region["center"] * BioArt.UNIT, "title": place_title(region), "detail": "Medula · refúgio sem invasores. Treine e conheça Estroma, o NPC dourado." if region["id"] == BioBodyMap.MEDULA else "Sangue · primeira área de combate. Ataque vírions e absorva nutrientes para evoluir." if region["id"] == BioBodyMap.SANGUE else str(region["name"]) + " · região do corpo. Siga os vasos para chegar; membranas podem exigir adaptação."})
 	var world := _player.get_parent() as BioWorld if is_instance_valid(_player) else null
