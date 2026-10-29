@@ -126,38 +126,34 @@ func TestACrisisWaitsForTheLivePlaceAndTheLongestWaitingGoesFirst(t *testing.T) 
 	}
 }
 
-func TestNoMissionsAreOfferedAndClassTrialsAreLearnedByDoing(t *testing.T) {
+// 28/10/2026: nobody grows any more. There are no missions, and doing things teaches no ability: a class
+// and its kit come only with a calling, while the player stands in a crisis.
+func TestNoMissionsAndNothingIsLearnedByDoing(t *testing.T) {
 	h := load(t, "hospedeiro")
 	if len(h.w.U.Quests) != 0 || len(h.w.U.Arcs) != 0 {
 		t.Fatalf("the Hospedeiro has no missions: %d quests, %d arcs", len(h.w.U.Quests), len(h.w.U.Arcs))
 	}
-	h.join("p1", "p2")
-	h.becomeClass("p1", "mieloide", "macrofago")
-	h.becomeClass("p2", "linfoide", "linfocito-b")
-	h.repeat("adapter", "p1", "absorver-nutriente", 39)
-	h.repeat("adapter", "p2", "absorver-nutriente", 60)
-	h.tick(2)
-	if slices.Contains(h.skillIDs("p1"), "onda-de-pseudopodes") {
-		t.Fatal("the macrophage has not eaten enough yet")
+	if h.w.U.Evolution != nil || h.w.U.Differentiation != nil || len(h.w.U.Mutations) > 0 || len(h.w.U.Niches) > 0 || h.w.U.Appearance != nil || h.w.U.Abilities != nil {
+		t.Fatal("the Hospedeiro has no growth: no evolution, mutations, differentiation, niches, body shaped by play or abilities found by doing")
 	}
-	h.repeat("adapter", "p1", "absorver-nutriente", 1)
-	h.tick(2)
-	if !slices.Contains(h.skillIDs("p1"), "onda-de-pseudopodes") {
-		t.Fatalf("a macrophage that ate 40 learns the wave on its own, got %v", h.skillIDs("p1"))
-	}
-	if slices.Contains(h.skillIDs("p2"), "onda-de-pseudopodes") {
-		t.Fatal("a B cell must not learn the macrophage's wave")
-	}
-	for i := 0; i < 400; i++ {
-		h.tick(1)
-		if len(h.s.Quests) != 0 {
-			t.Fatalf("no mission may appear: %+v", h.s.Quests)
+	for _, sk := range h.w.U.Skills {
+		if sk.Learn != nil || sk.Starter {
+			t.Fatalf("%s is learned by doing or on growing: nothing is", sk.ID)
 		}
+	}
+	h.join("p1")
+	h.repeat("adapter", "p1", "absorver-nutriente", 80)
+	h.tick(50)
+	for _, id := range h.skillIDs("p1") {
+		if i := slices.IndexFunc(h.w.U.Skills, func(sk core.SkillDef) bool { return sk.ID == id }); i >= 0 && h.w.U.Skills[i].Class != "" {
+			t.Fatalf("p1 learned the class ability %s by eating", id)
+		}
+	}
+	if v, _ := h.w.View(&h.s, "p1", 5); v.Evolution != nil || v.Lineage != nil {
+		t.Fatalf("no pressure, no maturity: %+v %+v", v.Evolution, v.Lineage)
 	}
 }
 
-// "How do I help?" must always have an answer: every crisis has a deed a player
-// can do, in the crisis' own organ, that counts for it.
 func TestEveryCrisisHasADeedThePlayerCanDoInItsOrgan(t *testing.T) {
 	h := load(t, "hospedeiro")
 	for _, c := range h.w.U.Conflicts {
@@ -195,9 +191,6 @@ func TestAPlayerInTheBrainHelpsItsCrisisAndIsPaidWhenItEnds(t *testing.T) {
 	runUntil(h, 2500, func() bool { return resolvedOf(h, "sofrimento-cerebral") })
 	if !resolvedOf(h, "sofrimento-cerebral") {
 		t.Fatal("the crisis must end")
-	}
-	if len(h.events("conflict-reward")) == 0 {
-		t.Fatal("whoever helped is paid when it ends")
 	}
 }
 

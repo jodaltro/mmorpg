@@ -77,9 +77,13 @@ func (w *World) lineageOf(s *State, p ID) (string, int) {
 
 func (w *World) compileDifferentiation() error {
 	d := w.U.Differentiation
-	if d == nil {
-		if len(w.U.Lineages) > 0 {
-			return invalid("lineages need a differentiation block")
+	if d == nil { // without differentiation nobody grows into a lineage: lineages are only forms (a calling's body)
+		seen := map[string]bool{}
+		for _, l := range w.U.Lineages {
+			if !validID(l.ID) || l.Name == "" || seen[l.ID] {
+				return invalid("lineage %q", l.ID)
+			}
+			seen[l.ID] = true
 		}
 		return nil
 	}

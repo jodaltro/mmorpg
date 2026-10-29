@@ -64,7 +64,7 @@ func TestHospedeiroNicheGeneOpensTheLung(t *testing.T) {
 // Unique niches belong to the first finder; the second player finds it already taken. Only the adapter confirms a find, and only
 // where the cell really is.
 func TestHospedeiroUniqueNicheBelongsToTheFirstFinder(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1", "p2")
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.move(p, "sangue")
@@ -98,7 +98,7 @@ func TestHospedeiroUniqueNicheBelongsToTheFirstFinder(t *testing.T) {
 
 // What a cell has visited is remembered by the world and shown as facts; niche hints appear in the places it knows and the ones next door.
 func TestHospedeiroDiscoveryAndHints(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	hint := func(id string) string {
 		v, _ := h.w.View(&h.s, "p1", 50)
@@ -144,7 +144,7 @@ func nicheListed(h *harness, p core.ID, id string) bool {
 
 // The codex fills in as the cell sees and does things; locked entries say nothing.
 func TestHospedeiroCodexUnlocksWithWhatTheCellDoes(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.tick(1)
 	if !codexUnlocked(h, "p1", "cx-medula") || codexUnlocked(h, "p1", "cx-endocardio") || codexUnlocked(h, "p1", "cx-nutrientes") {
@@ -175,7 +175,7 @@ func TestHospedeiroCodexUnlocksWithWhatTheCellDoes(t *testing.T) {
 
 // Secrets show only while the body is in their state: the marrow's chamber opens only in sleep, the hot alveolus only in fever.
 func TestHospedeiroSecretNichesFollowTheStateOfTheBody(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	sleepNow := func() bool { return h.fact("", "sono", "medula", "") }
 	for i := 0; i < 900 && !sleepNow(); i++ {
@@ -194,7 +194,7 @@ func TestHospedeiroSecretNichesFollowTheStateOfTheBody(t *testing.T) {
 	if !codexUnlocked(h, "p1", "cx-segredo-sonho") {
 		t.Fatal("and the codex records it")
 	}
-	h2 := load(t, "hospedeiro")
+	h2 := load(t, legacyGrowth)
 	h2.join("p2")
 	if nicheListed(h2, "p2", "sonho-da-medula") {
 		t.Fatal("awake, the chamber is not even listed")
@@ -206,7 +206,7 @@ func TestHospedeiroSecretNichesFollowTheStateOfTheBody(t *testing.T) {
 
 // Living somewhere long enough adapts the body to it, and the world remembers.
 func TestHospedeiroLivingInAPlaceAdaptsTheCell(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.tick(25)
 	if v, _ := h.w.View(&h.s, "p1", 50); len(v.Explore.Adapted) != 0 {
@@ -221,7 +221,7 @@ func TestHospedeiroLivingInAPlaceAdaptsTheCell(t *testing.T) {
 
 // The advisor points a player to the next place worth finding; the choice is revalidated and the default is the nearest.
 func TestHospedeiroRotaPointsToAPlaceAndIsRevalidated(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.move("p1", "sangue") // the marrow's and the venule's niches are now both whispered
 	var d core.Decision
@@ -255,7 +255,7 @@ func TestHospedeiroRotaPointsToAPlaceAndIsRevalidated(t *testing.T) {
 
 // Without anybody answering, the deadline decides: every player still ends up with a route, and replaying the log gives the same world.
 func TestHospedeiroRotaDefaultsAtDeadlineAndReplays(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.move("p1", "sangue")
 	h.tick(30)
@@ -263,7 +263,7 @@ func TestHospedeiroRotaDefaultsAtDeadlineAndReplays(t *testing.T) {
 	if v.Explore.Route == "" {
 		t.Fatal("the default should have set a route")
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyGrowth)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {

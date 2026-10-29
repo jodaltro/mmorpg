@@ -3,7 +3,7 @@ extends TestCase
 
 
 func _universe() -> Dictionary:
-	return JSON.parse_string(FileAccess.get_file_as_string("res://../../universes/hospedeiro/universe.json"))
+	return JSON.parse_string(FileAccess.get_file_as_string("res://../../engine/scenarios/testdata/legacy-dungeons/universe.json"))
 
 
 func test_every_option_the_engine_offers_has_a_drawing() -> void:

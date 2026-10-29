@@ -13,8 +13,8 @@ const STEPS := [
 	["Conheça um NPC", "Siga a marca até Estroma, a célula dourada. NPCs são habitantes do corpo: trabalham e pedem ajuda. Não são alvos. Invasores ficam fora da Medula.", ""],
 	["Converse e descubra ações", "Perto de Estroma, toque em Agir para ver as ações disponíveis. Leia as opções e feche a janela para continuar.", "Perto de Estroma, pressione E para ver as ações disponíveis. Depois feche a janela."],
 	["Uma crise de cada vez", "O corpo vive uma crise por vez. O cartão no canto diz onde ir e o que fazer; a seta no chão leva até lá. Ajudar é derrotar os invasores do órgão ou tocar nos brilhos dele. Abra Menu → Crises do corpo para ver todas.", "Pressione L para abrir o painel das crises e veja a atual. Feche a janela depois."],
-	["Construa sua célula", "Abra Corpo. Genes modificam seu organismo; a experiência de jogo permite diferenciar sua classe. Não há níveis nem XP. Fora de combate, você verá um convite quando puder evoluir.", "Pressione G para abrir Corpo e conhecer genes, classe e habilidades."],
-	["Seu primeiro destino: o Sangue", "Ao concluir, siga a trilha azul pelo canal à direita da Medula. No Sangue, combata vírions e absorva nutrientes para evoluir. O botão Próximo passo acompanha seu objetivo. Toque nos símbolos do mapa para entender os locais; as crises do corpo são o desafio de verdade.", "Reveja este guia quando quiser pelo botão Tutorial."]
+	["Todos começam iguais", "Não há níveis, XP, genes nem evolução: toda célula é a mesma esfera. Ao entrar numa crise, ela pede um chamado: escolha a classe que mais ajuda ali e ela chega com todas as habilidades. Ao sair da crise, você volta à esfera.", "Vá até uma crise e escolha um chamado."],
+	["Seu primeiro destino: o Sangue", "Ao concluir, siga a trilha azul pelo canal à direita da Medula. No Sangue, combata vírions e absorva nutrientes para recuperar energia. O botão Próximo passo acompanha seu objetivo. Toque nos símbolos do mapa para entender os locais; as crises do corpo são o desafio de verdade.", "Reveja este guia quando quiser pelo botão Tutorial."]
 ]
 
 var world: BioWorld

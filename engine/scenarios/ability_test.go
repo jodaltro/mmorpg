@@ -41,7 +41,7 @@ func TestEachClassIsBornWithItsStarterAbility(t *testing.T) {
 		"t-regulador":  {"linfoide", "anergia", "passo-sem-identidade"},
 	}
 	for class, c := range cases {
-		h := load(t, "hospedeiro")
+		h := load(t, legacyGrowth)
 		h.join("p1")
 		if got := h.skillIDs("p1"); len(got) != 0 {
 			t.Fatalf("a newborn ball knows no ability, got %v", got)
@@ -83,7 +83,7 @@ func TestClassQuestGrantsAnAbility(t *testing.T) {
 
 // Deeds discover an ability by themselves, but only for the class it belongs to.
 func TestDeedsDiscoverAnAbilityOfTheClass(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.becomeClass("p1", "mieloide", "macrofago")
 	h.repeat("adapter", "p1", "estilo-chicote", 30)
@@ -91,7 +91,7 @@ func TestDeedsDiscoverAnAbilityOfTheClass(t *testing.T) {
 	if !slices.Contains(h.skillIDs("p1"), "contragolpe") {
 		t.Fatalf("lashing 30 times teaches the counter, got %v", h.skillIDs("p1"))
 	}
-	g := load(t, "hospedeiro")
+	g := load(t, legacyGrowth)
 	g.join("p2")
 	g.becomeClass("p2", "linfoide", "linfocito-b")
 	g.repeat("adapter", "p2", "estilo-chicote", 30)
@@ -103,7 +103,7 @@ func TestDeedsDiscoverAnAbilityOfTheClass(t *testing.T) {
 
 // The body awakens an ability by itself: the advisor decides which one, and it is revalidated.
 func TestTheAdvisorAwakensAnAbilityOfTheClass(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.becomeClass("p1", "mieloide", "neutrofilo")
 	h.repeat("adapter", "p1", "estilo-impulso", 14)

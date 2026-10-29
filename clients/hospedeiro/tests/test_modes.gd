@@ -56,7 +56,7 @@ func test_every_mode_is_worth_about_the_plain_blow() -> void:
 
 
 func test_every_option_of_the_universe_is_a_mode_that_exists() -> void:
-	var universe: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://../../universes/hospedeiro/universe.json"))
+	var universe: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://../../engine/scenarios/testdata/legacy-dungeons/universe.json"))
 	var seen := 0
 	for t in universe["appearance"]["traits"]:
 		for family in BioAbilityMode.TRAIT_OF:

@@ -153,7 +153,7 @@ func test_trajectories_really_fly_differently() -> void:
 
 
 func test_the_universe_traits_all_have_a_meaning() -> void:
-	var universe: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://../../universes/hospedeiro/universe.json"))
+	var universe: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://../../engine/scenarios/testdata/legacy-dungeons/universe.json"))
 	for t in universe["appearance"]["traits"]:
 		var id := str(t["id"])
 		for o in t["options"]:

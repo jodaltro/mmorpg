@@ -27,7 +27,7 @@ func (h *harness) lineageView(p core.ID) core.LineageView {
 
 // Everyone is born undifferentiated, and growing into a lineage needs maturity.
 func TestBornUndifferentiatedAndMaturityOpensTheFirstTier(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	if v := h.lineageView("p1"); v.Current != "" || v.Tier != 0 || v.Next != 14*pace {
 		t.Fatalf("a newborn is undifferentiated with the first tier at 14 maturity: %+v", v)
@@ -49,7 +49,7 @@ func TestBornUndifferentiatedAndMaturityOpensTheFirstTier(t *testing.T) {
 }
 
 func TestAdvisorPicksTheLineageAndPlayerBecomesIt(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 7)
 	h.tick(1)
@@ -85,7 +85,7 @@ func TestAdvisorPicksTheLineageAndPlayerBecomesIt(t *testing.T) {
 
 // The second tier offers only the classes that descend from the chosen progenitor.
 func TestSecondTierOffersTheClassesOfTheProgenitor(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 7)
 	first := h.waitLineageOffer("p1")
@@ -112,7 +112,7 @@ func TestSecondTierOffersTheClassesOfTheProgenitor(t *testing.T) {
 
 // Class mutations (the ones that change the form drastically) only appear for that class.
 func TestClassMutationsAppearOnlyForTheirClass(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1", "p2")
 	for _, p := range []core.ID{"p1", "p2"} {
 		h.fight(p, 7)
@@ -154,7 +154,7 @@ func TestClassMutationsAppearOnlyForTheirClass(t *testing.T) {
 // A wide pool: generic mutations for everyone, and six of each class's own, each one reshaping one of that
 // class's abilities (the card says which).
 func TestEveryClassHasSixOwnMutationsThatNameTheirAbility(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	own := map[string]int{}
 	generic := 0
 	skillNames := map[string][]string{}

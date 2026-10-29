@@ -6,11 +6,14 @@ import (
 	"github.com/jodaltro/mmorpg/engine/core"
 )
 
-// intoLiver walks p to the liver the way the world asks for: the venule's niche gives the elastic cytoskeleton, which opens the aorta.
+// intoLiver walks p to the liver along the vessels. In the frozen fixture the venule's niche gives the key to the aorta;
+// in the live Hospedeiro every passage is open to every cell.
 func (h *harness) intoLiver(p core.ID) {
 	h.t.Helper()
 	h.move(p, "sangue")
-	findNiche(h, p, "bolsa-da-venula")
+	if len(h.w.U.Niches) > 0 {
+		findNiche(h, p, "bolsa-da-venula")
+	}
 	h.move(p, "coracao")
 	h.move(p, "aorta")
 	h.move(p, "figado")

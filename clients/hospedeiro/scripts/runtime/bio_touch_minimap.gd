@@ -1,6 +1,10 @@
 class_name BioTouchMinimap
 extends Control
-## Compact atlas (the whole body, the cell, the route and a ring on every crisis); a tap or a click opens the full map.
+## Compact atlas (the whole body, the cell, the route, a ring on every crisis and a radar of the invaders); a tap or a click opens the
+## full map.
+
+const RADAR_UNITS := 70.0  # how far the radar sees invaders: a little past the edge of the minimap
+
 var world: BioWorld
 var _body := {}
 var _age := 0.0
@@ -53,6 +57,28 @@ func _draw_crises(frame: Rect2, factor: float, offset: Vector2) -> void:
 			draw_arc(p, 6.0 + 2.0 * pulse, 0.0, TAU, 20, color, 1.5, true)
 
 
+## The radar: every invader near the cell is a red blip (a bigger one for the big ones); off the edge it sits on the rim, towards it, so
+## the player knows where the fight is without opening the map.
+func _draw_radar(frame: Rect2, factor: float, offset: Vector2) -> void:
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.008)
+	var me := world.player.global_position / BioArt.UNIT
+	for node in world.get_tree().get_nodes_in_group("viruses"):
+		var foe := node as BioCellActor
+		if foe == null or not foe.is_active() or foe.is_queued_for_deletion():
+			continue
+		var units := foe.global_position / BioArt.UNIT
+		if units.distance_to(me) > RADAR_UNITS:
+			continue
+		var at := units * factor + offset
+		var big := foe.max_speed_units < 0.1 or foe.combatant.actor.vitals.max_membrane >= 90.0  # nests and the heavy ones
+		if frame.has_point(at):
+			draw_circle(at, (3.2 if big else 2.2), Color(1.0, 0.25, 0.3, 0.95))
+			draw_arc(at, (3.2 if big else 2.2) + 1.5 + pulse, 0.0, TAU, 12, Color(1.0, 0.3, 0.35, 0.45), 1.0, true)
+		else:
+			var p := Vector2(clampf(at.x, frame.position.x + 3.0, frame.end.x - 3.0), clampf(at.y, frame.position.y + 3.0, frame.end.y - 3.0))
+			draw_circle(p, 1.8, Color(1.0, 0.3, 0.35, 0.7))
+
+
 func _draw() -> void:
 	if world == null:
 		return
@@ -81,6 +107,12 @@ func _draw() -> void:
 		var arrow := center + direction * minf(22, center.distance_to(ahead))
 		draw_polyline(PackedVector2Array([arrow - direction * 5 + direction.orthogonal() * 3, arrow, arrow - direction * 5 - direction.orthogonal() * 3]), Color(0.75, 1, 1), 2, true)
 	_draw_crises(frame, factor, offset)
+	_draw_radar(frame, factor, offset)
+	if world.cargo != null and is_instance_valid(world.cargo.site):  # where the crisis needs what the player can carry
+		var at := world.cargo.site.global_position / BioArt.UNIT * factor + offset
+		if frame.has_point(at):
+			var c := Color(1.0, 0.85, 0.4)
+			draw_colored_polygon(PackedVector2Array([at + Vector2(0, -4), at + Vector2(4, 0), at + Vector2(0, 4), at + Vector2(-4, 0)]), c)
 	for resident in world.sync._residents.values():
 		if is_instance_valid(resident):
 			var at: Vector2 = resident.global_position/BioArt.UNIT*factor+offset

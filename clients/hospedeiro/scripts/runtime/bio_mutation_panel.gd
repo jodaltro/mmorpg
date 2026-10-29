@@ -127,11 +127,13 @@ func _ready() -> void:
 		var color := BioArt.with_alpha(BioArt.MAGENTA, 0.95 if full else 0.7)
 		_pressure_back.draw_rect(Rect2(Vector2.ZERO, Vector2(_pressure_back.size.x * clampf(_pressure_fraction, 0.0, 1.0), _pressure_back.size.y)), color))
 	column.add_child(_pressure_back)
+	_pressure_back.visible = BioWorld.GROWTH  # without growth there is no pressure to show
 
 	_pips = Control.new()
 	_pips.custom_minimum_size = Vector2(WIDTH, 14)
 	_pips.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_pips.draw.connect(_draw_pips)
+	_pips.visible = BioWorld.GROWTH  # nor gene slots
 	column.add_child(_pips)
 	_keys_hint = BioUi.label("G corpo  ·  B códice  ·  M mapa  ·  Tab sinais", 11, Color(1, 1, 1, 0.32))
 	_keys_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

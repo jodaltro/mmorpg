@@ -52,7 +52,7 @@ func hasTag(h *harness, gene, tag string) bool {
 }
 
 func TestEvolutionWaitsForPressure(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 3) // 9 pressure, threshold 10
 	h.tick(5)
@@ -63,7 +63,7 @@ func TestEvolutionWaitsForPressure(t *testing.T) {
 
 // Without an advisor, the default follows the path the player has been living.
 func TestEvolutionDefaultFollowsTheWayThePlayerLives(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 4)
 	h.tick(1)
@@ -87,7 +87,7 @@ func TestEvolutionDefaultFollowsTheWayThePlayerLives(t *testing.T) {
 
 // The advisor (Jev) picks where the body leans; its answer is revalidated.
 func TestAdvisorPicksWhereTheBodyLeans(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 4)
 	h.tick(1)
@@ -116,7 +116,7 @@ func slotDecisions(h *harness, p core.ID) []core.Decision {
 // The advisor composes the whole offer: after the featured mutation the other slots are asked one after the other (each knowing what
 // the earlier ones became), every answer is validated, a duplicate collapses, and the player sees nothing until the offer is whole.
 func TestAdvisorComposesTheWholeOffer(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 4)
 	h.tick(1)
@@ -150,7 +150,7 @@ func TestAdvisorComposesTheWholeOffer(t *testing.T) {
 	if len(g.Offer) != 3 || g.Offer[0] != "membrana-espessa" || g.Offer[1] != pick || g.Offer[2] != pick2 {
 		t.Fatalf("the composed offer keeps the advisor's picks in order: %+v", g)
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyGrowth)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {
@@ -164,7 +164,7 @@ func TestAdvisorComposesTheWholeOffer(t *testing.T) {
 
 // With nobody answering the slots, the deadline completes the offer by fit.
 func TestComposedOfferCompletesByFitAtTheDeadline(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 4)
 	h.tick(1)
@@ -178,7 +178,7 @@ func TestComposedOfferCompletesByFitAtTheDeadline(t *testing.T) {
 
 // Choosing expresses the gene and reinforces the path it belongs to.
 func TestChoosingAGeneDeepensThePath(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 4)
 	g := h.waitOffer("p1")
@@ -201,7 +201,7 @@ func TestChoosingAGeneDeepensThePath(t *testing.T) {
 }
 
 func TestDeclinedMutationsAreNotOfferedRightAway(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 4)
 	first := h.waitOffer("p1").Offer
@@ -216,7 +216,7 @@ func TestDeclinedMutationsAreNotOfferedRightAway(t *testing.T) {
 }
 
 func TestSlotsReabsorbTheOldestGene(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	chosen := []string{}
 	slots := h.w.U.Evolution.Slots

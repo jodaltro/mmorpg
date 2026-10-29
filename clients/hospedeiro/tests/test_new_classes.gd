@@ -559,7 +559,7 @@ func test_the_singularity_pulls_the_room_into_a_heap_and_the_collapse_hurts_the_
 ## The engine's universe and the client's catalogues must say the same: every class ability, lineage and mutation the engine can hand out
 ## exists on the client with the same class (a missing one would be a gift the cell could not use).
 func test_every_class_ability_lineage_and_mutation_of_the_universe_exists_in_the_client() -> void:
-	var path := ProjectSettings.globalize_path("res://").path_join("../../universes/hospedeiro/universe.json")
+	var path := ProjectSettings.globalize_path("res://").path_join("../../engine/scenarios/testdata/legacy-dungeons/universe.json")
 	var u: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	assert_true(not u.is_empty(), "the universe was read")
 	for l in u["lineages"]:

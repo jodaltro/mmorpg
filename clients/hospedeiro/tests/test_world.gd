@@ -147,26 +147,28 @@ func test_dash_moves_player_and_grants_invulnerability() -> void:
 	assert_true(world.player.combatant.actor.invulnerable_until > 0.0, "i-frames granted")
 
 
-func test_pressure_offers_a_mutation_and_picking_reshapes_the_cell() -> void:
-	world.add_pressure(BioMutationTracker.THRESHOLD)
-	assert_true(world.tracker.has_offer(), "offer created")
-	assert_true(world.panel.is_offer_visible(), "offer shown")
-	var picked: StringName = world.tracker.offer[0]
-	world.pick_mutation(0)
-	assert_true(world.genome.has_gene(picked), "gene equipped")
-	assert_true(not world.panel.is_offer_visible(), "offer hidden")
-	assert_true(world.player.combatant.actor.genome == world.genome, "player expresses the genome")
+func test_nobody_grows_deeds_build_no_pressure_and_offer_no_mutation() -> void:
+	assert_true(not BioWorld.GROWTH, "the Hospedeiro has no growth")
+	world.add_pressure(BioMutationTracker.THRESHOLD * 3)
+	assert_true(not world.tracker.has_offer(), "no mutation is offered")
+	assert_true(not world.panel.is_offer_visible(), "and none is shown")
+	assert_eq(world.genome.equipped.size(), 0, "the cell has no genes")
+	assert_eq(world.lineage_id, &"", "and no class of its own")
 
 
-func test_genome_persists_between_sessions() -> void:
+func test_an_old_save_does_not_bring_genes_back() -> void:
 	var path := "user://test_genome_%d.json" % Time.get_ticks_usec()
-	world.save_path = path
-	world.add_pressure(BioMutationTracker.THRESHOLD)
-	var picked: StringName = world.tracker.offer[1]
-	world.pick_mutation(1)
-	var tracker := BioMutationTracker.new()
-	var loaded := BioGenomeStore.load_state(path, tracker)
-	assert_true(loaded.has_gene(picked), "saved gene reloads")
+	var old := BioGenome.new()
+	old.equipped.append(BioGeneCatalog.all_ids()[0])
+	BioGenomeStore.save(path, old, BioMutationTracker.new())
+	var again := BioWorld.new()
+	again.save_path = path
+	again.engine_url = ""
+	tree.root.add_child(again)
+	await tree.physics_frame
+	assert_eq(again.genome.equipped.size(), 0, "every cell starts the same, whatever was saved")
+	again.queue_free()
+	await tree.process_frame
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
 

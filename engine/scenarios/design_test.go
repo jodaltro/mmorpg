@@ -33,7 +33,7 @@ func lifeOf(h *harness) {
 // The advisor designs the traits of each cell; the default (the options whose affinities fit the body) applies at the deadline,
 // so two players who live differently end up with different signatures even without any advisor.
 func TestDesignTraitsFollowHowEachPlayerLivesByDefault(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	lifeOf(h)
 	h.tick(46) // the design is reconsidered at tick 45 and the defaults apply at the deadline
 	a, b := h.waitLook("lutador"), h.waitLook("andarilho")
@@ -53,7 +53,7 @@ func TestDesignTraitsFollowHowEachPlayerLivesByDefault(t *testing.T) {
 
 // The advisor's answer must be one of the options of that very trait and is revalidated; the design keeps what the advisor picked.
 func TestDesignAdvisorChoiceIsRevalidatedAndKept(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	lifeOf(h)
 	for i := 0; i < 45 && len(designDecisions(h, "lutador")) == 0; i++ {
 		h.tick(1)
@@ -74,7 +74,7 @@ func TestDesignAdvisorChoiceIsRevalidatedAndKept(t *testing.T) {
 	if tr := h.waitLook("lutador").Traits; tr["nucleo"] != "trevo" || len(tr) != 19 {
 		t.Fatalf("the rest completes by default without undoing the advisor's pick: %v", tr)
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyGrowth)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {
@@ -88,7 +88,7 @@ func TestDesignAdvisorChoiceIsRevalidatedAndKept(t *testing.T) {
 
 // The first design comes early, after a few deeds, so a new cell soon has a face of its own (later redesigns wait for more life).
 func TestDesignFirstOneComesEarly(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.move("p1", "sangue")
 	h.repeat("adapter", "p1", "estilo-chicote", 4)
@@ -103,7 +103,7 @@ func TestDesignFirstOneComesEarly(t *testing.T) {
 
 // A player can see what the advisor did for them: who answered each decision, how long it took, and what is still waiting.
 func TestAdvisorViewShowsWhoAnsweredWhat(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	lifeOf(h)
 	for i := 0; i < 45 && len(designDecisions(h, "lutador")) == 0; i++ {
 		h.tick(1)
@@ -149,7 +149,7 @@ func TestAdvisorViewShowsWhoAnsweredWhat(t *testing.T) {
 
 // An explicit visual refresh keeps historical differentiation commands unchanged.
 func TestDifferentiationRefreshWaitsForEveryDesignChoiceAndReplays(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 7)
 	offer := h.waitLineageOffer("p1")
@@ -187,7 +187,7 @@ func TestDifferentiationRefreshWaitsForEveryDesignChoiceAndReplays(t *testing.T)
 			t.Fatal("visual became ready before every trait resolved")
 		}
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyGrowth)
 	for _, c := range h.log {
 		var err error
 		b.s, _, err = b.w.Step(b.s, c)
@@ -201,7 +201,7 @@ func TestDifferentiationRefreshWaitsForEveryDesignChoiceAndReplays(t *testing.T)
 }
 
 func TestDifferentiationRefreshFallsBackAtDeadline(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.fight("p1", 7)
 	offer := h.waitLineageOffer("p1")

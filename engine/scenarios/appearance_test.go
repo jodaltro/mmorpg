@@ -35,7 +35,7 @@ func (h *harness) waitLook(p core.ID) *core.LookView {
 }
 
 func TestBodyFollowsHowEachPlayerPlays(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1", "p2")
 	h.move("p1", "sangue")
 	h.move("p2", "sangue")
@@ -65,7 +65,7 @@ func TestBodyFollowsHowEachPlayerPlays(t *testing.T) {
 }
 
 func TestAdvisorChoosesTheBodyAndIsRevalidated(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.repeat("adapter", "p1", "estilo-chicote", 22)
 	d := core.Decision{}
@@ -89,7 +89,7 @@ func TestAdvisorChoosesTheBodyAndIsRevalidated(t *testing.T) {
 }
 
 func TestBodyDoesNotChangeWithoutNewDeeds(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	h.repeat("adapter", "p1", "estilo-chicote", 22)
 	first := h.waitLook("p1")

@@ -52,6 +52,10 @@ var adapted_regions: Array = []
 var compass_text := ""
 var body := BioBodyState.new()  # the host's vital signs (from the engine) and what they do to the cell
 var vitals_panel: BioVitalsPanel
+## 28/10/2026: nobody grows. No pressure, mutations, maturity or differentiation: every player is the same cell, and a class
+## (with its kit) is lent only by a calling while the player stands in a crisis. The machinery stays for a universe that wants it.
+const GROWTH := false
+
 var live_regions: Array[StringName] = []
 const LIVE_MARGIN_UNITS := 26.0  # a neighbour wakes when its edge is this close to the cell: a little more than half a screen
 var _live_in := 0.0
@@ -79,6 +83,7 @@ var lineage_id: StringName = &""
 var _pending_evolution := {}
 var _engine_lineage := {}
 var calling_panel: BioCallingPanel
+var cargo: BioCargoDirector  # carrying help to the crisis: loads to pick up and a place of the tissue that needs them
 var _calling := {}  # the engine's `calling` view of this player
 var _calling_form: StringName = &""  # the lineage worn while a calling is held
 var _calling_lent: Array = []  # abilities the form lent
@@ -143,6 +148,9 @@ func build() -> void:
 
 	tracker = BioMutationTracker.new(seed_value)
 	genome = BioGenomeStore.load_state(save_path, tracker)
+	if not GROWTH:  # every cell is the same plain sphere: an old save's genes and class are not carried over
+		genome = BioGenome.new()
+		tracker = BioMutationTracker.new(seed_value)
 	player.combatant.set_genome(genome)
 	player.combatant.nutrient_consumed.connect(func(_kind: int) -> void:
 		add_pressure(BioMutationTracker.NUTRIENT_POINTS)
@@ -199,6 +207,10 @@ func build() -> void:
 				if is_instance_valid(hud) and hud.banner_text() == str(BioBodyMap.NAMES.get(id, id)):
 					hud.show_banner(""))
 			sync.system.push_feed("Nova região no atlas: %s." % BioBodyMap.NAMES.get(id, id)))
+	cargo = BioCargoDirector.new()
+	cargo.name = "Cargo"
+	add_child(cargo)
+	cargo.configure(self)
 	calling_panel = BioCallingPanel.new()
 	calling_panel.name = "CallingPanel"
 	add_child(calling_panel)
@@ -301,7 +313,7 @@ func _build_for_touch() -> void:
 
 ## Confirmed events (food, kills, evasions) build evolutionary pressure; at the threshold a mutation is offered.
 func add_pressure(points: int) -> void:
-	if engine_evolution:
+	if not GROWTH or engine_evolution:
 		return  # the engine counts the confirmed deed itself
 	if tracker.add_pressure(points, genome):
 		panel.show_offer(tracker.offer)

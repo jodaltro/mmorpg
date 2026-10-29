@@ -56,7 +56,6 @@ func TestResolvedCrisisPaysOnlyThoseWhoTookPartAndOnlyOnce(t *testing.T) {
 	if !openedOf(h, "sobrecarga-hepatica") {
 		t.Fatal("the liver crisis must open")
 	}
-	before := h.s.Entities["p1"].Num["pressao"]
 	for i := 0; i < 3; i++ {
 		h.mustAct("adapter", "p1", "filtrar-toxina", nil)
 	}
@@ -69,9 +68,6 @@ func TestResolvedCrisisPaysOnlyThoseWhoTookPartAndOnlyOnce(t *testing.T) {
 	}
 	if _, ok := h.s.Skills["p1"]["selo-do-figado"]; !ok {
 		t.Fatal("the player who filtered toxins must receive the seal")
-	}
-	if h.s.Entities["p1"].Num["pressao"] < before+10 {
-		t.Fatalf("pressure must rise by the reward: %d -> %d", before, h.s.Entities["p1"].Num["pressao"])
 	}
 	if _, ok := h.s.Skills["p2"]["selo-do-figado"]; ok {
 		t.Fatal("a player who only watched must not be paid")

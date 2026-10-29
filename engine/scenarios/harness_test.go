@@ -258,6 +258,12 @@ const legacyDungeons = "../engine/scenarios/testdata/legacy-dungeons"
 // written on the Hospedeiro run on the same frozen fixture.
 const legacyQuests = legacyDungeons
 
+// legacyGrowth: until 28/10/2026 a Hospedeiro player grew (evolution pressure and mutations, maturity and
+// differentiation, niches with genes, a body shaped by play, abilities found by doing). The live Hospedeiro has
+// none of that: everybody is equal and a crisis lends a class. The engine services stay generic, so their
+// scenarios run on the frozen fixture.
+const legacyGrowth = legacyDungeons
+
 // loadUncapped is a universe with the cap on live conflicts lifted, to study
 // several crises at once.
 func loadUncapped(t *testing.T, name string) *harness {

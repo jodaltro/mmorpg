@@ -29,7 +29,7 @@ func (h *harness) rest(p core.ID) {
 
 // A gene that leaves the slots is silenced, not lost: it waits in the library and is never offered again.
 func TestSilencedGenesWaitInTheLibrary(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	slots := h.w.U.Evolution.Slots
 	h.grow("p1", slots+1)
@@ -50,7 +50,7 @@ func TestSilencedGenesWaitInTheLibrary(t *testing.T) {
 
 // Swapping an expressed gene with a library one: validated, one at a time, and the body must rest between changes.
 func TestExpressingAGeneSwapsAndTheBodyRests(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	slots := h.w.U.Evolution.Slots
 	h.grow("p1", slots+1)
@@ -100,7 +100,7 @@ func TestExpressingAGeneSwapsAndTheBodyRests(t *testing.T) {
 
 // Builds: a saved set of genes, applied in one gesture, and a replay of the log gives the same world.
 func TestBuildsAreSavedAndApplied(t *testing.T) {
-	h := load(t, "hospedeiro")
+	h := load(t, legacyGrowth)
 	h.join("p1")
 	slots := h.w.U.Evolution.Slots
 	h.grow("p1", slots)
@@ -137,7 +137,7 @@ func TestBuildsAreSavedAndApplied(t *testing.T) {
 	if len(h.events("reconfigured")) == 0 || len(h.events("build-saved")) == 0 {
 		t.Fatal("the changes are told")
 	}
-	b := load(t, "hospedeiro")
+	b := load(t, legacyGrowth)
 	for _, c := range h.log {
 		var err error
 		if b.s, _, err = b.w.Step(b.s, c); err != nil {

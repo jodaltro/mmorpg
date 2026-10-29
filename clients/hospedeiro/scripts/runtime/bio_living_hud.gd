@@ -246,6 +246,9 @@ func _rebuild_card() -> void:
 				role_line = BioCallingRules.card_line(calling, calling_name)
 			_card_box.add_child(_wrap(role_line if role_line != "" else BioConflictFocus.suggestion(c), _size(14), BioUi.ACCENT, CARD_WIDTH - 30.0))
 			_card_box.add_child(_wrap(where, _size(12), BioUi.TEXT, CARD_WIDTH - 30.0))
+			var carry := BioCargoRules.hint(str(c.get("def", "")))
+			if carry != "":
+				_card_box.add_child(_wrap(carry, _size(12), BioUi.WARN, CARD_WIDTH - 30.0))
 		else:
 			_card_box.add_child(_wrap(BioConflictFocus.suggestion(c), _size(12), BioUi.ACCENT, CARD_WIDTH - 30.0))
 		var mine: Variant = c.get("mine")

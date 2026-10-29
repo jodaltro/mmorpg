@@ -25,7 +25,7 @@ var organs = []organ{
 func (h *harness) intoOrgan(p core.ID, region string) {
 	h.t.Helper()
 	h.move(p, "sangue")
-	if !hasGene(h, p, "citoesqueleto-elastico") {
+	if len(h.w.U.Niches) > 0 && !hasGene(h, p, "citoesqueleto-elastico") {
 		findNiche(h, p, "bolsa-da-venula")
 	}
 	h.move(p, "coracao")

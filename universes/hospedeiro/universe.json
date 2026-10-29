@@ -55,33 +55,32 @@
   "jogador"
  ],
  "entities": [
-   {
-    "id": "pele",
-    "kind": "tecido",
-    "name": "Pele",
-    "num": {
-     "ferida": 0
-    }
-   },
-   {
-    "id": "esplena",
-    "kind": "celula",
-    "name": "Esplena",
-    "region": "baco"
-   },
-   {
-    "id": "kupffer",
-    "kind": "celula",
-    "name": "Kupffer",
-    "region": "figado"
-   },
-   {
-    "id": "placa",
-    "kind": "celula",
-    "name": "Placa",
-    "region": "pele"
+  {
+   "id": "pele",
+   "kind": "tecido",
+   "name": "Pele",
+   "num": {
+    "ferida": 0
    }
-  ,
+  },
+  {
+   "id": "esplena",
+   "kind": "celula",
+   "name": "Esplena",
+   "region": "baco"
+  },
+  {
+   "id": "kupffer",
+   "kind": "celula",
+   "name": "Kupffer",
+   "region": "figado"
+  },
+  {
+   "id": "placa",
+   "kind": "celula",
+   "name": "Placa",
+   "region": "pele"
+  },
   {
    "id": "macra",
    "kind": "celula",
@@ -439,81 +438,80 @@
  ],
  "rules": [
   {
-    "id": "carga-toxica",
-    "every": 200,
-    "when": {
-     "num": {
-      "e": "figado",
-      "k": "toxina",
-      "op": "<",
-      "v": 60
-     }
-    },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "figado",
-      "k": "toxina",
-      "d": 50,
-      "max": 100
-     },
-     {
-      "op": "emit",
-      "event": "carga-toxica",
-      "public": true,
-      "text": "Uma refeição pesada despeja uma carga de toxinas no fígado."
-     }
-    ]
+   "id": "carga-toxica",
+   "every": 200,
+   "when": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": "<",
+     "v": 60
+    }
    },
-   {
-    "id": "ferida-sangra",
-    "every": 4,
-    "when": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": ">",
-      "v": 0
-     }
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": 50,
+     "max": 100
     },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "pele",
-      "k": "ferida",
-      "d": 1,
-      "max": 100
-     }
-    ]
+    {
+     "op": "emit",
+     "event": "carga-toxica",
+     "public": true,
+     "text": "Uma refeição pesada despeja uma carga de toxinas no fígado."
+    }
+   ]
+  },
+  {
+   "id": "ferida-sangra",
+   "every": 4,
+   "when": {
+    "num": {
+     "e": "pele",
+     "k": "ferida",
+     "op": ">",
+     "v": 0
+    }
    },
-   {
-    "id": "ferida-contamina",
-    "every": 10,
-    "when": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": ">=",
-      "v": 50
-     }
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": 1,
+     "max": 100
+    }
+   ]
+  },
+  {
+   "id": "ferida-contamina",
+   "every": 10,
+   "when": {
+    "num": {
+     "e": "pele",
+     "k": "ferida",
+     "op": ">=",
+     "v": 50
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": 3,
+     "max": 100
     },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "sangue",
-      "k": "carga",
-      "d": 3,
-      "max": 100
-     },
-     {
-      "op": "emit",
-      "event": "ferida-contamina",
-      "public": true,
-      "text": "A ferida aberta deixa invasores entrarem no sangue."
-     }
-    ]
-   }
-  ,
+    {
+     "op": "emit",
+     "event": "ferida-contamina",
+     "public": true,
+     "text": "A ferida aberta deixa invasores entrarem no sangue."
+    }
+   ]
+  },
   {
    "id": "surto-inicial",
    "when": {},
@@ -2154,12 +2152,6 @@
      "rule": "reacao-exagerada",
      "k": "regulacao",
      "d": 2
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
     }
    ]
   },
@@ -2211,12 +2203,6 @@
      "rule": "sofrimento-cerebral",
      "k": "amparo",
      "d": 2
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
     }
    ]
   },
@@ -2261,66 +2247,53 @@
      "rule": "medula-esgotada",
      "k": "nutricao",
      "d": 2
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
     }
    ]
   },
-   {
-    "id": "selar-ferida-pele",
-    "title": "Selar a ferida da pele",
-    "by": [
-     "adapter"
-    ],
-    "tags": [
-     "help",
-     "endure"
-    ],
-    "requires": {
-     "all": [
-      {
-       "in": {
-        "e": "$self",
-        "region": "pele"
-       }
-      },
-      {
-       "num": {
-        "e": "pele",
-        "k": "ferida",
-        "op": ">",
-        "v": 0
-       }
+  {
+   "id": "selar-ferida-pele",
+   "title": "Selar a ferida da pele",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
       }
-     ]
-    },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "pele",
-      "k": "ferida",
-      "d": -6,
-      "min": 0
      },
      {
-      "op": "contribute",
-      "rule": "ferida-na-pele",
-      "k": "reparo",
-      "d": 3
-     },
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "maturidade",
-      "d": 1
+      "num": {
+       "e": "pele",
+       "k": "ferida",
+       "op": ">",
+       "v": 0
+      }
      }
     ]
-   }
-  ,
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "ferida-na-pele",
+     "k": "reparo",
+     "d": 3
+    }
+   ]
+  },
   {
    "id": "conter-infeccao-pulmonar",
    "title": "Conter a infecção nos alvéolos",
@@ -2366,12 +2339,6 @@
      "rule": "infeccao-pulmonar",
      "k": "combate",
      "d": 3
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
     }
    ]
   },
@@ -2383,18 +2350,6 @@
    ],
    "requires": {},
    "effects": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 1
-    },
     {
      "op": "adjust",
      "e": "$self",
@@ -2497,18 +2452,6 @@
    ],
    "requires": {},
    "effects": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 2
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 3
-    },
     {
      "op": "adjust",
      "e": "$self",
@@ -2642,18 +2585,6 @@
     {
      "op": "adjust",
      "e": "$self",
-     "k": "maturidade",
-     "d": 2
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
      "k": "esquivas",
      "d": 1
     },
@@ -2770,18 +2701,6 @@
     ]
    },
    "effects": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 3
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 2
-    },
     {
      "op": "assert",
      "fact": {
@@ -3038,12 +2957,6 @@
      "k": "glicogenio",
      "d": 4,
      "max": 100
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
     }
    ]
   },
@@ -3076,18 +2989,6 @@
      "k": "toxina",
      "d": -4,
      "min": 0
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 1
     }
    ]
   },
@@ -3126,18 +3027,6 @@
      "e": "medula",
      "k": "ferro",
      "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 1
     }
    ]
   },
@@ -3164,18 +3053,6 @@
      "k": "antigenos",
      "d": 4,
      "max": 100
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 1
     }
    ]
   },
@@ -3208,12 +3085,6 @@
      "k": "microbiota",
      "d": 4,
      "max": 100
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
     }
    ]
   },
@@ -3234,26 +3105,41 @@
     "endure"
    ],
    "effects": [
-   {"op": "adjust", "e": "tumor", "k": "massa", "d": -2, "min": 0, "if": {"num": {"e": "tumor", "k": "massa", "op": ">", "v": 0}}},
-   {"op": "contribute", "rule": "tumor-intestinal", "k": "citotoxicidade", "d": 2, "if": {"num": {"e": "tumor", "k": "massa", "op": ">", "v": 0}}},
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": -2,
+     "min": 0,
+     "if": {
+      "num": {
+       "e": "tumor",
+       "k": "massa",
+       "op": ">",
+       "v": 0
+      }
+     }
+    },
+    {
+     "op": "contribute",
+     "rule": "tumor-intestinal",
+     "k": "citotoxicidade",
+     "d": 2,
+     "if": {
+      "num": {
+       "e": "tumor",
+       "k": "massa",
+       "op": ">",
+       "v": 0
+      }
+     }
+    },
     {
      "op": "adjust",
      "e": "intestino",
      "k": "microbiota",
      "d": 2,
      "max": 100
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 1
     }
    ]
   },
@@ -3274,30 +3160,18 @@
     "endure"
    ],
    "effects": [
-   {
-    "op": "contribute",
-    "rule": "sobrecarga-renal",
-    "k": "filtracao",
-    "d": 2
-   },
+    {
+     "op": "contribute",
+     "rule": "sobrecarga-renal",
+     "k": "filtracao",
+     "d": 2
+    },
     {
      "op": "adjust",
      "e": "rim",
      "k": "ureia",
      "d": -4,
      "min": 0
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 1
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 1
     }
    ]
   },
@@ -3324,12 +3198,347 @@
      "k": "sodio",
      "d": -4,
      "min": 0
+    }
+   ]
+  },
+  {
+   "id": "entregar-fibrina",
+   "title": "Levar fibrina à brecha da pele",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "pele"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "ferida-na-pele",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-surfactante",
+   "title": "Levar surfactante ao alvéolo inflamado",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "pulmao"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -6,
+     "min": 0
     },
     {
      "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": 4,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "rule": "infeccao-pulmonar",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-ferro",
+   "title": "Levar ferro ao nicho da medula",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
      "e": "$self",
-     "k": "maturidade",
-     "d": 1
+     "region": "medula"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "rule": "medula-esgotada",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-albumina",
+   "title": "Levar albumina ao hepatócito sobrecarregado",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "figado"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "sobrecarga-hepatica",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-hemacia-velha",
+   "title": "Levar hemácias velhas ao macrófago da polpa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "baco"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "congestao-esplenica",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-fibra",
+   "title": "Levar fibra à colônia da flora",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "intestino"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "rule": "disbiose-intestinal",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-perforina",
+   "title": "Levar perforina à massa tumoral",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "intestino"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "tumor-intestinal",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-cristal",
+   "title": "Levar o cristal de ureia ao túbulo",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "rim"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "sobrecarga-renal",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-il10",
+   "title": "Levar sinal calmante ao folículo",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "linfonodo"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "reacao-exagerada",
+     "k": "entrega",
+     "d": 4
+    }
+   ]
+  },
+  {
+   "id": "entregar-lactato",
+   "title": "Levar lactato ao neurônio",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure"
+   ],
+   "requires": {
+    "in": {
+     "e": "$self",
+     "region": "cerebro"
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -4,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "rule": "sofrimento-cerebral",
+     "k": "entrega",
+     "d": 4
     }
    ]
   }
@@ -3528,127 +3737,126 @@
   }
  },
  "happenings": [
-   {
-    "id": "ferimento",
-    "title": "Ferimento na pele",
-    "desc": "Um corte abre a pele: plaquetas e defesa local precisam fechar a brecha.",
-    "intensity": 1,
-    "cooldown": 90,
-    "when": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": "<=",
-      "v": 0
-     }
-    },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "pele",
-      "k": "ferida",
-      "d": 40,
-      "max": 100
-     },
-     {
-      "op": "emit",
-      "event": "ferimento",
-      "public": true,
-      "text": "A pele se rasga: uma ferida se abre."
-     }
-    ]
+  {
+   "id": "ferimento",
+   "title": "Ferimento na pele",
+   "desc": "Um corte abre a pele: plaquetas e defesa local precisam fechar a brecha.",
+   "intensity": 1,
+   "cooldown": 90,
+   "when": {
+    "num": {
+     "e": "pele",
+     "k": "ferida",
+     "op": "<=",
+     "v": 0
+    }
    },
-   {
-    "id": "intoxicacao",
-    "title": "Intoxicação",
-    "desc": "Uma carga de toxinas chega ao fígado de uma vez.",
-    "intensity": 2,
-    "cooldown": 120,
-    "when": {
-     "num": {
-      "e": "figado",
-      "k": "toxina",
-      "op": "<",
-      "v": 40
-     }
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": 40,
+     "max": 100
     },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "figado",
-      "k": "toxina",
-      "d": 60,
-      "max": 100
-     },
-     {
-      "op": "emit",
-      "event": "intoxicacao",
-      "public": true,
-      "text": "Uma carga de toxinas inunda o fígado."
-     }
-    ]
+    {
+     "op": "emit",
+     "event": "ferimento",
+     "public": true,
+     "text": "A pele se rasga: uma ferida se abre."
+    }
+   ]
+  },
+  {
+   "id": "intoxicacao",
+   "title": "Intoxicação",
+   "desc": "Uma carga de toxinas chega ao fígado de uma vez.",
+   "intensity": 2,
+   "cooldown": 120,
+   "when": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": "<",
+     "v": 40
+    }
    },
-   {
-    "id": "antibiotico",
-    "title": "Desequilíbrio da microbiota",
-    "desc": "Um agente agressivo varre a flora do intestino.",
-    "intensity": 1,
-    "cooldown": 150,
-    "when": {
-     "num": {
-      "e": "intestino",
-      "k": "microbiota",
-      "op": ">=",
-      "v": 65
-     }
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": 60,
+     "max": 100
     },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "intestino",
-      "k": "microbiota",
-      "d": -45,
-      "min": 0
-     },
-     {
-      "op": "emit",
-      "event": "antibiotico",
-      "public": true,
-      "text": "A flora do intestino é varrida: a microbiota despenca."
-     }
-    ]
+    {
+     "op": "emit",
+     "event": "intoxicacao",
+     "public": true,
+     "text": "Uma carga de toxinas inunda o fígado."
+    }
+   ]
+  },
+  {
+   "id": "antibiotico",
+   "title": "Desequilíbrio da microbiota",
+   "desc": "Um agente agressivo varre a flora do intestino.",
+   "intensity": 1,
+   "cooldown": 150,
+   "when": {
+    "num": {
+     "e": "intestino",
+     "k": "microbiota",
+     "op": ">=",
+     "v": 65
+    }
    },
-   {
-    "id": "hemolise",
-    "title": "Hemólise",
-    "desc": "Hemácias velhas chegam em massa ao baço.",
-    "intensity": 1,
-    "cooldown": 120,
-    "when": {
-     "num": {
-      "e": "baco",
-      "k": "hemacias",
-      "op": "<",
-      "v": 50
-     }
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": -45,
+     "min": 0
     },
-    "effects": [
-     {
-      "op": "adjust",
-      "e": "baco",
-      "k": "hemacias",
-      "d": 45,
-      "max": 100
-     },
-     {
-      "op": "emit",
-      "event": "hemolise",
-      "public": true,
-      "text": "Hemácias velhas se acumulam no baço."
-     }
-    ]
-   }
-  ,
+    {
+     "op": "emit",
+     "event": "antibiotico",
+     "public": true,
+     "text": "A flora do intestino é varrida: a microbiota despenca."
+    }
+   ]
+  },
+  {
+   "id": "hemolise",
+   "title": "Hemólise",
+   "desc": "Hemácias velhas chegam em massa ao baço.",
+   "intensity": 1,
+   "cooldown": 120,
+   "when": {
+    "num": {
+     "e": "baco",
+     "k": "hemacias",
+     "op": "<",
+     "v": 50
+    }
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": 45,
+     "max": 100
+    },
+    {
+     "op": "emit",
+     "event": "hemolise",
+     "public": true,
+     "text": "Hemácias velhas se acumulam no baço."
+    }
+   ]
+  },
   {
    "id": "surto-viral",
    "title": "Surto viral",
@@ -4081,2087 +4289,77 @@
   "maxLiveConflicts": 1,
   "liveConflictPatience": 450
  },
- "evolution": {
-  "pressure": "pressao",
-  "threshold": 120,
-  "offer": 3,
-  "slots": 6,
-  "builds": 3,
-  "rest": 10
- },
- "mutations": [
-  {
-   "id": "flagelo-calejado",
-   "name": "Flagelo Calejado",
-   "rarity": "incomum",
-   "tags": [
-    "combat"
-   ],
-   "desc": "Chicote libera uma onda circular: acerta também invasores ao redor. Uma onda a cada 4 s. +27% dano do chicote, -8% velocidade."
-  },
-  {
-   "id": "cilios-ageis",
-   "name": "Cílios Ágeis",
-   "rarity": "comum",
-   "tags": [
-    "explore"
-   ],
-   "desc": "-10% membrana máx., +15% velocidade."
-  },
-  {
-   "id": "membrana-espessa",
-   "name": "Membrana Espessa",
-   "rarity": "comum",
-   "tags": [
-    "endure"
-   ],
-   "desc": "+22% membrana máx., -10% velocidade."
-  },
-  {
-   "id": "mitocondria-avida",
-   "name": "Mitocôndria Ávida",
-   "rarity": "incomum",
-   "tags": [
-    "metabolism"
-   ],
-   "desc": "Usar uma habilidade de classe libera um pulso de reparo: recupera 10 de membrana sua e de aliados próximos, a cada 8 s. +4 ATP/s, -20% ATP máx.."
-  },
-  {
-   "id": "vesicula-toxica",
-   "name": "Vesícula Tóxica",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "desc": "Toxina dispara mais dois projéteis em leque, cada um com 45% do dano do disparo principal. +30% custo da toxina, +50% dano da toxina."
-  },
-  {
-   "id": "nucleo-reativo",
-   "name": "Núcleo Reativo",
-   "rarity": "incomum",
-   "tags": [
-    "endure",
-    "explore"
-   ],
-   "desc": "Impulso cria um escudo: reduz dano recebido em 35% por 2 s. Escudo disponível a cada 8 s. -50% recarga do impulso, -8% membrana máx.."
-  },
-  {
-   "id": "cauda-longa",
-   "name": "Cauda Longa",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "-10% dano do chicote, +52% alcance do chicote."
-  },
-  {
-   "id": "enzima-voraz",
-   "name": "Enzima Voraz",
-   "rarity": "comum",
-   "tags": [
-    "metabolism"
-   ],
-   "desc": "Usar uma habilidade de classe deixa uma poça digestiva à frente por 3 s. Uma poça a cada 6 s. -2 ATP/s, +150% ganho de nutrientes."
-  },
-  {
-   "id": "citoesqueleto-elastico",
-   "name": "Citoesqueleto Elástico",
-   "rarity": "comum",
-   "tags": [
-    "explore",
-    "endure"
-   ],
-   "desc": "Impulso emite uma onda de impacto no ponto de partida, atingindo invasores ao redor. Uma onda a cada 5 s. +11% alcance do chicote, -5% membrana máx., +7% velocidade."
-  },
-  {
-   "id": "receptores-de-quimiotaxia",
-   "name": "Receptores de Quimiotaxia",
-   "rarity": "incomum",
-   "tags": [
-    "explore",
-    "knowledge"
-   ],
-   "desc": "Sente o cheiro do alimento à distância. -8% ATP máx., +47% ganho de nutrientes, +9% velocidade."
-  },
-  {
-   "id": "peroxissomos",
-   "name": "Peroxissomos",
-   "rarity": "incomum",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "desc": "Usar uma habilidade de classe cria um escudo: reduz dano recebido em 25% por 2 s, a cada 8 s. +2 ATP/s, +9% membrana máx., -5% velocidade."
-  },
-  {
-   "id": "espinhos-de-quitina",
-   "name": "Espinhos de Quitina",
-   "rarity": "incomum",
-   "tags": [
-    "combat"
-   ],
-   "desc": "Chicote projeta espinhos entre até três invasores próximos. Uma descarga a cada 5 s. +16% dano do chicote, +9% membrana máx., -7% velocidade."
-  },
-  {
-   "id": "pseudopodes-gigantes",
-   "name": "Pseudópodes Gigantes",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "desc": "+13% dano do chicote, +25% membrana máx., -12% velocidade. Onda de Pseudópodes: +13% empurrão, +9% raio.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "macrofago"
-    }
-   }
-  },
-  {
-   "id": "lisossomos-acidos",
-   "name": "Lisossomos Ácidos",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "O que bate na membrana volta mais ácido. -10% ATP máx., +31% ganho de nutrientes, +15% dano da toxina. Contragolpe: +15% devolução do golpe, +9% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "macrofago"
-    }
-   }
-  },
-  {
-   "id": "fagossomo-profundo",
-   "name": "Fagossomo Profundo",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "Engolir deixa uma poça ácida à frente: causa dano contínuo e retarda invasores por 3 s. +21% ATP máx., -5% velocidade. Engolir: +104% cura, +21% alcance.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "macrofago"
-    }
-   }
-  },
-  {
-   "id": "citoplasma-esponjoso",
-   "name": "Citoplasma Esponjoso",
-   "rarity": "incomum",
-   "tags": [
-    "endure"
-   ],
-   "desc": "A forma que escolher dura mais e vai mais fundo. +5% recarga das habilidades, +23% membrana máx., -8% velocidade. Polarização M1/M2: +17% intensidade, +34% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "macrofago"
-    }
-   }
-  },
-  {
-   "id": "vacuolo-digestivo",
-   "name": "Vacúolo Digestivo",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "Digere o golpe que recebeu. -8% dano do chicote, +20% ganho de nutrientes. Contragolpe: +52% cura, +26% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "macrofago"
-    }
-   }
-  },
-  {
-   "id": "receptor-de-limpeza",
-   "name": "Receptor de Limpeza",
-   "rarity": "epica",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "desc": "O corpo inteiro empurra o que for sujo para longe. +11% poder das habilidades, -7% velocidade. Onda de Pseudópodes: +27% dano, +32% empurrão.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "macrofago"
-    }
-   }
-  },
-  {
-   "id": "rede-de-dna",
-   "name": "Rede de DNA",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "+28% alcance do chicote, -15% membrana máx., +12% velocidade. Rede de DNA: +16% duração, +16% raio.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "neutrofilo"
-    }
-   }
-  },
-  {
-   "id": "nucleo-multilobulado",
-   "name": "Núcleo Multilobulado",
-   "rarity": "incomum",
-   "tags": [
-    "explore",
-    "endure"
-   ],
-   "desc": "-25% recarga do impulso, -10% dano do chicote, +8% velocidade. Explosão Neutrofílica: -12% recarga.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "neutrofilo"
-    }
-   }
-  },
-  {
-   "id": "granulos-explosivos",
-   "name": "Grânulos Explosivos",
-   "rarity": "rara",
-   "tags": [
-    "combat"
-   ],
-   "desc": "Quem é atravessado sente mais. +8% poder das habilidades, -10% membrana máx.. Diapedese: +41% dano, +15% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "neutrofilo"
-    }
-   }
-  },
-  {
-   "id": "fibras-pegajosas",
-   "name": "Fibras Pegajosas",
-   "rarity": "incomum",
-   "tags": [
-    "explore",
-    "knowledge"
-   ],
-   "desc": "O que toca a rede não escapa. -10% dano do chicote, +5% velocidade. Rede de DNA: +40% lentidão, +30% dano contínuo.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "neutrofilo"
-    }
-   }
-  },
-  {
-   "id": "flagelo-turbinado",
-   "name": "Flagelo Turbinado",
-   "rarity": "incomum",
-   "tags": [
-    "explore",
-    "combat"
-   ],
-   "desc": "Uma investida mais longa. -10% ATP máx., +10% velocidade. Explosão Neutrofílica: +12% dano, +36% distância.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "neutrofilo"
-    }
-   }
-  },
-  {
-   "id": "degranulacao-toxica",
-   "name": "Degranulação Tóxica",
-   "rarity": "epica",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "Rede de DNA envolve também seu corpo em uma nuvem tóxica móvel por 4 s. +10% custo das habilidades, -12% membrana máx.. Surto Oxidativo: +25% ritmo, +33% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "neutrofilo"
-    }
-   }
-  },
-  {
-   "id": "dendritos-ramificados",
-   "name": "Dendritos Ramificados",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "explore"
-   ],
-   "desc": "+42% alcance do chicote, -12% membrana máx., +101% ganho de nutrientes. Dendritos em Chicote: +25% abertura.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "dendritica"
-    }
-   }
-  },
-  {
-   "id": "esporos-de-antigeno",
-   "name": "Esporos de Antígeno",
-   "rarity": "incomum",
-   "tags": [
-    "knowledge",
-    "metabolism"
-   ],
-   "desc": "Mais uma habilidade amadurecida. +1 ATP/s, -10% velocidade, +6% dano da toxina. Maturação: +1 cargas, +9% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "dendritica"
-    }
-   }
-  },
-  {
-   "id": "receptor-de-mapa",
-   "name": "Receptor de Mapa",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "explore"
-   ],
-   "desc": "O feixe lê mais longe e por mais tempo. -8% membrana máx., +7% velocidade. Varredura: +30% alcance, +37% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "dendritica"
-    }
-   }
-  },
-  {
-   "id": "apresentacao-cruzada",
-   "name": "Apresentação Cruzada",
-   "rarity": "rara",
-   "tags": [
-    "knowledge"
-   ],
-   "desc": "O que amadureceu bate mais forte. +8% poder das habilidades, -10% dano do chicote. Maturação: +14% amplificação.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "dendritica"
-    }
-   }
-  },
-  {
-   "id": "dendritos-sensores",
-   "name": "Dendritos Sensores",
-   "rarity": "incomum",
-   "tags": [
-    "explore",
-    "combat"
-   ],
-   "desc": "Dendritos em Chicote descarrega um arco que salta entre até três invasores próximos. +4% recarga das habilidades, -4% membrana máx.. Dendritos em Chicote: +45% dano, +75% alcance.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "dendritica"
-    }
-   }
-  },
-  {
-   "id": "esporulacao-rapida",
-   "name": "Esporulação Rápida",
-   "rarity": "incomum",
-   "tags": [
-    "metabolism",
-    "knowledge"
-   ],
-   "desc": "As portas duram mais e o feixe aquece. +1 ATP/s, -5% velocidade. Passagem Linfática: +41% duração; Varredura: +10% dano.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "dendritica"
-    }
-   }
-  },
-  {
-   "id": "anticorpos-em-y",
-   "name": "Anticorpos em Y",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "desc": "Anticorpo Y ganha dois anticorpos laterais teleguiados, cada um com 50% do dano principal. -10% membrana máx., +20% custo da toxina, +59% dano da toxina. Anticorpo Y: +20% dano.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "linfocito-b"
-    }
-   }
-  },
-  {
-   "id": "plasmocito",
-   "name": "Plasmócito",
-   "rarity": "epica",
-   "tags": [
-    "knowledge",
-    "metabolism"
-   ],
-   "desc": "+4 ATP/s, -25% velocidade, +27% dano da toxina. Fábrica de Plasmócito: +14% dano, +18% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "linfocito-b"
-    }
-   }
-  },
-  {
-   "id": "afinidade-aumentada",
-   "name": "Afinidade Aumentada",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "desc": "O anticorpo gruda melhor e voa mais rápido. +5% custo das habilidades, -8% ATP máx.. Anticorpo Y: +63% dano, +42% velocidade.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "linfocito-b"
-    }
-   }
-  },
-  {
-   "id": "hipermutacao-somatica",
-   "name": "Hipermutação Somática",
-   "rarity": "epica",
-   "tags": [
-    "knowledge"
-   ],
-   "desc": "Cada variante abre mais um poro. +8% recarga das habilidades, -12% membrana máx.. Complemento: +77% dano, +77% fração da vida; Fábrica de Plasmócito: +38% dano.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "linfocito-b"
-    }
-   }
-  },
-  {
-   "id": "memoria-de-longa-vida",
-   "name": "Memória de Longa Vida",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "endure"
-   ],
-   "desc": "Reconhece e responde mais depressa. -15% recarga das habilidades, +20% ATP máx., -8% velocidade. Anticorpo Y: -20% recarga.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "linfocito-b"
-    }
-   }
-  },
-  {
-   "id": "ligacao-multivalente",
-   "name": "Ligação Multivalente",
-   "rarity": "incomum",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "desc": "Cada anticorpo prende em vários pontos: o complemento dura. -5% velocidade, +29% dano da toxina. Complemento: +58% dano, +117% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "linfocito-b"
-    }
-   }
-  },
-  {
-   "id": "granulos-de-perforina",
-   "name": "Grânulos de Perforina",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "desc": "+30% dano do chicote, -15% membrana máx., +10% dano da toxina. Perforina: +10% dano.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-citotoxico"
-    }
-   }
-  },
-  {
-   "id": "agulha-litica",
-   "name": "Agulha Lítica",
-   "rarity": "epica",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "+22% dano do chicote, +36% alcance do chicote, +20% custo da toxina. Perforina: +15% alcance.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-citotoxico"
-    }
-   }
-  },
-  {
-   "id": "receptor-fas",
-   "name": "Receptor Fas",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "desc": "Fareja quem já está condenado e aperta mais. +4% custo das habilidades, -5% membrana máx.. Sinapse Letal: +60% dano, +60% limiar do fim, +90% aperto.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-citotoxico"
-    }
-   }
-  },
-  {
-   "id": "sinapse-imunologica",
-   "name": "Sinapse Imunológica",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "desc": "Fica preso à sala até o fim. +4% recarga das habilidades, -4% velocidade. Lise em Massa: +60% base, +60% por morte.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-citotoxico"
-    }
-   }
-  },
-  {
-   "id": "miosina-de-contracao",
-   "name": "Miosina de Contração",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "O corpo é um músculo carregado. -10% ATP máx., -6% membrana máx.. Salto Letal: -25% recarga, +50% dano, +50% distância.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-citotoxico"
-    }
-   }
-  },
-  {
-   "id": "granzima-b",
-   "name": "Granzima B",
-   "rarity": "epica",
-   "tags": [
-    "combat"
-   ],
-   "desc": "Perforina marca uma ruptura à frente: após 0,45 s ela explode em área, com 70% do dano da habilidade. +2% recarga das habilidades, -1% velocidade. Perforina: +30% dano, +75% limiar, +105% bônus de execução.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-citotoxico"
-    }
-   }
-  },
-  {
-   "id": "halo-de-citocinas",
-   "name": "Halo de Citocinas",
-   "rarity": "rara",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "desc": "O halo guarda a segunda chance por mais tempo. +2 ATP/s, -15% dano do chicote, +16% membrana máx.. Segunda Chance: +8% recuperação, +16% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-auxiliar"
-    }
-   }
-  },
-  {
-   "id": "coro-de-interleucinas",
-   "name": "Coro de Interleucinas",
-   "rarity": "incomum",
-   "tags": [
-    "endure",
-    "knowledge"
-   ],
-   "desc": "A troca rende mais. -13% recarga do impulso, +21% ganho de nutrientes, -10% dano da toxina. Transfusão: +11% troca, +5% ritmo.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-auxiliar"
-    }
-   }
-  },
-  {
-   "id": "interferon-gama",
-   "name": "Interferon Gama",
-   "rarity": "rara",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "desc": "A febre queima mais e por mais tempo. -10% dano do chicote, -8% ATP máx.. Febre Contagiosa: +34% dano, +23% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-auxiliar"
-    }
-   }
-  },
-  {
-   "id": "interleucina-2",
-   "name": "Interleucina 2",
-   "rarity": "epica",
-   "tags": [
-    "knowledge",
-    "endure"
-   ],
-   "desc": "Chamado aos Auxiliares emite um pulso que repara 24 de membrana sua e de aliados próximos. +8% custo das habilidades, -7% velocidade. Chamado aos Auxiliares: +1 unidades, +38% vida do isco, +25% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-auxiliar"
-    }
-   }
-  },
-  {
-   "id": "pirogenio",
-   "name": "Pirogênio",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "A febre pula mais uma vez. +1% recarga das habilidades, -1% membrana máx.. Febre Contagiosa: +1 saltos, +30% dano.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-auxiliar"
-    }
-   }
-  },
-  {
-   "id": "regulador-de-resposta",
-   "name": "Regulador de Resposta",
-   "rarity": "rara",
-   "tags": [
-    "endure",
-    "knowledge"
-   ],
-   "desc": "O ritmo certo do coro: os auxiliares mordem mais. -12% dano do chicote, -4% velocidade. Chamado aos Auxiliares: +41% dano, +41% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-auxiliar"
-    }
-   }
-  },
-  {
-   "id": "granulos-de-histamina",
-   "name": "Grânulos de Histamina",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "Cada grânulo carrega mais, e há mais deles. +5% poder das habilidades, -10% membrana máx.. Grânulos Latentes: +2 unidades máx., +8% dano.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "mastocito"
-    }
-   }
-  },
-  {
-   "id": "heparina",
-   "name": "Heparina",
-   "rarity": "incomum",
-   "tags": [
-    "metabolism",
-    "endure"
-   ],
-   "desc": "O líquido dos grânulos demora a secar: as minas esperam mais. +30% ATP máx., -1% velocidade. Grânulos Latentes: +90% duração, +45% raio.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "mastocito"
-    }
-   }
-  },
-  {
-   "id": "receptor-de-ige",
-   "name": "Receptor de IgE",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "desc": "Cada glob se agarra com mais força ao anterior. -16% recarga das habilidades, -8% membrana máx.. Histamina Instável: +16% raio, +49% bônus por pilha.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "mastocito"
-    }
-   }
-  },
-  {
-   "id": "degranulacao-explosiva",
-   "name": "Degranulação Explosiva",
-   "rarity": "epica",
-   "tags": [
-    "combat"
-   ],
-   "desc": "Histamina Instável deixa uma segunda detonação no chão após 0,7 s: afaste-se e atraia invasores para ela. +4% custo das habilidades, -7% membrana máx.. Anafilaxia: +75% dano por vida gasta, +45% raio.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "mastocito"
-    }
-   }
-  },
-  {
-   "id": "triptase",
-   "name": "Triptase",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "Os globs vão mais longe e mais depressa. -10% dano do chicote, +9% velocidade. Histamina Instável: +22% dano, +37% alcance, +30% velocidade.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "mastocito"
-    }
-   }
-  },
-  {
-   "id": "citocinas-de-alarme",
-   "name": "Citocinas de Alarme",
-   "rarity": "incomum",
-   "tags": [
-    "knowledge",
-    "metabolism"
-   ],
-   "desc": "O aviso se espalha: a cascata alcança mais longe e dura mais. +2 ATP/s, -7% membrana máx.. Cascata de Degranulação: +14% duração, +19% raio.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "mastocito"
-    }
-   }
-  },
-  {
-   "id": "granulos-de-proteina-basica",
-   "name": "Grânulos de Proteína Básica",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "desc": "Grânulos vermelhos que corroem por dentro. +22% dano do chicote, -12% membrana máx.. Adesão: +22% dano, +28% fração da vida.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "eosinofilo"
-    }
-   }
-  },
-  {
-   "id": "nucleo-bilobulado",
-   "name": "Núcleo Bilobulado",
-   "rarity": "incomum",
-   "tags": [
-    "explore",
-    "endure"
-   ],
-   "desc": "Dois lobos: o laço aprende a puxar. -10% ATP máx., +8% velocidade. Adesão: +18% duração, +35% atração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "eosinofilo"
-    }
-   }
-  },
-  {
-   "id": "receptor-de-ige-alto",
-   "name": "Receptor de IgE de Alta Afinidade",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "desc": "Reconhece o parasita de longe e o prende por mais tempo. -13% recarga das habilidades, -6% velocidade. Cristal de Charcot-Leyden: +27% alcance, +20% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "eosinofilo"
-    }
-   }
-  },
-  {
-   "id": "peroxidase-concentrada",
-   "name": "Peroxidase Concentrada",
-   "rarity": "epica",
-   "tags": [
-    "combat",
-    "metabolism"
-   ],
-   "desc": "Cristal de Charcot cria um campo corrosivo à frente: retarda em 45% e causa dano contínuo por 4 s. +8% custo das habilidades, -11% membrana máx.. Cristal de Charcot-Leyden: +75% acúmulo, +60% dano, +45% raio, +30% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "eosinofilo"
-    }
-   }
-  },
-  {
-   "id": "grao-cristalino",
-   "name": "Grão Cristalino",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "desc": "A bola ganha arestas de cristal. +14% dano do chicote, -8% velocidade. Rolagem: +27% dano, +14% velocidade.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "eosinofilo"
-    }
-   }
-  },
-  {
-   "id": "citotoxina-eosinofilica",
-   "name": "Citotoxina Eosinofílica",
-   "rarity": "rara",
-   "tags": [
-    "combat",
-    "knowledge"
-   ],
-   "desc": "Cada morte alimenta mais o gigante. +8% poder das habilidades, -8% ATP máx.. Hipertrofia: +1 pilhas, +33% dano por pilha.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "eosinofilo"
-    }
-   }
-  },
-  {
-   "id": "receptores-ativadores",
-   "name": "Receptores Ativadores",
-   "rarity": "rara",
-   "tags": [
-    "explore",
-    "combat"
-   ],
-   "desc": "Sente a presa antes de ela chegar. -12% membrana máx., +20% velocidade. Passo Sem Identidade: +25% dano, +34% alcance.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "celula-nk"
-    }
-   }
-  },
-  {
-   "id": "granulos-citoliticos",
-   "name": "Grânulos Citolíticos",
-   "rarity": "rara",
-   "tags": [
-    "combat"
-   ],
-   "desc": "A facada nas costas dói mais, e a primeira de dentro da sombra também. +25% dano do chicote, -12% membrana máx.. Camuflagem de MHC: +10% emboscada; Passo Sem Identidade: +20% golpe nas costas.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "celula-nk"
-    }
-   }
-  },
-  {
-   "id": "memoria-de-presa",
-   "name": "Memória de Presa",
-   "rarity": "epica",
-   "tags": [
-    "combat",
-    "explore"
-   ],
-   "desc": "Predar lança uma descarga entre dois invasores próximos, além de marcar sua presa. +6% recarga das habilidades, -7% ATP máx.. Passo Sem Identidade: +45% dano; Predar: +60% ATP por golpe, +75% devolução, +45% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "celula-nk"
-    }
-   }
-  },
-  {
-   "id": "interferon-gama-nk",
-   "name": "Interferon Gama",
-   "rarity": "incomum",
-   "tags": [
-    "metabolism",
-    "explore"
-   ],
-   "desc": "A sombra dura mais e corre mais. +2 ATP/s, -8% membrana máx.. Camuflagem de MHC: +19% duração, +6% velocidade.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "celula-nk"
-    }
-   }
-  },
-  {
-   "id": "ligantes-de-estresse",
-   "name": "Ligantes de Estresse",
-   "rarity": "incomum",
-   "tags": [
-    "knowledge",
-    "combat"
-   ],
-   "desc": "Reconhece o que está doente a mais distância. +79% ganho de nutrientes, -5% velocidade. Predar: +79% ATP por golpe, +66% alcance.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "celula-nk"
-    }
-   }
-  },
-  {
-   "id": "fita-de-retorno",
-   "name": "Fita de Retorno",
-   "rarity": "incomum",
-   "tags": [
-    "combat",
-    "endure"
-   ],
-   "desc": "O fio é mais curto e o puxão, mais forte. +7% poder das habilidades, -10% membrana máx.. Âncora de Vigilância: +28% dano, +42% invulnerabilidade.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "celula-nk"
-    }
-   }
-  },
-  {
-   "id": "foxp3",
-   "name": "FoxP3",
-   "rarity": "rara",
-   "tags": [
-    "endure",
-    "knowledge"
-   ],
-   "desc": "O fator que define quem acalma: o sono é mais fundo. -15% dano do chicote, +20% membrana máx.. Anergia: +20% duração, +12% dano ao acordar.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-regulador"
-    }
-   }
-  },
-  {
-   "id": "interleucina-10",
-   "name": "Interleucina 10",
-   "rarity": "incomum",
-   "tags": [
-    "endure",
-    "metabolism"
-   ],
-   "desc": "Sinapse Imunológica libera um pulso reparador: restaura 32 de membrana sua e de aliados próximos. +2 ATP/s, -6% velocidade. Singularidade de Tolerância: +25% raio, +18% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-regulador"
-    }
-   }
-  },
-  {
-   "id": "ctla4",
-   "name": "CTLA-4",
-   "rarity": "rara",
-   "tags": [
-    "knowledge",
-    "endure"
-   ],
-   "desc": "Um freio em cada receptor: a dor passa mais inteira. -9% recarga das habilidades, -12% dano do chicote. Sinapse Imunológica: +18% duração, +14% partilha.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-regulador"
-    }
-   }
-  },
-  {
-   "id": "tgf-beta",
-   "name": "TGF-β",
-   "rarity": "incomum",
-   "tags": [
-    "endure"
-   ],
-   "desc": "Cicatriza o que o conflito abriu: o isco aguenta mais. +10% membrana máx., -8% velocidade. Autoantígeno: +31% vida do isco, +16% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-regulador"
-    }
-   }
-  },
-  {
-   "id": "contato-celula-a-celula",
-   "name": "Contato Célula a Célula",
-   "rarity": "epica",
-   "tags": [
-    "knowledge",
-    "endure"
-   ],
-   "desc": "Mais um elo na rede. +10% custo das habilidades, -10% ATP máx.. Sinapse Imunológica: +1 unidades, +30% partilha.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-regulador"
-    }
-   }
-  },
-  {
-   "id": "anergia-induzida",
-   "name": "Anergia Induzida",
-   "rarity": "incomum",
-   "tags": [
-    "knowledge",
-    "explore"
-   ],
-   "desc": "O alvo para de responder, de mais longe. -10% dano do chicote, +81% ganho de nutrientes. Anergia: +68% alcance, +41% duração.",
-   "eligible": {
-    "tag": {
-     "e": "$self",
-     "k": "lineage",
-     "v": "t-regulador"
-    }
-   }
-  }
- ],
- "appearance": {
-  "every": 45,
-  "minDeeds": 20,
-  "axes": [
-   {
-    "id": "ferocidade",
-    "min": 0,
-    "max": 100,
-    "base": 20,
-    "scale": 40,
-    "signals": {
-     "uso-chicote": 2,
-     "uso-toxina": 1,
-     "abates": 3
-    }
-   },
-   {
-    "id": "agilidade",
-    "min": 0,
-    "max": 100,
-    "base": 20,
-    "scale": 40,
-    "signals": {
-     "uso-impulso": 3,
-     "esquivas": 4,
-     "explorar": 2
-    }
-   },
-   {
-    "id": "robustez",
-    "min": 0,
-    "max": 100,
-    "base": 20,
-    "scale": 40,
-    "signals": {
-     "nutrientes": 1,
-     "gene:membrana-espessa": 30
-    }
-   },
-   {
-    "id": "metabolismo",
-    "min": 0,
-    "max": 100,
-    "base": 20,
-    "scale": 50,
-    "signals": {
-     "nutrientes": 2,
-     "gene:mitocondria-avida": 20,
-     "gene:enzima-voraz": 20
-    }
-   },
-   {
-    "id": "sociabilidade",
-    "min": 0,
-    "max": 100,
-    "base": 20,
-    "scale": 20,
-    "signals": {
-     "rel:estroma": 8,
-     "rel:neva": 8,
-     "rel:rubra": 8,
-     "rel:dendra": 8
-    }
-   },
-   {
-    "id": "misterio",
-    "min": 0,
-    "max": 100,
-    "base": 20,
-    "scale": 20,
-    "signals": {
-     "style:knowledge": 4,
-     "deed:evoluir": 6
-    }
-   }
-  ],
-  "variants": [
-   {
-    "id": "cacador",
-    "name": "Caçador",
-    "desc": "Corpo de predador: espinhos, brilho agressivo, cauda de combate.",
-    "bias": {
-     "ferocidade": 25,
-     "agilidade": 5
-    }
-   },
-   {
-    "id": "andarilho",
-    "name": "Andarilho",
-    "desc": "Corpo esguio e veloz de quem percorre o corpo todo: cílios, cauda longa.",
-    "bias": {
-     "agilidade": 25,
-     "misterio": 5
-    }
-   },
-   {
-    "id": "banqueteiro",
-    "name": "Banqueteiro",
-    "desc": "Corpo cheio de grânulos e energia: o metabolismo domina.",
-    "bias": {
-     "metabolismo": 25,
-     "robustez": 10
-    }
-   },
-   {
-    "id": "sentinela",
-    "name": "Sentinela",
-    "desc": "Corpo grande e resistente, de quem sobrevive aguentando.",
-    "bias": {
-     "robustez": 25,
-     "ferocidade": -5
-    }
-   },
-   {
-    "id": "erudito",
-    "name": "Erudito",
-    "desc": "Corpo enigmático, de aura violeta, de quem estuda e decifra.",
-    "bias": {
-     "misterio": 25,
-     "sociabilidade": 5
-    }
-   },
-   {
-    "id": "diplomata",
-    "name": "Diplomata",
-    "desc": "Corpo luminoso e aberto, de quem conversa e faz amigos.",
-    "bias": {
-     "sociabilidade": 25,
-     "misterio": 5
-    }
-   }
-  ],
-  "traits": [
-   {
-    "id": "nucleo",
-    "name": "Núcleo",
-    "question": "the shape of the nucleus, the heart of the cell, visible through the membrane",
-    "options": [
-     {
-      "id": "feijao",
-      "name": "Feijão",
-      "desc": "A bean: one side indented, the nucleus of a restless wanderer.",
-      "affinity": {
-       "agilidade": 2,
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "rim",
-      "name": "Rim",
-      "desc": "A big kidney with a deep notch: a devourer's nucleus.",
-      "affinity": {
-       "metabolismo": 3,
-       "robustez": 1
-      }
-     },
-     {
-      "id": "flor",
-      "name": "Flor",
-      "desc": "An irregular flower with petals: a nucleus that listens and talks.",
-      "affinity": {
-       "sociabilidade": 3,
-       "misterio": 1
-      }
-     },
-     {
-      "id": "esfera",
-      "name": "Esfera",
-      "desc": "A huge perfect sphere: calm, dense, full of memory.",
-      "affinity": {
-       "misterio": 2,
-       "robustez": 2
-      }
-     },
-     {
-      "id": "hexagono",
-      "name": "Hexágono",
-      "desc": "A compact hexagon: disciplined and exact.",
-      "affinity": {
-       "ferocidade": 2,
-       "robustez": 1
-      }
-     },
-     {
-      "id": "trevo",
-      "name": "Trevo",
-      "desc": "A four-leaf clover: a nucleus that coordinates others.",
-      "affinity": {
-       "sociabilidade": 2,
-       "misterio": 2
-      }
-     },
-     {
-      "id": "lobulos",
-      "name": "Lóbulos",
-      "desc": "A chain of lobes: made to squeeze through anything.",
-      "affinity": {
-       "agilidade": 3
-      }
-     },
-     {
-      "id": "estrela",
-      "name": "Estrela",
-      "desc": "A five-pointed star: sharp, radiant, a little cruel.",
-      "affinity": {
-       "ferocidade": 3,
-       "misterio": 1
-      }
-     },
-     {
-      "id": "composto",
-      "name": "Composto",
-      "desc": "A nucleus built from parts: its lobes, its cut and its nucleolus are designed separately, so it is one of a kind.",
-      "affinity": {
-       "misterio": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "membrana",
-    "name": "Membrana",
-    "question": "the texture of the outer membrane, the skin this cell shows the world",
-    "options": [
-     {
-      "id": "lisa",
-      "name": "Lisa",
-      "desc": "A smooth, glossy membrane: nothing to catch on.",
-      "affinity": {
-       "agilidade": 2
-      }
-     },
-     {
-      "id": "ondulada",
-      "name": "Ondulada",
-      "desc": "A rippling membrane that breathes and flows.",
-      "affinity": {
-       "metabolismo": 2,
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "espinhosa",
-      "name": "Espinhosa",
-      "desc": "A ring of short spines: it warns before it strikes.",
-      "affinity": {
-       "ferocidade": 3
-      }
-     },
-     {
-      "id": "contas",
-      "name": "Contas",
-      "desc": "A string of tiny beads along the edge: receptors on display.",
-      "affinity": {
-       "misterio": 2,
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "dupla",
-      "name": "Dupla",
-      "desc": "Two membranes, one inside the other: layered and guarded.",
-      "affinity": {
-       "robustez": 3
-      }
-     }
-    ]
-   },
-   {
-    "id": "organelas",
-    "name": "Organelas",
-    "question": "which organelles dominate the inside of the cell and show through the membrane",
-    "options": [
-     {
-      "id": "mitocondrias",
-      "name": "Mitocôndrias",
-      "desc": "Many bright mitochondria: energy to spare.",
-      "affinity": {
-       "metabolismo": 3
-      }
-     },
-     {
-      "id": "lisossomos",
-      "name": "Lisossomos",
-      "desc": "Green acid sacs: a cell that digests what it finds.",
-      "affinity": {
-       "ferocidade": 2,
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "vesiculas",
-      "name": "Vesículas",
-      "desc": "Pale vesicles drifting about: messages and cargo.",
-      "affinity": {
-       "sociabilidade": 3
-      }
-     },
-     {
-      "id": "tubulos",
-      "name": "Túbulos",
-      "desc": "A web of fine tubules: a cell that senses and builds paths.",
-      "affinity": {
-       "agilidade": 2,
-       "misterio": 2
-      }
-     },
-     {
-      "id": "vacuolos",
-      "name": "Vacúolos",
-      "desc": "Large clear vacuoles: storage, patience, endurance.",
-      "affinity": {
-       "robustez": 3
-      }
-     },
-     {
-      "id": "granulos",
-      "name": "Grânulos",
-      "desc": "Dense dark granules: loaded, waiting to be released.",
-      "affinity": {
-       "ferocidade": 3
-      }
-     }
-    ]
-   },
-   {
-    "id": "brilho",
-    "name": "Brilho",
-    "question": "the colour of the cell's glow, how it looks in the dark of the body",
-    "options": [
-     {
-      "id": "ambar",
-      "name": "Âmbar",
-      "desc": "A warm amber glow.",
-      "affinity": {
-       "metabolismo": 2,
-       "robustez": 1
-      }
-     },
-     {
-      "id": "jade",
-      "name": "Jade",
-      "desc": "A cool jade glow.",
-      "affinity": {
-       "agilidade": 1,
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "magenta",
-      "name": "Magenta",
-      "desc": "A bright magenta glow.",
-      "affinity": {
-       "misterio": 2,
-       "ferocidade": 1
-      }
-     },
-     {
-      "id": "ciano",
-      "name": "Ciano",
-      "desc": "A clean cyan glow.",
-      "affinity": {
-       "agilidade": 2
-      }
-     },
-     {
-      "id": "carmim",
-      "name": "Carmim",
-      "desc": "A deep crimson glow.",
-      "affinity": {
-       "ferocidade": 3
-      }
-     },
-     {
-      "id": "violeta",
-      "name": "Violeta",
-      "desc": "A violet glow, deep and strange.",
-      "affinity": {
-       "misterio": 3
-      }
-     }
-    ]
-   },
-   {
-    "id": "efeito",
-    "name": "Efeito das habilidades",
-    "question": "the flavour of every ability this cell uses: how its effects look and move",
-    "options": [
-     {
-      "id": "chama",
-      "name": "Chama",
-      "desc": "Abilities burn: warm tints, flaring, quick-fading sparks.",
-      "affinity": {
-       "ferocidade": 3
-      }
-     },
-     {
-      "id": "cristal",
-      "name": "Cristal",
-      "desc": "Abilities crystallise: sharp, cold, glittering fragments.",
-      "affinity": {
-       "robustez": 2,
-       "misterio": 1
-      }
-     },
-     {
-      "id": "nevoa",
-      "name": "Névoa",
-      "desc": "Abilities billow: soft, drifting clouds with long tails.",
-      "affinity": {
-       "sociabilidade": 2,
-       "misterio": 2
-      }
-     },
-     {
-      "id": "eletrico",
-      "name": "Elétrico",
-      "desc": "Abilities crackle: jagged, instant, branching arcs.",
-      "affinity": {
-       "agilidade": 3
-      }
-     },
-     {
-      "id": "organico",
-      "name": "Orgânico",
-      "desc": "Abilities grow: wet, pulsing, budding forms.",
-      "affinity": {
-       "metabolismo": 3
-      }
-     }
-    ]
-   },
-   {
-    "id": "lobulacao",
-    "name": "Lobulação do núcleo",
-    "question": "how many lobes the nucleus has when it is built from parts: few lobes are calm, many are restless",
-    "options": [
-     {
-      "id": "l3",
-      "name": "Três lóbulos",
-      "desc": "A soft triangle of lobes.",
-      "affinity": {
-       "misterio": 1
-      }
-     },
-     {
-      "id": "l4",
-      "name": "Quatro lóbulos",
-      "desc": "A balanced cross of lobes.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "l5",
-      "name": "Cinco lóbulos",
-      "desc": "A five-petalled nucleus.",
-      "affinity": {
-       "sociabilidade": 2
-      }
-     },
-     {
-      "id": "l6",
-      "name": "Seis lóbulos",
-      "desc": "A six-lobed rosette.",
-      "affinity": {
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "l7",
-      "name": "Sete lóbulos",
-      "desc": "A restless seven-lobed nucleus.",
-      "affinity": {
-       "agilidade": 2
-      }
-     },
-     {
-      "id": "l8",
-      "name": "Oito lóbulos",
-      "desc": "A crowded, bustling ring of lobes.",
-      "affinity": {
-       "ferocidade": 1,
-       "agilidade": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "recorte",
-    "name": "Recorte do núcleo",
-    "question": "how the outline of the composed nucleus is cut",
-    "options": [
-     {
-      "id": "liso",
-      "name": "Liso",
-      "desc": "A clean, unbroken outline.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "entalhe",
-      "name": "Entalhe",
-      "desc": "A deep notch on one side, like a bean or a kidney.",
-      "affinity": {
-       "metabolismo": 2
-      }
-     },
-     {
-      "id": "serrilhado",
-      "name": "Serrilhado",
-      "desc": "A finely serrated outline.",
-      "affinity": {
-       "ferocidade": 2
-      }
-     }
-    ]
-   },
-   {
-    "id": "nucleolo",
-    "name": "Nucléolo",
-    "question": "the bright mark inside the nucleus, the signature of this cell",
-    "options": [
-     {
-      "id": "nenhum",
-      "name": "Nenhum",
-      "desc": "A plain nucleus.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "brilhante",
-      "name": "Brilhante",
-      "desc": "One bright off-centre point.",
-      "affinity": {
-       "misterio": 2
-      }
-     },
-     {
-      "id": "anel",
-      "name": "Anel",
-      "desc": "A ring around the middle.",
-      "affinity": {
-       "sociabilidade": 2
-      }
-     },
-     {
-      "id": "constelacao",
-      "name": "Constelação",
-      "desc": "Five points joined by thin lines.",
-      "affinity": {
-       "misterio": 3,
-       "agilidade": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "ritmo",
-    "name": "Ritmo dos efeitos",
-    "question": "how fast this cell's projectiles fly",
-    "options": [
-     {
-      "id": "lento",
-      "name": "Lento",
-      "desc": "Slow, heavy projectiles: easy to see coming, easy to land.",
-      "affinity": {
-       "robustez": 2,
-       "misterio": 1
-      }
-     },
-     {
-      "id": "firme",
-      "name": "Firme",
-      "desc": "Projectiles at a steady speed.",
-      "affinity": {
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "veloz",
-      "name": "Veloz",
-      "desc": "Quick projectiles that are hard to avoid.",
-      "affinity": {
-       "agilidade": 3,
-       "ferocidade": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "foco",
-    "name": "Foco das habilidades",
-    "question": "the focus of this cell's non-projectile abilities (cones, thrusts, novas, dashes, zones): wide ones reach more and are easy to land but hit softly and short; precise ones are narrow, long and hit hard",
-    "options": [
-     {
-      "id": "amplo",
-      "name": "Amplo",
-      "desc": "A wide, short, forgiving reach with softer hits.",
-      "affinity": {
-       "sociabilidade": 2,
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "medio",
-      "name": "Médio",
-      "desc": "A balanced reach.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "preciso",
-      "name": "Preciso",
-      "desc": "A narrow, long reach that hits hard when it lands.",
-      "affinity": {
-       "ferocidade": 2,
-       "agilidade": 1,
-       "misterio": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "trajetoria",
-    "name": "Trajetória do projétil",
-    "question": "how this cell's projectiles fly: this changes where they can hit, so choose what suits how this person fights",
-    "options": [
-     {
-      "id": "reta",
-      "name": "Reta",
-      "desc": "A straight, fast, honest line (no homing): precise and easy to dodge for a patient enemy.",
-      "affinity": {
-       "ferocidade": 2,
-       "robustez": 1
-      }
-     },
-     {
-      "id": "ondulada",
-      "name": "Ondulada",
-      "desc": "A snaking wave: harder to dodge, covers the sides of its path.",
-      "affinity": {
-       "agilidade": 2,
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "espiral",
-      "name": "Espiral",
-      "desc": "A corkscrew around its line: sweeps a wide tube in front of the cell.",
-      "affinity": {
-       "misterio": 2,
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "arco",
-      "name": "Arco",
-      "desc": "A curving arc that bends round obstacles and around enemies who stand in front.",
-      "affinity": {
-       "agilidade": 1,
-       "misterio": 1
-      }
-     },
-     {
-      "id": "teleguiada",
-      "name": "Teleguiada",
-      "desc": "Hunts the nearest enemy with a strong turn: never misses, but is slower to arrive.",
-      "affinity": {
-       "sociabilidade": 2,
-       "misterio": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "calibre",
-    "name": "Calibre do projétil",
-    "question": "how big the projectile is: small ones are fast, long-range and hard to land; big ones are slow, forgiving and cover more space",
-    "options": [
-     {
-      "id": "fino",
-      "name": "Fino",
-      "desc": "A thin, fast needle with long range and a little more damage, but a tiny hit area.",
-      "affinity": {
-       "agilidade": 2,
-       "ferocidade": 1
-      }
-     },
-     {
-      "id": "medio",
-      "name": "Médio",
-      "desc": "An average projectile.",
-      "affinity": {
-       "robustez": 1,
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "grosso",
-      "name": "Grosso",
-      "desc": "A big, slow ball with a wide hit area and a little less damage.",
-      "affinity": {
-       "robustez": 2,
-       "metabolismo": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "impacto",
-    "name": "Impacto do projétil",
-    "question": "what the projectile does when it arrives; each option trades some direct damage for its own reach",
-    "options": [
-     {
-      "id": "simples",
-      "name": "Simples",
-      "desc": "Hits one enemy for full damage and is spent.",
-      "affinity": {
-       "ferocidade": 1
-      }
-     },
-     {
-      "id": "perfurante",
-      "name": "Perfurante",
-      "desc": "Goes through up to three enemies, a little weaker each time.",
-      "affinity": {
-       "ferocidade": 2,
-       "agilidade": 1
-      }
-     },
-     {
-      "id": "explosivo",
-      "name": "Explosivo",
-      "desc": "Bursts on arrival: everyone near the impact takes a share of the damage.",
-      "affinity": {
-       "metabolismo": 2,
-       "ferocidade": 1
-      }
-     },
-     {
-      "id": "fragmenta",
-      "name": "Fragmenta",
-      "desc": "Breaks into three fragments that fly on and hit whoever is behind.",
-      "affinity": {
-       "misterio": 2,
-       "sociabilidade": 1
-      }
-     },
-     {
-      "id": "grudento",
-      "name": "Grudento",
-      "desc": "Sticks to its target and keeps hurting it for a few seconds.",
-      "affinity": {
-       "robustez": 1,
-       "metabolismo": 2
-      }
-     }
-    ]
-   },
-   {
-    "id": "modo_cone",
-    "name": "Comportamento dos cones",
-    "question": "how this cell's cone abilities (whips, sweeps) behave: standard, closing on victims or lashing twice",
-    "options": [
-     {
-      "id": "padrao",
-      "name": "Padrão",
-      "desc": "The cone sweeps once.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "fecha",
-      "name": "Fecha",
-      "desc": "The cone closes: victims are dragged toward the cell, with slightly less damage.",
-      "affinity": {
-       "sociabilidade": 2,
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "chicoteia",
-      "name": "Chicoteia",
-      "desc": "The whips come back: a second lash a beat later, each lash a bit softer.",
-      "affinity": {
-       "ferocidade": 2,
-       "agilidade": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "modo_nova",
-    "name": "Comportamento das ondas",
-    "question": "how this cell's nova abilities (radial bursts) behave: one blast, three pulses or a repelling blast",
-    "options": [
-     {
-      "id": "padrao",
-      "name": "Padrão",
-      "desc": "A single radial blast.",
-      "affinity": {
-       "robustez": 1
-      }
-     },
-     {
-      "id": "pulsos",
-      "name": "Pulsos",
-      "desc": "Three weaker beats instead of one: hits things that move in and out.",
-      "affinity": {
-       "agilidade": 2,
-       "misterio": 1
-      }
-     },
-     {
-      "id": "repele",
-      "name": "Repele",
-      "desc": "The blast throws every enemy away from the cell, with a little less damage.",
-      "affinity": {
-       "robustez": 2,
-       "sociabilidade": 1
-      }
-     }
-    ]
-   },
-   {
-    "id": "modo_estocada",
-    "name": "Comportamento das estocadas",
-    "question": "how this cell's thrusts (piercing lances) behave: a plain thrust or a harpoon that reels the victim in",
-    "options": [
-     {
-      "id": "padrao",
-      "name": "Padrão",
-      "desc": "A plain thrust.",
-      "affinity": {
-       "ferocidade": 1
-      }
-     },
-     {
-      "id": "arpao",
-      "name": "Arpão",
-      "desc": "The thrust harpoons the victim and drags it to the cell, with a little less damage.",
-      "affinity": {
-       "metabolismo": 1,
-       "misterio": 2
-      }
-     }
-    ]
-   },
-   {
-    "id": "modo_investida",
-    "name": "Comportamento das investidas",
-    "question": "how this cell's dash attacks behave: one strike at the end, or a second strike a beat later",
-    "options": [
-     {
-      "id": "padrao",
-      "name": "Padrão",
-      "desc": "One strike at the end of the dash.",
-      "affinity": {
-       "agilidade": 1
-      }
-     },
-     {
-      "id": "dupla",
-      "name": "Dupla",
-      "desc": "A second strike lands a beat later, each strike a bit softer.",
-      "affinity": {
-       "ferocidade": 2,
-       "agilidade": 2
-      }
-     }
-    ]
-   },
-   {
-    "id": "modo_zona",
-    "name": "Comportamento das zonas",
-    "question": "how this cell's zone abilities (acid puddles, nets, clouds) behave: fixed in place or wandering towards the nearest enemy",
-    "options": [
-     {
-      "id": "padrao",
-      "name": "Padrão",
-      "desc": "The zone stays where it was cast.",
-      "affinity": {
-       "robustez": 2
-      }
-     },
-     {
-      "id": "migra",
-      "name": "Migra",
-      "desc": "The zone wanders slowly towards the nearest enemy; smaller and a bit weaker.",
-      "affinity": {
-       "agilidade": 1,
-       "misterio": 2
-      }
-     }
-    ]
-   },
-   {
-    "id": "modo_devorar",
-    "name": "Comportamento do devorar",
-    "question": "how this cell's devouring bite behaves: a plain bite or a suction that pulls prey in",
-    "options": [
-     {
-      "id": "padrao",
-      "name": "Padrão",
-      "desc": "A plain bite.",
-      "affinity": {
-       "metabolismo": 1
-      }
-     },
-     {
-      "id": "suga",
-      "name": "Suga",
-      "desc": "The bite sucks prey toward the cell first, with a little less damage.",
-      "affinity": {
-       "metabolismo": 2,
-       "sociabilidade": 1
-      }
-     }
-    ]
-   }
-  ]
- },
- "differentiation": {
-  "maturity": "maturidade",
-  "tiers": [
-   168,
-   480
-  ]
- },
  "callings": [
-  {"id": "neutrofilo", "name": "Armadilheiro", "desc": "Veloz: prende e retalha os invasores com redes de DNA.", "role": "combate", "form": "neutrofilo"},
-  {"id": "t-citotoxico", "name": "Executor", "desc": "Mata de perto o que está infectado ou alterado.", "role": "combate", "form": "t-citotoxico"},
-  {"id": "celula-nk", "name": "Caçadora", "desc": "Persegue as células alteradas e os tumores sem aviso.", "role": "combate", "form": "celula-nk"},
-  {"id": "macrofago", "name": "Devorador", "desc": "Engole os invasores e os restos, e aguenta o que vier.", "role": "limpeza", "form": "macrofago"},
-  {"id": "eosinofilo", "name": "Faxineiro", "desc": "Rola sobre parasitas e restos e os dissolve.", "role": "limpeza", "form": "eosinofilo"},
-  {"id": "t-auxiliar", "name": "Sustentador", "desc": "Alimenta e fortalece quem está trabalhando.", "role": "cura", "form": "t-auxiliar"},
-  {"id": "mastocito", "name": "Irrigador", "desc": "Abre caminho para o sangue e chama reforços.", "role": "cura", "form": "mastocito"},
-  {"id": "t-regulador", "name": "Pacificador", "desc": "Acalma a reação e segura a inflamação.", "role": "controle", "form": "t-regulador"},
-  {"id": "linfocito-b", "name": "Anticorpomante", "desc": "Marca os alvos à distância para todos.", "role": "marcacao", "form": "linfocito-b"},
-  {"id": "dendritica", "name": "Cartógrafa", "desc": "Colhe o rosto dos invasores e leva o conhecimento aos outros.", "role": "marcacao", "form": "dendritica"}
+  {
+   "id": "neutrofilo",
+   "name": "Armadilheiro",
+   "desc": "Veloz: prende e retalha os invasores com redes de DNA.",
+   "role": "combate",
+   "form": "neutrofilo"
+  },
+  {
+   "id": "t-citotoxico",
+   "name": "Executor",
+   "desc": "Mata de perto o que está infectado ou alterado.",
+   "role": "combate",
+   "form": "t-citotoxico"
+  },
+  {
+   "id": "celula-nk",
+   "name": "Caçadora",
+   "desc": "Persegue as células alteradas e os tumores sem aviso.",
+   "role": "combate",
+   "form": "celula-nk"
+  },
+  {
+   "id": "macrofago",
+   "name": "Devorador",
+   "desc": "Engole os invasores e os restos, e aguenta o que vier.",
+   "role": "limpeza",
+   "form": "macrofago"
+  },
+  {
+   "id": "eosinofilo",
+   "name": "Faxineiro",
+   "desc": "Rola sobre parasitas e restos e os dissolve.",
+   "role": "limpeza",
+   "form": "eosinofilo"
+  },
+  {
+   "id": "t-auxiliar",
+   "name": "Sustentador",
+   "desc": "Alimenta e fortalece quem está trabalhando.",
+   "role": "cura",
+   "form": "t-auxiliar"
+  },
+  {
+   "id": "mastocito",
+   "name": "Irrigador",
+   "desc": "Abre caminho para o sangue e chama reforços.",
+   "role": "cura",
+   "form": "mastocito"
+  },
+  {
+   "id": "t-regulador",
+   "name": "Pacificador",
+   "desc": "Acalma a reação e segura a inflamação.",
+   "role": "controle",
+   "form": "t-regulador"
+  },
+  {
+   "id": "linfocito-b",
+   "name": "Anticorpomante",
+   "desc": "Marca os alvos à distância para todos.",
+   "role": "marcacao",
+   "form": "linfocito-b"
+  },
+  {
+   "id": "dendritica",
+   "name": "Cartógrafa",
+   "desc": "Colhe o rosto dos invasores e leva o conhecimento aos outros.",
+   "role": "marcacao",
+   "form": "dendritica"
+  }
  ],
  "lineages": [
   {
@@ -6303,7 +4501,6 @@
    "rarity": "comum",
    "desc": "Devora o inimigo à frente e se cura com o que engoliu.",
    "class": "macrofago",
-   "starter": true,
    "tags": [
     "combat",
     "endure"
@@ -6311,7 +4508,6 @@
   },
   {
    "id": "onda-de-pseudopodes",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "macrofago"}}, {"num": {"e": "$self", "k": "prova-macrofago-feitos", "op": ">=", "v": 40}}]},
    "name": "Onda de Pseudópodes",
    "rarity": "incomum",
    "desc": "Lóbulos enormes se estendem em todas as direções e arremessam quem está perto.",
@@ -6328,7 +4524,6 @@
    "rarity": "comum",
    "desc": "Lança uma teia de DNA que prende e retarda quem for pego.",
    "class": "neutrofilo",
-   "starter": true,
    "tags": [
     "combat",
     "explore"
@@ -6336,7 +4531,6 @@
   },
   {
    "id": "explosao-neutrofilica",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "neutrofilo"}}, {"num": {"e": "$self", "k": "prova-neutrofilo-feitos", "op": ">=", "v": 8}}]},
    "name": "Explosão Neutrofílica",
    "rarity": "incomum",
    "desc": "Um arranque veloz que corta tudo no caminho e deixa um rastro de faíscas.",
@@ -6349,7 +4543,6 @@
   },
   {
    "id": "dendritos-em-chicote",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "dendritica"}}, {"num": {"e": "$self", "k": "prova-dendritica-feitos", "op": ">=", "v": 30}}]},
    "name": "Dendritos em Chicote",
    "rarity": "incomum",
    "desc": "Braços ramificados se estendem em leque e açoitam tudo à frente.",
@@ -6366,7 +4559,6 @@
    "rarity": "comum",
    "desc": "Dispara um anticorpo em Y que persegue o alvo.",
    "class": "linfocito-b",
-   "starter": true,
    "tags": [
     "knowledge",
     "combat"
@@ -6378,7 +4570,6 @@
    "rarity": "comum",
    "desc": "Crava uma agulha que perfura a membrana; fere muito mais quem já está ferido.",
    "class": "t-citotoxico",
-   "starter": true,
    "tags": [
     "combat",
     "knowledge"
@@ -6453,12 +4644,10 @@
    "tags": [
     "combat",
     "metabolism"
-   ],
-   "starter": true
+   ]
   },
   {
    "id": "histamina-instavel",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "mastocito"}}, {"num": {"e": "$self", "k": "prova-mastocito-feitos", "op": ">=", "v": 30}}]},
    "name": "Histamina Instável",
    "rarity": "incomum",
    "desc": "Cola uma bomba no inimigo: ela explode depois de um pavio, e cada bomba a mais no mesmo alvo aumenta a explosão.",
@@ -6479,25 +4668,7 @@
     "combat",
     "metabolism"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "mastocito"
-      }
-     },
-     {
-      "deeds": {
-       "action": "derrotar-virus",
-       "op": ">=",
-       "v": 40
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "anafilaxia",
@@ -6520,12 +4691,10 @@
    "tags": [
     "combat",
     "endure"
-   ],
-   "starter": true
+   ]
   },
   {
    "id": "cristal-de-charcot",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "eosinofilo"}}, {"num": {"e": "$self", "k": "prova-eosinofilo-feitos", "op": ">=", "v": 120}}]},
    "name": "Cristal de Charcot-Leyden",
    "rarity": "incomum",
    "desc": "Prende o inimigo em cristal: ele fica parado e nada o fere. Os golpes ficam guardados e saem todos de uma vez, em explosão, quando o cristal quebra.",
@@ -6546,25 +4715,7 @@
     "combat",
     "endure"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "eosinofilo"
-      }
-     },
-     {
-      "deeds": {
-       "action": "derrotar-virus",
-       "op": ">=",
-       "v": 30
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "rolagem",
@@ -6587,12 +4738,10 @@
    "tags": [
     "combat",
     "explore"
-   ],
-   "starter": true
+   ]
   },
   {
    "id": "predar",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "celula-nk"}}, {"num": {"e": "$self", "k": "prova-celula-nk-feitos", "op": ">=", "v": 10}}]},
    "name": "Predar",
    "rarity": "incomum",
    "desc": "Escolhe uma presa. Cada golpe nela devolve recarga e energia às outras habilidades; matá-la devolve todas.",
@@ -6613,25 +4762,7 @@
     "combat",
     "explore"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "celula-nk"
-      }
-     },
-     {
-      "deeds": {
-       "action": "esquivar",
-       "op": ">=",
-       "v": 12
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "ancora-de-vigilancia",
@@ -6654,12 +4785,10 @@
    "tags": [
     "knowledge",
     "endure"
-   ],
-   "starter": true
+   ]
   },
   {
    "id": "sinapse-imunologica",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "t-regulador"}}, {"num": {"e": "$self", "k": "prova-t-regulador-feitos", "op": ">=", "v": 25}}]},
    "name": "Sinapse Imunológica",
    "rarity": "incomum",
    "desc": "Une até três inimigos: o que um sofre, os outros sofrem em parte.",
@@ -6680,25 +4809,7 @@
     "knowledge",
     "endure"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-regulador"
-      }
-     },
-     {
-      "deeds": {
-       "action": "absorver-nutriente",
-       "op": ">=",
-       "v": 20
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "singularidade-de-tolerancia",
@@ -6722,25 +4833,7 @@
     "combat",
     "endure"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "macrofago"
-      }
-     },
-     {
-      "deeds": {
-       "action": "estilo-chicote",
-       "op": ">=",
-       "v": 30
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "polarizacao",
@@ -6764,25 +4857,7 @@
     "combat",
     "explore"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "neutrofilo"
-      }
-     },
-     {
-      "deeds": {
-       "action": "estilo-impulso",
-       "op": ">=",
-       "v": 20
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "surto-oxidativo",
@@ -6805,8 +4880,7 @@
    "tags": [
     "knowledge",
     "explore"
-   ],
-   "starter": true
+   ]
   },
   {
    "id": "maturacao",
@@ -6818,25 +4892,7 @@
     "knowledge",
     "explore"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "dendritica"
-      }
-     },
-     {
-      "deeds": {
-       "action": "absorver-nutriente",
-       "op": ">=",
-       "v": 25
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "passagem-linfatica",
@@ -6852,7 +4908,6 @@
   },
   {
    "id": "complemento",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "linfocito-b"}}, {"num": {"e": "$self", "k": "uso-toxina", "op": ">=", "v": 20}}]},
    "name": "Complemento",
    "rarity": "incomum",
    "desc": "Marca o inimigo com complemento: no terceiro golpe, de quem for, ele estoura.",
@@ -6873,25 +4928,7 @@
     "knowledge",
     "combat"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "linfocito-b"
-      }
-     },
-     {
-      "deeds": {
-       "action": "estilo-toxina",
-       "op": ">=",
-       "v": 25
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "fabrica-de-plasmocito",
@@ -6907,7 +4944,6 @@
   },
   {
    "id": "salto-letal",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "t-citotoxico"}}, {"num": {"e": "$self", "k": "prova-t-citotoxico-feitos", "op": ">=", "v": 120}}]},
    "name": "Salto Letal",
    "rarity": "incomum",
    "desc": "Salta por cima da multidão, sem que nada a pare, e cai com um golpe no chão.",
@@ -6928,25 +4964,7 @@
     "combat",
     "knowledge"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-citotoxico"
-      }
-     },
-     {
-      "deeds": {
-       "action": "derrotar-virus",
-       "op": ">=",
-       "v": 18
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "lise-em-massa",
@@ -6969,12 +4987,10 @@
    "tags": [
     "endure",
     "metabolism"
-   ],
-   "starter": true
+   ]
   },
   {
    "id": "chamado-aos-auxiliares",
-   "learn": {"all": [{"tag": {"e": "$self", "k": "lineage", "v": "t-auxiliar"}}, {"num": {"e": "$self", "k": "prova-t-auxiliar-feitos", "op": ">=", "v": 25}}]},
    "name": "Chamado aos Auxiliares",
    "rarity": "incomum",
    "desc": "Chama células auxiliares que correm atrás dos inimigos e os mordem por um tempo.",
@@ -6995,25 +5011,7 @@
     "endure",
     "metabolism"
    ],
-   "offer": true,
-   "learn": {
-    "all": [
-     {
-      "tag": {
-       "e": "$self",
-       "k": "lineage",
-       "v": "t-auxiliar"
-      }
-     },
-     {
-      "deeds": {
-       "action": "absorver-nutriente",
-       "op": ">=",
-       "v": 20
-      }
-     }
-    ]
-   }
+   "offer": true
   },
   {
    "id": "transfusao",
@@ -7028,10 +5026,6 @@
    "offer": true
   }
  ],
- "abilities": {
-  "every": 40,
-  "minDeeds": 12
- },
  "vitals": [
   {
    "id": "temperatura",
@@ -7215,117 +5209,7 @@
    "name": "Artéria renal"
   }
  ],
- "niches": [
-  {
-   "id": "nicho-estroma",
-   "region": "medula",
-   "name": "Bolsa do estroma",
-   "gene": "cilios-ageis",
-   "hint": "Um brilho de cílios se mexe num canto do nicho, longe da saída.",
-   "text": "Você acha a bolsa do estroma: cílios minúsculos ondulam ali dentro e passam para você. (Cílios Ágeis)"
-  },
-  {
-   "id": "bolsa-da-venula",
-   "region": "sangue",
-   "name": "Bolsa da vênula",
-   "gene": "citoesqueleto-elastico",
-   "hint": "Uma dobra da parede da vênula guarda uma célula que se espreme por qualquer fresta.",
-   "text": "Na dobra da vênula, uma célula velha lhe empresta o segredo de se espremer: o citoesqueleto elástico. Os capilares do pulmão agora estão ao seu alcance."
-  },
-  {
-   "id": "recesso-do-atrio",
-   "region": "coracao",
-   "name": "Recesso do átrio",
-   "gene": "receptor-de-mapa",
-   "unique": true,
-   "hint": "Onde o sangue volta e demora, há um recanto que o batimento quase não alcança.",
-   "text": "No recesso do átrio você sente o corpo inteiro como um mapa: o receptor de mapa é seu, e de mais ninguém."
-  },
-  {
-   "id": "gruta-alveolar",
-   "region": "pulmao",
-   "name": "Gruta alveolar",
-   "gene": "receptor-de-limpeza",
-   "unique": true,
-   "hint": "Entre os alvéolos mais fundos há uma gruta onde o ar não chega a se mover.",
-   "text": "Na gruta alveolar o muco parou no tempo. Você aprende a limpar o que ninguém limpa: o receptor de limpeza."
-  },
-  {
-   "id": "valva-aortica",
-   "region": "aorta",
-   "name": "Seio da valva aórtica",
-   "gene": "flagelo-turbinado",
-   "unique": true,
-   "hint": "Atrás das válvulas, a corrente faz um redemoinho que nunca sai do lugar.",
-   "text": "No seio da valva, o redemoinho lhe ensina a ser a própria correnteza: o flagelo turbinado."
-  },
-  {
-   "id": "sonho-da-medula",
-   "region": "medula",
-   "name": "Câmara do sono",
-   "gene": "memoria-de-longa-vida",
-   "when": {
-    "fact": {
-     "p": "sono",
-     "s": "medula"
-    }
-   },
-   "hint": "Quando o corpo dorme, uma câmara da medula se abre; só então.",
-   "text": "Com o corpo dormindo, a câmara do sono se abre e a medula lhe confia a memória de longa vida."
-  },
-  {
-   "id": "calor-do-alveolo",
-   "region": "pulmao",
-   "name": "Alvéolo em brasa",
-   "gene": "interferon-gama",
-   "when": {
-    "fact": {
-     "p": "febre",
-     "s": "sangue"
-    }
-   },
-   "hint": "Na febre, os alvéolos mais quentes brilham de outro jeito.",
-   "text": "Na febre, um alvéolo em brasa lhe passa o interferon gama: o sinal que acende as defesas."
-  },
-  {
-   "id": "cripta-de-kupffer",
-   "region": "figado",
-   "name": "Cripta de Kupffer",
-   "gene": "peroxissomos",
-   "unique": true,
-   "hint": "Entre os cordões de hepatócitos há uma cripta onde um macrófago antigo nunca parou de limpar.",
-   "text": "Na cripta, uma célula de Kupffer lhe empresta o ofício de quebrar o que envenena: os peroxissomos. Daqui em diante a toxina do fígado lhe dá energia, não dano."
-  },
-  {
-   "id": "centro-germinativo-oculto",
-   "region": "baco",
-   "name": "Centro germinativo oculto",
-   "gene": "nucleo-reativo",
-   "unique": true,
-   "hint": "Na polpa branca, um folículo pulsa em silêncio: linfócitos se dividem e se corrigem ali, longe de qualquer olhar.",
-   "text": "No folículo, os linfócitos erram de propósito e só os que acertam sobrevivem. Você leva dali o núcleo reativo: responder depressa, sem pensar duas vezes."
-  },
-  {
-   "id": "cripta-de-lieberkuhn",
-   "region": "intestino",
-   "name": "Cripta de Lieberkühn",
-   "gene": "enzima-voraz",
-   "unique": true,
-   "hint": "No fundo de uma cripta, as células-tronco da parede se renovam em silêncio, e algo ali sabe quebrar qualquer coisa.",
-   "text": "A cripta lhe empresta o apetite das células da parede: a enzima voraz, que extrai muito de pouco, ao preço de uma energia menos estável."
-  },
-  {
-   "id": "glomerulo-oculto",
-   "region": "rim",
-   "name": "Glomérulo oculto",
-   "gene": "membrana-espessa",
-   "unique": true,
-   "hint": "Num novelo de capilares esquecido, uma membrana deixa passar a água e segura as proteínas, sem nunca errar.",
-   "text": "A membrana do glomérulo deixa passar só o que deve. Você leva dali uma membrana espessa e seletiva, mais firme e um pouco mais lenta."
-  }
- ],
  "exploring": {
-  "adaptAfter": 30,
   "rotaEvery": 6
  },
  "codex": [
@@ -7662,90 +5546,15 @@
   }
  ],
  "populations": [
-   {
-    "id": "plaquetas_pele",
-    "role": "reparo",
-    "region": "pele",
-    "count": 30,
-    "max": 70,
-    "baseline": 40,
-    "mortality": 10,
-    "mortalityEvery": 10,
-    "recruit": {
-     "from": "medula",
-     "k": "reserva",
-     "cost": 1,
-     "perCycle": 2,
-     "every": 8
-    },
-    "work": [
-     {
-      "id": "fechar-ferida",
-      "k": "ferida",
-      "from": "pele",
-      "rate": 5
-     }
-    ]
-   },
-   {
-    "id": "macrofagos_baco",
-    "role": "reciclagem",
-    "region": "baco",
-    "count": 20,
-    "max": 60,
-    "baseline": 20,
-    "mortality": 5,
-    "mortalityEvery": 10,
-    "recruit": {
-     "from": "medula",
-     "k": "reserva",
-     "cost": 1,
-     "perCycle": 1,
-     "every": 10
-    },
-    "work": [
-     {
-      "id": "reciclar",
-      "k": "hemacias",
-      "from": "baco",
-      "to": "medula",
-      "toK": "ferro",
-      "rate": 2
-     }
-    ]
-   },
-   {
-    "id": "hepatocitos_figado",
-    "role": "depuracao",
-    "region": "figado",
-    "count": 40,
-    "max": 90,
-    "baseline": 40,
-    "mortality": 5,
-    "mortalityEvery": 10,
-    "recruit": {
-     "from": "medula",
-     "k": "reserva",
-     "cost": 1,
-     "perCycle": 1,
-     "every": 10
-    },
-    "work": [
-     {
-      "id": "filtrar",
-      "k": "toxina",
-      "from": "figado",
-      "rate": 14
-     }
-    ]
-   },
-   {
-    "id": "flora_intestinal",
-    "role": "simbiose",
-    "region": "intestino",
-    "count": 50,
-    "max": 110,
-    "baseline": 50,
+  {
+   "id": "plaquetas_pele",
+   "role": "reparo",
+   "region": "pele",
+   "count": 30,
+   "max": 70,
+   "baseline": 40,
+   "mortality": 10,
+   "mortalityEvery": 10,
    "recruit": {
     "from": "medula",
     "k": "reserva",
@@ -7753,19 +5562,93 @@
     "perCycle": 2,
     "every": 8
    },
-    "work": [
-     {
-      "id": "cultivar",
-      "k": "alimento",
-      "from": "intestino",
-      "to": "intestino",
-      "toK": "microbiota",
-      "rate": 8,
-      "toMax": 100
-     }
-    ]
-   }
-  ,
+   "work": [
+    {
+     "id": "fechar-ferida",
+     "k": "ferida",
+     "from": "pele",
+     "rate": 5
+    }
+   ]
+  },
+  {
+   "id": "macrofagos_baco",
+   "role": "reciclagem",
+   "region": "baco",
+   "count": 20,
+   "max": 60,
+   "baseline": 20,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "reciclar",
+     "k": "hemacias",
+     "from": "baco",
+     "to": "medula",
+     "toK": "ferro",
+     "rate": 2
+    }
+   ]
+  },
+  {
+   "id": "hepatocitos_figado",
+   "role": "depuracao",
+   "region": "figado",
+   "count": 40,
+   "max": 90,
+   "baseline": 40,
+   "mortality": 5,
+   "mortalityEvery": 10,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 1,
+    "every": 10
+   },
+   "work": [
+    {
+     "id": "filtrar",
+     "k": "toxina",
+     "from": "figado",
+     "rate": 14
+    }
+   ]
+  },
+  {
+   "id": "flora_intestinal",
+   "role": "simbiose",
+   "region": "intestino",
+   "count": 50,
+   "max": 110,
+   "baseline": 50,
+   "recruit": {
+    "from": "medula",
+    "k": "reserva",
+    "cost": 1,
+    "perCycle": 2,
+    "every": 8
+   },
+   "work": [
+    {
+     "id": "cultivar",
+     "k": "alimento",
+     "from": "intestino",
+     "to": "intestino",
+     "toK": "microbiota",
+     "rate": 8,
+     "toMax": 100
+    }
+   ]
+  },
   {
    "id": "hemacias_sangue",
    "role": "transporte",
@@ -7970,438 +5853,398 @@
   }
  ],
  "conflicts": [
-   {
-    "id": "ferida-na-pele",
-    "rewards": [
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "pressao",
-      "d": 10,
-      "text": "Preenche a barra que libera uma escolha de gene."
-     },
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "maturidade",
-      "d": 5,
-      "text": "Conta para os requisitos de diferenciação; não é um nível."
-     }
-    ],
-    "title": "Ferida na pele",
-    "desc": "A pele rasgou: plaquetas precisam selar a brecha antes que invasores entrem no sangue.",
-    "region": "pele",
-    "trigger": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": ">=",
-      "v": 10
-     }
-    },
-    "severity": {
-     "id": "ferida",
-     "label": "Abertura da ferida",
+  {
+   "id": "ferida-na-pele",
+   "title": "Ferida na pele",
+   "desc": "A pele rasgou: plaquetas precisam selar a brecha antes que invasores entrem no sangue.",
+   "region": "pele",
+   "trigger": {
+    "num": {
      "e": "pele",
-     "k": "ferida"
-    },
-    "needs": [
-      {"role": "cura", "weight": 3},
-      {"role": "combate", "weight": 1},
-      {"role": "limpeza", "weight": 1}
-    ],
-    "critical": 70,
-    "criticalExit": 50,
-    "contain": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": "<=",
-      "v": 4
-     }
-    },
-    "resolve": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": "<=",
-      "v": 0
-     }
-    },
-    "sustain": 15,
-    "recovery": 8,
-    "cooldown": 40,
-    "metrics": [
-     {
-      "id": "carga-sangue",
-      "label": "Invasores no sangue",
-      "e": "sangue",
-      "k": "carga"
-     }
-    ],
-    "responses": [
-     {
-      "id": "manter-plaquetas",
-      "title": "Manter as plaquetas",
-      "desc": "Confiar nas plaquetas atuais."
-     },
-     {
-      "id": "mobilizar-plaquetas",
-      "title": "Mobilizar plaquetas",
-      "desc": "Gastar a reserva da medula em plaquetas para selar mais depressa.",
-      "effects": [
-       {
-        "op": "muster",
-        "rule": "plaquetas_pele",
-        "d": 25
-       }
-      ]
-     }
-    ]
+     "k": "ferida",
+     "op": ">=",
+     "v": 10
+    }
    },
-   {
-    "id": "congestao-esplenica",
-    "rewards": [
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "pressao",
-      "d": 10,
-      "text": "Preenche a barra que libera uma escolha de gene."
-     },
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "maturidade",
-      "d": 6,
-      "text": "Conta para os requisitos de diferenciação; não é um nível."
-     },
-     {
-      "op": "grant",
-      "v": "selo-do-baco"
-     },
-     {
-      "op": "grant",
-      "v": "primeiro-selador"
-     }
-    ],
-    "title": "Baço congestionado",
-    "desc": "Hemácias velhas se acumulam no baço, o ferro não volta à medula e o corpo inflama.",
-    "region": "baco",
-    "trigger": {
-     "num": {
-      "e": "baco",
-      "k": "hemacias",
-      "op": ">=",
-      "v": 80
-     }
+   "severity": {
+    "id": "ferida",
+    "label": "Abertura da ferida",
+    "e": "pele",
+    "k": "ferida"
+   },
+   "needs": [
+    {
+     "role": "cura",
+     "weight": 3
     },
-    "severity": {
-     "id": "hemacias",
-     "label": "Hemácias velhas",
+    {
+     "role": "combate",
+     "weight": 1
+    },
+    {
+     "role": "limpeza",
+     "weight": 1
+    }
+   ],
+   "critical": 70,
+   "criticalExit": 50,
+   "contain": {
+    "num": {
+     "e": "pele",
+     "k": "ferida",
+     "op": "<=",
+     "v": 4
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "pele",
+     "k": "ferida",
+     "op": "<=",
+     "v": 0
+    }
+   },
+   "sustain": 15,
+   "recovery": 8,
+   "cooldown": 40,
+   "metrics": [
+    {
+     "id": "carga-sangue",
+     "label": "Invasores no sangue",
+     "e": "sangue",
+     "k": "carga"
+    }
+   ],
+   "responses": [
+    {
+     "id": "manter-plaquetas",
+     "title": "Manter as plaquetas",
+     "desc": "Confiar nas plaquetas atuais."
+    },
+    {
+     "id": "mobilizar-plaquetas",
+     "title": "Mobilizar plaquetas",
+     "desc": "Gastar a reserva da medula em plaquetas para selar mais depressa.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "plaquetas_pele",
+       "d": 25
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "congestao-esplenica",
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "selo-do-baco"
+    },
+    {
+     "op": "grant",
+     "v": "primeiro-selador"
+    }
+   ],
+   "title": "Baço congestionado",
+   "desc": "Hemácias velhas se acumulam no baço, o ferro não volta à medula e o corpo inflama.",
+   "region": "baco",
+   "trigger": {
+    "num": {
      "e": "baco",
-     "k": "hemacias"
-    },
-    "needs": [
-      {"role": "limpeza", "weight": 3},
-      {"role": "marcacao", "weight": 1},
-      {"role": "controle", "weight": 1}
-    ],
-    "critical": 95,
-    "criticalExit": 85,
-    "contain": {
-     "num": {
-      "e": "baco",
-      "k": "hemacias",
-      "op": "<=",
-      "v": 60
-     }
-    },
-    "resolve": {
-     "num": {
-      "e": "baco",
-      "k": "hemacias",
-      "op": "<=",
-      "v": 45
-     }
-    },
-    "sustain": 15,
-    "recovery": 12,
-    "cooldown": 60,
-    "metrics": [
-     {
-      "id": "ferro",
-      "label": "Ferro na medula",
-      "e": "medula",
-      "k": "ferro"
-     },
-     {
-      "id": "inflamacao",
-      "label": "Inflamação",
-      "e": "corpo",
-      "k": "inflamacao"
-     }
-    ],
-    "responses": [
-     {
-      "id": "manter-reciclagem",
-      "title": "Manter a reciclagem",
-      "desc": "Não gastar a reserva."
-     },
-     {
-      "id": "mobilizar-macrofagos",
-      "title": "Mobilizar macrófagos esplênicos",
-      "desc": "Gastar a reserva em macrófagos do baço.",
-      "effects": [
-       {
-        "op": "muster",
-        "rule": "macrofagos_baco",
-        "d": 20
-       }
-      ]
-     },
-     {
-      "id": "reciclagem-forcada",
-      "title": "Forçar a reciclagem",
-      "desc": "Devolver ferro à medula de uma vez.",
-      "effects": [
-       {
-        "op": "transfer",
-        "e": "baco",
-        "to": "medula",
-        "k": "hemacias",
-        "v": "ferro",
-        "d": 20,
-        "min": 0
-       }
-      ]
-     }
-    ]
+     "k": "hemacias",
+     "op": ">=",
+     "v": 80
+    }
    },
-   {
-    "id": "sobrecarga-hepatica",
-    "rewards": [
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "pressao",
-      "d": 10,
-      "text": "Preenche a barra que libera uma escolha de gene."
-     },
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "maturidade",
-      "d": 6,
-      "text": "Conta para os requisitos de diferenciação; não é um nível."
-     },
-     {
-      "op": "grant",
-      "v": "selo-do-figado"
-     },
-     {
-      "op": "grant",
-      "v": "primeiro-selador"
-     }
-    ],
-    "title": "Sobrecarga hepática",
-    "desc": "O fígado recebe mais toxinas do que consegue filtrar; a toxina sobe e o corpo inflama.",
-    "region": "figado",
-    "trigger": {
-     "num": {
-      "e": "figado",
-      "k": "toxina",
-      "op": ">=",
-      "v": 80
-     }
+   "severity": {
+    "id": "hemacias",
+    "label": "Hemácias velhas",
+    "e": "baco",
+    "k": "hemacias"
+   },
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 3
     },
-    "severity": {
-     "id": "toxina",
-     "label": "Toxinas no fígado",
+    {
+     "role": "marcacao",
+     "weight": 1
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
+   ],
+   "critical": 95,
+   "criticalExit": 85,
+   "contain": {
+    "num": {
+     "e": "baco",
+     "k": "hemacias",
+     "op": "<=",
+     "v": 60
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "baco",
+     "k": "hemacias",
+     "op": "<=",
+     "v": 45
+    }
+   },
+   "sustain": 15,
+   "recovery": 12,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "ferro",
+     "label": "Ferro na medula",
+     "e": "medula",
+     "k": "ferro"
+    },
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    }
+   ],
+   "responses": [
+    {
+     "id": "manter-reciclagem",
+     "title": "Manter a reciclagem",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "mobilizar-macrofagos",
+     "title": "Mobilizar macrófagos esplênicos",
+     "desc": "Gastar a reserva em macrófagos do baço.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "macrofagos_baco",
+       "d": 20
+      }
+     ]
+    },
+    {
+     "id": "reciclagem-forcada",
+     "title": "Forçar a reciclagem",
+     "desc": "Devolver ferro à medula de uma vez.",
+     "effects": [
+      {
+       "op": "transfer",
+       "e": "baco",
+       "to": "medula",
+       "k": "hemacias",
+       "v": "ferro",
+       "d": 20,
+       "min": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sobrecarga-hepatica",
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "selo-do-figado"
+    },
+    {
+     "op": "grant",
+     "v": "primeiro-selador"
+    }
+   ],
+   "title": "Sobrecarga hepática",
+   "desc": "O fígado recebe mais toxinas do que consegue filtrar; a toxina sobe e o corpo inflama.",
+   "region": "figado",
+   "trigger": {
+    "num": {
      "e": "figado",
-     "k": "toxina"
-    },
-    "needs": [
-      {"role": "limpeza", "weight": 3},
-      {"role": "cura", "weight": 2}
-    ],
-    "critical": 95,
-    "criticalExit": 85,
-    "contain": {
-     "num": {
-      "e": "figado",
-      "k": "toxina",
-      "op": "<=",
-      "v": 55
-     }
-    },
-    "resolve": {
-     "num": {
-      "e": "figado",
-      "k": "toxina",
-      "op": "<=",
-      "v": 35
-     }
-    },
-    "sustain": 15,
-    "recovery": 12,
-    "cooldown": 60,
-    "metrics": [
-     {
-      "id": "ureia",
-      "label": "Ureia nos rins",
-      "e": "rim",
-      "k": "ureia"
-     },
-     {
-      "id": "inflamacao",
-      "label": "Inflamação",
-      "e": "corpo",
-      "k": "inflamacao"
-     }
-    ],
-    "responses": [
-     {
-      "id": "manter-depuracao",
-      "title": "Manter a depuração",
-      "desc": "Não gastar a reserva."
-     },
-     {
-      "id": "mobilizar-hepatocitos",
-      "title": "Mobilizar hepatócitos",
-      "desc": "Gastar a reserva em células de depuração do fígado.",
-      "effects": [
-       {
-        "op": "muster",
-        "rule": "hepatocitos_figado",
-        "d": 25
-       }
-      ]
-     }
-    ]
+     "k": "toxina",
+     "op": ">=",
+     "v": 80
+    }
    },
-   {
-    "id": "disbiose-intestinal",
-    "rewards": [
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "pressao",
-      "d": 10,
-      "text": "Preenche a barra que libera uma escolha de gene."
-     },
-     {
-      "op": "adjust",
-      "e": "$self",
-      "k": "maturidade",
-      "d": 6,
-      "text": "Conta para os requisitos de diferenciação; não é um nível."
-     },
-     {
-      "op": "grant",
-      "v": "selo-do-intestino"
-     },
-     {
-      "op": "grant",
-      "v": "primeiro-selador"
-     }
-    ],
-    "title": "Disbiose intestinal",
-    "desc": "A microbiota caiu: sem ela o intestino inflama o corpo. Volta devagar se for nutrida.",
-    "region": "intestino",
-    "trigger": {
-     "num": {
-      "e": "intestino",
-      "k": "microbiota",
-      "op": "<=",
-      "v": 25
-     }
+   "severity": {
+    "id": "toxina",
+    "label": "Toxinas no fígado",
+    "e": "figado",
+    "k": "toxina"
+   },
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 3
     },
-    "severity": {
-     "id": "deficit",
-     "label": "Perda de microbiota",
+    {
+     "role": "cura",
+     "weight": 2
+    }
+   ],
+   "critical": 95,
+   "criticalExit": 85,
+   "contain": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": "<=",
+     "v": 55
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": "<=",
+     "v": 35
+    }
+   },
+   "sustain": 15,
+   "recovery": 12,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "ureia",
+     "label": "Ureia nos rins",
+     "e": "rim",
+     "k": "ureia"
+    },
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    }
+   ],
+   "responses": [
+    {
+     "id": "manter-depuracao",
+     "title": "Manter a depuração",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "mobilizar-hepatocitos",
+     "title": "Mobilizar hepatócitos",
+     "desc": "Gastar a reserva em células de depuração do fígado.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "hepatocitos_figado",
+       "d": 25
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "disbiose-intestinal",
+   "rewards": [
+    {
+     "op": "grant",
+     "v": "selo-do-intestino"
+    },
+    {
+     "op": "grant",
+     "v": "primeiro-selador"
+    }
+   ],
+   "title": "Disbiose intestinal",
+   "desc": "A microbiota caiu: sem ela o intestino inflama o corpo. Volta devagar se for nutrida.",
+   "region": "intestino",
+   "trigger": {
+    "num": {
      "e": "intestino",
      "k": "microbiota",
-     "of": 100
+     "op": "<=",
+     "v": 25
+    }
+   },
+   "severity": {
+    "id": "deficit",
+    "label": "Perda de microbiota",
+    "e": "intestino",
+    "k": "microbiota",
+    "of": 100
+   },
+   "needs": [
+    {
+     "role": "cura",
+     "weight": 2
     },
-    "needs": [
-      {"role": "cura", "weight": 2},
-      {"role": "limpeza", "weight": 2},
-      {"role": "combate", "weight": 1}
-    ],
-    "critical": 90,
-    "criticalExit": 80,
-    "contain": {
-     "num": {
-      "e": "intestino",
-      "k": "microbiota",
-      "op": ">=",
-      "v": 45
-     }
+    {
+     "role": "limpeza",
+     "weight": 2
     },
-    "resolve": {
-     "num": {
-      "e": "intestino",
-      "k": "microbiota",
-      "op": ">=",
-      "v": 60
-     }
+    {
+     "role": "combate",
+     "weight": 1
+    }
+   ],
+   "critical": 90,
+   "criticalExit": 80,
+   "contain": {
+    "num": {
+     "e": "intestino",
+     "k": "microbiota",
+     "op": ">=",
+     "v": 45
+    }
+   },
+   "resolve": {
+    "num": {
+     "e": "intestino",
+     "k": "microbiota",
+     "op": ">=",
+     "v": 60
+    }
+   },
+   "sustain": 15,
+   "recovery": 10,
+   "cooldown": 60,
+   "metrics": [
+    {
+     "id": "alimento",
+     "label": "Alimento no intestino",
+     "e": "intestino",
+     "k": "alimento"
     },
-    "sustain": 15,
-    "recovery": 10,
-    "cooldown": 60,
-    "metrics": [
-     {
-      "id": "alimento",
-      "label": "Alimento no intestino",
-      "e": "intestino",
-      "k": "alimento"
-     },
-     {
-      "id": "inflamacao",
-      "label": "Inflamação",
-      "e": "corpo",
-      "k": "inflamacao"
-     }
-    ],
-    "responses": [
-     {
-      "id": "esperar-flora",
-      "title": "Esperar a flora voltar",
-      "desc": "Não gastar a reserva."
-     },
-     {
-      "id": "semear-flora",
-      "title": "Semear flora",
-      "desc": "Gastar a reserva para repor a flora do intestino.",
-      "effects": [
-       {
-        "op": "muster",
-        "rule": "flora_intestinal",
-        "d": 30
-       }
-      ]
-     }
-    ]
-   }
-  ,
+    {
+     "id": "inflamacao",
+     "label": "Inflamação",
+     "e": "corpo",
+     "k": "inflamacao"
+    }
+   ],
+   "responses": [
+    {
+     "id": "esperar-flora",
+     "title": "Esperar a flora voltar",
+     "desc": "Não gastar a reserva."
+    },
+    {
+     "id": "semear-flora",
+     "title": "Semear flora",
+     "desc": "Gastar a reserva para repor a flora do intestino.",
+     "effects": [
+      {
+       "op": "muster",
+       "rule": "flora_intestinal",
+       "d": 30
+      }
+     ]
+    }
+   ]
+  },
   {
    "id": "infeccao-pulmonar",
    "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 8,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
     {
      "op": "grant",
      "v": "selo-do-granuloma"
@@ -8427,9 +6270,18 @@
     "k": "carga"
    },
    "needs": [
-     {"role": "combate", "weight": 3},
-     {"role": "limpeza", "weight": 2},
-     {"role": "marcacao", "weight": 1}
+    {
+     "role": "combate",
+     "weight": 3
+    },
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "marcacao",
+     "weight": 1
+    }
    ],
    "critical": 60,
    "criticalExit": 45,
@@ -8543,22 +6395,6 @@
   },
   {
    "id": "medula-esgotada",
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ],
    "title": "Medula esgotada",
    "desc": "A reserva da medula acabou: sem ela não nascem hemácias novas, o oxigênio cai e o corpo inflama. O estroma precisa nutrir o nicho.",
    "region": "medula",
@@ -8578,8 +6414,14 @@
     "of": 100
    },
    "needs": [
-     {"role": "cura", "weight": 3},
-     {"role": "controle", "weight": 1}
+    {
+     "role": "cura",
+     "weight": 3
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
    ],
    "critical": 92,
    "criticalExit": 85,
@@ -8644,20 +6486,6 @@
    "id": "sobrecarga-renal",
    "rewards": [
     {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 6,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    },
-    {
      "op": "grant",
      "v": "selo-do-rim"
     },
@@ -8684,9 +6512,18 @@
     "k": "ureia"
    },
    "needs": [
-     {"role": "limpeza", "weight": 2},
-     {"role": "cura", "weight": 2},
-     {"role": "controle", "weight": 1}
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "cura",
+     "weight": 2
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
    ],
    "critical": 95,
    "criticalExit": 85,
@@ -8745,22 +6582,6 @@
   },
   {
    "id": "reacao-exagerada",
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ],
    "title": "Reação imune exagerada",
    "desc": "A defesa passou do ponto: a inflamação sobe, a tolerância do linfonodo se esgota e a reação se alimenta. As células reguladoras gastam tolerância para acalmá-la.",
    "region": "linfonodo",
@@ -8792,8 +6613,14 @@
     "of": 100
    },
    "needs": [
-     {"role": "controle", "weight": 3},
-     {"role": "marcacao", "weight": 2}
+    {
+     "role": "controle",
+     "weight": 3
+    },
+    {
+     "role": "marcacao",
+     "weight": 2
+    }
    ],
    "critical": 85,
    "criticalExit": 75,
@@ -8885,22 +6712,6 @@
   },
   {
    "id": "sofrimento-cerebral",
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ],
    "title": "Sofrimento cerebral",
    "desc": "Falta energia ou sobram resíduos no cérebro: a glia precisa amparar os neurônios e limpar o que se acumulou.",
    "region": "cerebro",
@@ -8932,9 +6743,18 @@
     "of": 100
    },
    "needs": [
-     {"role": "cura", "weight": 2},
-     {"role": "limpeza", "weight": 2},
-     {"role": "controle", "weight": 1}
+    {
+     "role": "cura",
+     "weight": 2
+    },
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
    ],
    "critical": 85,
    "criticalExit": 75,
@@ -9017,22 +6837,6 @@
   },
   {
    "id": "tumor-intestinal",
-   "rewards": [
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "pressao",
-     "d": 10,
-     "text": "Preenche a barra que libera uma escolha de gene."
-    },
-    {
-     "op": "adjust",
-     "e": "$self",
-     "k": "maturidade",
-     "d": 5,
-     "text": "Conta para os requisitos de diferenciação; não é um nível."
-    }
-   ],
    "title": "Tumor no intestino",
    "desc": "Células alteradas se multiplicam sem controle e ocupam o tecido. As células NK precisam contê-las antes que a massa tome o intestino.",
    "region": "intestino",
@@ -9051,9 +6855,18 @@
     "k": "massa"
    },
    "needs": [
-     {"role": "combate", "weight": 3},
-     {"role": "marcacao", "weight": 2},
-     {"role": "cura", "weight": 1}
+    {
+     "role": "combate",
+     "weight": 3
+    },
+    {
+     "role": "marcacao",
+     "weight": 2
+    },
+    {
+     "role": "cura",
+     "weight": 1
+    }
    ],
    "critical": 70,
    "criticalExit": 60,
@@ -9117,287 +6930,286 @@
   "attentionEvery": 30
  },
  "tasks": [
-   {
-    "id": "selar-ferida",
-    "conflict": "ferida-na-pele",
-    "npc": "placa",
-    "title": "Selar a ferida com um tampão de plaquetas",
-    "priority": 6,
-    "when": {
-     "num": {
-      "e": "pele",
-      "k": "ferida",
-      "op": ">",
-      "v": 0
-     }
-    },
-    "route": [
-     {
-      "region": "pele",
-      "ticks": 2,
-      "doing": "agrega e solta fibras sobre a brecha",
-      "do": [
-       {
-        "op": "adjust",
-        "e": "pele",
-        "k": "ferida",
-        "d": -2,
-        "min": 0,
-        "if": {
-         "num": {
-          "e": "pele",
-          "k": "ferida",
-          "op": ">",
-          "v": 0
-         }
-        }
-       },
-       {
-        "op": "contribute",
-        "rule": "ferida-na-pele",
-        "k": "reparo",
-        "d": 1,
-        "if": {
-         "num": {
-          "e": "pele",
-          "k": "ferida",
-          "op": ">",
-          "v": 0
-         }
-        }
-       }
-      ]
-     },
-     {
-      "region": "pele",
-      "ticks": 2,
-      "doing": "reforça o tampão"
-     }
-    ],
-    "cooldown": 1
-   },
-   {
-    "id": "circular-plaquetas",
-    "npc": "placa",
-    "title": "Circular pelo sangue à procura de lesões",
-    "priority": 2,
-    "when": {},
-    "route": [
-     {
-      "region": "sangue",
-      "ticks": 4,
-      "doing": "circula vigiando as paredes"
-     },
-     {
-      "region": "pele",
-      "ticks": 4,
-      "doing": "volta à pele"
-     }
-    ],
-    "cooldown": 6
-   },
-   {
-    "id": "reciclar-no-baco",
-    "conflict": "congestao-esplenica",
-    "npc": "esplena",
-    "title": "Fagocitar hemácias velhas e devolver o ferro",
-    "priority": 5,
-    "when": {
-     "num": {
-      "e": "baco",
-      "k": "hemacias",
-      "op": ">=",
-      "v": 40
-     }
-    },
-    "route": [
-     {
-      "region": "baco",
-      "ticks": 3,
-      "doing": "engole hemácias velhas",
-      "do": [
-       {
-        "op": "transfer",
-        "e": "baco",
-        "to": "medula",
-        "k": "hemacias",
-        "v": "ferro",
-        "d": 4,
-        "min": 0
-       },
-       {
-        "op": "contribute",
-        "rule": "congestao-esplenica",
-        "k": "reciclagem",
-        "d": 1,
-        "if": {
-         "num": {
-          "e": "baco",
-          "k": "hemacias",
-          "op": ">=",
-          "v": 40
-         }
-        }
-       }
-      ]
-     },
-     {
-      "region": "baco",
-      "ticks": 2,
-      "doing": "digere o ferro"
-     }
-    ],
-    "cooldown": 1
-   },
-   {
-    "id": "rondar-baco",
-    "npc": "esplena",
-    "title": "Rondar a polpa vermelha",
-    "priority": 2,
-    "when": {},
-    "route": [
-     {
-      "region": "sangue",
-      "ticks": 4,
-      "doing": "verifica as hemácias em circulação"
-     },
-     {
-      "region": "baco",
-      "ticks": 4,
-      "doing": "volta ao baço"
-     }
-    ],
-    "cooldown": 6
-   },
-   {
-    "id": "limpar-toxinas",
-    "conflict": "sobrecarga-hepatica",
-    "npc": "kupffer",
-    "title": "Capturar toxinas que chegam pela veia porta",
-    "priority": 5,
-    "when": {
-     "num": {
-      "e": "figado",
-      "k": "toxina",
-      "op": ">=",
-      "v": 40
-     }
-    },
-    "route": [
-     {
-      "region": "figado",
-      "ticks": 2,
-      "doing": "captura toxinas",
-      "do": [
-       {
-        "op": "adjust",
-        "e": "figado",
-        "k": "toxina",
-        "d": -2,
-        "min": 0,
-        "if": {
-         "num": {
-          "e": "figado",
-          "k": "toxina",
-          "op": ">",
-          "v": 0
-         }
-        }
-       },
-       {
-        "op": "contribute",
-        "rule": "sobrecarga-hepatica",
-        "k": "depuracao",
-        "d": 1,
-        "if": {
-         "num": {
-          "e": "figado",
-          "k": "toxina",
-          "op": ">=",
-          "v": 40
-         }
-        }
-       }
-      ]
-     },
-     {
-      "region": "figado",
-      "ticks": 2,
-      "doing": "processa o que capturou"
-     }
-    ],
-    "cooldown": 1
-   },
-   {
-    "id": "rondar-sinusoides",
-    "npc": "kupffer",
-    "title": "Rondar os sinusoides",
-    "priority": 2,
-    "when": {},
-    "route": [
-     {
-      "region": "sangue",
-      "ticks": 4,
-      "doing": "patrulha os sinusoides"
-     },
-     {
-      "region": "figado",
-      "ticks": 4,
-      "doing": "volta ao fígado"
-     }
-    ],
-    "cooldown": 6
-   }
-  ,
   {
-    "id": "apresentar-antigenos",
-    "npc": "dendra",
-    "title": "Levar antígenos ao baço para apresentá-los",
-    "priority": 3,
-    "when": {},
-    "route": [
-     {
-      "region": "baco",
-      "ticks": 6,
-      "doing": "leva antígenos ao baço",
-      "do": [
-       {
-        "op": "adjust",
-        "e": "baco",
-        "k": "antigenos",
-        "d": -1,
-        "min": 0
+   "id": "selar-ferida",
+   "conflict": "ferida-na-pele",
+   "npc": "placa",
+   "title": "Selar a ferida com um tampão de plaquetas",
+   "priority": 6,
+   "when": {
+    "num": {
+     "e": "pele",
+     "k": "ferida",
+     "op": ">",
+     "v": 0
+    }
+   },
+   "route": [
+    {
+     "region": "pele",
+     "ticks": 2,
+     "doing": "agrega e solta fibras sobre a brecha",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "pele",
+       "k": "ferida",
+       "d": -2,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "pele",
+         "k": "ferida",
+         "op": ">",
+         "v": 0
+        }
        }
-      ]
-     },
-     {
-      "region": "sangue",
-      "ticks": 6,
-      "doing": "volta ao sangue"
-     }
-    ],
-    "cooldown": 10
+      },
+      {
+       "op": "contribute",
+       "rule": "ferida-na-pele",
+       "k": "reparo",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "pele",
+         "k": "ferida",
+         "op": ">",
+         "v": 0
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "pele",
+     "ticks": 2,
+     "doing": "reforça o tampão"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "circular-plaquetas",
+   "npc": "placa",
+   "title": "Circular pelo sangue à procura de lesões",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "circula vigiando as paredes"
+    },
+    {
+     "region": "pele",
+     "ticks": 4,
+     "doing": "volta à pele"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "reciclar-no-baco",
+   "conflict": "congestao-esplenica",
+   "npc": "esplena",
+   "title": "Fagocitar hemácias velhas e devolver o ferro",
+   "priority": 5,
+   "when": {
+    "num": {
+     "e": "baco",
+     "k": "hemacias",
+     "op": ">=",
+     "v": 40
+    }
    },
-   {
-    "id": "patrulhar-sangue",
-    "npc": "macra",
-    "title": "Patrulhar o sangue em busca de resíduos",
-    "priority": 2,
-    "when": {},
-    "route": [
-     {
-      "region": "sangue",
-      "ticks": 4,
-      "doing": "rola pela corrente atrás de resíduos"
-     },
-     {
-      "region": "pulmao",
-      "ticks": 4,
-      "doing": "volta aos alvéolos"
-     }
-    ],
-    "cooldown": 6
+   "route": [
+    {
+     "region": "baco",
+     "ticks": 3,
+     "doing": "engole hemácias velhas",
+     "do": [
+      {
+       "op": "transfer",
+       "e": "baco",
+       "to": "medula",
+       "k": "hemacias",
+       "v": "ferro",
+       "d": 4,
+       "min": 0
+      },
+      {
+       "op": "contribute",
+       "rule": "congestao-esplenica",
+       "k": "reciclagem",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "baco",
+         "k": "hemacias",
+         "op": ">=",
+         "v": 40
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "baco",
+     "ticks": 2,
+     "doing": "digere o ferro"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "rondar-baco",
+   "npc": "esplena",
+   "title": "Rondar a polpa vermelha",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "verifica as hemácias em circulação"
+    },
+    {
+     "region": "baco",
+     "ticks": 4,
+     "doing": "volta ao baço"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "limpar-toxinas",
+   "conflict": "sobrecarga-hepatica",
+   "npc": "kupffer",
+   "title": "Capturar toxinas que chegam pela veia porta",
+   "priority": 5,
+   "when": {
+    "num": {
+     "e": "figado",
+     "k": "toxina",
+     "op": ">=",
+     "v": 40
+    }
    },
+   "route": [
+    {
+     "region": "figado",
+     "ticks": 2,
+     "doing": "captura toxinas",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "figado",
+       "k": "toxina",
+       "d": -2,
+       "min": 0,
+       "if": {
+        "num": {
+         "e": "figado",
+         "k": "toxina",
+         "op": ">",
+         "v": 0
+        }
+       }
+      },
+      {
+       "op": "contribute",
+       "rule": "sobrecarga-hepatica",
+       "k": "depuracao",
+       "d": 1,
+       "if": {
+        "num": {
+         "e": "figado",
+         "k": "toxina",
+         "op": ">=",
+         "v": 40
+        }
+       }
+      }
+     ]
+    },
+    {
+     "region": "figado",
+     "ticks": 2,
+     "doing": "processa o que capturou"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "rondar-sinusoides",
+   "npc": "kupffer",
+   "title": "Rondar os sinusoides",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "patrulha os sinusoides"
+    },
+    {
+     "region": "figado",
+     "ticks": 4,
+     "doing": "volta ao fígado"
+    }
+   ],
+   "cooldown": 6
+  },
+  {
+   "id": "apresentar-antigenos",
+   "npc": "dendra",
+   "title": "Levar antígenos ao baço para apresentá-los",
+   "priority": 3,
+   "when": {},
+   "route": [
+    {
+     "region": "baco",
+     "ticks": 6,
+     "doing": "leva antígenos ao baço",
+     "do": [
+      {
+       "op": "adjust",
+       "e": "baco",
+       "k": "antigenos",
+       "d": -1,
+       "min": 0
+      }
+     ]
+    },
+    {
+     "region": "sangue",
+     "ticks": 6,
+     "doing": "volta ao sangue"
+    }
+   ],
+   "cooldown": 10
+  },
+  {
+   "id": "patrulhar-sangue",
+   "npc": "macra",
+   "title": "Patrulhar o sangue em busca de resíduos",
+   "priority": 2,
+   "when": {},
+   "route": [
+    {
+     "region": "sangue",
+     "ticks": 4,
+     "doing": "rola pela corrente atrás de resíduos"
+    },
+    {
+     "region": "pulmao",
+     "ticks": 4,
+     "doing": "volta aos alvéolos"
+    }
+   ],
+   "cooldown": 6
+  },
   {
    "id": "transportar-oxigenio",
    "npc": "rubra",
