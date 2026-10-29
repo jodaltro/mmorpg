@@ -78,6 +78,8 @@ type Universe struct {
 	Lineages        []LineageDef        `json:"lineages,omitempty"`
 	// Callings: situational classes a crisis offers by what it needs; see calling.go.
 	Callings []CallingDef `json:"callings,omitempty"`
+	// Organs: every region has routine work, a health and a calling offer even without a crisis; see organ.go.
+	Organs []OrganDef `json:"organs,omitempty"`
 	// Populations: cohorts of anonymous workers kept as headcounts; see population.go.
 	Populations []PopulationDef `json:"populations,omitempty"`
 	// Conflicts: persistent crises of the shared world; see conflict.go.

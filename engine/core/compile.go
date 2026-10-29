@@ -25,6 +25,7 @@ type World struct {
 	regions   map[string]bool
 	pops      map[string]PopulationDef
 	conflicts map[string]ConflictDef
+	organs    map[string]OrganDef
 	tasks     map[string]TaskDef
 	npcTasks  map[ID][]TaskDef
 }
@@ -250,6 +251,9 @@ func Compile(u Universe) (*World, error) {
 		return nil, e
 	}
 	if e := w.compileDifferentiation(); e != nil {
+		return nil, e
+	}
+	if e := w.compileOrgans(ents); e != nil {
 		return nil, e
 	}
 	if e := w.compileCallings(); e != nil {

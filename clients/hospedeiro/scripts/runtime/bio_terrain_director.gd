@@ -54,13 +54,20 @@ func _role() -> String:
 	return str(world.engine_calling_view().get("role", "")) if world != null else ""
 
 
+## What the terrain works on where the player is: the crisis that asks for help in this organ, else the organ's own routine (every part of
+## the body always has work). The other organs' props are not made until the player gets there.
 func _pick() -> Dictionary:
-	if world.sync == null or world.sync.presenter == null:
+	var here := world.region
+	if not world.live_regions.has(here):
 		return {}
-	for c in world.sync.presenter.model.ordered():
-		var def := str(c.get("def", ""))
-		if BioConflictFocus.demanding(c) and not BioTerrainRules.verbs_for(def).is_empty() and world.live_regions.has(StringName(str(c.get("region", "")))):
-			return c
+	if world.sync != null and world.sync.presenter != null:
+		for c in world.sync.presenter.model.ordered():
+			var def := str(c.get("def", ""))
+			if BioConflictFocus.demanding(c) and StringName(str(c.get("region", ""))) == here and not BioTerrainRules.verbs_for(def).is_empty():
+				return c
+	var organ := "organ-" + str(here)
+	if not BioTerrainRules.verbs_for(organ).is_empty():
+		return {"def": organ, "region": str(here)}
 	return {}
 
 

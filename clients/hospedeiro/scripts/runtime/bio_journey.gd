@@ -26,6 +26,10 @@ var _replan_after := 0.0
 var _plan_position := Vector2.ZERO
 var _arrival_by_objective := false
 var _arrived_until := 0.0
+var _done_source := ""  # an objective the player reached or put away: it is not guided again until the objective changes
+var _cancel: Button  # a small discreet "x" beside the card: put the navigation away
+var _last_path := PackedVector2Array()  # the last route drawn, so the arrows fade out instead of vanishing
+var _trail_fade := 0.0
 
 func _ready() -> void:
 	layer = 14
@@ -34,6 +38,12 @@ func _ready() -> void:
 	_card.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_card.pressed.connect(open)
 	add_child(_card)
+	_cancel = BioUi.button("✕", "ghost")
+	_cancel.add_theme_font_size_override("font_size", 12)
+	_cancel.tooltip_text = "Cancelar a navegação"
+	_cancel.modulate = Color(1, 1, 1, 0.7)
+	_cancel.pressed.connect(cancel_navigation)
+	add_child(_cancel)
 	_modal = BioModal.new()
 	_modal.max_size = Vector2(540, 440)
 	add_child(_modal)
@@ -67,6 +77,28 @@ func clear_destination() -> void:
 	_goal_entity = null
 	_arrival_by_objective = false
 	_refresh_in = 0
+
+## The player puts the navigation away: a marked destination is dropped; an objective is not guided again until it changes.
+func cancel_navigation() -> void:
+	var manual := has_manual_destination()
+	var source := _source
+	clear_destination()
+	if not manual and source != "":
+		_done_source = source
+	_trail_fade = 0.0
+	_last_path = PackedVector2Array()
+	if world != null and world.cargo != null:
+		world.cargo._guiding = false
+
+## Arrived and the moment has passed: the route and its arrows go away (a marked place is dropped, an objective is not guided again).
+func _finish_arrival() -> void:
+	var manual := has_manual_destination()
+	var source := _source
+	clear_destination()
+	if not manual and source != "":
+		_done_source = source
+	elif manual:  # the place was the player's own choice: the objective is not forced back on them at once
+		_done_source = _navigation_source(recommendation())
 
 func navigation_path() -> PackedVector2Array:
 	return route.path_from(world.player.global_position) if has_target else PackedVector2Array()
@@ -152,6 +184,11 @@ func _navigation_source(next: Dictionary) -> String:
 
 func _sync_navigation(next: Dictionary) -> void:
 	var source := _navigation_source(next)
+	if not has_manual_destination() and source != "" and source == _done_source:
+		has_target = false
+		return
+	if source != "" and source != _done_source:
+		_done_source = ""
 	if not has_manual_destination() and navigation_state in ["navigating", "blocked"] and _objective_completed():
 		navigation_state = "arrived"
 		_arrival_by_objective = true
@@ -221,12 +258,15 @@ func _process(delta: float) -> void:
 	var available := world.tutorial != null and ((world.tutorial.completed and not world.tutorial.active) or has_manual_destination()) and world.player.is_active()
 	_card.visible = available and not BioUi.captures_input()
 	_ink.visible = available and not BioUi.captures_input()
+	_cancel.visible = _card.visible and navigation_state != "none"
 	if not available:
 		has_target = false
 		_refresh_in = 0
 		return
 	_ink.queue_redraw()
 	_update_position()  # arrival is evaluated every frame, independently of route recalculation
+	if navigation_state == "arrived" and _age >= _arrived_until:
+		_finish_arrival()
 	_refresh_in -= delta
 	if delta > 0 and _refresh_in > 0: return
 	_refresh_in = 0.2
@@ -241,6 +281,8 @@ func _process(delta: float) -> void:
 	if BioPlatform.is_touch():
 		_card.size = Vector2(minf(248, maxf(170, view.x - 380)), 52)
 		_card.position = Vector2(view.x - _card.size.x - 24, 78) if view.x >= 600 else Vector2((view.x - _card.size.x) * 0.5, 128)
+	_cancel.size = Vector2(26, 26)
+	_cancel.position = _card.position + Vector2(_card.size.x + 6, (_card.size.y - 26.0) * 0.5)
 	_ink.queue_redraw()
 
 func open() -> void:
@@ -271,27 +313,46 @@ func close() -> void:
 func blocks_pointer() -> bool:
 	return Time.get_ticks_msec() < _pointer_until or (_card.visible and _card.get_global_rect().has_point(_card.get_global_mouse_position()))
 
+## The route as soft blue arrows, apart from each other, drifting forward along it. They fade in from the cell and out toward the far end,
+## and fade away on arrival (the last route is kept for a moment) instead of cutting off.
 func _draw_trail() -> void:
-	if not has_target: return
+	var live := has_target
+	if live:
+		_last_path = navigation_path()
+		_trail_fade = minf(1.0, _trail_fade + get_process_delta_time() * 4.0)
+	else:
+		_trail_fade = maxf(0.0, _trail_fade - get_process_delta_time() * 2.5)
+	if _trail_fade <= 0.01 or _last_path.size() < 2: return
 	var transform := world.get_global_transform_with_canvas()
 	var screen := PackedVector2Array()
 	var total := 0.0
-	for point in navigation_path():
+	for point in _last_path:
 		var at := transform * point
 		if not screen.is_empty(): total += screen[-1].distance_to(at)
 		screen.append(at)
-		if total > 650: break
+		if total > 700: break
 	if screen.size() < 2: return
-	_ink.draw_polyline(screen, Color(0.01, 0.06, 0.1, 0.8), 7, true)
-	_ink.draw_polyline(screen, Color(0.3, 0.95, 1, 0.65), 2, true)
+	const SPACING := 62.0
+	const SPEED := 46.0  # px/s the arrows drift forward
+	var offset := fposmod(_age * SPEED, SPACING)
+	var want := 36.0 + offset
 	var along := 0.0
-	var next_arrow := 38.0
+	var far := minf(total, 640.0)
 	for i in range(1, screen.size()):
 		var start := screen[i - 1]
-		var direction := start.direction_to(screen[i])
 		var length := start.distance_to(screen[i])
-		while next_arrow <= along + length and next_arrow < 600:
-			var at := start + direction * (next_arrow - along)
-			_ink.draw_polyline(PackedVector2Array([at - direction * 7 + direction.orthogonal() * 5, at, at - direction * 7 - direction.orthogonal() * 5]), Color(0.55, 1, 1, 0.95), 2.5, true)
-			next_arrow += 48
+		if length < 0.01: continue
+		var direction := start.direction_to(screen[i])
+		while want <= along + length and want < far:
+			var at := start + direction * (want - along)
+			var edge := minf(clampf((want - 36.0) / 50.0, 0.0, 1.0), clampf((far - want) / 140.0, 0.0, 1.0))  # in near the cell, out far away
+			var alpha := edge * _trail_fade
+			var size := 9.0 + 3.0 * edge
+			var sway := direction.orthogonal() * sin(_age * 2.2 + want * 0.02) * 2.0  # a slow breath, not a ruler
+			var tip := at + sway
+			var wing := PackedVector2Array([tip - direction * size + direction.orthogonal() * size * 0.75, tip, tip - direction * size - direction.orthogonal() * size * 0.75])
+			_ink.draw_polyline(wing, Color(0.1, 0.45, 0.9, 0.22 * alpha), 8.0, true)  # soft glow
+			_ink.draw_polyline(wing, Color(0.35, 0.75, 1.0, 0.85 * alpha), 3.0, true)
+			_ink.draw_polyline(wing, Color(0.8, 0.95, 1.0, 0.55 * alpha), 1.2, true)
+			want += SPACING
 		along += length

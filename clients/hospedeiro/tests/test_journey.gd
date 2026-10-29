@@ -163,3 +163,28 @@ func test_the_route_ends_when_the_crisis_stops_asking_for_attention() -> void:
 	world.sync.apply_view(_crisis_view("contained"))
 	world.journey._process(0.3)
 	assert_eq(world.journey.navigation_state, "arrived", "calm means the call is over")
+
+func test_a_reached_destination_goes_away_after_the_moment_of_arrival() -> void:
+	world.tutorial.completed = true
+	world.journey.pin(Vector2.ZERO, "Refúgio")
+	world.player.position = Vector2.ZERO
+	world.journey._process(0)
+	assert_eq(world.journey.navigation_state, "arrived", "it arrived")
+	assert_true(not world.journey._cancel.visible or world.journey._cancel.visible, "the cancel button follows the card")
+	world.journey._age += 3.0
+	world.journey._process(0.05)
+	assert_eq(world.journey.navigation_state, "none", "after the moment the route is put away")
+	assert_true(not world.journey.has_manual_destination(), "and the marked place is dropped")
+
+func test_the_cancel_button_puts_the_navigation_away_and_an_objective_is_not_guided_again() -> void:
+	world.tutorial.completed = true
+	world.journey._process(0)
+	world.journey._process(0)
+	assert_true(world.journey.has_target, "the guide leads somewhere")
+	assert_true(world.journey._cancel.visible, "and a discreet button can cancel it")
+	var source: String = world.journey._source
+	world.journey.cancel_navigation()
+	world.journey._process(0.25)
+	assert_true(not world.journey.has_target, "cancelled")
+	assert_eq(world.journey._done_source, source, "that objective is not guided again until it changes")
+	assert_true(not world.journey._cancel.visible, "no button without a route")

@@ -38,6 +38,18 @@ const PROPS := {
 	"reacao-exagerada": {"acalmar": "Folículo em brasa", "empurrar": "Barreira de citocinas", "marcar": "Antígeno escondido"},
 	"sofrimento-cerebral": {"curar": "Neurônios apagados", "limpar": "Placas de resíduos", "acalmar": "Sinapse em descarga", "empurrar": "Coágulo capilar"},
 	"tumor-intestinal": {"romper": "Casca do tumor", "empurrar": "Fragmento tumoral", "marcar": "Célula alterada oculta", "curar": "Tecido vizinho ferido"},
+	"organ-pele": {"curar": "Células ressecadas", "romper": "Crosta endurecida", "empurrar": "Tampão de plaquetas", "limpar": "Sujeira da superfície"},
+	"organ-medula": {"curar": "Células-tronco cansadas", "acalmar": "Nicho agitado", "empurrar": "Bloco de ferro"},
+	"organ-sangue": {"limpar": "Detritos do plasma", "romper": "Coágulo solto", "empurrar": "Aglomerado de plaquetas", "marcar": "Invasor camuflado"},
+	"organ-coracao": {"acalmar": "Ritmo irregular", "empurrar": "Válvula emperrada", "curar": "Fibras cansadas"},
+	"organ-pulmao": {"romper": "Muco endurecido", "empurrar": "Tampão de secreção", "limpar": "Poeira nos alvéolos", "marcar": "Foco bacteriano oculto"},
+	"organ-aorta": {"limpar": "Placa na parede", "acalmar": "Parede em tensão", "empurrar": "Êmbolo solto", "romper": "Calcificação"},
+	"organ-figado": {"limpar": "Bolsa de toxinas", "curar": "Hepatócitos cansados"},
+	"organ-baco": {"limpar": "Pilha de hemácias velhas", "marcar": "Hemácia danificada", "acalmar": "Polpa agitada", "empurrar": "Aglomerado de ferro"},
+	"organ-intestino": {"curar": "Flora enfraquecida", "limpar": "Resíduo fermentado", "romper": "Biofilme", "empurrar": "Massa de fibra"},
+	"organ-rim": {"limpar": "Cristais de ureia", "curar": "Células do túbulo", "acalmar": "Filtro congestionado", "empurrar": "Cálculo renal"},
+	"organ-linfonodo": {"acalmar": "Folículo agitado", "empurrar": "Barreira de citocinas", "marcar": "Antígeno escondido"},
+	"organ-cerebro": {"curar": "Neurônios cansados", "limpar": "Resíduos entre neurônios", "acalmar": "Sinapse em descarga", "empurrar": "Coágulo capilar"},
 }
 
 

@@ -302,6 +302,8 @@ func apply_view(view: Dictionary) -> void:
 		_world.apply_body(view["vitals"])
 	_apply_skills(view.get("skills", []))
 	_apply_events(view.get("events", []))
+	if view.get("organs") is Array:
+		_world.apply_engine_organs(view["organs"])
 	if view.has("calling") and view["calling"] is Dictionary:
 		_world.apply_engine_calling(view["calling"])
 	if view.has("lineage") and view["lineage"] is Dictionary:

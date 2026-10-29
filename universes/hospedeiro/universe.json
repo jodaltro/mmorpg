@@ -438,6 +438,21 @@
  ],
  "rules": [
   {
+   "id": "desgaste-dos-orgaos",
+   "every": 8,
+   "forEach": "tecido",
+   "when": {},
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "$it",
+     "k": "desgaste",
+     "d": 1,
+     "max": 100
+    }
+   ]
+  },
+  {
    "id": "carga-toxica",
    "every": 200,
    "when": {
@@ -5008,6 +5023,2084 @@
    "cooldown": 1
   },
   {
+   "id": "terreno-romper-organ-pele",
+   "title": "Rotina: romper o que obstrui",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-pele",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-pele",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-pele",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-medula",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-medula",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-medula",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-organ-sangue",
+   "title": "Rotina: romper o que obstrui",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "sangue"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-sangue",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "sangue"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-sangue",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "sangue"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-organ-sangue",
+   "title": "Rotina: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "sangue"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "sangue",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-coracao",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "coracao"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "coracao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-coracao",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "coracao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "coracao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-coracao",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "coracao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "coracao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-organ-pulmao",
+   "title": "Rotina: romper o que obstrui",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-pulmao",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-pulmao",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-organ-pulmao",
+   "title": "Rotina: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-organ-aorta",
+   "title": "Rotina: romper o que obstrui",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "aorta"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-aorta",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "aorta"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-aorta",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "aorta"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-aorta",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "aorta"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "aorta",
+     "k": "carga",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-figado",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "figado"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-figado",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "figado"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-baco",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-baco",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-baco",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-organ-baco",
+   "title": "Rotina: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-organ-intestino",
+   "title": "Rotina: romper o que obstrui",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-intestino",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-intestino",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-intestino",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-rim",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-rim",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-rim",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-rim",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -1,
+     "min": 0
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-linfonodo",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-linfonodo",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-organ-linfonodo",
+   "title": "Rotina: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-organ-cerebro",
+   "title": "Rotina: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-organ-cerebro",
+   "title": "Rotina: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-organ-cerebro",
+   "title": "Rotina: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-organ-cerebro",
+   "title": "Rotina: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "terreno",
+    "rotina"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "desgaste",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 1,
+     "max": 100
+    }
+   ],
+   "cooldown": 1
+  },
+  {
    "id": "entregar-fibrina",
    "title": "Levar fibrina à brecha da pele",
    "cooldown": 3,
@@ -7682,6 +9775,377 @@
      "k": "massa",
      "from": "tumor",
      "rate": 3
+    }
+   ]
+  }
+ ],
+ "organs": [
+  {
+   "id": "pele",
+   "needs": [
+    {
+     "role": "cura",
+     "weight": 3
+    },
+    {
+     "role": "combate",
+     "weight": 1
+    },
+    {
+     "role": "limpeza",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "ferida",
+     "label": "Abertura da ferida",
+     "k": "ferida",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "medula",
+   "needs": [
+    {
+     "role": "cura",
+     "weight": 3
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "reserva",
+     "label": "Reserva de células",
+     "k": "reserva",
+     "good": "high"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "sangue",
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "combate",
+     "weight": 2
+    },
+    {
+     "role": "marcacao",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "carga",
+     "label": "Invasores no sangue",
+     "k": "carga",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "coracao",
+   "needs": [
+    {
+     "role": "controle",
+     "weight": 2
+    },
+    {
+     "role": "cura",
+     "weight": 2
+    }
+   ],
+   "health": [
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "pulmao",
+   "needs": [
+    {
+     "role": "combate",
+     "weight": 2
+    },
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "marcacao",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "carga",
+     "label": "Carga bacteriana",
+     "k": "carga",
+     "good": "low"
+    },
+    {
+     "id": "oxigenio",
+     "label": "Oxigênio",
+     "k": "oxigenio",
+     "good": "high"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "aorta",
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    },
+    {
+     "role": "combate",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "carga",
+     "label": "Carga na parede",
+     "k": "carga",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "figado",
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "cura",
+     "weight": 2
+    }
+   ],
+   "health": [
+    {
+     "id": "toxina",
+     "label": "Toxinas",
+     "k": "toxina",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "baco",
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "marcacao",
+     "weight": 1
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "hemacias",
+     "label": "Hemácias velhas",
+     "k": "hemacias",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "intestino",
+   "needs": [
+    {
+     "role": "cura",
+     "weight": 2
+    },
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "combate",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "microbiota",
+     "label": "Microbiota",
+     "k": "microbiota",
+     "good": "high"
+    },
+    {
+     "id": "tumor",
+     "label": "Massa do tumor",
+     "e": "tumor",
+     "k": "massa",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "rim",
+   "needs": [
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "cura",
+     "weight": 2
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "ureia",
+     "label": "Ureia",
+     "k": "ureia",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "linfonodo",
+   "needs": [
+    {
+     "role": "controle",
+     "weight": 2
+    },
+    {
+     "role": "marcacao",
+     "weight": 2
+    }
+   ],
+   "health": [
+    {
+     "id": "tolerancia",
+     "label": "Tolerância",
+     "k": "tolerancia",
+     "good": "high"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
+    }
+   ]
+  },
+  {
+   "id": "cerebro",
+   "needs": [
+    {
+     "role": "cura",
+     "weight": 2
+    },
+    {
+     "role": "limpeza",
+     "weight": 2
+    },
+    {
+     "role": "controle",
+     "weight": 1
+    }
+   ],
+   "health": [
+    {
+     "id": "energia",
+     "label": "Energia",
+     "k": "energia",
+     "good": "high"
+    },
+    {
+     "id": "residuos",
+     "label": "Resíduos",
+     "k": "residuos",
+     "good": "low"
+    },
+    {
+     "id": "desgaste",
+     "label": "Desgaste do tecido",
+     "k": "desgaste",
+     "good": "low"
     }
    ]
   }

@@ -3,6 +3,7 @@ package core
 import (
 	"slices"
 	"strconv"
+	"strings"
 )
 
 // Callings: a class is not something a player collects but what the body needs
@@ -40,7 +41,8 @@ type RoleState struct {
 	Calling  string `json:"calling"`
 	Role     string `json:"role"`
 	Since    Tick   `json:"since"`
-	Gap      bool   `json:"gap,omitempty"` // it was chosen to fill a role nobody else covered
+	Gap      bool   `json:"gap,omitempty"`    // it was chosen to fill a role nobody else covered
+	Region   ID     `json:"region,omitempty"` // where the player stood when they took it: the calling lasts while they stay in that organ
 }
 
 // CallingOption is a calling as the player sees it in an offer.
@@ -125,6 +127,9 @@ func (w *World) callingConflict(s *State, p ID) string {
 			}
 		}
 	}
+	if _, ok := w.organs[string(here)]; ok { // no crisis here: the organ's own routine asks for a calling
+		return organContext + string(here)
+	}
 	return ""
 }
 
@@ -144,11 +149,14 @@ func (w *World) coverage(s *State, conflict string, except ID) (byRole, byCallin
 // callingOffer is what the player may take in the crisis: at most three callings, from different
 // roles, the role with the most missing players first; inside a role, the calling fewer people hold.
 func (w *World) callingOffer(s *State, p ID, conflict string) []CallingOption {
-	c, ok := s.Conflicts[conflict]
-	if !ok {
+	var needs []NeedDef
+	if region, isOrgan := strings.CutPrefix(conflict, organContext); isOrgan {
+		needs = w.organs[region].Needs
+	} else if c, ok := s.Conflicts[conflict]; ok {
+		needs = w.conflicts[c.Def].Needs
+	} else {
 		return nil
 	}
-	needs := w.conflicts[c.Def].Needs
 	byRole, byCalling := w.coverage(s, conflict, p)
 	type scored struct {
 		need    NeedDef
@@ -209,7 +217,7 @@ func (w *World) assume(s *State, origin string, p ID, args map[string]ID, cause 
 	if s.Roles == nil {
 		s.Roles = map[ID]RoleState{}
 	}
-	s.Roles[p] = RoleState{Conflict: conflict, Calling: id, Role: cd.Role, Since: s.Tick, Gap: opt.Gap}
+	s.Roles[p] = RoleState{Conflict: conflict, Calling: id, Role: cd.Role, Since: s.Tick, Gap: opt.Gap, Region: s.Entities[p].Region}
 	w.setCallingTags(s, p, cd.ID, cd.Role, cd.Form)
 	w.count(s, p, actAssume)
 	w.emit(s, Event{Kind: "calling-assumed", Actor: p, Holder: p, Public: true, Cause: cause,
@@ -244,7 +252,13 @@ func (w *World) setCallingTags(s *State, p ID, calling, role, form string) {
 func (w *World) callingTick(s *State, cause string) {
 	for _, p := range sortedIDs(s.Roles) {
 		r := s.Roles[p]
-		if c, ok := s.Conflicts[r.Conflict]; ok && c.Phase != PhaseResolved && w.callingConflict(s, p) == r.Conflict {
+		ctx := w.callingConflict(s, p)
+		if ctx == r.Conflict {
+			continue
+		}
+		if ctx != "" && r.Region != "" && r.Region == s.Entities[p].Region { // a crisis opened or ended where they stand: the calling stays
+			r.Conflict = ctx
+			s.Roles[p] = r
 			continue
 		}
 		delete(s.Roles, p)

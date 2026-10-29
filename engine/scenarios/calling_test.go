@@ -2,6 +2,7 @@ package scenarios
 
 import (
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/jodaltro/mmorpg/engine/core"
@@ -33,11 +34,11 @@ func TestTheOfferFollowsWhatTheCrisisNeedsAndWhoIsAlreadyThere(t *testing.T) {
 	h.joinAt("p3", "pele")
 	h.joinAt("p4", "pele")
 	h.joinAt("far", "medula")
-	if v := callingOf(h, "far"); v == nil || len(v.Offer) != 0 {
-		t.Fatalf("nobody offers a calling away from a crisis: %+v", v)
+	if v := callingOf(h, "far"); v == nil || !strings.HasPrefix(v.Conflict, "organ:") || len(v.Offer) == 0 {
+		t.Fatalf("away from the crisis the organ's own routine offers the calling: %+v", v)
 	}
-	if err := h.act("player", "far", "assumir", map[string]core.ID{"calling": "t-auxiliar"}); !isRejected(err) {
-		t.Fatalf("a calling away from a crisis must be rejected: %v", err)
+	if err := h.act("player", "far", "assumir", map[string]core.ID{"calling": "neutrofilo"}); !isRejected(err) {
+		t.Fatalf("a calling the organ does not offer must be rejected: %v", err)
 	}
 	v := callingOf(h, "p1")
 	if len(v.Offer) < 2 || len(v.Offer) > 3 {
@@ -105,11 +106,16 @@ func TestACallingEndsWhenThePlayerLeavesOrTheCrisisEnds(t *testing.T) {
 	o = callingOf(h, "p1").Offer
 	h.mustAct("player", "p1", "assumir", map[string]core.ID{"calling": core.ID(o[0].ID)})
 	setNum(h, "pele", "ferida", 0)
-	for i := 0; i < 400 && len(h.s.Roles) > 0; i++ {
+	for i := 0; i < 3000 && strings.HasPrefix(h.s.Roles["p1"].Conflict, "conflict:"); i++ {
 		h.tick(1)
 	}
-	if len(h.s.Roles) != 0 {
-		t.Fatal("a resolved crisis releases its callings")
+	if r, ok := h.s.Roles["p1"]; !ok || r.Conflict != "organ:pele" {
+		t.Fatalf("a resolved crisis leaves the calling with the organ's routine: %+v", h.s.Roles)
+	}
+	h.move("p1", "sangue")
+	h.tick(1)
+	if r, ok := h.s.Roles["p1"]; ok && r.Conflict == "organ:pele" {
+		t.Fatal("leaving the organ releases the calling")
 	}
 }
 

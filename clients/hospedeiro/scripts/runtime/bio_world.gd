@@ -86,6 +86,8 @@ var calling_panel: BioCallingPanel
 var cargo: BioCargoDirector  # carrying help to the crisis: loads to pick up and a place of the tissue that needs them
 var terrain: BioTerrainDirector  # the work of the terrain: props that answer the gestures of the calling
 var _calling := {}  # the engine's `calling` view of this player
+var _organs: Array = []  # the engine's `organs`: the health of every organ and what this player did in it
+var organ_panel: BioOrganPanel
 var _calling_form: StringName = &""  # the lineage worn while a calling is held
 var _calling_lent: Array = []  # abilities the form lent
 var look_name := ""  # the variant the advisor chose for this body (Caçador, Andarilho...)
@@ -216,6 +218,10 @@ func build() -> void:
 	terrain.name = "Terrain"
 	add_child(terrain)
 	terrain.configure(self)
+	organ_panel = BioOrganPanel.new()
+	organ_panel.name = "OrganPanel"
+	add_child(organ_panel)
+	organ_panel.configure(self)
 	calling_panel = BioCallingPanel.new()
 	calling_panel.name = "CallingPanel"
 	add_child(calling_panel)
@@ -1109,3 +1115,12 @@ func _debug_random_design() -> void:
 	for family in BioAbilityMode.TRAIT_OF:
 		designed[BioAbilityMode.TRAIT_OF[family]] = pick.call(BioAbilityMode.FAMILIES[family])
 	apply_design(designed, "debug")
+
+
+## The engine's list of organs (health, who works there, what this player did); empty offline.
+func apply_engine_organs(list: Array) -> void:
+	_organs = list
+
+
+func engine_organs() -> Array:
+	return _organs

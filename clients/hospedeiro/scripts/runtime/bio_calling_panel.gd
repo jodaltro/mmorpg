@@ -139,9 +139,10 @@ func _show_card(on: bool) -> void:
 		return
 	for c in _box.get_children():
 		c.queue_free()
-	var title := "A CRISE PEDE UM CHAMADO" if not BioCallingRules.is_held(_view) else "TROCAR DE CHAMADO"
+	var routine := str(_view.get("conflict", "")).begins_with("organ:")  # no crisis here: the organ's own work asks
+	var title := ("ESTE ÓRGÃO PEDE UM CHAMADO" if routine else "A CRISE PEDE UM CHAMADO") if not BioCallingRules.is_held(_view) else "TROCAR DE CHAMADO"
 	_box.add_child(BioUi.label(title, BioUi.FS_HEAD, BioUi.ACCENT))
-	_box.add_child(BioUi.label("Dura enquanto você estiver nesta crise.", BioUi.FS_SMALL, BioUi.MUTED))
+	_box.add_child(BioUi.label("Dura enquanto você estiver neste órgão." if routine else "Dura enquanto você estiver nesta crise.", BioUi.FS_SMALL, BioUi.MUTED))
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	_box.add_child(row)
