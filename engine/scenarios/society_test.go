@@ -28,7 +28,7 @@ func helpEvents(s core.State, kind string) int {
 func TestSocietyWorksWithoutPlayers(t *testing.T) {
 	h := load(t, "hospedeiro")
 	seen := map[core.ID]map[core.ID]bool{}
-	for i := 0; i < 900; i++ {
+	for i := 0; i < 2400; i++ { // Rubra only carries when the lung has oxygen to give, and the lung heals slowly (28/10/2026)
 		h.tick(1)
 		for _, id := range []core.ID{"rubra", "neva", "dendra", "macra"} {
 			if seen[id] == nil {

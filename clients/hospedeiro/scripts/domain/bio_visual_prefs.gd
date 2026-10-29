@@ -5,9 +5,9 @@ extends RefCounted
 
 const PRESETS := {
 	# npc_cap: cells drawn with the full deformable membrane (the costly part); the rest are a light silhouette or a dot.
-	"alto": {"fx": 1.0, "npc_cap": 12, "crowd_cap": 72, "crowd_per_cohort": 16, "speech_cap": 4, "lod_near": 1400.0, "lod_far": 3200.0, "particles": 1.0},
-	"padrao": {"fx": 0.7, "npc_cap": 8, "crowd_cap": 44, "crowd_per_cohort": 10, "speech_cap": 3, "lod_near": 1000.0, "lod_far": 2400.0, "particles": 0.6},
-	"economico": {"fx": 0.35, "npc_cap": 4, "crowd_cap": 18, "crowd_per_cohort": 5, "speech_cap": 1, "lod_near": 650.0, "lod_far": 1600.0, "particles": 0.25},
+	"alto": {"fx": 1.0, "npc_cap": 12, "crowd_cap": 36, "crowd_per_cohort": 8, "speech_cap": 4, "lod_near": 1400.0, "lod_far": 3200.0, "particles": 1.0},
+	"padrao": {"fx": 0.7, "npc_cap": 8, "crowd_cap": 24, "crowd_per_cohort": 5, "speech_cap": 3, "lod_near": 1000.0, "lod_far": 2400.0, "particles": 0.6},
+	"economico": {"fx": 0.35, "npc_cap": 4, "crowd_cap": 10, "crowd_per_cohort": 3, "speech_cap": 1, "lod_near": 650.0, "lod_far": 1600.0, "particles": 0.25},
 }
 const PATH := "user://hospedeiro_visual.cfg"
 

@@ -38,10 +38,13 @@ func test_only_the_regions_around_the_cell_are_alive_and_populated() -> void:
 	world.player.global_position = BioBodyMap.center_px(BioBodyMap.CORACAO)
 	await tree.create_timer(1.5).timeout
 	assert_eq(world.region, BioBodyMap.CORACAO, "now in the heart")
-	assert_true(world.live_regions.has(&"pulmao") and world.live_regions.has(&"aorta") and world.live_regions.has(&"sangue"), "the heart wakes its neighbours")
-	assert_true(not world.live_regions.has(&"medula"), "and the marrow goes to sleep")
+	assert_true(not world.live_regions.has(&"medula"), "the marrow goes to sleep")
 	assert_true(_count_in("nutrients", &"medula") == 0, "its nutrients are let go")
-	assert_true(_count_in("nutrients", &"pulmao") >= 15 or _count_in("nutrients", &"pulmao") + _count_in("nutrients", &"aorta") >= 10, "while the others fill up")
+	assert_true(not world.live_regions.has(&"pulmao"), "a neighbour far from the cell sleeps too: the heart alone is awake in its middle")
+	world.player.global_position = BioBodyMap.center_px(BioBodyMap.CORACAO) + Vector2(0.0, -32.0) * BioArt.UNIT  # towards the lung, in its vessel
+	await tree.create_timer(1.2).timeout
+	assert_true(world.live_regions.has(&"pulmao"), "near its edge the lung wakes")
+	assert_true(_count_in("nutrients", &"pulmao") >= 10, "fills up")
 	assert_true(world.anatomy.layer(&"pulmao").visible and not world.anatomy.layer(&"medula").visible, "and the drawing follows")
 
 

@@ -118,7 +118,7 @@ func TestPopulationRejectsBadDefinitions(t *testing.T) {
 func TestHospedeiroBodyWorksWithoutPlayers(t *testing.T) {
 	run := func() core.State {
 		h := load(t, "hospedeiro")
-		h.tick(600)
+		h.tick(1200) // the first lung infection starves the blood of oxygen for a while; by 1200 it has come back (28/10/2026)
 		return h.s
 	}
 	s := run()

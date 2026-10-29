@@ -111,7 +111,13 @@ func TestACrisisWaitsForTheLivePlaceAndTheLongestWaitingGoesFirst(t *testing.T) 
 		t.Fatal("the wound must close by itself")
 	}
 	h.tick(3)
-	next := liveCrises(h)
+	// Only the crises that take the place count: one that has kept it past the universe's patience lets the next open beside it.
+	var next []string
+	for _, d := range liveCrises(h) {
+		if _, l := byDef(h.s, d); h.s.Tick-l[0].Onset < h.w.U.Limits.LiveConflictPatience {
+			next = append(next, d)
+		}
+	}
 	if len(next) != 1 || next[0] == "ferida-na-pele" {
 		t.Fatalf("a place is free: the next waiting cause must open, and not the wound again: %v", next)
 	}

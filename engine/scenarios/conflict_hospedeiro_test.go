@@ -53,14 +53,15 @@ func (h *harness) joinAt(id, region core.ID) {
 func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 	h := loadUncapped(t, "hospedeiro")
 	maxLive := 0
-	for i := 0; i < 1500; i++ {
+	// 28/10/2026: the body heals more slowly on its own (a crisis asks for help for several minutes), so the windows are longer.
+	for i := 0; i < 6000; i++ {
 		h.tick(1)
 		maxLive = max(maxLive, liveCount(h.s))
 	}
 	if maxLive != 1 {
 		t.Fatalf("one cause must never have %d live instances", maxLive)
 	}
-	if got := len(lung(h.s)); got < 5 {
+	if got := len(lung(h.s)); got < 2 {
 		t.Fatalf("recurrent infections should have opened several instances, got %d", got)
 	}
 	resolved := 0
@@ -72,7 +73,7 @@ func TestHospedeiroLungInfectionResolvesByItselfWithoutPlayers(t *testing.T) {
 			t.Errorf("bad instance %s %+v", id, c)
 		}
 	}
-	if resolved < 4 {
+	if resolved < 2 {
 		t.Fatalf("the healthy body should resolve infections on its own, resolved %d", resolved)
 	}
 	// Per instance, revisions in the events strictly increase.

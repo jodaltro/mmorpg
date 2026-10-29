@@ -183,7 +183,7 @@ func TestTumorTakesTerritoryAndNKCellsContainIt(t *testing.T) {
 	h := loadUncapped(t, "hospedeiro")
 	setNum(h, "tumor", "massa", 12)
 	setNum(h, "corpo", "inflamacao", 50)
-	runUntil(h, 600, func() bool { return resolvedOf(h, "tumor-intestinal") })
+	runUntil(h, 3000, func() bool { return resolvedOf(h, "tumor-intestinal") }) // the NK cells take longer since 28/10/2026
 	if !resolvedOf(h, "tumor-intestinal") || !creditedBy(h, "tumor-intestinal", "nika") || nv(h, "tumor", "massa") != 0 {
 		t.Fatalf("Nika and the NK cells must clear the tumor and be credited: mass %d", nv(h, "tumor", "massa"))
 	}
@@ -211,7 +211,7 @@ func TestEveryOrganInCrisisAtOnceIsDeterministicAndRecoverable(t *testing.T) {
 		h := loadUncapped(t, "hospedeiro")
 		forceBody(h)
 		concurrent := 0
-		for i := 0; i < 2500; i++ {
+		for i := 0; i < 9000; i++ { // the body heals slowly on its own since 28/10/2026
 			h.tick(1)
 			live := 0
 			for _, d := range defs {

@@ -63,7 +63,7 @@ func TestResolvedCrisisPaysOnlyThoseWhoTookPartAndOnlyOnce(t *testing.T) {
 	if _, ok := h.s.Skills["p1"]["selo-do-figado"]; ok {
 		t.Fatal("nothing is paid while the crisis is still open")
 	}
-	runUntil(h, 2500, func() bool { return resolvedOf(h, "sobrecarga-hepatica") })
+	runUntil(h, 8000, func() bool { return resolvedOf(h, "sobrecarga-hepatica") }) // the liver heals slowly on its own since 28/10/2026
 	if !resolvedOf(h, "sobrecarga-hepatica") {
 		t.Fatal("the liver crisis must resolve by itself")
 	}

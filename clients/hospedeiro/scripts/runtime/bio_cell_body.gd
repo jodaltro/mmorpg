@@ -426,8 +426,9 @@ func _ready() -> void:
 	_rim.resize(RIM)
 
 
-## On a phone every polygon of a membrane is a fresh GPU buffer each frame, and the cell of the player is the only one the eye follows:
-## the others are redrawn every `background_stride` frames (with the time they were owed), and not at all while off screen.
+## Every polygon of a membrane is a fresh GPU buffer each frame, and the cell of the player is the only one the eye follows: a cell off
+## screen is not redrawn at all (on any device), and on a phone
+## the others are redrawn only every `background_stride` frames (with the time they were owed).
 static var background_stride := 1
 var _owed := 0.0
 
@@ -437,7 +438,7 @@ func _process(delta: float) -> void:
 		var vitals := _wear_host.combatant.actor.vitals
 		set_integrity(vitals.membrane / maxf(1.0, vitals.max_membrane))
 	if not _evolution_hold: evolution_white = move_toward(evolution_white, 0.0, delta * 1.8)
-	if background_stride > 1 and absf(integrity-_integrity_target) < 0.002 and _shed.is_empty() and evolution_white <= 0 and not _evolution_hold and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
+	if absf(integrity-_integrity_target) < 0.002 and _shed.is_empty() and evolution_white <= 0 and not _evolution_hold and _impact_left <= 0 and _attack_left <= 0 and _telegraph_target <= 0.01 and absf(_stretch) < 0.015 and _kicks.is_empty():
 		var host_node := get_parent()
 		var mine: Variant = BioFx.root.get("player") if BioFx.root != null else null
 		if host_node != null and host_node != mine:

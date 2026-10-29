@@ -53,6 +53,8 @@ var compass_text := ""
 var body := BioBodyState.new()  # the host's vital signs (from the engine) and what they do to the cell
 var vitals_panel: BioVitalsPanel
 var live_regions: Array[StringName] = []
+const LIVE_MARGIN_UNITS := 26.0  # a neighbour wakes when its edge is this close to the cell: a little more than half a screen
+var _live_in := 0.0
 var hud: BioHud
 var camera: BioCameraFollow
 var genome: BioGenome
@@ -808,6 +810,7 @@ func _process(delta: float) -> void:
 		respawn_player()
 	if player.is_active():
 		var now := BioBodyMap.region_of(player.global_position)
+		_live_in -= delta
 		if now != region:
 			region = now
 			_update_live()
@@ -815,6 +818,10 @@ func _process(delta: float) -> void:
 			atlas.set_region(region)
 			_apply_regen()
 			region_changed.emit(region)
+	if player.is_active() and _live_in <= 0.0:
+		_live_in = 0.5
+		if _update_live():  # a neighbour came close (or went away) without the region changing
+			_populate(true)
 	if Input.is_action_just_pressed("bio_map"):
 		atlas.toggle()
 	if Input.is_action_just_pressed("bio_vitals"):
@@ -878,10 +885,19 @@ func _physics_process(delta: float) -> void:
 		nutrient.global_position += BioBodyMap.flow_px(nutrient.global_position, clock) * 0.6 * delta
 
 
-## Keeps the regions around the cell alive: the one it is in and the ones a vessel away. The rest of the body sleeps.
-func _update_live() -> void:
-	live_regions = BioAnatomy.within(region, BioAnatomyView.LIVE_HOPS)
+## Keeps the regions around the cell alive: the one it is in and the ones a vessel away that are close enough to be seen soon. The rest
+## of the body sleeps (the artery touches five organs, and filling all of them made it the slowest place of the body). True on a change.
+func _update_live() -> bool:
+	var me := player.global_position / BioArt.UNIT if player != null else Vector2.ZERO
+	var live: Array[StringName] = []
+	for r in BioAnatomy.within(region, BioAnatomyView.LIVE_HOPS):
+		if r == region or me.distance_to(BioBodyMap.center_px(r) / BioArt.UNIT) - BioBodyMap.radius_units(r) < LIVE_MARGIN_UNITS:
+			live.append(r)
+	if live == live_regions:
+		return false
+	live_regions = live
 	anatomy.set_live(live_regions)
+	return true
 
 
 ## The population of the body, streamed: each live region holds the nutrients and virions its biome calls for (scaled by the

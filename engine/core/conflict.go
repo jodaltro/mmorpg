@@ -219,6 +219,22 @@ func (w *World) conflictTick(s *State, cause string) {
 	w.attentionTick(s)
 }
 
+// roomFor says whether conflict id could ask for attention without going over the
+// cap: the other conflicts that take a place leave room for one more.
+func (w *World) roomFor(s *State, id string) bool {
+	limit := w.U.Limits.MaxLiveConflicts
+	if limit <= 0 {
+		return true
+	}
+	n := 0
+	for other, c := range s.Conflicts {
+		if other != id && w.takesAPlace(s, c) {
+			n++
+		}
+	}
+	return n < limit
+}
+
 // takesAPlace says whether a live conflict counts against the cap: it must be
 // asking for attention (active or critical) and not have kept the place past
 // the universe's patience.
@@ -302,17 +318,19 @@ func (w *World) advanceConflict(s *State, def ConflictDef, id, cause string) {
 			transition(PhaseActive, "conflict-eased", def.Title+": a crise crítica recuou.", nil)
 		}
 	case PhaseContained:
-		if sev >= def.Critical {
+		// A calm crisis that worsens again asks for attention again, but only when there is room under the cap:
+		// while another holds the place it waits, contained, and reopens when the place frees.
+		if sev >= def.Critical && w.roomFor(s, id) {
 			c.Reopened++
 			transition(PhaseCritical, "conflict-reopened", def.Title+": voltou a se agravar.", def.OnReopen)
-		} else if !w.Holds(s, def.Contain, Bind{}) {
+		} else if !w.Holds(s, def.Contain, Bind{}) && w.roomFor(s, id) {
 			c.Reopened++
 			transition(PhaseActive, "conflict-reopened", def.Title+": voltou a se agravar.", def.OnReopen)
 		} else if hold(def.Resolve) && held(def.Sustain) {
 			transition(PhaseRecovering, "conflict-recovering", def.Title+": em recuperação.", def.OnRecover)
 		}
 	case PhaseRecovering:
-		if !w.Holds(s, def.Resolve, Bind{}) {
+		if !w.Holds(s, def.Resolve, Bind{}) && w.roomFor(s, id) {
 			c.Reopened++
 			transition(PhaseActive, "conflict-reopened", def.Title+": a recuperação falhou.", def.OnReopen)
 		} else {
