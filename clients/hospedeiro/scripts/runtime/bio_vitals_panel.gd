@@ -15,8 +15,8 @@ func configure(state: BioBodyState) -> void:
 	_strip.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_strip.offset_left = -300
 	_strip.offset_right = 300
-	_strip.offset_top = 104
-	_strip.offset_bottom = 128
+	_strip.offset_top = 112  # under the GPS card of the guide (58 + 48)
+	_strip.offset_bottom = 136
 	_strip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_strip.add_theme_font_size_override("font_size", 14)
 	_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE

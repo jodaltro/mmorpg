@@ -148,7 +148,7 @@ func Compile(u Universe) (*World, error) {
 		}
 	}
 	for _, a := range u.Actions {
-		if a.ID == "" || w.actions[a.ID].ID != "" || len(a.By) == 0 {
+		if a.ID == "" || w.actions[a.ID].ID != "" || len(a.By) == 0 || a.Cooldown < 0 {
 			return nil, invalid("action %q", a.ID)
 		}
 		for _, by := range a.By {

@@ -184,6 +184,7 @@ func TestAPlayerInTheBrainHelpsItsCrisisAndIsPaidWhenItEnds(t *testing.T) {
 	}
 	for i := 0; i < 4; i++ {
 		h.mustAct("adapter", "p1", "amparar-neuronios-cerebro", nil)
+		h.tick(2) // a deed of a crisis counts once per cooldown
 	}
 	if !creditedBy(h, "sofrimento-cerebral", "p1") {
 		t.Fatal("the player's deed must count for the crisis")
@@ -201,9 +202,18 @@ func TestNoPassageOfTheBodyAsksForAGeneOrALineage(t *testing.T) {
 	if len(h.w.U.Passages) == 0 {
 		t.Fatal("the body has vessels")
 	}
+	reached := map[core.ID]bool{}
 	for _, p := range h.w.U.Passages {
 		if p.Gene != "" || len(p.Lineages) > 0 {
 			t.Errorf("passage %s still asks for %q %v", p.ID, p.Gene, p.Lineages)
+		}
+		reached[p.From], reached[p.To] = true, true
+	}
+	// Every place a crisis can be is on a vessel: the guide plans its route over these passages (29/10/2026: the skin,
+	// the lymph node and the brain had none and the route to them was "blocked").
+	for _, c := range h.w.U.Conflicts {
+		if !reached[c.Region] {
+			t.Errorf("%s is in %s, which no passage reaches", c.ID, c.Region)
 		}
 	}
 }

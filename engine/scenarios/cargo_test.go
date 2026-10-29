@@ -63,3 +63,28 @@ func severityOf(h *harness, m core.ConflictMetric) int64 {
 	}
 	return v
 }
+
+// 29/10/2026, the long game: one player cleared the lung in half a minute because every kill the game server
+// confirmed counted. A deed of a crisis now counts once per cooldown for each player.
+func TestADeedOfACrisisCountsOncePerCooldownForEachPlayer(t *testing.T) {
+	h := load(t, "hospedeiro")
+	h.joinAt("p1", "pulmao")
+	h.joinAt("p2", "pulmao")
+	setNum(h, "pulmao", "carga", 60)
+	cd := core.Tick(0)
+	for _, a := range h.w.U.Actions {
+		if a.ID == "conter-infeccao-pulmonar" {
+			cd = a.Cooldown
+		}
+	}
+	if cd < 1 {
+		t.Fatal("killing in the lung must have a cooldown")
+	}
+	h.mustAct("adapter", "p1", "conter-infeccao-pulmonar", nil)
+	if err := h.act("adapter", "p1", "conter-infeccao-pulmonar", nil); !isRejected(err) {
+		t.Fatalf("a second kill in the same moment must not count again: %v", err)
+	}
+	h.mustAct("adapter", "p2", "conter-infeccao-pulmonar", nil) // another player is not held back by p1
+	h.tick(int(cd))
+	h.mustAct("adapter", "p1", "conter-infeccao-pulmonar", nil)
+}

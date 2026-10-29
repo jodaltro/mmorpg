@@ -42,11 +42,19 @@ const NEXT := {
 const NEXT_BY_PHASE := {"contained": "Mantenha o apoio até o tecido se estabilizar.", "recovering": "Falta pouco: deixe as células terminarem o reparo."}
 
 
-## The crisis to show first. The player's choice wins while that crisis lives; otherwise the engine's suggestion; otherwise the worst.
+## The crisis to show first. The player's choice wins while that crisis lives; otherwise the engine's suggestion while it still asks
+## for help; otherwise the crisis that asks for help (a calm one, contained or recovering, does not hold the guide when another asks);
+## otherwise the engine's suggestion or the worst.
 static func pick(ordered: Array, engine_focus: String, chosen: String) -> String:
 	for c in ordered:
 		if str(c.get("id", "")) == chosen:
 			return chosen
+	for c in ordered:
+		if str(c.get("id", "")) == engine_focus and demanding(c):
+			return engine_focus
+	for c in ordered:
+		if demanding(c):
+			return str(c.get("id", ""))
 	for c in ordered:
 		if str(c.get("id", "")) == engine_focus:
 			return engine_focus
@@ -112,6 +120,8 @@ static func suggestion(c: Dictionary) -> String:
 
 ## The metric that matters most: the first one the universe lists (its label and value come from the engine).
 static func headline(c: Dictionary) -> String:
+	if str(c.get("severityLabel", "")) != "":  # the number the gauge measures, not a side indicator
+		return "%s: %d" % [str(c["severityLabel"]), int(c.get("severity", 0))]
 	var ms: Variant = c.get("metrics")
 	if ms is Array and not (ms as Array).is_empty():
 		var m: Dictionary = ms[0]

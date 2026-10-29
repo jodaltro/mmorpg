@@ -80,6 +80,8 @@ func _run() -> void:
 	world.engine_url = args[0] if args.size() > 0 else ""
 	root.add_child(world)
 	await create_timer(4.0).timeout
+	world.tutorial.completed = true  # a returning player: the guide (GPS and arrow) is on
+	world.tutorial.active = false
 	var shot_in := 3.0
 	var last := Time.get_ticks_usec()
 	var shots := 0
@@ -90,6 +92,8 @@ func _run() -> void:
 		last = now
 		_t += dt
 		_frames.append(dt * 1000.0)
+		if dt > 0.2 and _t > 5.0 and shot_in < SHOT_SECONDS - 0.5:  # a hitch that is not the screenshot itself
+			_say("PLAY t=%5.0f HITCH %.0f ms in %s (live %s, %d nodes, %d invaders)" % [_t, dt * 1000.0, world.region, world.live_regions, Performance.get_monitor(Performance.OBJECT_NODE_COUNT), get_nodes_in_group("viruses").size()])
 		if not world.player.is_active():  # dissolved: be born again, like a player pressing R
 			_say("PLAY t=%5.0f the cell dissolved; respawn" % _t)
 			await _tap("bio_respawn")
@@ -115,7 +119,7 @@ func _play(dt: float) -> void:
 		var pick: String = ids[_choice % ids.size()]
 		_choice += 1  # the next crisis takes another option: several ways to play
 		_say("PLAY t=%5.0f calling offered %s, taking %s" % [_t, ids, pick])
-		world.calling_panel.chosen.emit(pick)
+		world.calling_panel.choose(pick)
 		return
 	if c.is_empty():  # nothing asks for help: wander and keep the cell fed
 		var food := _nearest("nutrients", 30.0)
@@ -126,6 +130,11 @@ func _play(dt: float) -> void:
 		var path := world.journey.navigation_path() if world.journey != null else PackedVector2Array()
 		var to := path[mini(1, path.size() - 1)] if path.size() > 1 else BioBodyMap.center_px(region)
 		_steer(to)
+		var in_the_way := _nearest("viruses", 4.0)  # what blocks the vessel is fought, as a person would
+		if in_the_way != null:
+			Input.action_press("bio_lash")
+		else:
+			Input.action_release("bio_lash")
 		_check_stuck(dt, "going to %s" % region)
 		return
 	_mode_left -= dt

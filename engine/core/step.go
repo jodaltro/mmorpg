@@ -303,6 +303,13 @@ func (w *World) act(s *State, origin string, actor ID, action string, args map[s
 	if !w.Holds(s, a.Requires, b) {
 		return reject("requirements")
 	}
+	if a.Cooldown > 0 {
+		key := "act|" + string(actor) + "|" + a.ID
+		if s.Cooldowns[key] > s.Tick {
+			return reject("cooldown")
+		}
+		s.Cooldowns[key] = s.Tick + a.Cooldown
+	}
 	w.count(s, actor, a.ID)
 	w.apply(s, a.Effects, b, cause)
 	w.learn(s, actor, a.Tags, 1)

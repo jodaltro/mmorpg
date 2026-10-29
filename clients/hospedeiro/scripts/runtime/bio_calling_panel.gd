@@ -13,6 +13,9 @@ var _view: Dictionary = {}
 var dwell := 2.5  # seconds in a crisis before it offers anything: passing through a corridor asks nothing of you
 var _dismissed_for := ""  # the crisis whose offer the player put away
 var _key := ""
+var _pending := ""  # the calling just chosen, until the engine confirms it (or PENDING_SECONDS pass)
+var _pending_until := 0.0
+const PENDING_SECONDS := 4.0
 var _here_for := ""  # the crisis the player is standing in, and since when
 var _here_since := 0.0
 
@@ -62,7 +65,7 @@ func option_ids() -> Array:
 
 ## The offer waits `dwell` seconds, so the view is looked at again while it is pending.
 func _process(_delta: float) -> void:
-	if not _view.is_empty() and not _card.visible and BioCallingRules.is_choosing(_view):
+	if not _view.is_empty() and (_pending != "" or (not _card.visible and BioCallingRules.is_choosing(_view))):
 		apply(_view)
 
 
@@ -76,11 +79,18 @@ func apply(view: Dictionary) -> void:
 		_here_for = conflict
 		_here_since = Time.get_ticks_msec() * 0.001
 	var waited := Time.get_ticks_msec() * 0.001 - _here_since >= dwell
-	var key := JSON.stringify(view) + str(waited)
+	var now := Time.get_ticks_msec() * 0.001
+	if _pending != "" and (BioCallingRules.is_held(view) or now >= _pending_until or conflict.is_empty()):
+		_pending = ""
+	var key := JSON.stringify(view) + str(waited) + _pending
 	if key == _key:
 		return
 	_key = key
-	if BioCallingRules.is_held(view):
+	if _pending != "":  # chosen: the cards go away at once and say so, while the engine confirms
+		_show_card(false)
+		_chip.visible = true
+		_chip.text = "ASSUMINDO: %s…" % _name_of_option(_pending)
+	elif BioCallingRules.is_held(view):
 		_show_card(false)
 		_chip.visible = true
 		_chip.text = "CHAMADO: %s  ·  %s   (trocar)" % [_name_of(view), BioCallingRules.role_name(str(view.get("role", "")))]
@@ -90,6 +100,23 @@ func apply(view: Dictionary) -> void:
 	else:
 		_show_card(false)
 		_chip.visible = false
+
+
+## The player takes a calling of the offer: one press is enough, the cards close until the engine answers.
+func choose(id: String) -> void:
+	if _pending != "":
+		return
+	_pending = id
+	_pending_until = Time.get_ticks_msec() * 0.001 + PENDING_SECONDS
+	chosen.emit(id)
+	apply(_view)
+
+
+func _name_of_option(id: String) -> String:
+	for o in _view.get("offer", []):
+		if str(o.get("id", "")) == id:
+			return str(o.get("name", id))
+	return id.capitalize()
 
 
 func held_name() -> String:
@@ -142,6 +169,6 @@ func _option_card(o: Dictionary) -> Control:
 	col.add_child(BioUi.wrapped(BioCallingRules.option_text(o), BioUi.FS_SMALL, BioUi.TEXT))
 	var pick := BioUi.button("Assumir", "primary")
 	var id := str(o.get("id", ""))
-	pick.pressed.connect(func() -> void: chosen.emit(id))
+	pick.pressed.connect(func() -> void: choose(id))
 	col.add_child(pick)
 	return card

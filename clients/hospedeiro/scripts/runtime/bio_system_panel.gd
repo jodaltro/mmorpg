@@ -42,8 +42,8 @@ func _ready() -> void:
 	_states.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_states.offset_left = -200
 	_states.offset_right = 200
-	_states.offset_top = 76
-	_states.offset_bottom = 98
+	_states.offset_top = 136  # under the vitals strip, clear of the GPS card
+	_states.offset_bottom = 158
 	_states.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	add_child(_states)
 

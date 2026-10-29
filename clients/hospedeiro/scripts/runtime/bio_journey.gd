@@ -207,10 +207,11 @@ func _update_position() -> void:
 		_arrived_until = _age + 2.5
 	if not route.points.is_empty():
 		route.follow(world.player.global_position)
-		if world.player.global_position.distance_to(goal) < 1.5 * BioArt.UNIT and route.remaining < 2 * BioArt.UNIT:
+		var in_the_organ := _source.begins_with("crisis:") and world.region == BioBodyMap.region_of(goal)  # a crisis is the whole organ
+		if in_the_organ or (world.player.global_position.distance_to(goal) < 1.5 * BioArt.UNIT and route.remaining < 2 * BioArt.UNIT):
 			if navigation_state != "arrived": _arrived_until = _age + 2.5
 			navigation_state = "arrived"
-		elif navigation_state == "arrived" and not _arrival_by_objective and world.player.global_position.distance_to(goal) > 2.5 * BioArt.UNIT:
+		elif navigation_state == "arrived" and not _arrival_by_objective and not in_the_organ and world.player.global_position.distance_to(goal) > 2.5 * BioArt.UNIT:
 			navigation_state = "navigating"
 	has_target = navigation_state == "navigating" and not route.points.is_empty()
 	if has_target: target = route.projection if route.deviation > 2 * BioArt.UNIT else route.ahead(6 * BioArt.UNIT)

@@ -37,3 +37,14 @@ func test_unreachable_and_zero_distance_destinations_have_explicit_results() -> 
 	assert_true(route.points.is_empty())
 	assert_true(route.plan(1337, Vector2.ZERO, Vector2.ZERO, [&"medula"] as Array[StringName]))
 	assert_true(route.remaining < 0.1)
+
+
+func test_a_cell_in_a_fold_of_a_vessel_still_gets_a_route() -> void:
+	# 29/10/2026, the long game: in a fold of the venule nothing of the route is in a straight line, and the guide said "blocked".
+	var start := Vector2(26.38, 22.93) * BioArt.UNIT
+	assert_true(BioAnatomy.in_body(BioBodyMap.seed_value, start / BioArt.UNIT), "the spot is inside the body")
+	var route := BioNavigationRoute.new()
+	var ok := route.plan(BioBodyMap.seed_value, start, BioBodyMap.center_px(&"linfonodo"), [&"sangue", &"coracao", &"aorta", &"baco", &"linfonodo"] as Array[StringName])
+	assert_true(ok, "the route walks out of the fold")
+	for i in range(1, route.points.size()):
+		assert_true(BioNavigationRoute.inside(BioBodyMap.seed_value, route.points[i - 1], route.points[i]), "and never through a wall (leg %d)" % i)

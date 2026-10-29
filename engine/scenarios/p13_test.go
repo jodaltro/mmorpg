@@ -58,6 +58,7 @@ func TestResolvedCrisisPaysOnlyThoseWhoTookPartAndOnlyOnce(t *testing.T) {
 	}
 	for i := 0; i < 3; i++ {
 		h.mustAct("adapter", "p1", "filtrar-toxina", nil)
+		h.tick(2) // a deed of a crisis counts once per cooldown
 	}
 	if _, ok := h.s.Skills["p1"]["selo-do-figado"]; ok {
 		t.Fatal("nothing is paid while the crisis is still open")

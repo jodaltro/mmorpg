@@ -124,8 +124,12 @@ func TestRubraBlockedAsksForHelpAndRemembersWhoHelped(t *testing.T) {
 		t.Fatal("a client must not confirm the deed")
 	}
 	// p1's confirmed deeds clear the infection; nothing else does.
-	for i := 0; i < 12 && h.s.Entities["pulmao"].Num["carga"] >= 8; i++ {
-		h.do(core.Command{Kind: "act", Origin: "adapter", Actor: "p1", Action: "conter-infeccao-pulmonar", RequestID: "ev-" + strings.Repeat("x", i+1)})
+	// Each deed is worth less and counts once per cooldown since 29/10/2026: p1 fights whenever it may and carries surfactant
+	// to the alveolus in between.
+	for i := 0; i < 300 && h.s.Entities["pulmao"].Num["carga"] >= 8; i++ {
+		_, _ = h.try(core.Command{Kind: "act", Origin: "adapter", Actor: "p1", Action: "conter-infeccao-pulmonar", RequestID: "ev-" + strings.Repeat("x", i+1)})
+		_ = h.act("adapter", "p1", "entregar-surfactante", nil)
+		h.tick(1)
 	}
 	h.tick(2)
 	if helpEvents(h.s, "help-resolved") != 1 {

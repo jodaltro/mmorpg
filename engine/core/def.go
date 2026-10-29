@@ -362,6 +362,9 @@ type ActionDef struct {
 	Requires Cond     `json:"requires"`
 	Effects  []Effect `json:"effects"`
 	Desc     string   `json:"desc,omitempty"`
+	// Cooldown is how many ticks an actor waits before doing this action again (0: none). A deed the game server
+	// confirms many times a second (a kill, a touch) still counts once per Cooldown for each actor.
+	Cooldown Tick `json:"cooldown,omitempty"`
 }
 
 // RuleDef is autonomous world dynamics: periodic (Every) and/or scheduled.

@@ -31,15 +31,21 @@ func plan(seed_value: int, start: Vector2, goal: Vector2, regions: Array[StringN
 	append_unique(spine, goal)
 	if spine.size() == 1: spine.append(goal)
 	# Enter the vessel where the player actually is, rather than returning to its region's center.
-	var nearest := closest(start, spine)
+	var nearest := visible_closest(seed_value, start, spine)
 	if nearest.is_empty(): return false
 	var entry: Vector2 = nearest.point
 	var first := int(nearest.segment) + 1
 	append_unique(points, start)
-	if inside(seed_value, start, entry):
-		append_unique(points, entry)
-	else:
-		first = 0
+	if not inside(seed_value, start, entry):  # nothing of the route is in sight (a cell in a fold of a curved vessel): walk out of it
+		var way := escape(seed_value, start, spine)
+		if way.is_empty():
+			return false
+		for i in range(1, way.size()):
+			append_unique(points, way[i])
+		var back := visible_closest(seed_value, points[-1], spine)
+		entry = back.point
+		first = int(back.segment) + 1
+	append_unique(points, entry)
 	for i in range(first, spine.size()): append_unique(points, spine[i])
 	if points.size() < 2:
 		points.append(goal + Vector2(0.01, 0))
@@ -87,6 +93,51 @@ static func closest(position: Vector2, path: PackedVector2Array) -> Dictionary:
 			best = distance
 			result = {"point":point, "segment":i - 1}
 	return result
+
+## The closest point of the path that can be reached in a straight line from `position` (without crossing a wall); the plain closest
+## one when none can. A cell next to a wall used to aim at the vessel behind it, and the whole route came out "blocked".
+static func visible_closest(seed_value: int, position: Vector2, path: PackedVector2Array) -> Dictionary:
+	var options: Array[Dictionary] = []
+	for i in range(1, path.size()):
+		var point := Geometry2D.get_closest_point_to_segment(position, path[i - 1], path[i])
+		options.append({"point": point, "segment": i - 1, "d": position.distance_squared_to(point)})
+	options.sort_custom(func(x: Dictionary, y: Dictionary) -> bool: return float(x["d"]) < float(y["d"]))
+	for o in options:
+		if inside(seed_value, position, o["point"]):
+			return {"point": o["point"], "segment": o["segment"]}
+	return {"point": options[0]["point"], "segment": options[0]["segment"]} if not options.is_empty() else {}
+
+## A way out of a fold: a search over the free space of the body (one unit a step, a bounded area) from `start` to the first spot from
+## which the route can be seen. Returns the corners of that way (px), or nothing when there is none near.
+static func escape(seed_value: int, start: Vector2, path: PackedVector2Array) -> PackedVector2Array:
+	var u := BioArt.UNIT
+	var origin := (start / u).round()
+	var came := {origin: origin}
+	var queue: Array[Vector2] = [origin]
+	var dirs := [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1), Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]
+	var reached := Vector2.INF
+	while not queue.is_empty() and came.size() < 6000:
+		var at: Vector2 = queue.pop_front()
+		var near := closest(at * u, path)
+		if not near.is_empty() and inside(seed_value, at * u, near.point):
+			reached = at
+			break
+		for d in dirs:
+			var n: Vector2 = at + d
+			if came.has(n) or n.distance_to(origin) > 40.0 or BioAnatomy.field_at(seed_value, n) > -0.05:
+				continue
+			came[n] = at
+			queue.append(n)
+	if reached == Vector2.INF:
+		return PackedVector2Array()
+	var cells: Array[Vector2] = [reached]
+	while cells[0] != origin:
+		cells.push_front(came[cells[0]])
+	var out := PackedVector2Array([start])
+	for i in range(1, cells.size()):  # keep only the corners that a straight line cannot skip
+		if i == cells.size() - 1 or not inside(seed_value, out[-1], cells[i + 1] * u):
+			append_unique(out, cells[i] * u)
+	return out
 
 static func append_unique(path: PackedVector2Array, point: Vector2) -> void:
 	if path.is_empty() or path[-1].distance_to(point) > 0.01: path.append(point)

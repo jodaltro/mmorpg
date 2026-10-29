@@ -30,7 +30,7 @@ func TestHospedeiroLiverVerbsNeedTheLiver(t *testing.T) {
 	g, tox := h.s.Entities["figado"].Num["glicogenio"], h.s.Entities["figado"].Num["toxina"]
 	h.mustAct("adapter", "p1", "guardar-glicogenio", nil)
 	h.mustAct("adapter", "p1", "filtrar-toxina", nil)
-	if h.s.Entities["figado"].Num["glicogenio"] != g+4 || h.s.Entities["figado"].Num["toxina"] != tox-4 {
+	if h.s.Entities["figado"].Num["glicogenio"] != g+4 || h.s.Entities["figado"].Num["toxina"] != tox-1 { // one deed is worth less since 29/10/2026
 		t.Fatalf("glycogen %d->%d toxin %d->%d", g, h.s.Entities["figado"].Num["glicogenio"], tox, h.s.Entities["figado"].Num["toxina"])
 	}
 	if err := h.act("player", "p1", "guardar-glicogenio", nil); !isRejected(err) {
