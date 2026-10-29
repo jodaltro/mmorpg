@@ -7,7 +7,7 @@ extends SceneTree
 ##   godot --path clients/hospedeiro --script res://tests/play_long.gd -- <engine url> <minutes> <out dir>
 
 const SHOT_SECONDS := 30.0
-const MODES := ["fight", "carry", "touch"]
+const MODES := ["fight", "carry", "terrain", "touch"]
 
 var world: BioWorld
 var _out := "."
@@ -183,6 +183,24 @@ func _play(dt: float) -> void:
 				if best_d < INF:
 					_steer(best)
 			_check_stuck(dt, "carrying")
+		"terrain":
+			Input.action_release("bio_lash")
+			var role := str(view.get("role", ""))
+			var prop: Dictionary = {}
+			for p in world.terrain.props():
+				if p["state"] == &"live" and BioTerrainRules.can(p["verb"], role):
+					prop = p
+					break
+			if prop.is_empty():
+				_mode_left = 0.0
+				return
+			var to_prop: Vector2 = prop["pos"]
+			var stand := to_prop - Vector2(BioArt.UNIT * 1.8, 0) if prop["verb"] != "empurrar" else to_prop + (to_prop - (prop["slot"] as Vector2)).normalized() * BioArt.UNIT * 2.0
+			_steer(stand)
+			if world.player.global_position.distance_to(stand) < BioArt.UNIT * 1.2:
+				for k in ["bio_ab_1", "bio_ab_2", "bio_ab_3", "bio_ab_4"]:
+					await _tap(k)
+				_say("PLAY t=%5.0f terrain %s %s %.0f%%" % [_t, prop["verb"], BioTerrainRules.prop_name(world.terrain.current_def(), prop["verb"]), float(prop["progress"]) * 100.0])
 		"touch":
 			Input.action_release("bio_lash")
 			var mote := _nearest("motes", 30.0)

@@ -26,7 +26,9 @@ var _body: BioCellBody
 var _kits: Array[BioKit] = []  # the abilities that need more than a hit, by class
 var _kit_for := {}  # kind -> kit
 var last_cast: StringName = &""  # the last ability cast: the B cell's immune memory repeats it
+var last_aim := Vector2.RIGHT  # where the last cast was aimed (the terrain reacts to the gesture)
 var network_cast: Callable
+var terrain_probe: Callable  # (id, ability, origin, aim) -> bool: a prop of the terrain is in reach, so a target-seeking gesture works on it
 
 
 func configure(host: BioCellActor, controller: BioCellController, limbs: BioLimbs, body: BioCellBody) -> void:
@@ -147,6 +149,7 @@ func _perform(id: StringName, free: bool) -> int:
 		a = _host.combatant.genome.tune(id, a)  # the mutations change this ability's numbers
 	var aim: Vector2 = _aim_source.aim if _aim_source != null else Vector2.RIGHT
 	var origin := _host.global_position
+	last_aim = aim
 	var me := _host.combatant
 	var kind: String = a["kind"]
 	a = BioAbilityMode.apply(BioAbilityFocus.apply(a, _host.combatant.focus), BioAbilityMode.family_of(id), _host.combatant.modes)  # the cell's focus: a wide weak reach or a narrow strong one
@@ -155,7 +158,9 @@ func _perform(id: StringName, free: bool) -> int:
 	if kit != null:
 		picked = kit.find(kind, a, origin, aim)
 		if picked.is_empty():
-			return NO_TARGET
+			if not (terrain_probe.is_valid() and terrain_probe.call(id, a, origin, aim)):
+				return NO_TARGET
+			kit = null  # the terrain is the target: the cast is paid and the prop answers it
 	var status: int = BioActor.AttackStatus.STARTED if free else me.actor.try_begin_attack(id, BioClock.now())
 	if status != BioActor.AttackStatus.STARTED:
 		return status

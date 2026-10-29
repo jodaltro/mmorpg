@@ -31,6 +31,7 @@ var _retarget_in := 0.0
 var _fight_in := 0.0
 var _invader_next := {}  # instance id -> when it may hit again
 var _pulses: Array[Dictionary] = []  # {pos, age, color}
+var _floats: Array[Dictionary] = []  # {pos, age, text, color}: "+12" rising from a cell that was helped
 var _t := 0.0
 
 
@@ -102,6 +103,10 @@ func _process(delta: float) -> void:
 		if event == "done" and alive:
 			_finish(w, target as Node2D)
 		_chatter(w, delta)
+	for i in range(_floats.size() - 1, -1, -1):
+		_floats[i]["age"] = float(_floats[i]["age"]) + delta
+		if float(_floats[i]["age"]) > 1.1:
+			_floats.remove_at(i)
 	for i in range(_pulses.size() - 1, -1, -1):
 		_pulses[i]["age"] = float(_pulses[i]["age"]) + delta
 		if float(_pulses[i]["age"]) > 0.6:
@@ -307,6 +312,13 @@ func _draw() -> void:
 	for p in _pulses:
 		var k: float = float(p["age"]) / 0.6
 		draw_arc(p["pos"], BioArt.UNIT * (0.5 + 1.3 * k), 0.0, TAU, 24, BioArt.with_alpha(p["color"], 0.8 * (1.0 - k)), 2.0, true)
+	var font := ThemeDB.fallback_font
+	for f in _floats:
+		var age: float = float(f["age"])
+		var at: Vector2 = (f["pos"] as Vector2) + Vector2(0, -age * 26.0)
+		var a := clampf(1.0 - age / 1.1, 0.0, 1.0)
+		draw_string_outline(font, at, str(f["text"]), HORIZONTAL_ALIGNMENT_CENTER, -1, 15, 4, Color(0.01, 0.03, 0.05, a))
+		draw_string(font, at, str(f["text"]), HORIZONTAL_ALIGNMENT_CENTER, -1, 15, BioArt.with_alpha(f["color"], a))
 
 
 func _draw_bar(at: Vector2, fraction: float, color: Color) -> void:
@@ -333,6 +345,38 @@ func _draw_worker(w: BioWorker) -> void:
 		draw_arc(w.pos, float(w.spec["size"]) * BioArt.UNIT * 1.1, 0.0, TAU, 20, Color(1, 1, 1, w.hurt * 0.8), 2.5, true)
 	if w.hp < w.max_hp - 0.5:
 		_draw_bar(w.pos + Vector2(0, -float(w.spec["size"]) * BioArt.UNIT - 8.0), w.hp / w.max_hp, Color(0.45, 1.0, 0.6))
+		if w.hp < w.max_hp * 0.4:  # it needs mending: the cross pulses above it
+			_draw_need(w.pos + Vector2(0, -float(w.spec["size"]) * BioArt.UNIT - 24.0), 0.5 + 0.5 * sin(_t * 6.0 + w.seed_value))
 	if w.state == &"work" and is_instance_valid(_targets.get(w)):
 		var to := ((_targets[w] as Node2D).global_position - w.pos)
 		draw_line(w.pos + to.normalized() * BioArt.UNIT * 0.5, w.pos + to * 0.92, BioArt.with_alpha(w.spec["core"], 0.35), 1.5, true)  # the contact
+
+
+## The player's healing reaches the cells of the body: each one that was hurt mends, a cross rises from it with the amount, a green ring
+## closes round it, and it shines for a moment. Returns how many were helped. Presentation only (the cell's hp is the client's).
+func heal_near(pos: Vector2, radius_px: float, amount: float, color: Color = Color(0.45, 1.0, 0.65)) -> int:
+	var n := 0
+	for w in workers:
+		if w.is_down() or w.pos.distance_to(pos) > radius_px:
+			continue
+		var before := w.hp
+		w.hp = minf(w.max_hp, w.hp + amount)
+		if w.hp - before < 0.5:
+			continue
+		n += 1
+		w.hurt = 0.0
+		w.threat = null
+		_pulses.append({"pos": w.pos, "age": 0.0, "color": color})
+		_floats.append({"pos": w.pos + Vector2(0, -float(w.spec["size"]) * BioArt.UNIT - 6.0), "age": 0.0, "text": "+%d" % roundi(w.hp - before), "color": color})
+		BioFx.burst(w.pos, color, 5, 1.6, 0.25, 0.7)
+	if n > 0:
+		BioFx.ring(pos, radius_px / BioArt.UNIT, color)
+	return n
+
+
+## A cross that says "this one needs mending": a hurt cell shows it until it is healed.
+func _draw_need(at: Vector2, k: float) -> void:
+	var s := 5.0 + 1.5 * k
+	var c := Color(1.0, 0.3, 0.35, 0.55 + 0.4 * k)
+	draw_line(at + Vector2(-s, 0), at + Vector2(s, 0), c, 3.0, true)
+	draw_line(at + Vector2(0, -s), at + Vector2(0, s), c, 3.0, true)

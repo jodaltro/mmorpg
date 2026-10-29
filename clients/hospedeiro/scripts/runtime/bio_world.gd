@@ -84,6 +84,7 @@ var _pending_evolution := {}
 var _engine_lineage := {}
 var calling_panel: BioCallingPanel
 var cargo: BioCargoDirector  # carrying help to the crisis: loads to pick up and a place of the tissue that needs them
+var terrain: BioTerrainDirector  # the work of the terrain: props that answer the gestures of the calling
 var _calling := {}  # the engine's `calling` view of this player
 var _calling_form: StringName = &""  # the lineage worn while a calling is held
 var _calling_lent: Array = []  # abilities the form lent
@@ -211,6 +212,10 @@ func build() -> void:
 	cargo.name = "Cargo"
 	add_child(cargo)
 	cargo.configure(self)
+	terrain = BioTerrainDirector.new()
+	terrain.name = "Terrain"
+	add_child(terrain)
+	terrain.configure(self)
 	calling_panel = BioCallingPanel.new()
 	calling_panel.name = "CallingPanel"
 	add_child(calling_panel)

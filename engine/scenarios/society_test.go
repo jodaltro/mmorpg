@@ -126,9 +126,11 @@ func TestRubraBlockedAsksForHelpAndRemembersWhoHelped(t *testing.T) {
 	// p1's confirmed deeds clear the infection; nothing else does.
 	// Each deed is worth less and counts once per cooldown since 29/10/2026: p1 fights whenever it may and carries surfactant
 	// to the alveolus in between.
+	h.s.Entities["p1"].Tag["role"] = "combate" // a calling: the terrain work is the role's
 	for i := 0; i < 300 && h.s.Entities["pulmao"].Num["carga"] >= 8; i++ {
 		_, _ = h.try(core.Command{Kind: "act", Origin: "adapter", Actor: "p1", Action: "conter-infeccao-pulmonar", RequestID: "ev-" + strings.Repeat("x", i+1)})
 		_ = h.act("adapter", "p1", "entregar-surfactante", nil)
+		_ = h.act("adapter", "p1", "terreno-romper-infeccao-pulmonar", nil)
 		h.tick(1)
 	}
 	h.tick(2)

@@ -79,7 +79,7 @@ Segundo jogo sobre o motor: o mundo é um único corpo humano anônimo, comparti
 - Reset global temporário de teste habilitado em 24/10/2026: supervisor com `-TestReset -ReuseTunnel`, executável atual em `D:\unity\hospedeiro-run\worldsim-nakama-v2.exe`. O botão do jogo exige confirmação. Usar `httptest`/mundos locais isolados na validação; a confirmação do botão é comportamento do produto, não exigência de nova autorização para limpeza de desenvolvimento já autorizada.
 - `scripts/domain`: regras puras (`RefCounted`, sem Node). `scripts/runtime`: Nodes, física, input, apresentação. `tests/`: runner headless próprio.
 - Estética bioluminescente procedural, tom sombrio-onírico. Hitbox lógica separada do corpo deformável. Biologia é base, não lei.
-- Sem níveis nem XP: progressão por diferenciação, genes, epigenética, memória e linhagem.
+- Sem níveis, XP, mutações nem evolução (29/10/2026): todos têm a mesma força; o que muda é o chamado que a crise pede. Além de carregar (qualquer um, valendo pouco), cada chamado tem seu trabalho no terreno da crise (`terreno-<verbo>-<crise>`: romper, empurrar, limpar, curar, acalmar, marcar), que o motor só paga a quem tem o papel (`BioTerrainRules`, `BioTerrainDirector`).
 - Testes (Godot em `D:\tools\godot\bin`). O runner não captura erros de script: conferir `SCRIPT ERROR`/`ERROR` na saída além da contagem.
 
 ```bash

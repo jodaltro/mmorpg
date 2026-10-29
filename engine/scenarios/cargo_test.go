@@ -88,3 +88,61 @@ func TestADeedOfACrisisCountsOncePerCooldownForEachPlayer(t *testing.T) {
 	h.tick(int(cd))
 	h.mustAct("adapter", "p1", "conter-infeccao-pulmonar", nil)
 }
+
+// 29/10/2026: carrying was too easy to do instead of one's calling. Each role has its own work in the terrain of a crisis
+// (breaking a barricade, healing wounded cells, cleaning debris, cooling a hot spot, marking a hidden sign, pushing a block);
+// the engine rejects it without the role and it eases the crisis more than a delivery does.
+func TestTerrainWorkBelongsToTheRoleAndBeatsCarrying(t *testing.T) {
+	roles := []string{"combate", "limpeza", "cura", "controle", "marcacao"}
+	h := load(t, "hospedeiro")
+	for _, c := range h.w.U.Conflicts {
+		covered := map[string]bool{}
+		for _, a := range h.w.U.Actions {
+			if !strings.HasPrefix(a.ID, "terreno-") || !strings.HasSuffix(a.ID, "-"+c.ID) {
+				continue
+			}
+			region := ""
+			if a.Requires.All != nil && a.Requires.All[0].In != nil {
+				region = a.Requires.All[0].In.Region
+			}
+			g := load(t, "hospedeiro")
+			g.joinAt("p1", core.ID(region))
+			if c.Severity.Of != 0 {
+				setNum(g, c.Severity.E, c.Severity.K, c.Severity.Of-50)
+			} else {
+				setNum(g, c.Severity.E, c.Severity.K, 50)
+			}
+			if err := g.act("adapter", "p1", a.ID, nil); !isRejected(err) {
+				t.Errorf("%s: without a calling the terrain work must be rejected: %v", a.ID, err)
+			}
+			allowed := 0
+			for _, r := range roles {
+				k := load(t, "hospedeiro")
+				k.joinAt("p1", core.ID(region))
+				if c.Severity.Of != 0 {
+					setNum(k, c.Severity.E, c.Severity.K, c.Severity.Of-50)
+				} else {
+					setNum(k, c.Severity.E, c.Severity.K, 50)
+				}
+				k.s.Entities["p1"].Tag["role"] = r
+				before := severityOf(k, c.Severity)
+				if err := k.act("adapter", "p1", a.ID, nil); err != nil {
+					continue
+				}
+				allowed++
+				covered[r] = true
+				if severityOf(k, c.Severity) >= before {
+					t.Errorf("%s as %s must ease the crisis", a.ID, r)
+				}
+			}
+			if allowed == 0 {
+				t.Errorf("%s: no role can do it", a.ID)
+			}
+		}
+		for _, n := range c.Needs {
+			if !covered[n.Role] {
+				t.Errorf("%s needs %s but that role has no terrain work", c.ID, n.Role)
+			}
+		}
+	}
+}

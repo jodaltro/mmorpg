@@ -3212,8 +3212,1805 @@
    ]
   },
   {
+   "id": "terreno-romper-ferida-na-pele",
+   "title": "Terreno: romper a barricada",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "ferida-na-pele"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-ferida-na-pele",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "ferida-na-pele"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-ferida-na-pele",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "ferida-na-pele"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-ferida-na-pele",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pele"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pele",
+     "k": "ferida",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "ferida-na-pele"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-congestao-esplenica",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "congestao-esplenica"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-congestao-esplenica",
+   "title": "Terreno: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "congestao-esplenica"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-congestao-esplenica",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "congestao-esplenica"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-congestao-esplenica",
+   "title": "Terreno: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "baco"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "baco",
+     "k": "hemacias",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "congestao-esplenica"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-sobrecarga-hepatica",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "figado"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sobrecarga-hepatica"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-sobrecarga-hepatica",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "figado"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "figado",
+     "k": "toxina",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sobrecarga-hepatica"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-disbiose-intestinal",
+   "title": "Terreno: romper a barricada",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "disbiose-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-disbiose-intestinal",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "disbiose-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-disbiose-intestinal",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "disbiose-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-disbiose-intestinal",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "intestino",
+     "k": "microbiota",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "disbiose-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-infeccao-pulmonar",
+   "title": "Terreno: romper a barricada",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "infeccao-pulmonar"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-infeccao-pulmonar",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "infeccao-pulmonar"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-infeccao-pulmonar",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "infeccao-pulmonar"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-infeccao-pulmonar",
+   "title": "Terreno: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "pulmao"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "carga",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "adjust",
+     "e": "pulmao",
+     "k": "oxigenio",
+     "d": 8,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "infeccao-pulmonar"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-medula-esgotada",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "medula-esgotada"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-medula-esgotada",
+   "title": "Terreno: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "medula-esgotada"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-medula-esgotada",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "medula"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "medula",
+     "k": "reserva",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "medula-esgotada"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-sobrecarga-renal",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sobrecarga-renal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-sobrecarga-renal",
+   "title": "Terreno: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sobrecarga-renal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-sobrecarga-renal",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sobrecarga-renal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-sobrecarga-renal",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "rim"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "rim",
+     "k": "ureia",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sobrecarga-renal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-reacao-exagerada",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "reacao-exagerada"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-reacao-exagerada",
+   "title": "Terreno: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "reacao-exagerada"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-reacao-exagerada",
+   "title": "Terreno: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "linfonodo"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "linfonodo",
+     "k": "tolerancia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "corpo",
+     "k": "inflamacao",
+     "d": -6,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "reacao-exagerada"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-sofrimento-cerebral",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sofrimento-cerebral"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-acalmar-sofrimento-cerebral",
+   "title": "Terreno: esfriar o foco em brasa",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "controle"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sofrimento-cerebral"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-limpar-sofrimento-cerebral",
+   "title": "Terreno: limpar os detritos",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "limpeza"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sofrimento-cerebral"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-sofrimento-cerebral",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "cerebro"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "energia",
+     "d": 6,
+     "max": 100
+    },
+    {
+     "op": "adjust",
+     "e": "cerebro",
+     "k": "residuos",
+     "d": -8,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "sofrimento-cerebral"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-romper-tumor-intestinal",
+   "title": "Terreno: romper a barricada",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "combate"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "tumor-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-empurrar-tumor-intestinal",
+   "title": "Terreno: empurrar o bloco até a calha",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "any": [
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "combate"
+        }
+       },
+       {
+        "tag": {
+         "e": "$self",
+         "k": "role",
+         "v": "controle"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "tumor-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-curar-tumor-intestinal",
+   "title": "Terreno: curar as células feridas",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "cura"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "tumor-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
+   "id": "terreno-marcar-tumor-intestinal",
+   "title": "Terreno: marcar o sinal escondido",
+   "by": [
+    "adapter"
+   ],
+   "tags": [
+    "help",
+    "endure",
+    "terreno"
+   ],
+   "requires": {
+    "all": [
+     {
+      "in": {
+       "e": "$self",
+       "region": "intestino"
+      }
+     },
+     {
+      "tag": {
+       "e": "$self",
+       "k": "role",
+       "v": "marcacao"
+      }
+     }
+    ]
+   },
+   "effects": [
+    {
+     "op": "adjust",
+     "e": "tumor",
+     "k": "massa",
+     "d": -3,
+     "min": 0
+    },
+    {
+     "op": "contribute",
+     "k": "terreno",
+     "d": 6,
+     "rule": "tumor-intestinal"
+    }
+   ],
+   "cooldown": 1
+  },
+  {
    "id": "entregar-fibrina",
    "title": "Levar fibrina à brecha da pele",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3232,20 +5029,21 @@
      "op": "adjust",
      "e": "pele",
      "k": "ferida",
-     "d": -3,
+     "d": -2,
      "min": 0
     },
     {
      "op": "contribute",
      "rule": "ferida-na-pele",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-surfactante",
    "title": "Levar surfactante ao alvéolo inflamado",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3264,27 +5062,28 @@
      "op": "adjust",
      "e": "pulmao",
      "k": "carga",
-     "d": -3,
+     "d": -2,
      "min": 0
     },
     {
      "op": "adjust",
      "e": "pulmao",
      "k": "oxigenio",
-     "d": 4,
+     "d": 3,
      "max": 100
     },
     {
      "op": "contribute",
      "rule": "infeccao-pulmonar",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-ferro",
    "title": "Levar ferro ao nicho da medula",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3303,20 +5102,21 @@
      "op": "adjust",
      "e": "medula",
      "k": "reserva",
-     "d": 3,
+     "d": 2,
      "max": 100
     },
     {
      "op": "contribute",
      "rule": "medula-esgotada",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-albumina",
    "title": "Levar albumina ao hepatócito sobrecarregado",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3335,20 +5135,21 @@
      "op": "adjust",
      "e": "figado",
      "k": "toxina",
-     "d": -3,
+     "d": -2,
      "min": 0
     },
     {
      "op": "contribute",
      "rule": "sobrecarga-hepatica",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-hemacia-velha",
    "title": "Levar hemácias velhas ao macrófago da polpa",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3367,20 +5168,21 @@
      "op": "adjust",
      "e": "baco",
      "k": "hemacias",
-     "d": -3,
+     "d": -2,
      "min": 0
     },
     {
      "op": "contribute",
      "rule": "congestao-esplenica",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-fibra",
    "title": "Levar fibra à colônia da flora",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3399,20 +5201,21 @@
      "op": "adjust",
      "e": "intestino",
      "k": "microbiota",
-     "d": 3,
+     "d": 2,
      "max": 100
     },
     {
      "op": "contribute",
      "rule": "disbiose-intestinal",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-perforina",
    "title": "Levar perforina à massa tumoral",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3438,13 +5241,14 @@
      "op": "contribute",
      "rule": "tumor-intestinal",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-cristal",
    "title": "Levar o cristal de ureia ao túbulo",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3463,20 +5267,21 @@
      "op": "adjust",
      "e": "rim",
      "k": "ureia",
-     "d": -3,
+     "d": -2,
      "min": 0
     },
     {
      "op": "contribute",
      "rule": "sobrecarga-renal",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-il10",
    "title": "Levar sinal calmante ao folículo",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3495,27 +5300,28 @@
      "op": "adjust",
      "e": "linfonodo",
      "k": "tolerancia",
-     "d": 3,
+     "d": 2,
      "max": 100
     },
     {
      "op": "adjust",
      "e": "corpo",
      "k": "inflamacao",
-     "d": -3,
+     "d": -2,
      "min": 0
     },
     {
      "op": "contribute",
      "rule": "reacao-exagerada",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   },
   {
    "id": "entregar-lactato",
    "title": "Levar lactato ao neurônio",
+   "cooldown": 3,
    "by": [
     "adapter"
    ],
@@ -3534,21 +5340,21 @@
      "op": "adjust",
      "e": "cerebro",
      "k": "energia",
-     "d": 3,
+     "d": 2,
      "max": 100
     },
     {
      "op": "adjust",
      "e": "cerebro",
      "k": "residuos",
-     "d": -4,
+     "d": -3,
      "min": 0
     },
     {
      "op": "contribute",
      "rule": "sofrimento-cerebral",
      "k": "entrega",
-     "d": 4
+     "d": 3
     }
    ]
   }
